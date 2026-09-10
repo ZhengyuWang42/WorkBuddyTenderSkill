@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "FieldName": {
+      "description": "The deliberately small V1 field catalog.",
+      "enum": [
+        "project_name",
+        "project_number",
+        "tender_number",
+        "lot_name",
+        "lot_number",
+        "purchaser",
+        "tender_agency",
+        "project_location",
+        "procurement_scope",
+        "budget",
+        "max_price",
+        "duration",
+        "quality_target",
+        "bid_deadline",
+        "bid_open_time",
+        "bid_open_location",
+        "bid_bond_amount",
+        "bid_bond_form",
+        "consortium_allowed",
+        "procurement_method"
+      ],
+      "title": "FieldName",
+      "type": "string"
+    },
+    "ResolutionAction": {
+      "description": "The only V1 actions allowed after WorkBuddy review.",
+      "enum": [
+        "SELECT_CANDIDATE",
+        "KEEP_UNRESOLVED"
+      ],
+      "title": "ResolutionAction",
+      "type": "string"
+    },
+    "ResolutionOverride": {
+      "additionalProperties": false,
+      "description": "One constrained semantic-review instruction.\n\nCandidate indexes are zero-based and refer to the candidate order already\npresent in the corresponding ProjectFacts field.  No free-text value is\naccepted by this contract.",
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/FieldName"
+        },
+        "action": {
+          "$ref": "#/$defs/ResolutionAction"
+        },
+        "candidate_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidate Index"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "action",
+        "reason"
+      ],
+      "title": "ResolutionOverride",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A bounded set of one-time instructions for a ProjectFacts review.",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "resolutions": {
+      "items": {
+        "$ref": "#/$defs/ResolutionOverride"
+      },
+      "title": "Resolutions",
+      "type": "array"
+    }
+  },
+  "title": "ResolutionOverrides",
+  "type": "object"
+}

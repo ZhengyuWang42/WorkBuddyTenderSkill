@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tender-basic"
-version = "0.1.0"
-description = "Minimal traceable tender ProjectFacts contract and WorkBuddy Skill skeleton"
+version = "1.0.0"
+description = "Minimal traceable tender ProjectFacts and WorkBuddy Skill"
 requires-python = ">=3.11"
 dependencies = [
     "PyMuPDF>=1.23,<2",

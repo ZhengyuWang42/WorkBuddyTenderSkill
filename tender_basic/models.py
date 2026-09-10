@@ -51,6 +51,13 @@ class FactStatus(str, Enum):
     NOT_FOUND = "NOT_FOUND"
 
 
+class ResolutionAction(str, Enum):
+    """The only V1 actions allowed after WorkBuddy review."""
+
+    SELECT_CANDIDATE = "SELECT_CANDIDATE"
+    KEEP_UNRESOLVED = "KEEP_UNRESOLVED"
+
+
 class SourceType(str, Enum):
     """The two document types supported by the V1 contract."""
 
@@ -238,6 +245,43 @@ class ProjectFacts(ContractModel):
         return self
 
 
+class ResolutionOverride(ContractModel):
+    """One constrained semantic-review instruction.
+
+    Candidate indexes are zero-based and refer to the candidate order already
+    present in the corresponding ProjectFacts field.  No free-text value is
+    accepted by this contract.
+    """
+
+    field: FieldName
+    action: ResolutionAction
+    candidate_index: NonNegativeInt | None = None
+    reason: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_action_payload(self) -> "ResolutionOverride":
+        if self.action == ResolutionAction.SELECT_CANDIDATE:
+            if self.candidate_index is None:
+                raise ValueError("SELECT_CANDIDATE requires candidate_index")
+        elif self.candidate_index is not None:
+            raise ValueError("KEEP_UNRESOLVED cannot include candidate_index")
+        return self
+
+
+class ResolutionOverrides(ContractModel):
+    """A bounded set of one-time instructions for a ProjectFacts review."""
+
+    schema_version: str = "1.0"
+    resolutions: list[ResolutionOverride] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def fields_are_unique(self) -> "ResolutionOverrides":
+        fields = [resolution.field for resolution in self.resolutions]
+        if len(fields) != len(set(fields)):
+            raise ValueError("resolution_overrides cannot repeat a field")
+        return self
+
+
 __all__ = [
     "CandidateFact",
     "DocxParagraphLocator",
@@ -250,6 +294,9 @@ __all__ = [
     "PdfLocator",
     "ProjectFacts",
     "ProjectFields",
+    "ResolutionAction",
+    "ResolutionOverride",
+    "ResolutionOverrides",
     "ResolvedFact",
     "SourceDocument",
     "SourceType",
