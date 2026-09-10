@@ -1,0 +1,64 @@
+version: "1.0"
+description: "Fixed V1 output labels and business categories for the 20 ProjectFacts fields."
+
+fields:
+  - field: project_name
+    category: 项目识别
+    label: 项目名称
+  - field: project_number
+    category: 项目识别
+    label: 项目编号
+  - field: tender_number
+    category: 项目识别
+    label: 招标编号
+  - field: lot_name
+    category: 项目识别
+    label: 标段名称
+  - field: lot_number
+    category: 项目识别
+    label: 标段编号
+  - field: purchaser
+    category: 主体信息
+    label: 采购人/招标人
+  - field: tender_agency
+    category: 主体信息
+    label: 招标代理机构
+  - field: project_location
+    category: 地点与范围
+    label: 项目地点
+  - field: procurement_scope
+    category: 地点与范围
+    label: 采购范围
+  - field: budget
+    category: 金额
+    label: 预算金额
+  - field: max_price
+    category: 金额
+    label: 最高限价
+  - field: duration
+    category: 工期与质量
+    label: 工期
+  - field: quality_target
+    category: 工期与质量
+    label: 质量目标
+  - field: bid_deadline
+    category: 时间节点
+    label: 投标截止时间
+  - field: bid_open_time
+    category: 时间节点
+    label: 开标时间
+  - field: bid_open_location
+    category: 时间节点
+    label: 开标地点
+  - field: bid_bond_amount
+    category: 金额
+    label: 投标保证金金额
+  - field: bid_bond_form
+    category: 投标要求
+    label: 投标保证金形式
+  - field: consortium_allowed
+    category: 投标要求
+    label: 联合体要求
+  - field: procurement_method
+    category: 采购方式
+    label: 采购方式
