@@ -25,7 +25,16 @@ version: 0.1.0
 
 ## Current implementation status
 
-This stage contains only the Skill skeleton, ProjectFacts data contract, configuration skeleton, environment check, and model tests. Document parsing, semantic fact extraction, resolution workflow, Excel generation, DOCX generation, and QA delivery are not implemented yet.
+The local V1 implementation now supports deterministic document normalization,
+fact extraction and resolution, ProjectFacts-based XLSX/DOCX generation, disk-artifact
+Delivery QA, and a minimal one-command pipeline. WorkBuddy semantic conflict
+arbitration is not implemented.
+
+The local flow is:
+
+```text
+PDF/DOCX → normalized document → ProjectFacts → XLSX/DOCX → QA report
+```
 
 ## Out of scope
 

@@ -1,0 +1,114 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from docx import Document
+
+try:
+    import pymupdf as fitz
+except ImportError:  # pragma: no cover
+    import fitz  # type: ignore[no-redef]
+
+from scripts.run_pipeline import main as run_pipeline_main
+
+
+ARTIFACT_NAMES = {
+    "normalized_document.json",
+    "document.lines.txt",
+    "project_facts.json",
+    "facts_review_packet.json",
+    "投标项目复核表.xlsx",
+    "基础投标文件.docx",
+    "qa_report.json",
+}
+
+
+def _create_docx(path: Path) -> None:
+    document = Document()
+    document.add_paragraph("第一章 招标公告")
+    document.add_paragraph("项目名称：Pipeline测试项目")
+    document.add_paragraph("项目编号：PRJ-PIPE-001")
+    document.add_paragraph("招标编号：BID-PIPE-002")
+    document.add_paragraph("最高限价：100万元")
+    document.save(path)
+
+
+def _create_text_pdf(path: Path) -> None:
+    pdf = fitz.open()
+    first_page = pdf.new_page()
+    first_page.insert_text(
+        (72, 72),
+        "Text tender notice page one with enough extractable content.\nProject reference ABC-001.",
+    )
+    second_page = pdf.new_page()
+    second_page.insert_text(
+        (72, 72),
+        "Text tender notice page two with enough extractable content.\nBid instructions follow.",
+    )
+    pdf.save(path)
+    pdf.close()
+
+
+def _create_scan_pdf(path: Path) -> None:
+    pdf = fitz.open()
+    pdf.new_page()
+    pdf.new_page()
+    pdf.save(path)
+    pdf.close()
+
+
+def test_pipeline_docx_writes_all_seven_artifacts(tmp_path: Path) -> None:
+    source = tmp_path / "input.docx"
+    output = tmp_path / "e2e-docx"
+    _create_docx(source)
+
+    code = run_pipeline_main([str(source), "--output", str(output)])
+
+    assert code == 0
+    assert {path.name for path in output.iterdir()} == ARTIFACT_NAMES
+    report = json.loads((output / "qa_report.json").read_text(encoding="utf-8"))
+    assert report["overall_status"] == "PASS_WITH_REVIEW"
+    assert "READY_FOR_SUBMISSION" not in json.dumps(report, ensure_ascii=False)
+
+
+def test_pipeline_text_pdf_writes_all_seven_artifacts(tmp_path: Path) -> None:
+    source = tmp_path / "input.pdf"
+    output = tmp_path / "e2e-pdf"
+    _create_text_pdf(source)
+
+    code = run_pipeline_main([str(source), "--output", str(output)])
+
+    assert code == 0
+    assert {path.name for path in output.iterdir()} == ARTIFACT_NAMES
+    report = json.loads((output / "qa_report.json").read_text(encoding="utf-8"))
+    assert report["overall_status"] == "PASS_WITH_REVIEW"
+
+
+def test_pipeline_stops_on_ocr_required_without_fake_delivery(tmp_path: Path) -> None:
+    source = tmp_path / "scan.pdf"
+    output = tmp_path / "e2e-ocr"
+    _create_scan_pdf(source)
+
+    code = run_pipeline_main([str(source), "--output", str(output)])
+
+    assert code == 4
+    assert (output / "normalized_document.json").is_file()
+    assert (output / "document.lines.txt").is_file()
+    assert not (output / "project_facts.json").exists()
+    assert not (output / "投标项目复核表.xlsx").exists()
+    assert not (output / "基础投标文件.docx").exists()
+    assert not (output / "qa_report.json").exists()
+
+
+def test_pipeline_corrupt_input_returns_nonzero_without_fake_delivery(tmp_path: Path) -> None:
+    source = tmp_path / "broken.docx"
+    output = tmp_path / "e2e-broken"
+    source.write_bytes(b"not a valid docx")
+
+    code = run_pipeline_main([str(source), "--output", str(output)])
+
+    assert code == 3
+    assert (output / "normalized_document.json").is_file()
+    assert not (output / "project_facts.json").exists()
+    assert not (output / "qa_report.json").exists()
