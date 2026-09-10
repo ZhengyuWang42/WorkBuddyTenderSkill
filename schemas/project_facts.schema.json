@@ -1,0 +1,485 @@
+{
+  "$defs": {
+    "CandidateFact": {
+      "additionalProperties": false,
+      "description": "One source-backed candidate value for a ProjectFacts field.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "normalized_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Normalized Value"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "method": {
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "source_file": {
+          "minLength": 1,
+          "title": "Source File",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType"
+        },
+        "locator": {
+          "discriminator": {
+            "mapping": {
+              "docx_paragraph": "#/$defs/DocxParagraphLocator",
+              "docx_table_cell": "#/$defs/DocxTableLocator",
+              "pdf_block": "#/$defs/PdfLocator"
+            },
+            "propertyName": "locator_type"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/PdfLocator"
+            },
+            {
+              "$ref": "#/$defs/DocxParagraphLocator"
+            },
+            {
+              "$ref": "#/$defs/DocxTableLocator"
+            }
+          ],
+          "title": "Locator"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "evidence_text": {
+          "minLength": 1,
+          "title": "Evidence Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "confidence",
+        "method",
+        "source_file",
+        "source_type",
+        "locator",
+        "evidence_text"
+      ],
+      "title": "CandidateFact",
+      "type": "object"
+    },
+    "DocxParagraphLocator": {
+      "additionalProperties": false,
+      "description": "A zero-based DOCX body paragraph index; no page is implied.",
+      "properties": {
+        "locator_type": {
+          "const": "docx_paragraph",
+          "default": "docx_paragraph",
+          "title": "Locator Type",
+          "type": "string"
+        },
+        "paragraph_index": {
+          "minimum": 0,
+          "title": "Paragraph Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "paragraph_index"
+      ],
+      "title": "DocxParagraphLocator",
+      "type": "object"
+    },
+    "DocxTableLocator": {
+      "additionalProperties": false,
+      "description": "A zero-based DOCX table cell location; no page is implied.",
+      "properties": {
+        "locator_type": {
+          "const": "docx_table_cell",
+          "default": "docx_table_cell",
+          "title": "Locator Type",
+          "type": "string"
+        },
+        "table_index": {
+          "minimum": 0,
+          "title": "Table Index",
+          "type": "integer"
+        },
+        "row_index": {
+          "minimum": 0,
+          "title": "Row Index",
+          "type": "integer"
+        },
+        "cell_index": {
+          "minimum": 0,
+          "title": "Cell Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "table_index",
+        "row_index",
+        "cell_index"
+      ],
+      "title": "DocxTableLocator",
+      "type": "object"
+    },
+    "FactStatus": {
+      "description": "V1 statuses for a final field.",
+      "enum": [
+        "RESOLVED",
+        "NEEDS_REVIEW",
+        "NOT_FOUND"
+      ],
+      "title": "FactStatus",
+      "type": "string"
+    },
+    "FactSummary": {
+      "additionalProperties": false,
+      "description": "Counts for the fixed 20-field ProjectFacts object.",
+      "properties": {
+        "total_fields": {
+          "minimum": 0,
+          "title": "Total Fields",
+          "type": "integer"
+        },
+        "resolved": {
+          "minimum": 0,
+          "title": "Resolved",
+          "type": "integer"
+        },
+        "needs_review": {
+          "minimum": 0,
+          "title": "Needs Review",
+          "type": "integer"
+        },
+        "not_found": {
+          "minimum": 0,
+          "title": "Not Found",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_fields",
+        "resolved",
+        "needs_review",
+        "not_found"
+      ],
+      "title": "FactSummary",
+      "type": "object"
+    },
+    "FieldName": {
+      "description": "The deliberately small V1 field catalog.",
+      "enum": [
+        "project_name",
+        "project_number",
+        "tender_number",
+        "lot_name",
+        "lot_number",
+        "purchaser",
+        "tender_agency",
+        "project_location",
+        "procurement_scope",
+        "budget",
+        "max_price",
+        "duration",
+        "quality_target",
+        "bid_deadline",
+        "bid_open_time",
+        "bid_open_location",
+        "bid_bond_amount",
+        "bid_bond_form",
+        "consortium_allowed",
+        "procurement_method"
+      ],
+      "title": "FieldName",
+      "type": "string"
+    },
+    "PdfLocator": {
+      "additionalProperties": false,
+      "description": "A 1-based PDF page with an optional text block index.",
+      "properties": {
+        "locator_type": {
+          "const": "pdf_block",
+          "default": "pdf_block",
+          "title": "Locator Type",
+          "type": "string"
+        },
+        "page": {
+          "exclusiveMinimum": 0,
+          "title": "Page",
+          "type": "integer"
+        },
+        "block_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Block Index"
+        }
+      },
+      "required": [
+        "page"
+      ],
+      "title": "PdfLocator",
+      "type": "object"
+    },
+    "ProjectFields": {
+      "additionalProperties": false,
+      "description": "Exactly the 20 V1 fields, kept explicit for a stable JSON Schema.",
+      "properties": {
+        "project_name": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "project_number": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "tender_number": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "lot_name": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "lot_number": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "purchaser": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "tender_agency": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "project_location": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "procurement_scope": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "budget": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "max_price": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "duration": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "quality_target": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_deadline": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_open_time": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_open_location": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_bond_amount": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_bond_form": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "consortium_allowed": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "procurement_method": {
+          "$ref": "#/$defs/ResolvedFact"
+        }
+      },
+      "required": [
+        "project_name",
+        "project_number",
+        "tender_number",
+        "lot_name",
+        "lot_number",
+        "purchaser",
+        "tender_agency",
+        "project_location",
+        "procurement_scope",
+        "budget",
+        "max_price",
+        "duration",
+        "quality_target",
+        "bid_deadline",
+        "bid_open_time",
+        "bid_open_location",
+        "bid_bond_amount",
+        "bid_bond_form",
+        "consortium_allowed",
+        "procurement_method"
+      ],
+      "title": "ProjectFields",
+      "type": "object"
+    },
+    "ResolvedFact": {
+      "additionalProperties": false,
+      "description": "The final state of one field, retaining every candidate.",
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/FieldName"
+        },
+        "resolved_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolved Value"
+        },
+        "status": {
+          "$ref": "#/$defs/FactStatus"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateFact"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "resolution_reason": {
+          "minLength": 1,
+          "title": "Resolution Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "status",
+        "confidence",
+        "resolution_reason"
+      ],
+      "title": "ResolvedFact",
+      "type": "object"
+    },
+    "SourceDocument": {
+      "additionalProperties": false,
+      "description": "Input document identity without requiring an absolute path.",
+      "properties": {
+        "source_file": {
+          "minLength": 1,
+          "title": "Source File",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType"
+        }
+      },
+      "required": [
+        "source_file",
+        "source_type"
+      ],
+      "title": "SourceDocument",
+      "type": "object"
+    },
+    "SourceType": {
+      "description": "The two document types supported by the V1 contract.",
+      "enum": [
+        "PDF",
+        "DOCX"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The single source of truth for all future V1 outputs.",
+  "properties": {
+    "source_document": {
+      "$ref": "#/$defs/SourceDocument"
+    },
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "fields": {
+      "$ref": "#/$defs/ProjectFields"
+    },
+    "summary": {
+      "$ref": "#/$defs/FactSummary"
+    }
+  },
+  "required": [
+    "source_document",
+    "fields",
+    "summary"
+  ],
+  "title": "ProjectFacts",
+  "type": "object"
+}

@@ -1,0 +1,51 @@
+version: "1.0"
+description: "Small V1 normalization hints; this file does not implement a rule engine."
+
+date:
+  supported_examples:
+    - 2026年9月10日
+    - 2026-09-10
+    - 2026/09/10
+  accepted_patterns:
+    - '^\d{4}年\d{1,2}月\d{1,2}日$'
+    - '^\d{4}-\d{1,2}-\d{1,2}$'
+    - '^\d{4}/\d{1,2}/\d{1,2}$'
+  normalization_target: "ISO-like date or datetime string when deterministically possible"
+
+amount:
+  supported_examples:
+    - 1000000元
+    - 1,000,000.00元
+    - 100万元
+    - ￥1000000
+  accepted_patterns:
+    - '^[￥¥]?\s*[\d,]+(?:\.\d+)?\s*元?$'
+    - '^[\d,.]+\s*万元$'
+  normalization_target: "numeric comparison representation only when the unit is explicit"
+
+duration:
+  supported_examples:
+    - 180日历天
+    - 180天
+    - 6个月
+  accepted_patterns:
+    - '^\d+\s*日历天$'
+    - '^\d+\s*天$'
+    - '^\d+\s*个月$'
+  normalization_target: "preserve original unit unless deterministic conversion is explicitly safe"
+
+boolean:
+  true_values:
+    - 接受
+    - 允许
+    - 是
+  false_values:
+    - 不接受
+    - 不允许
+    - 否
+  normalization_target: "true or false only after the source phrase is unambiguous"
+
+identifier:
+  description: "Loose validation only; real project and tender number formats vary widely."
+  accepted_pattern: '^[A-Za-z0-9\u4e00-\u9fff][A-Za-z0-9\u4e00-\u9fff._\-/]{0,63}$'
+  normalization_target: "trim surrounding whitespace; do not infer or rewrite identifiers"

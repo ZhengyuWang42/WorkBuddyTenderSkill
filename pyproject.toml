@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tender-basic"
+version = "0.1.0"
+description = "Minimal traceable tender ProjectFacts contract and WorkBuddy Skill skeleton"
+requires-python = ">=3.11"
+dependencies = [
+    "PyMuPDF>=1.23,<2",
+    "python-docx>=1.1,<2",
+    "openpyxl>=3.1,<4",
+    "pydantic>=2.7,<3",
+    "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9"]
+
+[tool.setuptools.packages.find]
+include = ["tender_basic*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

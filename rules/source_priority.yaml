@@ -1,0 +1,25 @@
+version: "1.0"
+description: "Human-readable source priority hints for future fact resolution."
+
+priority_order:
+  - rank: 100
+    source_id: bidder_instructions_front_table
+    label: 投标人须知前附表
+  - rank: 90
+    source_id: tender_or_procurement_notice
+    label: 招标公告 / 采购公告
+  - rank: 80
+    source_id: explicit_body_field
+    label: 正文明确字段
+  - rank: 70
+    source_id: cover
+    label: 封面
+  - rank: 60
+    source_id: file_name
+    label: 文件名
+
+resolution_notes:
+  same_value_across_sources: "可作为相互印证和置信度提升的输入。"
+  different_values_across_reliable_sources: "必须保留证据并进入 NEEDS_REVIEW。"
+  priority_is_not_override: "高优先级来源不自动覆盖真实冲突。"
+  missing_source: "缺失来源不补造事实。"
