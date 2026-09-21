@@ -1,0 +1,118 @@
+{
+  "case": "case_001",
+  "compatible_fact_slots": 6,
+  "resolved_compatible_slots": 6,
+  "filled_fact_slots": 6,
+  "unfilled_resolved_fact_slots": 0,
+  "unfilled_resolved_slot_details": [],
+  "wrong_fact_type_fills": 0,
+  "unresolved_slots_preserved": 0,
+  "slot_types": {
+    "PROJECT_NUMBER_SLOT": 2,
+    "UNKNOWN_SLOT": 10,
+    "PURCHASER_SLOT": 1,
+    "PROJECT_AND_LOT_SLOT": 2,
+    "PROJECT_NAME_SLOT": 1
+  },
+  "slots": [
+    {
+      "slot_id": "slot-40-0",
+      "slot_type": "PROJECT_NUMBER_SLOT",
+      "source_page": 40,
+      "semantic_hint": "项目编号",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "project_number"
+      ],
+      "resolved_fact_fields": [
+        "project_number"
+      ],
+      "disposition": "FILLED",
+      "replacement": "YSEJJXXB202607-18",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-42-2",
+      "slot_type": "PURCHASER_SLOT",
+      "source_page": 42,
+      "semantic_hint": "采购人名称",
+      "original_text": "(采购人名称)",
+      "allowed_fact_fields": [
+        "purchaser"
+      ],
+      "resolved_fact_fields": [
+        "purchaser"
+      ],
+      "disposition": "FILLED",
+      "replacement": "河南省水利第二工程局集团有限公司",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-42-3",
+      "slot_type": "PROJECT_AND_LOT_SLOT",
+      "source_page": 42,
+      "semantic_hint": "项目名称、标段",
+      "original_text": "(项目名称、标段)",
+      "allowed_fact_fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-42-4",
+      "slot_type": "PROJECT_NUMBER_SLOT",
+      "source_page": 42,
+      "semantic_hint": "项目编号",
+      "original_text": "（项目编号）",
+      "allowed_fact_fields": [
+        "project_number"
+      ],
+      "resolved_fact_fields": [
+        "project_number"
+      ],
+      "disposition": "FILLED",
+      "replacement": "YSEJJXXB202607-18",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-43-7",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 43,
+      "semantic_hint": "项目名称、标段",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-60-14",
+      "slot_type": "PROJECT_AND_LOT_SLOT",
+      "source_page": 60,
+      "semantic_hint": "项目名称、标段",
+      "original_text": "（项目名称、标段）",
+      "allowed_fact_fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "method": "source_slot"
+    }
+  ],
+  "result": "PASS"
+}

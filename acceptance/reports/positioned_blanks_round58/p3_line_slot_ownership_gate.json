@@ -1,0 +1,1837 @@
+{
+  "source_model": {
+    "source_page": 42,
+    "source_line_count": 13,
+    "source_rule_count": 8,
+    "source_rule_ids": [
+      "P42-R1",
+      "P42-R2",
+      "P42-R3",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "duplicate_source_rule_id_count": 0,
+    "lines": [
+      {
+        "y": 126.78,
+        "bbox": [
+          112.8,
+          126.78,
+          206.64,
+          139.06
+        ],
+        "text": "(采购人名称)：",
+        "spans": [
+          {
+            "text": "(采购人名称)",
+            "x0": 112.8,
+            "x1": 187.92,
+            "bbox": [
+              112.8,
+              126.78,
+              187.92,
+              139.06
+            ],
+            "underline": false
+          },
+          {
+            "text": "：",
+            "x0": 194.64,
+            "x1": 206.64,
+            "bbox": [
+              194.64,
+              126.78,
+              206.64,
+              139.06
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L1",
+        "rules": [
+          {
+            "x0": 94.8,
+            "x1": 194.6,
+            "y": 138.35,
+            "width": 99.8,
+            "source_rule_id": "P42-R1",
+            "relation_type": "PLACEHOLDER_UNDERLINE",
+            "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 146.7,
+        "bbox": [
+          96.84,
+          146.7,
+          523.92,
+          158.98
+        ],
+        "text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "spans": [
+          {
+            "text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+            "x0": 96.84,
+            "x1": 523.92,
+            "bbox": [
+              96.84,
+              146.7,
+              523.92,
+              158.98
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L2",
+        "rules": [
+          {
+            "x0": 198.1,
+            "x1": 375.7,
+            "y": 158.4,
+            "width": 177.6,
+            "source_rule_id": "P42-R2",
+            "relation_type": "PLACEHOLDER_UNDERLINE",
+            "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 166.74,
+        "bbox": [
+          70.8,
+          166.74,
+          169.44,
+          179.02
+        ],
+        "text": "以人民币（大写）",
+        "spans": [
+          {
+            "text": "以人民币（大写）",
+            "x0": 70.8,
+            "x1": 169.44,
+            "bbox": [
+              70.8,
+              166.74,
+              169.44,
+              179.02
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L3",
+        "rules": [
+          {
+            "x0": 169.65,
+            "x1": 323.6,
+            "y": 178.4,
+            "width": 153.95,
+            "source_rule_id": "P42-R3",
+            "relation_type": "PLACEHOLDER_UNDERLINE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          },
+          {
+            "x0": 384.6,
+            "x1": 459.0,
+            "y": 178.4,
+            "width": 74.4,
+            "source_rule_id": "P42-R4",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          }
+        ]
+      },
+      {
+        "y": 166.74,
+        "bbox": [
+          262.68,
+          166.74,
+          384.48,
+          179.02
+        ],
+        "text": "（不含税），（小写）",
+        "spans": [
+          {
+            "text": "（不含税），（小写）",
+            "x0": 262.68,
+            "x1": 384.48,
+            "bbox": [
+              262.68,
+              166.74,
+              384.48,
+              179.02
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L4",
+        "rules": [
+          {
+            "x0": 169.65,
+            "x1": 323.6,
+            "y": 178.4,
+            "width": 153.95,
+            "source_rule_id": "P42-R3",
+            "relation_type": "PLACEHOLDER_UNDERLINE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          },
+          {
+            "x0": 384.6,
+            "x1": 459.0,
+            "y": 178.4,
+            "width": 74.4,
+            "source_rule_id": "P42-R4",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          }
+        ]
+      },
+      {
+        "y": 166.74,
+        "bbox": [
+          459.0,
+          166.74,
+          519.84,
+          179.02
+        ],
+        "text": "元的响应报",
+        "spans": [
+          {
+            "text": "元的响应报",
+            "x0": 459.0,
+            "x1": 519.84,
+            "bbox": [
+              459.0,
+              166.74,
+              519.84,
+              179.02
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L5",
+        "rules": [
+          {
+            "x0": 169.65,
+            "x1": 323.6,
+            "y": 178.4,
+            "width": 153.95,
+            "source_rule_id": "P42-R3",
+            "relation_type": "PLACEHOLDER_UNDERLINE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          },
+          {
+            "x0": 384.6,
+            "x1": 459.0,
+            "y": 178.4,
+            "width": 74.4,
+            "source_rule_id": "P42-R4",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_policy": "EXACT_SOURCE_SPAN"
+          }
+        ]
+      },
+      {
+        "y": 186.78,
+        "bbox": [
+          70.8,
+          186.78,
+          131.64,
+          199.06
+        ],
+        "text": "价，供货期",
+        "spans": [
+          {
+            "text": "价，供货期",
+            "x0": 70.8,
+            "x1": 131.64,
+            "bbox": [
+              70.8,
+              186.78,
+              131.64,
+              199.06
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L6",
+        "rules": [
+          {
+            "x0": 131.85,
+            "x1": 181.4,
+            "y": 198.35,
+            "width": 49.55,
+            "source_rule_id": "P42-R5",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 186.78,
+        "bbox": [
+          181.44,
+          186.78,
+          522.83,
+          199.06
+        ],
+        "text": "，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "spans": [
+          {
+            "text": "，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "x0": 181.44,
+            "x1": 522.83,
+            "bbox": [
+              181.44,
+              186.78,
+              522.83,
+              199.06
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L7",
+        "rules": [
+          {
+            "x0": 131.85,
+            "x1": 181.4,
+            "y": 198.35,
+            "width": 49.55,
+            "source_rule_id": "P42-R5",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 206.7,
+        "bbox": [
+          70.8,
+          206.7,
+          95.04,
+          218.98
+        ],
+        "text": "达到",
+        "spans": [
+          {
+            "text": "达到",
+            "x0": 70.8,
+            "x1": 95.04,
+            "bbox": [
+              70.8,
+              206.7,
+              95.04,
+              218.98
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L8",
+        "rules": [
+          {
+            "x0": 95.25,
+            "x1": 151.05,
+            "y": 218.4,
+            "width": 55.8,
+            "source_rule_id": "P42-R6",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 206.7,
+        "bbox": [
+          151.08,
+          206.7,
+          163.08,
+          218.98
+        ],
+        "text": "。",
+        "spans": [
+          {
+            "text": "。",
+            "x0": 151.08,
+            "x1": 163.08,
+            "bbox": [
+              151.08,
+              206.7,
+              163.08,
+              218.98
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L9",
+        "rules": [
+          {
+            "x0": 95.25,
+            "x1": 151.05,
+            "y": 218.4,
+            "width": 55.8,
+            "source_rule_id": "P42-R6",
+            "relation_type": "GAP_FILL_RULE",
+            "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+            "geometry_policy": "ANCHOR_START_ONLY"
+          }
+        ]
+      },
+      {
+        "y": 226.74,
+        "bbox": [
+          94.8,
+          226.74,
+          262.8,
+          239.02
+        ],
+        "text": "如我方成交，我公司承诺如下：",
+        "spans": [
+          {
+            "text": "如我方成交，我公司承诺如下：",
+            "x0": 94.8,
+            "x1": 262.8,
+            "bbox": [
+              94.8,
+              226.74,
+              262.8,
+              239.02
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L10",
+        "rules": []
+      },
+      {
+        "y": 246.78,
+        "bbox": [
+          94.8,
+          246.78,
+          472.8,
+          259.06
+        ],
+        "text": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+        "spans": [
+          {
+            "text": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+            "x0": 94.8,
+            "x1": 472.8,
+            "bbox": [
+              94.8,
+              246.78,
+              472.8,
+              259.06
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L11",
+        "rules": []
+      },
+      {
+        "y": 266.7,
+        "bbox": [
+          94.8,
+          266.7,
+          424.8,
+          278.98
+        ],
+        "text": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+        "spans": [
+          {
+            "text": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+            "x0": 94.8,
+            "x1": 424.8,
+            "bbox": [
+              94.8,
+              266.7,
+              424.8,
+              278.98
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L12",
+        "rules": []
+      },
+      {
+        "y": 286.74,
+        "bbox": [
+          94.8,
+          286.74,
+          340.8,
+          299.02
+        ],
+        "text": "3、将按询比文件的规定履行合同责任和义务。",
+        "spans": [
+          {
+            "text": "3、将按询比文件的规定履行合同责任和义务。",
+            "x0": 94.8,
+            "x1": 340.8,
+            "bbox": [
+              94.8,
+              286.74,
+              340.8,
+              299.02
+            ],
+            "underline": false
+          }
+        ],
+        "source_line_id": "S42-L13",
+        "rules": []
+      }
+    ],
+    "rules": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "source_rule_id": "P42-R1",
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_policy": "ANCHOR_START_ONLY"
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "source_rule_id": "P42-R2",
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_policy": "ANCHOR_START_ONLY"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "source_rule_id": "P42-R3",
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_policy": "EXACT_SOURCE_SPAN"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "source_rule_id": "P42-R4",
+        "relation_type": "GAP_FILL_RULE",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_policy": "EXACT_SOURCE_SPAN"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "source_rule_id": "P42-R5",
+        "relation_type": "GAP_FILL_RULE",
+        "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "geometry_policy": "ANCHOR_START_ONLY"
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 218.4,
+        "width": 55.8,
+        "source_rule_id": "P42-R6",
+        "relation_type": "GAP_FILL_RULE",
+        "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "geometry_policy": "ANCHOR_START_ONLY"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "source_rule_id": "P42-R7",
+        "relation_type": "VALUE_UNDERLINE",
+        "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+        "geometry_policy": "EXACT_SOURCE_SPAN"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "source_rule_id": "P42-R8",
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+        "geometry_policy": "EXACT_SOURCE_SPAN"
+      }
+    ]
+  },
+  "generated_model": {
+    "generated_page": 3,
+    "generated_line_count": 21,
+    "generated_rule_count": 12,
+    "lines": [
+      {
+        "y": 137.83,
+        "bbox": [
+          94.9,
+          137.83,
+          304.9,
+          149.83
+        ],
+        "text": "河南省水利第二工程局集团有限公司 ：",
+        "spans": [
+          {
+            "text": "河南省水利第二工程局集团有限公司 ：",
+            "x0": 94.9,
+            "x1": 304.9,
+            "bbox": [
+              94.9,
+              137.83,
+              304.9,
+              149.83
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L1",
+        "rules": []
+      },
+      {
+        "y": 159.08,
+        "bbox": [
+          96.95,
+          159.08,
+          522.2,
+          171.08
+        ],
+        "text": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+        "spans": [
+          {
+            "text": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+            "x0": 96.95,
+            "x1": 522.2,
+            "bbox": [
+              96.95,
+              159.08,
+              522.2,
+              171.08
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L2",
+        "rules": [
+          {
+            "x0": 96.95,
+            "x1": 192.95,
+            "y": 170.8,
+            "width": 96.0
+          }
+        ]
+      },
+      {
+        "y": 180.18,
+        "bbox": [
+          70.9,
+          180.18,
+          513.7,
+          192.18
+        ],
+        "text": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18 询比文件的全",
+        "spans": [
+          {
+            "text": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18 询比文件的全",
+            "x0": 70.9,
+            "x1": 513.7,
+            "bbox": [
+              70.9,
+              180.18,
+              513.7,
+              192.18
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L3",
+        "rules": [
+          {
+            "x0": 441.7,
+            "x1": 513.7,
+            "y": 191.9,
+            "width": 72.0
+          }
+        ]
+      },
+      {
+        "y": 201.28,
+        "bbox": [
+          70.9,
+          201.28,
+          238.9,
+          213.28
+        ],
+        "text": "部内容，愿意以人民币（大写）",
+        "spans": [
+          {
+            "text": "部内容，愿意以人民币（大写）",
+            "x0": 70.9,
+            "x1": 238.9,
+            "bbox": [
+              70.9,
+              201.28,
+              238.9,
+              213.28
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L4",
+        "rules": [
+          {
+            "x0": 70.9,
+            "x1": 142.9,
+            "y": 213.0,
+            "width": 72.0
+          },
+          {
+            "x0": 384.6,
+            "x1": 458.9,
+            "y": 213.0,
+            "width": 74.3
+          }
+        ]
+      },
+      {
+        "y": 201.28,
+        "bbox": [
+          384.6,
+          201.28,
+          519.1,
+          213.28
+        ],
+        "text": "            元的响应报",
+        "spans": [
+          {
+            "text": "            元的响应报",
+            "x0": 384.6,
+            "x1": 519.1,
+            "bbox": [
+              384.6,
+              201.28,
+              519.1,
+              213.28
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L5",
+        "rules": [
+          {
+            "x0": 70.9,
+            "x1": 142.9,
+            "y": 213.0,
+            "width": 72.0
+          },
+          {
+            "x0": 384.6,
+            "x1": 458.9,
+            "y": 213.0,
+            "width": 74.3
+          }
+        ]
+      },
+      {
+        "y": 222.38,
+        "bbox": [
+          70.9,
+          222.38,
+          154.9,
+          234.38
+        ],
+        "text": "价，供货期达到",
+        "spans": [
+          {
+            "text": "价，供货期达到",
+            "x0": 70.9,
+            "x1": 154.9,
+            "bbox": [
+              70.9,
+              222.38,
+              154.9,
+              234.38
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L6",
+        "rules": []
+      },
+      {
+        "y": 243.11,
+        "bbox": [
+          259.69,
+          243.11,
+          322.8,
+          256.39
+        ],
+        "text": "（不含税）",
+        "spans": [
+          {
+            "text": "（不含税）",
+            "x0": 262.8,
+            "x1": 322.8,
+            "bbox": [
+              262.8,
+              243.48,
+              322.8,
+              255.48
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L7",
+        "rules": [
+          {
+            "x0": 169.65,
+            "x1": 262.65,
+            "y": 255.5,
+            "width": 93.0
+          },
+          {
+            "x0": 262.7,
+            "x1": 322.7,
+            "y": 255.5,
+            "width": 60.0
+          }
+        ]
+      },
+      {
+        "y": 243.11,
+        "bbox": [
+          319.69,
+          243.11,
+          382.8,
+          256.39
+        ],
+        "text": "，（小写）",
+        "spans": [
+          {
+            "text": "，（小写）",
+            "x0": 322.8,
+            "x1": 382.8,
+            "bbox": [
+              322.8,
+              243.48,
+              382.8,
+              255.48
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L8",
+        "rules": [
+          {
+            "x0": 169.65,
+            "x1": 262.65,
+            "y": 255.5,
+            "width": 93.0
+          },
+          {
+            "x0": 262.7,
+            "x1": 322.7,
+            "y": 255.5,
+            "width": 60.0
+          }
+        ]
+      },
+      {
+        "y": 264.68,
+        "bbox": [
+          131.85,
+          264.68,
+          517.5,
+          276.68
+        ],
+        "text": "        ，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "spans": [
+          {
+            "text": "        ，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "x0": 131.85,
+            "x1": 517.5,
+            "bbox": [
+              131.85,
+              264.68,
+              517.5,
+              276.68
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L9",
+        "rules": [
+          {
+            "x0": 131.85,
+            "x1": 181.35,
+            "y": 276.4,
+            "width": 49.5
+          }
+        ]
+      },
+      {
+        "y": 285.78,
+        "bbox": [
+          95.25,
+          285.78,
+          163.15,
+          297.78
+        ],
+        "text": "         。",
+        "spans": [
+          {
+            "text": "         。",
+            "x0": 95.25,
+            "x1": 163.15,
+            "bbox": [
+              95.25,
+              285.78,
+              163.15,
+              297.78
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L10",
+        "rules": [
+          {
+            "x0": 95.25,
+            "x1": 151.05,
+            "y": 297.5,
+            "width": 55.8
+          }
+        ]
+      },
+      {
+        "y": 307.23,
+        "bbox": [
+          94.9,
+          307.23,
+          262.9,
+          319.23
+        ],
+        "text": "如我方成交，我公司承诺如下：",
+        "spans": [
+          {
+            "text": "如我方成交，我公司承诺如下：",
+            "x0": 94.9,
+            "x1": 262.9,
+            "bbox": [
+              94.9,
+              307.23,
+              262.9,
+              319.23
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L11",
+        "rules": []
+      },
+      {
+        "y": 328.63,
+        "bbox": [
+          94.9,
+          328.63,
+          472.9,
+          340.63
+        ],
+        "text": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+        "spans": [
+          {
+            "text": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+            "x0": 94.9,
+            "x1": 472.9,
+            "bbox": [
+              94.9,
+              328.63,
+              472.9,
+              340.63
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L12",
+        "rules": []
+      },
+      {
+        "y": 349.73,
+        "bbox": [
+          94.9,
+          349.73,
+          424.9,
+          361.73
+        ],
+        "text": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+        "spans": [
+          {
+            "text": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+            "x0": 94.9,
+            "x1": 424.9,
+            "bbox": [
+              94.9,
+              349.73,
+              424.9,
+              361.73
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L13",
+        "rules": []
+      },
+      {
+        "y": 370.93,
+        "bbox": [
+          94.9,
+          370.93,
+          340.9,
+          382.93
+        ],
+        "text": "3、将按询比文件的规定履行合同责任和义务。",
+        "spans": [
+          {
+            "text": "3、将按询比文件的规定履行合同责任和义务。",
+            "x0": 94.9,
+            "x1": 340.9,
+            "bbox": [
+              94.9,
+              370.93,
+              340.9,
+              382.93
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L14",
+        "rules": []
+      },
+      {
+        "y": 392.13,
+        "bbox": [
+          94.9,
+          392.13,
+          484.9,
+          404.13
+        ],
+        "text": "4、本项目询比有效期为提交响应文件截止之日起不修改、撤销响应文件。",
+        "spans": [
+          {
+            "text": "4、本项目询比有效期为提交响应文件截止之日起不修改、撤销响应文件。",
+            "x0": 94.9,
+            "x1": 484.9,
+            "bbox": [
+              94.9,
+              392.13,
+              484.9,
+              404.13
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L15",
+        "rules": []
+      },
+      {
+        "y": 412.86,
+        "bbox": [
+          352.8,
+          412.86,
+          376.9,
+          426.14
+        ],
+        "text": "  90",
+        "spans": [
+          {
+            "text": "  90",
+            "x0": 352.8,
+            "x1": 376.9,
+            "bbox": [
+              352.8,
+              412.86,
+              376.9,
+              426.14
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L16",
+        "rules": [
+          {
+            "x0": 352.8,
+            "x1": 364.8,
+            "y": 425.25,
+            "width": 12.0
+          },
+          {
+            "x0": 364.8,
+            "x1": 376.8,
+            "y": 425.25,
+            "width": 12.0
+          },
+          {
+            "x0": 376.8,
+            "x1": 388.8,
+            "y": 425.25,
+            "width": 12.0
+          }
+        ]
+      },
+      {
+        "y": 412.86,
+        "bbox": [
+          376.8,
+          412.86,
+          520.9,
+          426.14
+        ],
+        "text": "日历天，在询比有效期内",
+        "spans": [
+          {
+            "text": "日历天，在询比有效期内",
+            "x0": 388.9,
+            "x1": 520.9,
+            "bbox": [
+              388.9,
+              413.23,
+              520.9,
+              425.23
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L17",
+        "rules": [
+          {
+            "x0": 352.8,
+            "x1": 364.8,
+            "y": 425.25,
+            "width": 12.0
+          },
+          {
+            "x0": 364.8,
+            "x1": 376.8,
+            "y": 425.25,
+            "width": 12.0
+          },
+          {
+            "x0": 376.8,
+            "x1": 388.8,
+            "y": 425.25,
+            "width": 12.0
+          }
+        ]
+      },
+      {
+        "y": 434.98,
+        "bbox": [
+          94.9,
+          434.98,
+          340.9,
+          446.98
+        ],
+        "text": "5、在合同约定的期限内完成并移交全部标的。",
+        "spans": [
+          {
+            "text": "5、在合同约定的期限内完成并移交全部标的。",
+            "x0": 94.9,
+            "x1": 340.9,
+            "bbox": [
+              94.9,
+              434.98,
+              340.9,
+              446.98
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L18",
+        "rules": []
+      },
+      {
+        "y": 456.18,
+        "bbox": [
+          94.9,
+          456.18,
+          520.9,
+          468.18
+        ],
+        "text": "6、我方在此声明，所递交的响应文件及有关资料内容完整、真实和准确，且不存",
+        "spans": [
+          {
+            "text": "6、我方在此声明，所递交的响应文件及有关资料内容完整、真实和准确，且不存",
+            "x0": 94.9,
+            "x1": 520.9,
+            "bbox": [
+              94.9,
+              456.18,
+              520.9,
+              468.18
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L19",
+        "rules": []
+      },
+      {
+        "y": 477.28,
+        "bbox": [
+          94.9,
+          477.28,
+          412.9,
+          489.28
+        ],
+        "text": "在第二章“供应商须知”第 1.5.3 项规定的任何一种情形。",
+        "spans": [
+          {
+            "text": "在第二章“供应商须知”第 1.5.3 项规定的任何一种情形。",
+            "x0": 94.9,
+            "x1": 412.9,
+            "bbox": [
+              94.9,
+              477.28,
+              412.9,
+              489.28
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L20",
+        "rules": []
+      },
+      {
+        "y": 498.48,
+        "bbox": [
+          94.9,
+          498.48,
+          220.9,
+          510.48
+        ],
+        "text": "7、（其他补充说明）。",
+        "spans": [
+          {
+            "text": "7、（其他补充说明）。",
+            "x0": 94.9,
+            "x1": 220.9,
+            "bbox": [
+              94.9,
+              498.48,
+              220.9,
+              510.48
+            ],
+            "underline": false
+          }
+        ],
+        "generated_line_id": "G3-L21",
+        "rules": [
+          {
+            "x0": 112.9,
+            "x1": 208.9,
+            "y": 510.2,
+            "width": 96.0
+          }
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "x0": 96.95,
+        "x1": 192.95,
+        "y": 170.8,
+        "width": 96.0
+      },
+      {
+        "x0": 441.7,
+        "x1": 513.7,
+        "y": 191.9,
+        "width": 72.0
+      },
+      {
+        "x0": 70.9,
+        "x1": 142.9,
+        "y": 213.0,
+        "width": 72.0
+      },
+      {
+        "x0": 384.6,
+        "x1": 458.9,
+        "y": 213.0,
+        "width": 74.3
+      },
+      {
+        "x0": 169.65,
+        "x1": 262.65,
+        "y": 255.5,
+        "width": 93.0
+      },
+      {
+        "x0": 262.7,
+        "x1": 322.7,
+        "y": 255.5,
+        "width": 60.0
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.35,
+        "y": 276.4,
+        "width": 49.5
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 297.5,
+        "width": 55.8
+      },
+      {
+        "x0": 352.8,
+        "x1": 364.8,
+        "y": 425.25,
+        "width": 12.0
+      },
+      {
+        "x0": 364.8,
+        "x1": 376.8,
+        "y": 425.25,
+        "width": 12.0
+      },
+      {
+        "x0": 376.8,
+        "x1": 388.8,
+        "y": 425.25,
+        "width": 12.0
+      },
+      {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 510.2,
+        "width": 96.0
+      }
+    ]
+  },
+  "provenance": {
+    "provenance": [
+      {
+        "source_rule_id": "P42-R4",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 384.6,
+        "source_x1": 459.0,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 313.8,
+        "leader_tab_position_pt": 388.2,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 384.6,
+          "x1": 458.9,
+          "y": 213.0
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 131.85,
+        "source_x1": 181.4,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 61.05,
+        "leader_tab_position_pt": 110.6,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 131.85,
+          "x1": 181.35,
+          "y": 276.4
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      },
+      {
+        "source_rule_id": "P42-R6",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 95.25,
+        "source_x1": 151.05,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 24.45,
+        "leader_tab_position_pt": 80.25,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 95.25,
+          "x1": 151.05,
+          "y": 297.5
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      },
+      {
+        "source_rule_id": "P45-R6",
+        "source_page": 45,
+        "in_p3_scope": false,
+        "source_x0": 154.8,
+        "source_x1": 232.8,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 84.0,
+        "leader_tab_position_pt": 162.0,
+        "paragraph_origin_pt": 94.8,
+        "paragraph_indent_pt": 24.0,
+        "form_layout_line_break": false,
+        "painted_rule": null,
+        "match_kind": "PROVENANCE_MATCH"
+      }
+    ],
+    "p3_provenance": [
+      {
+        "source_rule_id": "P42-R4",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 384.6,
+        "source_x1": 459.0,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 313.8,
+        "leader_tab_position_pt": 388.2,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 384.6,
+          "x1": 458.9,
+          "y": 213.0
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 131.85,
+        "source_x1": 181.4,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 61.05,
+        "leader_tab_position_pt": 110.6,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 131.85,
+          "x1": 181.35,
+          "y": 276.4
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      },
+      {
+        "source_rule_id": "P42-R6",
+        "source_page": 42,
+        "in_p3_scope": true,
+        "source_x0": 95.25,
+        "source_x1": 151.05,
+        "registry_relation_type": "GAP_FILL_RULE",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab_position_pt": 24.45,
+        "leader_tab_position_pt": 80.25,
+        "paragraph_origin_pt": 70.8,
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "painted_rule": {
+          "x0": 95.25,
+          "x1": 151.05,
+          "y": 297.5
+        },
+        "match_kind": "PROVENANCE_MATCH"
+      }
+    ],
+    "declared_source_rule_count": 4,
+    "p3_emitted_source_rule_ids": [
+      "P42-R4",
+      "P42-R5",
+      "P42-R6"
+    ],
+    "emitted_source_rule_ids": [
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P45-R6"
+    ],
+    "registry_rule_count": 47,
+    "registry_rules_without_id": 0,
+    "duplicate_source_rule_id_emission_count": 0,
+    "orphan_generated_rule_provenance_count": 0,
+    "out_of_scope_emission_count": 1,
+    "exact_source_span_ids": [
+      "P42-R3",
+      "P42-R4",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "expected_anchor_errors": [
+      {
+        "source_rule_id": "P42-R4",
+        "expected_anchor_absolute_pt": 384.6,
+        "source_x0": 384.6,
+        "anchor_error_pt": 0.0
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "expected_anchor_absolute_pt": 131.85,
+        "source_x0": 131.85,
+        "anchor_error_pt": 0.0
+      },
+      {
+        "source_rule_id": "P42-R6",
+        "expected_anchor_absolute_pt": 95.25,
+        "source_x0": 95.25,
+        "anchor_error_pt": 0.0
+      },
+      {
+        "source_rule_id": "P45-R6",
+        "expected_anchor_absolute_pt": 178.8,
+        "source_x0": 154.8,
+        "anchor_error_pt": 24.0
+      }
+    ]
+  },
+  "exact_span_rows": [
+    {
+      "source_rule_id": "P42-R4",
+      "geometry_policy": "EXACT_SOURCE_SPAN",
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "provenance": "PROVENANCE_MATCH",
+      "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+      "generated_x0": 384.6,
+      "generated_x1": 458.9,
+      "generated_y": 213.0,
+      "x0_error": 0.0,
+      "x1_error": -0.1,
+      "pass": true
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "geometry_policy": "EXACT_SOURCE_SPAN",
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "provenance": "SOURCE_RULE_COMPOSITION",
+      "semantic_relation": "FORM_LAYOUT_RULE",
+      "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "logical_rule_emission_count": 1,
+      "composition_segment_emission_count": 2,
+      "source_segment_count": 2,
+      "painted_segment_count": 2,
+      "generated_x0": 169.65,
+      "generated_x1": 322.7,
+      "generated_y": 255.5,
+      "x0_error": 0.0,
+      "x1_error": -0.9,
+      "pass": true
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "geometry_policy": "EXACT_SOURCE_SPAN",
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "provenance": "SOURCE_RULE_COMPOSITION",
+      "semantic_relation": "FORM_LAYOUT_RULE",
+      "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "logical_rule_emission_count": 1,
+      "composition_segment_emission_count": 3,
+      "source_segment_count": 3,
+      "painted_segment_count": 3,
+      "generated_x0": 352.8,
+      "generated_x1": 388.8,
+      "generated_y": 425.25,
+      "x0_error": 0.0,
+      "x1_error": 0.0,
+      "pass": true
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "geometry_policy": "EXACT_SOURCE_SPAN",
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "provenance": "SOURCE_RULE_COMPOSITION",
+      "semantic_relation": "PLACEHOLDER_UNDERLINE",
+      "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "logical_rule_emission_count": 1,
+      "composition_segment_emission_count": 1,
+      "source_segment_count": 1,
+      "painted_segment_count": 1,
+      "generated_x0": 112.9,
+      "generated_x1": 208.9,
+      "generated_y": 510.2,
+      "x0_error": 0.1,
+      "x1_error": 0.1,
+      "pass": true
+    }
+  ],
+  "anchor_rows": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_x0": 94.8,
+      "expected_anchor_absolute_pt": null,
+      "anchor_x_error": null,
+      "pass": false
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_x0": 198.1,
+      "expected_anchor_absolute_pt": null,
+      "anchor_x_error": null,
+      "pass": false
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_x0": 131.85,
+      "expected_anchor_absolute_pt": 131.85,
+      "anchor_x_error": 0.0,
+      "pass": true
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_x0": 95.25,
+      "expected_anchor_absolute_pt": 95.25,
+      "anchor_x_error": 0.0,
+      "pass": true
+    }
+  ],
+  "line_flow": [
+    {
+      "source_line_id": "S42-L1",
+      "source_rule_ids": [
+        "P42-R1"
+      ],
+      "source_y": 138.35,
+      "generated_y": 170.8,
+      "y_error": 32.45,
+      "cumulative_y_error": 32.45,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L2",
+      "source_rule_ids": [
+        "P42-R2"
+      ],
+      "source_y": 158.4,
+      "generated_y": 170.8,
+      "y_error": 12.4,
+      "cumulative_y_error": 44.85,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L3",
+      "source_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "source_y": 178.4,
+      "generated_y": 170.8,
+      "y_error": -7.6,
+      "cumulative_y_error": 37.25,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L4",
+      "source_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "source_y": 178.4,
+      "generated_y": 170.8,
+      "y_error": -7.6,
+      "cumulative_y_error": 29.65,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L5",
+      "source_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "source_y": 178.4,
+      "generated_y": 170.8,
+      "y_error": -7.6,
+      "cumulative_y_error": 22.05,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L6",
+      "source_rule_ids": [
+        "P42-R5"
+      ],
+      "source_y": 198.35,
+      "generated_y": 191.9,
+      "y_error": -6.45,
+      "cumulative_y_error": 15.6,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L7",
+      "source_rule_ids": [
+        "P42-R5"
+      ],
+      "source_y": 198.35,
+      "generated_y": 191.9,
+      "y_error": -6.45,
+      "cumulative_y_error": 9.15,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L8",
+      "source_rule_ids": [
+        "P42-R6"
+      ],
+      "source_y": 218.4,
+      "generated_y": 213.0,
+      "y_error": -5.4,
+      "cumulative_y_error": 3.75,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    },
+    {
+      "source_line_id": "S42-L9",
+      "source_rule_ids": [
+        "P42-R6"
+      ],
+      "source_y": 218.4,
+      "generated_y": 213.0,
+      "y_error": -5.4,
+      "cumulative_y_error": -1.65,
+      "cause": "pending vertical-flow correction (not addressed this round)"
+    }
+  ],
+  "gates": {
+    "all_source_rules_have_unique_id": true,
+    "every_emitted_representation_retains_id": true,
+    "duplicate_source_rule_id_emission_count": 0,
+    "orphan_generated_rule_provenance_count": 0,
+    "out_of_scope_emission_count": 1,
+    "exact_source_span_ids": [
+      "P42-R3",
+      "P42-R4",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "exact_source_span_ids_without_representation": [],
+    "exact_source_span_represented_ids": [
+      "P42-R3",
+      "P42-R4",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "exact_source_span_missing_ids": [],
+    "composition_represented_ids": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "composition_rows": [
+      {
+        "source_rule_id": "P42-R3",
+        "geometry_policy": "EXACT_SOURCE_SPAN",
+        "source_x0": 169.65,
+        "source_x1": 323.6,
+        "provenance": "SOURCE_RULE_COMPOSITION",
+        "semantic_relation": "FORM_LAYOUT_RULE",
+        "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+        "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+        "logical_rule_emission_count": 1,
+        "composition_segment_emission_count": 2,
+        "source_segment_count": 2,
+        "painted_segment_count": 2,
+        "generated_x0": 169.65,
+        "generated_x1": 322.7,
+        "generated_y": 255.5,
+        "x0_error": 0.0,
+        "x1_error": -0.9,
+        "pass": true
+      },
+      {
+        "source_rule_id": "P42-R7",
+        "geometry_policy": "EXACT_SOURCE_SPAN",
+        "source_x0": 352.8,
+        "source_x1": 388.8,
+        "provenance": "SOURCE_RULE_COMPOSITION",
+        "semantic_relation": "FORM_LAYOUT_RULE",
+        "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+        "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+        "logical_rule_emission_count": 1,
+        "composition_segment_emission_count": 3,
+        "source_segment_count": 3,
+        "painted_segment_count": 3,
+        "generated_x0": 352.8,
+        "generated_x1": 388.8,
+        "generated_y": 425.25,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "pass": true
+      },
+      {
+        "source_rule_id": "P42-R8",
+        "geometry_policy": "EXACT_SOURCE_SPAN",
+        "source_x0": 112.8,
+        "source_x1": 208.8,
+        "provenance": "SOURCE_RULE_COMPOSITION",
+        "semantic_relation": "PLACEHOLDER_UNDERLINE",
+        "geometry_bucket": "mixed/glyph-occupancy form-layout bucket",
+        "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+        "logical_rule_emission_count": 1,
+        "composition_segment_emission_count": 1,
+        "source_segment_count": 1,
+        "painted_segment_count": 1,
+        "generated_x0": 112.9,
+        "generated_x1": 208.9,
+        "generated_y": 510.2,
+        "x0_error": 0.1,
+        "x1_error": 0.1,
+        "pass": true
+      }
+    ],
+    "exact_source_span_coverage": 1.0,
+    "exact_source_span_geometry_ok": true,
+    "anchor_start_only_ok": false,
+    "P42-R5_representation_exists": true,
+    "P42-R6_representation_exists": true,
+    "R5_R6_representations_distinct": true,
+    "R5_actual_anchor_error": 0.0,
+    "R6_actual_anchor_error": 0.0,
+    "R5_R6_actual_anchor_ok": true,
+    "source_form_line_paragraph_count": 4,
+    "R5_run_break_separation": false,
+    "R6_run_break_separation": false,
+    "form_layout_break_count": 0,
+    "rule_accounting_invariant_failures": [],
+    "pass": false
+  }
+}

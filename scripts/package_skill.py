@@ -19,6 +19,7 @@ PACKAGE_ROOT_FILES = (
     "SKILL.md",
     "README.md",
     "MVP_SCOPE.md",
+    "PROJECT_GOVERNANCE.md",
     "requirements.txt",
     "pyproject.toml",
 )

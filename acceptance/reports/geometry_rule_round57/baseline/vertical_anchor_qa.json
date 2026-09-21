@@ -1,0 +1,233 @@
+{
+  "cover": {
+    "page_source": 40,
+    "page_generated": 1,
+    "anchor_count": 7,
+    "y_error_max": 90.0,
+    "y_error_median": 72.82,
+    "x_error_max": 68.9,
+    "anchors": [
+      {
+        "role": "chapter_title",
+        "anchor": "第六章响应文件格式",
+        "source_y": 79.71,
+        "generated_y": 87.71,
+        "source_x": 192.72,
+        "generated_x": 200.95,
+        "source_bbox": [
+          192.72,
+          79.71,
+          402.35,
+          102.17
+        ],
+        "generated_bbox": [
+          200.95,
+          87.71,
+          394.45,
+          109.21
+        ],
+        "y_error": 8.0,
+        "x_error": 8.23
+      },
+      {
+        "role": "project_title_block",
+        "anchor": "湖北省水利水电规划勘测设计院有限公司",
+        "source_y": null,
+        "generated_y": null,
+        "source_x": null,
+        "generated_x": null,
+        "source_bbox": null,
+        "generated_bbox": null,
+        "y_error": null,
+        "x_error": null,
+        "status": "ANCHOR_MISSING"
+      },
+      {
+        "role": "document_title",
+        "anchor": "响应文件",
+        "source_y": 291.28,
+        "generated_y": 354.0,
+        "source_x": 241.44,
+        "generated_x": 242.7,
+        "source_bbox": [
+          241.44,
+          291.28,
+          353.75,
+          319.87
+        ],
+        "generated_bbox": [
+          242.7,
+          354.0,
+          352.7,
+          381.5
+        ],
+        "y_error": 62.72,
+        "x_error": 1.26
+      },
+      {
+        "role": "project_number",
+        "anchor": "项目编号",
+        "source_y": 339.18,
+        "generated_y": 408.53,
+        "source_x": 262.8,
+        "generated_x": 213.7,
+        "source_bbox": [
+          262.8,
+          339.18,
+          323.04,
+          351.46
+        ],
+        "generated_bbox": [
+          213.7,
+          408.53,
+          381.7,
+          420.53
+        ],
+        "y_error": 69.35,
+        "x_error": -49.1
+      },
+      {
+        "role": "supplier_row",
+        "anchor": "供应商：",
+        "source_y": 557.41,
+        "generated_y": 633.71,
+        "source_x": 159.6,
+        "generated_x": 159.7,
+        "source_bbox": [
+          159.6,
+          557.41,
+          205.54,
+          569.18
+        ],
+        "generated_bbox": [
+          159.7,
+          633.71,
+          452.95,
+          645.21
+        ],
+        "y_error": 76.3,
+        "x_error": 0.1
+      },
+      {
+        "role": "representative_row",
+        "anchor": "法定代表人或其委托代理人：",
+        "source_y": 596.41,
+        "generated_y": 679.56,
+        "source_x": 139.8,
+        "generated_x": 102.3,
+        "source_bbox": [
+          139.8,
+          596.41,
+          289.3,
+          608.18
+        ],
+        "generated_bbox": [
+          102.3,
+          679.56,
+          338.05,
+          691.06
+        ],
+        "y_error": 83.15,
+        "x_error": -37.5
+      },
+      {
+        "role": "date_row",
+        "anchor": "年",
+        "source_y": 635.41,
+        "generated_y": 725.41,
+        "source_x": 283.2,
+        "generated_x": 214.3,
+        "source_bbox": [
+          283.2,
+          635.41,
+          294.7,
+          647.18
+        ],
+        "generated_bbox": [
+          214.3,
+          725.41,
+          386.8,
+          736.91
+        ],
+        "y_error": 90.0,
+        "x_error": -68.9
+      }
+    ]
+  },
+  "response_letter_appendix_signature": {
+    "page_source": 43,
+    "page_generated": 4,
+    "anchor_count": 3,
+    "y_error_max": 31.69,
+    "y_error_median": 24.59,
+    "x_error_max": 16.13,
+    "anchors": [
+      {
+        "role": "supplier_row",
+        "anchor": "供应商：",
+        "source_y": 612.42,
+        "generated_y": 629.88,
+        "source_x": 211.2,
+        "generated_x": 208.6,
+        "source_bbox": [
+          211.2,
+          612.42,
+          258.24,
+          624.7
+        ],
+        "generated_bbox": [
+          208.6,
+          629.88,
+          256.6,
+          641.88
+        ],
+        "y_error": 17.46,
+        "x_error": -2.6
+      },
+      {
+        "role": "representative_row",
+        "anchor": "法定代表人或其委托代理人：",
+        "source_y": 635.94,
+        "generated_y": 660.53,
+        "source_x": 205.8,
+        "generated_x": 208.6,
+        "source_bbox": [
+          205.8,
+          635.94,
+          365.4,
+          648.22
+        ],
+        "generated_bbox": [
+          208.6,
+          660.53,
+          364.6,
+          672.53
+        ],
+        "y_error": 24.59,
+        "x_error": 2.8
+      },
+      {
+        "role": "date_row",
+        "anchor": "年",
+        "source_y": 659.34,
+        "generated_y": 691.03,
+        "source_x": 429.12,
+        "generated_x": 445.25,
+        "source_bbox": [
+          429.12,
+          659.34,
+          441.12,
+          671.62
+        ],
+        "generated_bbox": [
+          445.25,
+          691.03,
+          481.25,
+          703.03
+        ],
+        "y_error": 31.69,
+        "x_error": 16.13
+      }
+    ]
+  }
+}

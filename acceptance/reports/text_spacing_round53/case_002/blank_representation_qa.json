@@ -1,0 +1,223 @@
+{
+  "representation_kinds_defined": [
+    "LITERAL_UNDERSCORES",
+    "UNDERLINED_WHITESPACE",
+    "TAB_LEADER",
+    "SOURCE_WHITESPACE_GAP",
+    "VECTOR_LINE",
+    "MIXED"
+  ],
+  "all_cases_representation_kind_counts": {
+    "VECTOR_LINE": 33,
+    "SOURCE_WHITESPACE_GAP": 25,
+    "LITERAL_UNDERSCORES": 6
+  },
+  "audited_forms": [
+    {
+      "label": "P3_CONTACT",
+      "source_page": 146,
+      "source_vector_rule_count": 8,
+      "source_literal_underscore_run_count": 6,
+      "generated_representation_kinds": {
+        "SOURCE_WHITESPACE_GAP": 1,
+        "LITERAL_UNDERSCORES": 6,
+        "VECTOR_LINE": 3
+      },
+      "generated_blank_count": 10,
+      "invented_literal_underscore_slot_count": 0,
+      "invented_underscore_glyph_count": 0,
+      "source_evidence": {
+        "vector_rules": [
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 196.9,
+            "x1": 304.9,
+            "y": 138.8
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 442.9,
+            "x1": 496.9,
+            "y": 232.2
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 130.9,
+            "x1": 172.9,
+            "y": 255.6
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 254.85,
+            "x1": 344.85,
+            "y": 279.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 244.05,
+            "x1": 274.05,
+            "y": 419.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 154.9,
+            "x1": 190.9,
+            "y": 722.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 202.9,
+            "x1": 226.9,
+            "y": 722.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 238.9,
+            "x1": 262.9,
+            "y": 722.4
+          }
+        ],
+        "literal_underscore_runs": [
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 570.66
+          },
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 593.94
+          },
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 617.34
+          },
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 640.74
+          },
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 664.02
+          },
+          {
+            "kind": "LITERAL_UNDERSCORES",
+            "length": 41,
+            "y": 687.42
+          }
+        ]
+      }
+    },
+    {
+      "label": "P6_IDENTITY",
+      "source_page": 149,
+      "source_vector_rule_count": 18,
+      "source_literal_underscore_run_count": 0,
+      "generated_representation_kinds": {
+        "VECTOR_LINE": 7,
+        "SOURCE_WHITESPACE_GAP": 1
+      },
+      "generated_blank_count": 8,
+      "invented_literal_underscore_slot_count": 0,
+      "invented_underscore_glyph_count": 0,
+      "source_evidence": {
+        "vector_rules": [
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 85.05,
+            "x1": 139.05,
+            "y": 110.75
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 145.05,
+            "x1": 169.05,
+            "y": 134.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 313.05,
+            "x1": 337.05,
+            "y": 134.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 469.05,
+            "x1": 487.05,
+            "y": 134.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 163.8,
+            "x1": 187.8,
+            "y": 157.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 453.35,
+            "x1": 489.35,
+            "y": 157.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 349.05,
+            "x1": 373.05,
+            "y": 204.2
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 193.05,
+            "x1": 253.05,
+            "y": 227.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 289.05,
+            "x1": 337.05,
+            "y": 227.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 373.05,
+            "x1": 421.05,
+            "y": 227.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 169.05,
+            "x1": 247.05,
+            "y": 250.8
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 319.05,
+            "x1": 397.05,
+            "y": 250.8
+          }
+        ],
+        "literal_underscore_runs": []
+      }
+    },
+    {
+      "label": "P7_AUTHORIZATION",
+      "source_page": 150,
+      "source_vector_rule_count": 0,
+      "source_literal_underscore_run_count": 0,
+      "generated_representation_kinds": {
+        "SOURCE_WHITESPACE_GAP": 3
+      },
+      "generated_blank_count": 3,
+      "invented_literal_underscore_slot_count": 0,
+      "invented_underscore_glyph_count": 0,
+      "source_evidence": {
+        "vector_rules": [],
+        "literal_underscore_runs": []
+      }
+    }
+  ],
+  "invented_underscore_form_count": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,36 @@
+{
+  "paragraph_count": 637,
+  "paragraphs_with_named_style": 637,
+  "paragraphs_without_named_style": 0,
+  "source_literal_heading_count": 14,
+  "source_literal_body_list_count": 33,
+  "source_heading_style_errors": 0,
+  "source_heading_auto_numbering_errors": 0,
+  "source_body_list_style_errors": 0,
+  "source_body_list_auto_numbering_errors": 0,
+  "literal_heading_number_count": 10,
+  "source_numbering": {
+    "prefix_mismatch_count": 0,
+    "punctuation_mismatch_count": 0,
+    "spacing_mismatch_count": 0,
+    "sequence_dependency_count": 0
+  },
+  "generated_auto_style_names": [
+    "Tender Generated Body List 1",
+    "Tender Generated Body List 2",
+    "Tender Generated Body List 3",
+    "Tender Generated Body List 4",
+    "Tender Generated Heading 1",
+    "Tender Generated Heading 2",
+    "Tender Generated Heading 3",
+    "Tender Generated Heading 4",
+    "Tender Generated Heading 5",
+    "Tender Generated Heading 6",
+    "Tender Generated Heading 7",
+    "Tender Generated Heading 8",
+    "Tender Generated Heading 9"
+  ],
+  "synthetic_layout_tables": 0,
+  "unsafe_ooxml": 0,
+  "result": "PASS"
+}

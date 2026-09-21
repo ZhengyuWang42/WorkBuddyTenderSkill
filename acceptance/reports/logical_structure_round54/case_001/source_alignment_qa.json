@@ -1,0 +1,248 @@
+{
+  "case": "case_001",
+  "audited_value_cells": 8,
+  "mandatory_alignment_mismatch_count": 0,
+  "rows": [
+    {
+      "source_pdf_page": 43,
+      "row_index": 5,
+      "label": "响应范围",
+      "value": "符合询比文件要求",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (128.32 vs 118.85 pt)",
+        "line_count": 1,
+        "left_pad": 128.32,
+        "right_pad": 118.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 309.72,
+        "text_x1": 405.72,
+        "cell_box": [
+          181.4,
+          278.59,
+          524.57,
+          313.09
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 6,
+      "label": "供货期",
+      "value": "合同签订后30 天",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (131.32 vs 121.85 pt)",
+        "line_count": 1,
+        "left_pad": 131.32,
+        "right_pad": 121.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 312.72,
+        "text_x1": 402.72,
+        "cell_box": [
+          181.4,
+          313.09,
+          524.57,
+          347.59
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 7,
+      "label": "交货地点",
+      "value": "周口市郸城县石槽泵站",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (116.32 vs 106.85 pt)",
+        "line_count": 1,
+        "left_pad": 116.32,
+        "right_pad": 106.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 297.72,
+        "text_x1": 417.72,
+        "cell_box": [
+          181.4,
+          347.59,
+          524.57,
+          382.09
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 8,
+      "label": "供货质量",
+      "value": "符合国家及行业有关标准、规范和询比文件要求。",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (44.32 vs 34.85 pt)",
+        "line_count": 1,
+        "left_pad": 44.32,
+        "right_pad": 34.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 225.72,
+        "text_x1": 489.72,
+        "cell_box": [
+          181.4,
+          382.09,
+          524.57,
+          416.59
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 9,
+      "label": "质保期",
+      "value": "24 个月（自工程完工验收合格之日起算）",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (66.76 vs 57.41 pt)",
+        "line_count": 1,
+        "left_pad": 66.76,
+        "right_pad": 57.41,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 248.16,
+        "text_x1": 467.16,
+        "cell_box": [
+          181.4,
+          416.59,
+          524.57,
+          451.09
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 10,
+      "label": "询比有效期",
+      "value": "提交响应文件截止之日起90 日历天",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (83.32 vs 73.85 pt)",
+        "line_count": 1,
+        "left_pad": 83.32,
+        "right_pad": 73.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 264.72,
+        "text_x1": 450.72,
+        "cell_box": [
+          181.4,
+          451.09,
+          524.57,
+          485.59
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 11,
+      "label": "权利义务",
+      "value": "符合第四章“合同条款及格式”的相关规定",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (62.32 vs 52.85 pt)",
+        "line_count": 1,
+        "left_pad": 62.32,
+        "right_pad": 52.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 243.72,
+        "text_x1": 471.72,
+        "cell_box": [
+          181.4,
+          485.59,
+          524.57,
+          520.09
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    },
+    {
+      "source_pdf_page": 43,
+      "row_index": 12,
+      "label": "采购需求",
+      "value": "符合第五章“采购需求”的相关规定",
+      "source_alignment": "center",
+      "source_evidence": {
+        "alignment": "center",
+        "reason": "balanced side padding (80.32 vs 70.85 pt)",
+        "line_count": 1,
+        "left_pad": 80.32,
+        "right_pad": 70.85,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 261.72,
+        "text_x1": 453.72,
+        "cell_box": [
+          181.4,
+          520.09,
+          524.57,
+          554.59
+        ]
+      },
+      "generated_alignment": "center",
+      "generated_style": "Tender Table Value",
+      "effective_source_alignment": "center",
+      "mismatch": false
+    }
+  ],
+  "result": "PASS"
+}

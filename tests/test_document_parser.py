@@ -16,6 +16,7 @@ from tender_basic.document_models import (
     DocumentStatus,
     ParagraphElement,
     PdfBlockElement,
+    PdfTableElement,
     TableElement,
 )
 from tender_basic.document_parser import (
@@ -24,7 +25,7 @@ from tender_basic.document_parser import (
     parse_document,
     write_normalized_outputs,
 )
-from tender_basic.models import SourceType
+from tender_basic.models import PdfTableLocator, SourceType
 
 
 def create_ordered_docx(path: Path) -> None:
@@ -58,6 +59,56 @@ def create_text_pdf(path: Path) -> None:
     first_page.insert_text((72, 72), "Test tender notice\nProject No: ABC-001")
     second_page = pdf.new_page()
     second_page.insert_text((72, 72), "Bidder instructions\nMax price: 1000000 CNY")
+    pdf.save(path)
+    pdf.close()
+
+
+def _draw_vector_table(page, x_positions: list[float], y_positions: list[float], values: list[list[str]]) -> None:
+    for x in x_positions:
+        page.draw_line(
+            (x, y_positions[0]),
+            (x, y_positions[-1]),
+            color=(0, 0, 0),
+            width=1,
+        )
+    for y in y_positions:
+        page.draw_line(
+            (x_positions[0], y),
+            (x_positions[-1], y),
+            color=(0, 0, 0),
+            width=1,
+        )
+    for row_index, row in enumerate(values):
+        for column_index, value in enumerate(row):
+            if not value:
+                continue
+            page.insert_text(
+                (
+                    x_positions[column_index] + 5,
+                    y_positions[row_index] + 30,
+                ),
+                value,
+                fontname="china-s",
+                fontsize=10,
+            )
+
+
+def create_vector_table_pdf(path: Path) -> None:
+    pdf = fitz.open()
+    first_page = pdf.new_page(width=500, height=300)
+    _draw_vector_table(
+        first_page,
+        [40, 240, 460],
+        [40, 90, 140],
+        [["项目名称", "测试项目"], ["项目编号", "PRJ-001"]],
+    )
+    second_page = pdf.new_page(width=500, height=300)
+    _draw_vector_table(
+        second_page,
+        [40, 140, 240, 340, 460],
+        [40, 90],
+        [["项目名称", "测试项目", "项目编号", "PRJ-001"]],
+    )
     pdf.save(path)
     pdf.close()
 
@@ -134,6 +185,44 @@ def test_pdf_pages_are_one_based_and_have_text(tmp_path: Path):
     assert [page.page_number for page in document.pages] == [1, 2]
     assert "Test tender notice" in document.pages[0].blocks[0].text
     assert "Max price" in document.pages[1].blocks[0].text
+
+
+def test_pdf_tables_retain_two_and_four_column_cells_and_locators(tmp_path: Path):
+    source = tmp_path / "tables.pdf"
+    output = tmp_path / "normalized-tables"
+    create_vector_table_pdf(source)
+
+    document = parse_document(source)
+
+    assert document.status is DocumentStatus.PARSED
+    assert len(document.tables) == 2
+    first = document.tables[0]
+    assert first.page == 1
+    assert [cell.text for cell in first.rows[0].cells] == ["项目名称", "测试项目"]
+    assert [cell.text for cell in first.rows[1].cells] == ["项目编号", "PRJ-001"]
+    assert isinstance(first.rows[0].cells[0].locator, PdfTableLocator)
+    assert first.rows[0].cells[0].locator.model_dump(mode="json") == {
+        "locator_type": "pdf_table_cell",
+        "page": 1,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 0,
+    }
+
+    second = document.tables[1]
+    assert second.page == 2
+    assert [cell.text for cell in second.rows[0].cells] == [
+        "项目名称",
+        "测试项目",
+        "项目编号",
+        "PRJ-001",
+    ]
+    assert any(isinstance(element, PdfTableElement) for element in document.elements)
+
+    _json_path, lines_path = write_normalized_outputs(document, output)
+    lines = lines_path.read_text(encoding="utf-8")
+    assert "[PDF:T:1:T:0:R:0:C:0] 项目名称" in lines
+    assert "[PDF:T:2:T:0:R:0:C:3] PRJ-001" in lines
 
 
 def test_pdf_second_page_and_bbox_are_serializable(tmp_path: Path):

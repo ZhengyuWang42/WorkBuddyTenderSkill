@@ -1,0 +1,10 @@
+{
+  "source": "scripts\\p3_slot_policy.py",
+  "exact_span_rule_ids": [
+    "P42-R3",
+    "P42-R4",
+    "P42-R7",
+    "P42-R8"
+  ],
+  "derived_from": "transformation/geometry policy table; only EXACT_SOURCE_SPAN rows"
+}

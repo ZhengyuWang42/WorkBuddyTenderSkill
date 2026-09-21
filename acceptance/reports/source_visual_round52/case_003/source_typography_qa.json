@@ -1,0 +1,61 @@
+{
+  "audited": [
+    {
+      "label": "P2_COVER",
+      "source": [
+        {
+          "text": "投标文件 ",
+          "bbox": [
+            253.83,
+            276.3,
+            355.59,
+            298.07
+          ],
+          "font": "é»ä½",
+          "size": 21.77
+        },
+        {
+          "text": "投标人：(电子印章) ",
+          "bbox": [
+            144.17,
+            595.01,
+            275.24,
+            609.28
+          ],
+          "font": "å®ä½",
+          "size": 14.27
+        }
+      ],
+      "generated": [
+        {
+          "text": "投标文件",
+          "bbox": [
+            254.75,
+            277.76,
+            340.75,
+            299.26
+          ],
+          "font": "SimHei",
+          "size": 21.5
+        },
+        {
+          "text": "投标人：",
+          "bbox": [
+            144.25,
+            596.01,
+            200.25,
+            610.01
+          ],
+          "font": "SimSun",
+          "size": 14.0
+        }
+      ]
+    }
+  ],
+  "font_family_mismatch_count": 0,
+  "font_size_mismatch_count": 0,
+  "font_weight_mismatch_count": 0,
+  "alignment_mismatch_count": 0,
+  "source_variant_flattening_count": 0,
+  "foreign_font_superscript_count": 0
+}

@@ -1,0 +1,78 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "anchor": "投标文件格式",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 144,
+      "rendered_pdf_page": 1,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p01_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 3,
+      "anchor": "投标单位全称（公章）",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 146,
+      "rendered_pdf_page": 3,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p03_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 5,
+      "anchor": "开标一览表",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 148,
+      "rendered_pdf_page": 2,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p05_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 6,
+      "anchor": "（国徽面）",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 149,
+      "rendered_pdf_page": 6,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p06_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 7,
+      "anchor": "附：全权代表姓名",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 150,
+      "rendered_pdf_page": 7,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p07_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 8,
+      "anchor": "一体化综合柜",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 151,
+      "rendered_pdf_page": 9,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p08_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 15,
+      "anchor": "银联 PBOC3.0",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 158,
+      "rendered_pdf_page": 16,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p15_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 25,
+      "anchor": "3.信创改造",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 168,
+      "rendered_pdf_page": 25,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_002\\comparisons\\p25_source_vs_generated.png",
+      "status": "RENDERED"
+    }
+  ],
+  "measurement_method": "actual source PDF page vs LibreOffice render, paired by source content anchor",
+  "note": "Rendered comparison is required evidence; it is not by itself user visual acceptance."
+}

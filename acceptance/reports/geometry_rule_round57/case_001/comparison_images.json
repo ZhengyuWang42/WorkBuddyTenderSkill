@@ -1,0 +1,18 @@
+{
+  "cover": {
+    "stack": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\stack_cover.png",
+    "overlay": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\overlay_cover.png"
+  },
+  "response_letter": {
+    "stack": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\stack_response_letter.png",
+    "overlay": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\overlay_response_letter.png"
+  },
+  "response_appendix": {
+    "stack": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\stack_response_appendix.png",
+    "overlay": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\overlay_response_appendix.png"
+  },
+  "quotation": {
+    "stack": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\stack_quotation.png",
+    "overlay": "acceptance\\reports\\geometry_rule_round57\\case_001\\render\\overlay_quotation.png"
+  }
+}

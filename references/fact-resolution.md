@@ -1,6 +1,6 @@
 # Fact Resolution Principles
 
-本阶段只记录未来 resolver 应遵守的原则，不实现 resolver。
+本阶段由 `tender_basic/fact_resolver.py` 实现，接收带证据的候选事实并按字段独立生成 `RESOLVED`、`NEEDS_REVIEW` 或 `NOT_FOUND`。以下原则是当前 resolver 的不变量，而不是未来规划。
 
 1. 所有 `RESOLVED` fact 必须来自至少一个 `CandidateFact`。
 2. 不允许凭空补字段；没有可信候选时使用 `NOT_FOUND`。
@@ -12,4 +12,10 @@
 
 ## 字段独立性
 
-`project_number`、`tender_number` 和 `lot_number` 是三个独立字段。模型或未来 resolver 不得仅凭标签相似、值格式相似或文件上下文相近而合并它们。
+`project_number`、`tender_number` 和 `lot_number` 是三个独立字段。模型或 resolver 不得仅凭标签相似、值格式相似或文件上下文相近而合并它们。
+
+## 与格式和复核证据的边界
+
+Resolver 只决定 ProjectFacts 的事实值和字段状态。SourceFormatTemplate/源格式证据
+可以决定这些事实在 DOCX 中的结构和呈现位置，但不能提供替代事实值；ReviewEvidence
+只保留条款证据和人工复核状态，不生成 ProjectFacts 或自动合规结论。

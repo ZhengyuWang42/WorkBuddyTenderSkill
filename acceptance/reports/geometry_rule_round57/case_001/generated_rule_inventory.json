@@ -1,0 +1,119 @@
+{
+  "response_letter": {
+    "generated_page": 3,
+    "table_boxes": [],
+    "rules": [
+      {
+        "x0": 70.9,
+        "x1": 520.9,
+        "y": 212.28,
+        "width": 450.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 2,
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供"
+      },
+      {
+        "x0": 70.9,
+        "x1": 490.9,
+        "y": 233.38,
+        "width": 420.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 2,
+        "context": "货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达"
+      },
+      {
+        "x0": 70.9,
+        "x1": 142.9,
+        "y": 254.48,
+        "width": 72.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 2,
+        "context": "到。"
+      }
+    ]
+  },
+  "quotation_signature": {
+    "generated_page": 9,
+    "table_boxes": [
+      [
+        64.85,
+        114.45,
+        541.85,
+        666.45
+      ]
+    ],
+    "rules": [
+      {
+        "x0": 334.9,
+        "x1": 520.9,
+        "y": 691.78,
+        "width": 186.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 2,
+        "context": "供应商：(盖单位公章)"
+      },
+      {
+        "x0": 238.9,
+        "x1": 520.9,
+        "y": 719.78,
+        "width": 282.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 9,
+        "parts": 2,
+        "context": "法定代表人或其委托代理人：(签字或盖章)"
+      }
+    ]
+  },
+  "cover": {
+    "generated_page": 1,
+    "table_boxes": [],
+    "rules": [
+      {
+        "x0": 159.7,
+        "x1": 452.95,
+        "y": 604.06,
+        "width": 293.25,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 29,
+        "parts": 2,
+        "context": "供应商：（盖单位公章）"
+      },
+      {
+        "x0": 102.3,
+        "x1": 338.05,
+        "y": 647.51,
+        "width": 235.75,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 15,
+        "parts": 2,
+        "context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.3,
+        "x1": 386.8,
+        "y": 690.96,
+        "width": 172.5,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 24,
+        "parts": 4,
+        "context": "年月日"
+      }
+    ]
+  },
+  "response_appendix": {
+    "generated_page": 4,
+    "table_boxes": [
+      [
+        64.85,
+        109.35,
+        524.65,
+        599.55
+      ]
+    ],
+    "rules": []
+  }
+}

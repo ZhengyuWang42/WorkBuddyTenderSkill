@@ -1,6 +1,10 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+# sandbox-safe pytest basetemps (scripts/run_pytest_sandbox.py --basetemp=...)
+.pytest-bt-*/
+.pytest-basetemp-*/
+.pytest-probe*/
 .venv/
 venv/
 .idea/
@@ -17,3 +21,41 @@ dist/
 
 Thumbs.db
 .DS_Store
+
+# --- acceptance inputs and generated workspaces -----------------------------
+# Private source corpus: the tender PDFs are third-party documents and are not
+# redistributed.  They stay on disk so the acceptance gates remain runnable.
+acceptance/private/
+# Every pipeline run / acceptance round writes a fresh workspace directory; it
+# is regenerable from scripts/run_pipeline.py and the V1 point-build tooling.
+acceptance/workspace/
+# Manual Word delivery bundles and per-round "open this in Word" copies: the
+# canonical builds live in acceptance/workspace/, these are hand-off snapshots.
+acceptance/manual_delivery_*/
+acceptance/manual_word_test*/
+
+# --- probe / scratch / local agent state ------------------------------------
+.probe-*/
+.agents/
+
+# --- generated evidence inside report rounds --------------------------------
+# Rendered page images, contact sheets and PDF renders are derived from the DOCX
+# and are regenerable; the JSON/MD evidence next to them is kept in Git.
+acceptance/reports/debug/
+acceptance/reports/diagnostics/
+acceptance/reports/**/audit/
+acceptance/reports/**/render/
+acceptance/reports/**/visual/
+acceptance/reports/**/comparisons/
+acceptance/reports/**/overview-*.png
+acceptance/reports/**/*.png
+acceptance/reports/**/*.pdf
+
+# --- LibreOffice headless profiles and caches --------------------------------
+# one profile per render, created by scripts/render_case57.py new_profile()
+**/_lo_profile_*/
+**/_acc_profile_*/
+**/_ar/
+**/loprofile/
+**/lo_profile/
+**/cache/

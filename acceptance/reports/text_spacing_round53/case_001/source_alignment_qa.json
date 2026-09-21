@@ -1,0 +1,263 @@
+{
+  "policy": "source-local geometry owns alignment; Named Style role is fallback only",
+  "audited_tables": [
+    {
+      "label": "P4_APPENDIX",
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "项目名称、标段",
+          "source_left_gap": 16.03,
+          "source_right_gap": 16.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "供应商名称",
+          "source_left_gap": 28.03,
+          "source_right_gap": 28.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "响应报价(元）\n（不含税）",
+          "source_left_gap": 19.03,
+          "source_right_gap": 19.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "text": "（大写）",
+          "source_left_gap": 5.44,
+          "source_right_gap": 289.73,
+          "source_alignment": "left",
+          "generated_alignment": "left",
+          "agree": true
+        },
+        {
+          "row": 3,
+          "column": 1,
+          "text": "（小写）",
+          "source_left_gap": 5.44,
+          "source_right_gap": 289.73,
+          "source_alignment": "left",
+          "generated_alignment": "left",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 0,
+          "text": "税率",
+          "source_left_gap": 46.03,
+          "source_right_gap": 46.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 0,
+          "text": "响应范围",
+          "source_left_gap": 34.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 1,
+          "text": "符合询比文件要求",
+          "source_left_gap": 128.32,
+          "source_right_gap": 118.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 0,
+          "text": "供货期",
+          "source_left_gap": 40.03,
+          "source_right_gap": 40.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 1,
+          "text": "合同签订后30 天",
+          "source_left_gap": 131.32,
+          "source_right_gap": 121.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 0,
+          "text": "交货地点",
+          "source_left_gap": 34.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 1,
+          "text": "周口市郸城县石槽泵站",
+          "source_left_gap": 116.32,
+          "source_right_gap": 106.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 8,
+          "column": 0,
+          "text": "供货质量",
+          "source_left_gap": 34.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 8,
+          "column": 1,
+          "text": "符合国家及行业有关标准、规范和询比文件要求。",
+          "source_left_gap": 44.32,
+          "source_right_gap": 34.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 9,
+          "column": 0,
+          "text": "质保期",
+          "source_left_gap": 40.03,
+          "source_right_gap": 40.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 9,
+          "column": 1,
+          "text": "24 个月（自工程完工验收合格之日起算）",
+          "source_left_gap": 66.76,
+          "source_right_gap": 57.41,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 10,
+          "column": 0,
+          "text": "询比有效期",
+          "source_left_gap": 28.03,
+          "source_right_gap": 28.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 10,
+          "column": 1,
+          "text": "提交响应文件截止之日起90 日历天",
+          "source_left_gap": 83.32,
+          "source_right_gap": 73.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 11,
+          "column": 0,
+          "text": "权利义务",
+          "source_left_gap": 34.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 11,
+          "column": 1,
+          "text": "符合第四章“合同条款及格式”的相关规定",
+          "source_left_gap": 62.32,
+          "source_right_gap": 52.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 12,
+          "column": 0,
+          "text": "采购需求",
+          "source_left_gap": 34.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 12,
+          "column": 1,
+          "text": "符合第五章“采购需求”的相关规定",
+          "source_left_gap": 80.32,
+          "source_right_gap": 70.85,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 13,
+          "column": 0,
+          "text": "备注",
+          "source_left_gap": 58.03,
+          "source_right_gap": 34.04,
+          "source_alignment": "right",
+          "generated_alignment": "right",
+          "agree": true
+        }
+      ],
+      "mismatch_count": 0,
+      "column_axis_evidence": {
+        "column_0": {
+          "alignment": "center",
+          "axis_spread_pt": 12.0,
+          "all_axis_spreads_pt": {
+            "left": 42.0,
+            "center": 12.0,
+            "right": 30.0
+          }
+        },
+        "column_1": {
+          "alignment": "left",
+          "axis_spread_pt": 125.88,
+          "all_axis_spreads_pt": {
+            "left": 125.88,
+            "center": 146.88,
+            "right": 254.88
+          }
+        }
+      }
+    }
+  ],
+  "mandatory_source_alignment_mismatch_count": 0,
+  "result": "PASS"
+}

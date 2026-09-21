@@ -1,0 +1,104 @@
+{
+  "status": "CASE001_ROUND57_GATE",
+  "tolerance_pt": 2.0,
+  "response_appendix_table": {
+    "table_outer_x0_error": -0.36,
+    "table_outer_x1_error": -0.04,
+    "table_center_error": -0.2,
+    "table_width_error": 0.32,
+    "table_top_y_error": 3.26,
+    "table_bottom_y_error": 10.46,
+    "cumulative_row_height_drift": 7.2,
+    "PASS": true
+  },
+  "response_letter_rules": {
+    "source_rule_count": 8,
+    "generated_rule_count": 3,
+    "matched_rule_count": 1,
+    "lost_source_rule_count": 8,
+    "invented_rule_count": 2,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 24.35,
+    "rule_x1_error_max": 369.85,
+    "rule_y_error_max": 6.12
+  },
+  "quotation_signature_rules": {
+    "source_rule_count": 2,
+    "generated_rule_count": 2,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 2,
+    "invented_rule_count": 2,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0
+  },
+  "quotation_table": {
+    "table_outer_x0_error": -0.36,
+    "table_outer_x1_error": -0.04,
+    "table_center_error": -0.2,
+    "table_width_error": 0.32,
+    "table_top_y_error": 3.66,
+    "table_bottom_y_error": 37.76,
+    "cumulative_row_height_drift": 34.1
+  },
+  "cover_anchors": [
+    {
+      "role": "chapter_title",
+      "source_x": 192.72,
+      "generated_x": 200.95,
+      "x_error": 8.23,
+      "source_y": 79.71,
+      "generated_y": 87.71,
+      "y_error": 8.0
+    },
+    {
+      "role": "document_title",
+      "source_x": 241.44,
+      "generated_x": 242.7,
+      "x_error": 1.26,
+      "source_y": 291.28,
+      "generated_y": 322.15,
+      "y_error": 30.87
+    },
+    {
+      "role": "project_number",
+      "source_x": 262.8,
+      "generated_x": 216.7,
+      "x_error": -46.1,
+      "source_y": 339.18,
+      "generated_y": 370.88,
+      "y_error": 31.7
+    },
+    {
+      "role": "supplier_row",
+      "source_x": 159.6,
+      "generated_x": 159.7,
+      "x_error": 0.1,
+      "source_y": 557.41,
+      "generated_y": 593.56,
+      "y_error": 36.15
+    },
+    {
+      "role": "representative_row",
+      "source_x": 139.8,
+      "generated_x": 102.3,
+      "x_error": -37.5,
+      "source_y": 596.41,
+      "generated_y": 637.01,
+      "y_error": 40.6
+    },
+    {
+      "role": "date_row",
+      "source_x": 283.2,
+      "generated_x": 214.3,
+      "x_error": -68.9,
+      "source_y": 635.41,
+      "generated_y": 680.46,
+      "y_error": 45.05
+    }
+  ],
+  "invented_project_number_tail_underline_count": 0,
+  "generic_role_overrode_source_blank_kind_count": 0,
+  "PASS": false
+}

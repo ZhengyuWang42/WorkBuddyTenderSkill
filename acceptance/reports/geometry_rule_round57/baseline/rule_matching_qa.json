@@ -1,0 +1,928 @@
+{
+  "P1_COVER": {
+    "pairs": [],
+    "lost": [
+      {
+        "x0": 205.65,
+        "x1": 389.6,
+        "y": 568.8,
+        "width": 183.95,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "供应商：|（盖单位公章）"
+      },
+      {
+        "x0": 289.3,
+        "x1": 387.1,
+        "y": 607.8,
+        "width": 97.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.2,
+        "x1": 283.2,
+        "y": 646.8,
+        "width": 69.0,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日"
+      },
+      {
+        "x0": 294.7,
+        "x1": 335.0,
+        "y": 646.8,
+        "width": 40.3,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日"
+      },
+      {
+        "x0": 346.4,
+        "x1": 392.5,
+        "y": 646.8,
+        "width": 46.1,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "年|月|日"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 375.7,
+        "x1": 381.7,
+        "y": 420.25,
+        "width": 6.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "项目编号：YSEJJXXB202607-18"
+      },
+      {
+        "x0": 159.7,
+        "x1": 452.95,
+        "y": 644.21,
+        "width": 293.25,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 29,
+        "parts": 1,
+        "context": "供应商：（盖单位公章）"
+      },
+      {
+        "x0": 205.7,
+        "x1": 372.4,
+        "y": 644.9,
+        "width": 166.7,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "供应商：（盖单位公章）"
+      },
+      {
+        "x0": 102.3,
+        "x1": 338.05,
+        "y": 690.06,
+        "width": 235.75,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 15,
+        "parts": 1,
+        "context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 251.8,
+        "x1": 338.0,
+        "y": 690.75,
+        "width": 86.2,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.3,
+        "x1": 386.8,
+        "y": 735.91,
+        "width": 172.5,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 24,
+        "parts": 1,
+        "context": "年月日"
+      },
+      {
+        "x0": 214.3,
+        "x1": 277.5,
+        "y": 736.6,
+        "width": 63.2,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "年月日"
+      },
+      {
+        "x0": 289.05,
+        "x1": 323.55,
+        "y": 736.6,
+        "width": 34.5,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "年月日"
+      },
+      {
+        "x0": 335.05,
+        "x1": 375.25,
+        "y": 736.6,
+        "width": 40.2,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "年月日"
+      }
+    ],
+    "kind_mismatch": [],
+    "source_rule_count": 5,
+    "generated_rule_count": 9,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 5,
+    "invented_rule_count": 9,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "rule_width_error_median": null
+  },
+  "P3_RESPONSE_LETTER": {
+    "pairs": [],
+    "lost": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "(采购人名称)|："
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 218.4,
+        "width": 55.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "达到|。"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 70.9,
+        "x1": 520.9,
+        "y": 230.48,
+        "width": 450.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 1,
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供"
+      },
+      {
+        "x0": 358.9,
+        "x1": 424.9,
+        "y": 231.2,
+        "width": 66.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供"
+      },
+      {
+        "x0": 70.9,
+        "x1": 490.9,
+        "y": 255.83,
+        "width": 420.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 1,
+        "context": "货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达"
+      },
+      {
+        "x0": 94.9,
+        "x1": 142.9,
+        "y": 256.55,
+        "width": 48.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达"
+      },
+      {
+        "x0": 70.9,
+        "x1": 142.9,
+        "y": 281.18,
+        "width": 72.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 1,
+        "context": "到。"
+      },
+      {
+        "x0": 82.9,
+        "x1": 130.9,
+        "y": 281.9,
+        "width": 48.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "到。"
+      }
+    ],
+    "kind_mismatch": [],
+    "source_rule_count": 8,
+    "generated_rule_count": 6,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 8,
+    "invented_rule_count": 6,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "rule_width_error_median": null
+  },
+  "P4_RESPONSE_LETTER_APPENDIX": {
+    "pairs": [],
+    "lost": [
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 106.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 140.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 175.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 181.16,
+        "x1": 524.69,
+        "y": 209.59,
+        "width": 343.53,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "响应报价(元）|（不含税）"
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 244.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 278.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 313.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 347.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 382.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 416.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 451.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 399.7,
+        "x1": 414.7,
+        "y": 474.0,
+        "width": 15.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "询比有效期|提交响应文件截止之日起90日历天"
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 485.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 520.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 554.59,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 524.69,
+        "y": 589.09,
+        "width": 459.48,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      }
+    ],
+    "invented": [
+      {
+        "x0": 112.45,
+        "x1": 572.15,
+        "y": 111.85,
+        "width": 459.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程"
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 146.95,
+        "width": 458.7,
+        "parts": 2,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "水源置换城乡供水工程项目部一体化泵站采购项目"
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 181.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 228.45,
+        "x1": 571.65,
+        "y": 216.95,
+        "width": 343.2,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "响应报价(元）（不|含税）"
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 251.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 286.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 321.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 356.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 391.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 426.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 461.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 496.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 531.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 571.65,
+        "y": 566.95,
+        "width": 458.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.45,
+        "x1": 572.15,
+        "y": 602.05,
+        "width": 459.7,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      }
+    ],
+    "kind_mismatch": [],
+    "source_rule_count": 16,
+    "generated_rule_count": 15,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 16,
+    "invented_rule_count": 15,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "rule_width_error_median": null
+  },
+  "P9_QUOTATION_TABLE": {
+    "pairs": [],
+    "lost": [
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 110.79,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "五、分项报价表"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 150.29,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "16000mm×"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 189.79,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "8500mm×3500mm|单泵流量"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 268.29,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "汽蚀余量≤5|单泵流量"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 346.79,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "汽蚀余量≤4"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 386.29,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "自动化、监控"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 425.79,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "系统"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 465.29,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 504.79,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 544.29,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 255.7,
+        "x1": 361.2,
+        "y": 571.9,
+        "width": 105.5,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "不含税合计（即响应报价）：|（大写），|元（小写）"
+      },
+      {
+        "x0": 403.3,
+        "x1": 456.0,
+        "y": 571.9,
+        "width": 52.7,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "不含税合计（即响应报价）：|（大写），|元（小写）"
+      },
+      {
+        "x0": 181.9,
+        "x1": 192.45,
+        "y": 595.3,
+        "width": 10.55,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+      },
+      {
+        "x0": 245.25,
+        "x1": 319.05,
+        "y": 595.3,
+        "width": 73.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+      },
+      {
+        "x0": 371.75,
+        "x1": 450.8,
+        "y": 595.3,
+        "width": 79.05,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+      },
+      {
+        "x0": 224.6,
+        "x1": 335.4,
+        "y": 614.85,
+        "width": 110.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "总计（含税金额）：|（大写），|元（小写）。"
+      },
+      {
+        "x0": 388.05,
+        "x1": 435.45,
+        "y": 614.85,
+        "width": 47.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "总计（含税金额）：|（大写），|元（小写）。"
+      },
+      {
+        "x0": 65.21,
+        "x1": 541.89,
+        "y": 628.69,
+        "width": 476.68,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 380.4,
+        "x1": 451.8,
+        "y": 650.15,
+        "width": 71.4,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "供应商：|(盖单位公章)"
+      },
+      {
+        "x0": 392.4,
+        "x1": 452.4,
+        "y": 673.55,
+        "width": 60.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "法定代表人或其委托代理人：|(签字或盖章)"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 112.45,
+        "x1": 589.35,
+        "y": 117.45,
+        "width": 476.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "五、分项报价表"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 157.55,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "号"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 197.55,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "m×3500mm|单泵流量"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 299.45,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "余量≤5|单泵流量"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 401.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "量≤4"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 441.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 481.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "系统"
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 521.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 561.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.95,
+        "x1": 588.85,
+        "y": 601.35,
+        "width": 475.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 112.45,
+        "x1": 589.35,
+        "y": 686.35,
+        "width": 476.9,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": ""
+      },
+      {
+        "x0": 334.9,
+        "x1": 520.9,
+        "y": 711.63,
+        "width": 186.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 1,
+        "context": "供应商：(盖单位公章)"
+      },
+      {
+        "x0": 382.9,
+        "x1": 448.9,
+        "y": 712.35,
+        "width": 66.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "供应商：(盖单位公章)"
+      },
+      {
+        "x0": 238.9,
+        "x1": 520.9,
+        "y": 742.13,
+        "width": 282.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 9,
+        "parts": 1,
+        "context": "法定代表人或其委托代理人：(签字或盖章)"
+      },
+      {
+        "x0": 394.9,
+        "x1": 448.9,
+        "y": 742.85,
+        "width": 54.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "法定代表人或其委托代理人：(签字或盖章)"
+      }
+    ],
+    "kind_mismatch": [],
+    "source_rule_count": 20,
+    "generated_rule_count": 15,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 20,
+    "invented_rule_count": 15,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "rule_width_error_median": null
+  }
+}

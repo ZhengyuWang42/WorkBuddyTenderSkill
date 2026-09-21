@@ -1,0 +1,178 @@
+{
+  "audited": [
+    {
+      "label": "P1_COVER",
+      "source": [
+        {
+          "text": "第六章投标文件格式",
+          "bbox": [
+            191.76,
+            75.27,
+            403.31,
+            97.22
+          ],
+          "font": "FangSong_GB2312",
+          "size": 21.95
+        },
+        {
+          "text": "招标人项目编号：ZBGXCG202601014",
+          "bbox": [
+            90.0,
+            147.94,
+            308.34,
+            161.99
+          ],
+          "font": "FangSong_GB2312",
+          "size": 14.05
+        },
+        {
+          "text": "招标代理项目编号：RTZB-2026-028",
+          "bbox": [
+            90.0,
+            175.18,
+            308.34,
+            189.23
+          ],
+          "font": "FangSong_GB2312",
+          "size": 14.05
+        },
+        {
+          "text": "投标文件",
+          "bbox": [
+            198.24,
+            395.23,
+            396.84,
+            431.23
+          ],
+          "font": "FangSong_GB2312",
+          "size": 36.0
+        }
+      ],
+      "generated": [
+        {
+          "text": "第六章投标文件格式",
+          "bbox": [
+            201.0,
+            76.96,
+            394.5,
+            98.46
+          ],
+          "font": "FangSong",
+          "size": 21.5
+        },
+        {
+          "text": "招标人项目编号：ZBGXCG202601014",
+          "bbox": [
+            90.1,
+            148.76,
+            307.1,
+            162.76
+          ],
+          "font": "FangSong",
+          "size": 14.0
+        },
+        {
+          "text": "招标代理项目编号：RTZB-2026-028",
+          "bbox": [
+            90.1,
+            176.01,
+            307.1,
+            190.01
+          ],
+          "font": "FangSong",
+          "size": 14.0
+        },
+        {
+          "text": "投标文件",
+          "bbox": [
+            225.75,
+            397.35,
+            369.75,
+            433.35
+          ],
+          "font": "FangSong",
+          "size": 36.0
+        }
+      ]
+    },
+    {
+      "label": "P4_TABLE",
+      "source": [
+        {
+          "text": "项目名称",
+          "bbox": [
+            97.2,
+            137.7,
+            145.32,
+            149.7
+          ],
+          "font": "FangSong_GB2312",
+          "size": 12.0
+        },
+        {
+          "text": "投标总价（元）",
+          "bbox": [
+            76.08,
+            195.78,
+            160.32,
+            207.78
+          ],
+          "font": "FangSong_GB2312",
+          "size": 12.0
+        },
+        {
+          "text": "实施周期",
+          "bbox": [
+            94.2,
+            247.98,
+            142.32,
+            259.98
+          ],
+          "font": "FangSong_GB2312",
+          "size": 12.0
+        }
+      ],
+      "generated": [
+        {
+          "text": "项目名称",
+          "bbox": [
+            94.3,
+            141.48,
+            142.3,
+            153.48
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "投标总价（元）",
+          "bbox": [
+            76.3,
+            196.33,
+            160.3,
+            208.33
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "实施周期",
+          "bbox": [
+            94.3,
+            248.93,
+            142.3,
+            260.93
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        }
+      ]
+    }
+  ],
+  "font_family_mismatch_count": 0,
+  "font_size_mismatch_count": 0,
+  "font_weight_mismatch_count": 0,
+  "alignment_mismatch_count": 0,
+  "source_variant_flattening_count": 0,
+  "foreign_font_superscript_count": 0
+}

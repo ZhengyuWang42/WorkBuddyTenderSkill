@@ -1,0 +1,115 @@
+{
+  "status": "ROUND_5_0_AWAITING_MANUAL_STYLE_CONFIRMATION",
+  "current_style_architecture_failure": {
+    "case_001": {
+      "paragraph_count": 140,
+      "paragraphs_with_pStyle": 0,
+      "paragraphs_without_pStyle": 140,
+      "active_numPr_count": 0,
+      "heading_style_counts": {}
+    },
+    "case_002": {
+      "paragraph_count": 144,
+      "paragraphs_with_pStyle": 0,
+      "paragraphs_without_pStyle": 144,
+      "active_numPr_count": 0,
+      "heading_style_counts": {}
+    },
+    "case_003": {
+      "paragraph_count": 194,
+      "paragraphs_with_pStyle": 0,
+      "paragraphs_without_pStyle": 194,
+      "active_numPr_count": 0,
+      "heading_style_counts": {}
+    }
+  },
+  "fixture": "EXTERNAL_UNVERSIONED:danyang-v1.1-numbering-sanity-fixture-v5.docx",
+  "cases": {
+    "case_001": {
+      "case": "case_001",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_0_style_architecture",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_0_style_architecture\\基础投标文件.docx",
+      "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_001\\render\\基础投标文件.pdf",
+      "pipeline_run": "run_5_0_style_architecture",
+      "word_python_reopen": "PASS",
+      "word_safe_scan": "PASS",
+      "deep_ooxml": "PASS",
+      "libreoffice_render": "PASS",
+      "word_manual_open": "PENDING_USER_CONFIRMATION",
+      "actual_rendered_pages": 22,
+      "source_section_count": 22,
+      "synthetic_layout_tables": 0,
+      "unsafe_ooxml": 0,
+      "style_architecture_result": "PASS",
+      "outline_result": "PASS",
+      "editability_result": "PASS",
+      "numbering_editability_result": "PASS",
+      "source_visual_result": "PASS",
+      "word_safe_regression_result": "PASS",
+      "contact_sheet": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_001\\render\\all-pages-contact-sheet.png",
+      "overall_status": "ROUND_5_0_AWAITING_MANUAL_STYLE_CONFIRMATION"
+    },
+    "case_002": {
+      "case": "case_002",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\run_5_0_style_architecture",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\run_5_0_style_architecture\\基础投标文件.docx",
+      "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_002\\render\\基础投标文件.pdf",
+      "pipeline_run": "run_5_0_style_architecture",
+      "word_python_reopen": "PASS",
+      "word_safe_scan": "PASS",
+      "deep_ooxml": "PASS",
+      "libreoffice_render": "PASS",
+      "word_manual_open": "PENDING_USER_CONFIRMATION",
+      "actual_rendered_pages": 31,
+      "source_section_count": 31,
+      "synthetic_layout_tables": 0,
+      "unsafe_ooxml": 0,
+      "style_architecture_result": "PASS",
+      "outline_result": "PASS",
+      "editability_result": "PASS",
+      "numbering_editability_result": "PASS",
+      "source_visual_result": "PASS",
+      "word_safe_regression_result": "PASS",
+      "contact_sheet": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_002\\render\\all-pages-contact-sheet.png",
+      "overall_status": "ROUND_5_0_AWAITING_MANUAL_STYLE_CONFIRMATION"
+    },
+    "case_003": {
+      "case": "case_003",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_0_style_architecture",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_0_style_architecture\\基础投标文件.docx",
+      "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_003\\render\\基础投标文件.pdf",
+      "pipeline_run": "run_5_0_style_architecture",
+      "word_python_reopen": "PASS",
+      "word_safe_scan": "PASS",
+      "deep_ooxml": "PASS",
+      "libreoffice_render": "PASS",
+      "word_manual_open": "PENDING_USER_CONFIRMATION",
+      "actual_rendered_pages": 33,
+      "source_section_count": 33,
+      "synthetic_layout_tables": 0,
+      "unsafe_ooxml": 0,
+      "style_architecture_result": "PASS",
+      "outline_result": "PASS",
+      "editability_result": "PASS",
+      "numbering_editability_result": "PASS",
+      "source_visual_result": "PASS",
+      "word_safe_regression_result": "PASS",
+      "contact_sheet": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\style_architecture_round50\\case_003\\render\\all-pages-contact-sheet.png",
+      "overall_status": "ROUND_5_0_AWAITING_MANUAL_STYLE_CONFIRMATION"
+    }
+  },
+  "tests": {
+    "tests": 216,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "time": 36.805,
+    "result": "PASS"
+  },
+  "commit_created": false,
+  "release_created": false,
+  "gold_read_or_created": false,
+  "blockers": [
+    "Desktop Word manual style/navigation confirmation is pending."
+  ]
+}

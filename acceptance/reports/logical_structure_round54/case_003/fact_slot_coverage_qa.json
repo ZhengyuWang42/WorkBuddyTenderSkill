@@ -1,0 +1,148 @@
+{
+  "case": "case_003",
+  "compatible_fact_slots": 8,
+  "resolved_compatible_slots": 7,
+  "filled_fact_slots": 7,
+  "unfilled_resolved_fact_slots": 0,
+  "unfilled_resolved_slot_details": [],
+  "wrong_fact_type_fills": 0,
+  "unresolved_slots_preserved": 1,
+  "slot_types": {
+    "PROJECT_NAME_SLOT": 4,
+    "UNKNOWN_SLOT": 11,
+    "PURCHASER_SLOT": 2,
+    "DURATION_SLOT": 1,
+    "PROJECT_AND_LOT_SLOT": 1
+  },
+  "slots": [
+    {
+      "slot_id": "slot-68-0",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 68,
+      "semantic_hint": "项目名称",
+      "original_text": "（项目名称）",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市供水管网漏损治理项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-70-2",
+      "slot_type": "PURCHASER_SLOT",
+      "source_page": 70,
+      "semantic_hint": "招标人名称",
+      "original_text": "(招标人名称)",
+      "allowed_fact_fields": [
+        "purchaser"
+      ],
+      "resolved_fact_fields": [
+        "purchaser"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市管理综合执法局",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-70-3",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 70,
+      "semantic_hint": "项目名称",
+      "original_text": "(项目名称)",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市供水管网漏损治理项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-70-4",
+      "slot_type": "DURATION_SLOT",
+      "source_page": 70,
+      "semantic_hint": "工期",
+      "original_text": "  ",
+      "allowed_fact_fields": [
+        "duration"
+      ],
+      "resolved_fact_fields": [],
+      "disposition": "UNRESOLVED_FACT_PRESERVED",
+      "unresolved_statuses": {
+        "duration": "NEEDS_REVIEW"
+      }
+    },
+    {
+      "slot_id": "slot-71-8",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 71,
+      "semantic_hint": "项目名称",
+      "original_text": "(项目名称)",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市供水管网漏损治理项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-73-12",
+      "slot_type": "PROJECT_AND_LOT_SLOT",
+      "source_page": 73,
+      "semantic_hint": "项目名称（标段名称）",
+      "original_text": "（项目名称（标段名称））",
+      "allowed_fact_fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "（肇源县城市供水管网漏损治理项目（标段名称））",
+      "method": "source_slot_partial"
+    },
+    {
+      "slot_id": "slot-94-16",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 94,
+      "semantic_hint": "项目名称 ",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市供水管网漏损治理项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-96-17",
+      "slot_type": "PURCHASER_SLOT",
+      "source_page": 96,
+      "semantic_hint": "招标人名称",
+      "original_text": "（招标人名称）",
+      "allowed_fact_fields": [
+        "purchaser"
+      ],
+      "resolved_fact_fields": [
+        "purchaser"
+      ],
+      "disposition": "FILLED",
+      "replacement": "肇源县城市管理综合执法局",
+      "method": "source_slot"
+    }
+  ],
+  "result": "PASS"
+}

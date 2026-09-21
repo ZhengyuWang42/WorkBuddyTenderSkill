@@ -1,0 +1,539 @@
+{
+  "artifact": "source_form_plan_case001",
+  "purpose": "QA/debug output only; production must not read this file",
+  "compiled_from": "document-wide pre-render source-form compiler",
+  "p3_planned_scope": [
+    "P42-R1",
+    "P42-R2",
+    "P42-R3",
+    "P42-R4",
+    "P42-R5",
+    "P42-R6",
+    "P42-R7",
+    "P42-R8"
+  ],
+  "p3_rule_plans": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": "slot-42-2",
+      "authoritative_slot_binding": "GEOMETRY_BINDING",
+      "allowed_fact_fields": [
+        "PURCHASER"
+      ],
+      "resolved_fact_fields": [
+        "PURCHASER"
+      ],
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": "slot-42-3",
+      "authoritative_slot_binding": "GEOMETRY_BINDING",
+      "allowed_fact_fields": [
+        "PROJECT_NAME",
+        "LOT_NAME"
+      ],
+      "resolved_fact_fields": [
+        "PROJECT_NAME"
+      ],
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "source_line_y": null,
+      "source_y": null,
+      "source_geometry": null,
+      "source_visible_text": null,
+      "source_form_field_id": null,
+      "authoritative_slot_id": null,
+      "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+      "allowed_fact_fields": [],
+      "resolved_fact_fields": [],
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "representation_type": null,
+      "derivation_reason": null,
+      "unresolved_reason": null
+    }
+  ],
+  "document_wide_rule_plans": [
+    {
+      "source_rule_id": "P40-R1",
+      "source_page": 40,
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P40-R2",
+      "source_page": 40,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P40-R3",
+      "source_page": 40,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P40-R4",
+      "source_page": 40,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": "slot-40-1",
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P40-R5",
+      "source_page": 40,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": "slot-40-1",
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R1",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R2",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R3",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R4",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R5",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R6",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": "slot-44-8",
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R7",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R8",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R9",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R10",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R11",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R12",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R13",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R14",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R15",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": "slot-44-9",
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P44-R16",
+      "source_page": 44,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": "slot-44-9",
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R1",
+      "source_page": 45,
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R2",
+      "source_page": 45,
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R3",
+      "source_page": 45,
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R4",
+      "source_page": 45,
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R5",
+      "source_page": 45,
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R6",
+      "source_page": 45,
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R7",
+      "source_page": 45,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R8",
+      "source_page": 45,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P45-R9",
+      "source_page": 45,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P47-R1",
+      "source_page": 47,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P47-R2",
+      "source_page": 47,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P48-R1",
+      "source_page": 48,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P48-R2",
+      "source_page": 48,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P53-R1",
+      "source_page": 53,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P53-R2",
+      "source_page": 53,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P60-R1",
+      "source_page": 60,
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "authoritative_slot_id": "slot-60-14",
+      "resolved_fact_fields": [
+        "PROJECT_NAME"
+      ],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P60-R2",
+      "source_page": 60,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    },
+    {
+      "source_rule_id": "P60-R3",
+      "source_page": 60,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "authoritative_slot_id": null,
+      "resolved_fact_fields": [],
+      "unresolved_reason": null
+    }
+  ],
+  "p3_policy_pass_count": 8,
+  "counts": {
+    "source_rules_total": 47,
+    "p3_rules": 8,
+    "document_wide_rules": 39
+  },
+  "not_yet_persisted": [
+    "per-field same-line hint text",
+    "owning-container text",
+    "preceding-container evidence",
+    "selected hint and hint selection reason",
+    "planned fact values and statuses",
+    "SourceFillApplication execution provenance"
+  ]
+}

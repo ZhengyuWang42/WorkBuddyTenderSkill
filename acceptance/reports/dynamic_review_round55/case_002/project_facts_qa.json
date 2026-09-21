@@ -1,0 +1,176 @@
+{
+  "case": "case_002",
+  "field_count": 23,
+  "summary": {
+    "total_fields": 23,
+    "resolved": 18,
+    "needs_review": 1,
+    "not_found": 4
+  },
+  "fields": {
+    "project_name": {
+      "status": "RESOLVED",
+      "value": "营收系统整合和硬件系统升级项目",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "project_number": {
+      "status": "RESOLVED",
+      "value": "ZBGXCG202601014",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "tender_number": {
+      "status": "RESOLVED",
+      "value": "RTZB-2026-028",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "lot_name": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "lot_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "purchaser": {
+      "status": "RESOLVED",
+      "value": "西安市自来水有限公司",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "tender_agency": {
+      "status": "RESOLVED",
+      "value": "陕西瑞通工程造价咨询有限公司",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "project_location": {
+      "status": "RESOLVED",
+      "value": "西安市内",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "procurement_scope": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Conflicting candidate values remain after normalization."
+    },
+    "budget": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "max_price": {
+      "status": "RESOLVED",
+      "value": "7507785.65",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "duration": {
+      "status": "RESOLVED",
+      "value": "18个月",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "quality_target": {
+      "status": "RESOLVED",
+      "value": "符合国家现行相关规定及验收规范的合格标准",
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_deadline": {
+      "status": "RESOLVED",
+      "value": "2026-04-14 09:30",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "bid_open_time": {
+      "status": "RESOLVED",
+      "value": "2026-04-14 09:30",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_open_location": {
+      "status": "RESOLVED",
+      "value": "西安市综改试验区国企招标集采交易平台(招采通平台)",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "bid_bond_amount": {
+      "status": "RESOLVED",
+      "value": "50000",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_bond_form": {
+      "status": "RESOLVED",
+      "value": "本项目接受所有符合国家相关规定形式的保证金",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "consortium_allowed": {
+      "status": "RESOLVED",
+      "value": false,
+      "candidate_count": 6,
+      "evidence_count": 6,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "procurement_method": {
+      "status": "RESOLVED",
+      "value": "公开招标",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "bid_validity": {
+      "status": "RESOLVED",
+      "value": "90日历天",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "submission_method": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "electronic_platform": {
+      "status": "RESOLVED",
+      "value": "西安市综改试验区国企招标集采交易平台",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    }
+  },
+  "lot_name_candidates": [],
+  "problems": [],
+  "result": "PASS"
+}

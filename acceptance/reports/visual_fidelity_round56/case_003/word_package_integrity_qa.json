@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "case": "case_003",
+  "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_6_visual_fidelity\\基础投标文件.docx",
+  "docx_bytes": 56161,
+  "xlsx_bytes": 28889,
+  "zip_integrity": "PASS",
+  "part_count": 14,
+  "python_docx_reopen": "PASS",
+  "paragraph_count": 194,
+  "table_count": 16,
+  "sections": 33,
+  "unsafe_ooxml": 0,
+  "unsafe_parts": [],
+  "xlsx_reopen": "PASS",
+  "xlsx_sheets": [
+    "投标项目复核表"
+  ]
+}

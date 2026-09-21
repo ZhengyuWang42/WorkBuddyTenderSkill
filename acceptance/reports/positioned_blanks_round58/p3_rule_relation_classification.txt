@@ -1,0 +1,58 @@
+#   relation_type          x0       x1       y       ovl    gap   context
+1   PLACEHOLDER_UNDERLINE     94.80   194.60  138.35   0.75 -0.71 (采购人名称)
+2   PLACEHOLDER_UNDERLINE    198.10   375.70  158.40   1.00 -0.58 我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿
+3   PLACEHOLDER_UNDERLINE    169.65   323.60  178.40   0.40 -0.62 （不含税），（小写）
+4   GAP_FILL_RULE            384.60   459.00  178.40   0.00   n/a （不含税），（小写）
+5   GAP_FILL_RULE            131.85   181.40  198.35   0.00   n/a 价，供货期
+6   GAP_FILL_RULE             95.25   151.05  218.40   0.00   n/a 达到
+7   VALUE_UNDERLINE          352.80   388.80  318.35   0.33 -0.71 90
+8   PLACEHOLDER_UNDERLINE    112.80   208.80  418.40   1.00 -0.62 7、（其他补充说明）。
+
+--- rule 1: PLACEHOLDER_UNDERLINE
+    owner   : '(采购人名称)'
+    prefix  : None None
+    suffix  : '：' 194.64
+    overlap : 0.753 gap: -0.71
+    reason  : rule extent is occupied by bracketed placeholder text
+--- rule 2: PLACEHOLDER_UNDERLINE
+    owner   : '我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意'
+    prefix  : None None
+    suffix  : None None
+    overlap : 1.0 gap: -0.58
+    reason  : rule extent is occupied by bracketed placeholder text
+--- rule 3: PLACEHOLDER_UNDERLINE
+    owner   : '（不含税），（小写）'
+    prefix  : '以人民币（大写）' 169.44
+    suffix  : '元的响应报' 459.0
+    overlap : 0.396 gap: -0.62
+    reason  : rule extent is occupied by bracketed placeholder text
+--- rule 4: GAP_FILL_RULE
+    owner   : None
+    prefix  : '（不含税），（小写）' 384.48
+    suffix  : '元的响应报' 459.0
+    overlap : 0.0 gap: None
+    reason  : rule extent is clear of source text
+--- rule 5: GAP_FILL_RULE
+    owner   : None
+    prefix  : '价，供货期' 131.64
+    suffix  : '，按合同约定实施并完成本项目规定的所有工作内容，供货质量' 181.44
+    overlap : 0.0 gap: None
+    reason  : rule extent is clear of source text
+--- rule 6: GAP_FILL_RULE
+    owner   : None
+    prefix  : '达到' 95.04
+    suffix  : '。' 151.08
+    overlap : 0.0 gap: None
+    reason  : rule extent is clear of source text
+--- rule 7: VALUE_UNDERLINE
+    owner   : '90'
+    prefix  : '4、本项目询比有效期为提交响应文件截止之日起' 352.8
+    suffix  : '日历天，在询比有效期内' 388.8
+    overlap : 0.333 gap: -0.71
+    reason  : rule extent is occupied by a resolved source value
+--- rule 8: PLACEHOLDER_UNDERLINE
+    owner   : '7、（其他补充说明）。'
+    prefix  : None None
+    suffix  : None None
+    overlap : 1.0 gap: -0.62
+    reason  : rule extent is occupied by bracketed placeholder text

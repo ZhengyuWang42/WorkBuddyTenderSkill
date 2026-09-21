@@ -1,0 +1,232 @@
+{
+  "case": "case_003",
+  "pdf_table_fragments": 16,
+  "logical_table_count": 16,
+  "logical_rows": 266,
+  "continuation_fragments_detected": 0,
+  "continuation_fragments_merged": 0,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "cell_text_continuations": 0,
+  "source_characters": 1435,
+  "rebuilt_characters": 1435,
+  "character_multiset_preserved": true,
+  "editable_table_characters": 1435,
+  "editable_table_characters_preserved": true,
+  "generated_table_count": 16,
+  "word_table_count_matches_logical": true,
+  "docx_table_characters": 1062,
+  "continuation_cell_texts_checked": 0,
+  "continuation_cell_texts_missing": 0,
+  "continuation_cell_text_missing_samples": [],
+  "fill_slots_on_continuation_fragments": 0,
+  "fill_slots_on_continuation_details": [],
+  "long_prose_cells_measured": 1,
+  "long_prose_alignment_mismatches": 0,
+  "long_prose_mismatch_samples": [],
+  "decisions": [
+    {
+      "previous_page": 71,
+      "page": 77,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "pages are not adjacent (71 -> 77)",
+        "table extent differs (left 55.17..540.36, right 42.42..549.33)",
+        "page-driven split (earlier fragment reaches the band bottom 444.10 of 444.10; later resumes at the band top 112.22 of 157.95)",
+        "table extent differs (left 55.17..540.36, right 42.42..549.33)",
+        "text resumes mid-item ('期' -> '设')"
+      ]
+    },
+    {
+      "previous_page": 77,
+      "page": 78,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "table extent differs (left 42.42..549.33, right 55.95..535.79)",
+        "page-driven split (earlier fragment reaches the band bottom 674.47 of 674.47; later resumes at the band top 112.22 of 112.22)",
+        "table extent differs (left 42.42..549.33, right 55.95..535.79)",
+        "text resumes mid-item ('号' -> '序')"
+      ]
+    },
+    {
+      "previous_page": 78,
+      "page": 79,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "column boundaries do not align (6 unmatched, tolerance 9.60 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 675.22 of 675.22; later resumes at the band top 112.22 of 112.22)",
+        "column boundaries do not align (6 unmatched, tolerance 9.60 pt)",
+        "text resumes mid-item ('号' -> '工')"
+      ]
+    },
+    {
+      "previous_page": 79,
+      "page": 82,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "pages are not adjacent (79 -> 82)",
+        "column boundaries do not align (1 unmatched, tolerance 9.45 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 698.49 of 698.49; later resumes at the band top 112.22 of 112.22)",
+        "column boundaries do not align (1 unmatched, tolerance 9.45 pt)",
+        "text resumes mid-item ('种' -> '用')"
+      ]
+    },
+    {
+      "previous_page": 82,
+      "page": 83,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 697.74 of band bottom 697.74 within 29.28 pt: True; later starts at 301.31 of band top 112.22: False)",
+        "table extent differs (left 61.20..530.54, right 88.97..506.56)",
+        "not a page-driven split (earlier ends at 697.74 of band bottom 697.74 within 29.28 pt: True; later starts at 301.31 of band top 112.22: False)",
+        "table extent differs (left 61.20..530.54, right 88.97..506.56)",
+        "text resumes mid-item ('途' -> '序')"
+      ]
+    },
+    {
+      "previous_page": 83,
+      "page": 84,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "table extent differs (left 88.97..506.56, right 97.25..493.76)",
+        "page-driven split (earlier fragment reaches the band bottom 537.95 of 537.95; later resumes at the band top 149.74 of 301.31)",
+        "table extent differs (left 88.97..506.56, right 97.25..493.76)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 84,
+      "page": 85,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "table extent differs (left 97.25..493.76, right 83.71..543.34)",
+        "page-driven split (earlier fragment reaches the band bottom 407.23 of 407.23; later resumes at the band top 112.17 of 149.74)",
+        "table extent differs (left 97.25..493.76, right 83.71..543.34)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 85,
+      "page": 86,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "column boundaries do not align (3 unmatched, tolerance 9.19 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 705.32 of 705.32; later resumes at the band top 91.13 of 112.17)",
+        "column boundaries do not align (3 unmatched, tolerance 9.19 pt)",
+        "text resumes mid-item ('间' -> '分')"
+      ]
+    },
+    {
+      "previous_page": 86,
+      "page": 87,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 711.32 of 711.32; later resumes at the band top 117.35 of 91.13)",
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "text resumes mid-item ('目' -> '投')"
+      ]
+    },
+    {
+      "previous_page": 87,
+      "page": 88,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 646.08 of band bottom 677.53 within 28.46 pt: False; later starts at 170.71 of band top 108.38: False)",
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "not a page-driven split (earlier ends at 646.08 of band bottom 677.53 within 28.46 pt: False; later starts at 170.71 of band top 108.38: False)",
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "text resumes mid-item ('中' -> '单')"
+      ]
+    },
+    {
+      "previous_page": 88,
+      "page": 89,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.7,
+      "reasons": [
+        "not a page-driven split (earlier ends at 432.81 of band bottom 677.53 within 28.46 pt: False; later starts at 122.60 of band top 108.38: True)",
+        "not a page-driven split (earlier ends at 432.81 of band bottom 677.53 within 28.46 pt: False; later starts at 122.60 of band top 108.38: True)",
+        "equivalent grid (5 vs 2 columns; one fragment merges adjacent columns of the other)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 89,
+      "page": 90,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 643.08 of band bottom 677.53 within 28.46 pt: False; later starts at 116.60 of band top 108.38: True)",
+        "not a page-driven split (earlier ends at 643.08 of band bottom 677.53 within 28.46 pt: False; later starts at 116.60 of band top 108.38: True)",
+        "identical column grid (2 columns)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 90,
+      "page": 91,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 644.58 of band bottom 677.53 within 28.46 pt: False; later starts at 129.44 of band top 108.38: True)",
+        "column boundaries do not align (1 unmatched, tolerance 9.19 pt)",
+        "not a page-driven split (earlier ends at 644.58 of band bottom 677.53 within 28.46 pt: False; later starts at 129.44 of band top 108.38: True)",
+        "column boundaries do not align (1 unmatched, tolerance 9.19 pt)",
+        "text resumes mid-item ('）' -> '诉')"
+      ]
+    },
+    {
+      "previous_page": 91,
+      "page": 92,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 677.53 of 677.53; later resumes at the band top 108.38 of 108.38)",
+        "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+        "text resumes mid-item ('二' -> '序')"
+      ]
+    },
+    {
+      "previous_page": 92,
+      "page": 94,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "pages are not adjacent (92 -> 94)",
+        "not a page-driven split (earlier ends at 500.42 of band bottom 677.53 within 28.46 pt: False; later starts at 108.47 of band top 108.38: True)",
+        "table extent differs (left 88.98..548.60, right 69.47..559.10)",
+        "not a page-driven split (earlier ends at 500.42 of band bottom 677.53 within 28.46 pt: False; later starts at 108.47 of band top 108.38: True)",
+        "table extent differs (left 88.98..548.60, right 69.47..559.10)",
+        "no comparable content cell"
+      ]
+    }
+  ],
+  "result": "PASS"
+}

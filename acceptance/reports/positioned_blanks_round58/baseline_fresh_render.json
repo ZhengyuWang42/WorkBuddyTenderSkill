@@ -1,0 +1,191 @@
+{
+  "status": "ROUND58_BASELINE_FRESH_RENDER",
+  "render": {
+    "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+    "argv": [
+      "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/round58_render/_lo_profile_128fc6cb7326",
+      "--headless",
+      "--norestore",
+      "--invisible",
+      "--convert-to",
+      "pdf",
+      "--outdir",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_7_geometry_rule_matching\\基础投标文件.docx"
+    ],
+    "stderr": "Could not find platform independent libraries <prefix>",
+    "returncode": 0,
+    "pdf_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_render\\基础投标文件.pdf",
+    "pdf_bytes": 294072,
+    "pdf_page_count": 22,
+    "pdf_reopen": true
+  },
+  "table_geometry": {
+    "response_appendix": {
+      "table_outer_x0_error": -0.36,
+      "table_outer_x1_error": -0.04,
+      "table_center_error": -0.2,
+      "table_width_error": 0.32,
+      "table_top_y_error": 3.26,
+      "table_bottom_y_error": 10.46,
+      "cumulative_row_height_drift": 7.2
+    },
+    "quotation": {
+      "table_outer_x0_error": -0.36,
+      "table_outer_x1_error": -0.04,
+      "table_center_error": -0.2,
+      "table_width_error": 0.32,
+      "table_top_y_error": 3.66,
+      "table_bottom_y_error": 37.76,
+      "cumulative_row_height_drift": 34.1
+    }
+  },
+  "rule_matrices": {
+    "cover": {
+      "raw_source_rule_count": 5,
+      "raw_generated_rule_count": 8,
+      "normalized_source_rule_count": 5,
+      "normalized_generated_rule_count": 3,
+      "matched_rule_count": 2,
+      "lost_source_rule_count": 3,
+      "invented_rule_count": 1,
+      "matched_out_of_tolerance_count": 2,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "response_letter": {
+      "raw_source_rule_count": 8,
+      "raw_generated_rule_count": 6,
+      "normalized_source_rule_count": 8,
+      "normalized_generated_rule_count": 3,
+      "matched_rule_count": 1,
+      "lost_source_rule_count": 7,
+      "invented_rule_count": 2,
+      "matched_out_of_tolerance_count": 1,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "response_appendix": {
+      "raw_source_rule_count": 0,
+      "raw_generated_rule_count": 15,
+      "normalized_source_rule_count": 0,
+      "normalized_generated_rule_count": 0,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 0,
+      "invented_rule_count": 0,
+      "matched_out_of_tolerance_count": 0,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "quotation_signature": {
+      "raw_source_rule_count": 2,
+      "raw_generated_rule_count": 15,
+      "normalized_source_rule_count": 2,
+      "normalized_generated_rule_count": 2,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 2,
+      "invented_rule_count": 2,
+      "matched_out_of_tolerance_count": 0,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    }
+  },
+  "cover_anchors": [
+    {
+      "role": "chapter_title",
+      "source_x": 192.72,
+      "generated_x": 200.95,
+      "x_error": 8.23,
+      "source_y": 79.71,
+      "generated_y": 87.71,
+      "y_error": 8.0
+    },
+    {
+      "role": "document_title",
+      "source_x": 241.44,
+      "generated_x": 242.7,
+      "x_error": 1.26,
+      "source_y": 291.28,
+      "generated_y": 322.15,
+      "y_error": 30.87
+    },
+    {
+      "role": "project_number",
+      "source_x": 262.8,
+      "generated_x": 216.7,
+      "x_error": -46.1,
+      "source_y": 339.18,
+      "generated_y": 370.88,
+      "y_error": 31.7
+    },
+    {
+      "role": "supplier_row",
+      "source_x": 159.6,
+      "generated_x": 159.7,
+      "x_error": 0.1,
+      "source_y": 557.41,
+      "generated_y": 593.56,
+      "y_error": 36.15
+    },
+    {
+      "role": "representative_row",
+      "source_x": 139.8,
+      "generated_x": 102.3,
+      "x_error": -37.5,
+      "source_y": 596.41,
+      "generated_y": 637.01,
+      "y_error": 40.6
+    },
+    {
+      "role": "date_row",
+      "source_x": 283.2,
+      "generated_x": 214.3,
+      "x_error": -68.9,
+      "source_y": 635.41,
+      "generated_y": 680.46,
+      "y_error": 45.05
+    }
+  ],
+  "quotation_row_diagnostics": {
+    "source_row_boundaries": [
+      110.79,
+      150.29,
+      189.79,
+      268.29,
+      346.79,
+      386.29,
+      425.79,
+      465.29,
+      504.79,
+      544.29,
+      628.69
+    ],
+    "generated_row_boundaries": [
+      114.45,
+      154.55,
+      194.55,
+      296.45,
+      381.45,
+      421.45,
+      461.45,
+      501.45,
+      541.45,
+      581.45,
+      666.45
+    ],
+    "row_boundary_drift_from_table_top": [
+      0.0,
+      0.6,
+      1.1,
+      24.5,
+      31.0,
+      31.5,
+      32.0,
+      32.5,
+      33.0,
+      33.5,
+      34.1
+    ]
+  }
+}

@@ -1,0 +1,808 @@
+{
+  "cover": {
+    "pairs": [
+      {
+        "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）",
+        "source_page": null,
+        "source": {
+          "x0": 289.3,
+          "x1": 387.1,
+          "y": 607.8,
+          "width": 97.8,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "法定代表人或其委托代理人：|（签字或盖章）",
+          "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+        },
+        "generated": {
+          "x0": 159.7,
+          "x1": 452.95,
+          "y": 604.06,
+          "width": 293.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 29,
+          "parts": 2,
+          "context": "供应商：（盖单位公章）",
+          "semantic_context": "供应商：（盖单位公章）"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "UNDERLINED_WHITESPACE",
+        "source_x0": 289.3,
+        "generated_x0": 159.7,
+        "x0_error": -129.6,
+        "source_x1": 387.1,
+        "generated_x1": 452.95,
+        "x1_error": 65.85,
+        "source_y": 607.8,
+        "generated_y": 604.06,
+        "y_error": -3.74,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      },
+      {
+        "semantic_context": "年|月|日",
+        "source_page": null,
+        "source": {
+          "x0": 294.7,
+          "x1": 335.0,
+          "y": 646.8,
+          "width": 40.3,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "年|月|日",
+          "semantic_context": "年|月|日"
+        },
+        "generated": {
+          "x0": 102.3,
+          "x1": 338.05,
+          "y": 647.51,
+          "width": 235.75,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 15,
+          "parts": 2,
+          "context": "法定代表人或其委托代理人：|（签字或盖章）",
+          "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "UNDERLINED_WHITESPACE",
+        "source_x0": 294.7,
+        "generated_x0": 102.3,
+        "x0_error": -192.4,
+        "source_x1": 335.0,
+        "generated_x1": 338.05,
+        "x1_error": 3.05,
+        "source_y": 646.8,
+        "generated_y": 647.51,
+        "y_error": 0.71,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      }
+    ],
+    "displaced": [
+      {
+        "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）",
+        "source_page": null,
+        "source": {
+          "x0": 289.3,
+          "x1": 387.1,
+          "y": 607.8,
+          "width": 97.8,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "法定代表人或其委托代理人：|（签字或盖章）",
+          "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+        },
+        "generated": {
+          "x0": 159.7,
+          "x1": 452.95,
+          "y": 604.06,
+          "width": 293.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 29,
+          "parts": 2,
+          "context": "供应商：（盖单位公章）",
+          "semantic_context": "供应商：（盖单位公章）"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "UNDERLINED_WHITESPACE",
+        "source_x0": 289.3,
+        "generated_x0": 159.7,
+        "x0_error": -129.6,
+        "source_x1": 387.1,
+        "generated_x1": 452.95,
+        "x1_error": 65.85,
+        "source_y": 607.8,
+        "generated_y": 604.06,
+        "y_error": -3.74,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      },
+      {
+        "semantic_context": "年|月|日",
+        "source_page": null,
+        "source": {
+          "x0": 294.7,
+          "x1": 335.0,
+          "y": 646.8,
+          "width": 40.3,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "年|月|日",
+          "semantic_context": "年|月|日"
+        },
+        "generated": {
+          "x0": 102.3,
+          "x1": 338.05,
+          "y": 647.51,
+          "width": 235.75,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 15,
+          "parts": 2,
+          "context": "法定代表人或其委托代理人：|（签字或盖章）",
+          "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "UNDERLINED_WHITESPACE",
+        "source_x0": 294.7,
+        "generated_x0": 102.3,
+        "x0_error": -192.4,
+        "source_x1": 335.0,
+        "generated_x1": 338.05,
+        "x1_error": 3.05,
+        "source_y": 646.8,
+        "generated_y": 647.51,
+        "y_error": 0.71,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      }
+    ],
+    "lost": [
+      {
+        "x0": 205.65,
+        "x1": 389.6,
+        "y": 568.8,
+        "width": 183.95,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "供应商：|（盖单位公章）",
+        "semantic_context": "供应商：|（盖单位公章）"
+      },
+      {
+        "x0": 214.2,
+        "x1": 283.2,
+        "y": 646.8,
+        "width": 69.0,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日",
+        "semantic_context": "年|月|日"
+      },
+      {
+        "x0": 346.4,
+        "x1": 392.5,
+        "y": 646.8,
+        "width": 46.1,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "年|月|日",
+        "semantic_context": "年|月|日"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 214.3,
+        "x1": 386.8,
+        "y": 690.96,
+        "width": 172.5,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 24,
+        "parts": 4,
+        "context": "年月日",
+        "semantic_context": "年月日"
+      }
+    ],
+    "kind_mismatch": [],
+    "raw_source_rule_count": 5,
+    "raw_generated_rule_count": 8,
+    "normalized_source_rule_count": 5,
+    "normalized_generated_rule_count": 3,
+    "source_rule_count": 5,
+    "generated_rule_count": 3,
+    "matched_rule_count": 2,
+    "lost_source_rule_count": 3,
+    "invented_rule_count": 1,
+    "matched_out_of_tolerance_count": 2,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 192.4,
+    "rule_x1_error_max": 65.85,
+    "rule_y_error_max": 3.74,
+    "accounting_invariant_failures": [],
+    "source_rules": [
+      {
+        "x0": 205.65,
+        "x1": 389.6,
+        "y": 568.8,
+        "width": 183.95,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "供应商：|（盖单位公章）",
+        "semantic_context": "供应商：|（盖单位公章）"
+      },
+      {
+        "x0": 289.3,
+        "x1": 387.1,
+        "y": 607.8,
+        "width": 97.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "法定代表人或其委托代理人：|（签字或盖章）",
+        "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.2,
+        "x1": 283.2,
+        "y": 646.8,
+        "width": 69.0,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日",
+        "semantic_context": "年|月|日"
+      },
+      {
+        "x0": 294.7,
+        "x1": 335.0,
+        "y": 646.8,
+        "width": 40.3,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日",
+        "semantic_context": "年|月|日"
+      },
+      {
+        "x0": 346.4,
+        "x1": 392.5,
+        "y": 646.8,
+        "width": 46.1,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "年|月|日",
+        "semantic_context": "年|月|日"
+      }
+    ],
+    "generated_rules": [
+      {
+        "x0": 159.7,
+        "x1": 452.95,
+        "y": 604.06,
+        "width": 293.25,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 29,
+        "parts": 2,
+        "context": "供应商：（盖单位公章）",
+        "semantic_context": "供应商：（盖单位公章）"
+      },
+      {
+        "x0": 102.3,
+        "x1": 338.05,
+        "y": 647.51,
+        "width": 235.75,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 15,
+        "parts": 2,
+        "context": "法定代表人或其委托代理人：|（签字或盖章）",
+        "semantic_context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.3,
+        "x1": 386.8,
+        "y": 690.96,
+        "width": 172.5,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 24,
+        "parts": 4,
+        "context": "年月日",
+        "semantic_context": "年月日"
+      }
+    ]
+  },
+  "response_letter": {
+    "pairs": [
+      {
+        "semantic_context": "达到|。",
+        "source_page": null,
+        "source": {
+          "x0": 95.25,
+          "x1": 151.05,
+          "y": 218.4,
+          "width": 55.8,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "达到|。",
+          "semantic_context": "达到|。"
+        },
+        "generated": {
+          "x0": 70.9,
+          "x1": 142.9,
+          "y": 213.0,
+          "width": 72.0,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+          "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "VALUE_WITH_UNDERLINE",
+        "source_x0": 95.25,
+        "generated_x0": 70.9,
+        "x0_error": -24.35,
+        "source_x1": 151.05,
+        "generated_x1": 142.9,
+        "x1_error": -8.15,
+        "source_y": 218.4,
+        "generated_y": 213.0,
+        "y_error": -5.4,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      }
+    ],
+    "displaced": [
+      {
+        "semantic_context": "达到|。",
+        "source_page": null,
+        "source": {
+          "x0": 95.25,
+          "x1": 151.05,
+          "y": 218.4,
+          "width": 55.8,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "达到|。",
+          "semantic_context": "达到|。"
+        },
+        "generated": {
+          "x0": 70.9,
+          "x1": 142.9,
+          "y": 213.0,
+          "width": 72.0,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+          "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报"
+        },
+        "source_kind": "VECTOR_RULE",
+        "generated_kind": "VALUE_WITH_UNDERLINE",
+        "source_x0": 95.25,
+        "generated_x0": 70.9,
+        "x0_error": -24.35,
+        "source_x1": 151.05,
+        "generated_x1": 142.9,
+        "x1_error": -8.15,
+        "source_y": 218.4,
+        "generated_y": 213.0,
+        "y_error": -5.4,
+        "mandatory_geometry_ok": false,
+        "kind_compatible": true
+      }
+    ],
+    "lost": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "(采购人名称)|：",
+        "semantic_context": "(采购人名称)|："
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "semantic_context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+        "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+        "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "semantic_context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内",
+        "semantic_context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。",
+        "semantic_context": "7、（其他补充说明）。"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 304.9,
+        "x1": 310.9,
+        "y": 149.55,
+        "width": 6.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "河南省水利第二工程局集团有限公司：",
+        "semantic_context": "河南省水利第二工程局集团有限公司："
+      },
+      {
+        "x0": 96.95,
+        "x1": 192.95,
+        "y": 170.8,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+        "semantic_context": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程"
+      },
+      {
+        "x0": 441.7,
+        "x1": 513.7,
+        "y": 191.9,
+        "width": 72.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全",
+        "semantic_context": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全"
+      },
+      {
+        "x0": 384.6,
+        "x1": 458.9,
+        "y": 213.0,
+        "width": 74.3,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+        "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 94.8,
+        "x1": 220.8,
+        "y": 446.25,
+        "width": 126.0,
+        "parts": 2,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。",
+        "semantic_context": "7、（其他补充说明）。"
+      }
+    ],
+    "kind_mismatch": [],
+    "raw_source_rule_count": 8,
+    "raw_generated_rule_count": 6,
+    "normalized_source_rule_count": 8,
+    "normalized_generated_rule_count": 6,
+    "source_rule_count": 8,
+    "generated_rule_count": 6,
+    "matched_rule_count": 1,
+    "lost_source_rule_count": 7,
+    "invented_rule_count": 5,
+    "matched_out_of_tolerance_count": 1,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 24.35,
+    "rule_x1_error_max": 8.15,
+    "rule_y_error_max": 5.4,
+    "accounting_invariant_failures": [],
+    "source_rules": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "(采购人名称)|：",
+        "semantic_context": "(采购人名称)|："
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "semantic_context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+        "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+        "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "semantic_context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 218.4,
+        "width": 55.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "达到|。",
+        "semantic_context": "达到|。"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内",
+        "semantic_context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。",
+        "semantic_context": "7、（其他补充说明）。"
+      }
+    ],
+    "generated_rules": [
+      {
+        "x0": 304.9,
+        "x1": 310.9,
+        "y": 149.55,
+        "width": 6.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "河南省水利第二工程局集团有限公司：",
+        "semantic_context": "河南省水利第二工程局集团有限公司："
+      },
+      {
+        "x0": 96.95,
+        "x1": 192.95,
+        "y": 170.8,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+        "semantic_context": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程"
+      },
+      {
+        "x0": 441.7,
+        "x1": 513.7,
+        "y": 191.9,
+        "width": 72.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全",
+        "semantic_context": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全"
+      },
+      {
+        "x0": 70.9,
+        "x1": 142.9,
+        "y": 213.0,
+        "width": 72.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+        "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 458.9,
+        "y": 213.0,
+        "width": 74.3,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+        "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 94.8,
+        "x1": 220.8,
+        "y": 446.25,
+        "width": 126.0,
+        "parts": 2,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。",
+        "semantic_context": "7、（其他补充说明）。"
+      }
+    ]
+  },
+  "response_appendix": {
+    "pairs": [],
+    "displaced": [],
+    "lost": [],
+    "invented": [],
+    "kind_mismatch": [],
+    "raw_source_rule_count": 0,
+    "raw_generated_rule_count": 15,
+    "normalized_source_rule_count": 0,
+    "normalized_generated_rule_count": 0,
+    "source_rule_count": 0,
+    "generated_rule_count": 0,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 0,
+    "invented_rule_count": 0,
+    "matched_out_of_tolerance_count": 0,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "accounting_invariant_failures": [],
+    "source_rules": [],
+    "generated_rules": []
+  },
+  "quotation_signature": {
+    "pairs": [],
+    "displaced": [],
+    "lost": [
+      {
+        "x0": 380.4,
+        "x1": 451.8,
+        "y": 650.15,
+        "width": 71.4,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "供应商：|(盖单位公章)",
+        "semantic_context": "供应商：|(盖单位公章)"
+      },
+      {
+        "x0": 392.4,
+        "x1": 452.4,
+        "y": 673.55,
+        "width": 60.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "法定代表人或其委托代理人：|(签字或盖章)",
+        "semantic_context": "法定代表人或其委托代理人：|(签字或盖章)"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 334.9,
+        "x1": 520.9,
+        "y": 691.78,
+        "width": 186.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 2,
+        "context": "供应商：(盖单位公章)",
+        "semantic_context": "供应商：(盖单位公章)"
+      },
+      {
+        "x0": 238.9,
+        "x1": 520.9,
+        "y": 719.78,
+        "width": 282.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 9,
+        "parts": 2,
+        "context": "法定代表人或其委托代理人：(签字或盖章)",
+        "semantic_context": "法定代表人或其委托代理人：(签字或盖章)"
+      }
+    ],
+    "kind_mismatch": [],
+    "raw_source_rule_count": 2,
+    "raw_generated_rule_count": 15,
+    "normalized_source_rule_count": 2,
+    "normalized_generated_rule_count": 2,
+    "source_rule_count": 2,
+    "generated_rule_count": 2,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 2,
+    "invented_rule_count": 2,
+    "matched_out_of_tolerance_count": 0,
+    "rule_kind_mismatch_count": 0,
+    "rule_x0_error_max": 0.0,
+    "rule_x1_error_max": 0.0,
+    "rule_y_error_max": 0.0,
+    "accounting_invariant_failures": [],
+    "source_rules": [
+      {
+        "x0": 380.4,
+        "x1": 451.8,
+        "y": 650.15,
+        "width": 71.4,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "供应商：|(盖单位公章)",
+        "semantic_context": "供应商：|(盖单位公章)"
+      },
+      {
+        "x0": 392.4,
+        "x1": 452.4,
+        "y": 673.55,
+        "width": 60.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "法定代表人或其委托代理人：|(签字或盖章)",
+        "semantic_context": "法定代表人或其委托代理人：|(签字或盖章)"
+      }
+    ],
+    "generated_rules": [
+      {
+        "x0": 334.9,
+        "x1": 520.9,
+        "y": 691.78,
+        "width": 186.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 2,
+        "context": "供应商：(盖单位公章)",
+        "semantic_context": "供应商：(盖单位公章)"
+      },
+      {
+        "x0": 238.9,
+        "x1": 520.9,
+        "y": 719.78,
+        "width": 282.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 9,
+        "parts": 2,
+        "context": "法定代表人或其委托代理人：(签字或盖章)",
+        "semantic_context": "法定代表人或其委托代理人：(签字或盖章)"
+      }
+    ]
+  }
+}

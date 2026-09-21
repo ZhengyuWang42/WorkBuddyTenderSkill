@@ -1,0 +1,42 @@
+{
+  "case": "case_003",
+  "directory": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_5_dynamic_review_final_audit",
+  "artifact_count": 14,
+  "present": [
+    "document.lines.txt",
+    "fact_gap_packet.json",
+    "facts_review_packet.json",
+    "generation_report.json",
+    "metadata.json",
+    "normalized_document.json",
+    "project_facts.json",
+    "qa_report.json",
+    "review_evidence_packet.json",
+    "review_evidence_qa.json",
+    "semantic_candidate_results.json",
+    "source_format_qa.json",
+    "基础投标文件.docx",
+    "投标项目复核表.xlsx"
+  ],
+  "missing": [],
+  "extra_non_contract_files": [],
+  "core_files": {
+    "project_facts.json": {
+      "bytes": 51974,
+      "sha256": "ac0b0261fac753365a0177c437c715ffb4eeca4175382ebb566c44e2113f2efb"
+    },
+    "投标项目复核表.xlsx": {
+      "bytes": 28890,
+      "sha256": "dadd568578a02497da4eee7e7fc04ec01a2d61709ff592248622a34090541b61"
+    },
+    "基础投标文件.docx": {
+      "bytes": 56322,
+      "sha256": "b899eb0bd4dde3706792fe1e3790c5d9151b185f359d76b202b9f57ac2b1aa19"
+    },
+    "qa_report.json": {
+      "bytes": 386582,
+      "sha256": "c303de01bc1bd9612ae084dc47a9f3fb72d6e8bcdce1f13d76e8b5b74c7544cf"
+    }
+  },
+  "result": "PASS"
+}

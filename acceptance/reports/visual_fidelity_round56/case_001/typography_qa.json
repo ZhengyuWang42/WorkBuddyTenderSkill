@@ -1,0 +1,517 @@
+{
+  "schema_version": "1.0",
+  "case": "case_001",
+  "method": "rendered ink weight of the same source glyph window, source vs generated",
+  "roles_measured": 8,
+  "important_typography_weight_mismatch_count": 0,
+  "important_heading_role_mismatch_count": 0,
+  "mismatched_roles": [],
+  "roles": [
+    {
+      "role": "TOC_TITLE",
+      "sample_text": "目录",
+      "source_visual_bold": true,
+      "source_ratio": 1.42,
+      "source_page": 41,
+      "generated_page": 2,
+      "source": {
+        "text": "目录",
+        "size": 15.0,
+        "font": "FangSong",
+        "bbox": [
+          278.76,
+          80.17,
+          316.32,
+          95.51
+        ],
+        "glyphs": 2,
+        "weight_index": 0.18796,
+        "ink_ratio": 0.16448
+      },
+      "generated": {
+        "text": "目录",
+        "size": 15.0,
+        "font": "FangSong",
+        "bbox": [
+          228.85,
+          85.7,
+          258.85,
+          100.7
+        ],
+        "glyphs": 2,
+        "weight_index": 0.25969,
+        "ink_ratio": 0.23193
+      },
+      "weight_ratio_generated_over_source": 1.382
+    },
+    {
+      "role": "HEADING_1",
+      "sample_text": "一、响应函及响应",
+      "source_visual_bold": true,
+      "source_ratio": 1.536,
+      "source_page": 41,
+      "generated_page": 2,
+      "source": {
+        "text": "一、响应函及响应函附录",
+        "size": 14.05,
+        "font": "FangSong",
+        "bbox": [
+          70.8,
+          111.82,
+          224.89,
+          126.19
+        ],
+        "glyphs": 8,
+        "weight_index": 0.11087,
+        "ink_ratio": 0.09832
+      },
+      "generated": {
+        "text": "一、响应函及响应函附录",
+        "size": 14.0,
+        "font": "FangSong",
+        "bbox": [
+          70.9,
+          124.06,
+          224.9,
+          138.06
+        ],
+        "glyphs": 8,
+        "weight_index": 0.11239,
+        "ink_ratio": 0.10267
+      },
+      "weight_ratio_generated_over_source": 1.014
+    },
+    {
+      "role": "HEADING_2",
+      "sample_text": "（二）法定代表人",
+      "source_visual_bold": true,
+      "source_ratio": 1.325,
+      "source_page": 45,
+      "generated_page": 6,
+      "source": {
+        "text": "（二）法定代表人授权委托书",
+        "size": 11.5,
+        "font": "FangSong",
+        "bbox": [
+          222.6,
+          74.05,
+          372.58,
+          85.82
+        ],
+        "glyphs": 8,
+        "weight_index": 0.16312,
+        "ink_ratio": 0.14434
+      },
+      "generated": {
+        "text": "（二）法定代表人授权委托书",
+        "size": 11.5,
+        "font": "FangSong",
+        "bbox": [
+          227.45,
+          78.31,
+          376.95,
+          89.81
+        ],
+        "glyphs": 8,
+        "weight_index": 0.17502,
+        "ink_ratio": 0.15691
+      },
+      "weight_ratio_generated_over_source": 1.073
+    },
+    {
+      "role": "CHAPTER_TITLE",
+      "sample_text": "第六章响应文件格",
+      "source_visual_bold": true,
+      "source_ratio": 1.667,
+      "source_page": 40,
+      "generated_page": 1,
+      "source": {
+        "text": "第六章响应文件格式",
+        "size": 21.95,
+        "font": "FangSong",
+        "bbox": [
+          192.72,
+          79.71,
+          402.35,
+          102.17
+        ],
+        "glyphs": 8,
+        "weight_index": 0.2206,
+        "ink_ratio": 0.20336
+      },
+      "generated": {
+        "text": "第六章响应文件格式",
+        "size": 21.5,
+        "font": "FangSong",
+        "bbox": [
+          200.95,
+          87.71,
+          394.45,
+          109.21
+        ],
+        "glyphs": 8,
+        "weight_index": 0.25827,
+        "ink_ratio": 0.24333
+      },
+      "weight_ratio_generated_over_source": 1.171
+    },
+    {
+      "role": "COVER_PROJECT_TITLE",
+      "sample_text": "河南省水利第二工",
+      "source_visual_bold": true,
+      "source_ratio": 1.972,
+      "source_page": 40,
+      "generated_page": 1,
+      "source": {
+        "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目一",
+        "size": 6.5,
+        "font": "SimSun",
+        "bbox": [
+          70.8,
+          52.42,
+          384.02,
+          58.92
+        ],
+        "glyphs": 8,
+        "weight_index": 0.27342,
+        "ink_ratio": 0.22673
+      },
+      "generated": {
+        "text": "河南省水利第二工程局集团有限公司引江济淮",
+        "size": 21.5,
+        "font": "SimSun",
+        "bbox": [
+          82.7,
+          148.21,
+          512.7,
+          169.71
+        ],
+        "glyphs": 8,
+        "weight_index": 0.28023,
+        "ink_ratio": 0.26401
+      },
+      "weight_ratio_generated_over_source": 1.025
+    },
+    {
+      "role": "DOCUMENT_TITLE",
+      "sample_text": "响应文件",
+      "source_visual_bold": true,
+      "source_ratio": 1.693,
+      "source_page": 40,
+      "generated_page": 1,
+      "source": {
+        "text": "第六章响应文件格式",
+        "size": 21.95,
+        "font": "FangSong",
+        "bbox": [
+          192.72,
+          79.71,
+          402.35,
+          102.17
+        ],
+        "glyphs": 8,
+        "weight_index": 0.2206,
+        "ink_ratio": 0.20336
+      },
+      "generated": {
+        "text": "第六章响应文件格式",
+        "size": 21.5,
+        "font": "FangSong",
+        "bbox": [
+          200.95,
+          87.71,
+          394.45,
+          109.21
+        ],
+        "glyphs": 8,
+        "weight_index": 0.25827,
+        "ink_ratio": 0.24333
+      },
+      "weight_ratio_generated_over_source": 1.171
+    },
+    {
+      "role": "TOC_1",
+      "sample_text": "一、响应函及响应",
+      "source_visual_bold": false,
+      "source_ratio": 0.849,
+      "source_page": 41,
+      "generated_page": 2,
+      "source": {
+        "text": "一、响应函及响应函附录",
+        "size": 14.05,
+        "font": "FangSong",
+        "bbox": [
+          70.8,
+          111.82,
+          224.89,
+          126.19
+        ],
+        "glyphs": 8,
+        "weight_index": 0.11087,
+        "ink_ratio": 0.09832
+      },
+      "generated": {
+        "text": "一、响应函及响应函附录",
+        "size": 14.0,
+        "font": "FangSong",
+        "bbox": [
+          70.9,
+          124.06,
+          224.9,
+          138.06
+        ],
+        "glyphs": 8,
+        "weight_index": 0.11239,
+        "ink_ratio": 0.10267
+      },
+      "weight_ratio_generated_over_source": 1.014
+    },
+    {
+      "role": "BODY",
+      "sample_text": "特此证明。",
+      "source_visual_bold": false,
+      "source_ratio": 1.044,
+      "source_page": 44,
+      "generated_page": 5,
+      "source": {
+        "text": "特此证明。",
+        "size": 12.0,
+        "font": "FangSong",
+        "bbox": [
+          70.8,
+          334.62,
+          133.2,
+          346.9
+        ],
+        "glyphs": 5,
+        "weight_index": 0.1255,
+        "ink_ratio": 0.10943
+      },
+      "generated": {
+        "text": "特此证明。",
+        "size": 12.0,
+        "font": "FangSong",
+        "bbox": [
+          70.9,
+          389.88,
+          130.9,
+          401.88
+        ],
+        "glyphs": 5,
+        "weight_index": 0.12585,
+        "ink_ratio": 0.11251
+      },
+      "weight_ratio_generated_over_source": 1.003
+    }
+  ],
+  "model_roles": {
+    "CHAPTER_TITLE": {
+      "role": "CHAPTER_TITLE",
+      "public_role": "COVER_CHAPTER",
+      "samples": 1,
+      "median_weight": 0.2206,
+      "baseline_weight": 0.13233,
+      "ratio": 1.667,
+      "bold": true,
+      "font": "",
+      "size_pt": 21.95,
+      "confidence": 0.738,
+      "evidence": [
+        "p40 21.95pt 第六章响应文件格"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "COVER_PROJECT_TITLE": {
+      "role": "COVER_PROJECT_TITLE",
+      "public_role": "COVER_PROJECT_TITLE",
+      "samples": 1,
+      "median_weight": 0.26093,
+      "baseline_weight": 0.13233,
+      "ratio": 1.972,
+      "bold": true,
+      "font": "",
+      "size_pt": 21.95,
+      "confidence": 0.738,
+      "evidence": [
+        "p40 21.95pt 河南省水利第二工"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "DOCUMENT_TITLE": {
+      "role": "DOCUMENT_TITLE",
+      "public_role": "COVER_DOCUMENT_TITLE",
+      "samples": 1,
+      "median_weight": 0.22408,
+      "baseline_weight": 0.13233,
+      "ratio": 1.693,
+      "bold": true,
+      "font": "",
+      "size_pt": 27.95,
+      "confidence": 0.738,
+      "evidence": [
+        "p40 27.95pt 响应文件"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "SIGNATURE_BLOCK": {
+      "role": "SIGNATURE_BLOCK",
+      "public_role": "SIGNATURE_LABEL",
+      "samples": 28,
+      "median_weight": 0.12483,
+      "baseline_weight": 0.13233,
+      "ratio": 0.943,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.411,
+      "evidence": [
+        "p40 12pt 项目编号：",
+        "p40 11.5pt 供应商：",
+        "p40 11.5pt 法定代表人或其委"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "TOC_TITLE": {
+      "role": "TOC_TITLE",
+      "public_role": "TOC_TITLE",
+      "samples": 1,
+      "median_weight": 0.18796,
+      "baseline_weight": 0.13233,
+      "ratio": 1.42,
+      "bold": true,
+      "font": "",
+      "size_pt": 15.0,
+      "confidence": 0.543,
+      "evidence": [
+        "p41 15pt 目录"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "TOC_1": {
+      "role": "TOC_1",
+      "public_role": "TOC_1",
+      "samples": 15,
+      "median_weight": 0.11235,
+      "baseline_weight": 0.13233,
+      "ratio": 0.849,
+      "bold": false,
+      "font": "",
+      "size_pt": 14.05,
+      "confidence": 0.514,
+      "evidence": [
+        "p41 14.05pt 一、响应函及响应",
+        "p41 14.05pt 二、法定代表人身",
+        "p41 14.05pt 三、响应保证金"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "HEADING_1": {
+      "role": "HEADING_1",
+      "public_role": "HEADING_LEVEL_1",
+      "samples": 15,
+      "median_weight": 0.20332,
+      "baseline_weight": 0.13233,
+      "ratio": 1.536,
+      "bold": true,
+      "font": "",
+      "size_pt": 14.05,
+      "confidence": 0.931,
+      "evidence": [
+        "p42 14.05pt 一、响应函及响应",
+        "p44 14.05pt 二、法定代表人身",
+        "p46 14.05pt 三、响应保证金"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "FORM_LABEL": {
+      "role": "FORM_LABEL",
+      "public_role": "FORM_LABEL",
+      "samples": 11,
+      "median_weight": 0.13272,
+      "baseline_weight": 0.13233,
+      "ratio": 1.003,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.353,
+      "evidence": [
+        "p42 12pt 采购人名称",
+        "p42 12pt 如我方成交，我公",
+        "p44 12pt 附：法定代表人身"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY_FIRST_LINE": {
+      "role": "BODY_FIRST_LINE",
+      "public_role": "BODY_FIRST_LINE",
+      "samples": 4,
+      "median_weight": 0.1239,
+      "baseline_weight": 0.13233,
+      "ratio": 0.936,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.419,
+      "evidence": [
+        "p42 12pt 我方已充分研究了",
+        "p45 12pt 本人（姓名）系（",
+        "p50 12pt 供应商近三年（"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY_LIST": {
+      "role": "BODY_LIST",
+      "public_role": "BODY_LIST",
+      "samples": 14,
+      "median_weight": 0.12293,
+      "baseline_weight": 0.13233,
+      "ratio": 0.929,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.427,
+      "evidence": [
+        "p42 12pt 、在收到成交通知",
+        "p42 12pt 、随同本响应函递",
+        "p42 12pt 、将按询比文件的"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY": {
+      "role": "BODY",
+      "public_role": "BODY",
+      "samples": 4,
+      "median_weight": 0.1382,
+      "baseline_weight": 0.13233,
+      "ratio": 1.044,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.398,
+      "evidence": [
+        "p44 12pt 特此证明。",
+        "p45 12pt 代理人无转委托权",
+        "p49 12pt 非企业性质的供应"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "HEADING_2": {
+      "role": "HEADING_2",
+      "public_role": "HEADING_LEVEL_2",
+      "samples": 5,
+      "median_weight": 0.17537,
+      "baseline_weight": 0.13233,
+      "ratio": 1.325,
+      "bold": true,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.702,
+      "evidence": [
+        "p45 11.5pt （二）法定代表人",
+        "p49 12pt （一）供应商基本",
+        "p50 12pt （二）财务状况承"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "status": "ROUND_5_1_AWAITING_MANUAL_NUMBERING_CONFIRMATION",
+  "governance_alignment": "SOURCE_FORMAT_FIRST_STYLE_SYSTEM_SECOND_AUTOMATION_THIRD",
+  "authoritative_data_domains": {
+    "fact_ssot": "ProjectFacts",
+    "format_structure": "SourceFormatTemplate_and_validated_source_format_evidence",
+    "review_evidence": "ReviewEvidence",
+    "fixture": "WORD_EDITABILITY_STYLE_INFRASTRUCTURE_ONLY"
+  },
+  "locked_scope": {
+    "projectfacts_fields": 23,
+    "review_items": 64,
+    "normal_pipeline_artifacts": 14
+  },
+  "cases": {
+    "case_001": {
+      "case": "case_001",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_1_source_numbering",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_1_source_numbering\\基础投标文件.docx",
+      "report_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\source_numbering_round51\\case_001",
+      "source_file": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+      "source_literal_count": 52,
+      "generated_auto_count": 0,
+      "prefix_match_qa": true,
+      "punctuation_qa": true,
+      "spacing_qa": true,
+      "sequence_dependency_qa": true,
+      "false_heading_qa": true,
+      "toc_crosscheck_qa": true,
+      "style_architecture_result": "PASS",
+      "word_navigation_result": "PASS",
+      "editability_result": "PASS",
+      "true_page_count": 22,
+      "overall_status": "ROUND_5_1_AWAITING_MANUAL_NUMBERING_CONFIRMATION"
+    },
+    "case_002": {
+      "case": "case_002",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\run_5_1_source_numbering",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\run_5_1_source_numbering\\基础投标文件.docx",
+      "report_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\source_numbering_round51\\case_002",
+      "source_file": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
+      "source_literal_count": 53,
+      "generated_auto_count": 0,
+      "prefix_match_qa": true,
+      "punctuation_qa": true,
+      "spacing_qa": true,
+      "sequence_dependency_qa": true,
+      "false_heading_qa": true,
+      "toc_crosscheck_qa": true,
+      "style_architecture_result": "PASS",
+      "word_navigation_result": "PASS",
+      "editability_result": "PASS",
+      "true_page_count": 31,
+      "overall_status": "ROUND_5_1_AWAITING_MANUAL_NUMBERING_CONFIRMATION"
+    },
+    "case_003": {
+      "case": "case_003",
+      "output": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_1_source_numbering",
+      "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_1_source_numbering\\基础投标文件.docx",
+      "report_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\source_numbering_round51\\case_003",
+      "source_file": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\肇源县城市供水管网漏损治理项目三标段-招标文件正文.pdf",
+      "source_literal_count": 88,
+      "generated_auto_count": 0,
+      "prefix_match_qa": true,
+      "punctuation_qa": true,
+      "spacing_qa": true,
+      "sequence_dependency_qa": true,
+      "false_heading_qa": true,
+      "toc_crosscheck_qa": true,
+      "style_architecture_result": "PASS",
+      "word_navigation_result": "PASS",
+      "editability_result": "PASS",
+      "true_page_count": 33,
+      "overall_status": "ROUND_5_1_AWAITING_MANUAL_NUMBERING_CONFIRMATION"
+    }
+  },
+  "tests": {
+    "command": [
+      "D:\\PyCharmProjects\\WBTenderSkill\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "-rA",
+      "--disable-warnings",
+      "--basetemp",
+      "D:\\PyCharmProjects\\WBTenderSkill\\tmp\\pytest-round51-full",
+      "--junitxml",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\source_numbering_round51\\full_suite_junit.xml"
+    ],
+    "returncode": 0,
+    "result": "PASS"
+  },
+  "fixture": "EXTERNAL_UNVERSIONED:danyang-v1.1-numbering-sanity-fixture-v5.docx",
+  "gold_read_or_created": false,
+  "commit_created": false,
+  "push_created": false,
+  "release_created": false,
+  "blockers": [
+    "Desktop Word normal-open, navigation-pane, style-panel, visible-numbering, and visual-fidelity confirmation is pending."
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "cases": {
+    "case_001": {
+      "docx_metrics_round_5_5": {
+        "semantic_line_spacing_paragraphs": 118,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 139,
+        "table_count": 5
+      },
+      "docx_metrics_round_5_4": {
+        "semantic_line_spacing_paragraphs": 118,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 139,
+        "table_count": 5
+      },
+      "spacing_differences": {},
+      "generation_metrics_differences": {},
+      "fact_value_drift": {},
+      "intended_fact_drift": [],
+      "xlsx_row_contract": {
+        "round_5_5_dynamic_rows": 47,
+        "round_5_4_fixed_rows": 64,
+        "intended": "dynamic row count replaces the fixed 64-row checklist"
+      }
+    },
+    "case_002": {
+      "docx_metrics_round_5_5": {
+        "semantic_line_spacing_paragraphs": 114,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 144,
+        "table_count": 10
+      },
+      "docx_metrics_round_5_4": {
+        "semantic_line_spacing_paragraphs": 114,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 144,
+        "table_count": 10
+      },
+      "spacing_differences": {},
+      "generation_metrics_differences": {},
+      "fact_value_drift": {},
+      "intended_fact_drift": [],
+      "xlsx_row_contract": {
+        "round_5_5_dynamic_rows": 49,
+        "round_5_4_fixed_rows": 64,
+        "intended": "dynamic row count replaces the fixed 64-row checklist"
+      }
+    },
+    "case_003": {
+      "docx_metrics_round_5_5": {
+        "semantic_line_spacing_paragraphs": 162,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 194,
+        "table_count": 16
+      },
+      "docx_metrics_round_5_4": {
+        "semantic_line_spacing_paragraphs": 162,
+        "exact_line_spacing_paragraphs": 0,
+        "mid_word_ascii_split_pairs": 0,
+        "paragraph_count": 194,
+        "table_count": 16
+      },
+      "spacing_differences": {},
+      "generation_metrics_differences": {},
+      "fact_value_drift": {
+        "lot_name": [
+          null,
+          "三标段"
+        ]
+      },
+      "intended_fact_drift": [
+        "lot_name"
+      ],
+      "xlsx_row_contract": {
+        "round_5_5_dynamic_rows": 53,
+        "round_5_4_fixed_rows": 64,
+        "intended": "dynamic row count replaces the fixed 64-row checklist"
+      }
+    }
+  },
+  "problems": [],
+  "result": "PASS"
+}

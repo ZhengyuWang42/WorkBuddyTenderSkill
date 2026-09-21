@@ -1,0 +1,204 @@
+{
+ "rows": [
+  {
+   "source_rule_id": "P42-R1",
+   "representation_type": "LINE_ORIGIN_MOVED_TO_SOURCE_ANCHOR",
+   "use": "SOURCE_ANCHORED_VALUE_RUN",
+   "source_anchor_x": 94.8,
+   "generated_text": "河南省水利第二工程局集团有限公司",
+   "source_visual_line_id": "S42-L3",
+   "generated_bbox_x0": 94.9,
+   "generated_bbox_x1": 286.9,
+   "generated_y": 137.83,
+   "anchor_x_error": 0.1,
+   "underline_detected": false,
+   "pass": true
+  },
+  {
+   "source_rule_id": "P42-R2",
+   "representation_type": "SOURCE_POSITIONED_ANCHOR_TAB",
+   "use": "SOURCE_ANCHORED_VALUE_RUN",
+   "source_anchor_x": 198.1,
+   "generated_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+   "source_visual_line_id": "S42-L4",
+   "generated_bbox_x0": 198.2,
+   "generated_bbox_x1": 334.9,
+   "generated_y": 159.08,
+   "anchor_x_error": 0.1,
+   "underline_detected": false,
+   "pass": true
+  }
+ ],
+ "gates": {
+  "P42-R1_representation_is_source_anchored_value_run": true,
+  "P42-R2_representation_is_source_anchored_value_run": true,
+  "P42-R1_anchor_x_error": 0.1,
+  "P42-R2_anchor_x_error": 0.1,
+  "P42-R1_anchor_ok": true,
+  "P42-R2_anchor_ok": true,
+  "purchaser_occurrence_in_slot": 1,
+  "purchaser_occurrence_total": 2,
+  "placeholder_r1_occurrence": 0,
+  "placeholder_r2_occurrence": 0,
+  "project_name_occurrence_in_slot": 1,
+  "project_number_occurrence_on_line": 1,
+  "lot_name_invented": false,
+  "separator_between_project_name_and_project_number": "",
+  "project_name_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+  "project_number_text": "YSEJJXXB202607-18",
+  "lot_name_text": null,
+  "final_generated_composite": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18",
+  "composite_is_adjacent_in_render": true,
+  "invented_project_number_tail_underline_count": 0,
+  "duplicate_placeholder_value_count": 0,
+  "text_clipping_count": 0,
+  "text_duplication_count": 0,
+  "following_content_overlap_count": 0,
+  "unsafe_ooxml": 0,
+  "generated_textbox_count": 0,
+  "synthetic_layout_tables": 0,
+  "painted_rules_page3": [
+   [
+    96.95,
+    192.95,
+    170.8
+   ],
+   [
+    441.7,
+    513.7,
+    191.9
+   ],
+   [
+    70.9,
+    142.9,
+    213.0
+   ],
+   [
+    384.6,
+    458.9,
+    213.0
+   ],
+   [
+    131.85,
+    181.35,
+    255.2
+   ],
+   [
+    95.25,
+    151.05,
+    276.3
+   ],
+   [
+    352.8,
+    364.8,
+    382.95
+   ],
+   [
+    364.8,
+    376.8,
+    382.95
+   ],
+   [
+    376.8,
+    388.8,
+    382.95
+   ],
+   [
+    94.8,
+    100.8,
+    488.9
+   ],
+   [
+    100.8,
+    220.8,
+    488.9
+   ]
+  ],
+  "render": {
+   "returncode": 0,
+   "pdf_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_anchor_render\\基础投标文件.pdf",
+   "pdf_bytes": 295641
+  },
+  "pass": true
+ },
+ "anchored_records": {
+  "P42-R1": {
+   "source_rule_id": "P42-R1",
+   "source_visual_line_id": "S42-L3",
+   "fact_fields": [
+    "PURCHASER_SLOT"
+   ],
+   "resolved_values": [
+    "河南省水利第二工程局集团有限公司"
+   ],
+   "generated_text": "河南省水利第二工程局集团有限公司",
+   "source_anchor_x": 94.8,
+   "generated_value_start_x": null,
+   "generated_value_end_x": null,
+   "paragraph_index": 27,
+   "underline_semantics": "VALUE_SUPPLIES_CONTENT_ONLY",
+   "source_placeholder_underlined": true,
+   "resolved_value_underlined": false,
+   "source_local_pattern": "source field rule under its own placeholder text; the delivered value replaces that placeholder at the field's start anchor and follows natural glyph width",
+   "evidence_reason": "the source rule extent is occupied by the placeholder glyphs, so the rule belongs to the placeholder text; the frozen fill pattern makes the delivered value supply content only, so no underline is invented for it and none is required to satisfy this geometry",
+   "anchor_x": 94.8,
+   "anchor_mechanism": "LINE_ORIGIN_MOVED_TO_SOURCE_ANCHOR",
+   "anchor_tab_position_pt": null,
+   "paragraph_left_indent_pt": 24.0,
+   "paragraph_first_line_indent_pt": 0.0,
+   "paragraph_coordinate_frame": {
+    "page_left_x": 0.0,
+    "section_left_margin": 70.8,
+    "paragraph_left_indent": 24.0,
+    "paragraph_first_line_indent": 0.0,
+    "paragraph_hanging_indent": 0.0,
+    "effective_line_origin_x": 94.8,
+    "current_line_origin_x": 94.8,
+    "tab_stop_reference_origin_x": 70.8,
+    "source_target_x0": 94.8,
+    "source_target_x1": 95.8,
+    "target_tab_start": 24.0,
+    "target_tab_end": 25.0
+   }
+  },
+  "P42-R2": {
+   "source_rule_id": "P42-R2",
+   "source_visual_line_id": "S42-L4",
+   "fact_fields": [
+    "PROJECT_AND_LOT_SLOT"
+   ],
+   "resolved_values": [
+    "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目"
+   ],
+   "generated_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+   "source_anchor_x": 198.1,
+   "generated_value_start_x": null,
+   "generated_value_end_x": null,
+   "paragraph_index": 28,
+   "underline_semantics": "VALUE_SUPPLIES_CONTENT_ONLY",
+   "source_placeholder_underlined": true,
+   "resolved_value_underlined": false,
+   "source_local_pattern": "source field rule under its own placeholder text; the delivered value replaces that placeholder at the field's start anchor and follows natural glyph width",
+   "evidence_reason": "the source rule extent is occupied by the placeholder glyphs, so the rule belongs to the placeholder text; the frozen fill pattern makes the delivered value supply content only, so no underline is invented for it and none is required to satisfy this geometry",
+   "anchor_x": 198.1,
+   "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+   "anchor_tab_position_pt": 127.3,
+   "paragraph_left_indent_pt": 0.0,
+   "paragraph_first_line_indent_pt": 26.05,
+   "paragraph_coordinate_frame": {
+    "page_left_x": 0.0,
+    "section_left_margin": 70.8,
+    "paragraph_left_indent": 0.0,
+    "paragraph_first_line_indent": 26.05,
+    "paragraph_hanging_indent": 0.0,
+    "effective_line_origin_x": 96.85,
+    "current_line_origin_x": 70.8,
+    "tab_stop_reference_origin_x": 70.8,
+    "source_target_x0": 198.1,
+    "source_target_x1": 199.1,
+    "target_tab_start": 127.3,
+    "target_tab_end": 128.3
+   }
+  }
+ }
+}

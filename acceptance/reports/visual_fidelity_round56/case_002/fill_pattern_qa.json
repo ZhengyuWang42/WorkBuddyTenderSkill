@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0",
+  "case": "case_002",
+  "method": "inferred from the source rows the emitter consumes",
+  "pattern_count": 48,
+  "pattern_index_size": 20,
+  "blank_kind_histogram": {
+    "VECTOR_RULE": 33,
+    "WHITESPACE_GAP": 9,
+    "LITERAL_UNDERSCORE": 6
+  },
+  "field_patterns": {
+    "投标人": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 216.0
+    },
+    "法定代表人或其委托代理人": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 111.95
+    },
+    "投标单位全称（公章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    },
+    "地址": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 248.0
+    },
+    "开户银行": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 250.46
+    },
+    "账号": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 248.0
+    },
+    "电话": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 248.0
+    },
+    "传真": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 248.0
+    },
+    "授权代表": {
+      "blank_kind": "LITERAL_UNDERSCORE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 250.46
+    },
+    "日期": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 174.0
+    },
+    "投标人名称": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 120.6
+    },
+    "姓名": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 79.9
+    },
+    "职务": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 78.0
+    },
+    "邮政编码": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 228.0
+    },
+    "投标单位（公章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    },
+    "法定代表人（签字或盖章）": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 90.0
+    },
+    "授权代表（签字或盖章）": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 108.0
+    },
+    "法定代表人或其委托代理人（签字或盖章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    },
+    "投标人名称（公章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    },
+    "法定代表人或授权代表（签字或盖章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    }
+  },
+  "usage": {
+    "filled_slots": 6,
+    "pattern_matched": 0,
+    "value_kept_source_underline": 0,
+    "value_plain_whitespace": 6
+  },
+  "filled_slots": [
+    {
+      "slot_id": "slot-146-1",
+      "fields": [
+        "project_name"
+      ],
+      "value": "营收系统整合和硬件系统升级",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-147-3",
+      "fields": [
+        "project_name"
+      ],
+      "value": "营收系统整合和硬件系统升级项目",
+      "generated_underline": false,
+      "anchor_source": "SAME_ROW_SEMANTIC_PEER"
+    },
+    {
+      "slot_id": "slot-147-4",
+      "fields": [
+        "duration"
+      ],
+      "value": "18个月",
+      "generated_underline": false,
+      "anchor_source": "SAME_ROW_SEMANTIC_PEER"
+    },
+    {
+      "slot_id": "slot-147-5",
+      "fields": [
+        "project_location"
+      ],
+      "value": "西安市内",
+      "generated_underline": false,
+      "anchor_source": "SAME_ROW_SEMANTIC_PEER"
+    },
+    {
+      "slot_id": "slot-149-7",
+      "fields": [
+        "purchaser"
+      ],
+      "value": "西安市自来水有限公司",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-170-9",
+      "fields": [
+        "purchaser"
+      ],
+      "value": "西安市自来水有限公司",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    }
+  ],
+  "source_fill_pattern_mismatch_count": 0,
+  "wrong_fact_fill_pattern_count": 0,
+  "known_resolved_fact_unfilled_compatible_slot_count": 0,
+  "response_letter_fill_pattern_mismatch_count": 0,
+  "duplicate_placeholder_value_count": 0,
+  "other_supplement_blank_preserved": true,
+  "letter_paragraph_count": 0
+}

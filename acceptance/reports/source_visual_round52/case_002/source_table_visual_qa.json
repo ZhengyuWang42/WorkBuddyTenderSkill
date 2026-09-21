@@ -1,0 +1,38 @@
+{
+  "source_table_count": 22,
+  "generated_true_table_count": 22,
+  "audited_tables": [
+    {
+      "label": "P4_OPENING",
+      "source_outer": [
+        56.56,
+        539.89
+      ],
+      "generated_outer": [
+        56.45,
+        540.05
+      ],
+      "outer_errors": [
+        -0.11,
+        0.16
+      ],
+      "result": "PASS"
+    },
+    {
+      "label": "P7_DEVIATION",
+      "source_outer": [
+        54.11,
+        542.34
+      ],
+      "generated_outer": [
+        54.05,
+        542.45
+      ],
+      "outer_errors": [
+        -0.06,
+        0.11
+      ],
+      "result": "PASS"
+    }
+  ]
+}

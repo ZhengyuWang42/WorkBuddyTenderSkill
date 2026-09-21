@@ -1,0 +1,50 @@
+{
+  "case": "case_003",
+  "bundle_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003",
+  "core_deliverables": 4,
+  "expected_deliverables": 4,
+  "entries": [
+    {
+      "name": "project_facts.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\project_facts.json",
+      "bytes": 42907,
+      "sha256": "0909d70a4baada595dc84af4920764770909bfd3ecd89b0dc88a45a6f0b584bf",
+      "production_sha256": "0909d70a4baada595dc84af4920764770909bfd3ecd89b0dc88a45a6f0b584bf",
+      "byte_identical": true,
+      "valid_json": true
+    },
+    {
+      "name": "投标项目复核表.xlsx",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\投标项目复核表.xlsx",
+      "bytes": 20218,
+      "sha256": "38d8633a18d639352b7bce2e695994403c646492bba57279f5e96589f2d8cf31",
+      "production_sha256": "38d8633a18d639352b7bce2e695994403c646492bba57279f5e96589f2d8cf31",
+      "byte_identical": true,
+      "openpyxl_reopen": true,
+      "sheets": [
+        "投标项目复核表"
+      ]
+    },
+    {
+      "name": "基础投标文件.docx",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\基础投标文件.docx",
+      "bytes": 56329,
+      "sha256": "89c9c475169a35b616877e9c185deca2c5ec13d1c98161680217560e0e9132b2",
+      "production_sha256": "89c9c475169a35b616877e9c185deca2c5ec13d1c98161680217560e0e9132b2",
+      "byte_identical": true,
+      "python_docx_reopen": true,
+      "paragraphs": 194,
+      "tables": 16
+    },
+    {
+      "name": "qa_report.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\qa_report.json",
+      "bytes": 45531,
+      "sha256": "bb638f2ad1f03060db8b8a3751d6afaee4e771d452234794e576b54151f73145",
+      "production_sha256": "bb638f2ad1f03060db8b8a3751d6afaee4e771d452234794e576b54151f73145",
+      "byte_identical": true,
+      "valid_json": true
+    }
+  ],
+  "result": "PASS"
+}

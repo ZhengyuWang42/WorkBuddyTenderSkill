@@ -1,0 +1,389 @@
+{
+  "case": "case_003",
+  "render": {
+    "status": "OK",
+    "returncode": 0,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\基础投标文件.pdf",
+    "pdf_bytes": 880039,
+    "soffice": "C:\\Program Files\\LibreOffice\\program\\soffice.exe",
+    "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+    "stderr": "Could not find platform independent libraries <prefix>\n"
+  },
+  "generated_page_count": 35,
+  "generated_pages_traced_to_source": 34,
+  "generated_text_page_count": 34,
+  "blank_rendered_pages": [
+    33
+  ],
+  "generated_page_trace_ratio": 1.0,
+  "rendered_line_trace_ratio": 0.9342,
+  "rendered_lines_traced": 213,
+  "rendered_lines_checked": 228,
+  "generated_page_traces": [
+    {
+      "generated_page": 1,
+      "probe": "第八章投标文件格式",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stack_source_004_generated_001.png"
+    },
+    {
+      "generated_page": 2,
+      "probe": "投标人：(电子印章)",
+      "lines_checked": 2,
+      "lines_traced": 1,
+      "trace_ratio": 0.5,
+      "source_page": 68,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stack_source_068_generated_002.png"
+    },
+    {
+      "generated_page": 3,
+      "probe": "十一、正在施工的和新承接的项目情况表",
+      "lines_checked": 18,
+      "lines_traced": 18,
+      "trace_ratio": 1.0,
+      "source_page": 69,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stack_source_069_generated_003.png"
+    },
+    {
+      "generated_page": 4,
+      "probe": "5.我方在此声明，所递交的投标文件及有关资料内容完整、真实和准确，且不存在第2章“投标人须知”第",
+      "lines_checked": 18,
+      "lines_traced": 16,
+      "trace_ratio": 0.889,
+      "source_page": 70,
+      "traced": true
+    },
+    {
+      "generated_page": 5,
+      "probe": "符合现行国家、行业及地方工程",
+      "lines_checked": 10,
+      "lines_traced": 9,
+      "trace_ratio": 0.9,
+      "source_page": 6,
+      "traced": true
+    },
+    {
+      "generated_page": 6,
+      "probe": "注：附法定代表人身份证正反面扫描件或复印件。",
+      "lines_checked": 11,
+      "lines_traced": 5,
+      "trace_ratio": 0.455,
+      "source_page": 72,
+      "traced": true
+    },
+    {
+      "generated_page": 7,
+      "probe": "本人（姓名）系（投标人名称）的法定代表人，现委托（姓名）为我方代理人。代",
+      "lines_checked": 14,
+      "lines_traced": 10,
+      "trace_ratio": 0.714,
+      "source_page": 73,
+      "traced": true
+    },
+    {
+      "generated_page": 8,
+      "probe": "理），对本工程项目组织实施全面负责，组建项目管理机构、建立质量安全保障体系、科学组织项目实施，对工程项",
+      "lines_checked": 8,
+      "lines_traced": 8,
+      "trace_ratio": 1.0,
+      "source_page": 74,
+      "traced": true
+    },
+    {
+      "generated_page": 9,
+      "probe": "四、已标价工程量清单",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 69,
+      "traced": true
+    },
+    {
+      "generated_page": 10,
+      "probe": "1.投标人编制施工组织设计的要求：编制时应采用文字并结合图表形式说明施工方法；拟投入本标段的主要",
+      "lines_checked": 12,
+      "lines_traced": 12,
+      "trace_ratio": 1.0,
+      "source_page": 76,
+      "traced": true
+    },
+    {
+      "generated_page": 11,
+      "probe": "附表一：拟投入本标段的主要施工设备表",
+      "lines_checked": 2,
+      "lines_traced": 2,
+      "trace_ratio": 1.0,
+      "source_page": 77,
+      "traced": true
+    },
+    {
+      "generated_page": 12,
+      "probe": "附表二：拟配备本标段的试验和检测仪器设备表",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 78,
+      "traced": true
+    },
+    {
+      "generated_page": 13,
+      "probe": "按工程施工阶段投入劳动力情况",
+      "lines_checked": 2,
+      "lines_traced": 2,
+      "trace_ratio": 1.0,
+      "source_page": 79,
+      "traced": true
+    },
+    {
+      "generated_page": 14,
+      "probe": "1.投标人应递交施工进度网络图或施工进度表，说明按招标文件要求的计划工期进行施工的各个关键日期。",
+      "lines_checked": 3,
+      "lines_traced": 3,
+      "trace_ratio": 1.0,
+      "source_page": 80,
+      "traced": true
+    },
+    {
+      "generated_page": 15,
+      "probe": "投标人应递交一份施工总平面图，绘出现场临时设施布置图表并附文字说明，说明临时设施、加工车间、现",
+      "lines_checked": 3,
+      "lines_traced": 3,
+      "trace_ratio": 1.0,
+      "source_page": 81,
+      "traced": true
+    },
+    {
+      "generated_page": 16,
+      "probe": "附表六：临时用地表",
+      "lines_checked": 2,
+      "lines_traced": 2,
+      "trace_ratio": 1.0,
+      "source_page": 82,
+      "traced": true
+    },
+    {
+      "generated_page": 17,
+      "probe": "备管理办法》(黑建规范[2023]2号)文件规定执行，特此承诺。项目管理机构人员数量填写如下表：",
+      "lines_checked": 5,
+      "lines_traced": 5,
+      "trace_ratio": 1.0,
+      "source_page": 83,
+      "traced": true
+    },
+    {
+      "generated_page": 18,
+      "probe": "安全生产考核证发证日期",
+      "lines_checked": 9,
+      "lines_traced": 9,
+      "trace_ratio": 1.0,
+      "source_page": 84,
+      "traced": true
+    },
+    {
+      "generated_page": 19,
+      "probe": "(注：证明材料电子扫描件上传)",
+      "lines_checked": 8,
+      "lines_traced": 8,
+      "trace_ratio": 1.0,
+      "source_page": 85,
+      "traced": true
+    },
+    {
+      "generated_page": 20,
+      "probe": "七、拟分包项目情况表",
+      "lines_checked": 5,
+      "lines_traced": 5,
+      "trace_ratio": 1.0,
+      "source_page": 69,
+      "traced": true
+    },
+    {
+      "generated_page": 21,
+      "probe": "注：相关证明材料可在“原件的扫描件或复印件”中提供。",
+      "lines_checked": 6,
+      "lines_traced": 6,
+      "trace_ratio": 1.0,
+      "source_page": 87,
+      "traced": true
+    },
+    {
+      "generated_page": 22,
+      "probe": "（近3年指2022年1月至2024年12月）",
+      "lines_checked": 8,
+      "lines_traced": 8,
+      "trace_ratio": 1.0,
+      "source_page": 88,
+      "traced": true
+    },
+    {
+      "generated_page": 23,
+      "probe": "合同项目描述内容至少包括项目概况、本合同在项目中的地位（部位、",
+      "lines_checked": 7,
+      "lines_traced": 7,
+      "trace_ratio": 1.0,
+      "source_page": 89,
+      "traced": true
+    },
+    {
+      "generated_page": 24,
+      "probe": "合同所属项目描述内容至少包括项目概况、本合同在项目中的地位（部",
+      "lines_checked": 6,
+      "lines_traced": 6,
+      "trace_ratio": 1.0,
+      "source_page": 90,
+      "traced": true
+    },
+    {
+      "generated_page": 25,
+      "probe": "注：相关证明材料可在“原件的扫描件或复印件”中提供。",
+      "lines_checked": 4,
+      "lines_traced": 4,
+      "trace_ratio": 1.0,
+      "source_page": 87,
+      "traced": true
+    },
+    {
+      "generated_page": 26,
+      "probe": "以上为举例，若招标文件要求提供可上传至此处",
+      "lines_checked": 4,
+      "lines_traced": 4,
+      "trace_ratio": 1.0,
+      "source_page": 92,
+      "traced": true
+    },
+    {
+      "generated_page": 27,
+      "probe": "十四、其他组成材料",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 69,
+      "traced": true
+    },
+    {
+      "generated_page": 28,
+      "probe": "肇源县城市供水管网漏损治理项目",
+      "lines_checked": 4,
+      "lines_traced": 4,
+      "trace_ratio": 1.0,
+      "source_page": 1,
+      "traced": true
+    },
+    {
+      "generated_page": 29,
+      "probe": "十六、投标保证金",
+      "lines_checked": 2,
+      "lines_traced": 2,
+      "trace_ratio": 1.0,
+      "source_page": 69,
+      "traced": true
+    },
+    {
+      "generated_page": 30,
+      "probe": "判文书网（https://wenshu.court.gov.cn）网站公布的判决结果为准；",
+      "lines_checked": 21,
+      "lines_traced": 20,
+      "trace_ratio": 0.952,
+      "source_page": 7,
+      "traced": true
+    },
+    {
+      "generated_page": 31,
+      "probe": "（8）我单位承诺：我单位不存在与招标人存在利害关系可能影响招标公正性的法人、其他组",
+      "lines_checked": 4,
+      "lines_traced": 4,
+      "trace_ratio": 1.0,
+      "source_page": 96,
+      "traced": true
+    },
+    {
+      "generated_page": 32,
+      "probe": "或被他人举报查实，无条件接受相关行政主管部门做出的取消投标资格、中标资格、不良行为记录",
+      "lines_checked": 15,
+      "lines_traced": 15,
+      "trace_ratio": 1.0,
+      "source_page": 97,
+      "traced": true
+    },
+    {
+      "generated_page": 33,
+      "probe": "",
+      "lines_checked": 0,
+      "lines_traced": 0,
+      "trace_ratio": null,
+      "source_page": null,
+      "traced": null,
+      "kind": "no_extractable_text"
+    },
+    {
+      "generated_page": 34,
+      "probe": "注：1、此处为定标委员会评审需要查看的相关资料，如此处未提供，将视为无定标相关资",
+      "lines_checked": 10,
+      "lines_traced": 10,
+      "trace_ratio": 1.0,
+      "source_page": 98,
+      "traced": true
+    },
+    {
+      "generated_page": 35,
+      "probe": "（GF—2017—0201）",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 23,
+      "traced": true
+    }
+  ],
+  "untraced_generated_pages": [],
+  "seam_probes": [],
+  "source_pages_available": 203,
+  "mandatory_source_pages_for_manual_check": [
+    {
+      "source_page": 2,
+      "source_lines": 26,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 4,
+      "source_lines": 8,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 5,
+      "source_lines": 28,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 6,
+      "source_lines": 28,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 7,
+      "source_lines": 31,
+      "lines_also_in_generated": 7,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 10,
+      "source_lines": 13,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    }
+  ],
+  "source_start_offset": 66,
+  "sample_stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_003\\render\\stack_source_069_generated_003.png",
+  "problems": [],
+  "result": "PASS",
+  "manual_word_confirmation": "PENDING_USER_VISUAL_CHECK"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "case": "case_003",
+  "field_count": 23,
+  "resolved_count": 11,
+  "resolved": {
+    "project_name": "肇源县城市供水管网漏损治理项目",
+    "lot_name": "三标段",
+    "purchaser": "肇源县城市管理综合执法局",
+    "tender_agency": "黑龙江嘉讯工程项目管理有限公司",
+    "project_location": "大庆市肇源县",
+    "procurement_scope": "施工图纸及工程量清单所示全部内容",
+    "max_price": "12522994.31",
+    "bid_open_location": "大庆市公共资源交易中心",
+    "bid_bond_amount": "120000",
+    "bid_bond_form": "电子保函、现金",
+    "bid_validity": "90日历天"
+  },
+  "lot_name": "三标段",
+  "lot_name_status": "RESOLVED",
+  "project_name": "肇源县城市供水管网漏损治理项目",
+  "known_resolved_fact_unfilled_compatible_slot_count": 0
+}

@@ -1,0 +1,375 @@
+{
+  "pipeline_run": "run_4_7_paragraph_native",
+  "status": "ROUND_4_7_AWAITING_MANUAL_CONFIRMATION",
+  "architecture": "PARAGRAPH_NATIVE_REAL_TABLES_ONLY",
+  "blank_model": {
+    "abstraction": "EditableBlank",
+    "render_styles": [
+      "BOTTOM_RULE",
+      "UNDERLINED_INLINE",
+      "PLAIN_EMPTY"
+    ],
+    "nbsp_only_placeholder_count": {
+      "case_001": 0,
+      "case_002": 0,
+      "case_003": 0
+    },
+    "invisible_required_blank_count": {
+      "case_001": 0,
+      "case_002": 0,
+      "case_003": 0
+    }
+  },
+  "cases": {
+    "case_001": {
+      "real_tables": {
+        "source": 5,
+        "generated": 5
+      },
+      "synthetic_tables": 0,
+      "form_paragraph_count": 41,
+      "blank_metrics": {
+        "detected_editable_blanks": 68,
+        "visible_rule_blanks": 32,
+        "plain_empty_blanks": 32,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "cover_or_form_element_types": {
+        "项目编号": "w:p",
+        "供应商": "w:p",
+        "法定代表人或其委托代理人": "w:p",
+        "日期": "w:p"
+      },
+      "x_y_layout_errors": {
+        "x_max_pt": 0.020002746582036934,
+        "y_max_pt": 0.0,
+        "form_row_alignment_max_pt": 0.02000122070313637
+      },
+      "alignment_distribution": {
+        "left": 91,
+        "center": 28,
+        "justify": 0,
+        "right": 0
+      },
+      "tab_stop_usage": {
+        "paragraphs_with_tabs": 23,
+        "leader_tabs": 22,
+        "anchor_tabs": 3,
+        "form_tab_leader_count": 22,
+        "date_tabs": 0,
+        "date_underlined_runs": 9,
+        "terminal_rule_fallback": 5,
+        "annotation_tabs": 3,
+        "multi_field_tabs": 3
+      },
+      "gates": {
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "list_hanging_direction_error": 0,
+        "multi_label_form_row_count": 0,
+        "layout_tab_hack": 0,
+        "unsafe_ooxml": 0,
+        "form_paragraph_not_native_count": 0,
+        "synthetic_layout_tables": 0,
+        "mid_sentence_paragraph_breaks": 0
+      },
+      "page_counts": {
+        "source": 22,
+        "generated": 22
+      },
+      "visual": {
+        "source_visual_lines": 332,
+        "generated_visual_lines": 278,
+        "line_wrap_delta": -54,
+        "rendered_pages": [
+          1,
+          3,
+          5,
+          6
+        ]
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "cover_form_element_types": {
+        "项目编号": "w:p",
+        "供应商": "w:p",
+        "法定代表人或其委托代理人": "w:p",
+        "日期": "w:p"
+      },
+      "project_number_blank": true,
+      "response_form_blanks": true,
+      "page5_form_alignment": true,
+      "list_indent_result": true,
+      "case_assertions": {
+        "project_number_blank": true,
+        "response_form_blanks": true,
+        "page5_form_alignment": true,
+        "item_4_continuation_not_left": true,
+        "item_6_continuation_not_left": true
+      },
+      "artifact_filter": {
+        "isolated_artifact_candidates": 0,
+        "artifact_spans_removed": 0,
+        "table_spans_rejected_by_geometry": 0,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 0,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": []
+      }
+    },
+    "case_002": {
+      "real_tables": {
+        "source": 22,
+        "generated": 22
+      },
+      "synthetic_tables": 0,
+      "form_paragraph_count": 33,
+      "blank_metrics": {
+        "detected_editable_blanks": 65,
+        "visible_rule_blanks": 42,
+        "plain_empty_blanks": 9,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "cover_or_form_element_types": {
+        "投标单位全称": "w:p",
+        "地址": "w:p",
+        "开户银行": "w:p",
+        "账号": "w:p",
+        "电话": "w:p",
+        "传真": "w:p",
+        "授权代表": "w:p"
+      },
+      "x_y_layout_errors": {
+        "x_max_pt": 0.020013427734397737,
+        "y_max_pt": 0.0,
+        "form_row_alignment_max_pt": 0.02000732421873863
+      },
+      "alignment_distribution": {
+        "left": 97,
+        "center": 17,
+        "justify": 0,
+        "right": 0
+      },
+      "tab_stop_usage": {
+        "paragraphs_with_tabs": 19,
+        "leader_tabs": 24,
+        "anchor_tabs": 0,
+        "form_tab_leader_count": 24,
+        "date_tabs": 0,
+        "date_underlined_runs": 15,
+        "terminal_rule_fallback": 14,
+        "annotation_tabs": 0,
+        "multi_field_tabs": 8
+      },
+      "gates": {
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "list_hanging_direction_error": 0,
+        "multi_label_form_row_count": 0,
+        "layout_tab_hack": 0,
+        "unsafe_ooxml": 0,
+        "form_paragraph_not_native_count": 0,
+        "synthetic_layout_tables": 0,
+        "mid_sentence_paragraph_breaks": 0
+      },
+      "page_counts": {
+        "source": 31,
+        "generated": 31
+      },
+      "visual": {
+        "source_visual_lines": 830,
+        "generated_visual_lines": 742,
+        "line_wrap_delta": -88,
+        "rendered_pages": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          8,
+          15
+        ]
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "contact_form_element_types": {
+        "投标单位全称": "w:p",
+        "地址": "w:p",
+        "开户银行": "w:p",
+        "账号": "w:p",
+        "电话": "w:p",
+        "传真": "w:p",
+        "授权代表": "w:p"
+      },
+      "blank_result": true,
+      "list_indent_result": true,
+      "artifact_filter_result": true,
+      "artifact_filter": {
+        "isolated_artifact_candidates": 6,
+        "artifact_spans_removed": 74,
+        "table_spans_rejected_by_geometry": 6,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 5,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": [
+          {
+            "page": 150,
+            "row": 6,
+            "column": 3
+          },
+          {
+            "page": 150,
+            "row": 7,
+            "column": 3
+          },
+          {
+            "page": 152,
+            "row": 0,
+            "column": 1
+          },
+          {
+            "page": 159,
+            "row": 0,
+            "column": 1
+          },
+          {
+            "page": 160,
+            "row": 0,
+            "column": 1
+          }
+        ]
+      }
+    },
+    "case_003": {
+      "real_tables": {
+        "source": 16,
+        "generated": 16
+      },
+      "synthetic_tables": 0,
+      "form_paragraph_count": 30,
+      "blank_metrics": {
+        "detected_editable_blanks": 54,
+        "visible_rule_blanks": 28,
+        "plain_empty_blanks": 21,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "cover_or_form_element_types": {
+        "投标人": "w:p",
+        "法定代表人或其委托代理人": "w:p",
+        "地址": "w:p",
+        "电话": "w:p",
+        "日期": "w:p"
+      },
+      "x_y_layout_errors": {
+        "x_max_pt": 0.025000762939455967,
+        "y_max_pt": 0.0,
+        "form_row_alignment_max_pt": 0.025000762939455967
+      },
+      "alignment_distribution": {
+        "left": 143,
+        "center": 19,
+        "justify": 0,
+        "right": 0
+      },
+      "tab_stop_usage": {
+        "paragraphs_with_tabs": 13,
+        "leader_tabs": 16,
+        "anchor_tabs": 5,
+        "form_tab_leader_count": 16,
+        "date_tabs": 0,
+        "date_underlined_runs": 11,
+        "terminal_rule_fallback": 8,
+        "annotation_tabs": 5,
+        "multi_field_tabs": 4
+      },
+      "gates": {
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "list_hanging_direction_error": 0,
+        "multi_label_form_row_count": 0,
+        "layout_tab_hack": 0,
+        "unsafe_ooxml": 0,
+        "form_paragraph_not_native_count": 0,
+        "synthetic_layout_tables": 0,
+        "mid_sentence_paragraph_breaks": 0
+      },
+      "page_counts": {
+        "source": 33,
+        "generated": 33
+      },
+      "visual": {
+        "source_visual_lines": 453,
+        "generated_visual_lines": 449,
+        "line_wrap_delta": -4,
+        "rendered_pages": [
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "signature_form_element_types": {
+        "投标人": "w:p",
+        "法定代表人或其委托代理人": "w:p",
+        "地址": "w:p",
+        "电话": "w:p",
+        "日期": "w:p"
+      },
+      "blank_result": true,
+      "list_indent_result": true,
+      "form_alignment_result": true,
+      "artifact_filter": {
+        "isolated_artifact_candidates": 0,
+        "artifact_spans_removed": 0,
+        "table_spans_rejected_by_geometry": 0,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 0,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": []
+      }
+    }
+  },
+  "tests": {
+    "tests": 204,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 203,
+    "exit_code": 0,
+    "command": "C:\\Python314\\python.exe -m pytest -q --tb=short --basetemp D:\\PyCharmProjects\\WBTenderSkill\\tmp\\pytest47-final --junitxml D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\paragraph_native_round47\\full_suite.xml"
+  },
+  "git_status_lines": 89,
+  "blockers": [
+    "Manual Microsoft Word desktop confirmation remains pending.",
+    "LibreOffice native rendering was used because the packaged renderer dependency pdf2image is unavailable."
+  ]
+}

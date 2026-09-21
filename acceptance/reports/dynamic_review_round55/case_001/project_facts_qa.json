@@ -1,0 +1,176 @@
+{
+  "case": "case_001",
+  "field_count": 23,
+  "summary": {
+    "total_fields": 23,
+    "resolved": 16,
+    "needs_review": 1,
+    "not_found": 6
+  },
+  "fields": {
+    "project_name": {
+      "status": "RESOLVED",
+      "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "project_number": {
+      "status": "RESOLVED",
+      "value": "YSEJJXXB202607-18",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "tender_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "lot_name": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "lot_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "purchaser": {
+      "status": "RESOLVED",
+      "value": "河南省水利第二工程局集团有限公司",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "tender_agency": {
+      "status": "RESOLVED",
+      "value": "河南科源水利建设工程检测有限公司",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "project_location": {
+      "status": "RESOLVED",
+      "value": "周口市郸城县石槽泵站",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "procurement_scope": {
+      "status": "RESOLVED",
+      "value": "一体化泵站(详见询比文件“第五章采购需求”)",
+      "candidate_count": 4,
+      "evidence_count": 4,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "budget": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "max_price": {
+      "status": "RESOLVED",
+      "value": "3100000",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "duration": {
+      "status": "RESOLVED",
+      "value": "30日历天",
+      "candidate_count": 8,
+      "evidence_count": 8,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "quality_target": {
+      "status": "RESOLVED",
+      "value": "符合国家及行业有关标准、规范和询比文件要求",
+      "candidate_count": 7,
+      "evidence_count": 7,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_deadline": {
+      "status": "RESOLVED",
+      "value": "2026-07-28 15:00",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "bid_open_time": {
+      "status": "RESOLVED",
+      "value": "2026-07-28 15:00",
+      "candidate_count": 4,
+      "evidence_count": 4,
+      "reason": "Resolved by deterministic cross-reference to bid_deadline."
+    },
+    "bid_open_location": {
+      "status": "RESOLVED",
+      "value": "“河南国企阳光招采服务平台”不见面",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_bond_amount": {
+      "status": "RESOLVED",
+      "value": "20000",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_bond_form": {
+      "status": "RESOLVED",
+      "value": "银行转账方式",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "consortium_allowed": {
+      "status": "RESOLVED",
+      "value": false,
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "procurement_method": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "bid_validity": {
+      "status": "RESOLVED",
+      "value": "90日历天",
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "submission_method": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "electronic_platform": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Conflicting candidate values remain after normalization."
+    }
+  },
+  "lot_name_candidates": [],
+  "problems": [],
+  "result": "PASS"
+}

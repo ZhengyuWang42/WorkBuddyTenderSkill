@@ -31,7 +31,7 @@ class OutputField:
 
 
 def load_output_fields(path: str | Path | None = None) -> tuple[OutputField, ...]:
-    """Load and validate the fixed output order for all 20 V1 fields."""
+    """Load and validate the fixed output order for the current V1 fields."""
 
     config_path = Path(path) if path is not None else _DEFAULT_OUTPUT_FIELDS_PATH
     with config_path.open("r", encoding="utf-8") as handle:
@@ -111,6 +111,11 @@ def format_locator(locator: Locator) -> str:
         page = data["page"]
         block = data.get("block_index")
         return f"PDF:P:{page}:B:{block}" if block is not None else f"PDF:P:{page}"
+    if locator_type == "pdf_table_cell":
+        return (
+            f"PDF:T:{data['page']}:T:{data['table_index']}"
+            f":R:{data['row_index']}:C:{data['column_index']}"
+        )
     if locator_type == "docx_paragraph":
         return f"DOCX:P:{data['paragraph_index']}"
     if locator_type == "docx_table_cell":
@@ -136,6 +141,31 @@ def xlsx_value(fact: ResolvedFact) -> str:
     if fact.status == FactStatus.NEEDS_REVIEW:
         return "【存在冲突，见字段证据】"
     return "【未找到】"
+
+
+def template_value(fact: ResolvedFact) -> str:
+    """Render one ProjectFacts value for the supplied review template."""
+
+    if fact.status == FactStatus.RESOLVED:
+        return value_text(fact.resolved_value)
+    if fact.status == FactStatus.NEEDS_REVIEW:
+        return "【待核对】"
+    return "【待补充】"
+
+
+def combine_template_facts(
+    facts: Iterable[tuple[str, ResolvedFact]],
+    *,
+    empty_value: str = "【待补充】",
+) -> str:
+    """Combine independent facts without substituting one field for another."""
+
+    parts = [
+        f"{label}：{template_value(fact)}"
+        for label, fact in facts
+        if fact.status != FactStatus.NOT_FOUND
+    ]
+    return "；".join(parts) if parts else empty_value
 
 
 def docx_value(fact: ResolvedFact) -> str:
@@ -167,6 +197,7 @@ __all__ = [
     "STATUS_LABELS",
     "candidate_locator_json",
     "candidate_value_summary",
+    "combine_template_facts",
     "docx_value",
     "field_category",
     "field_label",
@@ -174,6 +205,7 @@ __all__ = [
     "load_output_fields",
     "status_display",
     "summary_locator",
+    "template_value",
     "value_text",
     "xlsx_value",
 ]

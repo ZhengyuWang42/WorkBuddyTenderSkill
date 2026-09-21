@@ -22,7 +22,10 @@
         "bid_bond_amount",
         "bid_bond_form",
         "consortium_allowed",
-        "procurement_method"
+        "procurement_method",
+        "bid_validity",
+        "submission_method",
+        "electronic_platform"
       ],
       "title": "FieldName",
       "type": "string"

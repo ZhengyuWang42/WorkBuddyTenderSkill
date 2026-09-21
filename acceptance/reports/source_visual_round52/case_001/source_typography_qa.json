@@ -1,0 +1,156 @@
+{
+  "audited": [
+    {
+      "label": "P4_TABLE",
+      "source": [
+        {
+          "text": "项目名称、标段",
+          "bbox": [
+            81.36,
+            117.42,
+            165.36,
+            129.7
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "供应商名称",
+          "bbox": [
+            93.36,
+            151.86,
+            153.36,
+            164.14
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "响应报价(元）",
+          "bbox": [
+            84.36,
+            191.94,
+            162.36,
+            204.22
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        }
+      ],
+      "generated": [
+        {
+          "text": "项目名称、标段",
+          "bbox": [
+            81.45,
+            117.18,
+            165.45,
+            129.18
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "供应商名称",
+          "bbox": [
+            93.45,
+            152.28,
+            153.45,
+            164.28
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "响应报价(元）（不",
+          "bbox": [
+            72.45,
+            198.43,
+            174.45,
+            210.43
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        }
+      ]
+    },
+    {
+      "label": "P9_VARIANTS",
+      "source": [
+        {
+          "text": "智慧泵房箱体",
+          "bbox": [
+            98.64,
+            163.98,
+            170.64,
+            176.26
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "水泵",
+          "bbox": [
+            124.2,
+            223.86,
+            145.09,
+            234.31
+          ],
+          "font": "SimSun",
+          "size": 10.45
+        },
+        {
+          "text": "水泵",
+          "bbox": [
+            124.2,
+            302.34,
+            145.09,
+            312.79
+          ],
+          "font": "SimSun",
+          "size": 10.45
+        }
+      ],
+      "generated": [
+        {
+          "text": "智慧泵房箱体",
+          "bbox": [
+            98.85,
+            164.43,
+            170.85,
+            176.43
+          ],
+          "font": "FangSong",
+          "size": 12.0
+        },
+        {
+          "text": "水泵",
+          "bbox": [
+            124.85,
+            225.15,
+            144.85,
+            235.15
+          ],
+          "font": "SimSun",
+          "size": 10.0
+        },
+        {
+          "text": "水泵",
+          "bbox": [
+            124.85,
+            304.15,
+            144.85,
+            314.15
+          ],
+          "font": "SimSun",
+          "size": 10.0
+        }
+      ]
+    }
+  ],
+  "font_family_mismatch_count": 0,
+  "font_size_mismatch_count": 0,
+  "font_weight_mismatch_count": 0,
+  "alignment_mismatch_count": 0,
+  "source_variant_flattening_count": 0,
+  "foreign_font_superscript_count": 0
+}

@@ -188,8 +188,8 @@ def test_project_facts_summary_counts_all_three_statuses():
     }
     facts = make_project_facts(make_fields(statuses))
 
-    assert facts.summary.total_fields == 20
-    assert facts.summary.resolved == 18
+    assert facts.summary.total_fields == 23
+    assert facts.summary.resolved == 21
     assert facts.summary.needs_review == 1
     assert facts.summary.not_found == 1
 
@@ -202,4 +202,4 @@ def test_generated_json_schema_can_be_loaded_and_describes_contract():
     assert schema["type"] == "object"
     assert set(schema["properties"]["fields"]["$ref"].split("/")[-1:]) == {"ProjectFields"}
     assert generated_schema == schema
-    assert len(schema["$defs"]["FieldName"]["enum"]) == 20
+    assert len(schema["$defs"]["FieldName"]["enum"]) == 23

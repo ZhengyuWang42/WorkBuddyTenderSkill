@@ -1,0 +1,111 @@
+{
+  "case_001_cover": {
+    "source_title_lines": [
+      "河南省水利第二工程局集团有限公司",
+      "引江济淮郸城县配套工程水源置换城乡供水工",
+      "程项目部一体化泵站采购项目"
+    ],
+    "generated_title_lines": [
+      "河南省水利第二工程局集团有限公司引江济淮郸城县配套工",
+      "程水源置换城乡供水工程项目部一体化泵站采购项目"
+    ],
+    "source_title_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+    "generated_title_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+    "generated_title_text_matches_source": true,
+    "generated_title_paragraph_count": 1,
+    "images": [
+      "c1_cover_SOURCE.png",
+      "c1_cover_GENERATED.png"
+    ]
+  },
+  "case_001_appendix_alignment": {
+    "source_page_abs": 43,
+    "generated_page": 4,
+    "clip": [
+      65.0,
+      130.0,
+      530.0,
+      540.0
+    ],
+    "rows": [
+      {
+        "label": "符合询比文件要求",
+        "source_x0": 309.72,
+        "generated_x0": 305.05,
+        "x0_error_pt": -4.67,
+        "source_center": 357.72,
+        "generated_center": 353.05,
+        "center_error_pt": -4.67
+      },
+      {
+        "label": "周口市郸城县石槽泵站",
+        "source_x0": 297.72,
+        "generated_x0": 293.05,
+        "x0_error_pt": -4.67,
+        "source_center": 357.72,
+        "generated_center": 353.05,
+        "center_error_pt": -4.67
+      },
+      {
+        "label": "90 日历天",
+        "source_x0": 264.72,
+        "generated_x0": 257.05,
+        "x0_error_pt": -7.67,
+        "source_center": 357.72,
+        "generated_center": 353.05,
+        "center_error_pt": -4.67
+      },
+      {
+        "label": "符合第四章",
+        "source_x0": 243.72,
+        "generated_x0": 239.05,
+        "x0_error_pt": -4.67,
+        "source_center": 357.72,
+        "generated_center": 353.05,
+        "center_error_pt": -4.67
+      },
+      {
+        "label": "符合第五章",
+        "source_x0": 261.72,
+        "generated_x0": 257.05,
+        "x0_error_pt": -4.67,
+        "source_center": 357.72,
+        "generated_center": 353.05,
+        "center_error_pt": -4.67
+      }
+    ],
+    "measured_rows": 5,
+    "max_abs_x0_error_pt": 7.67
+  },
+  "case_002_quotation_seam": {
+    "source_pages_with_head_fragment": [
+      63,
+      92,
+      151
+    ],
+    "source_pages_with_tail_fragment": [
+      63,
+      92,
+      152
+    ],
+    "generated_render_pages_with_fragments": [
+      9
+    ],
+    "word_tables_holding_both_halves_in_one_cell": 1,
+    "word_table_index": 4,
+    "joined_cell_excerpt": "集成配电/10KUPS/ECC800e/门磁/烟感/温湿度/水浸，留给IT设备柜的空间预计30U，带2个电池包。各组件运",
+    "seam_is_one_logical_cell": true,
+    "images": [
+      "c2_quotation_seam_SOURCE.png",
+      "c2_quotation_seam_GENERATED.png"
+    ]
+  },
+  "case_003_fact_fill": {
+    "project_name_present": true,
+    "purchaser_present": true,
+    "unresolved_lot_placeholder_preserved": true,
+    "residual_named_placeholders": [
+      "（标段名称）"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "workbuddy_docx_skill": {
+    "status": "NOT_AVAILABLE",
+    "paths": []
+  },
+  "pdf2docx": {
+    "status": "NOT_AVAILABLE",
+    "comparison_result": "NOT_RUN: optional dependency is not present"
+  }
+}

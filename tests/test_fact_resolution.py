@@ -20,15 +20,15 @@ def _resolve(document: NormalizedDocument):
     )
 
 
-def test_no_candidate_is_not_found_and_summary_counts_all_twenty_fields() -> None:
+def test_no_candidate_is_not_found_and_summary_counts_all_current_fields() -> None:
     facts = _resolve(_document(_paragraph(0, "只有无关内容")))
 
     assert facts.fields.bid_bond_amount.status == FactStatus.NOT_FOUND
     assert facts.fields.bid_bond_amount.resolved_value is None
-    assert facts.summary.total_fields == 20
+    assert facts.summary.total_fields == 23
     assert facts.summary.resolved == 0
     assert facts.summary.needs_review == 0
-    assert facts.summary.not_found == 20
+    assert facts.summary.not_found == 23
 
 
 def test_conflicting_values_require_review() -> None:
@@ -187,7 +187,7 @@ def test_project_facts_can_be_serialized_and_revalidated() -> None:
     round_trip = ProjectFacts.model_validate(facts.model_dump(mode="json"))
 
     assert round_trip.fields.project_number.resolved_value == "A123"
-    assert round_trip.summary.total_fields == 20
+    assert round_trip.summary.total_fields == 23
 
 
 def test_cli_writes_project_facts_and_review_packet(tmp_path) -> None:

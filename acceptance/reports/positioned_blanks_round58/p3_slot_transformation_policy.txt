@@ -1,0 +1,42 @@
+#   source_relation_type   transformation_policy          geometry_policy            fact_field
+1   PLACEHOLDER_UNDERLINE  PLACEHOLDER_REPLACED_BY_VALUE  ANCHOR_START_ONLY          purchaser
+2   PLACEHOLDER_UNDERLINE  PLACEHOLDER_REPLACED_BY_VALUE  ANCHOR_START_ONLY          project_name+project_number
+3   PLACEHOLDER_UNDERLINE  FIXED_EMPTY_SLOT               EXACT_SOURCE_SPAN          None
+4   GAP_FILL_RULE          FIXED_EMPTY_SLOT               EXACT_SOURCE_SPAN          bid_price_lowercase
+5   GAP_FILL_RULE          RESOLVED_VALUE_IN_FIXED_SLOT   ANCHOR_START_ONLY          duration
+6   GAP_FILL_RULE          RESOLVED_VALUE_IN_FIXED_SLOT   ANCHOR_START_ONLY          quality_target
+7   VALUE_UNDERLINE        SOURCE_VALUE_UNDERLINE         EXACT_SOURCE_SPAN          bid_validity
+8   PLACEHOLDER_UNDERLINE  PRESERVE_SOURCE_PLACEHOLDER    EXACT_SOURCE_SPAN          None
+
+#1  (采购人名称)
+    fact_status   : {'purchaser': 'RESOLVED'} -> {'purchaser': '河南省水利第二工程局集团有限公司'}
+    expected      : placeholder replaced exactly once by the resolved value; value at natural width; source punctuation and start anchor preserved; no duplicated placeholder; source-local underline semantics only
+    evidence      : bracketed placeholder is body text on the purchaser line; the delivered line keeps the source start anchor and the trailing full-width colon at 194.64-206.64
+#2  我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意
+    fact_status   : {'project_name': 'RESOLVED', 'project_number': 'RESOLVED'} -> {'project_name': '河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目', 'project_number': 'YSEJJXXB202607-18'}
+    expected      : placeholder replaced exactly once by the resolved value; value at natural width; source punctuation and start anchor preserved; no duplicated placeholder; source-local underline semantics only
+    evidence      : two bracketed placeholders inside one running sentence; the sentence continues with 询比文件的全部内容，愿意 so the value must flow at natural width, not into the placeholder glyph box
+#3  （不含税），（小写）
+    fact_status   : {} -> {}
+    expected      : fillable blank preserved at the source x0/x1 via the source-positioned tab emitter; blank left empty because no fact field governs it
+    evidence      : 大写/小写 price labels are part of the sentence skeleton and are retained verbatim; the bidder figure they bracket is unreserved in the source (no figure glyph exists), so the rule at 169.65-323.60 sits under the retained label text and no fact fills it
+#4  （不含税），（小写）
+    fact_status   : {'bid_price_lowercase': None} -> {'bid_price_lowercase': None}
+    expected      : fillable blank preserved at the source x0/x1 via the source-positioned tab emitter; blank left empty because no fact field governs it
+    evidence      : rule extent 384.60-459.00 is clear of all source text on its own line; the gap between （小写） ending 384.48 and 元的响应报 starting 459.00 is an unreserved bidder-entered figure slot
+#5  价，供货期
+    fact_status   : {'duration': 'RESOLVED'} -> {'duration': '30日历天'}
+    expected      : resolved value emitted at the source slot start anchor and underlined across its own natural width; no clipping or compression; the value is not held to the source slot's x1
+    evidence      : rule extent 131.85-181.40 is clear of source text; it is the supply-period slot between 价，供货期 ending 131.64 and the continuation starting 181.44, and ProjectFacts resolves duration to 30日历天, whose natural width exceeds the 49.55 pt source slot
+#6  达到
+    fact_status   : {'quality_target': 'RESOLVED'} -> {'quality_target': '符合国家及行业有关标准、规范和询比文件要求'}
+    expected      : resolved value emitted at the source slot start anchor and underlined across its own natural width; no clipping or compression; the value is not held to the source slot's x1
+    evidence      : rule extent 95.25-151.05 is clear of source text; it is the quality slot between 达到 ending 95.04 and the sentence-final 。 at 151.08, and ProjectFacts resolves quality_target to a value far wider than the 55.80 pt source slot
+#7  90
+    fact_status   : {'bid_validity': 'RESOLVED'} -> {'bid_validity': '90日历天'}
+    expected      : source value 90 preserved verbatim with its underline at source x0/x1
+    evidence      : the source already contains the visible value 90 at 364.80-376.80 and draws a rule under it; the value is unchanged in delivery, so its underline geometry is a source-exact gate
+#8  7、（其他补充说明）。
+    fact_status   : {} -> {}
+    expected      : source placeholder text preserved verbatim with its source underline
+    evidence      : no ProjectFacts field governs this line; the source placeholder text is intentionally retained verbatim and its rule extent 112.80-208.80 is fully occupied by that text, so the underline belongs to the retained run

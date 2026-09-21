@@ -1,0 +1,8 @@
+{
+  "status": "OK",
+  "returncode": 0,
+  "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\基础投标文件.pdf",
+  "pdf_bytes": 880058,
+  "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+  "stderr": "Could not find platform independent libraries <prefix>\n"
+}

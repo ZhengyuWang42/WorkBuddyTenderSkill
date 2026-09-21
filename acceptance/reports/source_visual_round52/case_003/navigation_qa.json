@@ -1,0 +1,174 @@
+{
+  "headings": 27,
+  "tree": [
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "一、投标函及投标函附录",
+      "children": [
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "(一)投标函",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "(二)投标函附录",
+          "children": []
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "二、法定代表人身份证明",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "三、授权委托书",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "项目经理授权、任命文件",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "四、已标价工程量清单",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "五、施工组织设计",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "六、项目组织机构",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "项目机构管理人员配置表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "项目管理机构人员配置表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "项目负责人资格",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "项目负责人简历表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "七、拟分包项目情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "八、投标人基本情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "九、近3年财务状况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "（近3年指2022年1月至2024年12月）",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "财务状况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十、近年完成的类似项目情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十一、正在施工的和新承接的项目情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十二、近3年发生的诉讼及仲裁情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十三、原件的扫描件或复印件",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十四、其他组成材料",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十五、资信业绩",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十六、投标保证金",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十七、投标承诺书",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十八、定标相关资料",
+      "children": []
+    }
+  ],
+  "body_list_headings": 0,
+  "toc_headings": 0,
+  "ambiguous_heading_count": 12,
+  "ambiguous_heading_promoted_count": 0,
+  "false_heading_count": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "case": "case_002",
+  "method": "anchored region rule inventory, source vs generated render",
+  "anchors_source": {
+    "法定代表人": {
+      "source_page": 144,
+      "bbox": [
+        98.04,
+        595.18,
+        280.09,
+        609.23
+      ]
+    },
+    "投标函": {
+      "source_page": 145,
+      "bbox": [
+        114.84,
+        111.9,
+        174.48,
+        123.9
+      ]
+    },
+    "开标一览表": {
+      "source_page": 145,
+      "bbox": [
+        114.84,
+        142.98,
+        197.64,
+        154.98
+      ]
+    }
+  },
+  "anchors_generated": {
+    "法定代表人": {
+      "generated_page": 1,
+      "bbox": [
+        90.15,
+        658.21,
+        370.15,
+        672.21
+      ]
+    },
+    "投标函": {
+      "generated_page": 2,
+      "bbox": [
+        114.95,
+        122.83,
+        174.95,
+        134.83
+      ]
+    },
+    "开标一览表": {
+      "generated_page": 2,
+      "bbox": [
+        114.95,
+        159.53,
+        198.95,
+        171.53
+      ]
+    }
+  },
+  "quotation_total_blank_loss_count": 0,
+  "quotation_signature_blank_loss_count": 0,
+  "quotation_blank_kind_mismatch_count": 0,
+  "regions": [
+    {
+      "anchor": "不含税合计",
+      "status": "ANCHOR_MISSING",
+      "source": null,
+      "generated": null
+    },
+    {
+      "anchor": "供应商名称",
+      "status": "ANCHOR_MISSING",
+      "source": null,
+      "generated": null
+    },
+    {
+      "anchor": "法定代表人或其委托代理人",
+      "status": "ANCHOR_MISSING",
+      "source": null,
+      "generated": null
+    }
+  ]
+}

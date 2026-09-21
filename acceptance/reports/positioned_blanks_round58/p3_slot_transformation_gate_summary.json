@@ -1,0 +1,84 @@
+{
+  "gates": {
+    "normalized_source_rule_count": 8,
+    "exact_matched_rule_count": 1,
+    "transformed_matched_rule_count": 0,
+    "lost_source_rule_count": 7,
+    "invented_rule_count": 8,
+    "displaced_rule_count": 1,
+    "rule_accounting_invariant_failures": [],
+    "all_exact_source_span_ok": false,
+    "semantic": {
+      "duplicate_placeholder_value_count": 0,
+      "invented_project_number_tail_underline_count": 0,
+      "generic_role_overrode_source_blank_kind_count": 0,
+      "text_clipping_count": 0,
+      "unsafe_ooxml": 0,
+      "synthetic_layout_tables": 0,
+      "generated_textbox_count": 0
+    },
+    "pass": false
+  },
+  "exact_source_span": [
+    {
+      "index": 3,
+      "semantic_context": "（不含税），（小写）",
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "generated_x0": null,
+      "generated_x1": null,
+      "generated_y": null,
+      "x0_error": null,
+      "x1_error": null,
+      "y_error": null,
+      "status": "NOT_EMITTED_AT_SOURCE_SPAN",
+      "pass": false
+    },
+    {
+      "index": 4,
+      "semantic_context": "（不含税），（小写）",
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "generated_x0": null,
+      "generated_x1": null,
+      "generated_y": null,
+      "x0_error": null,
+      "x1_error": null,
+      "y_error": null,
+      "status": "NOT_EMITTED_AT_SOURCE_SPAN",
+      "pass": false
+    },
+    {
+      "index": 7,
+      "semantic_context": "90",
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "generated_x0": null,
+      "generated_x1": null,
+      "generated_y": null,
+      "x0_error": null,
+      "x1_error": null,
+      "y_error": null,
+      "status": "NOT_EMITTED_AT_SOURCE_SPAN",
+      "pass": false
+    },
+    {
+      "index": 8,
+      "semantic_context": "7、（其他补充说明）。",
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "generated_x0": null,
+      "generated_x1": null,
+      "generated_y": null,
+      "x0_error": null,
+      "x1_error": null,
+      "y_error": null,
+      "status": "NOT_EMITTED_AT_SOURCE_SPAN",
+      "pass": false
+    }
+  ]
+}

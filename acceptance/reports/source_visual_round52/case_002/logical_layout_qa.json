@@ -1,0 +1,750 @@
+{
+  "word_logical_paragraphs": 637,
+  "word_manual_breaks": 0,
+  "word_page_breaks": 0,
+  "word_section_page_boundaries": 30,
+  "layout_tab_count": 24,
+  "layout_tab_hack": 0,
+  "mid_sentence_paragraph_breaks": 0,
+  "centered_body_paragraph_count": 0,
+  "extreme_body_right_indent_count": 0,
+  "list_continuation_split_count": 0,
+  "multi_label_form_row_count": 0,
+  "form_table_wrong_alignment_count": 0,
+  "slot_semantic_mismatch_count": 0,
+  "paragraph_fragmentation_count": 0,
+  "form_paragraph_not_native_count": 0,
+  "nbsp_only_placeholder_count": 0,
+  "invisible_required_blank_count": 0,
+  "list_hanging_direction_error": 33,
+  "unsafe_ooxml": 0,
+  "logical_paragraph_count": 114,
+  "source_visual_line_count": 181,
+  "source_visual_lines": 181,
+  "generated_visual_lines": null,
+  "line_wrap_delta": null,
+  "detected_editable_blanks": 64,
+  "visible_rule_blanks": 42,
+  "plain_empty_blanks": 9,
+  "blank_width_error_max": 0.0,
+  "blank_width_error_median": 0.0,
+  "list_continuation_x_error_pt": 0.020002746582036934,
+  "list_sibling_indent_variance_pt": 2.0,
+  "form_block_label_x_variance": 0.0,
+  "form_block_value_x_variance": 0.0,
+  "form_block_row_alignment_error": 0.02000732421873863,
+  "source_real_tables": 22,
+  "generated_real_tables": 22,
+  "synthetic_layout_tables": 0,
+  "paragraph_x_error_pt_max": 0.020013427734397737,
+  "paragraph_y_error_pt_max": 0.0,
+  "tab_stop_usage": {
+    "paragraphs_with_tabs": 19,
+    "leader_tabs": 22,
+    "anchor_tabs": 2,
+    "form_tab_leader_count": 22,
+    "date_tabs": 0,
+    "date_underlined_runs": 15,
+    "terminal_rule_fallback": 14,
+    "annotation_tabs": 2,
+    "multi_field_tabs": 8
+  },
+  "artifact_filter": {
+    "isolated_artifact_candidates": 6,
+    "artifact_spans_removed": 74,
+    "table_spans_rejected_by_geometry": 6,
+    "suspicious_short_cell_text": 0,
+    "isolated_artifact_details": [
+      {
+        "page": 150,
+        "table_index": 0,
+        "row_index": 6,
+        "column_index": 3,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "bbox": [
+          172.15573120117188,
+          295.45233154296875,
+          413.9871826171875,
+          537.28369140625
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      },
+      {
+        "page": 150,
+        "table_index": 0,
+        "row_index": 7,
+        "column_index": 3,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "bbox": [
+          172.15573120117188,
+          295.45233154296875,
+          413.9871826171875,
+          537.28369140625
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      },
+      {
+        "page": 150,
+        "table_index": 0,
+        "row_index": 7,
+        "column_index": 3,
+        "text": "营收系统整合和硬件系统升级项目",
+        "bbox": [
+          209.2457275390625,
+          332.5462646484375,
+          412.8932189941406,
+          536.1937255859375
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      },
+      {
+        "page": 152,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "bbox": [
+          172.15573120117188,
+          48.852291107177734,
+          413.9872131347656,
+          290.6836853027344
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      },
+      {
+        "page": 159,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "bbox": [
+          172.15573120117188,
+          48.852291107177734,
+          413.9872131347656,
+          290.6836853027344
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      },
+      {
+        "page": 160,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "bbox": [
+          172.15573120117188,
+          48.852291107177734,
+          413.9872131347656,
+          290.6836853027344
+        ],
+        "reason": "short raw fallback overlaps a page-layer overlay but is not cell-owned"
+      }
+    ],
+    "artifact_spans_removed_details": [
+      {
+        "page": 147,
+        "table_index": 0,
+        "row_index": 6,
+        "column_index": 1,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 147,
+        "table_index": 0,
+        "row_index": 6,
+        "column_index": 1,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 147,
+        "table_index": 0,
+        "row_index": 7,
+        "column_index": 0,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 147,
+        "table_index": 0,
+        "row_index": 7,
+        "column_index": 1,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 148,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 0,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 149,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 0,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 149,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 0,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 149,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 150,
+        "table_index": 0,
+        "row_index": 6,
+        "column_index": 3,
+        "text": "平 台",
+        "reason": "short raw cell fallback has no owned source span"
+      },
+      {
+        "page": 150,
+        "table_index": 0,
+        "row_index": 7,
+        "column_index": 3,
+        "text": "交 易 目",
+        "reason": "short raw cell fallback has no owned source span"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 3,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 4,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 5,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 6,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 7,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 8,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 151,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 152,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西",
+        "reason": "short raw cell fallback has no owned source span"
+      },
+      {
+        "page": 152,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 152,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 152,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 153,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 153,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 153,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 154,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 154,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 154,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 155,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 155,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 155,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 156,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 156,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 156,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 157,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 157,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 157,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 158,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 158,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 158,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 159,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西",
+        "reason": "short raw cell fallback has no owned source span"
+      },
+      {
+        "page": 159,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 159,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 159,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 160,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 1,
+        "text": "西",
+        "reason": "short raw cell fallback has no owned source span"
+      },
+      {
+        "page": 160,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 160,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 160,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 161,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 161,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 161,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 162,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 162,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 162,
+        "table_index": 0,
+        "row_index": 2,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 163,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 163,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 163,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 164,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 164,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 164,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 165,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 165,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 165,
+        "table_index": 0,
+        "row_index": 1,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 166,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 166,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 166,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 167,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 167,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 167,
+        "table_index": 0,
+        "row_index": 0,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 168,
+        "table_index": 0,
+        "row_index": 2,
+        "column_index": 2,
+        "text": "西安市综改试验区国企招标集采交易平台",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 168,
+        "table_index": 0,
+        "row_index": 2,
+        "column_index": 2,
+        "text": "营收系统整合和硬件系统升级项目",
+        "reason": "repeated page chrome key"
+      },
+      {
+        "page": 168,
+        "table_index": 0,
+        "row_index": 3,
+        "column_index": 2,
+        "text": "2026-03-23 16:58:05",
+        "reason": "repeated page chrome key"
+      }
+    ]
+  },
+  "issues": {
+    "mid_sentence_paragraph_breaks": [],
+    "centered_body_paragraph_count": [],
+    "extreme_body_right_indent_count": [],
+    "list_continuation_split_count": [],
+    "multi_label_form_row_count": [],
+    "form_table_wrong_alignment_count": [],
+    "slot_semantic_mismatch_count": [],
+    "paragraph_fragmentation_count": [],
+    "form_paragraph_not_native_count": []
+  },
+  "result": "NEEDS_REVIEW"
+}

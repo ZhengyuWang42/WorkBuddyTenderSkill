@@ -1,0 +1,169 @@
+{
+ "render": {
+  "returncode": 0,
+  "pdf_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_r7_stabilization\\基础投标文件.pdf",
+  "pdf_bytes": 295641
+ },
+ "counters": {
+  "R7_visible_90_occurrence_count": 1,
+  "R7_overall_painted": {
+   "x0": 352.8,
+   "x1": 388.8,
+   "y": 382.95
+  },
+  "R7_overall_x0_error": 0.0,
+  "R7_overall_x1_error": 0.0,
+  "R7_segment_gaps": [
+   0.0,
+   0.0
+  ],
+  "R7_max_abs_gap": 0.0,
+  "R7_segment_count_painted": 3,
+  "text_clipping_count": 0,
+  "text_duplication_count": 0,
+  "duplicate_placeholder_value_count": 0,
+  "invented_project_number_tail_underline_count": 0,
+  "generic_role_overrode_source_blank_kind_count": 0,
+  "unsafe_ooxml": 0,
+  "generated_textbox_count": 0,
+  "synthetic_layout_tables": 0,
+  "generated_table_count": 5,
+  "source_table_count": 5,
+  "orphan_generated_rule_provenance_count": 0,
+  "rule_accounting_invariant_failures": [],
+  "purchaser_occurrence_total": 2,
+  "placeholder_occurrence_total": 0,
+  "docx_package_entries": 14,
+  "document_xml_bytes": 160821,
+  "qa_report_keys": 9
+ },
+ "accounting": {
+  "logical_rule_emission_count": 1,
+  "composition_segment_emission_count": 3,
+  "duplicate_logical_rule_emission_count": 0,
+  "all_compositions": [
+   {
+    "source_rule_id": "P42-R7",
+    "source_relation_type": "FORM_LAYOUT_RULE",
+    "text_occupancy": 0.333,
+    "segment_count": 3,
+    "segments": [
+     {
+      "id": "P42-R7-S1",
+      "type": "EMPTY_RULE_SEGMENT",
+      "x0": 352.8,
+      "x1": 364.8,
+      "text": null
+     },
+     {
+      "id": "P42-R7-S2",
+      "type": "TEXT_RULE_SEGMENT",
+      "x0": 364.8,
+      "x1": 376.8,
+      "text": "90"
+     },
+     {
+      "id": "P42-R7-S3",
+      "type": "EMPTY_RULE_SEGMENT",
+      "x0": 376.8,
+      "x1": 388.8,
+      "text": null
+     }
+    ]
+   }
+  ]
+ },
+ "p44_r12_record": null,
+ "p44_r12_source_chars_near_rule": [
+  {
+   "c": "供",
+   "x0": 70.8,
+   "x1": 82.8,
+   "y": 418.98
+  },
+  {
+   "c": "应",
+   "x0": 82.68,
+   "x1": 94.68,
+   "y": 418.98
+  },
+  {
+   "c": "商",
+   "x0": 94.56,
+   "x1": 106.56,
+   "y": 418.98
+  },
+  {
+   "c": "：",
+   "x0": 106.44,
+   "x1": 118.44,
+   "y": 418.98
+  },
+  {
+   "c": "(",
+   "x0": 260.4,
+   "x1": 266.4,
+   "y": 418.98
+  },
+  {
+   "c": "盖",
+   "x0": 266.4,
+   "x1": 278.4,
+   "y": 418.98
+  },
+  {
+   "c": "单",
+   "x0": 278.4,
+   "x1": 290.4,
+   "y": 418.98
+  },
+  {
+   "c": "位",
+   "x0": 290.4,
+   "x1": 302.4,
+   "y": 418.98
+  },
+  {
+   "c": "公",
+   "x0": 302.4,
+   "x1": 314.4,
+   "y": 418.98
+  },
+  {
+   "c": "章",
+   "x0": 314.4,
+   "x1": 326.4,
+   "y": 418.98
+  },
+  {
+   "c": "）",
+   "x0": 326.4,
+   "x1": 338.4,
+   "y": 418.98
+  }
+ ],
+ "r7_painted_segments": [
+  [
+   352.8,
+   364.8,
+   382.95
+  ],
+  [
+   364.8,
+   376.8,
+   382.95
+  ],
+  [
+   376.8,
+   388.8,
+   382.95
+  ]
+ ],
+ "r7_ninety": [
+  {
+   "x0": 364.9,
+   "x1": 376.9,
+   "y": 370.56
+  }
+ ]
+}

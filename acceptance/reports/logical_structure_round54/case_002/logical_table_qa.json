@@ -1,0 +1,291 @@
+{
+  "case": "case_002",
+  "pdf_table_fragments": 22,
+  "logical_table_count": 10,
+  "logical_rows": 63,
+  "continuation_fragments_detected": 12,
+  "continuation_fragments_merged": 12,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "cell_text_continuations": 12,
+  "source_characters": 9546,
+  "rebuilt_characters": 9546,
+  "character_multiset_preserved": true,
+  "editable_table_characters": 9546,
+  "editable_table_characters_preserved": true,
+  "generated_table_count": 10,
+  "word_table_count_matches_logical": true,
+  "docx_table_characters": 8972,
+  "continuation_cell_texts_checked": 38,
+  "continuation_cell_texts_missing": 0,
+  "continuation_cell_text_missing_samples": [],
+  "fill_slots_on_continuation_fragments": 0,
+  "fill_slots_on_continuation_details": [],
+  "long_prose_cells_measured": 44,
+  "long_prose_alignment_mismatches": 0,
+  "long_prose_mismatch_samples": [],
+  "decisions": [
+    {
+      "previous_page": 147,
+      "page": 148,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 559.66 of band bottom 559.66 within 21.41 pt: True; later starts at 286.27 of band top 131.42: False)",
+        "table extent differs (left 56.68..539.77, right 82.63..550.82)",
+        "not a page-driven split (earlier ends at 559.66 of band bottom 559.66 within 21.41 pt: True; later starts at 286.27 of band top 131.42: False)",
+        "table extent differs (left 56.68..539.77, right 82.63..550.82)",
+        "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+      ]
+    },
+    {
+      "previous_page": 148,
+      "page": 149,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 431.74 of band bottom 431.74 within 7.27 pt: True; later starts at 354.28 of band top 286.27: False)",
+        "table extent differs (left 82.63..550.82, right 79.47..538.83)",
+        "not a page-driven split (earlier ends at 431.74 of band bottom 431.74 within 7.27 pt: True; later starts at 354.28 of band top 286.27: False)",
+        "table extent differs (left 82.63..550.82, right 79.47..538.83)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 149,
+      "page": 150,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "table extent differs (left 79.47..538.83, right 54.23..542.22)",
+        "page-driven split (earlier fragment reaches the band bottom 499.86 of 499.86; later resumes at the band top 106.42 of 354.28)",
+        "table extent differs (left 79.47..538.83, right 54.23..542.22)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 150,
+      "page": 151,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "page geometry differs (841.90 vs 595.30)",
+        "not a page-driven split (earlier ends at 353.69 of band bottom 353.69 within 12.36 pt: True; later starts at 151.27 of band top 106.42: False)",
+        "table extent differs (left 54.23..542.22, right 56.68..765.77)",
+        "not a page-driven split (earlier ends at 353.69 of band bottom 353.69 within 12.36 pt: True; later starts at 151.27 of band top 106.42: False)",
+        "table extent differs (left 54.23..542.22, right 56.68..765.77)",
+        "text resumes mid-item ('）' -> '营')"
+      ]
+    },
+    {
+      "previous_page": 151,
+      "page": 152,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 499.21 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('柜' -> '出')"
+      ]
+    },
+    {
+      "previous_page": 152,
+      "page": 153,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes at a numbered sub-item ('器' -> '6')"
+      ]
+    },
+    {
+      "previous_page": 153,
+      "page": 154,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('化' -> '持')"
+      ]
+    },
+    {
+      "previous_page": 154,
+      "page": 155,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('机' -> '化')"
+      ]
+    },
+    {
+      "previous_page": 155,
+      "page": 156,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 493.69 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('件' -> '国')"
+      ]
+    },
+    {
+      "previous_page": 156,
+      "page": 157,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('国' -> '家')"
+      ]
+    },
+    {
+      "previous_page": 157,
+      "page": 158,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (9 columns)",
+        "text resumes mid-item ('触' -> '式')"
+      ]
+    },
+    {
+      "previous_page": 158,
+      "page": 159,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 0.7,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 489.51 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "equivalent grid (9 vs 8 columns; one fragment merges adjacent columns of the other)",
+        "text resumes mid-item ('、' -> '各')"
+      ]
+    },
+    {
+      "previous_page": 159,
+      "page": 160,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 496.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes mid-item ('成' -> '调')"
+      ]
+    },
+    {
+      "previous_page": 160,
+      "page": 161,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 496.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+      ]
+    },
+    {
+      "previous_page": 161,
+      "page": 162,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes mid-item ('可' -> '正')"
+      ]
+    },
+    {
+      "previous_page": 162,
+      "page": 163,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes at a numbered sub-item ('。' -> '4')"
+      ]
+    },
+    {
+      "previous_page": 163,
+      "page": 164,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "not a page-driven split (earlier ends at 387.54 of band bottom 499.21 within 20.46 pt: False; later starts at 90.00 of band top 90.00: True)",
+        "not a page-driven split (earlier ends at 387.54 of band bottom 499.21 within 20.46 pt: False; later starts at 90.00 of band top 90.00: True)",
+        "identical column grid (8 columns)",
+        "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+      ]
+    },
+    {
+      "previous_page": 164,
+      "page": 165,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 490.94 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes mid-item ('对' -> '账')"
+      ]
+    },
+    {
+      "previous_page": 165,
+      "page": 166,
+      "merge": true,
+      "edge_identity_blank": true,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 497.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes at a numbered sub-item ('。' -> '5')"
+      ]
+    },
+    {
+      "previous_page": 166,
+      "page": 167,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 489.76 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "text resumes at a numbered sub-item ('求' -> '3')"
+      ]
+    },
+    {
+      "previous_page": 167,
+      "page": 168,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 1.0,
+      "reasons": [
+        "page-driven split (earlier fragment reaches the band bottom 480.64 of 499.21; later resumes at the band top 90.00 of 90.00)",
+        "identical column grid (8 columns)",
+        "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+      ]
+    }
+  ],
+  "result": "PASS"
+}

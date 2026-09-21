@@ -1,0 +1,51 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "anchor": "响应文件格式",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 40,
+      "rendered_pdf_page": 1,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_001\\comparisons\\p01_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 3,
+      "anchor": "如我方成交，我公司承诺如下",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 42,
+      "rendered_pdf_page": 3,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_001\\comparisons\\p03_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 4,
+      "anchor": "(二)响应函附录",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 43,
+      "rendered_pdf_page": 4,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_001\\comparisons\\p04_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 5,
+      "anchor": "供应商名称：",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 44,
+      "rendered_pdf_page": 5,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_001\\comparisons\\p05_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 9,
+      "anchor": "智慧泵房箱体",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 48,
+      "rendered_pdf_page": 9,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_001\\comparisons\\p09_source_vs_generated.png",
+      "status": "RENDERED"
+    }
+  ],
+  "measurement_method": "actual source PDF page vs LibreOffice render, paired by source content anchor",
+  "note": "Rendered comparison is required evidence; it is not by itself user visual acceptance."
+}

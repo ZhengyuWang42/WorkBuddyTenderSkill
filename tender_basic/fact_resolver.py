@@ -11,7 +11,15 @@ import yaml
 
 from .document_models import NormalizedDocument
 from .fact_extractor import load_field_aliases
-from .fact_normalizer import normalize_candidates
+from .fact_normalizer import (
+    COMPACT_TEXT_FIELDS,
+    DATE_FIELDS,
+    MONEY_FIELDS,
+    TIME_SPAN_FIELDS,
+    is_value_type_valid,
+    normalize_candidates,
+    normalize_date_time,
+)
 from .models import (
     CandidateFact,
     FactStatus,
@@ -34,6 +42,15 @@ _SINGLE_METHOD_MIN_CONFIDENCE = {
     "table_label_exact": 0.95,
     "label_value_same_line": 0.90,
     "label_value_next_line": 0.85,
+    "labeled_multiline_value": 0.85,
+    "standalone_title_candidate": 0.65,
+    "platform_phrase": 0.75,
+    "lot_value_context": 0.92,
+    "lot_section_heading": 0.88,
+    "lot_cover_title": 0.72,
+    # WorkBuddy proposals are still only candidates, but they have already
+    # passed the locator/evidence/value-type boundary in semantic_candidates.
+    "semantic_evidence_review": 0.80,
 }
 
 
@@ -150,6 +167,109 @@ def _passes_single_candidate_gate(
     return True
 
 
+def _explicit_keyword_candidate(field: FieldName, candidate: CandidateFact) -> bool:
+    """Allow only two narrow keyword shapes with an unambiguous contract."""
+
+    evidence = re.sub(r"\s+", "", candidate.evidence_text)
+    value = re.sub(r"\s+", "", str(candidate.value))
+    if field == FieldName.CONSORTIUM_ALLOWED:
+        return (
+            "联合体" in evidence
+            and any(token in evidence for token in ("不接受联合体", "不允许联合体", "接受联合体"))
+            and candidate.normalized_value in {True, False}
+        )
+    if field == FieldName.PROCUREMENT_METHOD:
+        allowed = {
+            "公开招标",
+            "邀请招标",
+            "竞争性谈判",
+            "竞争性磋商",
+            "询价",
+            "询比",
+            "单一来源",
+        }
+        return (
+            any(token in evidence for token in ("招标方式", "采购方式"))
+            and value in allowed
+        )
+    return False
+
+
+def _compact_for_prefix(value: object) -> str:
+    return re.sub(r"[\s，,。；;：:、.!！？!?（）()（）]", "", str(value))
+
+
+def _drop_truncated_candidates(candidates: list[CandidateFact]) -> list[CandidateFact]:
+    """Drop only obvious PDF truncation fragments, preserving real conflicts."""
+
+    result: list[CandidateFact] = []
+    for candidate in candidates:
+        candidate_text = _compact_for_prefix(candidate.normalized_value or candidate.value)
+        truncated = False
+        if len(candidate_text) >= 4:
+            for other in candidates:
+                if other is candidate:
+                    continue
+                other_text = _compact_for_prefix(other.normalized_value or other.value)
+                if (
+                    len(other_text) > len(candidate_text) + 2
+                    and other_text.startswith(candidate_text)
+                    and other.confidence >= candidate.confidence
+                ):
+                    truncated = True
+                    break
+                # A PDF block can end in a longer but unfinished suffix while
+                # the table/complete block contains the same value.  Only
+                # remove that shape when the complete value is stronger and
+                # the extra suffix is short enough to be layout residue.
+                if (
+                    len(candidate_text) > len(other_text) + 2
+                    and candidate_text.startswith(other_text)
+                    and candidate.confidence < other.confidence
+                    and len(candidate_text) - len(other_text) <= 32
+                    and not str(candidate.value).rstrip().endswith(("。", ";", "；", ")", "）"))
+                ):
+                    truncated = True
+                    break
+                if (
+                    len(candidate_text) > len(other_text)
+                    and candidate_text.startswith(other_text)
+                    and candidate.confidence <= other.confidence
+                    and len(candidate_text) - len(other_text) <= 3
+                    and isinstance(candidate.value, str)
+                    and re.search(r"\s+[^\s]{1,3}$", candidate.value)
+                    and getattr(candidate.locator, "locator_type", "") == "pdf_table_cell"
+                ):
+                    truncated = True
+                    break
+                # A split table cell may expose only the tail of a longer
+                # value (for example the last few characters of a project
+                # title).  It is not an independent conflicting fact.
+                if (
+                    len(candidate_text) >= 4
+                    and len(candidate_text) * 2 <= len(other_text)
+                    and candidate_text in other_text
+                    and candidate.confidence < other.confidence
+                ):
+                    truncated = True
+                    break
+                # A block that begins mid-word is the tail of a value the
+                # extractor also captured whole.  Being a strict suffix of a
+                # stronger candidate is evidence of truncation even when the
+                # fragment is short, which the length-ratio rule above misses.
+                if (
+                    len(candidate_text) >= 2
+                    and len(other_text) > len(candidate_text)
+                    and other_text.endswith(candidate_text)
+                    and candidate.confidence <= other.confidence
+                ):
+                    truncated = True
+                    break
+        if not truncated:
+            result.append(candidate)
+    return result
+
+
 def _review_for_fallback_gate(
     field: FieldName,
     candidates: list[CandidateFact],
@@ -199,8 +319,21 @@ def resolve_field(
             resolution_reason="No credible candidate found.",
         )
 
+    usable = _drop_truncated_candidates(usable)
+    valid_candidates = [
+        candidate
+        for candidate in usable
+        if is_value_type_valid(field_enum, candidate.value)
+    ]
+    if not valid_candidates:
+        return _review_for_fallback_gate(
+            field_enum,
+            usable,
+            "Candidate evidence exists but no candidate passed the field value-type validator.",
+        )
+
     groups: dict[str, list[CandidateFact]] = {}
-    for candidate in usable:
+    for candidate in valid_candidates:
         groups.setdefault(_normalized_key(candidate.normalized_value), []).append(candidate)
 
     if len(groups) > 1:
@@ -208,18 +341,18 @@ def resolve_field(
             field=field_enum,
             resolved_value=None,
             status=FactStatus.NEEDS_REVIEW,
-            confidence=min(candidate.confidence for candidate in usable),
+            confidence=min(candidate.confidence for candidate in valid_candidates),
             candidates=usable,
             resolution_reason="Conflicting candidate values remain after normalization.",
         )
 
     keyword_candidates = [
-        candidate for candidate in usable if candidate.method == "keyword_window"
+        candidate for candidate in valid_candidates if candidate.method == "keyword_window"
     ]
     if keyword_candidates:
         supporting_candidates = [
             candidate
-            for candidate in usable
+            for candidate in valid_candidates
             if candidate.method != "keyword_window"
             and _passes_single_candidate_gate(candidate, aliases)
         ]
@@ -227,29 +360,37 @@ def resolve_field(
             all(_locator_key(candidate) != _locator_key(keyword) for keyword in keyword_candidates)
             for candidate in supporting_candidates
         )
-        if not has_independent_support:
+        keyword_is_explicit = all(
+            _explicit_keyword_candidate(field_enum, candidate)
+            for candidate in keyword_candidates
+        )
+        if not has_independent_support and not keyword_is_explicit:
             return _review_for_fallback_gate(
                 field_enum,
                 usable,
                 "Standalone keyword_window evidence requires review; no independent high-quality candidate agrees.",
             )
 
-    if len(usable) == 1 and not _passes_single_candidate_gate(usable[0], aliases):
-        if usable[0].method == "keyword_window":
+    if len(valid_candidates) == 1 and not _passes_single_candidate_gate(
+        valid_candidates[0], aliases
+    ) and not _explicit_keyword_candidate(field_enum, valid_candidates[0]):
+        if valid_candidates[0].method == "keyword_window":
             reason = "Standalone keyword_window evidence requires review."
-        elif usable[0].method == "label_value_next_line":
+        elif valid_candidates[0].method == "label_value_next_line":
             reason = "Single next-line candidate did not pass the deterministic quality gate."
         else:
             reason = "Single candidate did not pass the deterministic quality gate."
         return _review_for_fallback_gate(field_enum, usable, reason)
 
-    chosen = max(usable, key=lambda item: _candidate_sort_key(item, source_priority))
-    confidence = _confidence_for(chosen, source_priority, len(usable))
-    if len(usable) == 1:
+    chosen = max(valid_candidates, key=lambda item: _candidate_sort_key(item, source_priority))
+    confidence = _confidence_for(chosen, source_priority, len(valid_candidates))
+    if len(valid_candidates) == 1:
         reason = "Single credible candidate after deterministic validation."
     else:
         reason = "Multiple candidates agree after normalization."
     resolved_value = chosen.value
+    if field_name in MONEY_FIELDS | DATE_FIELDS | TIME_SPAN_FIELDS | COMPACT_TEXT_FIELDS:
+        resolved_value = chosen.normalized_value
     if (
         field_enum == FieldName.CONSORTIUM_ALLOWED
         and isinstance(chosen.normalized_value, bool)
@@ -264,6 +405,55 @@ def resolve_field(
         confidence=confidence,
         candidates=usable,
         resolution_reason=reason,
+    )
+
+
+_CROSS_REFERENCE_OPEN_TIME_RE = re.compile(
+    r"^同(?:投标|提交响应文件|响应文件递交|响应文件提交).{0,8}截止(?:时间)?$"
+)
+
+
+def _derive_open_time_from_deadline(
+    open_time_fact: ResolvedFact,
+    deadline_fact: ResolvedFact,
+) -> ResolvedFact:
+    """Resolve an explicit same-deadline phrase only from a concrete deadline."""
+
+    if deadline_fact.status != FactStatus.RESOLVED:
+        return open_time_fact
+    deadline_value = normalize_date_time(deadline_fact.resolved_value)
+    if deadline_value is None:
+        return open_time_fact
+    references = [
+        candidate
+        for candidate in open_time_fact.candidates
+        if _CROSS_REFERENCE_OPEN_TIME_RE.fullmatch(
+            re.sub(r"\s+", "", str(candidate.value))
+        )
+    ]
+    if not references:
+        return open_time_fact
+    reference = references[0]
+    derived_candidate = reference.model_copy(
+        update={
+            "value": deadline_value,
+            "normalized_value": deadline_value,
+            "method": "derived_cross_reference",
+            "confidence": min(reference.confidence, deadline_fact.confidence),
+            "evidence_text": (
+                f"{reference.evidence_text.strip()}；交叉引用投标截止时间："
+                f"{deadline_value}；来源证据："
+                f"{deadline_fact.candidates[0].evidence_text.strip()}"
+            ),
+        }
+    )
+    return ResolvedFact(
+        field=FieldName.BID_OPEN_TIME,
+        resolved_value=deadline_value,
+        status=FactStatus.RESOLVED,
+        confidence=derived_candidate.confidence,
+        candidates=[*open_time_fact.candidates, derived_candidate],
+        resolution_reason="Resolved by deterministic cross-reference to bid_deadline.",
     )
 
 
@@ -290,6 +480,10 @@ def resolve_project_facts(
         )
         for field in FieldName
     }
+    resolved[FieldName.BID_OPEN_TIME.value] = _derive_open_time_from_deadline(
+        resolved[FieldName.BID_OPEN_TIME.value],
+        resolved[FieldName.BID_DEADLINE.value],
+    )
     fields = ProjectFields(**resolved)
     return ProjectFacts.from_fields(
         source_document=SourceDocument(

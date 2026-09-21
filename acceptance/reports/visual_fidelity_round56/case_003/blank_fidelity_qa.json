@@ -1,0 +1,625 @@
+{
+  "schema_version": "1.0",
+  "case": "case_003",
+  "source_offset": 67,
+  "method": "source drawn rules vs generated underline runs (figure-space spans in the rendered page, verified structurally as underlined DOCX runs)",
+  "lost_source_blank_count": 61,
+  "invented_blank_count": 12,
+  "blank_kind_mismatch_count": 0,
+  "blank_geometry_mismatch_count": 0,
+  "lost_underline_glyph_count": 0,
+  "invented_placeholder_underscore_count": 0,
+  "underlined_run_count": 27,
+  "generated_blank_kinds": {
+    "UNDERLINED_WHITESPACE": 280,
+    "WHITESPACE_GAP": 0,
+    "LITERAL_UNDERSCORE": 0,
+    "TAB_LEADER": 0
+  },
+  "generated_blank_runs": {
+    "UNDERLINED_WHITESPACE": 27,
+    "WHITESPACE_GAP": 0,
+    "LITERAL_UNDERSCORE": 0,
+    "TAB_LEADER": 0
+  },
+  "pages_with_differences": [
+    {
+      "generated_page": 2,
+      "source_page": 68,
+      "source_rule_count": 2,
+      "generated_rule_count": 1,
+      "lost_source": [
+        {
+          "x0": 196.75,
+          "x1": 268.1,
+          "y": 609.91,
+          "width": 71.35,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 201.25,
+          "x1": 249.32,
+          "y": 660.21,
+          "width": 48.07,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [
+        {
+          "x0": 201.35,
+          "x1": 274.85,
+          "y": 709.82,
+          "width": 73.5,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 8
+        }
+      ],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    },
+    {
+      "generated_page": 6,
+      "source_page": 72,
+      "source_rule_count": 17,
+      "generated_rule_count": 8,
+      "lost_source": [
+        {
+          "x0": 138.93,
+          "x1": 296.63,
+          "y": 139.99,
+          "width": 157.7,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 138.93,
+          "x1": 296.63,
+          "y": 160.28,
+          "width": 157.7,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 107.4,
+          "x1": 296.63,
+          "y": 181.28,
+          "width": 189.23,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 144.18,
+          "x1": 180.98,
+          "y": 201.54,
+          "width": 36.8,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 191.5,
+          "x1": 217.77,
+          "y": 201.54,
+          "width": 26.27,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 228.3,
+          "x1": 254.57,
+          "y": 201.54,
+          "width": 26.27,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 128.43,
+          "x1": 291.38,
+          "y": 221.83,
+          "width": 162.95,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 112.65,
+          "x1": 149.45,
+          "y": 242.09,
+          "width": 36.8,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 186.25,
+          "x1": 233.55,
+          "y": 242.09,
+          "width": 47.3,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 270.35,
+          "x1": 307.15,
+          "y": 242.09,
+          "width": 36.8,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 375.48,
+          "x1": 512.16,
+          "y": 242.09,
+          "width": 136.68,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 107.4,
+          "x1": 144.18,
+          "y": 263.09,
+          "width": 36.78,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 86.35,
+          "x1": 317.65,
+          "y": 283.38,
+          "width": 231.3,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 275.6,
+          "x1": 459.6,
+          "y": 365.2,
+          "width": 184.0,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 212.53,
+          "x1": 244.08,
+          "y": 384.73,
+          "width": 31.55,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 254.58,
+          "x1": 275.61,
+          "y": 384.73,
+          "width": 21.03,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 286.13,
+          "x1": 307.15,
+          "y": 384.73,
+          "width": 21.02,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [
+        {
+          "x0": 75.95,
+          "x1": 280.7,
+          "y": 148.72,
+          "width": 204.75,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 27
+        },
+        {
+          "x0": 75.95,
+          "x1": 270.2,
+          "y": 175.52,
+          "width": 194.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 27
+        },
+        {
+          "x0": 75.95,
+          "x1": 280.7,
+          "y": 203.02,
+          "width": 204.75,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 33
+        },
+        {
+          "x0": 144.3,
+          "x1": 312.3,
+          "y": 229.77,
+          "width": 168.0,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 16
+        },
+        {
+          "x0": 75.95,
+          "x1": 275.45,
+          "y": 256.57,
+          "width": 199.5,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 28
+        },
+        {
+          "x0": 75.95,
+          "x1": 464.45,
+          "y": 283.32,
+          "width": 388.5,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 44
+        },
+        {
+          "x0": 75.95,
+          "x1": 138.95,
+          "y": 310.82,
+          "width": 63.0,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 6
+        },
+        {
+          "x0": 212.65,
+          "x1": 312.4,
+          "y": 455.27,
+          "width": 99.75,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 13
+        }
+      ],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    },
+    {
+      "generated_page": 7,
+      "source_page": 73,
+      "source_rule_count": 12,
+      "generated_rule_count": 3,
+      "lost_source": [
+        {
+          "x0": 96.88,
+          "x1": 177.23,
+          "y": 151.24,
+          "width": 80.35,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 187.75,
+          "x1": 305.65,
+          "y": 151.24,
+          "width": 117.9,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 410.77,
+          "x1": 497.12,
+          "y": 151.24,
+          "width": 86.35,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 128.43,
+          "x1": 196.75,
+          "y": 212.04,
+          "width": 68.32,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 117.9,
+          "x1": 301.88,
+          "y": 293.88,
+          "width": 183.98,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 138.93,
+          "x1": 301.88,
+          "y": 314.16,
+          "width": 162.95,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 138.93,
+          "x1": 259.83,
+          "y": 335.17,
+          "width": 120.9,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 138.93,
+          "x1": 307.15,
+          "y": 355.44,
+          "width": 168.22,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 138.93,
+          "x1": 259.83,
+          "y": 375.7,
+          "width": 120.9,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 54.83,
+          "x1": 81.1,
+          "y": 416.99,
+          "width": 26.27,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 91.62,
+          "x1": 117.9,
+          "y": 416.99,
+          "width": 26.28,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 128.43,
+          "x1": 154.7,
+          "y": 416.99,
+          "width": 26.27,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [
+        {
+          "x0": 75.95,
+          "x1": 249.2,
+          "y": 412.92,
+          "width": 173.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 21
+        },
+        {
+          "x0": 75.95,
+          "x1": 249.2,
+          "y": 466.42,
+          "width": 173.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 21
+        },
+        {
+          "x0": 54.95,
+          "x1": 165.2,
+          "y": 514.22,
+          "width": 110.25,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 15
+        }
+      ],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    },
+    {
+      "generated_page": 8,
+      "source_page": 74,
+      "source_rule_count": 5,
+      "generated_rule_count": 0,
+      "lost_source": [
+        {
+          "x0": 119.4,
+          "x1": 158.45,
+          "y": 147.49,
+          "width": 39.05,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 168.23,
+          "x1": 227.55,
+          "y": 147.49,
+          "width": 59.32,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 326.68,
+          "x1": 386.76,
+          "y": 147.49,
+          "width": 60.08,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 396.5,
+          "x1": 437.05,
+          "y": 147.49,
+          "width": 40.55,
+          "kind": "TAB_LEADER"
+        },
+        {
+          "x0": 163.7,
+          "x1": 193.0,
+          "y": 222.58,
+          "width": 29.3,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    },
+    {
+      "generated_page": 24,
+      "source_page": 90,
+      "source_rule_count": 16,
+      "generated_rule_count": 0,
+      "lost_source": [
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 116.72,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 151.24,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 182.03,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 212.79,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 244.34,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 275.12,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 306.66,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 337.42,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 368.95,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 399.73,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 431.24,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 462.02,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 493.55,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 521.33,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 617.42,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 89.38,
+          "x1": 202.74,
+          "y": 644.46,
+          "width": 113.37,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    },
+    {
+      "generated_page": 28,
+      "source_page": 94,
+      "source_rule_count": 9,
+      "generated_rule_count": 0,
+      "lost_source": [
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 108.47,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 129.49,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 150.49,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 171.53,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 192.54,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 213.56,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 234.58,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 255.59,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        },
+        {
+          "x0": 69.85,
+          "x1": 199.0,
+          "y": 277.38,
+          "width": 129.15,
+          "kind": "VECTOR_RULE"
+        }
+      ],
+      "invented_generated": [],
+      "kind_mismatch": [],
+      "geometry_mismatch": [],
+      "matched_count": 0
+    }
+  ]
+}

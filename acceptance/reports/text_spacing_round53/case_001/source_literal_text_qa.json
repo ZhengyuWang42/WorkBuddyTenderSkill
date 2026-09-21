@@ -1,0 +1,97 @@
+{
+  "audited_source_pages": [
+    1,
+    3,
+    4,
+    5,
+    9
+  ],
+  "source_literal_underscore_count": 0,
+  "generated_literal_underscore_count": 0,
+  "lost_literal_underscore_count": 0,
+  "added_literal_underscore_count": 0,
+  "mandatory_literal_samples": [
+    {
+      "sample": "供应商名称：",
+      "present": true
+    },
+    {
+      "sample": "单位性质：",
+      "present": true
+    },
+    {
+      "sample": "地址：",
+      "present": true
+    },
+    {
+      "sample": "成立时间：",
+      "present": true
+    },
+    {
+      "sample": "经营期限：",
+      "present": true
+    },
+    {
+      "sample": "姓名：",
+      "present": true
+    },
+    {
+      "sample": "性别：",
+      "present": true
+    },
+    {
+      "sample": "年龄：",
+      "present": true
+    },
+    {
+      "sample": "职务：",
+      "present": true
+    },
+    {
+      "sample": "2023 年 1 月 1 日",
+      "present": true
+    },
+    {
+      "sample": "合同签订后 30 天",
+      "present": true
+    },
+    {
+      "sample": "提交响应文件截止之日起 90 日历天",
+      "present": true
+    }
+  ],
+  "mandatory_literal_sample_missing_count": 0,
+  "internal_space_evidence": {
+    "20\\d\\d\\s+年\\s+\\d+\\s+月\\s+\\d+\\s+日": {
+      "source": [],
+      "generated": [
+        "2023 年 1 月 1 日"
+      ]
+    },
+    "合同签订后\\s*\\d+\\s*天": {
+      "source": [
+        "合同签订后30 天"
+      ],
+      "generated": [
+        "合同签订后 30 天"
+      ]
+    },
+    "截止之日起\\s*\\d+\\s*日历天": {
+      "source": [
+        "截止之日起\n90\n日历天",
+        "截止之日起90 日历天"
+      ],
+      "generated": [
+        "截止之日起 90 日历天",
+        "截止之日起90日历天"
+      ]
+    },
+    "近\\s*\\d+\\s*年": {
+      "source": [],
+      "generated": []
+    }
+  },
+  "raw_display_text_domain": "normalized_document.raw_display_text",
+  "semantic_domain": "normalized_document.semantic_normalized_text",
+  "result": "PASS"
+}

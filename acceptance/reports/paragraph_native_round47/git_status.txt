@@ -1,0 +1,89 @@
+ M .gitignore
+ M README.md
+ M SKILL.md
+ M references/delivery-qa.md
+ M references/output-generation.md
+ M rules/field_aliases.yaml
+ M rules/output_fields.yaml
+ M schemas/project_facts.schema.json
+ M schemas/resolution_overrides.schema.json
+ M scripts/build_bid_docx.py
+ M scripts/build_review_xlsx.py
+ M scripts/run_pipeline.py
+ M templates/README.md
+ M tender_basic/__init__.py
+ M tender_basic/bid_document_builder.py
+ M tender_basic/delivery_qa.py
+ M tender_basic/document_models.py
+ M tender_basic/document_parser.py
+ M tender_basic/fact_extractor.py
+ M tender_basic/fact_normalizer.py
+ M tender_basic/fact_resolver.py
+ M tender_basic/models.py
+ M tender_basic/output_helpers.py
+ M tender_basic/review_builder.py
+ M tests/test_apply_resolution.py
+ M tests/test_bid_document_builder.py
+ M tests/test_delivery_qa.py
+ M tests/test_document_parser.py
+ M tests/test_fact_extraction.py
+ M tests/test_fact_resolution.py
+ M tests/test_models.py
+ M tests/test_pipeline.py
+ M tests/test_review_builder.py
+?? acceptance/
+?? references/word-safe-generation.md
+?? rules/review_items.yaml
+?? scripts/build_minimal_word_test.py
+?? scripts/build_word_safe_canary.py
+?? scripts/check_word_safe_renders.py
+?? scripts/compare_word_repair.py
+?? scripts/finalize_round43_report.py
+?? scripts/finalize_round44.py
+?? scripts/finalize_round45.py
+?? scripts/finalize_round46_report.py
+?? scripts/finalize_round47_report.py
+?? scripts/inspect_docx_ooxml.py
+?? scripts/minimize_docx.py
+?? scripts/package_word_safe_manual.py
+?? scripts/render_round44_local.py
+?? scripts/render_word_safe.py
+?? scripts/run_round41_from_normalized.py
+?? scripts/run_round42_from_normalized.py
+?? scripts/run_round43_word_safe.py
+?? scripts/run_round44_layout.py
+?? scripts/run_round45_layout.py
+?? scripts/run_round46_form_layout.py
+?? scripts/run_round47_paragraph_native.py
+?? scripts/scan_word_safe_docx.py
+?? scripts/source_format_visual_qa.py
+?? scripts/validate_docx_package.py
+?? scripts/validate_word_open.ps1
+?? "templates/\346\212\225\346\240\207\351\241\271\347\233\256\345\244\215\346\240\270\350\241\250\346\250\241\346\235\277.xlsx"
+?? tender_basic/artifact_review_builder.mjs
+?? tender_basic/format_extractor.py
+?? tender_basic/layout_qa.py
+?? tender_basic/logical_layout_qa.py
+?? tender_basic/page_layout.py
+?? tender_basic/review_evidence.py
+?? tender_basic/semantic_candidates.py
+?? tender_basic/source_docx_builder.py
+?? tender_basic/source_fill_policy.py
+?? tender_basic/source_font_policy.py
+?? tender_basic/source_format.py
+?? tender_basic/source_format_qa.py
+?? tender_basic/word_forensics.py
+?? tender_basic/word_ooxml.py
+?? tender_basic/word_safe_scan.py
+?? tender_basic/word_safe_source_builder.py
+?? tender_basic/word_safe_xml.py
+?? tests/test_format_extractor.py
+?? tests/test_logical_layout.py
+?? tests/test_page_layout.py
+?? tests/test_recovery_regressions.py
+?? tests/test_review_evidence.py
+?? tests/test_round46_form_layout.py
+?? tests/test_round47_paragraph_native.py
+?? tests/test_source_format_fidelity.py
+?? tests/test_word_ooxml_integrity.py
+?? tests/test_word_safe_builder.py

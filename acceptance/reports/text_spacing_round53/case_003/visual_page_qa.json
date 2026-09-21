@@ -1,0 +1,60 @@
+{
+  "pages": [
+    {
+      "page": 2,
+      "anchor": "投标人：(电子印章)",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 68,
+      "rendered_pdf_page": 2,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p02_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 4,
+      "anchor": "我方已仔细研读了",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 70,
+      "rendered_pdf_page": 4,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p04_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 5,
+      "anchor": "投标函附录",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 71,
+      "rendered_pdf_page": 3,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p05_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 6,
+      "anchor": "附法定代表人身份证正反面",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 72,
+      "rendered_pdf_page": 6,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p06_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 7,
+      "anchor": "附：法定代表人身份证明",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 73,
+      "rendered_pdf_page": 7,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p07_source_vs_generated.png",
+      "status": "RENDERED"
+    },
+    {
+      "page": 10,
+      "anchor": "附表一",
+      "match_kind": "CONTENT_ANCHOR",
+      "source_pdf_page": 76,
+      "rendered_pdf_page": 10,
+      "comparison": "acceptance\\reports\\text_spacing_round53\\case_003\\comparisons\\p10_source_vs_generated.png",
+      "status": "RENDERED"
+    }
+  ],
+  "measurement_method": "actual source PDF page vs LibreOffice render, paired by source content anchor",
+  "note": "Rendered comparison is required evidence; it is not by itself user visual acceptance."
+}

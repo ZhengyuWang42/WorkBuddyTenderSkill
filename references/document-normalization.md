@@ -29,6 +29,10 @@
 [DOCX:T:0:R:0:C:1] 单元格
 ```
 
+NormalizedDocument 是输入证据的保真中间层，不是 ProjectFacts、SourceFormat 或
+ReviewEvidence 的最终替代品。其内容可分别被格式证据和复核证据引用，但下游生成器
+不得把它或其中的原文固定文字当作事实值直接填入；事实填充仍必须回到已校验的 ProjectFacts。
+
 Embedded newlines inside one item are represented as the literal `\n` sequence in the lines view. The original normalized newlines remain in `normalized_document.json`.
 
 ## OCR_REQUIRED

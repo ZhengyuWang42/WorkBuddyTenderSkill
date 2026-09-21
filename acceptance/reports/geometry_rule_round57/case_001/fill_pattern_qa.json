@@ -1,0 +1,95 @@
+{
+  "generic_role_overrode_source_blank_kind_count": 0,
+  "generic_role_overrode_source_blank_kind": [],
+  "fill_pattern_usage": {
+    "filled_slots": 6,
+    "pattern_matched": 2,
+    "value_kept_source_underline": 0,
+    "value_plain_whitespace": 6,
+    "local_evidence_direct": 1,
+    "local_evidence_derived": 1,
+    "generic_role_override": 0
+  },
+  "blank_kind_authority_sample": [
+    {
+      "semantic_slot": "项目编号",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "DERIVED",
+      "role_blank_kind": "WHITESPACE_GAP",
+      "role_override": false
+    },
+    {
+      "semantic_slot": "法定代表人或其委托代理人",
+      "representation_kind": "VECTOR_LINE",
+      "evidence_kind": "DIRECT",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "供应商",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "法定代表人或其委托代理人",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "地址",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "网址",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "电话",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "传真",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "邮政编码",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": null,
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    },
+    {
+      "semantic_slot": "身份证号码",
+      "representation_kind": "SOURCE_WHITESPACE_GAP",
+      "evidence_kind": "INVENTED",
+      "role_blank_kind": null,
+      "role_override": false
+    }
+  ],
+  "blank_kind_authority_count": 11,
+  "invented_project_number_tail_underline_count": 0,
+  "offenders": []
+}

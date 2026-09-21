@@ -43,8 +43,9 @@ def _candidate(value: str, index: int) -> CandidateFact:
     )
 
 
-def _resolved(field: FieldName, value: str) -> ResolvedFact:
-    candidate = _candidate(value, list(FieldName).index(field) + 10)
+def _resolved(field: FieldName, value: str | bool) -> ResolvedFact:
+    candidate_value = value if isinstance(value, str) else ("是" if value else "否")
+    candidate = _candidate(candidate_value, list(FieldName).index(field) + 10)
     return ResolvedFact(
         field=field,
         resolved_value=value,
@@ -79,9 +80,22 @@ def _not_found(field: FieldName) -> ResolvedFact:
 
 
 def make_facts() -> ProjectFacts:
+    typed_values: dict[str, str | bool] = {
+        FieldName.BUDGET.value: "800000",
+        FieldName.MAX_PRICE.value: "1000000",
+        FieldName.DURATION.value: "180日历天",
+        FieldName.BID_DEADLINE.value: "2026-09-10 09:30",
+        FieldName.BID_OPEN_TIME.value: "2026-09-10 09:30",
+        FieldName.BID_BOND_AMOUNT.value: "100000",
+        FieldName.CONSORTIUM_ALLOWED.value: False,
+        FieldName.BID_VALIDITY.value: "90日历天",
+    }
     fields: dict[str, ResolvedFact] = {}
     for field in FieldName:
-        fields[field.value] = _resolved(field, f"{field.value}-value")
+        fields[field.value] = _resolved(
+            field,
+            typed_values.get(field.value, f"{field.value}-value"),
+        )
     fields[FieldName.PROJECT_NAME.value] = _review(FieldName.PROJECT_NAME)
     return ProjectFacts.from_fields(
         source_document=SourceDocument(
@@ -255,15 +269,14 @@ def test_reviewed_project_facts_schema_and_outputs_are_valid(tmp_path: Path) -> 
 
     workbook = load_workbook(xlsx_path, read_only=True)
     try:
-        rows = list(workbook["项目复核表"].iter_rows(min_row=2, values_only=True))
-        project_name_row = next(row for row in rows if row[2] == "project_name")
-        assert project_name_row[4] == "项目B"
-        assert project_name_row[4] != "项目A"
+        worksheet = workbook["投标项目复核表"]
+        assert worksheet["B2"].value == "项目B"
+        assert worksheet["B2"].value != "项目A"
     finally:
         workbook.close()
 
     document = Document(docx_path)
-    info_table = next(table for table in document.tables if len(table.rows) == 21)
+    info_table = next(table for table in document.tables if len(table.rows) == 24)
     info_rows = {row.cells[0].text: row.cells[1].text for row in info_table.rows[1:]}
     assert info_rows["项目名称"] == "项目B"
     assert info_rows["项目名称"] != "项目A"

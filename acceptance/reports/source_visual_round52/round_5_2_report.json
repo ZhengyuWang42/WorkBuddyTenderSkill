@@ -1,0 +1,169 @@
+{
+  "cases": {
+    "case_001": {
+      "package": "PASS",
+      "list": "PASS",
+      "tables": [
+        {
+          "label": "P4_APPENDIX",
+          "source_outer": [
+            65.21,
+            524.69
+          ],
+          "generated_outer": [
+            65.15,
+            524.85
+          ],
+          "outer_errors": [
+            -0.06,
+            0.16
+          ],
+          "result": "PASS"
+        }
+      ],
+      "forms": 1
+    },
+    "case_002": {
+      "package": "PASS",
+      "list": "PASS",
+      "tables": [
+        {
+          "label": "P4_OPENING",
+          "source_outer": [
+            56.56,
+            539.89
+          ],
+          "generated_outer": [
+            56.45,
+            540.05
+          ],
+          "outer_errors": [
+            -0.11,
+            0.16
+          ],
+          "result": "PASS"
+        },
+        {
+          "label": "P7_DEVIATION",
+          "source_outer": [
+            54.11,
+            542.34
+          ],
+          "generated_outer": [
+            54.05,
+            542.45
+          ],
+          "outer_errors": [
+            -0.06,
+            0.11
+          ],
+          "result": "PASS"
+        }
+      ],
+      "forms": 1
+    },
+    "case_003": {
+      "package": "PASS",
+      "list": "PASS",
+      "tables": [
+        {
+          "label": "P5_APPENDIX",
+          "source_outer": [
+            54.83,
+            539.96
+          ],
+          "generated_outer": [
+            54.95,
+            540.65
+          ],
+          "outer_errors": [
+            0.12,
+            0.69
+          ],
+          "result": "PASS"
+        }
+      ],
+      "forms": 2
+    }
+  },
+  "hard_gate_failures": [
+    "case_001: audited blank geometry",
+    "case_002: audited blank geometry",
+    "case_003: audited blank geometry"
+  ],
+  "page_count_diagnostic": {
+    "case_001": "22/22",
+    "case_002": "31/31",
+    "case_003": "33/33"
+  },
+  "final_status": "ROUND_5_2_BLOCKED",
+  "package_integrity": "PASS_ALL_THREE",
+  "word_normal_com_open": "PASS_ALL_THREE_NO_REPAIR",
+  "word_manual_visual_status": "WORD_DESKTOP_MANUAL_OPEN_REQUIRED",
+  "python_docx_reopen": "PASS_ALL_THREE",
+  "libreoffice_render": "PASS_ALL_THREE",
+  "tests": {
+    "collected": 228,
+    "passed": 227,
+    "skipped": 1
+  },
+  "git_diff_check": "PASS",
+  "fact_contract_fields": 23,
+  "review_item_contract": 64,
+  "normal_artifact_contract": 14,
+  "required_metrics": {
+    "case001_p1_center": {
+      "source": 297.65,
+      "generated": 297.75,
+      "error": 0.1,
+      "underlined": false
+    },
+    "case001_p3_prefix": {
+      "source": 94.8,
+      "generated": 94.9,
+      "error": 0.1
+    },
+    "case002_p3_prefix": {
+      "source": 94.92,
+      "generated": 95.0,
+      "error": 0.08
+    },
+    "case003_p4_outer_prefix": {
+      "source": 75.85,
+      "generated": 75.95,
+      "error": 0.1
+    },
+    "case003_p4_nested_prefix": {
+      "source": 90.88,
+      "generated": 90.95,
+      "error": 0.07
+    },
+    "case002_cover_title_size": {
+      "source": 36.0,
+      "generated": 36.0,
+      "error": 0.0
+    },
+    "case002_project_number_size": {
+      "source": 14.05,
+      "generated": 14.0,
+      "error": -0.05
+    },
+    "case003_p5_table_outer": {
+      "source": [
+        54.83,
+        539.96
+      ],
+      "generated": [
+        54.95,
+        540.65
+      ],
+      "errors": [
+        0.12,
+        0.69
+      ],
+      "result": "PASS"
+    }
+  },
+  "watermark_text_leak_count": 0,
+  "watermark_geometry_artifact_count": 0
+}

@@ -1,0 +1,174 @@
+{
+  "response_letter": {
+    "source_page": 42,
+    "table_boxes": null,
+    "rules": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "(采购人名称)|："
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 218.4,
+        "width": 55.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "达到|。"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。"
+      }
+    ]
+  },
+  "quotation_signature": {
+    "source_page": 48,
+    "table_boxes": [
+      [
+        65.32999801635742,
+        110.67000198364258,
+        541.77001953125,
+        628.8099975585938
+      ]
+    ],
+    "rules": [
+      {
+        "x0": 380.4,
+        "x1": 451.8,
+        "y": 650.15,
+        "width": 71.4,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "供应商：|(盖单位公章)"
+      },
+      {
+        "x0": 392.4,
+        "x1": 452.4,
+        "y": 673.55,
+        "width": 60.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "法定代表人或其委托代理人：|(签字或盖章)"
+      }
+    ]
+  },
+  "cover": {
+    "source_page": 40,
+    "table_boxes": null,
+    "rules": [
+      {
+        "x0": 205.65,
+        "x1": 389.6,
+        "y": 568.8,
+        "width": 183.95,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "供应商：|（盖单位公章）"
+      },
+      {
+        "x0": 289.3,
+        "x1": 387.1,
+        "y": 607.8,
+        "width": 97.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "法定代表人或其委托代理人：|（签字或盖章）"
+      },
+      {
+        "x0": 214.2,
+        "x1": 283.2,
+        "y": 646.8,
+        "width": 69.0,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日"
+      },
+      {
+        "x0": 294.7,
+        "x1": 335.0,
+        "y": 646.8,
+        "width": 40.3,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "年|月|日"
+      },
+      {
+        "x0": 346.4,
+        "x1": 392.5,
+        "y": 646.8,
+        "width": 46.1,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "年|月|日"
+      }
+    ]
+  },
+  "response_appendix": {
+    "source_page": 43,
+    "table_boxes": [
+      [
+        65.32999801635742,
+        105.96999740600586,
+        524.5700073242188,
+        589.2100219726562
+      ]
+    ],
+    "rules": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "orphan_raised_glyph_count": 0,
+  "superscript_order_error_count": 0,
+  "subscript_order_error_count": 0,
+  "unit_token_semantic_error_count": 0,
+  "foreign_font_superscript_count": 0,
+  "assertions": {
+    "forbidden_³800m_h": true,
+    "forbidden_³300m_h": true,
+    "expected_800m³_h": true,
+    "expected_300m³_h": true
+  },
+  "result": "PASS"
+}

@@ -1,5 +1,5 @@
 version: "1.0"
-description: "Human-readable source priority hints for future fact resolution."
+description: "Human-readable source priority hints used by deterministic fact resolution; priority never overrides a conflict."
 
 priority_order:
   - rank: 100

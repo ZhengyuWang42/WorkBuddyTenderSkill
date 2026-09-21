@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "case": "case_001",
+  "field_count": 23,
+  "resolved_count": 16,
+  "resolved": {
+    "project_name": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+    "project_number": "YSEJJXXB202607-18",
+    "purchaser": "河南省水利第二工程局集团有限公司",
+    "tender_agency": "河南科源水利建设工程检测有限公司",
+    "project_location": "周口市郸城县石槽泵站",
+    "procurement_scope": "一体化泵站(详见询比文件“第五章采购需求”)",
+    "max_price": "3100000",
+    "duration": "30日历天",
+    "quality_target": "符合国家及行业有关标准、规范和询比文件要求",
+    "bid_deadline": "2026-07-28 15:00",
+    "bid_open_time": "2026-07-28 15:00",
+    "bid_open_location": "“河南国企阳光招采服务平台”不见面",
+    "bid_bond_amount": "20000",
+    "bid_bond_form": "银行转账方式",
+    "consortium_allowed": false,
+    "bid_validity": "90日历天"
+  },
+  "lot_name": null,
+  "lot_name_status": "NOT_FOUND",
+  "project_name": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+  "known_resolved_fact_unfilled_compatible_slot_count": 0
+}

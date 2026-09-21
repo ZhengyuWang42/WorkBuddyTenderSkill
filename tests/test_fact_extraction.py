@@ -250,8 +250,8 @@ def test_negative_consortium_phrase_normalizes_to_false() -> None:
     assert consortium[0].normalized_value is False
 
     facts = resolve_project_facts(document, normalized)
-    assert facts.fields.consortium_allowed.status.value == "NEEDS_REVIEW"
-    assert facts.fields.consortium_allowed.resolved_value is None
+    assert facts.fields.consortium_allowed.status.value == "RESOLVED"
+    assert facts.fields.consortium_allowed.resolved_value is False
 
 
 def test_candidate_evidence_and_locator_are_present_for_resolved_fields() -> None:

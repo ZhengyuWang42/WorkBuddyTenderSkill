@@ -1,0 +1,18 @@
+{
+  "purpose": "engineering validation fallback only; formal packaging unchanged",
+  "where_python": ["C:\\Python314\\python.exe", "D:\\Software\\anaconda3\\python.exe"],
+  "sys_executable": "C:\\Python314\\python.exe",
+  "python": "3.14.6",
+  "PyMuPDF": "1.28.2",
+  "python-docx": "1.2.0",
+  "openpyxl": "3.1.5",
+  "pydantic": "2.13.5",
+  "PyYAML": "6.0.3",
+  "pytest": "8.4.2",
+  "LibreOffice": "26.2.3.2 70e089b17412e4cb7773e41413306b17a2328c34",
+  "PYTHONPATH": "D:/PyCharmProjects/WBTenderSkill/.venv/Lib/site-packages",
+  "TEMP": "D:/PyCharmProjects/WBTenderSkill/tmp",
+  "TMP": "D:/PyCharmProjects/WBTenderSkill/tmp",
+  "check_env": "PASS",
+  "export_schema": "PASS"
+}

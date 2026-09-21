@@ -18,8 +18,12 @@ from tender_basic.models import (
     SourceDocument,
     SourceType,
 )
-from tender_basic.output_helpers import load_output_fields
-from tender_basic.review_builder import build_review_workbook
+from tender_basic.review_builder import (
+    DEFAULT_TEMPLATE_PATH,
+    TEMPLATE_MANUAL_CELLS,
+    TEMPLATE_SHEET_NAME,
+    build_review_workbook,
+)
 
 
 def _candidate(
@@ -144,92 +148,77 @@ def make_project_facts() -> ProjectFacts:
     )
 
 
-def _row_by_field(worksheet, field_code: str) -> tuple:
-    for row in worksheet.iter_rows(min_row=2, values_only=True):
-        if row[2] == field_code:
-            return row
-    raise AssertionError(f"Field row not found: {field_code}")
-
-
-def test_review_workbook_has_three_sheets_and_twenty_fixed_fields(tmp_path) -> None:
+def test_review_workbook_uses_the_supplied_template_as_the_primary_sheet(tmp_path) -> None:
     output = tmp_path / "投标项目复核表.xlsx"
     build_review_workbook(make_project_facts(), output)
 
     workbook = load_workbook(output, read_only=False, data_only=False)
     try:
-        assert workbook.sheetnames == ["项目复核表", "字段证据", "解析异常"]
-        worksheet = workbook["项目复核表"]
-        assert worksheet.max_row == 21
-        assert worksheet.freeze_panes == "A2"
-        assert worksheet.auto_filter.ref == "A1:K21"
-        assert [row[2].value for row in worksheet.iter_rows(min_row=2)] == [
-            spec.field for spec in load_output_fields()
-        ]
+        assert workbook.sheetnames == [TEMPLATE_SHEET_NAME]
+        worksheet = workbook[TEMPLATE_SHEET_NAME]
+        assert worksheet.max_row >= 77
+        assert worksheet.max_column >= 13
+        assert "A1:N1" in {str(value) for value in worksheet.merged_cells.ranges}
+        assert "A75:C75" in {str(value) for value in worksheet.merged_cells.ranges}
+        assert worksheet["B2"].value == "测试工程"
+        assert worksheet["F2"].value == "项目编号：PRJ-123；招标编号：BID-456"
+        assert worksheet["B4"].value == "预算：80万元；最高限价：100万元"
+        assert worksheet["L4"].value == "【待补充】"
+        assert worksheet["E9"].value == "【待核对】"
+        assert [
+            worksheet.cell(row=row, column=1).value
+            for row in range(9, 74)
+            if worksheet.cell(row=row, column=1).value is not None
+        ] == list(range(1, 65))
     finally:
         workbook.close()
 
 
-def test_review_workbook_preserves_statuses_and_separate_numbers(tmp_path) -> None:
+def test_review_workbook_keeps_numbers_independent_and_manual_fields_unfilled(tmp_path) -> None:
     output = tmp_path / "review.xlsx"
     build_review_workbook(make_project_facts(), output)
-    workbook = load_workbook(output, read_only=True, data_only=False)
+    workbook = load_workbook(output, read_only=False, data_only=False)
     try:
-        worksheet = workbook["项目复核表"]
-        project_number = _row_by_field(worksheet, "project_number")
-        tender_number = _row_by_field(worksheet, "tender_number")
-        review = _row_by_field(worksheet, "project_location")
-        missing = _row_by_field(worksheet, "bid_bond_amount")
-
-        assert project_number[4] == "PRJ-123"
-        assert tender_number[4] == "BID-456"
-        assert project_number[4] != tender_number[4]
-        assert project_number[5] == "已解析 (RESOLVED)"
-        assert review[4] == "【存在冲突，见字段证据】"
-        assert review[5] == "需复核 (NEEDS_REVIEW)"
-        assert review[8] == "是"
-        assert missing[4] == "【未找到】"
-        assert missing[5] == "未找到 (NOT_FOUND)"
-    finally:
-        workbook.close()
-
-
-def test_review_workbook_exports_every_candidate_and_only_exceptions(tmp_path) -> None:
-    output = tmp_path / "review.xlsx"
-    build_review_workbook(make_project_facts(), output)
-    workbook = load_workbook(output, read_only=True, data_only=False)
-    try:
-        evidence = workbook["字段证据"]
-        project_name_rows = [
-            row for row in evidence.iter_rows(min_row=2, values_only=True)
-            if row[0] == "project_name"
-        ]
-        assert len(project_name_rows) == 3
-        assert all(row[11] for row in project_name_rows)
-
-        exceptions = workbook["解析异常"]
-        exception_codes = {row[0] for row in exceptions.iter_rows(min_row=2, values_only=True)}
-        assert exception_codes == {
-            "project_location",
-            "lot_name",
-            "lot_number",
-            "tender_agency",
-            "procurement_scope",
-            "duration",
-            "quality_target",
-            "bid_deadline",
-            "bid_open_time",
-            "bid_open_location",
-            "bid_bond_amount",
-            "bid_bond_form",
-            "consortium_allowed",
-            "procurement_method",
-        }
+        worksheet = workbook[TEMPLATE_SHEET_NAME]
+        assert worksheet["F2"].value != "BID-456"
+        assert "PRJ-123" in worksheet["F2"].value
+        assert "BID-456" in worksheet["F2"].value
+        assert worksheet["B5"].value == "【填写】"
+        assert worksheet["F5"].value == "【填写】"
+        assert worksheet["I5"].value == "【填写】"
+        assert worksheet["L5"].value == "【填写】"
+        assert worksheet["F4"].value == "【待补充】"
+        assert worksheet["L4"].value != "公开招标"
         assert all(
-            "NEEDS_REVIEW" in row[2] or "NOT_FOUND" in row[2]
-            for row in exceptions.iter_rows(min_row=2, values_only=True)
+            "自动填充" not in str(cell.value)
+            for row in worksheet.iter_rows()
+            for cell in row
+            if cell.value is not None
         )
+        for address, expected in TEMPLATE_MANUAL_CELLS.items():
+            assert worksheet[address].value == expected
     finally:
         workbook.close()
+
+
+def test_review_workbook_preserves_template_validation_and_structure(tmp_path) -> None:
+    output = tmp_path / "review.xlsx"
+    build_review_workbook(make_project_facts(), output)
+    workbook = load_workbook(output, read_only=False, data_only=False)
+    try:
+        worksheet = workbook[TEMPLATE_SHEET_NAME]
+        assert len(worksheet.data_validations.dataValidation) >= 3
+        assert len(worksheet.conditional_formatting) >= 3
+        assert len(worksheet.merged_cells.ranges) >= 30
+        assert worksheet["A75"].value == "投标小组评审意见："
+        assert worksheet["A76"].value == "分总评审意见："
+        assert worksheet["A77"].value == "大区投标负责人评审意见："
+    finally:
+        workbook.close()
+
+
+def test_review_workbook_template_is_present_and_not_rebuilt_from_scratch() -> None:
+    assert DEFAULT_TEMPLATE_PATH.is_file()
 
 
 def test_review_builder_requires_project_facts_ssot(tmp_path) -> None:

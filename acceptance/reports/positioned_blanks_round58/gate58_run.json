@@ -1,0 +1,71 @@
+{
+  "render": {
+    "argv": [
+      "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/round58_render/_lo_profile_599a47e8161e",
+      "--headless",
+      "--norestore",
+      "--invisible",
+      "--convert-to",
+      "pdf",
+      "--outdir",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_8_positioned_blanks\\基础投标文件.docx"
+    ],
+    "returncode": 0,
+    "stderr": "Could not find platform independent libraries <prefix>",
+    "pdf_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round58_render\\基础投标文件.pdf",
+    "pdf_bytes": 294337,
+    "pdf_page_count": 22
+  },
+  "matrices": {
+    "cover": {
+      "raw_source_rule_count": 5,
+      "raw_generated_rule_count": 8,
+      "normalized_source_rule_count": 5,
+      "normalized_generated_rule_count": 3,
+      "matched_rule_count": 2,
+      "lost_source_rule_count": 3,
+      "invented_rule_count": 1,
+      "matched_out_of_tolerance_count": 2,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "response_letter": {
+      "raw_source_rule_count": 8,
+      "raw_generated_rule_count": 6,
+      "normalized_source_rule_count": 8,
+      "normalized_generated_rule_count": 6,
+      "matched_rule_count": 1,
+      "lost_source_rule_count": 7,
+      "invented_rule_count": 5,
+      "matched_out_of_tolerance_count": 1,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "response_appendix": {
+      "raw_source_rule_count": 0,
+      "raw_generated_rule_count": 15,
+      "normalized_source_rule_count": 0,
+      "normalized_generated_rule_count": 0,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 0,
+      "invented_rule_count": 0,
+      "matched_out_of_tolerance_count": 0,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    },
+    "quotation_signature": {
+      "raw_source_rule_count": 2,
+      "raw_generated_rule_count": 15,
+      "normalized_source_rule_count": 2,
+      "normalized_generated_rule_count": 2,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 2,
+      "invented_rule_count": 2,
+      "matched_out_of_tolerance_count": 0,
+      "rule_kind_mismatch_count": 0,
+      "accounting_invariant_failures": []
+    }
+  }
+}

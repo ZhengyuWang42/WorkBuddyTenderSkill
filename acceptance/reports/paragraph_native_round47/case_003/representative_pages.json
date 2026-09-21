@@ -1,0 +1,15 @@
+{
+  "pages": [
+    2,
+    5,
+    6,
+    7
+  ],
+  "labels": {
+    "2": "cover",
+    "5": "tender_letter_signature",
+    "6": "legal_representative_identity",
+    "7": "authorization_letter"
+  },
+  "complex_table_page": null
+}

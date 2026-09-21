@@ -1,0 +1,18 @@
+{
+  "where_python": [
+    "C:\\Python314\\python.exe",
+    "D:\\Software\\anaconda3\\python.exe"
+  ],
+  "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "sys_executable": "C:\\Python314\\python.exe",
+  "versions": {
+    "PyMuPDF": "1.28.2",
+    "python-docx": "1.2.0",
+    "openpyxl": "3.1.5",
+    "pydantic": "2.13.5",
+    "PyYAML": "6.0.3",
+    "pytest": "8.4.2"
+  },
+  "libreoffice": "LibreOffice 26.2.3.2 70e089b17412e4cb7773e41413306b17a2328c34",
+  "runtime_policy": "User-authorized system Python and existing dependencies for engineering validation only; packaging unchanged"
+}

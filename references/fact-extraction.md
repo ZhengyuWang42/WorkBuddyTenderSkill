@@ -40,6 +40,10 @@
 `facts_review_packet.json` 只包含 `NEEDS_REVIEW` 字段及其候选证据，不复制完整的
 normalized document，也不执行人工或 WorkBuddy 仲裁。
 
+事实抽取只为 ProjectFacts 建立事实候选。它不决定 DOCX 的源结构、版式或可见编号；
+这些由 SourceFormatTemplate/已校验源格式证据负责。64 项 ReviewEvidence 也不属于
+事实抽取结果，不会因证据检索状态而自动产生合规结论。
+
 ## CLI exit codes
 
 `extract_facts.py` 返回 `0` 表示已生成两个输出文件，即使其中有

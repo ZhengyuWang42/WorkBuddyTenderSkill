@@ -1,0 +1,47 @@
+{
+  "document_xml_exact_occurrences": 0,
+  "document_xml_lineRule_values": {
+    "exact": 0,
+    "auto": 607,
+    "atLeast": 0
+  },
+  "spacing_nodes_by_category_and_rule": {
+    "ordinary_body": {
+      "exact": 0,
+      "auto": 25,
+      "atLeast": 0
+    },
+    "body_list": {
+      "exact": 0,
+      "auto": 33,
+      "atLeast": 0
+    },
+    "table_text": {
+      "exact": 0,
+      "auto": 552,
+      "atLeast": 0
+    },
+    "form_text": {
+      "exact": 0,
+      "auto": 45,
+      "atLeast": 0
+    },
+    "toc": {
+      "exact": 0,
+      "auto": 11,
+      "atLeast": 0
+    }
+  },
+  "ordinary_body_exact_line_spacing_count": 0,
+  "body_list_exact_line_spacing_count": 0,
+  "table_text_exact_line_spacing_count": 0,
+  "form_text_exact_line_spacing_count": 0,
+  "toc_exact_line_spacing_count": 0,
+  "exact_exceptions": [],
+  "exact_exception_count": 0,
+  "word_native_modes_observed": [
+    "240",
+    "276",
+    "480"
+  ]
+}

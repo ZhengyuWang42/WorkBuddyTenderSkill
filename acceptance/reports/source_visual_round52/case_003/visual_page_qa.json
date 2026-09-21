@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "page": 2,
+      "status": "PASS"
+    },
+    {
+      "page": 4,
+      "status": "PASS"
+    },
+    {
+      "page": 5,
+      "status": "PASS"
+    },
+    {
+      "page": 6,
+      "status": "FAIL"
+    },
+    {
+      "page": 7,
+      "status": "FAIL"
+    },
+    {
+      "page": 10,
+      "status": "PASS"
+    }
+  ]
+}

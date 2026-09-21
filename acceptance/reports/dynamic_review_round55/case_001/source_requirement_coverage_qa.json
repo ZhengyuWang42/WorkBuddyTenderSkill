@@ -1,0 +1,62 @@
+{
+  "case": "case_001",
+  "requirement_count": 297,
+  "review_item_count": 47,
+  "mandatory": {
+    "requirement_count": 99,
+    "covered": 99,
+    "uncovered": []
+  },
+  "high_risk": {
+    "requirement_count": 18,
+    "covered": 18,
+    "uncovered": []
+  },
+  "by_risk": {
+    "一票否决": 118,
+    "高": 101,
+    "中": 78
+  },
+  "by_module": {
+    "四、报价与合同商务": 75,
+    "五、技术响应": 18,
+    "二、资格审查": 14,
+    "七、签章与电子标": 47,
+    "一、废标红线": 22,
+    "三、投标文件组成与格式": 76,
+    "八、递交与开标准备": 18,
+    "六、评分项复核": 27
+  },
+  "terms": {
+    "营业执照": {
+      "requirement_units": 3,
+      "review_items": 1
+    },
+    "失信": {
+      "requirement_units": 4,
+      "review_items": 2
+    },
+    "电子印章": {
+      "requirement_units": 3,
+      "review_items": 1
+    },
+    "密封": {
+      "requirement_units": 1,
+      "review_items": 0
+    },
+    "许可": {
+      "requirement_units": 0,
+      "review_items": 0
+    },
+    "社保证明": {
+      "requirement_units": 0,
+      "review_items": 0
+    },
+    "定标": {
+      "requirement_units": 1,
+      "review_items": 1
+    }
+  },
+  "expectation_problems": [],
+  "result": "PASS"
+}

@@ -1,0 +1,152 @@
+{
+  "headings": 23,
+  "tree": [
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "一、响应函及响应函附录",
+      "children": [
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "(一)响应函",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "(二)响应函附录",
+          "children": []
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "二、法定代表人身份证明或法定代表人授权委托书",
+      "children": [
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "(一)法定代表人身份证明",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "（二）法定代表人授权委托书",
+          "children": []
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "三、响应保证金",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "四、商务和技术偏差表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "五、分项报价表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "六、资格审查资料",
+      "children": [
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "（一）供应商基本情况表",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "（二）财务状况承诺书",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "（三）信誉要求",
+          "children": []
+        },
+        {
+          "level": 2,
+          "style": "Heading 2",
+          "text": "（四）其他",
+          "children": []
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "七、近年（2023 年1 月1 日以来）类似项目情况表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "八、响应货物技术性能指标的详细描述及技术支持资料",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "九、供货方案",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十、应急保障措施",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十一、质量保证体系、质量控制文件及质量保证措施",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十二、接受银行承兑比例",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十三、垫资能力",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十四、反商业贿赂承诺书",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十五、其他资料",
+      "children": []
+    }
+  ],
+  "body_list_headings": 0,
+  "toc_headings": 0,
+  "ambiguous_heading_count": 0,
+  "ambiguous_heading_promoted_count": 0,
+  "false_heading_count": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "ROUND_4_8_AWAITING_MANUAL_CONFIRMATION",
+  "typography_root_cause": "raw PDF span styles and y-first ordering were treated as authoritative without semantic-role clustering or baseline-band x ordering",
+  "cases": {
+    "case_001": {"fact_slots": {"compatible": 6, "filled": 6, "unfilled": 0}, "actual_rendered_pages": 22, "visual_result": "PASS"},
+    "case_002": {"fact_slots": {"compatible": 6, "filled": 6, "unfilled": 0}, "actual_rendered_pages": 31, "source_section_count": 31, "visual_result": "PASS"},
+    "case_003": {"fact_slots": {"compatible": 0, "filled": 0, "unfilled": 0}, "actual_rendered_pages": 33, "visual_result": "PASS", "unresolved_project_name_slots": 4, "unresolved_purchaser_slots": 2}
+  },
+  "glyph_semantics": {"superscript_order_error_count": 0, "unit_token_semantic_error_count": 0, "foreign_font_superscript_count": 0},
+  "fact_slot_coverage": {"semantic_slot_mismatch_count": 0, "wrong_fact_type_fill_count": 0},
+  "word_safe": {"synthetic_layout_tables": 0, "unsafe_ooxml": 0, "mid_sentence_paragraph_breaks": 0},
+  "tests": {"passed": 211, "skipped": 1, "failed": 0},
+  "committed": false,
+  "released": false,
+  "gold_read_or_created": false
+}

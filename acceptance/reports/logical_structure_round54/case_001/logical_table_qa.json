@@ -1,0 +1,84 @@
+{
+  "case": "case_001",
+  "pdf_table_fragments": 5,
+  "logical_table_count": 5,
+  "logical_rows": 51,
+  "continuation_fragments_detected": 0,
+  "continuation_fragments_merged": 0,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "cell_text_continuations": 0,
+  "source_characters": 1028,
+  "rebuilt_characters": 1028,
+  "character_multiset_preserved": true,
+  "editable_table_characters": 1028,
+  "editable_table_characters_preserved": true,
+  "generated_table_count": 5,
+  "word_table_count_matches_logical": true,
+  "docx_table_characters": 606,
+  "continuation_cell_texts_checked": 0,
+  "continuation_cell_texts_missing": 0,
+  "continuation_cell_text_missing_samples": [],
+  "fill_slots_on_continuation_fragments": 0,
+  "fill_slots_on_continuation_details": [],
+  "long_prose_cells_measured": 8,
+  "long_prose_alignment_mismatches": 0,
+  "long_prose_mismatch_samples": [],
+  "decisions": [
+    {
+      "previous_page": 43,
+      "page": 47,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "pages are not adjacent (43 -> 47)",
+        "table extent differs (left 65.33..524.57, right 80.43..514.87)",
+        "page-driven split (earlier fragment reaches the band bottom 589.21 of 589.21; later resumes at the band top 111.17 of 105.97)",
+        "table extent differs (left 65.33..524.57, right 80.43..514.87)",
+        "text resumes mid-item ('定' -> '询')"
+      ]
+    },
+    {
+      "previous_page": 47,
+      "page": 48,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "table extent differs (left 80.43..514.87, right 65.33..541.77)",
+        "page-driven split (earlier fragment reaches the band bottom 358.39 of 358.39; later resumes at the band top 110.67 of 111.17)",
+        "table extent differs (left 80.43..514.87, right 65.33..541.77)",
+        "text resumes mid-item ('号' -> '名')"
+      ]
+    },
+    {
+      "previous_page": 48,
+      "page": 49,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "column boundaries do not align (3 unmatched, tolerance 9.53 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 628.81 of 628.81; later resumes at the band top 120.66 of 110.67)",
+        "column boundaries do not align (3 unmatched, tolerance 9.53 pt)",
+        "no comparable content cell"
+      ]
+    },
+    {
+      "previous_page": 49,
+      "page": 53,
+      "merge": false,
+      "edge_identity_blank": false,
+      "confidence": 0.0,
+      "reasons": [
+        "pages are not adjacent (49 -> 53)",
+        "column boundaries do not align (4 unmatched, tolerance 9.32 pt)",
+        "page-driven split (earlier fragment reaches the band bottom 583.83 of 583.83; later resumes at the band top 124.92 of 120.66)",
+        "column boundaries do not align (4 unmatched, tolerance 9.32 pt)",
+        "text resumes mid-item ('名' -> '项')"
+      ]
+    }
+  ],
+  "result": "PASS"
+}

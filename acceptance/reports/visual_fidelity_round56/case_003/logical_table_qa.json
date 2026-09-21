@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "case": "case_003",
+  "source_real_tables": 16,
+  "pdf_table_fragment_count": 16,
+  "logical_table_count": 16,
+  "generated_table_count": 16,
+  "continuation_fragments_merged": 0,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "synthetic_layout_tables": 0,
+  "logical_cell_text_loss_count": 0,
+  "logical_cell_text_duplication_count": 0,
+  "logical_cell_text_order_error_count": 0
+}

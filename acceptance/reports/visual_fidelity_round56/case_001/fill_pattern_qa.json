@@ -1,0 +1,213 @@
+{
+  "schema_version": "1.0",
+  "case": "case_001",
+  "method": "inferred from the source rows the emitter consumes",
+  "pattern_count": 64,
+  "pattern_index_size": 16,
+  "blank_kind_histogram": {
+    "TAB_LEADER": 1,
+    "VECTOR_RULE": 31,
+    "WHITESPACE_GAP": 32
+  },
+  "field_patterns": {
+    "项目编号": {
+      "blank_kind": "TAB_LEADER",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 120.0
+    },
+    "供应商": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 183.95
+    },
+    "法定代表人或其委托代理人": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 97.8
+    },
+    "地址": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 204.0
+    },
+    "网址": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 64.0
+    },
+    "电话": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 64.0
+    },
+    "传真": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 64.0
+    },
+    "邮政编码": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 64.0
+    },
+    "供应商名称": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 162.0
+    },
+    "单位性质": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 174.0
+    },
+    "成立时间": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 48.0
+    },
+    "经营期限": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 162.0
+    },
+    "姓名": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 47.65
+    },
+    "法定代表人": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 54.0
+    },
+    "身份证号码": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": false,
+      "source_blank_width": 48.0
+    },
+    "委托代理人": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 54.0
+    }
+  },
+  "usage": {
+    "filled_slots": 6,
+    "pattern_matched": 2,
+    "value_kept_source_underline": 0,
+    "value_plain_whitespace": 6
+  },
+  "filled_slots": [
+    {
+      "slot_id": "slot-40-0",
+      "fields": [
+        "project_number"
+      ],
+      "value": "YSEJJXXB202607-18",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-42-2",
+      "fields": [
+        "purchaser"
+      ],
+      "value": "河南省水利第二工程局集团有限公司",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-42-3",
+      "fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-42-4",
+      "fields": [
+        "project_number"
+      ],
+      "value": "YSEJJXXB202607-18",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-43-7",
+      "fields": [
+        "project_name"
+      ],
+      "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "generated_underline": false,
+      "anchor_source": "SAME_ROW_SEMANTIC_PEER"
+    },
+    {
+      "slot_id": "slot-60-14",
+      "fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    }
+  ],
+  "source_fill_pattern_mismatch_count": 0,
+  "wrong_fact_fill_pattern_count": 0,
+  "known_resolved_fact_unfilled_compatible_slot_count": 0,
+  "response_letter_fill_pattern_mismatch_count": 0,
+  "duplicate_placeholder_value_count": 0,
+  "other_supplement_blank_preserved": true,
+  "letter_paragraph_count": 1
+}

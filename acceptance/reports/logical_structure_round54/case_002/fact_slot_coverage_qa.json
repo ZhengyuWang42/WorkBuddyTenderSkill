@@ -1,0 +1,116 @@
+{
+  "case": "case_002",
+  "compatible_fact_slots": 6,
+  "resolved_compatible_slots": 6,
+  "filled_fact_slots": 6,
+  "unfilled_resolved_fact_slots": 0,
+  "unfilled_resolved_slot_details": [],
+  "wrong_fact_type_fills": 0,
+  "unresolved_slots_preserved": 0,
+  "slot_types": {
+    "UNKNOWN_SLOT": 5,
+    "PROJECT_NAME_SLOT": 2,
+    "DURATION_SLOT": 1,
+    "PROJECT_LOCATION_SLOT": 1,
+    "PURCHASER_SLOT": 2
+  },
+  "slots": [
+    {
+      "slot_id": "slot-146-1",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 146,
+      "semantic_hint": "项目名称",
+      "original_text": "\n",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "营收系统整合和硬件系统升级",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-147-3",
+      "slot_type": "PROJECT_NAME_SLOT",
+      "source_page": 147,
+      "semantic_hint": "项目名称",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "project_name"
+      ],
+      "resolved_fact_fields": [
+        "project_name"
+      ],
+      "disposition": "FILLED",
+      "replacement": "营收系统整合和硬件系统升级项目",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-147-4",
+      "slot_type": "DURATION_SLOT",
+      "source_page": 147,
+      "semantic_hint": "实施周期",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "duration"
+      ],
+      "resolved_fact_fields": [
+        "duration"
+      ],
+      "disposition": "FILLED",
+      "replacement": "18个月",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-147-5",
+      "slot_type": "PROJECT_LOCATION_SLOT",
+      "source_page": 147,
+      "semantic_hint": "交货地点",
+      "original_text": "",
+      "allowed_fact_fields": [
+        "project_location"
+      ],
+      "resolved_fact_fields": [
+        "project_location"
+      ],
+      "disposition": "FILLED",
+      "replacement": "西安市内",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-149-7",
+      "slot_type": "PURCHASER_SLOT",
+      "source_page": 149,
+      "semantic_hint": "招标人名称",
+      "original_text": "（招标人名称）",
+      "allowed_fact_fields": [
+        "purchaser"
+      ],
+      "resolved_fact_fields": [
+        "purchaser"
+      ],
+      "disposition": "FILLED",
+      "replacement": "西安市自来水有限公司",
+      "method": "source_slot"
+    },
+    {
+      "slot_id": "slot-170-9",
+      "slot_type": "PURCHASER_SLOT",
+      "source_page": 170,
+      "semantic_hint": "招标人名称",
+      "original_text": "（招标人名称）",
+      "allowed_fact_fields": [
+        "purchaser"
+      ],
+      "resolved_fact_fields": [
+        "purchaser"
+      ],
+      "disposition": "FILLED",
+      "replacement": "西安市自来水有限公司",
+      "method": "source_slot"
+    }
+  ],
+  "result": "PASS"
+}

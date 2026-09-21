@@ -1,0 +1,57 @@
+{
+ "baseline_json_MB": 11.29,
+ "variants": [
+  {
+   "variant": "A_current_indent2",
+   "bytes": 54962023,
+   "MiB": 52.42,
+   "ratio_vs_11_29_MB_baseline": 4.64,
+   "character_count_after_reload": 39722,
+   "exact_character_count_after_reload": 39722,
+   "approximate_character_count_after_reload": 0,
+   "roundtrip_valid": true,
+   "reload_error": null,
+   "semantically_equal_to_A": true,
+   "ratio_vs_variant_A": 1.0
+  },
+  {
+   "variant": "B_no_indent",
+   "bytes": 17929521,
+   "MiB": 17.1,
+   "ratio_vs_11_29_MB_baseline": 1.51,
+   "character_count_after_reload": 39722,
+   "exact_character_count_after_reload": 39722,
+   "approximate_character_count_after_reload": 0,
+   "roundtrip_valid": true,
+   "reload_error": null,
+   "semantically_equal_to_A": true,
+   "ratio_vs_variant_A": 0.33
+  },
+  {
+   "variant": "C_no_indent_exclude_none",
+   "bytes": 17928821,
+   "MiB": 17.1,
+   "ratio_vs_11_29_MB_baseline": 1.51,
+   "character_count_after_reload": 39722,
+   "exact_character_count_after_reload": 39722,
+   "approximate_character_count_after_reload": 0,
+   "roundtrip_valid": true,
+   "reload_error": null,
+   "semantically_equal_to_A": true,
+   "ratio_vs_variant_A": 0.33
+  },
+  {
+   "variant": "D_no_indent_exclude_none_exclude_defaults",
+   "bytes": 13752905,
+   "MiB": 13.12,
+   "ratio_vs_11_29_MB_baseline": 1.16,
+   "character_count_after_reload": null,
+   "exact_character_count_after_reload": null,
+   "approximate_character_count_after_reload": null,
+   "roundtrip_valid": false,
+   "reload_error": "1269 validation errors; first: union_tag_not_found at ('elements', 0)",
+   "semantically_equal_to_A": false,
+   "ratio_vs_variant_A": 0.25
+  }
+ ]
+}

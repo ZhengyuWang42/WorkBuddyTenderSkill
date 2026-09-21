@@ -1,0 +1,333 @@
+{
+ "tolerance_pt": 0.75,
+ "round_trip": {
+  "character_count_preserved": true,
+  "character_count": 463,
+  "text_preserved": true,
+  "bbox_preserved": true,
+  "evidence_kind_preserved": true,
+  "all_preserved": true
+ },
+ "r3_run_bbox": [
+  262.68,
+  166.74,
+  384.48,
+  179.02
+ ],
+ "r3_production_characters": [
+  {
+   "index": 0,
+   "character": "（",
+   "x0": 262.68,
+   "x1": 274.68,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 1,
+   "character": "不",
+   "x0": 274.92,
+   "x1": 286.92,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 2,
+   "character": "含",
+   "x0": 287.04,
+   "x1": 299.04,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 3,
+   "character": "税",
+   "x0": 299.28,
+   "x1": 311.28,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 4,
+   "character": "）",
+   "x0": 311.4,
+   "x1": 323.4,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 5,
+   "character": "，",
+   "x0": 323.64,
+   "x1": 335.64,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 6,
+   "character": "（",
+   "x0": 335.88,
+   "x1": 347.88,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 7,
+   "character": "小",
+   "x0": 348.0,
+   "x1": 360.0,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 8,
+   "character": "写",
+   "x0": 360.24,
+   "x1": 372.24,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  },
+  {
+   "index": 9,
+   "character": "）",
+   "x0": 372.48,
+   "x1": 384.48,
+   "evidence_kind": "EXACT_PDF_CHAR"
+  }
+ ],
+ "r3_matches_acceptance_expectation": true,
+ "r3_characters_concatenate_to_run_text": true,
+ "r3_start_boundary": {
+  "label": "R3 text segment start",
+  "source_run_text": "（不含税），（小写）",
+  "source_run_bbox": [
+   262.68,
+   166.74,
+   384.48,
+   179.02
+  ],
+  "run_character_count": 10,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 262.68,
+   "tolerance_pt": 0.75,
+   "aligned": true,
+   "character_offset": 0,
+   "boundary_x_pt": 262.68,
+   "boundary_error_pt": 0.0,
+   "previous_character": null,
+   "next_character": {
+    "character": "（",
+    "index": 0,
+    "x0": 262.68,
+    "x1": 274.68,
+    "edge": "x0",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 10,
+   "run_character_count": 10
+  },
+  "split_before": "",
+  "split_after": "（不含税），（小写）"
+ },
+ "r3_end_boundary": {
+  "label": "R3 text segment end",
+  "source_run_text": "（不含税），（小写）",
+  "source_run_bbox": [
+   262.68,
+   166.74,
+   384.48,
+   179.02
+  ],
+  "run_character_count": 10,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 323.6,
+   "tolerance_pt": 0.75,
+   "aligned": true,
+   "character_offset": 5,
+   "boundary_x_pt": 323.64,
+   "boundary_error_pt": 0.04,
+   "previous_character": {
+    "character": "）",
+    "index": 4,
+    "x0": 311.4,
+    "x1": 323.4,
+    "edge": "x1",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "next_character": {
+    "character": "，",
+    "index": 5,
+    "x0": 323.64,
+    "x1": 335.64,
+    "edge": "x0",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 10,
+   "run_character_count": 10
+  },
+  "split_before": "（不含税）",
+  "split_after": "，（小写）"
+ },
+ "r8_left_boundary": {
+  "label": "R8 left rule boundary",
+  "source_run_text": "7、（其他补充说明）。",
+  "source_run_bbox": [
+   94.8,
+   406.74,
+   220.8,
+   419.02
+  ],
+  "run_character_count": 11,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 112.8,
+   "tolerance_pt": 0.75,
+   "aligned": true,
+   "character_offset": 2,
+   "boundary_x_pt": 112.8,
+   "boundary_error_pt": 0.0,
+   "previous_character": {
+    "character": "、",
+    "index": 1,
+    "x0": 100.8,
+    "x1": 112.8,
+    "edge": "x1",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "next_character": {
+    "character": "（",
+    "index": 2,
+    "x0": 112.8,
+    "x1": 124.8,
+    "edge": "x0",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 11,
+   "run_character_count": 11
+  },
+  "split_before": "7、",
+  "split_after": "（其他补充说明）。"
+ },
+ "r8_right_boundary": {
+  "label": "R8 right rule boundary",
+  "source_run_text": "7、（其他补充说明）。",
+  "source_run_bbox": [
+   94.8,
+   406.74,
+   220.8,
+   419.02
+  ],
+  "run_character_count": 11,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 208.8,
+   "tolerance_pt": 0.75,
+   "aligned": true,
+   "character_offset": 10,
+   "boundary_x_pt": 208.8,
+   "boundary_error_pt": 0.0,
+   "previous_character": {
+    "character": "）",
+    "index": 9,
+    "x0": 196.8,
+    "x1": 208.8,
+    "edge": "x1",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "next_character": {
+    "character": "。",
+    "index": 10,
+    "x0": 208.8,
+    "x1": 220.8,
+    "edge": "x0",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 11,
+   "run_character_count": 11
+  },
+  "split_before": "7、（其他补充说明）",
+  "split_after": "。"
+ },
+ "p44_r12_left_boundary": {
+  "label": "P44-R12 left rule boundary",
+  "source_run_text": "(供应商名称)",
+  "source_run_bbox": [
+   156.48,
+   296.82,
+   230.04,
+   309.1
+  ],
+  "run_character_count": 7,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 84.7,
+   "tolerance_pt": 0.75,
+   "aligned": false,
+   "character_offset": null,
+   "boundary_x_pt": 156.48,
+   "boundary_error_pt": 71.78,
+   "previous_character": null,
+   "next_character": {
+    "character": "(",
+    "index": 0,
+    "x0": 156.48,
+    "x1": 162.48,
+    "edge": "x0",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 7,
+   "run_character_count": 7
+  },
+  "split_before": null,
+  "split_after": null
+ },
+ "p44_r12_right_boundary": {
+  "label": "P44-R12 right rule boundary",
+  "source_run_text": "(供应商名称)",
+  "source_run_bbox": [
+   156.48,
+   296.82,
+   230.04,
+   309.1
+  ],
+  "run_character_count": 7,
+  "all_characters_exact": true,
+  "query": {
+   "boundary_x": 318.45,
+   "tolerance_pt": 0.75,
+   "aligned": false,
+   "character_offset": null,
+   "boundary_x_pt": 230.04,
+   "boundary_error_pt": 88.41,
+   "previous_character": {
+    "character": ")",
+    "index": 6,
+    "x0": 224.04,
+    "x1": 230.04,
+    "edge": "x1",
+    "evidence_kind": "EXACT_PDF_CHAR"
+   },
+   "next_character": null,
+   "straddling_character": null,
+   "evidence_kind": "EXACT_PDF_CHAR",
+   "character_count": 7,
+   "run_character_count": 7
+  },
+  "split_before": null,
+  "split_after": null
+ },
+ "approximate_rejection": {
+  "approximated_evidence_kind": "APPROXIMATED_FROM_RUN_WIDTH",
+  "approximated_query_aligned": false,
+  "approximated_query_evidence_kind": "APPROXIMATED_FROM_RUN_WIDTH",
+  "no_character_geometry_aligned": false
+ },
+ "compositions_emitted": [
+  "P42-R7"
+ ],
+ "P42-R8_composition_active": false,
+ "P44-R12_composition_active": false
+}

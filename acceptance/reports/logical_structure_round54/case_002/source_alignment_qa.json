@@ -1,0 +1,36 @@
+{
+  "case": "case_002",
+  "audited_value_cells": 1,
+  "mandatory_alignment_mismatch_count": 0,
+  "rows": [
+    {
+      "source_pdf_page": 147,
+      "row_index": 5,
+      "label": "质量标准",
+      "value": "符合国家现行相关规定及验收规范的合格标准。",
+      "source_alignment": "left",
+      "source_evidence": {
+        "alignment": "left",
+        "reason": "text flush to the left edge (left pad 5.34 pt)",
+        "line_count": 1,
+        "left_pad": 5.34,
+        "right_pad": 102.73,
+        "left_spread": 0.0,
+        "right_spread": 0.0,
+        "center_spread": 0.0,
+        "fill_ratio": 0.0,
+        "text_x0": 185.04,
+        "text_x1": 437.04,
+        "cell_box": [
+          179.7,
+          349.29,
+          539.77,
+          383.44
+        ]
+      },
+      "effective_source_alignment": "left",
+      "mismatch": true
+    }
+  ],
+  "result": "PASS"
+}

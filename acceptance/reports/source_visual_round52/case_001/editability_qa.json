@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "Heading 1": {
+      "style_definition_changed_only": true,
+      "reopened": true,
+      "literal_prefixes_unchanged": true,
+      "rendered": false,
+      "result": "PASS"
+    },
+    "Tender Body": {
+      "style_definition_changed_only": true,
+      "reopened": true,
+      "literal_prefixes_unchanged": true,
+      "rendered": false,
+      "result": "PASS"
+    }
+  },
+  "literal_prefix_stability": true,
+  "result": "PASS"
+}

@@ -1,0 +1,60 @@
+{
+  "run": "run_5_5_dynamic_review_final_audit",
+  "cases": {
+    "case_001": {
+      "artifact_contract": "PASS",
+      "project_facts": "PASS",
+      "dynamic_review": "PASS",
+      "source_requirement_coverage": "PASS",
+      "logical_tables": "PASS",
+      "docx_source_audit": "PASS",
+      "word_package_integrity": "PASS",
+      "source_visual": "PASS",
+      "delivery_bundle": "PASS",
+      "dynamic_item_count": 47,
+      "workbook_row_count": 47,
+      "hard_gate_failures": [],
+      "manual_word_confirmation": "PENDING_USER_VISUAL_CHECK"
+    },
+    "case_002": {
+      "artifact_contract": "PASS",
+      "project_facts": "PASS",
+      "dynamic_review": "PASS",
+      "source_requirement_coverage": "PASS",
+      "logical_tables": "PASS",
+      "docx_source_audit": "PASS",
+      "word_package_integrity": "PASS",
+      "source_visual": "PASS",
+      "delivery_bundle": "PASS",
+      "dynamic_item_count": 49,
+      "workbook_row_count": 49,
+      "hard_gate_failures": [],
+      "manual_word_confirmation": "PENDING_USER_VISUAL_CHECK"
+    },
+    "case_003": {
+      "artifact_contract": "PASS",
+      "project_facts": "PASS",
+      "dynamic_review": "PASS",
+      "source_requirement_coverage": "PASS",
+      "logical_tables": "PASS",
+      "docx_source_audit": "PASS",
+      "word_package_integrity": "PASS",
+      "source_visual": "PASS",
+      "delivery_bundle": "PASS",
+      "dynamic_item_count": 53,
+      "workbook_row_count": 53,
+      "hard_gate_failures": [],
+      "manual_word_confirmation": "PENDING_USER_VISUAL_CHECK"
+    }
+  },
+  "regression": "PASS",
+  "hard_gate_failures": {
+    "case_001": [],
+    "case_002": [],
+    "case_003": []
+  },
+  "automated_checks": "PASS",
+  "word_com_status": "WORD_COM_ENVIRONMENT_BLOCKED",
+  "word_com_note": "Word COM automation is unavailable in this environment and no OpenAndRepair or repair-save was attempted; the final Word visual acceptance belongs to the user.",
+  "final_status": "ROUND_5_5_AWAITING_WORD_MANUAL_CONFIRMATION"
+}

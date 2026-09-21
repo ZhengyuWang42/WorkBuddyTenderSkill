@@ -69,13 +69,17 @@
             "mapping": {
               "docx_paragraph": "#/$defs/DocxParagraphLocator",
               "docx_table_cell": "#/$defs/DocxTableLocator",
-              "pdf_block": "#/$defs/PdfLocator"
+              "pdf_block": "#/$defs/PdfLocator",
+              "pdf_table_cell": "#/$defs/PdfTableLocator"
             },
             "propertyName": "locator_type"
           },
           "oneOf": [
             {
               "$ref": "#/$defs/PdfLocator"
+            },
+            {
+              "$ref": "#/$defs/PdfTableLocator"
             },
             {
               "$ref": "#/$defs/DocxParagraphLocator"
@@ -184,7 +188,7 @@
     },
     "FactSummary": {
       "additionalProperties": false,
-      "description": "Counts for the fixed 20-field ProjectFacts object.",
+      "description": "Counts for the fixed ProjectFacts field catalog.",
       "properties": {
         "total_fields": {
           "minimum": 0,
@@ -238,7 +242,10 @@
         "bid_bond_amount",
         "bid_bond_form",
         "consortium_allowed",
-        "procurement_method"
+        "procurement_method",
+        "bid_validity",
+        "submission_method",
+        "electronic_platform"
       ],
       "title": "FieldName",
       "type": "string"
@@ -278,9 +285,49 @@
       "title": "PdfLocator",
       "type": "object"
     },
+    "PdfTableLocator": {
+      "additionalProperties": false,
+      "description": "A precise locator for one normalized PDF table cell.",
+      "properties": {
+        "locator_type": {
+          "const": "pdf_table_cell",
+          "default": "pdf_table_cell",
+          "title": "Locator Type",
+          "type": "string"
+        },
+        "page": {
+          "exclusiveMinimum": 0,
+          "title": "Page",
+          "type": "integer"
+        },
+        "table_index": {
+          "minimum": 0,
+          "title": "Table Index",
+          "type": "integer"
+        },
+        "row_index": {
+          "minimum": 0,
+          "title": "Row Index",
+          "type": "integer"
+        },
+        "column_index": {
+          "minimum": 0,
+          "title": "Column Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "page",
+        "table_index",
+        "row_index",
+        "column_index"
+      ],
+      "title": "PdfTableLocator",
+      "type": "object"
+    },
     "ProjectFields": {
       "additionalProperties": false,
-      "description": "Exactly the 20 V1 fields, kept explicit for a stable JSON Schema.",
+      "description": "Explicit tender facts plus the three review-template facts.",
       "properties": {
         "project_name": {
           "$ref": "#/$defs/ResolvedFact"
@@ -340,6 +387,15 @@
           "$ref": "#/$defs/ResolvedFact"
         },
         "procurement_method": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "bid_validity": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "submission_method": {
+          "$ref": "#/$defs/ResolvedFact"
+        },
+        "electronic_platform": {
           "$ref": "#/$defs/ResolvedFact"
         }
       },
@@ -464,7 +520,7 @@
       "$ref": "#/$defs/SourceDocument"
     },
     "schema_version": {
-      "default": "1.0",
+      "default": "1.1",
       "title": "Schema Version",
       "type": "string"
     },

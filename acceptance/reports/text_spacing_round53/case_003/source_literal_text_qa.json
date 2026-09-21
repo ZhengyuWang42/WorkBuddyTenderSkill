@@ -1,0 +1,100 @@
+{
+  "audited_source_pages": [
+    2,
+    4,
+    5,
+    6,
+    7,
+    10
+  ],
+  "source_literal_underscore_count": 0,
+  "generated_literal_underscore_count": 0,
+  "lost_literal_underscore_count": 0,
+  "added_literal_underscore_count": 0,
+  "mandatory_literal_samples": [
+    {
+      "sample": "投标人名称：",
+      "present": true
+    },
+    {
+      "sample": "单位性质：",
+      "present": true
+    },
+    {
+      "sample": "地址：",
+      "present": true
+    },
+    {
+      "sample": "成立时间：",
+      "present": true
+    },
+    {
+      "sample": "经营期限：",
+      "present": true
+    },
+    {
+      "sample": "姓名：",
+      "present": true
+    },
+    {
+      "sample": "性别：",
+      "present": true
+    },
+    {
+      "sample": "年龄：",
+      "present": true
+    },
+    {
+      "sample": "身份证号码：",
+      "present": true
+    },
+    {
+      "sample": "职务：",
+      "present": true
+    },
+    {
+      "sample": "投标人：",
+      "present": true
+    },
+    {
+      "sample": "法定代表人：",
+      "present": true
+    },
+    {
+      "sample": "委托代理人：",
+      "present": true
+    },
+    {
+      "sample": "（公章）",
+      "present": true
+    },
+    {
+      "sample": "（签字）",
+      "present": true
+    }
+  ],
+  "mandatory_literal_sample_missing_count": 0,
+  "internal_space_evidence": {
+    "20\\d\\d\\s+年\\s+\\d+\\s+月\\s+\\d+\\s+日": {
+      "source": [],
+      "generated": []
+    },
+    "合同签订后\\s*\\d+\\s*天": {
+      "source": [],
+      "generated": []
+    },
+    "截止之日起\\s*\\d+\\s*日历天": {
+      "source": [],
+      "generated": []
+    },
+    "近\\s*\\d+\\s*年": {
+      "source": [],
+      "generated": [
+        "近3年"
+      ]
+    }
+  },
+  "raw_display_text_domain": "normalized_document.raw_display_text",
+  "semantic_domain": "normalized_document.semantic_normalized_text",
+  "result": "PASS"
+}

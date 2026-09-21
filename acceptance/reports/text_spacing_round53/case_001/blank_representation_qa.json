@@ -1,0 +1,108 @@
+{
+  "representation_kinds_defined": [
+    "LITERAL_UNDERSCORES",
+    "UNDERLINED_WHITESPACE",
+    "TAB_LEADER",
+    "SOURCE_WHITESPACE_GAP",
+    "VECTOR_LINE",
+    "MIXED"
+  ],
+  "all_cases_representation_kind_counts": {
+    "TAB_LEADER": 1,
+    "VECTOR_LINE": 31,
+    "SOURCE_WHITESPACE_GAP": 37
+  },
+  "audited_forms": [
+    {
+      "label": "P5_IDENTITY",
+      "source_page": 44,
+      "source_vector_rule_count": 16,
+      "source_literal_underscore_run_count": 0,
+      "generated_representation_kinds": {
+        "VECTOR_LINE": 15
+      },
+      "generated_blank_count": 15,
+      "invented_literal_underscore_slot_count": 0,
+      "invented_underscore_glyph_count": 0,
+      "source_evidence": {
+        "vector_rules": [
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 147.7,
+            "x1": 309.7,
+            "y": 154.2
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 134.6,
+            "x1": 308.6,
+            "y": 175.8
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 108.8,
+            "x1": 312.8,
+            "y": 202.4
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 131.85,
+            "x1": 179.85,
+            "y": 228.6
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 191.85,
+            "x1": 215.85,
+            "y": 228.6
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 233.85,
+            "x1": 275.85,
+            "y": 228.6
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 134.6,
+            "x1": 296.6,
+            "y": 255.2
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 105.0,
+            "x1": 142.05,
+            "y": 282.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 175.9,
+            "x1": 202.4,
+            "y": 282.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 236.4,
+            "x1": 262.8,
+            "y": 282.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 296.75,
+            "x1": 344.4,
+            "y": 282.0
+          },
+          {
+            "kind": "VECTOR_LINE",
+            "x0": 84.7,
+            "x1": 318.45,
+            "y": 308.4
+          }
+        ],
+        "literal_underscore_runs": []
+      }
+    }
+  ],
+  "invented_underscore_form_count": 0,
+  "result": "PASS"
+}

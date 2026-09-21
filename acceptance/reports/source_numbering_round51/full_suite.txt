@@ -1,0 +1,346 @@
+........................................................................ [ 32%]
+........................................................................ [ 64%]
+...............................................................s........ [ 97%]
+......                                                                   [100%]
+=================================== PASSES ====================================
+____ test_cli_writes_reviewed_facts_and_audit_without_overwriting_original ____
+---------------------------- Captured stdout call -----------------------------
+Status: OK
+Reviewed facts: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_cli_writes_reviewed_facts0\project_facts.reviewed.json
+Resolution audit: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_cli_writes_reviewed_facts0\resolution_audit.json
+____________________ test_qa_cli_writes_structured_report _____________________
+---------------------------- Captured stdout call -----------------------------
+Status: PASS_WITH_REVIEW
+Checks: 59
+Errors: 0
+Warnings: 1
+QA report: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_qa_cli_writes_structured_0\qa_report.json
+_________________ test_pdf_pages_are_one_based_and_have_text __________________
+---------------------------- Captured stdout call -----------------------------
+Consider using the pymupdf_layout package for a greatly improved page layout analysis.
+___________________ test_scan_like_pdf_returns_ocr_required ___________________
+---------------------------- Captured stdout call -----------------------------
+Status: OCR_REQUIRED
+Source: scan.pdf
+Elements: 0
+Text length: 0
+Normalized JSON: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_scan_like_pdf_returns_ocr0\ocr-required\normalized_document.json
+Lines: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_scan_like_pdf_returns_ocr0\ocr-required\document.lines.txt
+Warnings:
+- PDF appears image-based or has insufficient extractable text.
+___________ test_unsupported_extension_returns_status_and_exit_code ___________
+---------------------------- Captured stdout call -----------------------------
+Status: UNSUPPORTED_FORMAT
+Source: input.txt
+Elements: 0
+Text length: 0
+Normalized JSON: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_unsupported_extension_ret0\unsupported\normalized_document.json
+Lines: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_unsupported_extension_ret0\unsupported\document.lines.txt
+Warnings:
+- Unsupported document format: .txt.
+_______________ test_cli_writes_project_facts_and_review_packet _______________
+---------------------------- Captured stdout call -----------------------------
+Status: OK
+Source: sample.docx
+
+Fields:
+  RESOLVED:     1
+  NEEDS_REVIEW: 0
+  NOT_FOUND:    22
+
+ProjectFacts: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_cli_writes_project_facts_0\facts\project_facts.json
+Review packet: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_cli_writes_project_facts_0\facts\facts_review_packet.json
+____________ test_cli_rejects_ocr_required_without_creating_facts _____________
+---------------------------- Captured stderr call -----------------------------
+Source document requires OCR before fact extraction.
+______________ test_pipeline_docx_writes_all_delivery_artifacts _______________
+---------------------------- Captured stdout call -----------------------------
+Status: REVIEW_REQUIRED
+Source: input.docx
+
+Fields:
+  RESOLVED:     4
+  NEEDS_REVIEW: 0
+  NOT_FOUND:    19
+
+QA: PASS_WITH_REVIEW
+Format source: GENERIC_FALLBACK
+QA report: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_docx_writes_all_0\e2e-docx\qa_report.json
+Artifacts:
+  normalized_document.json
+  document.lines.txt
+  project_facts.json
+  facts_review_packet.json
+  fact_gap_packet.json
+  semantic_candidate_results.json
+  generation_report.json
+  source_format_qa.json
+  review_evidence_packet.json
+  review_evidence_qa.json
+  metadata.json
+  投标项目复核表.xlsx
+  基础投标文件.docx
+  qa_report.json
+____________ test_pipeline_text_pdf_writes_all_delivery_artifacts _____________
+---------------------------- Captured stdout call -----------------------------
+Status: REVIEW_REQUIRED
+Source: input.pdf
+
+Fields:
+  RESOLVED:     0
+  NEEDS_REVIEW: 0
+  NOT_FOUND:    23
+
+QA: PASS_WITH_REVIEW
+Format source: GENERIC_FALLBACK
+QA report: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_text_pdf_writes_0\e2e-pdf\qa_report.json
+Artifacts:
+  normalized_document.json
+  document.lines.txt
+  project_facts.json
+  facts_review_packet.json
+  fact_gap_packet.json
+  semantic_candidate_results.json
+  generation_report.json
+  source_format_qa.json
+  review_evidence_packet.json
+  review_evidence_qa.json
+  metadata.json
+  投标项目复核表.xlsx
+  基础投标文件.docx
+  qa_report.json
+__________ test_pipeline_stops_on_ocr_required_without_fake_delivery __________
+---------------------------- Captured stdout call -----------------------------
+Status: OCR_REQUIRED
+Normalized JSON: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_stops_on_ocr_req0\e2e-ocr\normalized_document.json
+Lines: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_stops_on_ocr_req0\e2e-ocr\document.lines.txt
+Pipeline stopped: source document requires OCR before fact extraction.
+______ test_pipeline_corrupt_input_returns_nonzero_without_fake_delivery ______
+---------------------------- Captured stdout call -----------------------------
+Status: PARSE_ERROR
+Normalized JSON: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_corrupt_input_re0\e2e-broken\normalized_document.json
+Lines: D:\PyCharmProjects\WBTenderSkill\tmp\pytest-round51-full\test_pipeline_corrupt_input_re0\e2e-broken\document.lines.txt
+- generated xml file: D:\PyCharmProjects\WBTenderSkill\acceptance\reports\source_numbering_round51\full_suite_junit.xml -
+=========================== short test summary info ===========================
+PASSED tests/test_apply_resolution.py::test_select_existing_candidate_and_keep_original_unchanged
+PASSED tests/test_apply_resolution.py::test_keep_unresolved_does_not_change_field
+PASSED tests/test_apply_resolution.py::test_invalid_candidate_index_is_rejected
+PASSED tests/test_apply_resolution.py::test_only_needs_review_can_be_modified[RESOLVED]
+PASSED tests/test_apply_resolution.py::test_only_needs_review_can_be_modified[NOT_FOUND]
+PASSED tests/test_apply_resolution.py::test_free_text_value_and_unknown_action_are_rejected
+PASSED tests/test_apply_resolution.py::test_resolution_contract_rejects_missing_or_inconsistent_payload
+PASSED tests/test_apply_resolution.py::test_other_fields_and_candidate_evidence_are_not_changed
+PASSED tests/test_apply_resolution.py::test_cli_writes_reviewed_facts_and_audit_without_overwriting_original
+PASSED tests/test_apply_resolution.py::test_reviewed_project_facts_schema_and_outputs_are_valid
+PASSED tests/test_apply_resolution.py::test_generated_resolution_schema_matches_pydantic_contract
+PASSED tests/test_bid_document_builder.py::test_bid_document_is_readable_and_contains_basic_information_table
+PASSED tests/test_bid_document_builder.py::test_bid_document_preserves_status_placeholders_and_separate_numbers
+PASSED tests/test_bid_document_builder.py::test_bid_document_contains_only_the_basic_skeleton_sections
+PASSED tests/test_bid_document_builder.py::test_bid_builder_requires_project_facts_ssot
+PASSED tests/test_bid_document_builder.py::test_source_format_becomes_the_primary_bid_document_skeleton
+PASSED tests/test_bid_document_builder.py::test_source_format_without_fact_values_does_not_override_project_facts
+PASSED tests/test_bid_document_builder.py::test_pdf_source_format_rebuilds_tables_and_fills_only_tender_placeholders
+PASSED tests/test_delivery_qa.py::test_complete_consistent_output_is_pass
+PASSED tests/test_delivery_qa.py::test_review_and_not_found_are_pass_with_review
+PASSED tests/test_delivery_qa.py::test_xlsx_primary_template_sheet_is_required
+PASSED tests/test_delivery_qa.py::test_xlsx_template_merged_cells_are_required
+PASSED tests/test_delivery_qa.py::test_top_number_and_amount_fields_cannot_be_exchanged
+PASSED tests/test_delivery_qa.py::test_procurement_method_does_not_fill_submission_method
+PASSED tests/test_delivery_qa.py::test_manual_template_fields_cannot_be_guessed
+PASSED tests/test_delivery_qa.py::test_corrupt_docx_is_fail
+PASSED tests/test_delivery_qa.py::test_invalid_project_facts_contract_is_fail
+PASSED tests/test_delivery_qa.py::test_docx_resolved_value_corruption_is_fail
+PASSED tests/test_delivery_qa.py::test_source_format_metadata_and_heading_order_are_qa_checked
+PASSED tests/test_delivery_qa.py::test_fabricated_bidder_and_submission_ready_status_are_failures
+PASSED tests/test_delivery_qa.py::test_qa_cli_writes_structured_report
+PASSED tests/test_document_parser.py::test_normal_docx_is_parsed_with_paragraphs_and_status
+PASSED tests/test_document_parser.py::test_docx_paragraph_table_order_is_preserved
+PASSED tests/test_document_parser.py::test_docx_table_locators_keep_table_row_cell
+PASSED tests/test_document_parser.py::test_docx_cell_newlines_are_preserved
+PASSED tests/test_document_parser.py::test_pdf_pages_are_one_based_and_have_text
+PASSED tests/test_document_parser.py::test_pdf_tables_retain_two_and_four_column_cells_and_locators
+PASSED tests/test_document_parser.py::test_pdf_second_page_and_bbox_are_serializable
+PASSED tests/test_document_parser.py::test_pdf_lines_locator_maps_back_to_json
+PASSED tests/test_document_parser.py::test_docx_lines_cell_locator_maps_back_to_json
+PASSED tests/test_document_parser.py::test_scan_like_pdf_returns_ocr_required
+PASSED tests/test_document_parser.py::test_unsupported_extension_returns_status_and_exit_code
+PASSED tests/test_document_parser.py::test_corrupt_supported_file_returns_parse_error_without_traceback[.pdf]
+PASSED tests/test_document_parser.py::test_corrupt_supported_file_returns_parse_error_without_traceback[.docx]
+PASSED tests/test_document_parser.py::test_unicode_amount_and_identifier_text_survives
+PASSED tests/test_fact_extraction.py::test_same_line_candidate_resolves_project_name
+PASSED tests/test_fact_extraction.py::test_pdf_candidate_uses_one_based_page_locator
+PASSED tests/test_fact_extraction.py::test_table_candidates_keep_field_identity_and_value_locator
+PASSED tests/test_fact_extraction.py::test_four_column_table_checks_every_label_cell
+PASSED tests/test_fact_extraction.py::test_same_line_method_and_money_normalization
+PASSED tests/test_fact_extraction.py::test_same_line_accepts_fullwidth_spacing_around_colon
+PASSED tests/test_fact_extraction.py::test_next_line_candidate_does_not_cross_a_new_field_label
+PASSED tests/test_fact_extraction.py::test_next_line_does_not_use_a_new_label_with_an_inline_value
+PASSED tests/test_fact_extraction.py::test_keyword_window_finds_body_sentence
+PASSED tests/test_fact_extraction.py::test_equal_sources_are_retained_and_resolved
+PASSED tests/test_fact_extraction.py::test_project_and_tender_numbers_remain_independent
+PASSED tests/test_fact_extraction.py::test_negative_consortium_phrase_normalizes_to_false
+PASSED tests/test_fact_extraction.py::test_candidate_evidence_and_locator_are_present_for_resolved_fields
+PASSED tests/test_fact_resolution.py::test_no_candidate_is_not_found_and_summary_counts_all_current_fields
+PASSED tests/test_fact_resolution.py::test_conflicting_values_require_review
+PASSED tests/test_fact_resolution.py::test_standalone_keyword_window_requires_review
+PASSED tests/test_fact_resolution.py::test_keyword_window_agrees_with_independent_explicit_candidate
+PASSED tests/test_fact_resolution.py::test_table_label_followed_by_another_label_is_not_used_as_value
+PASSED tests/test_fact_resolution.py::test_next_line_new_field_value_is_not_project_name
+PASSED tests/test_fact_resolution.py::test_source_priority_does_not_hide_conflict
+PASSED tests/test_fact_resolution.py::test_equivalent_money_candidates_resolve_without_float
+PASSED tests/test_fact_resolution.py::test_conflicting_money_candidates_require_review
+PASSED tests/test_fact_resolution.py::test_equivalent_dates_resolve
+PASSED tests/test_fact_resolution.py::test_duration_different_units_are_not_equated
+PASSED tests/test_fact_resolution.py::test_budget_and_max_price_are_not_cross_filled
+PASSED tests/test_fact_resolution.py::test_review_packet_contains_only_conflict_evidence
+PASSED tests/test_fact_resolution.py::test_project_facts_can_be_serialized_and_revalidated
+PASSED tests/test_fact_resolution.py::test_cli_writes_project_facts_and_review_packet
+PASSED tests/test_fact_resolution.py::test_cli_rejects_ocr_required_without_creating_facts
+PASSED tests/test_format_extractor.py::test_source_format_section_is_found_and_stops_at_next_chapter
+PASSED tests/test_format_extractor.py::test_body_phrase_does_not_start_a_format_section
+PASSED tests/test_format_extractor.py::test_pdf_chapter_heading_and_ordered_forms_are_preserved
+PASSED tests/test_format_extractor.py::test_unbounded_large_pdf_format_tail_is_marked_for_review
+PASSED tests/test_format_extractor.py::test_long_pdf_format_chapter_with_ordered_forms_can_end_at_eof
+PASSED tests/test_logical_layout.py::test_adjacent_blocks_form_one_paragraph_despite_glyph_edges
+PASSED tests/test_logical_layout.py::test_addressee_has_container_not_short_glyph_width
+PASSED tests/test_logical_layout.py::test_numbered_continuations_and_shared_list_geometry
+PASSED tests/test_logical_layout.py::test_numeric_sentence_containing_document_is_not_heading
+PASSED tests/test_logical_layout.py::test_appendix_catalog_rows_do_not_merge
+PASSED tests/test_logical_layout.py::test_form_baselines_split_even_when_labels_are_span_fragments
+PASSED tests/test_logical_layout.py::test_guard_rejects_number_in_name_slot_but_preserves_number_slot
+PASSED tests/test_logical_layout.py::test_inline_slot_does_not_fragment_surrounding_prose
+PASSED tests/test_logical_layout.py::test_form_vector_blank_is_editable_visible_blank
+PASSED tests/test_logical_layout.py::test_chinese_join_no_space_and_latin_boundary_retained
+PASSED tests/test_logical_layout.py::test_qa_catches_serialized_narrow_centered_body
+PASSED tests/test_logical_layout.py::test_qa_does_not_equate_zero_breaks_with_paragraph_success
+PASSED tests/test_models.py::test_candidate_fact_can_be_created_and_serialized
+PASSED tests/test_models.py::test_confidence_must_be_between_zero_and_one[-0.01]
+PASSED tests/test_models.py::test_confidence_must_be_between_zero_and_one[1.01]
+PASSED tests/test_models.py::test_resolved_fact_status_enum_accepts_only_three_v1_values
+PASSED tests/test_models.py::test_project_number_and_tender_number_remain_independent
+PASSED tests/test_models.py::test_pdf_locator_preserves_real_page
+PASSED tests/test_models.py::test_docx_paragraph_locator_has_no_page
+PASSED tests/test_models.py::test_docx_table_locator_has_no_page
+PASSED tests/test_models.py::test_project_facts_summary_counts_all_three_statuses
+PASSED tests/test_models.py::test_generated_json_schema_can_be_loaded_and_describes_contract
+PASSED tests/test_package.py::test_package_is_complete_and_has_no_forbidden_files
+PASSED tests/test_package.py::test_validator_rejects_forbidden_package_members
+PASSED tests/test_package.py::test_validator_rejects_missing_runtime_contract_files
+PASSED tests/test_page_layout.py::test_visual_wrap_one_logical_paragraph
+PASSED tests/test_page_layout.py::test_numbered_boundaries_not_merged
+PASSED tests/test_page_layout.py::test_same_baseline_fragment_is_not_tab
+PASSED tests/test_page_layout.py::test_incomplete_geometry_does_not_guess
+PASSED tests/test_page_layout.py::test_cover_and_divider_distinct
+PASSED tests/test_page_layout.py::test_center_and_vertical_band
+PASSED tests/test_page_layout.py::test_font_mapping[SimSun-\u5b8b\u4f53]
+PASSED tests/test_page_layout.py::test_font_mapping[FangSong_GB2312-\u4eff\u5b8b]
+PASSED tests/test_page_layout.py::test_font_mapping[SimHei-\u9ed1\u4f53]
+PASSED tests/test_page_layout.py::test_font_mapping[KaiTi-\u6977\u4f53]
+PASSED tests/test_page_layout.py::test_font_mapping[TimesNewRomanPSMT-Times New Roman]
+PASSED tests/test_page_layout.py::test_form_row_is_one_paragraph_with_native_tabs_or_underlines[\u4f9b\u5e94\u5546\uff1a________\uff08\u76d6\u5355\u4f4d\u516c\u7ae0\uff09-3]
+PASSED tests/test_page_layout.py::test_form_row_is_one_paragraph_with_native_tabs_or_underlines[____\u5e74____\u6708____\u65e5-6]
+PASSED tests/test_page_layout.py::test_fixed_content_not_form
+PASSED tests/test_page_layout.py::test_calibration_bounded
+PASSED tests/test_page_layout.py::test_body_is_not_centered_merely_because_margins_symmetric
+PASSED tests/test_page_layout.py::test_vector_blank_requires_field_geometry
+PASSED tests/test_page_layout.py::test_blank_pdf_lines_keep_geometry_not_printed_rows
+PASSED tests/test_page_layout.py::test_visible_span_font_not_blank_span_font
+PASSED tests/test_page_layout.py::test_inline_blank_needs_vector_evidence
+PASSED tests/test_pipeline.py::test_pipeline_cleanup_removes_every_known_artifact
+PASSED tests/test_pipeline.py::test_pipeline_docx_writes_all_delivery_artifacts
+PASSED tests/test_pipeline.py::test_pipeline_text_pdf_writes_all_delivery_artifacts
+PASSED tests/test_pipeline.py::test_pipeline_stops_on_ocr_required_without_fake_delivery
+PASSED tests/test_pipeline.py::test_pipeline_corrupt_input_returns_nonzero_without_fake_delivery
+PASSED tests/test_recovery_regressions.py::test_guarantee_form_sentence_never_contaminates_amount
+PASSED tests/test_recovery_regressions.py::test_canonical_money_and_boolean_values_remain_type_valid
+PASSED tests/test_recovery_regressions.py::test_reference_time_requires_review_without_a_resolved_deadline
+PASSED tests/test_recovery_regressions.py::test_reference_time_can_only_be_derived_from_a_concrete_deadline
+PASSED tests/test_recovery_regressions.py::test_owner_and_agent_number_aliases_keep_ownership_independent
+PASSED tests/test_recovery_regressions.py::test_duration_quality_aliases_and_procurement_submission_separation
+PASSED tests/test_recovery_regressions.py::test_labeled_multiline_value_keeps_a_split_project_title_bounded
+PASSED tests/test_recovery_regressions.py::test_standalone_title_candidate_is_limited_to_obvious_title_context
+PASSED tests/test_recovery_regressions.py::test_semantic_proposal_is_evidence_bound_and_re_resolved_by_python
+PASSED tests/test_review_builder.py::test_review_workbook_uses_the_supplied_template_as_the_primary_sheet
+PASSED tests/test_review_builder.py::test_review_workbook_keeps_numbers_independent_and_manual_fields_unfilled
+PASSED tests/test_review_builder.py::test_review_workbook_preserves_template_validation_and_structure
+PASSED tests/test_review_builder.py::test_review_workbook_template_is_present_and_not_rebuilt_from_scratch
+PASSED tests/test_review_builder.py::test_review_builder_requires_project_facts_ssot
+PASSED tests/test_review_evidence.py::test_review_evidence_retrieves_generic_high_value_clauses
+PASSED tests/test_review_evidence.py::test_fully_electronic_signal_can_be_not_applicable_candidate
+PASSED tests/test_review_evidence.py::test_review_evidence_pruning_is_bounded_and_explicit
+PASSED tests/test_review_evidence.py::test_one_strong_clause_is_found_not_multiple_found
+PASSED tests/test_review_evidence.py::test_table_cell_text_ignores_tall_artwork_span
+PASSED tests/test_review_evidence.py::test_long_contents_lines_are_not_review_evidence
+PASSED tests/test_review_evidence.py::test_scoring_row_does_not_accept_non_scoring_qualification_phrase
+PASSED tests/test_review_evidence.py::test_semantic_classification_must_reference_existing_candidate
+PASSED tests/test_review_evidence.py::test_review_workbook_writes_states_into_existing_64_rows_without_stray_row
+PASSED tests/test_round46_form_layout.py::test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain
+PASSED tests/test_round46_form_layout.py::test_project_number_and_signature_rows_use_editable_lines
+PASSED tests/test_round46_form_layout.py::test_date_row_has_three_stable_editable_cells
+PASSED tests/test_round46_form_layout.py::test_inline_sentence_blank_stays_in_one_paragraph_and_is_underlined
+PASSED tests/test_round46_form_layout.py::test_inline_sentence_blank_renders_as_visible_underlined_glyphs
+PASSED tests/test_round46_form_layout.py::test_numbered_and_nested_lists_use_true_hanging_indent
+PASSED tests/test_round46_form_layout.py::test_form_block_has_one_shared_grid_for_related_rows
+PASSED tests/test_round46_form_layout.py::test_artifact_span_outside_cell_bbox_is_rejected
+PASSED tests/test_round46_form_layout.py::test_rotated_watermark_span_is_rejected_but_valid_short_business_cell_survives
+PASSED tests/test_round47_paragraph_native.py::test_paragraph_position_uses_indent_and_vertical_gap_uses_spacing
+PASSED tests/test_round47_paragraph_native.py::test_center_title_and_left_addressee_are_native_paragraphs
+PASSED tests/test_round47_paragraph_native.py::test_geometry_backed_justified_narrative_is_not_a_positioning_hack
+PASSED tests/test_round47_paragraph_native.py::test_single_line_form_uses_tab_leader_and_no_layout_table
+PASSED tests/test_round47_paragraph_native.py::test_date_line_and_multi_field_line_remain_one_paragraph
+PASSED tests/test_round47_paragraph_native.py::test_hanging_list_and_nested_hanging_list_are_paragraphs
+PASSED tests/test_round47_paragraph_native.py::test_real_source_table_stays_table_and_word_safe
+PASSED tests/test_round47_paragraph_native.py::test_form_label_never_creates_a_synthetic_table
+PASSED tests/test_round48_typography_semantics.py::test_pdf_subset_font_normalization
+PASSED tests/test_round48_typography_semantics.py::test_same_role_table_font_normalization_and_outlier_detection
+PASSED tests/test_round48_typography_semantics.py::test_legitimate_table_font_variation_is_preserved
+PASSED tests/test_round48_typography_semantics.py::test_unit_tokens_keep_x_order_for_m2_m3_m3h_m3s
+PASSED tests/test_round48_typography_semantics.py::test_true_word_superscript_and_no_orphan
+PASSED tests/test_round48_typography_semantics.py::test_resolved_fact_fills_all_compatible_slots_and_wrong_type_rejected
+PASSED tests/test_round48_typography_semantics.py::test_fixed_source_value_is_not_a_fill_slot
+PASSED tests/test_round48_typography_semantics.py::test_actual_rendered_page_count_can_differ_from_section_count
+PASSED tests/test_round49_alignment_style.py::test_centered_form_alignment_is_source_geometry_semantic
+PASSED tests/test_round49_alignment_style.py::test_centered_form_fill_uses_center_and_zero_indents_with_fixed_slot
+PASSED tests/test_round49_alignment_style.py::test_empty_table_value_resolves_style_from_paired_label
+PASSED tests/test_round49_alignment_style.py::test_same_fact_uses_independent_destination_styles
+PASSED tests/test_round51_numbering.py::test_source_number_token_preserves_prefix_punctuation_and_spacing
+PASSED tests/test_round51_numbering.py::test_heading_classification_does_not_use_chinese_prefix_alone
+PASSED tests/test_round51_numbering.py::test_source_styles_have_no_auto_numbering_but_generated_styles_do
+PASSED tests/test_round51_numbering.py::test_missing_source_body_item_cannot_renumber_later_source_item
+PASSED tests/test_source_format_fidelity.py::test_pdf_font_span_metadata_and_geometry_are_retained
+PASSED tests/test_source_format_fidelity.py::test_pdf_vector_rules_are_retained_for_form_lines
+PASSED tests/test_source_format_fidelity.py::test_source_paragraph_alignment_and_line_geometry_are_retained
+PASSED tests/test_source_format_fidelity.py::test_fill_slot_detection_covers_underline_whitespace_parenthetical_and_date
+PASSED tests/test_source_format_fidelity.py::test_underline_fill_inherits_source_run_style_without_heading_leak
+PASSED tests/test_source_format_fidelity.py::test_blank_space_fill_keeps_source_fixed_unit_once
+PASSED tests/test_source_format_fidelity.py::test_parenthetical_fill_is_constrained_to_resolved_fact
+PASSED tests/test_source_format_fidelity.py::test_table_cell_fill_preserves_fixed_template_value
+PASSED tests/test_source_format_fidelity.py::test_multiline_table_cell_spans_keep_source_line_breaks
+PASSED tests/test_source_format_fidelity.py::test_fixed_table_value_does_not_create_a_later_remark_slot
+PASSED tests/test_source_format_fidelity.py::test_table_chrome_span_is_removed_without_deleting_real_cell_text
+PASSED tests/test_source_format_fidelity.py::test_table_merge_width_and_height_are_retained
+PASSED tests/test_source_format_fidelity.py::test_unknown_fact_and_bidder_specific_placeholder_stay_source_unchanged
+PASSED tests/test_source_format_fidelity.py::test_pdf_chrome_detection_is_repetition_and_geometry_bound
+PASSED tests/test_source_format_fidelity.py::test_page_break_and_mixed_page_section_count_are_preserved
+PASSED tests/test_source_format_fidelity.py::test_source_rule_is_emitted_as_a_positioned_editable_line
+PASSED tests/test_source_format_fidelity.py::test_font_repair_is_recorded_in_generation_report
+PASSED tests/test_word_ooxml_integrity.py::test_normal_python_docx_package_is_well_formed_and_reopens
+PASSED tests/test_word_ooxml_integrity.py::test_deep_forensic_inspector_passes_normal_package
+PASSED tests/test_word_ooxml_integrity.py::test_deep_forensic_inspector_catches_schema_order_and_direct_break
+PASSED tests/test_word_ooxml_integrity.py::test_deep_forensic_inspector_catches_invalid_xml_control_character
+PASSED tests/test_word_ooxml_integrity.py::test_scanner_catches_legacy_floating_table_property_order
+PASSED tests/test_word_safe_builder.py::test_clean_document_bootstrap_and_no_prior_docx_load
+PASSED tests/test_word_safe_builder.py::test_production_has_no_arbitrary_xml_or_relationship_authoring
+PASSED tests/test_word_safe_builder.py::test_canary_all_production_constructs
+PASSED tests/test_word_safe_builder.py::test_safe_filling_preserves_source_slot[\u9879\u76ee\u540d\u79f0\uff1a________-\u8131\u654f\u5de5\u7a0b-\u9879\u76ee\u540d\u79f0\uff1a\u8131\u654f\u5de5\u7a0b]
+PASSED tests/test_word_safe_builder.py::test_safe_filling_preserves_source_slot[\uff08\u9879\u76ee\u540d\u79f0\uff09-\u8131\u654f\u5de5\u7a0b-\u8131\u654f\u5de5\u7a0b]
+PASSED tests/test_word_safe_builder.py::test_safe_filling_preserves_source_slot[\u4f9b\u8d27\u671f        \u65e5\u5386\u5929-90\u65e5\u5386\u5929-\u4f9b\u8d27\u671f90\u65e5\u5386\u5929]
+PASSED tests/test_word_safe_builder.py::test_unknown_and_fixed_and_bidder_slots_untouched
+PASSED tests/test_word_safe_builder.py::test_table_slot_fixed_value_widths_and_heights
+PASSED tests/test_word_safe_builder.py::test_merge_duplicate_rectangles_once_but_distinct_content_degrades
+PASSED tests/test_word_safe_builder.py::test_watermark_text_does_not_remove_same_text_from_cover
+PASSED tests/test_word_safe_builder.py::test_forbidden_construct_is_rejected[<w:tblpPr/>]
+PASSED tests/test_word_safe_builder.py::test_forbidden_construct_is_rejected[<w:br/>]
+PASSED tests/test_word_safe_builder.py::test_forbidden_construct_is_rejected[<w:p><w:fldSimple w:instr="TEST"/></w:p>]
+PASSED tests/test_word_safe_builder.py::test_forbidden_construct_is_rejected[<w:p><w:r><w:pict/></w:r></w:p>]
+SKIPPED [1] tests\test_word_ooxml_integrity.py:136: desktop Word COM gate is run explicitly on the Windows acceptance host

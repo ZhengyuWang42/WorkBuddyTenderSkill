@@ -1,0 +1,410 @@
+{
+  "schema_version": "1.0",
+  "case": "case_002",
+  "method": "rendered ink weight of the same source glyph window, source vs generated",
+  "roles_measured": 6,
+  "important_typography_weight_mismatch_count": 0,
+  "important_heading_role_mismatch_count": 0,
+  "mismatched_roles": [],
+  "roles": [
+    {
+      "role": "TOC_TITLE",
+      "sample_text": "目录",
+      "source_visual_bold": true,
+      "source_ratio": 1.765,
+      "source_page": 145,
+      "generated_page": 2,
+      "source": {
+        "text": "目录",
+        "size": 14.05,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          272.76,
+          72.94,
+          301.09,
+          86.99
+        ],
+        "glyphs": 2,
+        "weight_index": 0.25202,
+        "ink_ratio": 0.22365
+      },
+      "generated": {
+        "text": "目录",
+        "size": 14.0,
+        "font": "FangSong",
+        "bbox": [
+          251.9,
+          78.16,
+          279.9,
+          92.16
+        ],
+        "glyphs": 2,
+        "weight_index": 0.26077,
+        "ink_ratio": 0.23108
+      },
+      "weight_ratio_generated_over_source": 1.035
+    },
+    {
+      "role": "HEADING_1",
+      "sample_text": "一、投标函",
+      "source_visual_bold": true,
+      "source_ratio": 1.418,
+      "source_page": 145,
+      "generated_page": 2,
+      "source": {
+        "text": "一、投标函",
+        "size": 12.0,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          114.84,
+          111.9,
+          174.48,
+          123.9
+        ],
+        "glyphs": 5,
+        "weight_index": 0.1191,
+        "ink_ratio": 0.10647
+      },
+      "generated": {
+        "text": "一、投标函",
+        "size": 12.0,
+        "font": "FangSong",
+        "bbox": [
+          114.95,
+          122.83,
+          174.95,
+          134.83
+        ],
+        "glyphs": 5,
+        "weight_index": 0.10355,
+        "ink_ratio": 0.09257
+      },
+      "weight_ratio_generated_over_source": 0.869
+    },
+    {
+      "role": "COVER_PROJECT_TITLE",
+      "sample_text": "营收系统整合和硬",
+      "source_visual_bold": true,
+      "source_ratio": 2.073,
+      "source_page": 144,
+      "generated_page": 1,
+      "source": {
+        "text": "营收系统整合和硬件系统升级项目",
+        "size": 21.95,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          132.0,
+          260.91,
+          463.19,
+          282.86
+        ],
+        "glyphs": 8,
+        "weight_index": 0.29605,
+        "ink_ratio": 0.27881
+      },
+      "generated": {
+        "text": "营收系统整合和硬件系统升级项目",
+        "size": 21.5,
+        "font": "FangSong",
+        "bbox": [
+          128.9,
+          291.51,
+          451.4,
+          313.01
+        ],
+        "glyphs": 8,
+        "weight_index": 0.29357,
+        "ink_ratio": 0.27658
+      },
+      "weight_ratio_generated_over_source": 0.992
+    },
+    {
+      "role": "DOCUMENT_TITLE",
+      "sample_text": "第六章投标文件格",
+      "source_visual_bold": true,
+      "source_ratio": 1.538,
+      "source_page": 144,
+      "generated_page": 1,
+      "source": {
+        "text": "第六章投标文件格式",
+        "size": 21.95,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          191.76,
+          75.27,
+          403.31,
+          97.22
+        ],
+        "glyphs": 8,
+        "weight_index": 0.2467,
+        "ink_ratio": 0.23211
+      },
+      "generated": {
+        "text": "第六章投标文件格式",
+        "size": 21.5,
+        "font": "FangSong",
+        "bbox": [
+          193.4,
+          83.26,
+          386.9,
+          104.76
+        ],
+        "glyphs": 8,
+        "weight_index": 0.26485,
+        "ink_ratio": 0.24953
+      },
+      "weight_ratio_generated_over_source": 1.074
+    },
+    {
+      "role": "TOC_1",
+      "sample_text": "一、投标函",
+      "source_visual_bold": false,
+      "source_ratio": 0.946,
+      "source_page": 145,
+      "generated_page": 2,
+      "source": {
+        "text": "一、投标函",
+        "size": 12.0,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          114.84,
+          111.9,
+          174.48,
+          123.9
+        ],
+        "glyphs": 5,
+        "weight_index": 0.1191,
+        "ink_ratio": 0.10647
+      },
+      "generated": {
+        "text": "一、投标函",
+        "size": 12.0,
+        "font": "FangSong",
+        "bbox": [
+          114.95,
+          122.83,
+          174.95,
+          134.83
+        ],
+        "glyphs": 5,
+        "weight_index": 0.10355,
+        "ink_ratio": 0.09257
+      },
+      "weight_ratio_generated_over_source": 0.869
+    },
+    {
+      "role": "BODY",
+      "sample_text": "特此证明。",
+      "source_visual_bold": false,
+      "source_ratio": 0.95,
+      "source_page": 148,
+      "generated_page": 6,
+      "source": {
+        "text": "特此证明。",
+        "size": 12.0,
+        "font": "FangSong_GB2312",
+        "bbox": [
+          111.0,
+          224.34,
+          170.64,
+          236.34
+        ],
+        "glyphs": 5,
+        "weight_index": 0.13873,
+        "ink_ratio": 0.12437
+      },
+      "generated": {
+        "text": "特此证明。",
+        "size": 12.0,
+        "font": "FangSong",
+        "bbox": [
+          111.1,
+          251.78,
+          171.1,
+          263.78
+        ],
+        "glyphs": 5,
+        "weight_index": 0.12585,
+        "ink_ratio": 0.11251
+      },
+      "weight_ratio_generated_over_source": 0.907
+    }
+  ],
+  "model_roles": {
+    "DOCUMENT_TITLE": {
+      "role": "DOCUMENT_TITLE",
+      "public_role": "COVER_DOCUMENT_TITLE",
+      "samples": 2,
+      "median_weight": 0.21965,
+      "baseline_weight": 0.14281,
+      "ratio": 1.538,
+      "bold": true,
+      "font": "",
+      "size_pt": 36.0,
+      "confidence": 0.758,
+      "evidence": [
+        "p144 21.95pt 第六章投标文件格",
+        "p144 36pt 投标文件"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "FORM_LABEL": {
+      "role": "FORM_LABEL",
+      "public_role": "FORM_LABEL",
+      "samples": 12,
+      "median_weight": 0.14755,
+      "baseline_weight": 0.14281,
+      "ratio": 1.033,
+      "bold": false,
+      "font": "",
+      "size_pt": 14.05,
+      "confidence": 0.386,
+      "evidence": [
+        "p144 14.05pt 招标人项目编号：",
+        "p144 14.05pt 招标代理项目编号",
+        "p146 12pt 陕西瑞通工程造价"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "COVER_PROJECT_TITLE": {
+      "role": "COVER_PROJECT_TITLE",
+      "public_role": "COVER_PROJECT_TITLE",
+      "samples": 1,
+      "median_weight": 0.29605,
+      "baseline_weight": 0.14281,
+      "ratio": 2.073,
+      "bold": true,
+      "font": "",
+      "size_pt": 21.95,
+      "confidence": 0.738,
+      "evidence": [
+        "p144 21.95pt 营收系统整合和硬"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "SIGNATURE_BLOCK": {
+      "role": "SIGNATURE_BLOCK",
+      "public_role": "SIGNATURE_LABEL",
+      "samples": 22,
+      "median_weight": 0.13533,
+      "baseline_weight": 0.14281,
+      "ratio": 0.948,
+      "bold": false,
+      "font": "",
+      "size_pt": 14.05,
+      "confidence": 0.407,
+      "evidence": [
+        "p144 14.05pt 投标人：",
+        "p144 14.05pt 法定代表人或其委",
+        "p146 12pt 投标单位全称（公"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "TOC_TITLE": {
+      "role": "TOC_TITLE",
+      "public_role": "TOC_TITLE",
+      "samples": 1,
+      "median_weight": 0.25202,
+      "baseline_weight": 0.14281,
+      "ratio": 1.765,
+      "bold": true,
+      "font": "",
+      "size_pt": 14.05,
+      "confidence": 0.738,
+      "evidence": [
+        "p145 14.05pt 目录"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "TOC_1": {
+      "role": "TOC_1",
+      "public_role": "TOC_1",
+      "samples": 10,
+      "median_weight": 0.13516,
+      "baseline_weight": 0.14281,
+      "ratio": 0.946,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.408,
+      "evidence": [
+        "p145 12pt 一、投标函",
+        "p145 12pt 二、开标一览表",
+        "p145 12pt 三、法定代表人身"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "HEADING_1": {
+      "role": "HEADING_1",
+      "public_role": "HEADING_LEVEL_1",
+      "samples": 14,
+      "median_weight": 0.20256,
+      "baseline_weight": 0.14281,
+      "ratio": 1.418,
+      "bold": true,
+      "font": "",
+      "size_pt": 21.95,
+      "confidence": 0.803,
+      "evidence": [
+        "p146 15.95pt 一、投标函",
+        "p147 15.95pt 二、开标一览表",
+        "p148 15.95pt 三、法定代表人身"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY_FIRST_LINE": {
+      "role": "BODY_FIRST_LINE",
+      "public_role": "BODY_FIRST_LINE",
+      "samples": 3,
+      "median_weight": 0.15353,
+      "baseline_weight": 0.14281,
+      "ratio": 1.075,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.344,
+      "evidence": [
+        "p146 12pt 我单位收到贵公司",
+        "p149 12pt 注册于",
+        "p170 12pt 我公司参加贵单位"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY_LIST": {
+      "role": "BODY_LIST",
+      "public_role": "BODY_LIST",
+      "samples": 33,
+      "median_weight": 0.15196,
+      "baseline_weight": 0.14281,
+      "ratio": 1.064,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.419,
+      "evidence": [
+        "p146 12pt 、愿意按照招标文",
+        "p146 12pt 、按招标文件的规",
+        "p146 12pt 、我方拟委派的项"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    },
+    "BODY": {
+      "role": "BODY",
+      "public_role": "BODY",
+      "samples": 4,
+      "median_weight": 0.13565,
+      "baseline_weight": 0.14281,
+      "ratio": 0.95,
+      "bold": false,
+      "font": "",
+      "size_pt": 12.0,
+      "confidence": 0.404,
+      "evidence": [
+        "p148 12pt 特此证明。",
+        "p149 12pt （招标人名称）：",
+        "p149 12pt 法定代表人"
+      ],
+      "method": "rendered glyph ink per sampled CJK glyph vs document body"
+    }
+  }
+}

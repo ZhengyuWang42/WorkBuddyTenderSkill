@@ -1,0 +1,16 @@
+{
+ "source_rule": {
+  "x0": 352.8,
+  "x1": 388.8,
+  "y": 318.35
+ },
+ "text_segment": {
+  "x0": 364.8,
+  "x1": 376.8
+ },
+ "character_map": [],
+ "text_boundary_straddling_glyphs": [],
+ "rule_boundary_straddling_glyphs": [],
+ "text_boundaries_aligned": true,
+ "rule_boundaries_aligned": true
+}

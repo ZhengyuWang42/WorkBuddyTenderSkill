@@ -1,0 +1,36 @@
+{
+  "status": "ROUND_4_9_AWAITING_MANUAL_CONFIRMATION",
+  "alignment_root_cause": "Generic FormBlock rendering forced centered source form lines into LEFT plus source-position indent.",
+  "case001_project_number": {
+    "source_alignment": "CENTERED_FORM_LINE",
+    "generated_alignment": "CENTER",
+    "source_center_x": 297.6499938964844,
+    "generated_center_x": 297.73602294921875,
+    "center_error_pt": 0.086029052734375,
+    "left_indent_pt": 0.0,
+    "result": "PASS"
+  },
+  "case001_table_project_name": {
+    "label_font": "仿宋",
+    "label_size": 12.0,
+    "value_font": "仿宋",
+    "value_size": 12.0,
+    "style_match": true
+  },
+  "filled_slot_style_audit": {
+    "total": 12,
+    "font_mismatches": 0,
+    "size_mismatches": 0,
+    "weight_mismatches": 0,
+    "alignment_mismatches": 0
+  },
+  "workbuddy_docx_skill": {"status": "NOT_AVAILABLE", "what_was_learned": "NONE"},
+  "pdf2docx_benchmark": {"status": "NOT_AVAILABLE", "comparison_result": "NOT_RUN"},
+  "word_safe_regression": "PASS",
+  "actual_rendered_pages": {"case_001": 22, "case_002": 31, "case_003": 33},
+  "tests": {"passed": 215, "skipped": 1, "failed": 0, "total": 216},
+  "commit_created": false,
+  "release_created": false,
+  "gold_read_or_created": false,
+  "blockers": ["Desktop Word manual visual confirmation is pending."]
+}

@@ -1,0 +1,1085 @@
+{
+  "schema_version": "1.0",
+  "round": "5.7",
+  "phase": "BASELINE",
+  "case": "case_001",
+  "baseline_source": "Round 5.6 case001 production output (acceptance/workspace/case_001/run_5_6_visual_fidelity)",
+  "rendered_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\round57_lo_baseline\\基础投标文件.pdf",
+  "source_offset": 40,
+  "p4_table_geometry": {
+    "status": "COMPARED",
+    "source_page": 43,
+    "generated_page": 4,
+    "source": {
+      "x0": 65.21,
+      "x1": 524.69,
+      "width": 459.48,
+      "center": 294.95,
+      "top": 106.09,
+      "bottom": 589.09,
+      "row_boundaries": [
+        106.09,
+        140.59,
+        175.09,
+        244.09,
+        278.59,
+        313.09,
+        347.59,
+        382.09,
+        416.59,
+        451.09,
+        485.59,
+        520.09,
+        554.59,
+        589.09
+      ],
+      "column_boundaries": [
+        65.45,
+        181.4,
+        524.45
+      ],
+      "column_widths": [
+        115.95,
+        343.05
+      ],
+      "rule_count": 15
+    },
+    "generated": {
+      "x0": 112.45,
+      "x1": 572.15,
+      "width": 459.7,
+      "center": 342.3,
+      "top": 111.85,
+      "bottom": 602.05,
+      "row_boundaries": [
+        111.85,
+        146.95,
+        181.95,
+        251.95,
+        286.95,
+        321.95,
+        356.95,
+        391.95,
+        426.95,
+        461.95,
+        496.95,
+        531.95,
+        566.95,
+        602.05
+      ],
+      "column_boundaries": [
+        112.7,
+        228.7,
+        571.9
+      ],
+      "column_widths": [
+        116.0,
+        343.2
+      ],
+      "rule_count": 15
+    },
+    "table_outer_x0_error": 47.24,
+    "table_outer_x1_error": 47.46,
+    "table_center_error": 47.35,
+    "table_width_error": 0.22,
+    "table_top_y_error": 5.76,
+    "table_bottom_y_error": 12.96,
+    "row_boundary_drift": [
+      5.76,
+      6.36,
+      6.86,
+      7.86,
+      8.36,
+      8.86,
+      9.36,
+      9.86,
+      10.36,
+      10.86,
+      11.36,
+      11.86,
+      12.36,
+      12.96
+    ],
+    "cumulative_row_height_drift": 7.2,
+    "row_boundary_drift_from_table_top": [
+      0.0,
+      0.6,
+      1.1,
+      2.1,
+      2.6,
+      3.1,
+      3.6,
+      4.1,
+      4.6,
+      5.1,
+      5.6,
+      6.1,
+      6.6,
+      7.2
+    ],
+    "column_boundary_drift": [
+      47.25,
+      47.3,
+      47.45
+    ]
+  },
+  "p9_table_geometry": {
+    "status": "COMPARED",
+    "source_page": 48,
+    "generated_page": 9,
+    "source": {
+      "x0": 65.21,
+      "x1": 541.89,
+      "width": 476.68,
+      "center": 303.55,
+      "top": 110.79,
+      "bottom": 628.69,
+      "row_boundaries": [
+        110.79,
+        150.29,
+        189.79,
+        268.29,
+        346.79,
+        386.29,
+        425.79,
+        465.29,
+        504.79,
+        544.29,
+        628.69
+      ],
+      "column_boundaries": [
+        65.45,
+        92.25,
+        177.2,
+        276.4,
+        304.75,
+        333.1,
+        389.8,
+        446.5,
+        489.05,
+        541.65
+      ],
+      "column_widths": [
+        26.8,
+        84.95,
+        99.2,
+        28.35,
+        28.35,
+        56.7,
+        56.7,
+        42.55,
+        52.6
+      ],
+      "rule_count": 11
+    },
+    "generated": {
+      "x0": 112.45,
+      "x1": 589.35,
+      "width": 476.9,
+      "center": 350.9,
+      "top": 117.45,
+      "bottom": 686.35,
+      "row_boundaries": [
+        117.45,
+        157.55,
+        197.55,
+        299.45,
+        401.35,
+        441.35,
+        481.35,
+        521.35,
+        561.35,
+        601.35,
+        686.35
+      ],
+      "column_boundaries": [
+        112.7,
+        139.6,
+        224.6,
+        323.7,
+        352.1,
+        380.4,
+        437.1,
+        493.9,
+        536.4,
+        589.1
+      ],
+      "column_widths": [
+        26.9,
+        85.0,
+        99.1,
+        28.4,
+        28.3,
+        56.7,
+        56.8,
+        42.5,
+        52.7
+      ],
+      "rule_count": 11
+    },
+    "table_outer_x0_error": 47.24,
+    "table_outer_x1_error": 47.46,
+    "table_center_error": 47.35,
+    "table_width_error": 0.22,
+    "table_top_y_error": 6.66,
+    "table_bottom_y_error": 57.66,
+    "row_boundary_drift": [
+      6.66,
+      7.26,
+      7.76,
+      31.16,
+      54.56,
+      55.06,
+      55.56,
+      56.06,
+      56.56,
+      57.06,
+      57.66
+    ],
+    "cumulative_row_height_drift": 51.0,
+    "row_boundary_drift_from_table_top": [
+      0.0,
+      0.6,
+      1.1,
+      24.5,
+      47.9,
+      48.4,
+      48.9,
+      49.4,
+      49.9,
+      50.4,
+      51.0
+    ],
+    "column_boundary_drift": [
+      47.25,
+      47.35,
+      47.4,
+      47.3,
+      47.35,
+      47.3,
+      47.3,
+      47.4,
+      47.35,
+      47.45
+    ]
+  },
+  "vertical_anchors": {
+    "cover": {
+      "page_source": 40,
+      "page_generated": 1,
+      "anchor_count": 7,
+      "y_error_max": 90.0,
+      "y_error_median": 72.82,
+      "x_error_max": 68.9,
+      "anchors": [
+        {
+          "role": "chapter_title",
+          "anchor": "第六章响应文件格式",
+          "source_y": 79.71,
+          "generated_y": 87.71,
+          "source_x": 192.72,
+          "generated_x": 200.95,
+          "source_bbox": [
+            192.72,
+            79.71,
+            402.35,
+            102.17
+          ],
+          "generated_bbox": [
+            200.95,
+            87.71,
+            394.45,
+            109.21
+          ],
+          "y_error": 8.0,
+          "x_error": 8.23
+        },
+        {
+          "role": "project_title_block",
+          "anchor": "湖北省水利水电规划勘测设计院有限公司",
+          "source_y": null,
+          "generated_y": null,
+          "source_x": null,
+          "generated_x": null,
+          "source_bbox": null,
+          "generated_bbox": null,
+          "y_error": null,
+          "x_error": null,
+          "status": "ANCHOR_MISSING"
+        },
+        {
+          "role": "document_title",
+          "anchor": "响应文件",
+          "source_y": 291.28,
+          "generated_y": 354.0,
+          "source_x": 241.44,
+          "generated_x": 242.7,
+          "source_bbox": [
+            241.44,
+            291.28,
+            353.75,
+            319.87
+          ],
+          "generated_bbox": [
+            242.7,
+            354.0,
+            352.7,
+            381.5
+          ],
+          "y_error": 62.72,
+          "x_error": 1.26
+        },
+        {
+          "role": "project_number",
+          "anchor": "项目编号",
+          "source_y": 339.18,
+          "generated_y": 408.53,
+          "source_x": 262.8,
+          "generated_x": 213.7,
+          "source_bbox": [
+            262.8,
+            339.18,
+            323.04,
+            351.46
+          ],
+          "generated_bbox": [
+            213.7,
+            408.53,
+            381.7,
+            420.53
+          ],
+          "y_error": 69.35,
+          "x_error": -49.1
+        },
+        {
+          "role": "supplier_row",
+          "anchor": "供应商：",
+          "source_y": 557.41,
+          "generated_y": 633.71,
+          "source_x": 159.6,
+          "generated_x": 159.7,
+          "source_bbox": [
+            159.6,
+            557.41,
+            205.54,
+            569.18
+          ],
+          "generated_bbox": [
+            159.7,
+            633.71,
+            452.95,
+            645.21
+          ],
+          "y_error": 76.3,
+          "x_error": 0.1
+        },
+        {
+          "role": "representative_row",
+          "anchor": "法定代表人或其委托代理人：",
+          "source_y": 596.41,
+          "generated_y": 679.56,
+          "source_x": 139.8,
+          "generated_x": 102.3,
+          "source_bbox": [
+            139.8,
+            596.41,
+            289.3,
+            608.18
+          ],
+          "generated_bbox": [
+            102.3,
+            679.56,
+            338.05,
+            691.06
+          ],
+          "y_error": 83.15,
+          "x_error": -37.5
+        },
+        {
+          "role": "date_row",
+          "anchor": "年",
+          "source_y": 635.41,
+          "generated_y": 725.41,
+          "source_x": 283.2,
+          "generated_x": 214.3,
+          "source_bbox": [
+            283.2,
+            635.41,
+            294.7,
+            647.18
+          ],
+          "generated_bbox": [
+            214.3,
+            725.41,
+            386.8,
+            736.91
+          ],
+          "y_error": 90.0,
+          "x_error": -68.9
+        }
+      ]
+    },
+    "response_letter_appendix_signature": {
+      "page_source": 43,
+      "page_generated": 4,
+      "anchor_count": 3,
+      "y_error_max": 31.69,
+      "y_error_median": 24.59,
+      "x_error_max": 16.13,
+      "anchors": [
+        {
+          "role": "supplier_row",
+          "anchor": "供应商：",
+          "source_y": 612.42,
+          "generated_y": 629.88,
+          "source_x": 211.2,
+          "generated_x": 208.6,
+          "source_bbox": [
+            211.2,
+            612.42,
+            258.24,
+            624.7
+          ],
+          "generated_bbox": [
+            208.6,
+            629.88,
+            256.6,
+            641.88
+          ],
+          "y_error": 17.46,
+          "x_error": -2.6
+        },
+        {
+          "role": "representative_row",
+          "anchor": "法定代表人或其委托代理人：",
+          "source_y": 635.94,
+          "generated_y": 660.53,
+          "source_x": 205.8,
+          "generated_x": 208.6,
+          "source_bbox": [
+            205.8,
+            635.94,
+            365.4,
+            648.22
+          ],
+          "generated_bbox": [
+            208.6,
+            660.53,
+            364.6,
+            672.53
+          ],
+          "y_error": 24.59,
+          "x_error": 2.8
+        },
+        {
+          "role": "date_row",
+          "anchor": "年",
+          "source_y": 659.34,
+          "generated_y": 691.03,
+          "source_x": 429.12,
+          "generated_x": 445.25,
+          "source_bbox": [
+            429.12,
+            659.34,
+            441.12,
+            671.62
+          ],
+          "generated_bbox": [
+            445.25,
+            691.03,
+            481.25,
+            703.03
+          ],
+          "y_error": 31.69,
+          "x_error": 16.13
+        }
+      ]
+    }
+  },
+  "p3_rules": {
+    "source_rule_count": 8,
+    "generated_rule_count": 6,
+    "matched_rule_count": 0,
+    "lost_source_rule_count": 8,
+    "invented_rule_count": 6,
+    "rule_kind_mismatch_count": 0,
+    "lost": [
+      {
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "width": 99.8,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "(采购人名称)|："
+      },
+      {
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "width": 177.6,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意"
+      },
+      {
+        "x0": 169.65,
+        "x1": 323.6,
+        "y": 178.4,
+        "width": 153.95,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 384.6,
+        "x1": 459.0,
+        "y": 178.4,
+        "width": 74.4,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "以人民币（大写）|（不含税），（小写）|元的响应报"
+      },
+      {
+        "x0": 131.85,
+        "x1": 181.4,
+        "y": 198.35,
+        "width": 49.55,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+      },
+      {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 218.4,
+        "width": 55.8,
+        "parts": 1,
+        "kind": "VECTOR_RULE",
+        "context": "达到|。"
+      },
+      {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 318.35,
+        "width": 36.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内"
+      },
+      {
+        "x0": 112.8,
+        "x1": 208.8,
+        "y": 418.4,
+        "width": 96.0,
+        "parts": 1,
+        "kind": "VALUE_WITH_UNDERLINE",
+        "context": "7、（其他补充说明）。"
+      }
+    ],
+    "invented": [
+      {
+        "x0": 70.9,
+        "x1": 520.9,
+        "y": 230.48,
+        "width": 450.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 11,
+        "parts": 1,
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供"
+      },
+      {
+        "x0": 358.9,
+        "x1": 424.9,
+        "y": 231.2,
+        "width": 66.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供"
+      },
+      {
+        "x0": 70.9,
+        "x1": 490.9,
+        "y": 255.83,
+        "width": 420.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 1,
+        "context": "货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达"
+      },
+      {
+        "x0": 94.9,
+        "x1": 142.9,
+        "y": 256.55,
+        "width": 48.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达"
+      },
+      {
+        "x0": 70.9,
+        "x1": 142.9,
+        "y": 281.18,
+        "width": 72.0,
+        "kind": "UNDERLINED_WHITESPACE",
+        "figure_spaces": 8,
+        "parts": 1,
+        "context": "到。"
+      },
+      {
+        "x0": 82.9,
+        "x1": 130.9,
+        "y": 281.9,
+        "width": 48.0,
+        "parts": 1,
+        "kind": "UNDERLINED_WHITESPACE",
+        "context": "到。"
+      }
+    ]
+  },
+  "p9_rules": {
+    "quotation_total_lost_source_rule_count": 10,
+    "quotation_signature_lost_source_rule_count": 2,
+    "quotation_invented_rule_count": 8,
+    "quotation_rule_kind_mismatch_count": 0,
+    "totals": {
+      "anchor": "不含税合计",
+      "source_anchor_bbox": [
+        118.8,
+        561.79,
+        255.72,
+        572.48
+      ],
+      "generated_anchor_bbox": [
+        156.95,
+        633.4,
+        571.95,
+        643.4
+      ],
+      "pairs": [],
+      "lost": [
+        {
+          "x0": 255.7,
+          "x1": 361.2,
+          "y": 571.9,
+          "width": 105.5,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "不含税合计（即响应报价）：|（大写），|元（小写）"
+        },
+        {
+          "x0": 403.3,
+          "x1": 456.0,
+          "y": 571.9,
+          "width": 52.7,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "不含税合计（即响应报价）：|（大写），|元（小写）"
+        },
+        {
+          "x0": 181.9,
+          "x1": 192.45,
+          "y": 595.3,
+          "width": 10.55,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+        },
+        {
+          "x0": 245.25,
+          "x1": 319.05,
+          "y": 595.3,
+          "width": 73.8,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+        },
+        {
+          "x0": 371.75,
+          "x1": 450.8,
+          "y": 595.3,
+          "width": 79.05,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "其中：税率：|%，税金：|（大写），|元（小写）。"
+        },
+        {
+          "x0": 224.6,
+          "x1": 335.4,
+          "y": 614.85,
+          "width": 110.8,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "总计（含税金额）：|（大写），|元（小写）。"
+        },
+        {
+          "x0": 388.05,
+          "x1": 435.45,
+          "y": 614.85,
+          "width": 47.4,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": "总计（含税金额）：|（大写），|元（小写）。"
+        },
+        {
+          "x0": 65.21,
+          "x1": 541.89,
+          "y": 628.69,
+          "width": 476.68,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": ""
+        },
+        {
+          "x0": 380.4,
+          "x1": 451.8,
+          "y": 650.15,
+          "width": 71.4,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "供应商：|(盖单位公章)"
+        },
+        {
+          "x0": 392.4,
+          "x1": 452.4,
+          "y": 673.55,
+          "width": 60.0,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "法定代表人或其委托代理人：|(签字或盖章)"
+        }
+      ],
+      "invented": [
+        {
+          "x0": 112.45,
+          "x1": 589.35,
+          "y": 686.35,
+          "width": 476.9,
+          "parts": 1,
+          "kind": "VECTOR_RULE",
+          "context": ""
+        },
+        {
+          "x0": 334.9,
+          "x1": 520.9,
+          "y": 711.63,
+          "width": 186.0,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 11,
+          "parts": 1,
+          "context": "供应商：(盖单位公章)"
+        },
+        {
+          "x0": 382.9,
+          "x1": 448.9,
+          "y": 712.35,
+          "width": 66.0,
+          "parts": 1,
+          "kind": "UNDERLINED_WHITESPACE",
+          "context": "供应商：(盖单位公章)"
+        },
+        {
+          "x0": 238.9,
+          "x1": 520.9,
+          "y": 742.13,
+          "width": 282.0,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 9,
+          "parts": 1,
+          "context": "法定代表人或其委托代理人：(签字或盖章)"
+        },
+        {
+          "x0": 394.9,
+          "x1": 448.9,
+          "y": 742.85,
+          "width": 54.0,
+          "parts": 1,
+          "kind": "UNDERLINED_WHITESPACE",
+          "context": "法定代表人或其委托代理人：(签字或盖章)"
+        }
+      ],
+      "kind_mismatch": [],
+      "source_rule_count": 10,
+      "generated_rule_count": 5,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 10,
+      "invented_rule_count": 5,
+      "rule_kind_mismatch_count": 0,
+      "rule_x0_error_max": 0.0,
+      "rule_x1_error_max": 0.0,
+      "rule_y_error_max": 0.0,
+      "rule_width_error_median": null,
+      "source_region_box": [
+        58.8,
+        551.79,
+        655.72,
+        821.79
+      ],
+      "generated_region_box": [
+        96.95,
+        623.4,
+        971.95,
+        893.4
+      ]
+    },
+    "signature": {
+      "anchor": "供应商",
+      "source_anchor_bbox": [
+        334.8,
+        638.46,
+        380.88,
+        650.74
+      ],
+      "generated_anchor_bbox": [
+        334.9,
+        700.63,
+        520.9,
+        712.63
+      ],
+      "pairs": [],
+      "lost": [
+        {
+          "x0": 380.4,
+          "x1": 451.8,
+          "y": 650.15,
+          "width": 71.4,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "供应商：|(盖单位公章)"
+        },
+        {
+          "x0": 392.4,
+          "x1": 452.4,
+          "y": 673.55,
+          "width": 60.0,
+          "parts": 1,
+          "kind": "VALUE_WITH_UNDERLINE",
+          "context": "法定代表人或其委托代理人：|(签字或盖章)"
+        }
+      ],
+      "invented": [
+        {
+          "x0": 334.9,
+          "x1": 520.9,
+          "y": 711.63,
+          "width": 186.0,
+          "kind": "UNDERLINED_WHITESPACE",
+          "figure_spaces": 11,
+          "parts": 1,
+          "context": "供应商：(盖单位公章)"
+        },
+        {
+          "x0": 382.9,
+          "x1": 448.9,
+          "y": 712.35,
+          "width": 66.0,
+          "parts": 1,
+          "kind": "UNDERLINED_WHITESPACE",
+          "context": "供应商：(盖单位公章)"
+        },
+        {
+          "x0": 394.9,
+          "x1": 448.9,
+          "y": 742.85,
+          "width": 54.0,
+          "parts": 1,
+          "kind": "UNDERLINED_WHITESPACE",
+          "context": "法定代表人或其委托代理人：(签字或盖章)"
+        }
+      ],
+      "kind_mismatch": [],
+      "source_rule_count": 2,
+      "generated_rule_count": 3,
+      "matched_rule_count": 0,
+      "lost_source_rule_count": 2,
+      "invented_rule_count": 3,
+      "rule_kind_mismatch_count": 0,
+      "rule_x0_error_max": 0.0,
+      "rule_x1_error_max": 0.0,
+      "rule_y_error_max": 0.0,
+      "rule_width_error_median": null,
+      "source_region_box": [
+        274.8,
+        628.46,
+        780.88,
+        768.46
+      ],
+      "generated_region_box": [
+        274.9,
+        690.63,
+        920.9,
+        830.63
+      ]
+    }
+  },
+  "declared_table_properties": [
+    {
+      "table_index": 0,
+      "tblW": {
+        "type": "auto",
+        "w": "0"
+      },
+      "tblW_pt": 0.0,
+      "tblInd": {
+        "w": "1055",
+        "type": "dxa"
+      },
+      "tblInd_pt": 52.75,
+      "jc": "left",
+      "tblLayout": "fixed",
+      "grid_dxa": [
+        2321,
+        6863
+      ],
+      "grid_pt": [
+        116.05,
+        343.15
+      ],
+      "grid_total_pt": 459.2,
+      "row_count": 14,
+      "column_count": 2
+    },
+    {
+      "table_index": 1,
+      "tblW": {
+        "type": "auto",
+        "w": "0"
+      },
+      "tblW_pt": 0.0,
+      "tblInd": {
+        "w": "1357",
+        "type": "dxa"
+      },
+      "tblInd_pt": 67.85,
+      "jc": "left",
+      "tblLayout": "fixed",
+      "grid_dxa": [
+        1389,
+        2693,
+        2979,
+        1627
+      ],
+      "grid_pt": [
+        69.45,
+        134.65,
+        148.95,
+        81.35
+      ],
+      "grid_total_pt": 434.4,
+      "row_count": 7,
+      "column_count": 4
+    },
+    {
+      "table_index": 2,
+      "tblW": {
+        "type": "auto",
+        "w": "0"
+      },
+      "tblW_pt": 0.0,
+      "tblInd": {
+        "w": "1055",
+        "type": "dxa"
+      },
+      "tblInd_pt": 52.75,
+      "jc": "left",
+      "tblLayout": "fixed",
+      "grid_dxa": [
+        538,
+        1699,
+        1984,
+        567,
+        567,
+        1134,
+        1134,
+        851,
+        1054
+      ],
+      "grid_pt": [
+        26.9,
+        84.95,
+        99.2,
+        28.35,
+        28.35,
+        56.7,
+        56.7,
+        42.55,
+        52.7
+      ],
+      "grid_total_pt": 476.4,
+      "row_count": 10,
+      "column_count": 9
+    },
+    {
+      "table_index": 3,
+      "tblW": {
+        "type": "auto",
+        "w": "0"
+      },
+      "tblW_pt": 0.0,
+      "tblInd": {
+        "w": "1161",
+        "type": "dxa"
+      },
+      "tblInd_pt": 58.05,
+      "jc": "left",
+      "tblLayout": "fixed",
+      "grid_dxa": [
+        1811,
+        1106,
+        2405,
+        1331,
+        2666
+      ],
+      "grid_pt": [
+        90.55,
+        55.3,
+        120.25,
+        66.55,
+        133.3
+      ],
+      "grid_total_pt": 465.95,
+      "row_count": 12,
+      "column_count": 5
+    },
+    {
+      "table_index": 4,
+      "tblW": {
+        "type": "auto",
+        "w": "0"
+      },
+      "tblW_pt": 0.0,
+      "tblInd": {
+        "w": "1055",
+        "type": "dxa"
+      },
+      "tblInd_pt": 52.75,
+      "jc": "left",
+      "tblLayout": "fixed",
+      "grid_dxa": [
+        583,
+        3274,
+        2013,
+        1147,
+        1265,
+        1010
+      ],
+      "grid_pt": [
+        29.15,
+        163.7,
+        100.65,
+        57.35,
+        63.25,
+        50.5
+      ],
+      "grid_total_pt": 464.6,
+      "row_count": 8,
+      "column_count": 6
+    }
+  ],
+  "images": [
+    "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\geometry_rule_round57\\baseline\\render\\stack_source_040_generated_001.png",
+    "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\geometry_rule_round57\\baseline\\render\\stack_source_042_generated_003.png",
+    "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\geometry_rule_round57\\baseline\\render\\stack_source_043_generated_004.png",
+    "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\geometry_rule_round57\\baseline\\render\\stack_source_048_generated_009.png"
+  ]
+}

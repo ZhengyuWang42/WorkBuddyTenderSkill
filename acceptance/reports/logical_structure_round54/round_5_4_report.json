@@ -1,0 +1,1657 @@
+{
+  "round": "5.4",
+  "final_status": "ROUND_5_4_AWAITING_WORD_MANUAL_CONFIRMATION",
+  "hard_gate_failures": [],
+  "cases": {
+    "case_001": {
+      "logical_paragraph": {
+        "case": "case_001",
+        "paragraph_count": 139,
+        "source_logical_paragraph_count": 62,
+        "mid_word_hard_paragraph_split_count": 0,
+        "mid_word_hard_paragraph_splits": [],
+        "cover_title_paragraphs": [
+          "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全部内容，愿意以人民币（大写）（不含税），（小写）           元的响应报价，供货期        ，按合同约定实施并完成本项目规定的所有工作内容，供货质量达到        。",
+          "在河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目询比活动中，我公司保证做到："
+        ],
+        "cover_title_paragraph_count": 3,
+        "result": "PASS"
+      },
+      "alignment": {
+        "case": "case_001",
+        "audited_value_cells": 8,
+        "mandatory_alignment_mismatch_count": 0,
+        "rows": [
+          {
+            "source_pdf_page": 43,
+            "row_index": 5,
+            "label": "响应范围",
+            "value": "符合询比文件要求",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (128.32 vs 118.85 pt)",
+              "line_count": 1,
+              "left_pad": 128.32,
+              "right_pad": 118.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 309.72,
+              "text_x1": 405.72,
+              "cell_box": [
+                181.4,
+                278.59,
+                524.57,
+                313.09
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 6,
+            "label": "供货期",
+            "value": "合同签订后30 天",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (131.32 vs 121.85 pt)",
+              "line_count": 1,
+              "left_pad": 131.32,
+              "right_pad": 121.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 312.72,
+              "text_x1": 402.72,
+              "cell_box": [
+                181.4,
+                313.09,
+                524.57,
+                347.59
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 7,
+            "label": "交货地点",
+            "value": "周口市郸城县石槽泵站",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (116.32 vs 106.85 pt)",
+              "line_count": 1,
+              "left_pad": 116.32,
+              "right_pad": 106.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 297.72,
+              "text_x1": 417.72,
+              "cell_box": [
+                181.4,
+                347.59,
+                524.57,
+                382.09
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 8,
+            "label": "供货质量",
+            "value": "符合国家及行业有关标准、规范和询比文件要求。",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (44.32 vs 34.85 pt)",
+              "line_count": 1,
+              "left_pad": 44.32,
+              "right_pad": 34.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 225.72,
+              "text_x1": 489.72,
+              "cell_box": [
+                181.4,
+                382.09,
+                524.57,
+                416.59
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 9,
+            "label": "质保期",
+            "value": "24 个月（自工程完工验收合格之日起算）",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (66.76 vs 57.41 pt)",
+              "line_count": 1,
+              "left_pad": 66.76,
+              "right_pad": 57.41,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 248.16,
+              "text_x1": 467.16,
+              "cell_box": [
+                181.4,
+                416.59,
+                524.57,
+                451.09
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 10,
+            "label": "询比有效期",
+            "value": "提交响应文件截止之日起90 日历天",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (83.32 vs 73.85 pt)",
+              "line_count": 1,
+              "left_pad": 83.32,
+              "right_pad": 73.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 264.72,
+              "text_x1": 450.72,
+              "cell_box": [
+                181.4,
+                451.09,
+                524.57,
+                485.59
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 11,
+            "label": "权利义务",
+            "value": "符合第四章“合同条款及格式”的相关规定",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (62.32 vs 52.85 pt)",
+              "line_count": 1,
+              "left_pad": 62.32,
+              "right_pad": 52.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 243.72,
+              "text_x1": 471.72,
+              "cell_box": [
+                181.4,
+                485.59,
+                524.57,
+                520.09
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          },
+          {
+            "source_pdf_page": 43,
+            "row_index": 12,
+            "label": "采购需求",
+            "value": "符合第五章“采购需求”的相关规定",
+            "source_alignment": "center",
+            "source_evidence": {
+              "alignment": "center",
+              "reason": "balanced side padding (80.32 vs 70.85 pt)",
+              "line_count": 1,
+              "left_pad": 80.32,
+              "right_pad": 70.85,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 261.72,
+              "text_x1": 453.72,
+              "cell_box": [
+                181.4,
+                520.09,
+                524.57,
+                554.59
+              ]
+            },
+            "generated_alignment": "center",
+            "generated_style": "Tender Table Value",
+            "effective_source_alignment": "center",
+            "mismatch": false
+          }
+        ],
+        "result": "PASS"
+      },
+      "logical_table": {
+        "case": "case_001",
+        "pdf_table_fragments": 5,
+        "logical_table_count": 5,
+        "logical_rows": 51,
+        "continuation_fragments_detected": 0,
+        "continuation_fragments_merged": 0,
+        "orphan_continuation_fragments": 0,
+        "false_continuation_merges": 0,
+        "cell_text_continuations": 0,
+        "source_characters": 1028,
+        "rebuilt_characters": 1028,
+        "character_multiset_preserved": true,
+        "editable_table_characters": 1028,
+        "editable_table_characters_preserved": true,
+        "generated_table_count": 5,
+        "word_table_count_matches_logical": true,
+        "docx_table_characters": 606,
+        "continuation_cell_texts_checked": 0,
+        "continuation_cell_texts_missing": 0,
+        "continuation_cell_text_missing_samples": [],
+        "fill_slots_on_continuation_fragments": 0,
+        "fill_slots_on_continuation_details": [],
+        "long_prose_cells_measured": 8,
+        "long_prose_alignment_mismatches": 0,
+        "long_prose_mismatch_samples": [],
+        "decisions": [
+          {
+            "previous_page": 43,
+            "page": 47,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "pages are not adjacent (43 -> 47)",
+              "table extent differs (left 65.33..524.57, right 80.43..514.87)",
+              "page-driven split (earlier fragment reaches the band bottom 589.21 of 589.21; later resumes at the band top 111.17 of 105.97)",
+              "table extent differs (left 65.33..524.57, right 80.43..514.87)",
+              "text resumes mid-item ('定' -> '询')"
+            ]
+          },
+          {
+            "previous_page": 47,
+            "page": 48,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "table extent differs (left 80.43..514.87, right 65.33..541.77)",
+              "page-driven split (earlier fragment reaches the band bottom 358.39 of 358.39; later resumes at the band top 110.67 of 111.17)",
+              "table extent differs (left 80.43..514.87, right 65.33..541.77)",
+              "text resumes mid-item ('号' -> '名')"
+            ]
+          },
+          {
+            "previous_page": 48,
+            "page": 49,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "column boundaries do not align (3 unmatched, tolerance 9.53 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 628.81 of 628.81; later resumes at the band top 120.66 of 110.67)",
+              "column boundaries do not align (3 unmatched, tolerance 9.53 pt)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 49,
+            "page": 53,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "pages are not adjacent (49 -> 53)",
+              "column boundaries do not align (4 unmatched, tolerance 9.32 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 583.83 of 583.83; later resumes at the band top 124.92 of 120.66)",
+              "column boundaries do not align (4 unmatched, tolerance 9.32 pt)",
+              "text resumes mid-item ('名' -> '项')"
+            ]
+          }
+        ],
+        "result": "PASS"
+      },
+      "fact_slots": {
+        "case": "case_001",
+        "compatible_fact_slots": 6,
+        "resolved_compatible_slots": 6,
+        "filled_fact_slots": 6,
+        "unfilled_resolved_fact_slots": 0,
+        "unfilled_resolved_slot_details": [],
+        "wrong_fact_type_fills": 0,
+        "unresolved_slots_preserved": 0,
+        "slot_types": {
+          "PROJECT_NUMBER_SLOT": 2,
+          "UNKNOWN_SLOT": 10,
+          "PURCHASER_SLOT": 1,
+          "PROJECT_AND_LOT_SLOT": 2,
+          "PROJECT_NAME_SLOT": 1
+        },
+        "slots": [
+          {
+            "slot_id": "slot-40-0",
+            "slot_type": "PROJECT_NUMBER_SLOT",
+            "source_page": 40,
+            "semantic_hint": "项目编号",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "project_number"
+            ],
+            "resolved_fact_fields": [
+              "project_number"
+            ],
+            "disposition": "FILLED",
+            "replacement": "YSEJJXXB202607-18",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-42-2",
+            "slot_type": "PURCHASER_SLOT",
+            "source_page": 42,
+            "semantic_hint": "采购人名称",
+            "original_text": "(采购人名称)",
+            "allowed_fact_fields": [
+              "purchaser"
+            ],
+            "resolved_fact_fields": [
+              "purchaser"
+            ],
+            "disposition": "FILLED",
+            "replacement": "河南省水利第二工程局集团有限公司",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-42-3",
+            "slot_type": "PROJECT_AND_LOT_SLOT",
+            "source_page": 42,
+            "semantic_hint": "项目名称、标段",
+            "original_text": "(项目名称、标段)",
+            "allowed_fact_fields": [
+              "project_name",
+              "lot_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-42-4",
+            "slot_type": "PROJECT_NUMBER_SLOT",
+            "source_page": 42,
+            "semantic_hint": "项目编号",
+            "original_text": "（项目编号）",
+            "allowed_fact_fields": [
+              "project_number"
+            ],
+            "resolved_fact_fields": [
+              "project_number"
+            ],
+            "disposition": "FILLED",
+            "replacement": "YSEJJXXB202607-18",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-43-7",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 43,
+            "semantic_hint": "项目名称、标段",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-60-14",
+            "slot_type": "PROJECT_AND_LOT_SLOT",
+            "source_page": 60,
+            "semantic_hint": "项目名称、标段",
+            "original_text": "（项目名称、标段）",
+            "allowed_fact_fields": [
+              "project_name",
+              "lot_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+            "method": "source_slot"
+          }
+        ],
+        "result": "PASS"
+      },
+      "render": {
+        "status": "OK",
+        "returncode": 0,
+        "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_001\\render\\基础投标文件.pdf",
+        "pdf_bytes": 291909,
+        "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_001\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_001\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+        "stderr": "Could not find platform independent libraries <prefix>\n"
+      },
+      "bundle": {
+        "case": "case_001",
+        "bundle_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_001",
+        "core_deliverables": 4,
+        "expected_deliverables": 4,
+        "entries": [
+          {
+            "name": "project_facts.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_001\\project_facts.json",
+            "bytes": 41962,
+            "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027",
+            "production_sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027",
+            "byte_identical": true,
+            "valid_json": true
+          },
+          {
+            "name": "投标项目复核表.xlsx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_001\\投标项目复核表.xlsx",
+            "bytes": 18842,
+            "sha256": "93072d65a760266a39cb4833f011c2248171c7fdba97c8d797d75b7b89b55f41",
+            "production_sha256": "93072d65a760266a39cb4833f011c2248171c7fdba97c8d797d75b7b89b55f41",
+            "byte_identical": true,
+            "openpyxl_reopen": true,
+            "sheets": [
+              "投标项目复核表"
+            ]
+          },
+          {
+            "name": "基础投标文件.docx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_001\\基础投标文件.docx",
+            "bytes": 45254,
+            "sha256": "766688f98ca9e8eda2fc3e500b4326b83b66e655b228d12733572dcaa79556fb",
+            "production_sha256": "766688f98ca9e8eda2fc3e500b4326b83b66e655b228d12733572dcaa79556fb",
+            "byte_identical": true,
+            "python_docx_reopen": true,
+            "paragraphs": 139,
+            "tables": 5
+          },
+          {
+            "name": "qa_report.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_001\\qa_report.json",
+            "bytes": 37348,
+            "sha256": "71797d745875e51cdd2c3157a51a1335fc4421f63673006133d6fa650d60a9aa",
+            "production_sha256": "71797d745875e51cdd2c3157a51a1335fc4421f63673006133d6fa650d60a9aa",
+            "byte_identical": true,
+            "valid_json": true
+          }
+        ],
+        "result": "PASS"
+      },
+      "package": {
+        "case": "case_001",
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_4_logical_structure\\基础投标文件.docx",
+        "bytes": 45254,
+        "zip_valid": true,
+        "part_count": 14,
+        "crc_ok": true,
+        "xml_parts_checked": 13,
+        "xml_invalid": [],
+        "content_type_defaults": [
+          "jpeg",
+          "rels",
+          "xml"
+        ],
+        "content_type_override_count": 10,
+        "package_relationship_count": 4,
+        "document_relationship_count": 7,
+        "styles_declared": 201,
+        "styles_referenced": 19,
+        "missing_style_references": [],
+        "numbering_ids_declared": 11,
+        "missing_numbering_references": [],
+        "numbering_refs_ok": true,
+        "note_settings_problems": [],
+        "header_parts": [],
+        "footer_parts": [],
+        "word_safe_scan_result": "PASS",
+        "unsafe_ooxml": 0,
+        "forbidden_elements": null,
+        "arbitrary_low_level_xml_count": null,
+        "dangling_relationships": [],
+        "python_docx_reopen": true,
+        "paragraphs": 139,
+        "tables": 5,
+        "reopen_characters": 4163,
+        "contains_replacement_char": false,
+        "problems": [],
+        "result": "PASS"
+      }
+    },
+    "case_002": {
+      "logical_paragraph": {
+        "case": "case_002",
+        "paragraph_count": 144,
+        "source_logical_paragraph_count": 68,
+        "mid_word_hard_paragraph_split_count": 0,
+        "mid_word_hard_paragraph_splits": [],
+        "cover_title_paragraphs": [],
+        "cover_title_paragraph_count": 0,
+        "result": "PASS"
+      },
+      "alignment": {
+        "case": "case_002",
+        "audited_value_cells": 1,
+        "mandatory_alignment_mismatch_count": 0,
+        "rows": [
+          {
+            "source_pdf_page": 147,
+            "row_index": 5,
+            "label": "质量标准",
+            "value": "符合国家现行相关规定及验收规范的合格标准。",
+            "source_alignment": "left",
+            "source_evidence": {
+              "alignment": "left",
+              "reason": "text flush to the left edge (left pad 5.34 pt)",
+              "line_count": 1,
+              "left_pad": 5.34,
+              "right_pad": 102.73,
+              "left_spread": 0.0,
+              "right_spread": 0.0,
+              "center_spread": 0.0,
+              "fill_ratio": 0.0,
+              "text_x0": 185.04,
+              "text_x1": 437.04,
+              "cell_box": [
+                179.7,
+                349.29,
+                539.77,
+                383.44
+              ]
+            },
+            "effective_source_alignment": "left",
+            "mismatch": true
+          }
+        ],
+        "result": "PASS"
+      },
+      "logical_table": {
+        "case": "case_002",
+        "pdf_table_fragments": 22,
+        "logical_table_count": 10,
+        "logical_rows": 63,
+        "continuation_fragments_detected": 12,
+        "continuation_fragments_merged": 12,
+        "orphan_continuation_fragments": 0,
+        "false_continuation_merges": 0,
+        "cell_text_continuations": 12,
+        "source_characters": 9546,
+        "rebuilt_characters": 9546,
+        "character_multiset_preserved": true,
+        "editable_table_characters": 9546,
+        "editable_table_characters_preserved": true,
+        "generated_table_count": 10,
+        "word_table_count_matches_logical": true,
+        "docx_table_characters": 8972,
+        "continuation_cell_texts_checked": 38,
+        "continuation_cell_texts_missing": 0,
+        "continuation_cell_text_missing_samples": [],
+        "fill_slots_on_continuation_fragments": 0,
+        "fill_slots_on_continuation_details": [],
+        "long_prose_cells_measured": 44,
+        "long_prose_alignment_mismatches": 0,
+        "long_prose_mismatch_samples": [],
+        "decisions": [
+          {
+            "previous_page": 147,
+            "page": 148,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 559.66 of band bottom 559.66 within 21.41 pt: True; later starts at 286.27 of band top 131.42: False)",
+              "table extent differs (left 56.68..539.77, right 82.63..550.82)",
+              "not a page-driven split (earlier ends at 559.66 of band bottom 559.66 within 21.41 pt: True; later starts at 286.27 of band top 131.42: False)",
+              "table extent differs (left 56.68..539.77, right 82.63..550.82)",
+              "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+            ]
+          },
+          {
+            "previous_page": 148,
+            "page": 149,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 431.74 of band bottom 431.74 within 7.27 pt: True; later starts at 354.28 of band top 286.27: False)",
+              "table extent differs (left 82.63..550.82, right 79.47..538.83)",
+              "not a page-driven split (earlier ends at 431.74 of band bottom 431.74 within 7.27 pt: True; later starts at 354.28 of band top 286.27: False)",
+              "table extent differs (left 82.63..550.82, right 79.47..538.83)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 149,
+            "page": 150,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "table extent differs (left 79.47..538.83, right 54.23..542.22)",
+              "page-driven split (earlier fragment reaches the band bottom 499.86 of 499.86; later resumes at the band top 106.42 of 354.28)",
+              "table extent differs (left 79.47..538.83, right 54.23..542.22)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 150,
+            "page": 151,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "page geometry differs (841.90 vs 595.30)",
+              "not a page-driven split (earlier ends at 353.69 of band bottom 353.69 within 12.36 pt: True; later starts at 151.27 of band top 106.42: False)",
+              "table extent differs (left 54.23..542.22, right 56.68..765.77)",
+              "not a page-driven split (earlier ends at 353.69 of band bottom 353.69 within 12.36 pt: True; later starts at 151.27 of band top 106.42: False)",
+              "table extent differs (left 54.23..542.22, right 56.68..765.77)",
+              "text resumes mid-item ('）' -> '营')"
+            ]
+          },
+          {
+            "previous_page": 151,
+            "page": 152,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 499.21 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('柜' -> '出')"
+            ]
+          },
+          {
+            "previous_page": 152,
+            "page": 153,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes at a numbered sub-item ('器' -> '6')"
+            ]
+          },
+          {
+            "previous_page": 153,
+            "page": 154,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('化' -> '持')"
+            ]
+          },
+          {
+            "previous_page": 154,
+            "page": 155,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('机' -> '化')"
+            ]
+          },
+          {
+            "previous_page": 155,
+            "page": 156,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 493.69 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('件' -> '国')"
+            ]
+          },
+          {
+            "previous_page": 156,
+            "page": 157,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('国' -> '家')"
+            ]
+          },
+          {
+            "previous_page": 157,
+            "page": 158,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (9 columns)",
+              "text resumes mid-item ('触' -> '式')"
+            ]
+          },
+          {
+            "previous_page": 158,
+            "page": 159,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 0.7,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 489.51 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "equivalent grid (9 vs 8 columns; one fragment merges adjacent columns of the other)",
+              "text resumes mid-item ('、' -> '各')"
+            ]
+          },
+          {
+            "previous_page": 159,
+            "page": 160,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 496.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes mid-item ('成' -> '调')"
+            ]
+          },
+          {
+            "previous_page": 160,
+            "page": 161,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 496.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+            ]
+          },
+          {
+            "previous_page": 161,
+            "page": 162,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 496.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes mid-item ('可' -> '正')"
+            ]
+          },
+          {
+            "previous_page": 162,
+            "page": 163,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 497.74 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes at a numbered sub-item ('。' -> '4')"
+            ]
+          },
+          {
+            "previous_page": 163,
+            "page": 164,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 387.54 of band bottom 499.21 within 20.46 pt: False; later starts at 90.00 of band top 90.00: True)",
+              "not a page-driven split (earlier ends at 387.54 of band bottom 499.21 within 20.46 pt: False; later starts at 90.00 of band top 90.00: True)",
+              "identical column grid (8 columns)",
+              "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+            ]
+          },
+          {
+            "previous_page": 164,
+            "page": 165,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 490.94 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes mid-item ('对' -> '账')"
+            ]
+          },
+          {
+            "previous_page": 165,
+            "page": 166,
+            "merge": true,
+            "edge_identity_blank": true,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 497.24 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes at a numbered sub-item ('。' -> '5')"
+            ]
+          },
+          {
+            "previous_page": 166,
+            "page": 167,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 489.76 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "text resumes at a numbered sub-item ('求' -> '3')"
+            ]
+          },
+          {
+            "previous_page": 167,
+            "page": 168,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "page-driven split (earlier fragment reaches the band bottom 480.64 of 499.21; later resumes at the band top 90.00 of 90.00)",
+              "identical column grid (8 columns)",
+              "previous fragment ends an item with '。' and the next is not a numbered sub-item"
+            ]
+          }
+        ],
+        "result": "PASS"
+      },
+      "fact_slots": {
+        "case": "case_002",
+        "compatible_fact_slots": 6,
+        "resolved_compatible_slots": 6,
+        "filled_fact_slots": 6,
+        "unfilled_resolved_fact_slots": 0,
+        "unfilled_resolved_slot_details": [],
+        "wrong_fact_type_fills": 0,
+        "unresolved_slots_preserved": 0,
+        "slot_types": {
+          "UNKNOWN_SLOT": 5,
+          "PROJECT_NAME_SLOT": 2,
+          "DURATION_SLOT": 1,
+          "PROJECT_LOCATION_SLOT": 1,
+          "PURCHASER_SLOT": 2
+        },
+        "slots": [
+          {
+            "slot_id": "slot-146-1",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 146,
+            "semantic_hint": "项目名称",
+            "original_text": "\n",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "营收系统整合和硬件系统升级",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-147-3",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 147,
+            "semantic_hint": "项目名称",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "营收系统整合和硬件系统升级项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-147-4",
+            "slot_type": "DURATION_SLOT",
+            "source_page": 147,
+            "semantic_hint": "实施周期",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "duration"
+            ],
+            "resolved_fact_fields": [
+              "duration"
+            ],
+            "disposition": "FILLED",
+            "replacement": "18个月",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-147-5",
+            "slot_type": "PROJECT_LOCATION_SLOT",
+            "source_page": 147,
+            "semantic_hint": "交货地点",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "project_location"
+            ],
+            "resolved_fact_fields": [
+              "project_location"
+            ],
+            "disposition": "FILLED",
+            "replacement": "西安市内",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-149-7",
+            "slot_type": "PURCHASER_SLOT",
+            "source_page": 149,
+            "semantic_hint": "招标人名称",
+            "original_text": "（招标人名称）",
+            "allowed_fact_fields": [
+              "purchaser"
+            ],
+            "resolved_fact_fields": [
+              "purchaser"
+            ],
+            "disposition": "FILLED",
+            "replacement": "西安市自来水有限公司",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-170-9",
+            "slot_type": "PURCHASER_SLOT",
+            "source_page": 170,
+            "semantic_hint": "招标人名称",
+            "original_text": "（招标人名称）",
+            "allowed_fact_fields": [
+              "purchaser"
+            ],
+            "resolved_fact_fields": [
+              "purchaser"
+            ],
+            "disposition": "FILLED",
+            "replacement": "西安市自来水有限公司",
+            "method": "source_slot"
+          }
+        ],
+        "result": "PASS"
+      },
+      "render": {
+        "status": "OK",
+        "returncode": 0,
+        "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_002\\render\\基础投标文件.pdf",
+        "pdf_bytes": 494730,
+        "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_002\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_002\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+        "stderr": "Could not find platform independent libraries <prefix>\n"
+      },
+      "bundle": {
+        "case": "case_002",
+        "bundle_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_002",
+        "core_deliverables": 4,
+        "expected_deliverables": 4,
+        "entries": [
+          {
+            "name": "project_facts.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_002\\project_facts.json",
+            "bytes": 37727,
+            "sha256": "c0ffcb4b9a895a588c46eb1cea2ead6ee7b4d33db90679439017916344114af9",
+            "production_sha256": "c0ffcb4b9a895a588c46eb1cea2ead6ee7b4d33db90679439017916344114af9",
+            "byte_identical": true,
+            "valid_json": true
+          },
+          {
+            "name": "投标项目复核表.xlsx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_002\\投标项目复核表.xlsx",
+            "bytes": 19875,
+            "sha256": "c898f344038d808e2c734c0b0835d30e2eeb4b793c989030e8800acb98db1352",
+            "production_sha256": "c898f344038d808e2c734c0b0835d30e2eeb4b793c989030e8800acb98db1352",
+            "byte_identical": true,
+            "openpyxl_reopen": true,
+            "sheets": [
+              "投标项目复核表"
+            ]
+          },
+          {
+            "name": "基础投标文件.docx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_002\\基础投标文件.docx",
+            "bytes": 60938,
+            "sha256": "9996fb1b4b34d04dd39c16847d07c495a270f0ec5dfce1d3a0a73f16eab8abba",
+            "production_sha256": "9996fb1b4b34d04dd39c16847d07c495a270f0ec5dfce1d3a0a73f16eab8abba",
+            "byte_identical": true,
+            "python_docx_reopen": true,
+            "paragraphs": 144,
+            "tables": 10
+          },
+          {
+            "name": "qa_report.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_002\\qa_report.json",
+            "bytes": 61631,
+            "sha256": "1528ffef6462eed72c8946101f6dcc12f2b5345198642c2204fb946a1641e840",
+            "production_sha256": "1528ffef6462eed72c8946101f6dcc12f2b5345198642c2204fb946a1641e840",
+            "byte_identical": true,
+            "valid_json": true
+          }
+        ],
+        "result": "PASS"
+      },
+      "package": {
+        "case": "case_002",
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\run_5_4_logical_structure\\基础投标文件.docx",
+        "bytes": 60938,
+        "zip_valid": true,
+        "part_count": 14,
+        "crc_ok": true,
+        "xml_parts_checked": 13,
+        "xml_invalid": [],
+        "content_type_defaults": [
+          "jpeg",
+          "rels",
+          "xml"
+        ],
+        "content_type_override_count": 10,
+        "package_relationship_count": 4,
+        "document_relationship_count": 7,
+        "styles_declared": 201,
+        "styles_referenced": 16,
+        "missing_style_references": [],
+        "numbering_ids_declared": 11,
+        "missing_numbering_references": [],
+        "numbering_refs_ok": true,
+        "note_settings_problems": [],
+        "header_parts": [],
+        "footer_parts": [],
+        "word_safe_scan_result": "PASS",
+        "unsafe_ooxml": 0,
+        "forbidden_elements": null,
+        "arbitrary_low_level_xml_count": null,
+        "dangling_relationships": [],
+        "python_docx_reopen": true,
+        "paragraphs": 144,
+        "tables": 10,
+        "reopen_characters": 13101,
+        "contains_replacement_char": false,
+        "problems": [],
+        "result": "PASS"
+      }
+    },
+    "case_003": {
+      "logical_paragraph": {
+        "case": "case_003",
+        "paragraph_count": 194,
+        "source_logical_paragraph_count": 112,
+        "mid_word_hard_paragraph_split_count": 0,
+        "mid_word_hard_paragraph_splits": [],
+        "cover_title_paragraphs": [],
+        "cover_title_paragraph_count": 0,
+        "result": "PASS"
+      },
+      "alignment": {
+        "case": "case_003",
+        "audited_value_cells": 0,
+        "mandatory_alignment_mismatch_count": 0,
+        "rows": [],
+        "result": "PASS"
+      },
+      "logical_table": {
+        "case": "case_003",
+        "pdf_table_fragments": 16,
+        "logical_table_count": 16,
+        "logical_rows": 266,
+        "continuation_fragments_detected": 0,
+        "continuation_fragments_merged": 0,
+        "orphan_continuation_fragments": 0,
+        "false_continuation_merges": 0,
+        "cell_text_continuations": 0,
+        "source_characters": 1435,
+        "rebuilt_characters": 1435,
+        "character_multiset_preserved": true,
+        "editable_table_characters": 1435,
+        "editable_table_characters_preserved": true,
+        "generated_table_count": 16,
+        "word_table_count_matches_logical": true,
+        "docx_table_characters": 1062,
+        "continuation_cell_texts_checked": 0,
+        "continuation_cell_texts_missing": 0,
+        "continuation_cell_text_missing_samples": [],
+        "fill_slots_on_continuation_fragments": 0,
+        "fill_slots_on_continuation_details": [],
+        "long_prose_cells_measured": 1,
+        "long_prose_alignment_mismatches": 0,
+        "long_prose_mismatch_samples": [],
+        "decisions": [
+          {
+            "previous_page": 71,
+            "page": 77,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "pages are not adjacent (71 -> 77)",
+              "table extent differs (left 55.17..540.36, right 42.42..549.33)",
+              "page-driven split (earlier fragment reaches the band bottom 444.10 of 444.10; later resumes at the band top 112.22 of 157.95)",
+              "table extent differs (left 55.17..540.36, right 42.42..549.33)",
+              "text resumes mid-item ('期' -> '设')"
+            ]
+          },
+          {
+            "previous_page": 77,
+            "page": 78,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "table extent differs (left 42.42..549.33, right 55.95..535.79)",
+              "page-driven split (earlier fragment reaches the band bottom 674.47 of 674.47; later resumes at the band top 112.22 of 112.22)",
+              "table extent differs (left 42.42..549.33, right 55.95..535.79)",
+              "text resumes mid-item ('号' -> '序')"
+            ]
+          },
+          {
+            "previous_page": 78,
+            "page": 79,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "column boundaries do not align (6 unmatched, tolerance 9.60 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 675.22 of 675.22; later resumes at the band top 112.22 of 112.22)",
+              "column boundaries do not align (6 unmatched, tolerance 9.60 pt)",
+              "text resumes mid-item ('号' -> '工')"
+            ]
+          },
+          {
+            "previous_page": 79,
+            "page": 82,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "pages are not adjacent (79 -> 82)",
+              "column boundaries do not align (1 unmatched, tolerance 9.45 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 698.49 of 698.49; later resumes at the band top 112.22 of 112.22)",
+              "column boundaries do not align (1 unmatched, tolerance 9.45 pt)",
+              "text resumes mid-item ('种' -> '用')"
+            ]
+          },
+          {
+            "previous_page": 82,
+            "page": 83,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 697.74 of band bottom 697.74 within 29.28 pt: True; later starts at 301.31 of band top 112.22: False)",
+              "table extent differs (left 61.20..530.54, right 88.97..506.56)",
+              "not a page-driven split (earlier ends at 697.74 of band bottom 697.74 within 29.28 pt: True; later starts at 301.31 of band top 112.22: False)",
+              "table extent differs (left 61.20..530.54, right 88.97..506.56)",
+              "text resumes mid-item ('途' -> '序')"
+            ]
+          },
+          {
+            "previous_page": 83,
+            "page": 84,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "table extent differs (left 88.97..506.56, right 97.25..493.76)",
+              "page-driven split (earlier fragment reaches the band bottom 537.95 of 537.95; later resumes at the band top 149.74 of 301.31)",
+              "table extent differs (left 88.97..506.56, right 97.25..493.76)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 84,
+            "page": 85,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "table extent differs (left 97.25..493.76, right 83.71..543.34)",
+              "page-driven split (earlier fragment reaches the band bottom 407.23 of 407.23; later resumes at the band top 112.17 of 149.74)",
+              "table extent differs (left 97.25..493.76, right 83.71..543.34)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 85,
+            "page": 86,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "column boundaries do not align (3 unmatched, tolerance 9.19 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 705.32 of 705.32; later resumes at the band top 91.13 of 112.17)",
+              "column boundaries do not align (3 unmatched, tolerance 9.19 pt)",
+              "text resumes mid-item ('间' -> '分')"
+            ]
+          },
+          {
+            "previous_page": 86,
+            "page": 87,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 711.32 of 711.32; later resumes at the band top 117.35 of 91.13)",
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "text resumes mid-item ('目' -> '投')"
+            ]
+          },
+          {
+            "previous_page": 87,
+            "page": 88,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 646.08 of band bottom 677.53 within 28.46 pt: False; later starts at 170.71 of band top 108.38: False)",
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "not a page-driven split (earlier ends at 646.08 of band bottom 677.53 within 28.46 pt: False; later starts at 170.71 of band top 108.38: False)",
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "text resumes mid-item ('中' -> '单')"
+            ]
+          },
+          {
+            "previous_page": 88,
+            "page": 89,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.7,
+            "reasons": [
+              "not a page-driven split (earlier ends at 432.81 of band bottom 677.53 within 28.46 pt: False; later starts at 122.60 of band top 108.38: True)",
+              "not a page-driven split (earlier ends at 432.81 of band bottom 677.53 within 28.46 pt: False; later starts at 122.60 of band top 108.38: True)",
+              "equivalent grid (5 vs 2 columns; one fragment merges adjacent columns of the other)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 89,
+            "page": 90,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 1.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 643.08 of band bottom 677.53 within 28.46 pt: False; later starts at 116.60 of band top 108.38: True)",
+              "not a page-driven split (earlier ends at 643.08 of band bottom 677.53 within 28.46 pt: False; later starts at 116.60 of band top 108.38: True)",
+              "identical column grid (2 columns)",
+              "no comparable content cell"
+            ]
+          },
+          {
+            "previous_page": 90,
+            "page": 91,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "not a page-driven split (earlier ends at 644.58 of band bottom 677.53 within 28.46 pt: False; later starts at 129.44 of band top 108.38: True)",
+              "column boundaries do not align (1 unmatched, tolerance 9.19 pt)",
+              "not a page-driven split (earlier ends at 644.58 of band bottom 677.53 within 28.46 pt: False; later starts at 129.44 of band top 108.38: True)",
+              "column boundaries do not align (1 unmatched, tolerance 9.19 pt)",
+              "text resumes mid-item ('）' -> '诉')"
+            ]
+          },
+          {
+            "previous_page": 91,
+            "page": 92,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "page-driven split (earlier fragment reaches the band bottom 677.53 of 677.53; later resumes at the band top 108.38 of 108.38)",
+              "column boundaries do not align (2 unmatched, tolerance 9.19 pt)",
+              "text resumes mid-item ('二' -> '序')"
+            ]
+          },
+          {
+            "previous_page": 92,
+            "page": 94,
+            "merge": false,
+            "edge_identity_blank": false,
+            "confidence": 0.0,
+            "reasons": [
+              "pages are not adjacent (92 -> 94)",
+              "not a page-driven split (earlier ends at 500.42 of band bottom 677.53 within 28.46 pt: False; later starts at 108.47 of band top 108.38: True)",
+              "table extent differs (left 88.98..548.60, right 69.47..559.10)",
+              "not a page-driven split (earlier ends at 500.42 of band bottom 677.53 within 28.46 pt: False; later starts at 108.47 of band top 108.38: True)",
+              "table extent differs (left 88.98..548.60, right 69.47..559.10)",
+              "no comparable content cell"
+            ]
+          }
+        ],
+        "result": "PASS"
+      },
+      "fact_slots": {
+        "case": "case_003",
+        "compatible_fact_slots": 8,
+        "resolved_compatible_slots": 7,
+        "filled_fact_slots": 7,
+        "unfilled_resolved_fact_slots": 0,
+        "unfilled_resolved_slot_details": [],
+        "wrong_fact_type_fills": 0,
+        "unresolved_slots_preserved": 1,
+        "slot_types": {
+          "PROJECT_NAME_SLOT": 4,
+          "UNKNOWN_SLOT": 11,
+          "PURCHASER_SLOT": 2,
+          "DURATION_SLOT": 1,
+          "PROJECT_AND_LOT_SLOT": 1
+        },
+        "slots": [
+          {
+            "slot_id": "slot-68-0",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 68,
+            "semantic_hint": "项目名称",
+            "original_text": "（项目名称）",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市供水管网漏损治理项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-70-2",
+            "slot_type": "PURCHASER_SLOT",
+            "source_page": 70,
+            "semantic_hint": "招标人名称",
+            "original_text": "(招标人名称)",
+            "allowed_fact_fields": [
+              "purchaser"
+            ],
+            "resolved_fact_fields": [
+              "purchaser"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市管理综合执法局",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-70-3",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 70,
+            "semantic_hint": "项目名称",
+            "original_text": "(项目名称)",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市供水管网漏损治理项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-70-4",
+            "slot_type": "DURATION_SLOT",
+            "source_page": 70,
+            "semantic_hint": "工期",
+            "original_text": "  ",
+            "allowed_fact_fields": [
+              "duration"
+            ],
+            "resolved_fact_fields": [],
+            "disposition": "UNRESOLVED_FACT_PRESERVED",
+            "unresolved_statuses": {
+              "duration": "NEEDS_REVIEW"
+            }
+          },
+          {
+            "slot_id": "slot-71-8",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 71,
+            "semantic_hint": "项目名称",
+            "original_text": "(项目名称)",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市供水管网漏损治理项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-73-12",
+            "slot_type": "PROJECT_AND_LOT_SLOT",
+            "source_page": 73,
+            "semantic_hint": "项目名称（标段名称）",
+            "original_text": "（项目名称（标段名称））",
+            "allowed_fact_fields": [
+              "project_name",
+              "lot_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "（肇源县城市供水管网漏损治理项目（标段名称））",
+            "method": "source_slot_partial"
+          },
+          {
+            "slot_id": "slot-94-16",
+            "slot_type": "PROJECT_NAME_SLOT",
+            "source_page": 94,
+            "semantic_hint": "项目名称 ",
+            "original_text": "",
+            "allowed_fact_fields": [
+              "project_name"
+            ],
+            "resolved_fact_fields": [
+              "project_name"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市供水管网漏损治理项目",
+            "method": "source_slot"
+          },
+          {
+            "slot_id": "slot-96-17",
+            "slot_type": "PURCHASER_SLOT",
+            "source_page": 96,
+            "semantic_hint": "招标人名称",
+            "original_text": "（招标人名称）",
+            "allowed_fact_fields": [
+              "purchaser"
+            ],
+            "resolved_fact_fields": [
+              "purchaser"
+            ],
+            "disposition": "FILLED",
+            "replacement": "肇源县城市管理综合执法局",
+            "method": "source_slot"
+          }
+        ],
+        "result": "PASS"
+      },
+      "render": {
+        "status": "OK",
+        "returncode": 0,
+        "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\基础投标文件.pdf",
+        "pdf_bytes": 880058,
+        "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\logical_structure_round54\\case_003\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+        "stderr": "Could not find platform independent libraries <prefix>\n"
+      },
+      "bundle": {
+        "case": "case_003",
+        "bundle_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003",
+        "core_deliverables": 4,
+        "expected_deliverables": 4,
+        "entries": [
+          {
+            "name": "project_facts.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\project_facts.json",
+            "bytes": 42907,
+            "sha256": "0909d70a4baada595dc84af4920764770909bfd3ecd89b0dc88a45a6f0b584bf",
+            "production_sha256": "0909d70a4baada595dc84af4920764770909bfd3ecd89b0dc88a45a6f0b584bf",
+            "byte_identical": true,
+            "valid_json": true
+          },
+          {
+            "name": "投标项目复核表.xlsx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\投标项目复核表.xlsx",
+            "bytes": 20218,
+            "sha256": "38d8633a18d639352b7bce2e695994403c646492bba57279f5e96589f2d8cf31",
+            "production_sha256": "38d8633a18d639352b7bce2e695994403c646492bba57279f5e96589f2d8cf31",
+            "byte_identical": true,
+            "openpyxl_reopen": true,
+            "sheets": [
+              "投标项目复核表"
+            ]
+          },
+          {
+            "name": "基础投标文件.docx",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\基础投标文件.docx",
+            "bytes": 56329,
+            "sha256": "89c9c475169a35b616877e9c185deca2c5ec13d1c98161680217560e0e9132b2",
+            "production_sha256": "89c9c475169a35b616877e9c185deca2c5ec13d1c98161680217560e0e9132b2",
+            "byte_identical": true,
+            "python_docx_reopen": true,
+            "paragraphs": 194,
+            "tables": 16
+          },
+          {
+            "name": "qa_report.json",
+            "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round54\\case_003\\qa_report.json",
+            "bytes": 45531,
+            "sha256": "bb638f2ad1f03060db8b8a3751d6afaee4e771d452234794e576b54151f73145",
+            "production_sha256": "bb638f2ad1f03060db8b8a3751d6afaee4e771d452234794e576b54151f73145",
+            "byte_identical": true,
+            "valid_json": true
+          }
+        ],
+        "result": "PASS"
+      },
+      "package": {
+        "case": "case_003",
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\run_5_4_logical_structure\\基础投标文件.docx",
+        "bytes": 56329,
+        "zip_valid": true,
+        "part_count": 14,
+        "crc_ok": true,
+        "xml_parts_checked": 13,
+        "xml_invalid": [],
+        "content_type_defaults": [
+          "jpeg",
+          "rels",
+          "xml"
+        ],
+        "content_type_override_count": 10,
+        "package_relationship_count": 4,
+        "document_relationship_count": 7,
+        "styles_declared": 201,
+        "styles_referenced": 19,
+        "missing_style_references": [],
+        "numbering_ids_declared": 11,
+        "missing_numbering_references": [],
+        "numbering_refs_ok": true,
+        "note_settings_problems": [],
+        "header_parts": [],
+        "footer_parts": [],
+        "word_safe_scan_result": "PASS",
+        "unsafe_ooxml": 0,
+        "forbidden_elements": null,
+        "arbitrary_low_level_xml_count": null,
+        "dangling_relationships": [],
+        "python_docx_reopen": true,
+        "paragraphs": 194,
+        "tables": 16,
+        "reopen_characters": 7852,
+        "contains_replacement_char": false,
+        "problems": [],
+        "result": "PASS"
+      }
+    }
+  },
+  "round_5_3_regressions": {
+    "case_001": {
+      "artifact_count": 14,
+      "facts_field_count": 23,
+      "source_literal_numbering": null,
+      "list_geometry_anchor": [
+        3,
+        94.8
+      ],
+      "table_typography_variants": null,
+      "synthetic_layout_tables": null
+    },
+    "case_002": {
+      "artifact_count": 14,
+      "facts_field_count": 23,
+      "source_literal_numbering": null,
+      "list_geometry_anchor": [
+        3,
+        94.92
+      ],
+      "table_typography_variants": null,
+      "synthetic_layout_tables": null
+    },
+    "case_003": {
+      "artifact_count": 14,
+      "facts_field_count": 23,
+      "source_literal_numbering": null,
+      "list_geometry_anchor": [
+        4,
+        75.85
+      ],
+      "table_typography_variants": null,
+      "synthetic_layout_tables": null
+    }
+  },
+  "word_com_status": "WORD_COM_ENVIRONMENT_BLOCKED",
+  "manually_superseded_gates": {
+    "note": "Round 5.3 asserted generated_table_count == source_table_count and synthetic_layout_tables == 0. Round 5.4 section 22 explicitly requires that pdf_table_fragments == logical_table_count and source page-table count == Word table count are NOT required, because one logical table may span pages. Those two Round 5.3 invariants are therefore intentionally superseded, not silently dropped."
+  }
+}

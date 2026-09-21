@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0",
+  "case": "case_003",
+  "method": "inferred from the source rows the emitter consumes",
+  "pattern_count": 39,
+  "pattern_index_size": 11,
+  "blank_kind_histogram": {
+    "VECTOR_RULE": 22,
+    "WHITESPACE_GAP": 17
+  },
+  "field_patterns": {
+    "地址": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 189.23
+    },
+    "电话": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": false,
+      "source_blank_width": 42.0
+    },
+    "投标人名称": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 157.7
+    },
+    "单位性质": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 157.7
+    },
+    "成立时间": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": false,
+      "value_is_underlined": true,
+      "source_blank_width": 36.8
+    },
+    "经营期限": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 162.95
+    },
+    "姓名": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 136.68
+    },
+    "职务": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 36.78
+    },
+    "身份证号码": {
+      "blank_kind": "VECTOR_RULE",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": true,
+      "source_blank_width": 120.9
+    },
+    "投标单位（公章或电子印章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": false,
+      "source_blank_width": 39.0
+    },
+    "法定代表人或授权委托人（签字或盖章）": {
+      "blank_kind": "WHITESPACE_GAP",
+      "replacement_mode": "PRESERVE_EMPTY_BLANK",
+      "preserve_parentheses": false,
+      "preserve_placeholder": true,
+      "value_is_underlined": false,
+      "source_blank_width": 39.0
+    }
+  },
+  "usage": {
+    "filled_slots": 7,
+    "pattern_matched": 0,
+    "value_kept_source_underline": 0,
+    "value_plain_whitespace": 7
+  },
+  "filled_slots": [
+    {
+      "slot_id": "slot-68-0",
+      "fields": [
+        "project_name"
+      ],
+      "value": "肇源县城市供水管网漏损治理项目",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-70-2",
+      "fields": [
+        "purchaser"
+      ],
+      "value": "肇源县城市管理综合执法局",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-70-3",
+      "fields": [
+        "project_name"
+      ],
+      "value": "肇源县城市供水管网漏损治理项目",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-71-8",
+      "fields": [
+        "project_name"
+      ],
+      "value": "肇源县城市供水管网漏损治理项目",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-73-12",
+      "fields": [
+        "project_name",
+        "lot_name"
+      ],
+      "value": "肇源县城市供水管网漏损治理项目、三标段",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    },
+    {
+      "slot_id": "slot-94-16",
+      "fields": [
+        "project_name"
+      ],
+      "value": "肇源县城市供水管网漏损治理项目",
+      "generated_underline": false,
+      "anchor_source": "SAME_ROW_SEMANTIC_PEER"
+    },
+    {
+      "slot_id": "slot-96-17",
+      "fields": [
+        "purchaser"
+      ],
+      "value": "肇源县城市管理综合执法局",
+      "generated_underline": false,
+      "anchor_source": "DESTINATION_PLACEHOLDER_RUN"
+    }
+  ],
+  "source_fill_pattern_mismatch_count": 0,
+  "wrong_fact_fill_pattern_count": 0,
+  "known_resolved_fact_unfilled_compatible_slot_count": 0,
+  "response_letter_fill_pattern_mismatch_count": 0,
+  "duplicate_placeholder_value_count": 0,
+  "other_supplement_blank_preserved": true,
+  "letter_paragraph_count": 0
+}

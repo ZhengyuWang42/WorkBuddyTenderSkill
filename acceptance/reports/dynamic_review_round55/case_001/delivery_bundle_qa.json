@@ -1,0 +1,30 @@
+{
+  "case": "case_001",
+  "directory": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round55\\case_001",
+  "file_count": 4,
+  "files": {
+    "project_facts.json": {
+      "bytes": 41962,
+      "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027",
+      "byte_identical": true
+    },
+    "投标项目复核表.xlsx": {
+      "bytes": 23944,
+      "sha256": "d8848605eacbb202f545b7fe502d620f222fe0e2e5632f782de6b835140875e5",
+      "byte_identical": true
+    },
+    "基础投标文件.docx": {
+      "bytes": 45254,
+      "sha256": "34ff2ef841d1dd43fb0b82074d6cf062309b88125e9095232b62172ff800849e",
+      "byte_identical": true
+    },
+    "qa_report.json": {
+      "bytes": 280832,
+      "sha256": "f7abb789eb2e9e66bea5b8f02d18c2b01a64c20b9b411a38af156490676143e2",
+      "byte_identical": true
+    }
+  },
+  "sidecars": [],
+  "problems": [],
+  "result": "PASS"
+}

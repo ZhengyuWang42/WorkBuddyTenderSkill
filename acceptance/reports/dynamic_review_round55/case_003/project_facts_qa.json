@@ -1,0 +1,249 @@
+{
+  "case": "case_003",
+  "field_count": 23,
+  "summary": {
+    "total_fields": 23,
+    "resolved": 11,
+    "needs_review": 6,
+    "not_found": 6
+  },
+  "fields": {
+    "project_name": {
+      "status": "RESOLVED",
+      "value": "肇源县城市供水管网漏损治理项目",
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "project_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "tender_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "lot_name": {
+      "status": "RESOLVED",
+      "value": "三标段",
+      "candidate_count": 12,
+      "evidence_count": 12,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "lot_number": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "purchaser": {
+      "status": "RESOLVED",
+      "value": "肇源县城市管理综合执法局",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "tender_agency": {
+      "status": "RESOLVED",
+      "value": "黑龙江嘉讯工程项目管理有限公司",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "project_location": {
+      "status": "RESOLVED",
+      "value": "大庆市肇源县",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "procurement_scope": {
+      "status": "RESOLVED",
+      "value": "施工图纸及工程量清单所示全部内容",
+      "candidate_count": 4,
+      "evidence_count": 4,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "budget": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "max_price": {
+      "status": "RESOLVED",
+      "value": "12522994.31",
+      "candidate_count": 6,
+      "evidence_count": 6,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "duration": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Conflicting candidate values remain after normalization."
+    },
+    "quality_target": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Conflicting candidate values remain after normalization."
+    },
+    "bid_deadline": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Candidate evidence exists but no candidate passed the field value-type validator."
+    },
+    "bid_open_time": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Candidate evidence exists but no candidate passed the field value-type validator."
+    },
+    "bid_open_location": {
+      "status": "RESOLVED",
+      "value": "大庆市公共资源交易中心",
+      "candidate_count": 1,
+      "evidence_count": 1,
+      "reason": "Single credible candidate after deterministic validation."
+    },
+    "bid_bond_amount": {
+      "status": "RESOLVED",
+      "value": "120000",
+      "candidate_count": 6,
+      "evidence_count": 6,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "bid_bond_form": {
+      "status": "RESOLVED",
+      "value": "电子保函、现金",
+      "candidate_count": 2,
+      "evidence_count": 2,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "consortium_allowed": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Conflicting candidate values remain after normalization."
+    },
+    "procurement_method": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "bid_validity": {
+      "status": "RESOLVED",
+      "value": "90日历天",
+      "candidate_count": 5,
+      "evidence_count": 5,
+      "reason": "Multiple candidates agree after normalization."
+    },
+    "submission_method": {
+      "status": "NOT_FOUND",
+      "value": null,
+      "candidate_count": 0,
+      "evidence_count": 0,
+      "reason": "No credible candidate found."
+    },
+    "electronic_platform": {
+      "status": "NEEDS_REVIEW",
+      "value": null,
+      "candidate_count": 3,
+      "evidence_count": 3,
+      "reason": "Conflicting candidate values remain after normalization."
+    }
+  },
+  "lot_name_candidates": [
+    {
+      "value": "三标段",
+      "method": "lot_cover_title",
+      "page": 1,
+      "evidence": "三标段"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 5,
+      "evidence": "2.7合同估算价:三标段1252.299431万元。"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_section_heading",
+      "page": 6,
+      "evidence": "3.1三标段投标人资格要求:"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_section_heading",
+      "page": 12,
+      "evidence": "1.三标段投标人资格要求: 1.1投标人必须是在中华人民共和国境内注册的具有独立法人资格的法人或其 他组织并具备承担本招标项目的能力,条件如下: 1.1.1投标人资质要求:具备有效的工商营业执照,同时具备电子与智能化工程 专业承包二级及以上"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_section_heading",
+      "page": 12,
+      "evidence": "1.三标段投标人资格要求:"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "□无 ☑有,最高投标限价:三标段1252.299431万元。"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "1、暂估价、暂列金按清单给定金额计入投标报价;凡超出投标最高限价, 暂估价、暂列金未按给定金额计取的,其他取费未按相关要求计取的投标文 件视为未响应招标文件,其投标将被否决。 2、质量检测费用、质量检测相关活动及其监督管理按《建设工程质量检"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "要求,投标保证金的形式:电子保函、现金。 投标保证金的金额:三标段12.00万元(人民币) 递交截止时间:同投标截止时间。 电子保函方式: 投标人登录后在招标公告中选择要投标的项目,点击投标准备,填写相关 信息进行确认投标。然后在我的项目中"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "3.2.4 最高投标限价 □无 ☑有,最高投标限价:三标段1252.299431万元。"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "1、暂估价、暂列金按清单给定金额计入投标报价;凡超出投标最高限价, 暂估价、暂列金未按给定金额计取的,其他取费未按相关要求计取的投标文 件视为未响应招标文件,其投标将被否决。 2、质量检测费用、质量检测相关活动及其监督管理按《建设工程质量检"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_value_context",
+      "page": 16,
+      "evidence": "要求,投标保证金的形式:电子保函、现金。 投标保证金的金额:三标段12.00万元(人民币) 递交截止时间:同投标截止时间。 电子保函方式: 投标人登录后在招标公告中选择要投标的项目,点击投标准备,填写相关 信息进行确认投标。然后在我的项目中"
+    },
+    {
+      "value": "三标段",
+      "method": "lot_section_heading",
+      "page": 45,
+      "evidence": "三标段技术标定性评审表"
+    }
+  ],
+  "problems": [],
+  "result": "PASS"
+}

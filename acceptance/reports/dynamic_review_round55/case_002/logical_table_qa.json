@@ -1,0 +1,210 @@
+{
+  "case": "case_002",
+  "pdf_table_fragment_count": 22,
+  "logical_table_count": 10,
+  "folded_fragment_count": 12,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "logical_rows": 63,
+  "source_characters": 9546,
+  "logical_characters": 9546,
+  "editable_characters": 9546,
+  "text_loss_characters": 0,
+  "logical_text_multiset_match": true,
+  "editable_text_multiset_match": true,
+  "continuation_cells": [
+    {
+      "table_id": "logical_4",
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "head": "集成配电/10KUPS/ECC800e/门磁/烟感/温湿度/水\n浸，留给 IT 设备柜的空间预计 30U，带 2 个电池",
+      "tail": "出支路；\nUPS 类型：单进单出，机架安装；\nUPS 输入电压范围：80~280Vac/1Ph；\nUPS 容量：10kV",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_4",
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "head": "1、规格：≥2U 双路机架式服务器，国产自研品牌，\n含服务器导轨；\n★2、CPU：每个节点配置≥2 颗国产 X86 或 ",
+      "tail": "6、网卡：板载≥2 个千兆以太网 RJ45 接口（国产\n网络芯片）；配置≥1 张双口万兆网卡；\n7、电源：配置≥2 块电",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_4",
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "head": "虚拟化管理平台\n（1）支持虚拟机和裸金属服务器统一管理，支持\n对裸金属服务器远程电源管理、挂载安装 ISO 镜像\n等操作",
+      "tail": "持不同类型的报警级别，不同级别的报警需要发出\n对应级别的报警消息。\n（5）支持可视化管理，支持动态大屏展示系统健\n康度、",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_4",
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "head": "24 个 1G/10GbpsSFP+光纤接口和 2 个\n40/100GQSFP28 端口光纤接口，支持两个扩展插槽，\n双",
+      "tail": "化双电源（支持交/直流供电），整机最大功率≤\n100W。\n端口配置：≥24 个 1G/10GSFP+万兆光口，≥2 个\n",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_5",
+      "pages": [
+        156,
+        157,
+        158,
+        159,
+        160
+      ],
+      "head": "2U 上架专用设备，国产 CPU、6 个电口（含 1 个管\n理口，1 个 HA 口），4 个千兆 SFP 接口插槽（不含",
+      "tail": "家认可检测机构出具的技术测试报告复印件（加盖\n原厂公章）。",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_5",
+      "pages": [
+        156,
+        157,
+        158,
+        159,
+        160
+      ],
+      "head": "1）主控模块：工控主板，主频 intel 双核 2.8G，\n8G，固态硬盘 120G，集成显卡、声卡、网卡，串口\n2 个",
+      "tail": "式和非接触式 IC 卡的读写、磁卡只读。寿命长：\n磁头≥80 万次，IC 触点≥50 万次，符合 RoHS 标准，\n具有",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_5",
+      "pages": [
+        156,
+        157,
+        158,
+        159,
+        160
+      ],
+      "head": "实现水表从入库到报废的全生命周期管理，包括入\n库、检定、配表、出库、安装、立户上线、首次抄\n表、故障换表、维修等各环节的",
+      "tail": "调拨单，当调拨水表到达目标仓库后，目标仓库的\n负责人负责清点入库；(4)水表信息变更：仅针对\n入库水表，对已录入的信息不",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_6",
+      "pages": [
+        161,
+        162,
+        163
+      ],
+      "head": "技术要求：\n（1）查询功能：支持通过户号、身份证号、手机\n号查询用户名称、用水地址、联系人、联系电话、\n证件类型、证件号",
+      "tail": "正常下载、打印。\n【IC 卡表对接过程中须第三方卡表厂家提供读卡\n器密钥等信息，系统对接和开发属于一次性投入，\n后期不再",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_6",
+      "pages": [
+        161,
+        162,
+        163
+      ],
+      "head": "1、基于现有 APP 抄表功能的基础上，开发 OCR 数\n字识别功能，通过算法精准提取表盘数字，直接同\n步至系统，减少人",
+      "tail": "4、系统支持欠费用户信息可视化展示，配备快速\n检索查询功能，助力业务员精准、高效定位欠费用\n户，充分适配现场走收业务需求",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_7",
+      "pages": [
+        164,
+        165,
+        166
+      ],
+      "head": "1、银行接口配置管理；2、银行对账文件管理；3、\n自动代扣签约管理；4、批量代扣任务管理；5、代\n扣结果回写与入账；6、",
+      "tail": "账明细自动匹配；10、长短款处理与调账；11、退\n费/冲正接口对接；12、银行交易查询与统计；13、\n交易日志与审计；1",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    },
+    {
+      "table_id": "logical_7",
+      "pages": [
+        164,
+        165,
+        166
+      ],
+      "head": "1、短信模板管理：支持短信模板的修改、删除、\n启用/禁用、查询/列表展示及预览；可按催缴、\n账单、预警等业务类型进行模板",
+      "tail": "5、短信统计分析：可按天/按月/按类型统计\n发送量、统计成功/失败率，按部门/片区/人\n员统计发送数据，并支持统计报表的",
+      "head_in_docx": true,
+      "tail_in_docx": true
+    }
+  ],
+  "missing_continuation_cells": [],
+  "logical_table_pages": [
+    [
+      147
+    ],
+    [
+      148
+    ],
+    [
+      149
+    ],
+    [
+      150
+    ],
+    [
+      151,
+      152,
+      153,
+      154,
+      155
+    ],
+    [
+      156,
+      157,
+      158,
+      159,
+      160
+    ],
+    [
+      161,
+      162,
+      163
+    ],
+    [
+      164,
+      165,
+      166
+    ],
+    [
+      167
+    ],
+    [
+      168
+    ]
+  ],
+  "problems": [],
+  "result": "PASS"
+}

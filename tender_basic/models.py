@@ -41,6 +41,9 @@ class FieldName(str, Enum):
     BID_BOND_FORM = "bid_bond_form"
     CONSORTIUM_ALLOWED = "consortium_allowed"
     PROCUREMENT_METHOD = "procurement_method"
+    BID_VALIDITY = "bid_validity"
+    SUBMISSION_METHOD = "submission_method"
+    ELECTRONIC_PLATFORM = "electronic_platform"
 
 
 class FactStatus(str, Enum):
@@ -76,6 +79,16 @@ class PdfLocator(ContractModel):
     block_index: NonNegativeInt | None = None
 
 
+class PdfTableLocator(ContractModel):
+    """A precise locator for one normalized PDF table cell."""
+
+    locator_type: Literal["pdf_table_cell"] = "pdf_table_cell"
+    page: PositiveInt
+    table_index: NonNegativeInt
+    row_index: NonNegativeInt
+    column_index: NonNegativeInt
+
+
 class DocxParagraphLocator(ContractModel):
     """A zero-based DOCX body paragraph index; no page is implied."""
 
@@ -93,7 +106,7 @@ class DocxTableLocator(ContractModel):
 
 
 Locator: TypeAlias = Annotated[
-    PdfLocator | DocxParagraphLocator | DocxTableLocator,
+    PdfLocator | PdfTableLocator | DocxParagraphLocator | DocxTableLocator,
     Field(discriminator="locator_type"),
 ]
 
@@ -115,9 +128,13 @@ class CandidateFact(ContractModel):
     def locator_matches_source_type(self) -> "CandidateFact":
         """Prevent a DOCX candidate from acquiring a fabricated PDF page."""
 
-        if self.source_type == SourceType.PDF and not isinstance(self.locator, PdfLocator):
-            raise ValueError("PDF candidates must use PdfLocator")
-        if self.source_type == SourceType.DOCX and isinstance(self.locator, PdfLocator):
+        if self.source_type == SourceType.PDF and not isinstance(
+            self.locator, (PdfLocator, PdfTableLocator)
+        ):
+            raise ValueError("PDF candidates must use PdfLocator or PdfTableLocator")
+        if self.source_type == SourceType.DOCX and isinstance(
+            self.locator, (PdfLocator, PdfTableLocator)
+        ):
             raise ValueError("DOCX candidates cannot use a PDF page locator")
         return self
 
@@ -150,8 +167,21 @@ class ResolvedFact(ContractModel):
         return self
 
 
+def _default_not_found_fact(field: FieldName) -> ResolvedFact:
+    """Provide backward-compatible defaults for newly added review fields."""
+
+    return ResolvedFact(
+        field=field,
+        resolved_value=None,
+        status=FactStatus.NOT_FOUND,
+        confidence=0.0,
+        candidates=[],
+        resolution_reason="No credible candidate found.",
+    )
+
+
 class ProjectFields(ContractModel):
-    """Exactly the 20 V1 fields, kept explicit for a stable JSON Schema."""
+    """Explicit tender facts plus the three review-template facts."""
 
     project_name: ResolvedFact
     project_number: ResolvedFact
@@ -173,6 +203,17 @@ class ProjectFields(ContractModel):
     bid_bond_form: ResolvedFact
     consortium_allowed: ResolvedFact
     procurement_method: ResolvedFact
+    # Defaults let schema 1.0 ProjectFacts payloads be read without inventing
+    # values for the fields introduced by the review-template contract.
+    bid_validity: ResolvedFact = Field(
+        default_factory=lambda: _default_not_found_fact(FieldName.BID_VALIDITY)
+    )
+    submission_method: ResolvedFact = Field(
+        default_factory=lambda: _default_not_found_fact(FieldName.SUBMISSION_METHOD)
+    )
+    electronic_platform: ResolvedFact = Field(
+        default_factory=lambda: _default_not_found_fact(FieldName.ELECTRONIC_PLATFORM)
+    )
 
     @model_validator(mode="after")
     def field_names_match_keys(self) -> "ProjectFields":
@@ -193,7 +234,7 @@ class SourceDocument(ContractModel):
 
 
 class FactSummary(ContractModel):
-    """Counts for the fixed 20-field ProjectFacts object."""
+    """Counts for the fixed ProjectFacts field catalog."""
 
     total_fields: NonNegativeInt
     resolved: NonNegativeInt
@@ -218,7 +259,7 @@ class ProjectFacts(ContractModel):
     """The single source of truth for all future V1 outputs."""
 
     source_document: SourceDocument
-    schema_version: str = "1.0"
+    schema_version: str = "1.1"
     fields: ProjectFields
     summary: FactSummary
 
@@ -228,7 +269,7 @@ class ProjectFacts(ContractModel):
         *,
         source_document: SourceDocument,
         fields: ProjectFields,
-        schema_version: str = "1.0",
+        schema_version: str = "1.1",
     ) -> "ProjectFacts":
         return cls(
             source_document=source_document,
@@ -282,6 +323,16 @@ class ResolutionOverrides(ContractModel):
         return self
 
 
+class SemanticCandidateProposal(ContractModel):
+    """A WorkBuddy semantic suggestion that is still source-evidence bound."""
+
+    field: FieldName
+    value: FactValue
+    source_locator: Locator
+    evidence_text: str = Field(min_length=1)
+    reason: str = Field(min_length=1)
+
+
 __all__ = [
     "CandidateFact",
     "DocxParagraphLocator",
@@ -292,12 +343,14 @@ __all__ = [
     "FieldName",
     "Locator",
     "PdfLocator",
+    "PdfTableLocator",
     "ProjectFacts",
     "ProjectFields",
     "ResolutionAction",
     "ResolutionOverride",
     "ResolutionOverrides",
     "ResolvedFact",
+    "SemanticCandidateProposal",
     "SourceDocument",
     "SourceType",
 ]

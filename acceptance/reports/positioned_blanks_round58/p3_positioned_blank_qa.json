@@ -1,0 +1,257 @@
+{
+  "gates": {
+    "normalized_source_rule_count": 8,
+    "matched_rule_count": 1,
+    "lost_source_rule_count": 7,
+    "invented_rule_count": 5,
+    "rule_kind_mismatch_count": 0,
+    "matched_out_of_tolerance_count": 1,
+    "rule_accounting_invariant_failures": [],
+    "endpoint_errors_within_2pt": false,
+    "pass": false
+  },
+  "rows": [
+    {
+      "semantic_context": "达到|。",
+      "source_x0": 95.25,
+      "generated_x0": 70.9,
+      "x0_error": -24.35,
+      "source_x1": 151.05,
+      "generated_x1": 142.9,
+      "x1_error": -8.15,
+      "source_y": 218.4,
+      "generated_y": 213.0,
+      "y_error": -5.4,
+      "source_kind": "VECTOR_RULE",
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+      "status": "DISPLACED"
+    },
+    {
+      "semantic_context": "(采购人名称)|：",
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "source_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "source_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "source_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "以人民币（大写）|（不含税），（小写）|元的响应报",
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "source_kind": "VECTOR_RULE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "价，供货期|，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "source_kind": "VECTOR_RULE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "4、本项目询比有效期为提交响应文件截止之日起|90|日历天，在询比有效期内",
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "source_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "7、（其他补充说明）。",
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "source_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "NONE_SOURCE_RULE_NOT_EMITTED",
+      "status": "LOST"
+    },
+    {
+      "semantic_context": "河南省水利第二工程局集团有限公司：",
+      "generated_x0": 304.9,
+      "generated_x1": 310.9,
+      "generated_y": 149.55,
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "UNEXPECTED",
+      "status": "INVENTED"
+    },
+    {
+      "semantic_context": "我方已充分研究了河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+      "generated_x0": 96.95,
+      "generated_x1": 192.95,
+      "generated_y": 170.8,
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "UNEXPECTED",
+      "status": "INVENTED"
+    },
+    {
+      "semantic_context": "水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全",
+      "generated_x0": 441.7,
+      "generated_x1": 513.7,
+      "generated_y": 191.9,
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "UNEXPECTED",
+      "status": "INVENTED"
+    },
+    {
+      "semantic_context": "部内容，愿意以人民币（大写）（不含税），（小写）|元的响应报",
+      "generated_x0": 384.6,
+      "generated_x1": 458.9,
+      "generated_y": 213.0,
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "UNEXPECTED",
+      "status": "INVENTED"
+    },
+    {
+      "semantic_context": "7、（其他补充说明）。",
+      "generated_x0": 94.8,
+      "generated_x1": 220.8,
+      "generated_y": 446.25,
+      "generated_kind": "VALUE_WITH_UNDERLINE",
+      "emission_mechanism": "UNEXPECTED",
+      "status": "INVENTED"
+    }
+  ],
+  "positioned_blank_emission": {
+    "positioned_blank_count": 4,
+    "unreachable_positioned_blank_count": 0,
+    "tab_stop_usage": {
+      "paragraphs_with_tabs": 4,
+      "leader_tabs": 0,
+      "anchor_tabs": 4,
+      "form_tab_leader_count": 0,
+      "date_tabs": 0,
+      "date_underlined_runs": 9,
+      "terminal_rule_fallback": 0,
+      "annotation_tabs": 4,
+      "multi_field_tabs": 0,
+      "solid_rule_blanks": 21,
+      "source_form_line_paragraph_count": 4,
+      "positioned_anchor_tabs": 4,
+      "positioned_leader_tabs": 4
+    },
+    "vector_blanks_recovered": 4,
+    "inline_blank_count": 4,
+    "positioned_blank_records": [
+      {
+        "semantic_slot": null,
+        "source_rule_id": "P42-R4",
+        "source_page": 42,
+        "source_x0": 384.6,
+        "source_x1": 459.0,
+        "source_span_pt": 74.4,
+        "paragraph_origin_pt": 70.8,
+        "section_left_margin_pt": 70.8,
+        "document_section_left_margins_pt": [
+          76.8,
+          70.8,
+          70.8
+        ],
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "anchor_tab_position_pt": 313.8,
+        "leader_tab_position_pt": 388.2,
+        "representation_kind": "SOURCE_WHITESPACE_GAP",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab": true,
+        "suffix_tab": false
+      },
+      {
+        "semantic_slot": null,
+        "source_rule_id": "P42-R5",
+        "source_page": 42,
+        "source_x0": 131.85,
+        "source_x1": 181.4,
+        "source_span_pt": 49.55,
+        "paragraph_origin_pt": 70.8,
+        "section_left_margin_pt": 70.8,
+        "document_section_left_margins_pt": [
+          76.8,
+          70.8,
+          70.8
+        ],
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "anchor_tab_position_pt": 61.05,
+        "leader_tab_position_pt": 110.6,
+        "representation_kind": "SOURCE_WHITESPACE_GAP",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab": true,
+        "suffix_tab": false
+      },
+      {
+        "semantic_slot": null,
+        "source_rule_id": "P42-R6",
+        "source_page": 42,
+        "source_x0": 95.25,
+        "source_x1": 151.05,
+        "source_span_pt": 55.8,
+        "paragraph_origin_pt": 70.8,
+        "section_left_margin_pt": 70.8,
+        "document_section_left_margins_pt": [
+          76.8,
+          70.8,
+          70.8
+        ],
+        "paragraph_indent_pt": 0.0,
+        "form_layout_line_break": false,
+        "anchor_tab_position_pt": 24.45,
+        "leader_tab_position_pt": 80.25,
+        "representation_kind": "SOURCE_WHITESPACE_GAP",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab": true,
+        "suffix_tab": false
+      },
+      {
+        "semantic_slot": null,
+        "source_rule_id": "P45-R6",
+        "source_page": 45,
+        "source_x0": 154.8,
+        "source_x1": 232.8,
+        "source_span_pt": 78.0,
+        "paragraph_origin_pt": 94.8,
+        "section_left_margin_pt": 70.8,
+        "document_section_left_margins_pt": [
+          76.8,
+          70.8,
+          70.8,
+          65.35,
+          70.8,
+          70.8
+        ],
+        "paragraph_indent_pt": 24.0,
+        "form_layout_line_break": false,
+        "anchor_tab_position_pt": 84.0,
+        "leader_tab_position_pt": 162.0,
+        "representation_kind": "SOURCE_WHITESPACE_GAP",
+        "emission_mechanism": "SOURCE_POSITIONED_UNDERLINED_TAB",
+        "anchor_tab": true,
+        "suffix_tab": false
+      }
+    ]
+  }
+}

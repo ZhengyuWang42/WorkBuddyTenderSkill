@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from pydantic import ValidationError
 
 from tender_basic.bid_document_builder import build_bid_document
+from tender_basic.document_models import NormalizedDocument
 from tender_basic.models import ProjectFacts
 
 
@@ -28,6 +29,11 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("input", type=Path, help="Path to project_facts.json")
     parser.add_argument("--output", required=True, type=Path, help="Output .docx path")
+    parser.add_argument(
+        "--normalized-document",
+        type=Path,
+        help="Optional normalized_document.json used for source format extraction",
+    )
     parser.add_argument("--verbose", action="store_true", help="Print a traceback on failure")
     return parser
 
@@ -37,11 +43,23 @@ def _load_project_facts(path: Path) -> ProjectFacts:
         return ProjectFacts.model_validate(json.load(handle))
 
 
+def _load_normalized_document(path: Path | None) -> NormalizedDocument | None:
+    if path is None:
+        return None
+    with path.open("r", encoding="utf-8") as handle:
+        return NormalizedDocument.model_validate(json.load(handle))
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         project_facts = _load_project_facts(args.input)
-        output_path = build_bid_document(project_facts, args.output)
+        normalized_document = _load_normalized_document(args.normalized_document)
+        output_path = build_bid_document(
+            project_facts,
+            args.output,
+            normalized_document=normalized_document,
+        )
         print("Status: OK")
         print(f"Output: {output_path}")
         print(f"Fields: {project_facts.summary.total_fields}")

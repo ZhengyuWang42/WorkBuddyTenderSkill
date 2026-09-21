@@ -1,0 +1,275 @@
+{
+  "pipeline_run": "run_4_6_form_layout",
+  "status": "ROUND_4_6_AWAITING_MANUAL_CONFIRMATION",
+  "blank_model": {
+    "abstraction": "EditableBlank",
+    "form_group": "FormBlock",
+    "render_styles": [
+      "BOTTOM_RULE",
+      "UNDERLINED_INLINE",
+      "PLAIN_EMPTY"
+    ],
+    "nbsp_only_placeholder_count": {
+      "case_001": 0,
+      "case_002": 0,
+      "case_003": 0
+    },
+    "invisible_required_blank_count": {
+      "case_001": 0,
+      "case_002": 0,
+      "case_003": 0
+    }
+  },
+  "cases": {
+    "case_001": {
+      "blank_metrics": {
+        "detected_editable_blanks": 68,
+        "visible_rule_blanks": 28,
+        "plain_empty_blanks": 32,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "list_metrics": {
+        "list_hanging_direction_error": 0,
+        "list_continuation_x_error_pt": 0.010003662109369316,
+        "list_sibling_indent_variance_pt": 0.0
+      },
+      "form_metrics": {
+        "form_block_label_x_variance": 0.0,
+        "form_block_value_x_variance": 0.0,
+        "form_block_row_alignment_error": 0.0
+      },
+      "visual_metrics": {
+        "source_visual_lines": 332,
+        "generated_visual_lines": 305,
+        "line_wrap_delta": -27
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "page_counts": {
+        "source": 22,
+        "generated": 22
+      },
+      "table_counts": {
+        "source": 5,
+        "generated": 26,
+        "form_layout": 21
+      },
+      "representative_pages": [
+        1,
+        3,
+        5,
+        6,
+        8,
+        9
+      ],
+      "render_engine": "LibreOffice native fallback; packaged renderer unavailable because pdf2image is not installed",
+      "project_number_blank": true,
+      "response_form_blanks": true,
+      "page5_form_alignment": true,
+      "case_assertions": {
+        "project_number_blank": true,
+        "response_page3_plain_source_rows": true,
+        "page5_shared_columns": true,
+        "item_4_continuation_not_left": true,
+        "item_6_continuation_not_left": true
+      },
+      "artifact_filter": {
+        "isolated_artifact_candidates": 0,
+        "artifact_spans_removed": 0,
+        "table_spans_rejected_by_geometry": 0,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 0,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": []
+      }
+    },
+    "case_002": {
+      "blank_metrics": {
+        "detected_editable_blanks": 65,
+        "visible_rule_blanks": 34,
+        "plain_empty_blanks": 9,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "list_metrics": {
+        "list_hanging_direction_error": 0,
+        "list_continuation_x_error_pt": 0.019998168945321027,
+        "list_sibling_indent_variance_pt": 0.0
+      },
+      "form_metrics": {
+        "form_block_label_x_variance": 0.0,
+        "form_block_value_x_variance": 0.0,
+        "form_block_row_alignment_error": 0.0
+      },
+      "visual_metrics": {
+        "source_visual_lines": 830,
+        "generated_visual_lines": 764,
+        "line_wrap_delta": -66
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "page_counts": {
+        "source": 31,
+        "generated": 31
+      },
+      "table_counts": {
+        "source": 22,
+        "generated": 36,
+        "form_layout": 14
+      },
+      "representative_pages": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "render_engine": "LibreOffice native fallback; packaged renderer unavailable because pdf2image is not installed",
+      "project_number_blank": null,
+      "artifact_filter": {
+        "isolated_artifact_candidates": 6,
+        "artifact_spans_removed": 74,
+        "table_spans_rejected_by_geometry": 6,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 5,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": [
+          {
+            "page": 150,
+            "row": 6,
+            "column": 3
+          },
+          {
+            "page": 150,
+            "row": 7,
+            "column": 3
+          },
+          {
+            "page": 152,
+            "row": 0,
+            "column": 1
+          },
+          {
+            "page": 159,
+            "row": 0,
+            "column": 1
+          },
+          {
+            "page": 160,
+            "row": 0,
+            "column": 1
+          }
+        ]
+      },
+      "blank_result": true,
+      "list_result": true,
+      "artifact_result": true,
+      "case_assertions": {
+        "list_1_to_10_true_hanging": true,
+        "signature_blanks_visible": true,
+        "geometry_artifact_filter_rejected_candidates": true
+      }
+    },
+    "case_003": {
+      "blank_metrics": {
+        "detected_editable_blanks": 54,
+        "visible_rule_blanks": 24,
+        "plain_empty_blanks": 21,
+        "nbsp_only_placeholder_count": 0,
+        "invisible_required_blank_count": 0,
+        "blank_width_error_max": 0.0,
+        "blank_width_error_median": 0.0
+      },
+      "list_metrics": {
+        "list_hanging_direction_error": 0,
+        "list_continuation_x_error_pt": 0.025000762939455967,
+        "list_sibling_indent_variance_pt": 0.0
+      },
+      "form_metrics": {
+        "form_block_label_x_variance": 0.0,
+        "form_block_value_x_variance": 0.0,
+        "form_block_row_alignment_error": 0.0
+      },
+      "visual_metrics": {
+        "source_visual_lines": 453,
+        "generated_visual_lines": 478,
+        "line_wrap_delta": 25
+      },
+      "word_safe": {
+        "python_docx_reopen": true,
+        "word_safe_scan": true,
+        "unsafe_ooxml": 0,
+        "libreoffice_render": true,
+        "facts_review_byte_identical": true,
+        "previous_docx_loaded": false
+      },
+      "page_counts": {
+        "source": 33,
+        "generated": 33
+      },
+      "table_counts": {
+        "source": 16,
+        "generated": 34,
+        "form_layout": 18
+      },
+      "representative_pages": [
+        2,
+        4,
+        6,
+        7,
+        10,
+        30
+      ],
+      "render_engine": "LibreOffice native fallback; packaged renderer unavailable because pdf2image is not installed",
+      "project_number_blank": null,
+      "blank_result": true,
+      "form_alignment_result": true,
+      "case_assertions": {
+        "signature_contact_labels_present": true,
+        "signature_contact_blanks_preserve_source_presentation": true,
+        "signature_date_blocks_share_grid_metrics": true
+      },
+      "artifact_filter": {
+        "isolated_artifact_candidates": 0,
+        "artifact_spans_removed": 0,
+        "table_spans_rejected_by_geometry": 0,
+        "suspicious_short_cell_text": 0,
+        "short_source_candidates_reviewed": 0,
+        "short_source_candidates_leaked_to_generated_cells": 0,
+        "short_source_candidate_coordinates": []
+      }
+    }
+  },
+  "tests": {
+    "tests": 196,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 195,
+    "exit_code": 0,
+    "command": "C:\\Python314\\python.exe -m pytest -q --tb=short --basetemp D:\\PyCharmProjects\\WBTenderSkill\\tmp\\pytest46-final --junitxml D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\form_layout_round46\\full_suite.xml"
+  },
+  "git_status_lines": 86,
+  "blockers": [
+    "Manual Microsoft Word desktop confirmation remains pending.",
+    "The packaged render_docx.py path was unavailable because pdf2image is not installed; LibreOffice native rendering completed successfully."
+  ]
+}

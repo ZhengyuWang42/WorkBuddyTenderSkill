@@ -1,0 +1,95 @@
+{
+  "case_001": {
+    "artifacts": 14,
+    "missing_artifacts": [],
+    "delivery_qa_overall": "PASS_WITH_REVIEW",
+    "delivery_qa_failed_checks": [],
+    "xlsx_reopened": true,
+    "xlsx_rows": 77,
+    "bundle_identical": true,
+    "bundle": {
+      "project_facts.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 41962
+      },
+      "投标项目复核表.xlsx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 18842
+      },
+      "基础投标文件.docx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 45254
+      },
+      "qa_report.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 37348
+      }
+    }
+  },
+  "case_002": {
+    "artifacts": 14,
+    "missing_artifacts": [],
+    "delivery_qa_overall": "PASS_WITH_REVIEW",
+    "delivery_qa_failed_checks": [],
+    "xlsx_reopened": true,
+    "xlsx_rows": 77,
+    "bundle_identical": true,
+    "bundle": {
+      "project_facts.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 37727
+      },
+      "投标项目复核表.xlsx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 19875
+      },
+      "基础投标文件.docx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 60938
+      },
+      "qa_report.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 61631
+      }
+    }
+  },
+  "case_003": {
+    "artifacts": 14,
+    "missing_artifacts": [],
+    "delivery_qa_overall": "PASS_WITH_REVIEW",
+    "delivery_qa_failed_checks": [],
+    "xlsx_reopened": true,
+    "xlsx_rows": 77,
+    "bundle_identical": true,
+    "bundle": {
+      "project_facts.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 42907
+      },
+      "投标项目复核表.xlsx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 20218
+      },
+      "基础投标文件.docx": {
+        "copied": true,
+        "identical": true,
+        "bytes": 56329
+      },
+      "qa_report.json": {
+        "copied": true,
+        "identical": true,
+        "bytes": 45531
+      }
+    }
+  }
+}

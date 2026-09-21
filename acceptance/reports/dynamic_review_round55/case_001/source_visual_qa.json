@@ -1,0 +1,263 @@
+{
+  "case": "case_001",
+  "render": {
+    "status": "OK",
+    "returncode": 0,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\基础投标文件.pdf",
+    "pdf_bytes": 291909,
+    "soffice": "C:\\Program Files\\LibreOffice\\program\\soffice.exe",
+    "stdout": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stage\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stage\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+    "stderr": "Could not find platform independent libraries <prefix>\n"
+  },
+  "generated_page_count": 22,
+  "generated_pages_traced_to_source": 22,
+  "generated_text_page_count": 22,
+  "blank_rendered_pages": [],
+  "generated_page_trace_ratio": 1.0,
+  "rendered_line_trace_ratio": 0.8487,
+  "rendered_lines_traced": 129,
+  "rendered_lines_checked": 152,
+  "generated_page_traces": [
+    {
+      "generated_page": 1,
+      "probe": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工",
+      "lines_checked": 7,
+      "lines_traced": 6,
+      "trace_ratio": 0.857,
+      "source_page": 1,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stack_source_001_generated_001.png"
+    },
+    {
+      "generated_page": 2,
+      "probe": "七、近年（2023年1月1日以来）类似项目情况表",
+      "lines_checked": 15,
+      "lines_traced": 15,
+      "trace_ratio": 1.0,
+      "source_page": 41,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stack_source_041_generated_002.png"
+    },
+    {
+      "generated_page": 3,
+      "probe": "4、本项目询比有效期为提交响应文件截止之日起90日历天，在询比有效期内不修改、撤销",
+      "lines_checked": 18,
+      "lines_traced": 15,
+      "trace_ratio": 0.833,
+      "source_page": 42,
+      "traced": true,
+      "stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stack_source_042_generated_003.png"
+    },
+    {
+      "generated_page": 4,
+      "probe": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程",
+      "lines_checked": 16,
+      "lines_traced": 16,
+      "trace_ratio": 1.0,
+      "source_page": 1,
+      "traced": true
+    },
+    {
+      "generated_page": 5,
+      "probe": "二、法定代表人身份证明或法定代表人授权委托书",
+      "lines_checked": 11,
+      "lines_traced": 5,
+      "trace_ratio": 0.455,
+      "source_page": 3,
+      "traced": true
+    },
+    {
+      "generated_page": 6,
+      "probe": "授权，以我方名义签署、澄清、说明、补正、递交、撤回、修改（项目名称、标段）响应文件、",
+      "lines_checked": 13,
+      "lines_traced": 10,
+      "trace_ratio": 0.769,
+      "source_page": 45,
+      "traced": true
+    },
+    {
+      "generated_page": 7,
+      "probe": "2、供应商基本账户开户许可证或基本存款账户信息。",
+      "lines_checked": 3,
+      "lines_traced": 3,
+      "trace_ratio": 1.0,
+      "source_page": 46,
+      "traced": true
+    },
+    {
+      "generated_page": 8,
+      "probe": "供应商保证：除商务和技术偏差表列出的偏差外，供应商响应询比文件的全部要求。",
+      "lines_checked": 6,
+      "lines_traced": 4,
+      "trace_ratio": 0.667,
+      "source_page": 47,
+      "traced": true
+    },
+    {
+      "generated_page": 9,
+      "probe": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小",
+      "lines_checked": 19,
+      "lines_traced": 17,
+      "trace_ratio": 0.895,
+      "source_page": 48,
+      "traced": true
+    },
+    {
+      "generated_page": 10,
+      "probe": "注：后附供应商营业执照、“国家企业信用信息公示系统”网站（http://www.gsxt.gov.cn/",
+      "lines_checked": 6,
+      "lines_traced": 6,
+      "trace_ratio": 1.0,
+      "source_page": 49,
+      "traced": true
+    },
+    {
+      "generated_page": 11,
+      "probe": "供应商近三年（2023、2024、2025年）财务状况良好（成立时间不足的以成立之日为准），",
+      "lines_checked": 3,
+      "lines_traced": 3,
+      "trace_ratio": 1.0,
+      "source_page": 5,
+      "traced": true
+    },
+    {
+      "generated_page": 12,
+      "probe": "3、供应商的“信用中国（https://www.creditchina.gov.cn/xinyongfuwu/?navP",
+      "lines_checked": 8,
+      "lines_traced": 8,
+      "trace_ratio": 1.0,
+      "source_page": 51,
+      "traced": true
+    },
+    {
+      "generated_page": 13,
+      "probe": "为，企业无不良履约记录。若成交后，经采购人查实，成交人存在虚假承诺的情况，则取消成交",
+      "lines_checked": 3,
+      "lines_traced": 3,
+      "trace_ratio": 1.0,
+      "source_page": 6,
+      "traced": true
+    },
+    {
+      "generated_page": 14,
+      "probe": "七、近年（2023年1月1日以来）类似项目情况表",
+      "lines_checked": 4,
+      "lines_traced": 2,
+      "trace_ratio": 0.5,
+      "source_page": 41,
+      "traced": true
+    },
+    {
+      "generated_page": 15,
+      "probe": "八、响应货物技术性能指标的详细描述及技术支持资料",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true
+    },
+    {
+      "generated_page": 16,
+      "probe": "九、供货方案",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true
+    },
+    {
+      "generated_page": 17,
+      "probe": "十、应急保障措施",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true
+    },
+    {
+      "generated_page": 18,
+      "probe": "十一、质量保证体系、质量控制文件及质量保证措施",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true
+    },
+    {
+      "generated_page": 19,
+      "probe": "十二、接受银行承兑比例",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 41,
+      "traced": true
+    },
+    {
+      "generated_page": 20,
+      "probe": "十三、垫资能力",
+      "lines_checked": 1,
+      "lines_traced": 1,
+      "trace_ratio": 1.0,
+      "source_page": 4,
+      "traced": true
+    },
+    {
+      "generated_page": 21,
+      "probe": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲属提供礼品礼金、",
+      "lines_checked": 12,
+      "lines_traced": 8,
+      "trace_ratio": 0.667,
+      "source_page": 60,
+      "traced": true
+    },
+    {
+      "generated_page": 22,
+      "probe": "供应商认为应附的其他材料",
+      "lines_checked": 2,
+      "lines_traced": 2,
+      "trace_ratio": 1.0,
+      "source_page": 61,
+      "traced": true
+    }
+  ],
+  "untraced_generated_pages": [],
+  "seam_probes": [],
+  "source_pages_available": 61,
+  "mandatory_source_pages_for_manual_check": [
+    {
+      "source_page": 1,
+      "source_lines": 6,
+      "lines_also_in_generated": 4,
+      "in_generated_document": true
+    },
+    {
+      "source_page": 3,
+      "source_lines": 43,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 4,
+      "source_lines": 14,
+      "lines_also_in_generated": 0,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 5,
+      "source_lines": 23,
+      "lines_also_in_generated": 5,
+      "in_generated_document": false
+    },
+    {
+      "source_page": 9,
+      "source_lines": 16,
+      "lines_also_in_generated": 4,
+      "in_generated_document": false
+    }
+  ],
+  "source_start_offset": 39,
+  "sample_stack_image": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\dynamic_review_round55\\case_001\\render\\stack_source_042_generated_003.png",
+  "problems": [],
+  "result": "PASS",
+  "manual_word_confirmation": "PENDING_USER_VISUAL_CHECK"
+}

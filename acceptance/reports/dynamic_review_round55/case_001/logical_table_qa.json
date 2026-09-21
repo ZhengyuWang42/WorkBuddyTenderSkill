@@ -1,0 +1,36 @@
+{
+  "case": "case_001",
+  "pdf_table_fragment_count": 5,
+  "logical_table_count": 5,
+  "folded_fragment_count": 0,
+  "orphan_continuation_fragments": 0,
+  "false_continuation_merges": 0,
+  "logical_rows": 51,
+  "source_characters": 1028,
+  "logical_characters": 1028,
+  "editable_characters": 1028,
+  "text_loss_characters": 0,
+  "logical_text_multiset_match": true,
+  "editable_text_multiset_match": true,
+  "continuation_cells": [],
+  "missing_continuation_cells": [],
+  "logical_table_pages": [
+    [
+      43
+    ],
+    [
+      47
+    ],
+    [
+      48
+    ],
+    [
+      49
+    ],
+    [
+      53
+    ]
+  ],
+  "problems": [],
+  "result": "PASS"
+}

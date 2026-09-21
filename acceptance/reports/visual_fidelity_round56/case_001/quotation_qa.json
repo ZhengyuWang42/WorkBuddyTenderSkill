@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "case": "case_001",
+  "method": "anchored region rule inventory, source vs generated render",
+  "anchors_source": {
+    "法定代表人或其委托代理人": {
+      "source_page": 40,
+      "bbox": [
+        139.8,
+        596.41,
+        289.3,
+        608.18
+      ]
+    },
+    "分项报价表": {
+      "source_page": 41,
+      "bbox": [
+        70.8,
+        236.62,
+        167.65,
+        250.99
+      ]
+    },
+    "供应商名称": {
+      "source_page": 43,
+      "bbox": [
+        93.36,
+        151.86,
+        153.36,
+        164.14
+      ]
+    },
+    "不含税合计": {
+      "source_page": 48,
+      "bbox": [
+        118.8,
+        561.79,
+        255.72,
+        572.48
+      ]
+    }
+  },
+  "anchors_generated": {
+    "法定代表人或其委托代理人": {
+      "generated_page": 1,
+      "bbox": [
+        102.3,
+        679.56,
+        338.05,
+        691.06
+      ]
+    },
+    "分项报价表": {
+      "generated_page": 2,
+      "bbox": [
+        70.9,
+        274.86,
+        168.9,
+        288.86
+      ]
+    },
+    "供应商名称": {
+      "generated_page": 4,
+      "bbox": [
+        140.8,
+        160.43,
+        200.8,
+        172.43
+      ]
+    },
+    "不含税合计": {
+      "generated_page": 9,
+      "bbox": [
+        156.95,
+        633.4,
+        571.95,
+        643.4
+      ]
+    }
+  },
+  "quotation_total_blank_loss_count": 8,
+  "quotation_signature_blank_loss_count": 4,
+  "quotation_blank_kind_mismatch_count": 0,
+  "regions": [
+    {
+      "anchor": "不含税合计",
+      "status": "COMPARED",
+      "source_page": 48,
+      "generated_page": 9,
+      "source_rule_count": 8,
+      "generated_rule_count": 2,
+      "lost_rule_count": 8,
+      "invented_rule_count": 2,
+      "width_mismatch_count": 0,
+      "matched": 0
+    },
+    {
+      "anchor": "供应商名称",
+      "status": "COMPARED",
+      "source_page": 43,
+      "generated_page": 4,
+      "source_rule_count": 0,
+      "generated_rule_count": 0,
+      "lost_rule_count": 0,
+      "invented_rule_count": 0,
+      "width_mismatch_count": 0,
+      "matched": 0
+    },
+    {
+      "anchor": "法定代表人或其委托代理人",
+      "status": "COMPARED",
+      "source_page": 40,
+      "generated_page": 1,
+      "source_rule_count": 4,
+      "generated_rule_count": 2,
+      "lost_rule_count": 4,
+      "invented_rule_count": 2,
+      "width_mismatch_count": 0,
+      "matched": 0
+    }
+  ]
+}

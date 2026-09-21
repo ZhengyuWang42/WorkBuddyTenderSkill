@@ -1,0 +1,22 @@
+{
+  "source_table_count": 16,
+  "generated_true_table_count": 16,
+  "audited_tables": [
+    {
+      "label": "P5_APPENDIX",
+      "source_outer": [
+        54.83,
+        539.96
+      ],
+      "generated_outer": [
+        54.95,
+        540.65
+      ],
+      "outer_errors": [
+        0.12,
+        0.69
+      ],
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "policy": "source-local geometry owns alignment; Named Style role is fallback only",
+  "audited_tables": [
+    {
+      "label": "P4_OPENING",
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "项目名称",
+          "source_left_gap": 40.52,
+          "source_right_gap": 34.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "投标总价（元）",
+          "source_left_gap": 19.4,
+          "source_right_gap": 19.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "text": "小写： 元，\n大写： 元；\n具体报价详见“六、投标报价明细表”。",
+          "source_left_gap": 5.34,
+          "source_right_gap": 144.73,
+          "source_alignment": "left",
+          "generated_alignment": "left",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "实施周期",
+          "source_left_gap": 37.52,
+          "source_right_gap": 37.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 3,
+          "column": 0,
+          "text": "交货地点",
+          "source_left_gap": 37.52,
+          "source_right_gap": 37.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 0,
+          "text": "质保期",
+          "source_left_gap": 43.52,
+          "source_right_gap": 43.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 1,
+          "text": "台\n自招标人组织竣工验收合格之日起满一个月后开始计算质保期，硬\n平\n易\n件部分质",
+          "source_left_gap": 5.34,
+          "source_right_gap": 5.53,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 0,
+          "text": "质量标准",
+          "source_left_gap": 37.52,
+          "source_right_gap": 37.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 1,
+          "text": "采 项\n符合国家现行相关规定及验收规范的合格标准。 集 级",
+          "source_left_gap": 5.34,
+          "source_right_gap": 102.73,
+          "source_alignment": "left",
+          "generated_alignment": "left",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 0,
+          "text": "项目负责人",
+          "source_left_gap": 31.4,
+          "source_right_gap": 31.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 1,
+          "text": "标 升\n招 统 5\n姓名： 0\n企 系 :\n8\n国 件 5\n联系电话： :\n区 ",
+          "source_left_gap": 0.0,
+          "source_right_gap": 125.78,
+          "source_alignment": "left",
+          "generated_alignment": "left",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 0,
+          "text": "验 和\n备注：投标人根据自身实际情况自主填报； 试 合 2 3\n-\n改 整 3\n",
+          "source_left_gap": 5.48,
+          "source_right_gap": 0.0,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        }
+      ],
+      "mismatch_count": 0,
+      "column_axis_evidence": {
+        "column_0": {
+          "alignment": "left",
+          "axis_spread_pt": 38.04,
+          "all_axis_spreads_pt": {
+            "left": 38.04,
+            "center": 183.0,
+            "right": 403.92
+          }
+        },
+        "column_1": {
+          "alignment": "left",
+          "axis_spread_pt": 12.88,
+          "all_axis_spreads_pt": {
+            "left": 12.88,
+            "center": 69.6,
+            "right": 139.2
+          }
+        }
+      }
+    }
+  ],
+  "mandatory_source_alignment_mismatch_count": 0,
+  "result": "PASS"
+}

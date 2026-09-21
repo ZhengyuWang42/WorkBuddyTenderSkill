@@ -1,0 +1,95 @@
+{
+  "headings": 14,
+  "tree": [
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "一、投标函",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "二、开标一览表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "三、法定代表人身份证明",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "四、授权委托书",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "五、技术和商务偏离表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "六、投标报价明细表",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "七、资格审查资料",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "承诺书",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "（格式自拟）",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "八、投标保证金缴纳凭证",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "保证金交纳凭证",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "九、技术方案",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "十、投标人认为有必要说明的问题",
+      "children": []
+    },
+    {
+      "level": 1,
+      "style": "Heading 1",
+      "text": "（格式自拟）",
+      "children": []
+    }
+  ],
+  "body_list_headings": 0,
+  "toc_headings": 0,
+  "ambiguous_heading_count": 9,
+  "ambiguous_heading_promoted_count": 0,
+  "false_heading_count": 0,
+  "result": "PASS"
+}

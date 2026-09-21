@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "case": "case_001",
+  "bundle_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round56\\case_001",
+  "file_count": 4,
+  "expected_file_count": 4,
+  "all_byte_identical": true,
+  "files": [
+    {
+      "file": "project_facts.json",
+      "source": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_6_visual_fidelity\\project_facts.json",
+      "target": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round56\\case_001\\project_facts.json",
+      "sha256": "D1F157618ADA064F1B6E3F08D2D6C15B9974318C23AE2445C0343CCA1BB57027",
+      "byte_identical": true,
+      "bytes": 41962
+    },
+    {
+      "file": "投标项目复核表.xlsx",
+      "source": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_6_visual_fidelity\\投标项目复核表.xlsx",
+      "target": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round56\\case_001\\投标项目复核表.xlsx",
+      "sha256": "C2048C2C70C52B9B96783B4540D764D178883EC9A82BF4616B4B48A426DD51E0",
+      "byte_identical": true,
+      "bytes": 23943
+    },
+    {
+      "file": "基础投标文件.docx",
+      "source": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_6_visual_fidelity\\基础投标文件.docx",
+      "target": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round56\\case_001\\基础投标文件.docx",
+      "sha256": "6F9FC0011E578EEF36E1C1D04C95784AC1E6689AAAF431A08096078A7D47223E",
+      "byte_identical": true,
+      "bytes": 45074
+    },
+    {
+      "file": "qa_report.json",
+      "source": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\run_5_6_visual_fidelity\\qa_report.json",
+      "target": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\manual_delivery_round56\\case_001\\qa_report.json",
+      "sha256": "DED6F18CA03837628479FDCFFEEF7798D749940182648A28F2A14A30AC47CA03",
+      "byte_identical": true,
+      "bytes": 281338
+    }
+  ]
+}

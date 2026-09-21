@@ -1,5 +1,5 @@
 version: "1.0"
-description: "Fixed V1 output labels and business categories for the 20 ProjectFacts fields."
+description: "Fixed V1 output labels and business categories for the 23 ProjectFacts fields."
 
 fields:
   - field: project_name
@@ -62,3 +62,12 @@ fields:
   - field: procurement_method
     category: 采购方式
     label: 采购方式
+  - field: bid_validity
+    category: 时间节点
+    label: 投标有效期
+  - field: submission_method
+    category: 投标要求
+    label: 投标方式
+  - field: electronic_platform
+    category: 时间节点
+    label: 电子交易平台

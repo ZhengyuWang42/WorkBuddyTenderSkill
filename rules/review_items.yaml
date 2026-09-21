@@ -1,0 +1,229 @@
+# Retrieval configuration for the user-facing review template.
+# The text in the workbook remains the review intent; these families are only
+# deterministic recall seeds and are deliberately not a closed vocabulary.
+# Round 5.5: the review workbook's substantive rows are generated from the
+# tender document's own source requirements
+# (tender_basic/dynamic_requirements.py -> tender_basic/dynamic_review.py), so
+# this file is a topic/recall aid and no longer determines the row count.
+families:
+  disqualification: [废标, 否决投标, 无效投标, 无效响应, 投标无效, 响应无效, 视为废标, 按废标处理, 不予评审, 不予受理, 不予接受, 作无效响应处理, 作无效投标处理, 不满足即否决投标, 不响应作无效投标处理, 资格审查不通过, 符合性审查不通过, 串通投标, 围标, 弄虚作假, 虚假投标, 提供虚假材料, 重大偏差, 实质性不响应, 未实质性响应]
+  qualification: [资格要求, 供应商资格, 投标人资格, 响应人资格, 资格审查, 资格条件, 主体资格, 资质要求, 生产许可, 经营范围, 专业资质, 资格证明]
+  consortium: [联合体, 联合体协议, 联合体投标, 不接受联合体, 接受联合体, 允许联合体, 联合体成员]
+  subcontract: [分包, 分包商, 禁止分包, 允许分包, 转包, 违法分包, 专业分包]
+  submission: [投标截止, 投标文件递交, 响应文件递交, 提交响应文件截止, 提交截止, 递交截止, 上传截止, 递交地点, 提交地点, 送达, 上传, 加密, 递交方式]
+  opening_decryption: [开标, 解密, 解密时限, 开标时间, 开标地点, 不见面开标, 在线开标, CA解密, CA锁, 解密失败, 备用电脑, 备用网络]
+  electronic: [电子投标, 全流程电子, 在线上传, 网上递交, 电子交易平台, 交易平台, CA, 数字证书, 电子签章, 电子签名, 客户端, 不见面]
+  signature_auth: [签字, 盖章, 签章, 电子签章, 法定代表人, 法定代表人身份证明, 授权委托书, 授权代表, 授权人, 身份证, 社保, 签署人]
+  validity: [投标有效期, 响应有效期, 询比有效期, 有效期, 日历天, 有效期限]
+  price_limit: [最高投标限价, 最高限价, 投标限价, 预算金额, 预算, 控制价, 采购预算, 预算价]
+  quotation: [报价, 投标报价, 响应报价, 报价表, 报价明细, 开标一览表, 总价, 单价, 小计, 税率, 含税, 不含税, 币种, 零元, 赠送, 选择性报价]
+  guarantee: [投标保证金, 响应保证金, 询比保证金, 保证金金额, 保证金形式, 缴纳保证金, 保证金到账, 保证金凭证, 银行转账, 保函, 保险]
+  mandatory: [★, 必须, 强制, 实质性要求, 实质性条款, 关键条款, 重大偏差, 不允许偏离, 不得负偏离, 逐条响应]
+  completeness_format: [投标文件组成, 响应文件组成, 文件格式, 投标文件格式, 响应文件格式, 格式及附件, 目录, 页码, 分册, 附件, 表单, 固定格式]
+  fixed_format: [不得改变, 不得删改, 按规定格式, 固定格式, 规定格式, 格式要求, 原格式, 统一格式]
+  consistency: [一致, 相一致, 对应, 相符, 项目名称, 项目编号, 采购编号, 招标编号, 品牌型号, 数量, 工期, 质保, 全文一致]
+  credit_integrity: [失信, 信用中国, 信用查询, 关联关系, 单位负责人, 控股, 管理关系, 串通, 围标, 虚假, 弄虚作假, 业绩真实性]
+  finance_tax: [社保, 税收, 纳税, 缴纳证明, 免缴, 财务报表, 审计报告, 资产负债表, 信用记录]
+  license: [许可证, 许可, 资质证书, 资格证书, 等级, 有效期, 授权资格, 代理授权]
+  performance_service: [业绩, 类似项目, 合同, 中标通知书, 验收, 发票, 项目负责人, 证明材料]
+  technical: [技术要求, 技术参数, 技术响应, 技术方案, 参数, 偏离表, 技术偏离, 接口, 协议, 平台对接, 数据库, 中间件, 国产化, 配置]
+  evidence: [证明材料, 检测报告, 彩页, 官网截图, 技术说明, 页码, 证书, 合同, 验收报告]
+  delivery: [交货地点, 项目地点, 供货地点, 实施地点, 服务地点, 交付地点, 供货期, 交货期, 工期, 服务期, 实施周期, 履约期限, 交付周期]
+  quality: [质量目标, 质量标准, 供货质量, 服务质量, 验收标准, 出厂检验, 到货验收, 安装验收, 试运行, 最终验收]
+  warranty: [质保, 质量保证期, 保修期, 售后, 维保, 保修, 维修]
+  contract_commercial: [合同条款, 商务条款, 付款, 履约保证金, 履约期限, 违约, 付款方式, 采购人, 不附加条件]
+  implementation: [实施计划, 进度计划, 安装, 调试, 试运行, 施工组织, 人员配置, 机具, 物流]
+  safety: [安全, 应急, 安全措施, 应急预案, 风险, 防护]
+  training: [培训, 教材, 课程, 考核, 培训对象, 后续支持]
+  service: [响应时间, 到场时间, 故障处理, 备件, 服务网点, 服务承诺]
+  scoring: [评标办法, 评审办法, 评分标准, 综合评分, 详细评审, 商务评分, 技术评分, 价格评分, 评分细则, 得分, 加分]
+  price_scoring: [价格评分, 价格分, 基准价, 评标价, 异常低价, 成本价, 价格得分]
+  packaging: [封装, 密封, 骑缝盖章, 正本, 副本, U盘, 光盘, 封套, 不得提前启封, 封条]
+  document_forms: [投标函, 响应函, 授权书, 身份证明, 承诺书, 偏差表, 报价表, 基本情况表, 类似项目情况表, 资格材料]
+  section_format: [投标文件格式, 响应文件格式, 报价文件格式, 投标函格式, 响应函格式, 附录, 附件]
+
+defaults: &review_defaults
+  section_hints: [投标人须知, 响应文件格式, 投标文件格式, 资格审查, 评标办法, 评审办法, 技术要求, 商务条款, 合同, 开标, 电子投标]
+  negative_or_disqualifying_terms: []
+  positive_terms: []
+  applicability_hints: []
+
+# Stage-2 ranking priorities.  These are retrieval hints only; they never
+# determine a review conclusion and are intentionally broader than an exact
+# phrase list.
+priority_sections_by_module:
+  废标红线: [评标办法, 评审办法, 否决投标, 废标, 资格审查, 符合性审查, 投标人须知, 供应商须知]
+  资格审查: [资格审查, 资格条件, 投标人资格, 供应商资格, 投标人须知, 供应商须知]
+  投标文件组成与格式: [投标文件格式, 响应文件格式, 投标文件组成, 响应文件组成, 报价文件格式, 投标人须知]
+  报价与合同商务: [投标报价, 响应报价, 报价要求, 最高限价, 合同条款, 商务条款, 开标一览表]
+  技术响应: [技术要求, 技术参数, 技术规范, 商务条款, 合同条款, 评标办法, 评审办法]
+  评分项复核: [评标办法, 评审办法, 评分标准, 评审标准, 综合评分, 详细评审, 商务评分, 技术评分, 价格评分]
+  签章与电子标: [电子投标, 电子交易, 上传, 加密, 解密, 投标文件格式, 响应文件格式, 授权书]
+  封装与开标准备: [开标, 电子投标, 电子交易, 封装, 密封, 投标人须知, 供应商须知]
+
+# Strong semantic anchors used only in stage-2 ranking.  They narrow broad
+# recall without making the vocabulary a closed exact-match list.
+focus_terms_by_id:
+  R001: [资格, 资质, 许可, 经营范围, 失信, 串通, 围标, 弄虚作假, 虚假, 关联关系, 控股, 管理关系]
+  R002: [联合体, 分包, 转包]
+  R003: [投标截止, 响应文件递交, 提交响应文件截止, 递交截止, 上传, 加密, 递交地点, 电子文件]
+  R004: [开标, 解密, CA, 备用, 远程, 不见面]
+  R005: [签字, 盖章, 签章, 电子签章, 授权, 身份证明]
+  R006: [授权委托书, 法定代表人, 身份证明, 身份证, 社保]
+  R007: [有效期, 质保, 质量保证期, 履约期限]
+  R008: [最高限价, 最高投标限价, 预算, 响应报价, 投标报价, 不超过, 超过]
+  R009: [选择性报价, 零元, 赠送, 有效报价]
+  R010: [投标保证金, 响应保证金, 询比保证金, 保证金金额, 保证金形式, 到账, 缴存]
+  R011: [★, 实质性, 负偏离, 必须, 否决, 不响应]
+  R012: [组成, 格式, 附件, 完整, 投标函, 响应函, 资格材料]
+  R013: [项目名称, 项目编号, 一致, 相符, 质保, 工期, 数量]
+  R014: [业绩, 证书, 人员, 信用, 检测, 串通, 虚假]
+  R015: [营业执照, 经营范围, 主体资格, 资格条件, 盖章]
+  R016: [专业资质, 生产许可, 授权资格, 等级, 有效期]
+  R017: [授权, 授权委托书, 授权范围, 代理]
+  R018: [社保, 税收, 纳税, 免缴]
+  R019: [审计报告, 财务报表, 年度, 资产负债表]
+  R020: [失信, 信用中国, 信用查询, 承诺]
+  R021: [类似项目, 业绩, 合同, 中标通知书, 验收]
+  R022: [项目负责人, 授权代表, 技术人员, 证书, 身份证, 社保]
+  R023: [投标函, 响应函, 报价表, 有效期, 签章, 附录]
+  R024: [资格材料, 顺序, 目录, 页码]
+  R025: [商务条款, 合同, 业绩, 证书, 服务承诺]
+  R026: [技术响应, 技术方案, 参数, 证明材料, 偏差表]
+  R027: [分册, 报价信息, 商务, 技术]
+  R028: [字体, 字号, 行距, 页边距, 页码, 目录, 附件]
+  R029: [不得改变, 不得删改, 固定格式, 规定格式]
+  R030: [投标函, 开标一览表, 报价明细, 总价, 一致]
+  R031: [数量, 单价, 小计, 税率, 总价]
+  R032: [大写, 小写, 币种, 含税, 不含税]
+  R033: [运输, 保险, 安装, 调试, 培训, 税费]
+  R034: [固定总价, 固定单价, 可调价]
+  R035: [商务承诺, 技术方案, 进度计划, 报价表, 一致]
+  R036: [地址, 站点, 数量, 服务范围, 交货地点]
+  R037: [质保, 质量保证期, 保修期, 售后]
+  R038: [付款, 履约, 质保金, 违约, 不附加条件]
+  R039: [★, 强制, 技术参数, 实质性, 不得负偏离, 逐条响应]
+  R040: [技术参数, 评分, 分值, 统计]
+  R041: [检测报告, 彩页, 官网截图, 技术说明, 页码]
+  R042: [品牌型号, 配置, 偏离, 授权, 检测]
+  R043: [接口, 协议, 平台对接, 数据库, 国产化]
+  R044: [进度, 人员, 机具, 物流, 安装, 调试, 试运行]
+  R045: [质量, 检验, 到货验收, 安装验收, 试运行, 最终验收]
+  R046: [施工, 安装, 调试, 试运行, 安全, 应急]
+  R047: [培训, 教材, 课程, 考核, 后续支持]
+  R048: [响应时间, 到场时间, 故障处理, 备件, 服务网点]
+  R049: [评分项, 得分条件, 证明材料, 评标办法, 评分标准]
+  R050: [评分细则, 时间, 金额, 类型, 参数, 证明]
+  R051: [证书, 权利人, 有效状态, 查询截图, 评分]
+  R052: [人员, 设备, 研发, 生产, 检测, 评分]
+  R053: [正偏离, 加分, 承诺, 真实性, 履约]
+  R054: [价格评分, 价格分, 基准价, 评标价, 异常低价, 成本价]
+  R055: [投标函, 授权书, 承诺函, 报价表, 偏离表, 签章]
+  R056: [企业章, 法人章, 授权签字, CA, 证书]
+  R057: [身份证, 证书, 合同, 检测报告, 扫描件]
+  R058: [资格, 商务技术, 报价, 上传区域]
+  R059: [客户端, 电子签名, 文件大小, 正式电子标书]
+  R060: [上传, CA签章, 模拟解密, 备用设备, 网络]
+  R061: [正本, 副本, U盘, 光盘, 数量, 版本]
+  R062: [密封, 骑缝盖章, 封套, 提前启封]
+  R063: [交通, 联系人, 递交地点, 提前量]
+  R064: [CA锁, 授权人, 授权书, 备用设备, 网络]
+
+# A candidate must satisfy every configured group in its own source fragment.
+# These are precision gates after broad recall, not a closed vocabulary for
+# retrieval.  They prevent a nearby label or an unrelated occurrence of a
+# shared word from becoming workbook evidence.
+required_focus_groups_by_id:
+  R003:
+    - [投标截止, 响应文件递交, 提交响应文件截止, 递交截止]
+    - [上传, 加密, 递交地点, 提交地点, 电子文件, 电子投标]
+  R004:
+    - [开标, 解密, 不见面, CA]
+  R005:
+    - [签字, 盖章, 签章, 电子签章]
+  R008:
+    - [最高限价, 最高投标限价, 预算, 控制价]
+    - [报价, 投标报价, 响应报价, 超过, 不超过, 金额, 人民币, 元]
+  R010:
+    - [投标保证金, 响应保证金, 询比保证金, 保证金]
+    - [金额, 形式, 到账, 缴存, 截止, 银行, 保函, 现金, 转账, 凭证]
+  R011:
+    - [★, 强制, 实质性, 关键条款]
+    - [逐条响应, 不响应, 负偏离, 否决, 必须]
+  R039:
+    - [技术参数, 技术要求, 参数要求]
+    - [★, 强制, 实质性, 不得负偏离, 逐条响应, 必须]
+  R049:
+    - [评分, 分值, 得分, 评分标准, 评分细则, 评标价, 基准价]
+  R054:
+    - [价格评分, 价格分, 评标基准价, 评标价, 基准价, 异常低价, 成本价]
+    - [评分, 价格评分, 价格分, 报价, 评审, 得分]
+
+exclusion_terms_by_id:
+  R003: [疑问, 答疑, 异议, 澄清, 保证金]
+
+items:
+  - {<<: *review_defaults, id: R001, module: 废标红线, risk_level: 一票否决, review_intent: 投标人主体、资质、许可、特定资格条件及禁止性关系或失信情形, keyword_families: [disqualification, qualification, credit_integrity]}
+  - {<<: *review_defaults, id: R002, module: 废标红线, risk_level: 一票否决, review_intent: 联合体接受情况及分包、转包限制, keyword_families: [consortium, subcontract]}
+  - {<<: *review_defaults, id: R003, module: 废标红线, risk_level: 一票否决, review_intent: 投标或响应文件递交截止、地点、平台、上传和加密要求, keyword_families: [submission, electronic]}
+  - {<<: *review_defaults, id: R004, module: 废标红线, risk_level: 一票否决, review_intent: 开标解密时限、CA锁、电脑网络和备用方案, keyword_families: [opening_decryption, electronic]}
+  - {<<: *review_defaults, id: R005, module: 废标红线, risk_level: 一票否决, review_intent: 签字、盖章、电子签章位置及签署人一致性, keyword_families: [signature_auth, document_forms]}
+  - {<<: *review_defaults, id: R006, module: 废标红线, risk_level: 一票否决, review_intent: 授权书、身份证明、身份证和社保证明的一致性, keyword_families: [signature_auth, qualification]}
+  - {<<: *review_defaults, id: R007, module: 废标红线, risk_level: 一票否决, review_intent: 承诺期限不得短于招标文件要求, keyword_families: [validity, warranty, contract_commercial]}
+  - {<<: *review_defaults, id: R008, module: 废标红线, risk_level: 一票否决, review_intent: 总报价不得超过预算或最高限价, keyword_families: [price_limit, quotation]}
+  - {<<: *review_defaults, id: R009, module: 废标红线, risk_level: 一票否决, review_intent: 选择性报价、赠送、零元报价及有效总报价规则, keyword_families: [quotation, disqualification]}
+  - {<<: *review_defaults, id: R010, module: 废标红线, risk_level: 一票否决, review_intent: 保证金金额、形式、到账时间和凭证要求, keyword_families: [guarantee]}
+  - {<<: *review_defaults, id: R011, module: 废标红线, risk_level: 一票否决, review_intent: ★条款和实质性要求逐条响应、无负偏离, keyword_families: [mandatory, disqualification]}
+  - {<<: *review_defaults, id: R012, module: 废标红线, risk_level: 一票否决, review_intent: 资格、商务、技术、报价文件和附件完整性, keyword_families: [completeness_format, document_forms]}
+  - {<<: *review_defaults, id: R013, module: 废标红线, risk_level: 一票否决, review_intent: 项目名称、编号、品牌型号、数量、工期、质保和报价全文一致, keyword_families: [consistency]}
+  - {<<: *review_defaults, id: R014, module: 废标红线, risk_level: 一票否决, review_intent: 业绩、证书、人员、信用、检测报告真实性及串标风险, keyword_families: [performance_service, evidence, credit_integrity, disqualification]}
+  - {<<: *review_defaults, id: R015, module: 资格审查, risk_level: 高, review_intent: 证照、主体名称、经营范围和盖章要求, keyword_families: [qualification, license]}
+  - {<<: *review_defaults, id: R016, module: 资格审查, risk_level: 高, review_intent: 专业资质、生产许可、授权资格类别等级和有效期, keyword_families: [qualification, license]}
+  - {<<: *review_defaults, id: R017, module: 资格审查, risk_level: 高, review_intent: 代理投标授权层级、范围、有效期和唯一性, keyword_families: [signature_auth, license]}
+  - {<<: *review_defaults, id: R018, module: 资格审查, risk_level: 高, review_intent: 社保、税收缴纳证明和免缴情形, keyword_families: [finance_tax]}
+  - {<<: *review_defaults, id: R019, module: 资格审查, risk_level: 高, review_intent: 审计报告和财务报表年度要求, keyword_families: [finance_tax]}
+  - {<<: *review_defaults, id: R020, module: 资格审查, risk_level: 高, review_intent: 信用查询平台结果及承诺文件, keyword_families: [credit_integrity, qualification]}
+  - {<<: *review_defaults, id: R021, module: 资格审查, risk_level: 高, review_intent: 类似业绩时间、金额、范围及证明链, keyword_families: [performance_service, evidence]}
+  - {<<: *review_defaults, id: R022, module: 资格审查, risk_level: 高, review_intent: 项目负责人、授权代表、技术人员证书身份证和社保一致, keyword_families: [qualification, signature_auth, performance_service]}
+  - {<<: *review_defaults, id: R023, module: 投标文件组成与格式, risk_level: 高, review_intent: 投标函、总价、工期、有效期和签章格式完整, keyword_families: [section_format, document_forms, validity]}
+  - {<<: *review_defaults, id: R024, module: 投标文件组成与格式, risk_level: 高, review_intent: 资格材料按招标文件顺序编排且目录页码一致, keyword_families: [completeness_format, qualification]}
+  - {<<: *review_defaults, id: R025, module: 投标文件组成与格式, risk_level: 中, review_intent: 商务条款、合同、业绩、证书和服务承诺结构, keyword_families: [contract_commercial, document_forms, performance_service]}
+  - {<<: *review_defaults, id: R026, module: 投标文件组成与格式, risk_level: 中, review_intent: 技术响应、方案、参数和证明材料逐条对应, keyword_families: [technical, evidence]}
+  - {<<: *review_defaults, id: R027, module: 投标文件组成与格式, risk_level: 高, review_intent: 分册要求及报价信息不得出现在商务技术文件, keyword_families: [completeness_format, quotation]}
+  - {<<: *review_defaults, id: R028, module: 投标文件组成与格式, risk_level: 中, review_intent: 字体字号、行距、页边距、页码、目录和附件清晰度, keyword_families: [completeness_format, fixed_format]}
+  - {<<: *review_defaults, id: R029, module: 投标文件组成与格式, risk_level: 高, review_intent: 不得删改固定格式实质内容且自制格式覆盖要求, keyword_families: [fixed_format, section_format]}
+  - {<<: *review_defaults, id: R030, module: 报价与合同商务, risk_level: 一票否决, review_intent: 投标函、开标一览表、报价明细和系统报价总价一致, keyword_families: [quotation, consistency, document_forms]}
+  - {<<: *review_defaults, id: R031, module: 报价与合同商务, risk_level: 一票否决, review_intent: 数量、单价、小计、税率和总价核算, keyword_families: [quotation]}
+  - {<<: *review_defaults, id: R032, module: 报价与合同商务, risk_level: 高, review_intent: 大小写、币种、含税和不含税口径, keyword_families: [quotation]}
+  - {<<: *review_defaults, id: R033, module: 报价与合同商务, risk_level: 高, review_intent: 设备、运输、保险、安装、调试、培训和税费计价范围, keyword_families: [quotation, implementation, training]}
+  - {<<: *review_defaults, id: R034, module: 报价与合同商务, risk_level: 高, review_intent: 固定总价、固定单价和可调价口径, keyword_families: [contract_commercial, quotation]}
+  - {<<: *review_defaults, id: R035, module: 报价与合同商务, risk_level: 高, review_intent: 商务承诺与技术方案、进度计划和报价表一致, keyword_families: [contract_commercial, technical, consistency]}
+  - {<<: *review_defaults, id: R036, module: 报价与合同商务, risk_level: 高, review_intent: 地址、站点、数量和服务范围, keyword_families: [delivery, consistency]}
+  - {<<: *review_defaults, id: R037, module: 报价与合同商务, risk_level: 高, review_intent: 最低质保要求及加分承诺履约能力, keyword_families: [warranty, contract_commercial]}
+  - {<<: *review_defaults, id: R038, module: 报价与合同商务, risk_level: 中, review_intent: 付款、履约、质保金等合同条款和不得附加条件, keyword_families: [contract_commercial]}
+  - {<<: *review_defaults, id: R039, module: 技术响应, risk_level: 一票否决, review_intent: ★或强制参数逐条响应且不得使用模糊表述, keyword_families: [mandatory, technical, disqualification]}
+  - {<<: *review_defaults, id: R040, module: 技术响应, risk_level: 高, review_intent: 技术参数响应数量与评分统计, keyword_families: [technical, scoring]}
+  - {<<: *review_defaults, id: R041, module: 技术响应, risk_level: 高, review_intent: 检测报告、彩页、官网截图和技术说明对应参数页码, keyword_families: [technical, evidence]}
+  - {<<: *review_defaults, id: R042, module: 技术响应, risk_level: 高, review_intent: 品牌型号和配置在报价、偏离、彩页、授权和检测材料一致, keyword_families: [consistency, technical, quotation]}
+  - {<<: *review_defaults, id: R043, module: 技术响应, risk_level: 高, review_intent: 接口、协议、平台对接、数据库和国产化方案, keyword_families: [technical]}
+  - {<<: *review_defaults, id: R044, module: 技术响应, risk_level: 中, review_intent: 进度、人员、机具、物流、安装、调试和试运行节点, keyword_families: [implementation, delivery]}
+  - {<<: *review_defaults, id: R045, module: 技术响应, risk_level: 中, review_intent: 质量管理、检验、到货安装试运行和最终验收标准, keyword_families: [quality, warranty]}
+  - {<<: *review_defaults, id: R046, module: 技术响应, risk_level: 中, review_intent: 供货施工安装调试试运行安全和应急措施, keyword_families: [safety, implementation]}
+  - {<<: *review_defaults, id: R047, module: 技术响应, risk_level: 中, review_intent: 培训对象、课程、教材、考核和后续支持, keyword_families: [training, service]}
+  - {<<: *review_defaults, id: R048, module: 技术响应, risk_level: 中, review_intent: 响应到场、故障处理、备件、人员和服务网点, keyword_families: [service, warranty]}
+  - {<<: *review_defaults, id: R049, module: 评分项复核, risk_level: 高, review_intent: 评分项的得分条件、证明材料和投标文件页码, keyword_families: [scoring, evidence]}
+  - {<<: *review_defaults, id: R050, module: 评分项复核, risk_level: 高, review_intent: 评分细则中时间、金额、类型、参数和证明链, keyword_families: [scoring, performance_service, evidence]}
+  - {<<: *review_defaults, id: R051, module: 评分项复核, risk_level: 中, review_intent: 证书类型、权利人、有效状态和查询截图评分限定, keyword_families: [scoring, license, evidence]}
+  - {<<: *review_defaults, id: R052, module: 评分项复核, risk_level: 中, review_intent: 人员、设备、研发、生产和检测能力评分点, keyword_families: [scoring, qualification, technical]}
+  - {<<: *review_defaults, id: R053, module: 评分项复核, risk_level: 中, review_intent: 正偏离和加分承诺的真实性及履约影响, keyword_families: [scoring, technical, contract_commercial]}
+  - {<<: *review_defaults, id: R054, module: 评分项复核, risk_level: 中, review_intent: 价格评分公式、基准价、异常低价和成本底线, keyword_families: [scoring, price_scoring]}
+  - {<<: *review_defaults, id: R055, module: 签章与电子标, risk_level: 一票否决, review_intent: 投标函、授权书、承诺函、报价表和偏离表签章位置, keyword_families: [signature_auth, document_forms]}
+  - {<<: *review_defaults, id: R056, module: 签章与电子标, risk_level: 高, review_intent: 企业章、法人章、授权签字和CA证书有效性, keyword_families: [signature_auth, electronic]}
+  - {<<: *review_defaults, id: R057, module: 签章与电子标, risk_level: 高, review_intent: 身份证、证书、合同和检测报告扫描件清晰完整, keyword_families: [evidence, document_forms]}
+  - {<<: *review_defaults, id: R058, module: 签章与电子标, risk_level: 一票否决, review_intent: 资格、商务技术和报价文件上传区域正确, keyword_families: [electronic, submission, quotation]}
+  - {<<: *review_defaults, id: R059, module: 签章与电子标, risk_level: 高, review_intent: 客户端检查、电子签名验证、文件大小和正式电子标书, keyword_families: [electronic, signature_auth]}
+  - {<<: *review_defaults, id: R060, module: 签章与电子标, risk_level: 高, review_intent: 上传、CA签章、模拟解密和备用设备网络验证, keyword_families: [electronic, opening_decryption]}
+  - {<<: *review_defaults, id: R061, module: 封装与开标准备, risk_level: 高, review_intent: 纸质正副本及U盘光盘数量和版本一致, keyword_families: [packaging], applicability_hints: [电子投标, 全流程电子, 不见面开标, 在线上传]}
+  - {<<: *review_defaults, id: R062, module: 封装与开标准备, risk_level: 高, review_intent: 密封、骑缝盖章、封套标识和不得提前启封, keyword_families: [packaging], applicability_hints: [电子投标, 全流程电子, 不见面开标, 在线上传]}
+  - {<<: *review_defaults, id: R063, module: 封装与开标准备, risk_level: 高, review_intent: 交通、联系人、递交地点和提前量, keyword_families: [submission, delivery]}
+  - {<<: *review_defaults, id: R064, module: 封装与开标准备, risk_level: 中, review_intent: CA锁、授权人证件、授权书和备用设备网络, keyword_families: [electronic, signature_auth, opening_decryption]}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "case": "case_002",
+  "field_count": 23,
+  "resolved_count": 18,
+  "resolved": {
+    "project_name": "营收系统整合和硬件系统升级项目",
+    "project_number": "ZBGXCG202601014",
+    "tender_number": "RTZB-2026-028",
+    "purchaser": "西安市自来水有限公司",
+    "tender_agency": "陕西瑞通工程造价咨询有限公司",
+    "project_location": "西安市内",
+    "max_price": "7507785.65",
+    "duration": "18个月",
+    "quality_target": "符合国家现行相关规定及验收规范的合格标准",
+    "bid_deadline": "2026-04-14 09:30",
+    "bid_open_time": "2026-04-14 09:30",
+    "bid_open_location": "西安市综改试验区国企招标集采交易平台(招采通平台)",
+    "bid_bond_amount": "50000",
+    "bid_bond_form": "本项目接受所有符合国家相关规定形式的保证金",
+    "consortium_allowed": false,
+    "procurement_method": "公开招标",
+    "bid_validity": "90日历天",
+    "electronic_platform": "西安市综改试验区国企招标集采交易平台"
+  },
+  "lot_name": null,
+  "lot_name_status": "NOT_FOUND",
+  "project_name": "营收系统整合和硬件系统升级项目",
+  "known_resolved_fact_unfilled_compatible_slot_count": 0
+}

@@ -1,0 +1,312 @@
+{
+  "policy": "source-local geometry owns alignment; Named Style role is fallback only",
+  "audited_tables": [
+    {
+      "label": "P5_APPENDIX",
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "序号",
+          "source_left_gap": 38.71,
+          "source_right_gap": 36.42,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 0,
+          "column": 1,
+          "text": "条款名称",
+          "source_left_gap": 64.2,
+          "source_right_gap": 63.44,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 0,
+          "column": 2,
+          "text": "约定内容",
+          "source_left_gap": 61.98,
+          "source_right_gap": 60.46,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 0,
+          "column": 3,
+          "text": "备注",
+          "source_left_gap": 17.64,
+          "source_right_gap": 16.21,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "1",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "text": "项目负责人",
+          "source_left_gap": 58.2,
+          "source_right_gap": 58.9,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 1,
+          "column": 2,
+          "text": "姓名：",
+          "source_left_gap": 66.48,
+          "source_right_gap": 66.46,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "2",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "text": "工期",
+          "source_left_gap": 73.98,
+          "source_right_gap": 74.7,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 2,
+          "column": 2,
+          "text": "日历天",
+          "source_left_gap": 66.48,
+          "source_right_gap": 66.46,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 3,
+          "column": 0,
+          "text": "3",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 3,
+          "column": 1,
+          "text": "缺陷责任期",
+          "source_left_gap": 58.2,
+          "source_right_gap": 58.9,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 0,
+          "text": "4",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 1,
+          "text": "承包人履约担保金额",
+          "source_left_gap": 37.18,
+          "source_right_gap": 37.83,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 4,
+          "column": 2,
+          "text": "中标金额的10%",
+          "source_left_gap": 44.71,
+          "source_right_gap": 42.05,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 0,
+          "text": "5",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 1,
+          "text": "逾期竣工违约金",
+          "source_left_gap": 47.68,
+          "source_right_gap": 48.38,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 5,
+          "column": 2,
+          "text": "/天",
+          "source_left_gap": 69.48,
+          "source_right_gap": 70.24,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 0,
+          "text": "6",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 1,
+          "text": "逾期竣工违约金最高限额",
+          "source_left_gap": 26.65,
+          "source_right_gap": 27.31,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 6,
+          "column": 2,
+          "text": "合同价的%",
+          "source_left_gap": 56.71,
+          "source_right_gap": 54.08,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 0,
+          "text": "7",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 1,
+          "text": "质量标准",
+          "source_left_gap": 63.46,
+          "source_right_gap": 64.17,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 7,
+          "column": 2,
+          "text": "符合现行国家、行业及地方工程施\n工质量验收标准以及相关专业验收\n规范的合格标准",
+          "source_left_gap": 3.4,
+          "source_right_gap": 3.24,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 8,
+          "column": 0,
+          "text": "8",
+          "source_left_gap": 45.45,
+          "source_right_gap": 45.45,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 8,
+          "column": 1,
+          "text": "投标有效期",
+          "source_left_gap": 58.2,
+          "source_right_gap": 58.9,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        },
+        {
+          "row": 8,
+          "column": 2,
+          "text": "90 日历天",
+          "source_left_gap": 59.73,
+          "source_right_gap": 59.71,
+          "source_alignment": "center",
+          "generated_alignment": "center",
+          "agree": true
+        }
+      ],
+      "mismatch_count": 0,
+      "column_axis_evidence": {
+        "column_0": {
+          "alignment": "center",
+          "axis_spread_pt": 1.14,
+          "all_axis_spreads_pt": {
+            "left": 6.75,
+            "center": 1.14,
+            "right": 9.03
+          }
+        },
+        "column_1": {
+          "alignment": "center",
+          "axis_spread_pt": 0.74,
+          "all_axis_spreads_pt": {
+            "left": 47.33,
+            "center": 0.74,
+            "right": 47.39
+          }
+        },
+        "column_2": {
+          "alignment": "center",
+          "axis_spread_pt": 1.71,
+          "all_axis_spreads_pt": {
+            "left": 66.08,
+            "center": 1.71,
+            "right": 67.0
+          }
+        }
+      }
+    }
+  ],
+  "mandatory_source_alignment_mismatch_count": 0,
+  "result": "PASS"
+}
