@@ -733,7 +733,16 @@ def build_review_workbook(
         review_evidence=review_evidence,
     )
     if dynamic_plan is not None:
-        _build_dynamic_workbook(source_path, path, writes, dynamic_plan)
+        _build_dynamic_workbook(
+            source_path,
+            path,
+            writes,
+            dynamic_plan,
+            project_facts=project_facts,
+            normalized_document=normalized_document,
+            format_template=format_template,
+            review_evidence=review_evidence,
+        )
         return path
     used_artifact_tool = (
         not _template_has_stray_review_row(source_path)
@@ -751,6 +760,11 @@ def _build_dynamic_workbook(
     output_path: Path,
     writes: dict[str, object],
     plan: "DynamicReviewPlan",
+    *,
+    project_facts: ProjectFacts | None = None,
+    normalized_document: NormalizedDocument | None = None,
+    format_template: BidFormatTemplate | None = None,
+    review_evidence: list[ReviewEvidenceItem] | None = None,
 ) -> None:
     workbook = load_workbook(template_path, data_only=False, read_only=False)
     try:
@@ -773,10 +787,62 @@ def _build_dynamic_workbook(
             else:
                 worksheet[address] = value
         _build_dynamic_review_rows(worksheet, plan)
+        # The review views are a projection of the same authorities the sheet
+        # above was built from: they add the reviewer-facing domains (overview,
+        # facts, clauses, mandatory items, pricing, structure, exceptions and
+        # the evidence index) without changing a single machine value.
+        if project_facts is not None:
+            from .review_workbook_views import build_review_views
+
+            build_review_views(
+                workbook,
+                project_facts=project_facts,
+                dynamic_plan=plan,
+                normalized_document=normalized_document,
+                format_template=format_template,
+                review_evidence=review_evidence or [],
+                build_meta=_review_views_build_meta(output_path),
+                workbook_path=output_path,
+            )
         workbook.save(output_path)
     finally:
         workbook.close()
     _verify_dynamic_workbook(output_path, len(plan.items))
+
+
+def _review_views_build_meta(output_path: Path) -> dict:
+    """Build identity for the overview block, read from the build directory."""
+
+    meta: dict[str, object] = {"workbook_name": output_path.name}
+    manifest_path = output_path.with_name("build_manifest.json")
+    if manifest_path.is_file():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            manifest = {}
+        generated = manifest.get("generated") or {}
+        source = manifest.get("source") or {}
+        meta["build_id"] = manifest.get("build_id")
+        meta["generated_at"] = manifest.get("generated_at") or generated.get("created_at")
+        meta["source_file"] = Path(str(source.get("path") or "")).name
+        meta["source_pdf_sha256"] = source.get("sha256")
+    facts_path = output_path.with_name("project_facts.json")
+    if facts_path.is_file():
+        try:
+            meta["project_facts_sha256"] = _file_sha256(facts_path)
+        except OSError:
+            pass
+    return meta
+
+
+def _file_sha256(path: Path) -> str:
+    import hashlib
+
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def read_dynamic_review_rows(path: Path) -> list[list[object]]:

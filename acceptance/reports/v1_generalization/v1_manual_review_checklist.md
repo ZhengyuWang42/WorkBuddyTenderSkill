@@ -340,3 +340,40 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 >
 > 签署本清单也**不**构成 `V1_PRODUCTION_CANDIDATE = true`：该状态要求**三个规范案例**的自动化与人工验收全部完成。
 > 术语定义见 [`docs/V1_DECISIONS.md`](../../../docs/V1_DECISIONS.md) 第 9 节。
+
+## 4. 人工 Excel 复核（投标项目复核表.xlsx）
+
+复核对象（后继构建，Word 产物与 closure8 逐字节相同）：
+
+| 案例 | 工作簿 |
+| --- | --- |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1/投标项目复核表.xlsx` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook1/投标项目复核表.xlsx` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook1/投标项目复核表.xlsx` |
+
+机器闭环证据（**已通过，不代替人工复核**）：
+
+- 工作簿门禁 37/37 PASS（`v1_review_workbook_gate.py`，三案例各自的 `*_review_workbook_gate.json`）
+- 渲染 QA PASS（`v1_review_workbook_visual_qa.py`：LibreOffice PDF + 重算副本核对总览公式）
+- Word 产物未重新渲染：DOCX `8dedddb7…`、PDF `3fe5b5b9…`、报告 `1274c205…` 与已验收构建逐字节相同
+- 状态：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`
+
+### CASE001 复核步骤（人工填写，自动化永不勾选）
+
+- [ ] 打开工作簿顶部原交付表 `投标项目复核表`，核对项目信息与清单行是否仍然正确
+- [ ] `00_复核总览`：核对项目标识、事实摘要与三组公式统计是否与 `01`–`07` 视图一致
+- [ ] `01_项目事实`：逐行核对 23 项事实；`NOT_FOUND` 行必须保持 `NOT_FOUND`，不得由人工凭空补值
+- [ ] `01_项目事实`：`NEEDS_REVIEW`（`budget`）行的候选值与 `06_冲突与缺失` 的说明是否一致
+- [ ] `02_关键条款`：核对报价/保证金/工期/质保/有效期等条款抽取结果与证据定位
+- [ ] `03_资格否决与强制项`：逐条核对 ★ 与「否决性」行（要求正文 / 复核动作 / 核验标准分列）
+- [ ] `04_报价与限价`：核对最高限价来源；分项报价表条目是否与源文件一致（空白表单须保持空白）
+- [ ] `04_报价与限价`：确认"预算"与"最高限价"没有被合并成一个数
+- [ ] `05_文件结构与签章`：核对签章/签字/日期/附件要求与源文件章节一致
+- [ ] `06_冲突与缺失`：对每条未决项给出结论与依据
+- [ ] `07_证据索引`：抽查定位是否指向真实源位置
+- [ ] 结论：可接受 / 需修改
+- [ ] 复核人：____________  日期：____________
+
+> 复核纪律：`ProjectFacts` 是事实 SSOT。人工在工作簿里填写的复核值与结论**不会**写回
+> `project_facts.json`；若人工发现事实错误，须走 `scripts/apply_resolution.py` 的受控流程
+> （仅 `NEEDS_REVIEW` 可被人工裁决），并留下审计记录。

@@ -1,0 +1,257 @@
+{
+  "schema": "v1_review_workbook_final_status/1",
+  "generated_at": "2026-09-23T09:29:40.491888+00:00",
+  "workbook_sheets": [
+    "投标项目复核表",
+    "00_复核总览",
+    "01_项目事实",
+    "02_关键条款",
+    "03_资格否决与强制项",
+    "04_报价与限价",
+    "05_文件结构与签章",
+    "06_冲突与缺失",
+    "07_证据索引"
+  ],
+  "cases": {
+    "case_001": {
+      "source_build": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1",
+      "source_build_preserved": true,
+      "workbook_build_report": true,
+      "workbook_gate": "PASS",
+      "workbook_gate_checks": 37,
+      "workbook_gate_failed": [],
+      "visual_qa": "PASS",
+      "visual_qa_pages": 71,
+      "clipping_warnings": 8,
+      "manual_confirmed": 0,
+      "manual_pending": 143,
+      "views": {
+        "00_复核总览": {
+          "title": "00_复核总览",
+          "kind": "dashboard"
+        },
+        "01_项目事实": {
+          "title": "01_项目事实",
+          "rows": 23
+        },
+        "02_关键条款": {
+          "title": "02_关键条款",
+          "rows": 17
+        },
+        "03_资格否决与强制项": {
+          "title": "03_资格否决与强制项",
+          "rows": 39
+        },
+        "04_报价与限价": {
+          "title": "04_报价与限价",
+          "limits": 3,
+          "items": 9,
+          "blank_forms": 2
+        },
+        "05_文件结构与签章": {
+          "title": "05_文件结构与签章",
+          "rows": 45
+        },
+        "06_冲突与缺失": {
+          "title": "06_冲突与缺失",
+          "rows": 7
+        },
+        "07_证据索引": {
+          "title": "07_证据索引",
+          "rows": 44
+        }
+      },
+      "fact_status_counts": {
+        "facts_total": 23,
+        "resolved": 16,
+        "needs_review": 1,
+        "not_found": 6
+      },
+      "word_render_repeated": false,
+      "word_identity": {
+        "基础投标文件.docx": {
+          "source_build_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+          "successor_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+          "byte_identical": true
+        },
+        "基础投标文件.pdf": {
+          "source_build_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+          "successor_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+          "byte_identical": true
+        },
+        "generation_report.json": {
+          "source_build_sha256": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace",
+          "successor_sha256": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace",
+          "byte_identical": true
+        }
+      }
+    },
+    "case_002": {
+      "source_build": "acceptance/workspace/case_002/v1_round4_closure8",
+      "build": "acceptance/workspace/case_002/v1_round4_closure8_review_workbook1",
+      "source_build_preserved": true,
+      "workbook_build_report": true,
+      "workbook_gate": "PASS",
+      "workbook_gate_checks": 37,
+      "workbook_gate_failed": [],
+      "visual_qa": "PASS",
+      "visual_qa_pages": 78,
+      "clipping_warnings": 18,
+      "manual_confirmed": 0,
+      "manual_pending": 171,
+      "views": {
+        "00_复核总览": {
+          "title": "00_复核总览",
+          "kind": "dashboard"
+        },
+        "01_项目事实": {
+          "title": "01_项目事实",
+          "rows": 23
+        },
+        "02_关键条款": {
+          "title": "02_关键条款",
+          "rows": 14
+        },
+        "03_资格否决与强制项": {
+          "title": "03_资格否决与强制项",
+          "rows": 40
+        },
+        "04_报价与限价": {
+          "title": "04_报价与限价",
+          "limits": 3,
+          "items": 36,
+          "blank_forms": 0
+        },
+        "05_文件结构与签章": {
+          "title": "05_文件结构与签章",
+          "rows": 50
+        },
+        "06_冲突与缺失": {
+          "title": "06_冲突与缺失",
+          "rows": 5
+        },
+        "07_证据索引": {
+          "title": "07_证据索引",
+          "rows": 45
+        }
+      },
+      "fact_status_counts": {
+        "facts_total": 23,
+        "resolved": 18,
+        "needs_review": 1,
+        "not_found": 4
+      },
+      "word_render_repeated": false,
+      "word_identity": {
+        "基础投标文件.docx": {
+          "source_build_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+          "successor_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+          "byte_identical": true
+        },
+        "基础投标文件.pdf": {
+          "source_build_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+          "successor_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+          "byte_identical": true
+        },
+        "generation_report.json": {
+          "source_build_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+          "successor_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+          "byte_identical": true
+        }
+      }
+    },
+    "case_003": {
+      "source_build": "acceptance/workspace/case_003/v1_round4_closure8",
+      "build": "acceptance/workspace/case_003/v1_round4_closure8_review_workbook1",
+      "source_build_preserved": true,
+      "workbook_build_report": true,
+      "workbook_gate": "PASS",
+      "workbook_gate_checks": 37,
+      "workbook_gate_failed": [],
+      "visual_qa": "PASS",
+      "visual_qa_pages": 88,
+      "clipping_warnings": 26,
+      "manual_confirmed": 0,
+      "manual_pending": 153,
+      "views": {
+        "00_复核总览": {
+          "title": "00_复核总览",
+          "kind": "dashboard"
+        },
+        "01_项目事实": {
+          "title": "01_项目事实",
+          "rows": 23
+        },
+        "02_关键条款": {
+          "title": "02_关键条款",
+          "rows": 16
+        },
+        "03_资格否决与强制项": {
+          "title": "03_资格否决与强制项",
+          "rows": 44
+        },
+        "04_报价与限价": {
+          "title": "04_报价与限价",
+          "limits": 3,
+          "items": 0,
+          "blank_forms": 4
+        },
+        "05_文件结构与签章": {
+          "title": "05_文件结构与签章",
+          "rows": 55
+        },
+        "06_冲突与缺失": {
+          "title": "06_冲突与缺失",
+          "rows": 12
+        },
+        "07_证据索引": {
+          "title": "07_证据索引",
+          "rows": 52
+        }
+      },
+      "fact_status_counts": {
+        "facts_total": 23,
+        "resolved": 11,
+        "needs_review": 6,
+        "not_found": 6
+      },
+      "word_render_repeated": false,
+      "word_identity": {
+        "基础投标文件.docx": {
+          "source_build_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+          "successor_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+          "byte_identical": true
+        },
+        "基础投标文件.pdf": {
+          "source_build_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+          "successor_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+          "byte_identical": true
+        },
+        "generation_report.json": {
+          "source_build_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+          "successor_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+          "byte_identical": true
+        }
+      }
+    }
+  },
+  "full_test_suite": {
+    "evidence": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_full_test_suite.txt",
+    "present": true,
+    "counts": "638 passed, 1 skipped, 0 failed, 0 error"
+  },
+  "flags": {
+    "REVIEW_WORKBOOK_VIEWS": "IMPLEMENTED",
+    "REVIEW_WORKBOOK_GATE": "PASS",
+    "REVIEW_WORKBOOK_VISUAL_QA": "PASS",
+    "WORD_ARTIFACTS_UNCHANGED": "PASS",
+    "CASE001_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "V1_PRODUCTION_CANDIDATE": "false",
+    "READY_FOR_SUBMISSION": "false"
+  },
+  "result": "PASS",
+  "problems": []
+}

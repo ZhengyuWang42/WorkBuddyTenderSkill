@@ -1,0 +1,106 @@
+{
+  "schema": "v1_review_workbook_build/1",
+  "source_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8",
+  "build_id": "v1_round4_closure8_review_workbook1",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook1",
+  "word_render_repeated": false,
+  "artifact_identity": {
+    "基础投标文件.docx": {
+      "source_build_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "successor_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "byte_identical": true
+    },
+    "基础投标文件.pdf": {
+      "source_build_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+      "successor_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+      "byte_identical": true
+    },
+    "generation_report.json": {
+      "source_build_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+      "successor_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+      "byte_identical": true
+    }
+  },
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook1\\投标项目复核表.xlsx",
+  "workbook_sha256": "05dc600ce514d2428efcee856d71119c63d2b9f3764f9114015a6366a15e65f9",
+  "workbook_bytes": 84336,
+  "views": {
+    "sheets": [
+      {
+        "title": "00_复核总览",
+        "kind": "dashboard"
+      },
+      {
+        "title": "01_项目事实",
+        "rows": 23
+      },
+      {
+        "title": "02_关键条款",
+        "rows": 14
+      },
+      {
+        "title": "03_资格否决与强制项",
+        "rows": 40
+      },
+      {
+        "title": "04_报价与限价",
+        "limits": 3,
+        "items": 36,
+        "blank_forms": 0
+      },
+      {
+        "title": "05_文件结构与签章",
+        "rows": 50
+      },
+      {
+        "title": "06_冲突与缺失",
+        "rows": 5
+      },
+      {
+        "title": "07_证据索引",
+        "rows": 45
+      }
+    ],
+    "fact_status_counts": {
+      "facts_total": 23,
+      "resolved": 18,
+      "needs_review": 1,
+      "not_found": 4
+    },
+    "requirement_rows": 49,
+    "mandatory_rows": 40,
+    "clause_rows": 14,
+    "evidence_rows": 45,
+    "exception_rows": 5,
+    "manual_columns": [
+      [
+        "01_项目事实",
+        "M"
+      ],
+      [
+        "02_关键条款",
+        "M"
+      ],
+      [
+        "03_资格否决与强制项",
+        "O"
+      ],
+      [
+        "04_报价与限价",
+        "I"
+      ],
+      [
+        "04_报价与限价",
+        "L"
+      ],
+      [
+        "05_文件结构与签章",
+        "M"
+      ],
+      [
+        "06_冲突与缺失",
+        "H"
+      ]
+    ]
+  }
+}

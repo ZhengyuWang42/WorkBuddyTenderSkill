@@ -1,0 +1,383 @@
+{
+  "schema": "v1_review_workbook_gate/1",
+  "case": "case_001",
+  "build": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1",
+  "source_build": "v1_manual_fidelity_round4_date_rhythm_closure8",
+  "result": "PASS",
+  "check_count": 37,
+  "passed": 37,
+  "failed": 0,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "workbook_structure.delivered_sheet_first",
+      "result": "PASS",
+      "detail": "first sheet is 投标项目复核表",
+      "evidence": {}
+    },
+    {
+      "check": "workbook_structure.views_present",
+      "result": "PASS",
+      "detail": "all 8 views present",
+      "evidence": {
+        "sheets": [
+          "投标项目复核表",
+          "00_复核总览",
+          "01_项目事实",
+          "02_关键条款",
+          "03_资格否决与强制项",
+          "04_报价与限价",
+          "05_文件结构与签章",
+          "06_冲突与缺失",
+          "07_证据索引"
+        ]
+      }
+    },
+    {
+      "check": "workbook_structure.view_headers",
+      "result": "PASS",
+      "detail": "all view headers match the contract",
+      "evidence": {
+        "failures": []
+      }
+    },
+    {
+      "check": "workbook_structure.view_geometry",
+      "result": "PASS",
+      "detail": "every data view freezes its header",
+      "evidence": {
+        "geometry": [
+          {
+            "sheet": "00_复核总览",
+            "freeze_panes": "A3",
+            "fit_to_width": 1,
+            "max_row": 40,
+            "max_column": 6
+          },
+          {
+            "sheet": "01_项目事实",
+            "freeze_panes": "D2",
+            "fit_to_width": 1,
+            "max_row": 24,
+            "max_column": 15
+          },
+          {
+            "sheet": "02_关键条款",
+            "freeze_panes": "C2",
+            "fit_to_width": 1,
+            "max_row": 18,
+            "max_column": 14
+          },
+          {
+            "sheet": "03_资格否决与强制项",
+            "freeze_panes": "E2",
+            "fit_to_width": 1,
+            "max_row": 40,
+            "max_column": 17
+          },
+          {
+            "sheet": "04_报价与限价",
+            "freeze_panes": "D2",
+            "fit_to_width": 1,
+            "max_row": 26,
+            "max_column": 13
+          },
+          {
+            "sheet": "05_文件结构与签章",
+            "freeze_panes": "C2",
+            "fit_to_width": 1,
+            "max_row": 46,
+            "max_column": 14
+          },
+          {
+            "sheet": "06_冲突与缺失",
+            "freeze_panes": "C2",
+            "fit_to_width": 1,
+            "max_row": 8,
+            "max_column": 9
+          },
+          {
+            "sheet": "07_证据索引",
+            "freeze_panes": "C2",
+            "fit_to_width": 1,
+            "max_row": 45,
+            "max_column": 10
+          }
+        ]
+      }
+    },
+    {
+      "check": "workbook_structure.delivered_sheet_geometry",
+      "result": "PASS",
+      "detail": "delivered sheet rows=77",
+      "evidence": {}
+    },
+    {
+      "check": "fact_machine_fidelity.rows_equal_project_facts",
+      "result": "PASS",
+      "detail": "23 fact rows compared, 0 mismatch(es)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "status_vocabulary.fact_status",
+      "result": "PASS",
+      "detail": "statuses present: ['NEEDS_REVIEW', 'NOT_FOUND', 'RESOLVED']",
+      "evidence": {}
+    },
+    {
+      "check": "no_invented_fact.key_set_is_schema",
+      "result": "PASS",
+      "detail": "23 rows vs 23 schema fields",
+      "evidence": {
+        "extra": [],
+        "missing": []
+      }
+    },
+    {
+      "check": "no_invented_fact.resolved_rows_have_values",
+      "result": "PASS",
+      "detail": "every RESOLVED fact shows its value",
+      "evidence": {}
+    },
+    {
+      "check": "evidence_locator_fidelity.fact_locators_exist",
+      "result": "PASS",
+      "detail": "23 fact rows checked against ProjectFacts candidates",
+      "evidence": {
+        "unmatched": []
+      }
+    },
+    {
+      "check": "evidence_locator_fidelity.requirement_rows_equal_plan",
+      "result": "PASS",
+      "detail": "every mandatory row equals its dynamic review item (page, locator, text, type)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "evidence_index_fidelity.locators_exist",
+      "result": "PASS",
+      "detail": "44 evidence rows checked",
+      "evidence": {
+        "unmatched": []
+      }
+    },
+    {
+      "check": "evidence_index_fidelity.row_count",
+      "result": "PASS",
+      "detail": "sheet 44 rows vs packet 44 unique locators",
+      "evidence": {}
+    },
+    {
+      "check": "manual_separation.manual_columns_empty",
+      "result": "PASS",
+      "detail": "no manual review cell carries a pre-filled human verdict",
+      "evidence": {
+        "unexpected": []
+      }
+    },
+    {
+      "check": "no_manual_confirmation.no_ticked_boxes",
+      "result": "PASS",
+      "detail": "自动化未勾选任何人工复核结论",
+      "evidence": {
+        "filled": []
+      }
+    },
+    {
+      "check": "manual_separation.dropdowns",
+      "result": "PASS",
+      "detail": "every manual conclusion column has the 5-option dropdown",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "manual_separation.no_manual_tokens_in_machine_columns",
+      "result": "PASS",
+      "detail": "machine columns never contain a manual verdict",
+      "evidence": {
+        "found": []
+      }
+    },
+    {
+      "check": "manual_never_feeds_machine.no_formula_reads_manual_column",
+      "result": "PASS",
+      "detail": "only the overview aggregates manual columns; no data view computes from them",
+      "evidence": {
+        "found": []
+      }
+    },
+    {
+      "check": "manual_never_feeds_machine.no_formulas_in_data_views",
+      "result": "PASS",
+      "detail": "data views contain no manual-derived formula",
+      "evidence": {
+        "found": []
+      }
+    },
+    {
+      "check": "formula_integrity.referenced_sheets_exist",
+      "result": "PASS",
+      "detail": "19 formulas checked",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "formula_integrity.dashboard_is_formula_driven",
+      "result": "PASS",
+      "detail": "19 dashboard formulas",
+      "evidence": {
+        "formulas": [
+          "B13",
+          "B14",
+          "B15",
+          "B16",
+          "B19",
+          "B20",
+          "B21",
+          "B22",
+          "B23",
+          "B24",
+          "B25",
+          "B28",
+          "B29",
+          "B30",
+          "B31",
+          "B32",
+          "B33",
+          "B34",
+          "B38"
+        ]
+      }
+    },
+    {
+      "check": "formula_integrity.no_error_literals",
+      "result": "PASS",
+      "detail": "no error literal baked into a formula",
+      "evidence": {
+        "found": []
+      }
+    },
+    {
+      "check": "mandatory_star_coverage.star_equals_veto",
+      "result": "PASS",
+      "detail": "20 starred rows, 20 veto rows",
+      "evidence": {
+        "starred_not_veto": [],
+        "veto_not_starred": []
+      }
+    },
+    {
+      "check": "mandatory_star_coverage.row_count",
+      "result": "PASS",
+      "detail": "sheet 39 rows vs plan 39 mandatory+high-risk rows",
+      "evidence": {}
+    },
+    {
+      "check": "mandatory_star_coverage.requirement_text_present",
+      "result": "PASS",
+      "detail": "every mandatory row shows the source requirement text",
+      "evidence": {}
+    },
+    {
+      "check": "mandatory_star_coverage.text_not_concatenated",
+      "result": "PASS",
+      "detail": "要求正文 and 复核动作 are separate columns",
+      "evidence": {}
+    },
+    {
+      "check": "price_source_fidelity.rows_equal_source_tables",
+      "result": "PASS",
+      "detail": "9 price rows compared with 9 source rows",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "price_source_fidelity.no_arithmetic",
+      "result": "PASS",
+      "detail": "the pricing view contains no computed cell",
+      "evidence": {
+        "formulas": []
+      }
+    },
+    {
+      "check": "price_source_fidelity.budget_and_max_price_are_separate_rows",
+      "result": "PASS",
+      "detail": "limit rows: ['budget', 'max_price']",
+      "evidence": {}
+    },
+    {
+      "check": "price_source_fidelity.limit_semantics_preserved",
+      "result": "PASS",
+      "detail": "budget and max_price are not collapsed into one value",
+      "evidence": {
+        "budget": [
+          "NOT_FOUND",
+          ""
+        ],
+        "max_price": [
+          "RESOLVED",
+          "3100000"
+        ]
+      }
+    },
+    {
+      "check": "price_source_fidelity.blank_forms_reported",
+      "result": "PASS",
+      "detail": "sheet reports 2 blank source forms, detector found 2",
+      "evidence": {}
+    },
+    {
+      "check": "structure_view_fidelity.rows_equal_source_headings",
+      "result": "PASS",
+      "detail": "sheet 45 rows vs source 45 headings",
+      "evidence": {
+        "extra": []
+      }
+    },
+    {
+      "check": "structure_view_fidelity.signature_and_seal_flags",
+      "result": "PASS",
+      "detail": "9 sections carry a signature/seal requirement",
+      "evidence": {}
+    },
+    {
+      "check": "exception_fidelity.rows_equal_open_items",
+      "result": "PASS",
+      "detail": "sheet 7 rows vs recomputed 7 open items",
+      "evidence": {
+        "extra": [],
+        "missing": []
+      }
+    },
+    {
+      "check": "exception_fidelity.no_resolved_fact_listed_as_open",
+      "result": "PASS",
+      "detail": "no RESOLVED fact appears as an open exception",
+      "evidence": {
+        "found": []
+      }
+    },
+    {
+      "check": "legacy_sheet_untouched.values_identical",
+      "result": "PASS",
+      "detail": "delivered sheet compared cell by cell with v1_manual_fidelity_round4_date_rhythm_closure8",
+      "evidence": {
+        "differences": []
+      }
+    },
+    {
+      "check": "legacy_sheet_untouched.accepted_workbook_still_on_disk",
+      "result": "PASS",
+      "detail": "the accepted build's workbook was not modified",
+      "evidence": {}
+    }
+  ],
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1\\投标项目复核表.xlsx"
+}

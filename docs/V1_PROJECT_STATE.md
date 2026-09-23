@@ -55,7 +55,8 @@
 | 分支 | `main` |
 | 基线性质 | **pre-manual-review automated candidate checkpoint**（人工复核前的自动化候选检查点） |
 | 该检查点之后的第 4 轮人工保真修复 | 见 §5.6（`v1_manual_fidelity_round4_date_rhythm_closure8`） |
-| 下一步检查点 | **PRE_XLSX_CHECKPOINT**（第 4 轮 closure8 归档；见 §12.1）——**不是发布、不是 tag、不是 production candidate** |
+| 下一步检查点 | **PRE_XLSX_CHECKPOINT = PASS**（第 4 轮 closure8 归档；见 §12.1）——**不是**发布、**不是** tag、**不是** production candidate |
+| 检查点提交（PRE_XLSX_CHECKPOINT） | commit `fef72d9281042357e8f0f6d8d44e000aedda60aa`（`checkpoint: archive round4 closure8 before review workbook phase`），分支 `main`；远端 `refs/heads/main` 与该 SHA **一致**（已推送）；`git tag -l` 为空；未创建 release |
 | 本轮代码改动范围 | 生产侧：`tender_basic/word_safe_source_builder.py`（日期前导/内部区间、固有间距、单元格逐源行段落）、`tender_basic/intrinsic_spacer.py`（新建）、`tender_basic/source_vertical_rhythm.py`（测得自然行比值 + 半点截断）、日期行/单元格节奏相关辅助；仪表侧：`scripts/v1_date_row_closure_audit.py`、`scripts/v1_date_segment_chain_ledger.py`、`scripts/v1_intrinsic_spacer_multisegment_probe.py`、`scripts/v1_table_cell_line_rhythm_audit.py` 等；测试侧：`tests/test_round4_vii_leading_blank_and_cell_rhythm.py`（28 项）。**`ProjectFacts` 语义未改动。** |
 
 ### 1.2 全局状态标志
@@ -469,7 +470,7 @@ max x0 残差 **0.55 pt**、max x1 残差 **0.30 pt**。
 | 所有权闭环 / 源行装配 / P21 结构 | `PASS` |
 | CASE001 / CASE002 / CASE003 验收 | `PASS` / `PASS` / `PASS` |
 | 三案例泛化 | `THREE_CASE_GENERALIZATION = PASS`（`failed_checks = []`） |
-| 全量测试 | **614 passed, 1 skipped, 0 failed, 0 errors**（615 collected，exit 0） |
+| 全量测试 | **638 passed, 1 skipped, 0 failed, 0 errors**（639 collected，exit 0），见 `review_workbook_full_test_suite.txt` / `.xml`（复核工作簿轮次） |
 
 新增定向测试 `tests/test_round4_vii_leading_blank_and_cell_rhythm.py`（28 项）钉住前导区间构造、
 固有间距标定、`CENTER` 公式不变、半点截断、逐行 pitch 换算、「同一行距无法同时满足两个源 pitch」
@@ -622,6 +623,7 @@ Word 行高是**最小值**，两个渲染器对 CJK 回退字体的度量不同
 | 后续全量运行（跟进 build） | `519 passed, 1 skipped, 0 failed, 0 errors`（仓库存档：`case001_full_test_suite_followup3.txt`） |
 | 偏差策略协调后 | `547 passed, 1 skipped, 0 failed, 0 errors` |
 | 第 4 轮 closure8 | **`614 passed, 1 skipped, 0 failed, 0 errors`**（615 collected，exit 0），见 `case001_full_test_suite_round4_closure8.txt` / `.xml`（本文件 §5.6.4）。相对上一轮的 612 增加了 2 项：`tests/test_round3_source_typography.py` 的单元格行分隔夹具改为**显式拼写**并新增「同一处边界被写成两种分隔即判红」的回归（见 §5.7 第 18 行） |
+| 复核工作簿轮次 | **`638 passed, 1 skipped, 0 failed, 0 errors`**（639 collected，exit 0），见 `review_workbook_full_test_suite.txt` / `.xml`。相对 closure8 的 614 增加 24 项：`tests/test_round62_review_workbook.py`（复核视图契约：事实/状态/定位投影、`NOT_FOUND` 显式显示、人工列与机器列隔离、公式只做汇总、★ 只标否决项、价格行照抄源表、空白报价表单如实呈现、证据索引去重、人工填写不回写机器列、998 行压力、视图表头契约） |
 
 **根因（本轮查清，不是「ACL 玄学」）**：pytest 的临时目录工厂用
 `pathlib.Path.mkdir(mode=0o700)` 创建 `tmp_path`，而在本 Windows 主机上，用该 mode 创建出来的目录
@@ -845,16 +847,31 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 工作流 | 状态 |
 | --- | --- |
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4），三项人工发现已自动化关闭；**人工桌面 Word 复核尚未确认** |
-| **复核工作簿（投标项目复核表.xlsx）** | **NEXT ACTIVE WORKSTREAM**：本轮起进入目标化重设计与闭环（见 `V1_DECISIONS.md` §13） |
+| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现，三案例工作簿门禁 37/37 PASS、LibreOffice 渲染 QA PASS、Word 产物逐字节未变；**人工 Excel 复核尚未开始** |
 | **人工 Excel 复核** | 尚未开始（`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
-| **检查点** | `PRE_XLSX_CHECKPOINT`（第 4 轮 closure8 归档提交；**不是**发布提交） |
+| **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；工作簿轮次检查点见 §12.3 |
+
+### 12.3 复核工作簿轮次（REVIEW WORKBOOK ROUND，已完成机器闭环）
+
+| 项目 | 值 |
+| --- | --- |
+| 工作簿构建器 | `tender_basic/review_workbook_views.py`（`build_review_views` / `augment_review_workbook`），由 `review_builder.build_review_workbook` 调用 |
+| 后继构建工具 | `scripts/v1_build_review_workbook.py`（复制 Word 产物，不重新渲染） |
+| 工作簿门禁 | `scripts/v1_review_workbook_gate.py`（37 项） |
+| 渲染 QA | `scripts/v1_review_workbook_visual_qa.py`（LibreOffice PDF + 重算副本） |
+| 最终状态 | `acceptance/reports/v1_generalization/review_workbook_v1_final_status.json` / `.md` |
+| CASE001 后继构建 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1` |
+| CASE002 / CASE003 后继构建 | `acceptance/workspace/case_00{2,3}/v1_round4_closure8_review_workbook1` |
+| Word 产物 | closure8 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated=false`） |
+| 指针 | 不迁移：`*_current_build.json` 描述 Word 构建，继续指向 closure8 |
+| 人工复核 | 未开始，自动化未勾选任何结论（`已通过 = 0`） |
 
 ### 12.2 下一步任务（有序）
 
 | 顺序 | 任务 | 完成判据 |
 | --- | --- | --- |
-| **A** | 改进 `投标项目复核表.xlsx`（复核视图：总览、事实、关键条款、强制/★项、报价与限价、文件结构与签章、冲突与缺失、证据索引） | 三案例工作簿机器闭环通过；`REVIEW_WORKBOOK_THREE_CASE_GENERALIZATION = PASS` |
+| **A** | 改进 `投标项目复核表.xlsx`（复核视图：总览、事实、关键条款、强制/★项、报价与限价、文件结构与签章、冲突与缺失、证据索引） | ✅ 已完成：三案例工作簿门禁 37/37 PASS + 渲染 QA PASS（`REVIEW_WORKBOOK_THREE_CASE_GENERALIZATION = PASS`） |
 | **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认 |
 | **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |
@@ -862,4 +879,4 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | **F** | 商务 / 法务 / 报价 / 签字盖章批准 | **在自动化之外**由人完成；自动化永不推断 `READY_FOR_SUBMISSION` |
 
 > 关于任务 A 的纪律：工作簿是**复核视图**，不是第二个事实库。`ProjectFacts` 仍是事实 SSOT；
-> 人工在 Excel 里填的值**不得**静默写回 `ProjectFacts`，而是作为"复核差异"呈现（`V1_DECISIONS.md` §13）。
+> 人工在 Excel 里填的值**不得**静默写回 `ProjectFacts`，而是作为"复核差异"呈现（`V1_DECISIONS.md` §14）。

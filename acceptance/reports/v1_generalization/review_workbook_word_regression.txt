@@ -1,0 +1,20 @@
+=== closure8 word artifact hashes (unchanged check)
+基础投标文件.docx 8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230
+基础投标文件.pdf 3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927
+generation_report.json 1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace
+=== case_001 acceptance on the pointer build
+CASE case_001 AUTOMATED_RESULT PASS
+REPORT acceptance\reports\v1_generalization\case_001_acceptance_recheck.json
+=== case_002 acceptance on the pointer build
+CASE case_002 AUTOMATED_RESULT PASS
+REPORT acceptance\reports\v1_generalization\case_002_acceptance_recheck.json
+=== case_003 acceptance on the pointer build
+CASE case_003 AUTOMATED_RESULT PASS
+REPORT acceptance\reports\v1_generalization\case_003_acceptance_recheck.json
+=== three case regression
+                                   [--pointer-dir POINTER_DIR] --out OUT
+v1_three_case_regression.py: error: the following arguments are required: --case
+=== restored word hashes
+基础投标文件.docx 8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230
+基础投标文件.pdf 3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927
+generation_report.json 1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace

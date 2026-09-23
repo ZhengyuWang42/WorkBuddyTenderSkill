@@ -1,0 +1,349 @@
+{
+  "schema": "v1_review_workbook_visual_qa/1",
+  "case": "case_003",
+  "build": "v1_round4_closure8_review_workbook1",
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook1\\投标项目复核表.xlsx",
+  "render_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\_render_qa\\case_003",
+  "sheets": [
+    "投标项目复核表",
+    "00_复核总览",
+    "01_项目事实",
+    "02_关键条款",
+    "03_资格否决与强制项",
+    "04_报价与限价",
+    "05_文件结构与签章",
+    "06_冲突与缺失",
+    "07_证据索引"
+  ],
+  "manual_expected": {
+    "未复核": 153,
+    "已通过": 0,
+    "有疑问": 0,
+    "需修改": 0,
+    "不适用": 0,
+    "人工复核条目合计": 156,
+    "剩余待复核（未复核）": 153
+  },
+  "clipping_risks": {
+    "00_复核总览": [],
+    "01_项目事实": [
+      {
+        "sheet": "01_项目事实",
+        "cell": "I18",
+        "lines_needed": 19,
+        "lines_available": 10.3
+      }
+    ],
+    "02_关键条款": [
+      {
+        "sheet": "02_关键条款",
+        "cell": "B1",
+        "lines_needed": 2,
+        "lines_available": 1.0
+      },
+      {
+        "sheet": "02_关键条款",
+        "cell": "D7",
+        "lines_needed": 16,
+        "lines_available": 10.3
+      }
+    ],
+    "03_资格否决与强制项": [
+      {
+        "sheet": "03_资格否决与强制项",
+        "cell": "B1",
+        "lines_needed": 2,
+        "lines_available": 1.0
+      },
+      {
+        "sheet": "03_资格否决与强制项",
+        "cell": "E22",
+        "lines_needed": 15,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "03_资格否决与强制项",
+        "cell": "E43",
+        "lines_needed": 13,
+        "lines_available": 10.3
+      }
+    ],
+    "04_报价与限价": [
+      {
+        "sheet": "04_报价与限价",
+        "cell": "H5",
+        "lines_needed": 3,
+        "lines_available": 2.1
+      },
+      {
+        "sheet": "04_报价与限价",
+        "cell": "G6",
+        "lines_needed": 5,
+        "lines_available": 3.0
+      },
+      {
+        "sheet": "04_报价与限价",
+        "cell": "G7",
+        "lines_needed": 36,
+        "lines_available": 10.3
+      }
+    ],
+    "05_文件结构与签章": [],
+    "06_冲突与缺失": [],
+    "07_证据索引": [
+      {
+        "sheet": "07_证据索引",
+        "cell": "G2",
+        "lines_needed": 12,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G3",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G5",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G7",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G9",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G15",
+        "lines_needed": 12,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G16",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G17",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G19",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G21",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G22",
+        "lines_needed": 12,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G24",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G26",
+        "lines_needed": 12,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G37",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G41",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G44",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      },
+      {
+        "sheet": "07_证据索引",
+        "cell": "G47",
+        "lines_needed": 11,
+        "lines_available": 10.3
+      }
+    ]
+  },
+  "checks": {
+    "pdf_renders": {
+      "result": "PASS",
+      "pages": 88,
+      "error_markers": []
+    },
+    "no_error_markers_in_render": {
+      "result": "PASS",
+      "markers": []
+    },
+    "all_views_render": {
+      "result": "PASS",
+      "missing": [],
+      "markers_found": {
+        "00_复核总览": 2,
+        "01_项目事实": 3,
+        "02_关键条款": 1,
+        "03_资格否决与强制项": 3,
+        "04_报价与限价": 1,
+        "05_文件结构与签章": 1,
+        "06_冲突与缺失": 2,
+        "07_证据索引": 2
+      }
+    },
+    "dashboard_formulas_evaluate": {
+      "result": "PASS",
+      "compared": 7,
+      "mismatches": {}
+    },
+    "recalculated_workbook_has_no_errors": {
+      "result": "PASS",
+      "cells": []
+    },
+    "no_clipped_dashboard_text": {
+      "result": "PASS",
+      "cells": []
+    },
+    "clipping_bounded": {
+      "result": "WARN",
+      "total": 26,
+      "worst": [
+        {
+          "sheet": "04_报价与限价",
+          "cell": "G7",
+          "needed": 36,
+          "available": 10.3
+        },
+        {
+          "sheet": "01_项目事实",
+          "cell": "I18",
+          "needed": 19,
+          "available": 10.3
+        },
+        {
+          "sheet": "02_关键条款",
+          "cell": "D7",
+          "needed": 16,
+          "available": 10.3
+        },
+        {
+          "sheet": "03_资格否决与强制项",
+          "cell": "E22",
+          "needed": 15,
+          "available": 10.3
+        },
+        {
+          "sheet": "03_资格否决与强制项",
+          "cell": "E43",
+          "needed": 13,
+          "available": 10.3
+        },
+        {
+          "sheet": "04_报价与限价",
+          "cell": "G6",
+          "needed": 5,
+          "available": 3.0
+        },
+        {
+          "sheet": "07_证据索引",
+          "cell": "G2",
+          "needed": 12,
+          "available": 10.3
+        },
+        {
+          "sheet": "07_证据索引",
+          "cell": "G15",
+          "needed": 12,
+          "available": 10.3
+        },
+        {
+          "sheet": "07_证据索引",
+          "cell": "G22",
+          "needed": 12,
+          "available": 10.3
+        },
+        {
+          "sheet": "07_证据索引",
+          "cell": "G26",
+          "needed": 12,
+          "available": 10.3
+        }
+      ]
+    }
+  },
+  "rendered_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\_render_qa\\case_003\\投标项目复核表.pdf",
+  "rendered_xlsx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\_render_qa\\case_003\\投标项目复核表.xlsx",
+  "rendered_views": {
+    "00_复核总览": [
+      "投标项目复核总览",
+      "提交就绪判定"
+    ],
+    "01_项目事实": [
+      "fact_key",
+      "机器抽取值",
+      "人工复核结论"
+    ],
+    "02_关键条款": [
+      "核验标准"
+    ],
+    "03_资格否决与强制项": [
+      "否决性",
+      "强制性类型",
+      "人工满足情况"
+    ],
+    "04_报价与限价": [
+      "报价与限价复核"
+    ],
+    "05_文件结构与签章": [
+      "盖章要求"
+    ],
+    "06_冲突与缺失": [
+      "建议人工动作",
+      "候选值/冲突"
+    ],
+    "07_证据索引": [
+      "evidence_id",
+      "复核意图"
+    ]
+  },
+  "manual_observed": {
+    "未复核": 153,
+    "已通过": 0,
+    "有疑问": 0,
+    "需修改": 0,
+    "不适用": 0,
+    "人工复核条目合计": 156,
+    "剩余待复核（未复核）": 153
+  },
+  "clipping_total": 26,
+  "result": "PASS",
+  "failed_checks": []
+}
