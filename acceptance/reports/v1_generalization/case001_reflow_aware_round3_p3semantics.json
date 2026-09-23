@@ -1,0 +1,235 @@
+{
+  "schema": "v1_reflow_aware_regression/1",
+  "gate": "v1_reflow_aware_regression",
+  "used_by": "v09_p3_reflow_vertical_gate.REFLOW_AWARE_V1",
+  "build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics",
+  "baseline_build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix",
+  "source_pdf": "acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "PASS",
+  "checks": {
+    "reflow_aware_contract_is_v1": true,
+    "region_row_budget_is_accounted": true,
+    "no_unexplained_extra_row": true,
+    "no_unexplained_blank_row": true,
+    "generated_row_order_is_preserved": true,
+    "every_region_row_passes": true,
+    "residual_within_the_unrelaxed_tolerance": true,
+    "tolerance_is_not_relaxed": true,
+    "region_ledger_matches_the_baseline": false
+  },
+  "accepted_differences": [
+    {
+      "check": "region_ledger_matches_the_baseline",
+      "reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW is no longer needed for the P42-R6 row: the frozen semantic contract for R6 is RESOLVED_VALUE_IN_FIXED_SLOT/ANCHOR_START_ONLY, so the value is anchored inside the element's own paragraph and the letter carries one fewer paragraph boundary than the previous reconciled build.",
+      "baseline_build": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix",
+      "differences": {
+        "row_accounting": {
+          "current": {
+            "source_row_count": 15,
+            "mandatory_extra_row_count": 2,
+            "mandatory_minimum_row_count": 17,
+            "generated_row_count": 17,
+            "unexplained_extra_row_count": 0,
+            "unexplained_blank_row_count": 0,
+            "rows_accounted": true
+          },
+          "baseline": {
+            "source_row_count": 15,
+            "mandatory_extra_row_count": 2,
+            "mandatory_minimum_row_count": 17,
+            "generated_row_count": 17,
+            "unexplained_extra_row_count": 0,
+            "unexplained_blank_row_count": 0,
+            "rows_accounted": true
+          }
+        },
+        "maximum_residual_y_error_pt": {
+          "current": 0.71,
+          "baseline": 0.68
+        },
+        "maximum_raw_y_error_pt": {
+          "current": 65.79,
+          "baseline": 65.89
+        },
+        "rows_with_a_changed_verdict": []
+      }
+    }
+  ],
+  "failed_checks": [],
+  "measured": {
+    "vertical_contract_version": "REFLOW_AWARE_V1",
+    "tolerance_pt": 2.0,
+    "maximum_residual_y_error_pt": 0.71,
+    "maximum_raw_y_error_pt": 65.79,
+    "row_accounting": {
+      "source_row_count": 15,
+      "mandatory_extra_row_count": 2,
+      "mandatory_minimum_row_count": 17,
+      "generated_row_count": 17,
+      "unexplained_extra_row_count": 0,
+      "unexplained_blank_row_count": 0,
+      "rows_accounted": true
+    },
+    "generated_row_order_preserved": true,
+    "unexplained_extra_row_count": 0,
+    "unexplained_blank_row_gaps": [],
+    "structural_isolation_count": 0,
+    "applicable_line_pitch_pt": 21.1281,
+    "source_line_pitch_pt": 19.9971,
+    "region_left_pt": 70.8,
+    "plan_count": 15,
+    "reflow_vertical_failure_ids": [],
+    "plan_verdicts": [
+      {
+        "source_visual_line_id": "RF42-R01",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R02",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R03",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R04",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R05",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R06",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R07",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R08",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R09",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R10",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R11",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R12",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R13",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R14",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R15",
+        "pass": true
+      }
+    ]
+  },
+  "baseline_measured": {
+    "vertical_contract_version": "REFLOW_AWARE_V1",
+    "tolerance_pt": 2.0,
+    "maximum_residual_y_error_pt": 0.68,
+    "maximum_raw_y_error_pt": 65.89,
+    "row_accounting": {
+      "source_row_count": 15,
+      "mandatory_extra_row_count": 2,
+      "mandatory_minimum_row_count": 17,
+      "generated_row_count": 17,
+      "unexplained_extra_row_count": 0,
+      "unexplained_blank_row_count": 0,
+      "rows_accounted": true
+    },
+    "generated_row_order_preserved": true,
+    "unexplained_extra_row_count": 0,
+    "unexplained_blank_row_gaps": [],
+    "structural_isolation_count": 0,
+    "applicable_line_pitch_pt": 21.1344,
+    "source_line_pitch_pt": 19.9971,
+    "region_left_pt": 70.8,
+    "plan_count": 15,
+    "reflow_vertical_failure_ids": [],
+    "plan_verdicts": [
+      {
+        "source_visual_line_id": "RF42-R01",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R02",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R03",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R04",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R05",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R06",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R07",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R08",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R09",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R10",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R11",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R12",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R13",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R14",
+        "pass": true
+      },
+      {
+        "source_visual_line_id": "RF42-R15",
+        "pass": true
+      }
+    ]
+  },
+  "frozen_phase": {
+    "available": false,
+    "reason": "v09_p3_closure_gate.evaluate_frozen_phase raises ValueError for phase 3 on the accepted baseline as well as on this build, so the wrapper gate v09_p3_reflow_vertical_gate.py cannot return a verdict; the frozen phase is neither claimed nor relaxed here"
+  }
+}

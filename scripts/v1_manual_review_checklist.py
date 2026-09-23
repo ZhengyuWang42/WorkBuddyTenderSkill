@@ -64,17 +64,153 @@ def delivery_warnings(build_dir: Path) -> list[str]:
     ]
 
 
+def structural_review_points(report: dict) -> list[str]:
+    """Manual verification steps derived from a structural gate report.
+
+    The gate proves the delivered OOXML and the painted page carry the intended
+    decoration and indents.  What no automated check can settle is whether the
+    result *looks* right in Word, so each automated claim is restated here as the
+    one thing the reviewer should look at - derived from the report's own
+    measurements, never from a remembered case, page or value.
+    """
+
+    measurements = report.get("measurements") or {}
+    slots = measurements.get("composite_slots") or []
+    page_rows = measurements.get("audited_source_page_paragraphs") or []
+    if not slots and not page_rows:
+        return []
+
+    lines: list[str] = []
+    lines.append("## 1.5 结构性修复的人工确认点 (structural fixes to confirm in Word)")
+    lines.append("")
+    lines.append(
+        "本节的每一项都由 `%s` 的测量结果派生，自动化已验证；"
+        "请在 Word 中对同一处做目视确认。" % (report.get("gate") or report.get("schema"))
+    )
+    lines.append("")
+
+    for slot in slots:
+        components = [
+            component
+            for component in (slot.get("bound_rules") or [])
+            if component.get("source_rule_id")
+        ]
+        lines.append("### 组合槽位下划线 (composite slot underline)")
+        lines.append("")
+        lines.append(
+            "- 源页 %s，交付页 %s，Word 段落索引 %s"
+            % (
+                slot.get("source_page"),
+                slot.get("generated_page"),
+                slot.get("generated_paragraph_index"),
+            )
+        )
+        lines.append("- 该槽位交付的值: `%s`" % slot.get("value"))
+        lines.append(
+            "- 人工复核点: 上列值中的**每一个组成部分**（事实值、源模板分隔符 %s、"
+            "源表格「不适用」标记 %s）都必须位于**同一条连续下划线**之上。"
+            % (
+                "、".join(
+                    "`%s`" % text
+                    for text in (slot.get("separator_occurrences") or {})
+                )
+                or "（无）",
+                "、".join("`%s`" % text for text in slot.get("marker_texts") or []),
+            )
+        )
+        lines.append(
+            "- [ ] 该值在 Word 中整段带下划线（含末尾的标记符号），无中断"
+        )
+        lines.append(
+            "- [ ] 紧邻其前与紧随其后的正文（%s）**没有**下划线"
+            % "、".join(
+                "`%s`" % run["text"]
+                for run in slot.get("slot_neighbour_runs") or ()
+                if (run.get("text") or "").strip()
+            )
+        )
+        lines.append(
+            "- [ ] `%s` 是源表格的「不适用」标记，**不是**被填写的字段值"
+            "（该字段状态为 %s，保持未定稿）"
+            % (
+                "/".join(slot.get("marker_texts") or []),
+                "、".join(
+                    "%s=%s" % (field, status)
+                    for field, status in (slot.get("marker_field_status") or {}).items()
+                ),
+            )
+        )
+        lines.append(
+            "- [ ] 该槽位只由 %d 条源规则记账（%s），无重复、无新增规则"
+            % (
+                len(components),
+                "、".join("`%s`" % item["source_rule_id"] for item in components),
+            )
+        )
+        lines.append("")
+
+    if page_rows:
+        lines.append("### 源段落缩进 (source paragraph indents)")
+        lines.append("")
+        lines.append(
+            "- 下列段落按**自身源文本行**逐段判定；同一页的不同列表项可以不同，"
+            "不要按列表样式整体推断。"
+        )
+        lines.append("")
+        labels = {
+            "FIRST_LINE_INDENT": "首行缩进",
+            "HANGING_INDENT": "悬挂缩进",
+            "NO_SPECIAL_FIRST_LINE_INDENT": "无特殊首行缩进",
+        }
+        for row in page_rows:
+            reason = row.get("exempt_reason")
+            detail = (
+                "由容器居中/锚定值定位，不适用通用缩进契约"
+                if reason
+                else "Word 左缩进 %.2f pt + 首行 %.2f pt（源首行 x=%.2f）"
+                % (
+                    row.get("word_left_pt") or 0.0,
+                    row.get("word_first_line_pt") or 0.0,
+                    row.get("source_first_row_x") or 0.0,
+                )
+            )
+            lines.append(
+                "- [ ] 段落 %s：%s - %s"
+                % (
+                    row.get("paragraph_index"),
+                    labels.get(row.get("classification"), row.get("classification")),
+                    detail,
+                )
+            )
+        lines.append("")
+        lines.append(
+            "- [ ] 确认上述段落**没有**被整体左缩进：首行缩进只影响第一行，"
+            "换行后的续行应回到正文左边界。"
+        )
+        lines.append("")
+
+    return lines
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--regression", type=Path,
                         default=ROOT / "acceptance/reports/v1_generalization/three_case_regression.json")
     parser.add_argument("--gate", type=Path,
                         default=ROOT / "acceptance/reports/v1_generalization/v1_automated_candidate_gate.json")
+    parser.add_argument("--structural-gate", type=Path, default=None,
+                        help="a structural gate report whose measured claims become "
+                             "explicit Word review steps")
     parser.add_argument("--out", required=True, type=Path)
     args = parser.parse_args(argv)
 
     regression = json.loads(resolve(args.regression).read_text(encoding="utf-8"))
     gate = json.loads(resolve(args.gate).read_text(encoding="utf-8"))
+    structural = None
+    if args.structural_gate is not None:
+        structural_path = resolve(args.structural_gate)
+        if structural_path.exists():
+            structural = json.loads(structural_path.read_text(encoding="utf-8"))
 
     lines: list[str] = []
     lines.append("# V1 人工 Word 复核清单 (human manual review checklist)")
@@ -133,6 +269,11 @@ def main(argv: list[str] | None = None) -> int:
             for warning in warnings:
                 lines.append("    - %s" % warning)
         lines.append("")
+
+    if structural is not None:
+        section = structural_review_points(structural)
+        if section:
+            lines.extend(section)
 
     lines.append("## 2. 案例特有复核点 (case-specific review points)")
     lines.append("")

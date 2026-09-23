@@ -1,0 +1,329 @@
+{
+  "schema": "v1_case001_manual_layout_closure_audit/1",
+  "round": "V1_CASE001_MANUAL_WORD_REVIEW_DEFECT_CLOSURE",
+  "baseline_commit": "8de9e1f343a6643e11ea5c6c8e1df015dda123a5",
+  "working_tree": [
+    "M acceptance/reports/v09_internal_preview/case001_v09_internal_preview_gate.json",
+    " M acceptance/reports/v09_internal_preview/current_build.json",
+    " M acceptance/reports/v09_internal_preview/p3_phase2_gate.json",
+    " M acceptance/reports/v09_internal_preview/p3_reflow_vertical_gate.json",
+    " M acceptance/reports/v09_internal_preview/source_line_assembly_gate.json",
+    " M acceptance/reports/v1_generalization/case001_acceptance.json",
+    " M acceptance/reports/v1_generalization/case002_acceptance.json",
+    " M acceptance/reports/v1_generalization/case003_acceptance.json",
+    " M acceptance/reports/v1_generalization/case_001_current_build.json",
+    " M acceptance/reports/v1_generalization/case_002_current_build.json",
+    " M acceptance/reports/v1_generalization/case_003_current_build.json",
+    " M acceptance/reports/v1_generalization/three_case_regression.json",
+    " M acceptance/reports/v1_generalization/v1_automated_candidate_gate.json",
+    " M acceptance/reports/v1_generalization/v1_manual_review_checklist.md",
+    " M tender_basic/page_layout.py",
+    " M tender_basic/word_safe_source_builder.py",
+    " M tender_basic/word_safe_xml.py",
+    " M tender_basic/word_style_source_builder.py",
+    " M tests/test_round56_source_visual_fidelity.py",
+    "?? acceptance/reports/v09_internal_preview/ownership_closure_gate_v1_manual_layout_closure.json",
+    "?? acceptance/reports/v1_generalization/case001_manual_layout_fidelity_gate.json",
+    "?? acceptance/reports/v1_generalization/case001_manual_layout_fidelity_gate_prefix.json",
+    "?? acceptance/reports/v1_generalization/case001_page_frame_audit.json",
+    "?? acceptance/reports/v1_generalization/case001_page_frame_audit_frame4.json",
+    "?? acceptance/reports/v1_generalization/case001_page_frame_audit_postfix.json",
+    "?? acceptance/reports/v1_generalization/case001_page_frame_audit_prefix.json",
+    "?? acceptance/reports/v1_generalization/case001_table_geometry.json",
+    "?? acceptance/reports/v1_generalization/case001_table_geometry_frame5.json",
+    "?? acceptance/reports/v1_generalization/case_002_layout_closure_acceptance.json",
+    "?? acceptance/reports/v1_generalization/case_003_layout_closure_acceptance.json",
+    "?? scripts/v1_manual_layout_fidelity_gate.py",
+    "?? scripts/v1_page_frame_audit.py",
+    "?? scripts/v1_page_table_geometry_audit.py",
+    "?? tender_basic/source_page_frame.py",
+    "?? tests/test_v1_manual_layout_fidelity_gate.py"
+  ],
+  "committed": false,
+  "pushed": false,
+  "root_cause": {
+    "module": "tender_basic/source_page_geometry.py (legacy; retained as the root-cause witness the audit re-derives)",
+    "mechanism": "per-page section margins derived from that one page's own source content x extrema (min body x0 / max body x1, tables included), clamped to MAX_MARGIN_RATIO 0.30 of the page width",
+    "clamp_ratio": 0.3,
+    "clamp_value_pt": 178.59,
+    "pages_whose_recorded_margin_is_content_extrema_driven": [
+      47,
+      50
+    ],
+    "pages_audited": 22,
+    "proven": true,
+    "consequence": "a sparse title-only page acquires the clamp margin on both sides (its content is centred on the page, so the narrowed column shifts every centred heading left by half the margin difference) and a table wider than the body contracts the text column; headings the source keeps on one line then wrap",
+    "measured_before": {
+      "left_margin_spread_pt": 113.25,
+      "right_margin_spread_pt": 125.05,
+      "top_margin_spread_pt": 19.0,
+      "centered_heading_pages_outside_tolerance": 8,
+      "max_center_error_pt": 53.88
+    },
+    "measured_after": {
+      "left_margin_spread_pt": 0.0,
+      "right_margin_spread_pt": 0.0,
+      "top_margin_spread_pt": 0.0,
+      "centered_heading_pages_outside_tolerance": 0,
+      "max_center_error_pt": 1.12
+    }
+  },
+  "fix": {
+    "stable_frame_module": "tender_basic/source_page_frame.py",
+    "frame_id": "PORTRAIT_595x842_1",
+    "left_margin_pt": 70.8,
+    "right_margin_pt": 70.9,
+    "top_body_frame_pt": 73.86,
+    "usable_text_width_pt": 453.6,
+    "left_anchor": {
+      "x": 70.8,
+      "kind": "text_left",
+      "pages": [
+        41,
+        42,
+        44,
+        45,
+        46,
+        47,
+        49,
+        50,
+        51,
+        52,
+        53,
+        61
+      ],
+      "support": 12,
+      "cluster": [
+        70.6,
+        70.8
+      ]
+    },
+    "right_anchor": {
+      "x": 524.4,
+      "kind": "text_right",
+      "pages": [
+        42,
+        43,
+        45,
+        47,
+        48,
+        49,
+        50,
+        51,
+        53,
+        60
+      ],
+      "support": 10,
+      "cluster": [
+        523.9,
+        524.4,
+        524.6
+      ]
+    },
+    "margin_spread_after_pt": {
+      "PORTRAIT_595x842_1": {
+        "left_margin_spread_pt": 0.0,
+        "right_margin_spread_pt": 0.0,
+        "top_margin_spread_pt": 0.0,
+        "page_count": 22
+      }
+    },
+    "single_row_join": "tender_basic/page_layout.py::single_visual_row_join (fill-slot offsets preserved)",
+    "row_line_context": "tender_basic/word_style_source_builder.py (single-row element with positioned atoms assembles its own row paragraph)",
+    "table_width_policy": "tender_basic/word_safe_source_builder.py::plan_table_width (page-edge clamp, never the text column)",
+    "form_row_right_overhang": "tender_basic/word_safe_source_builder.py::_row_right_indent",
+    "libreoffice_top_gap": "tender_basic/word_safe_xml.py::normalize_document_defaults + w:suppressSpBfAfterPgBrk w:val=false as first w:compat child"
+  },
+  "build": {
+    "build_id": "v1_manual_layout_closure",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_layout_closure",
+    "docx_sha256": "e358ff5d9f3ec85bcba8202b47e65c12407c2c77244c6365b168beb6d002bd8f",
+    "pdf_sha256": "fb2d54e4e990d3c580901ba7d245a4b2ad85299e1edf088b0785cdcd729cf514",
+    "generated_pages": 22,
+    "source_pages": 22,
+    "section_count": 22,
+    "libreoffice_returncode": 0
+  },
+  "page_frame_audit": {
+    "sections": 22,
+    "generated_pages": 22,
+    "blank_pages": [],
+    "pages_using_the_stable_frame": 22,
+    "centered_heading_pages": 22,
+    "centered_heading_pages_outside_tolerance": [],
+    "max_center_error_pt": 1.12,
+    "source_one_line_headings_wrapped": [],
+    "single_row_elements_checked": 63,
+    "pages_with_a_split_source_row": [],
+    "split_source_rows": [],
+    "unmeasured_source_rows": [
+      {
+        "generated_page": 3,
+        "source_element_kind": "LogicalParagraph",
+        "source_text": "(采购人名称) ：",
+        "leading_marker": "(采",
+        "leading_found": false,
+        "trailing_marker": "名称):",
+        "trailing_found": false,
+        "reason": "TRACE_TEXT_REPLACED_OR_ABSENT"
+      },
+      {
+        "generated_page": 21,
+        "source_element_kind": "LogicalParagraph",
+        "source_text": "在（项目名称、标段）询比活动中，我公司保证做到：",
+        "leading_marker": "在(",
+        "leading_found": false,
+        "trailing_marker": "证做到:",
+        "trailing_found": true,
+        "reason": "TRACE_MARKER_REPLACED_OR_ABSENT"
+      }
+    ]
+  },
+  "table_geometry_audit": {
+    "tables": 5,
+    "source_reproduced": 5,
+    "font_metric_only": 0,
+    "avoidable_drift": [],
+    "clamped_tables": [],
+    "max_abs_width_delta_pt": 0.0,
+    "max_abs_x1_delta_pt": 0.0,
+    "rendered_pages_with_table_box": 5
+  },
+  "manual_layout_fidelity_gate": {
+    "status": "PASS",
+    "failed_checks": [],
+    "checks": [
+      "section_frame_margin_spread_zero",
+      "every_page_conforms_to_its_section_frame",
+      "section_count_matches_page_count",
+      "frame_anchor_is_a_repeated_text_edge",
+      "centered_headings_sit_on_the_page_centre",
+      "source_one_line_headings_stay_one_line",
+      "no_source_row_is_split_across_generated_lines",
+      "no_unexpected_blank_page",
+      "table_width_keeps_the_source_geometry"
+    ],
+    "thresholds": {
+      "frame_spread_tolerance_pt": 0.5,
+      "center_error_tolerance_pt": 2.0,
+      "table_width_tolerance_pt": 1.0,
+      "min_frame_anchor_support": 2
+    }
+  },
+  "automated_regression": {
+    "case001_acceptance": "PASS",
+    "case001_acceptance_problems": [],
+    "three_case_regression": "PASS",
+    "p3_phase2_horizontal": {
+      "status": "PASS",
+      "failed_checks": []
+    },
+    "p3_reflow_vertical_REFLOW_AWARE_V1": {
+      "status": "PASS",
+      "failed_checks": []
+    },
+    "source_line_assembly": {
+      "status": "PASS",
+      "failed_checks": []
+    },
+    "execution_ownership": {
+      "status": "PASS",
+      "failed_checks": []
+    },
+    "case001_internal_preview": {
+      "status": "PASS",
+      "failed_checks": []
+    }
+  },
+  "automated_candidate": {
+    "status": "V1_AUTOMATED_CANDIDATE",
+    "result": "PASS",
+    "flags": {
+      "INTERNAL_PREVIEW": true,
+      "READY_FOR_INTERNAL_TRIAL": true,
+      "MANUAL_WORD_REVIEW_REQUIRED": true,
+      "READY_FOR_SUBMISSION": false
+    }
+  },
+  "product_status": {
+    "V1_AUTOMATED_CANDIDATE": true,
+    "CASE001_MANUAL_WORD_REVIEW": "BLOCKED",
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false,
+    "MANUAL_WORD_REVIEW_REQUIRED": true
+  },
+  "case001_layout_blockers": [],
+  "manual_review": {
+    "required": true,
+    "auto_completed": false,
+    "artifacts_to_open_in_desktop_word": [
+      "acceptance/workspace/case_001/v1_manual_layout_closure/基础投标文件.docx",
+      "acceptance/workspace/case_002/v1_manual_layout_closure/基础投标文件.docx",
+      "acceptance/workspace/case_003/v1_manual_layout_closure/基础投标文件.docx"
+    ],
+    "preserved_earlier_reviewed_builds": [
+      "acceptance/workspace/case_001/v1_phaseC_final2/基础投标文件.docx",
+      "acceptance/workspace/case_002/v1_phaseC_final/基础投标文件.docx",
+      "acceptance/workspace/case_003/v1_phaseC_final/基础投标文件.docx"
+    ]
+  },
+  "renderer_dependent_verification_note": "LibreOffice only honours a page-top space-before because docDefaults paragraph spacing was cleared to before=0/after=0; Microsoft Word reaches the same page top through w:suppressSpBfAfterPgBrk w:val=false plus compatibility mode 14. The generated top-gap therefore needs confirmation in desktop Word.",
+  "font_metric_note": "Word row heights are minimums and the two renderers measure CJK fallback fonts differently; every measured row-height delta is inside max(2.0 pt, 25% of the row height) and is classified FONT_METRIC_ONLY, not avoidable drift.",
+  "generated_vs_source_22_page_comparison": {
+    "schema": "v1_case001_page_frame_audit/1",
+    "report": "acceptance/reports/v1_generalization/case001_page_frame_audit.json",
+    "pages_compared": 22,
+    "per_page_fields": [
+      "generated_page",
+      "source_page",
+      "frame_id",
+      "section margins",
+      "frame_conformance",
+      "source.visible_x0/x1/first_content_y",
+      "generated.visible_x0/x1/first_content_y",
+      "heading.source_center_x/generated_center_x/center_error_pt",
+      "source_row_integrity",
+      "root_cause"
+    ],
+    "distinct_section_margin_triples": [
+      [
+        70.8,
+        70.9,
+        73.85
+      ]
+    ],
+    "max_abs_visible_x0_delta_pt": 4.85,
+    "max_abs_visible_x1_delta_pt": 21.71,
+    "max_abs_first_content_y_delta_pt": 8.0,
+    "note": "visible ink extents, not text origins: a page whose source ink overhangs the body frame right and a page whose first element is a table carry the largest deltas"
+  },
+  "table_geometry_audit_report": "acceptance/reports/v1_generalization/case001_table_geometry.json",
+  "manual_layout_fidelity_gate_report": "acceptance/reports/v1_generalization/case001_manual_layout_fidelity_gate.json",
+  "manual_layout_fidelity_gate_prefix_report": "acceptance/reports/v1_generalization/case001_manual_layout_fidelity_gate_prefix.json",
+  "full_test_suite": {
+    "report": "acceptance/reports/v09_internal_preview/v09_full_test_suite.xml",
+    "tests": 455,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skipped_reason": "desktop Word COM gate is run explicitly on the Windows acceptance host",
+    "elapsed_s": 73.851
+  },
+  "reproducibility": {
+    "docx_content_parts_identical_across_builds": true,
+    "container_bytes_identical": false,
+    "note": "every DOCX package part hashes identically across two independent fresh builds; only the zip envelope bytes differ (archive metadata)"
+  },
+  "blocker_closure": {
+    "P2_centered_heading_page_1": "CLOSED - section frame 70.80/70.90 on all 22 pages; centred headings within 1.12 pt of the page centre",
+    "P4_page_4_table": "CLOSED - source table 65.33..524.57 reproduced at width 459.24 pt (indent -5.45 pt), SOURCE_REPRODUCED",
+    "P5_page_5_form_line": "CLOSED - 系 + (供应商名称) + 的法定代表人。 now one rendered row (was two); fill-slot offsets preserved",
+    "P6_page_6_signature_rows": "CLOSED - the three 供应商/法定代表人/委托代理人 rows each render one row at x 323.50..527.50, matching source 323.40..533.40",
+    "P7_centered_heading_page_7": "CLOSED - same stable frame, centre error -0.03 pt",
+    "P8_page_8_frame": "CLOSED - page 8 section margins 70.80/70.90 equal the frame exactly",
+    "P9_page_9_table": "CLOSED - source table 65.33..541.77 reproduced at width 476.44 pt, 9 columns within 0.02 pt, previously clamped to the 453.60 pt text column",
+    "P15_page_15_heading": "CLOSED - one rendered line (八、响应货物技术性能指标的详细描述及技术支持资料)",
+    "P18_page_18_heading": "CLOSED - one rendered line (十一、质量保证体系、质量控制文件及质量保证措施)",
+    "P22_centered_heading_page_22": "CLOSED - same stable frame, centre error 0.04 pt"
+  }
+}

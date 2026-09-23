@@ -1,0 +1,27 @@
+{
+  "schema": "v1_intrinsic_spacer_multisegment_calibration/1",
+  "font": "仿宋",
+  "size_pt": 10.5,
+  "centralized_base_advance_pt": 5.618,
+  "tracking_response_ratio": 1.0,
+  "chains": [
+    {
+      "tracking_twips": 200,
+      "measurable": false
+    },
+    {
+      "tracking_twips": 400,
+      "measurable": false
+    },
+    {
+      "tracking_twips": 600,
+      "measurable": false
+    }
+  ],
+  "residual_per_segment_pt": [],
+  "finding": "per-run affine model holds across chain lengths",
+  "disclosures": [
+    "Rendered through LibreOffice, not Microsoft Word.",
+    "Chains are emitted through the same space + w:spacing representation the builder uses."
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "schema": "v1_manual_layout_fidelity/1",
+  "gate": "v1_manual_word_review_layout_fidelity",
+  "label": "case_001_final",
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "section_frame_margin_spread_zero",
+      "ok": true,
+      "observed": {
+        "spreads": {
+          "PORTRAIT_595x842_1": {
+            "left_margin_spread_pt": 0.0,
+            "right_margin_spread_pt": 0.0,
+            "top_margin_spread_pt": 0.0,
+            "page_count": 22
+          }
+        },
+        "outside_tolerance": {}
+      },
+      "note": "tolerance 0.5 pt"
+    },
+    {
+      "check": "every_page_conforms_to_its_section_frame",
+      "ok": true,
+      "observed": {
+        "pages_not_conforming": [],
+        "page_count": 22
+      },
+      "note": ""
+    },
+    {
+      "check": "section_count_matches_page_count",
+      "ok": true,
+      "observed": {
+        "pages_grouped_into_a_frame": 22,
+        "measured_pages": 22,
+        "pages_by_frame": {
+          "PORTRAIT_595x842_1": 22
+        },
+        "sections": 22,
+        "generated_pages": 22
+      },
+      "note": ""
+    },
+    {
+      "check": "frame_anchor_is_a_repeated_text_edge",
+      "ok": true,
+      "observed": {
+        "frames_without_a_repeated_text_edge": []
+      },
+      "note": "a frame must be a repeated text body edge, or the centring symmetry of the body; minimum support 2 pages"
+    },
+    {
+      "check": "centered_headings_sit_on_the_page_centre",
+      "ok": true,
+      "observed": {
+        "centered_heading_pages": 22,
+        "outside_tolerance": [],
+        "max_center_error_pt": 1.12
+      },
+      "note": "tolerance 2.0 pt"
+    },
+    {
+      "check": "source_one_line_headings_stay_one_line",
+      "ok": true,
+      "observed": {
+        "wrapped": []
+      },
+      "note": ""
+    },
+    {
+      "check": "no_source_row_is_split_across_generated_lines",
+      "ok": true,
+      "observed": {
+        "pages_with_a_split_source_row": [],
+        "split_source_rows": [],
+        "single_row_elements_checked": 63,
+        "unmeasured_source_rows": [
+          {
+            "generated_page": 3,
+            "source_element_kind": "LogicalParagraph",
+            "source_text": "(采购人名称) ：",
+            "leading_marker": "(采",
+            "leading_found": false,
+            "trailing_marker": "名称):",
+            "trailing_found": false,
+            "reason": "TRACE_TEXT_REPLACED_OR_ABSENT"
+          },
+          {
+            "generated_page": 21,
+            "source_element_kind": "LogicalParagraph",
+            "source_text": "在（项目名称、标段）询比活动中，我公司保证做到：",
+            "leading_marker": "在(",
+            "leading_found": false,
+            "trailing_marker": "证做到:",
+            "trailing_found": true,
+            "reason": "TRACE_MARKER_REPLACED_OR_ABSENT"
+          }
+        ]
+      },
+      "note": "an unmeasured source row is a row whose trace markers were replaced by a resolved value; it is reported, not failed"
+    },
+    {
+      "check": "no_unexpected_blank_page",
+      "ok": true,
+      "observed": {
+        "blank_pages": []
+      },
+      "note": ""
+    },
+    {
+      "check": "table_width_keeps_the_source_geometry",
+      "ok": true,
+      "observed": {
+        "tables": 5,
+        "source_reproduced": 5,
+        "font_metric_only": 0,
+        "avoidable_drift": [],
+        "clamped_tables": [],
+        "max_abs_width_delta_pt": 0.0,
+        "max_abs_x1_delta_pt": 0.0,
+        "rendered_pages_with_table_box": 5
+      },
+      "note": "tolerance 1.0 pt; every source table must be painted at its own source width, never clamped to the section text column"
+    },
+    {
+      "check": "source_underline_inventory_is_complete",
+      "ok": true,
+      "observed": {
+        "source_underline_count": 8,
+        "matched": 8,
+        "lost": 0,
+        "invented": 0,
+        "out_of_tolerance": 0,
+        "tolerance_pt": 2.0,
+        "response_letter_source_page": 42,
+        "response_letter_generated_page": 3,
+        "page_mapping_basis": "MEASURED_BY_RULE_START_AGREEMENT",
+        "lost_rules": [],
+        "offending_rules": [],
+        "invented_rules": []
+      },
+      "note": "every source underline on the response-letter page is accounted for exactly once, at the source's own geometry, inside the frozen horizontal tolerance, which is never relaxed to make a rule agree"
+    }
+  ],
+  "failed_checks": [],
+  "thresholds": {
+    "frame_spread_tolerance_pt": 0.5,
+    "center_error_tolerance_pt": 2.0,
+    "table_width_tolerance_pt": 1.0,
+    "min_frame_anchor_support": 2,
+    "underline_tolerance_pt": 2.0
+  },
+  "build": {
+    "build_id": "v1_manual_fidelity_round3_word_review_final",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final",
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\基础投标文件.docx",
+    "docx_sha256": "16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191",
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\基础投标文件.pdf",
+    "pdf_sha256": "ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174",
+    "generated_pages": 22,
+    "source_pages": 22,
+    "section_count": 22
+  },
+  "source_audits": {
+    "frame": "v1_case001_page_frame_audit/1",
+    "table": "v1_table_geometry_audit/1",
+    "underline_inventory": "v1_underline_inventory/1"
+  },
+  "manual_review_required": true,
+  "readiness": {
+    "READY_FOR_SUBMISSION": false,
+    "note": "This gate proves the automated layout contract only. Manual Word review remains required and cannot be completed by automation."
+  }
+}

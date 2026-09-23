@@ -181,6 +181,12 @@ class SourceCell(ContractModel):
     cell_role: Literal["HEADER", "BODY_TEXT", "NUMERIC", "UNIT"] = "BODY_TEXT"
     characters: list[CharacterGeometry] = Field(default_factory=list)
     raised_glyphs: list[RaisedGlyph] = Field(default_factory=list)
+    #: Horizontal rules the source drew *inside* this cell as ``(x0, x1, y)``.
+    #: The table's own borders are its geometry; a rule that is not a border is
+    #: content - the underline of a value the source filled in, or the blank a
+    #: fixed field leaves.  Delivering the cell without them loses the source's
+    #: own emphasis.
+    content_rules: list[tuple[float, float, float]] = Field(default_factory=list)
     typography_role: TypographyRole = TypographyRole.TABLE_BODY
 
 
@@ -1114,6 +1120,7 @@ def _table_cell_from_pdf(
     page_spans: Sequence[PdfTextSpan] = (),
     page_size: tuple[float, float] | None = None,
     artifact_report: dict[str, object] | None = None,
+    content_rules: Sequence[tuple[float, float, float]] = (),
 ) -> SourceCell:
     text, runs = _clean_table_cell_text(
         cell,
@@ -1141,7 +1148,79 @@ def _table_cell_from_pdf(
         horizontal_alignment=_cell_alignment(cell, runs),
         characters=characters,
         raised_glyphs=raised,
+        content_rules=[
+            (round(float(x0), 2), round(float(x1), 2), round(float(y), 2))
+            for x0, x1, y in content_rules
+        ],
     )
+
+
+#: How far a drawn line may sit from a row boundary and still be that border.
+CELL_RULE_BORDER_TOLERANCE = 1.2
+#: A drawn line spanning at least this fraction of the table's width is the
+#: table's own grid rather than content the source placed inside a cell.
+CELL_RULE_GRID_WIDTH_RATIO = 0.9
+
+
+def _table_content_rules(table: PdfTable, page_lines: Sequence[PdfVectorLine]) -> dict:
+    """Horizontal rules drawn *inside* the table's cells, keyed by cell.
+
+    A table's own grid is geometry: its borders lie on row boundaries and span
+    the table.  A rule that is neither is content the source drew inside a cell -
+    the underline of a filled-in value, or the blank a fixed field leaves.  Losing
+    it loses the source's own emphasis, so the cell that owns it keeps it.
+
+    The classification is the table's own geometry and the page's own drawings,
+    never a page number, a table index or a literal string.
+    """
+
+    cells = [
+        cell
+        for row in table.rows
+        for cell in row.cells
+        if cell.bbox is not None
+    ]
+    if not cells:
+        return {}
+    boundaries = set()
+    for cell in cells:
+        boundaries.add(round(float(cell.bbox[1]), 1))
+        boundaries.add(round(float(cell.bbox[3]), 1))
+    table_width = float(table.bbox[2]) - float(table.bbox[0])
+    found: dict = {}
+    for line in page_lines or ():
+        if getattr(line, "orientation", None) != "horizontal":
+            continue
+        x0, y0, x1, y1 = (float(value) for value in line.bbox)
+        if x1 < x0:
+            x0, x1 = x1, x0
+        y = (y0 + y1) / 2.0
+        center = (x0 + x1) / 2.0
+        if not (float(table.bbox[1]) - 1.0 <= y <= float(table.bbox[3]) + 1.0):
+            continue
+        if not (float(table.bbox[0]) - 1.0 <= center <= float(table.bbox[2]) + 1.0):
+            continue
+        if table_width > 0 and (x1 - x0) >= table_width * CELL_RULE_GRID_WIDTH_RATIO:
+            continue
+        if any(abs(y - boundary) <= CELL_RULE_BORDER_TOLERANCE for boundary in boundaries):
+            continue
+        owner = next(
+            (
+                cell
+                for cell in cells
+                if float(cell.bbox[1]) - 1.0 <= y <= float(cell.bbox[3]) + 1.0
+                and float(cell.bbox[0]) - 1.0 <= center <= float(cell.bbox[2]) + 1.0
+            ),
+            None,
+        )
+        if owner is None:
+            continue
+        found.setdefault((owner.row_index, owner.column_index), []).append(
+            (x0, x1, y)
+        )
+    for rules in found.values():
+        rules.sort(key=lambda rule: (rule[2], rule[0]))
+    return found
 
 
 def _cell_line_boxes(runs: Sequence[SourceRun]) -> list[tuple[float, float, float]]:
@@ -1226,16 +1305,33 @@ def _classify_cell_alignment(
         body = lines[:-1]
         last = lines[-1]
         if body:
+            edge_pad = max(6.0, width * 0.03)
             wide = sum(
                 1 for _, x0, x1 in body
-                if (x0 - float(cell_box[0])) <= max(6.0, width * 0.03)
-                and (float(cell_box[2]) - x1) <= max(6.0, width * 0.03)
+                if (x0 - float(cell_box[0])) <= edge_pad
+                and (float(cell_box[2]) - x1) <= edge_pad
             )
             fill_ratio = wide / len(body)
             last_width = last[2] - last[1]
             body_widths = [(x1 - x0) for _, x0, x1 in body]
             mean_body = sum(body_widths) / len(body_widths) if body_widths else 0.0
-            if fill_ratio >= 0.6 and last_width < mean_body * 0.9:
+            # A justified paragraph never stretches its final line: that line
+            # stays ranged left, flush with the leading edge the body lines
+            # start from.  A short final line that does not share that leading
+            # edge is a *centred* (or right-aligned) last line, so the cell is
+            # not justified however well its body lines reach both edges - this
+            # is what separates a justified cell from a cell whose text simply
+            # wrapped because it is wider than the column.
+            body_indents = [x0 - float(cell_box[0]) for _, x0, _ in body]
+            mean_body_indent = sum(body_indents) / len(body_indents)
+            last_line_is_ranged_left = (
+                abs((last[1] - float(cell_box[0])) - mean_body_indent) <= edge_pad
+            )
+            if (
+                fill_ratio >= 0.6
+                and last_width < mean_body * 0.9
+                and last_line_is_ranged_left
+            ):
                 return CellAlignmentEvidence(
                     "justify", "body lines fill both cell edges and the last line is shorter",
                     len(lines), left_pad, right_pad, left_spread, right_spread, center_spread, fill_ratio,
@@ -1354,8 +1450,10 @@ def _table_from_pdf(
     page_spans: Sequence[PdfTextSpan] = (),
     page_size: tuple[float, float] | None = None,
     artifact_report: dict[str, object] | None = None,
+    page_lines: Sequence[PdfVectorLine] = (),
 ) -> SourceTable:
     regions = (chrome_regions or {}).get(table.page, ())
+    content_rules = _table_content_rules(table, page_lines)
     rows = [
         SourceRow(
             row_index=row.row_index,
@@ -1372,6 +1470,9 @@ def _table_from_pdf(
                     page_spans=page_spans,
                     page_size=page_size,
                     artifact_report=artifact_report,
+                    content_rules=content_rules.get(
+                        (cell.row_index, cell.column_index), ()
+                    ),
                 )
                 for cell in row.cells
             ],
@@ -2066,6 +2167,7 @@ def build_source_format_model(
                 ],
                 page_size=(page.width, page.height),
                 artifact_report=artifact_report,
+                page_lines=page.vector_lines,
             )
             page_tables.append(source_table)
             page_elements.append(SourcePageElement(type="table", index=len(page_tables) - 1, bbox=source_table.bbox))

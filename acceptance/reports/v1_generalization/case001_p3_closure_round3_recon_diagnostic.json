@@ -1,0 +1,810 @@
+{
+  "gate": "v09_p3_closure_phase2",
+  "phase": 2,
+  "status": "FAIL",
+  "checks": {
+    "fresh_generated_pdf": true,
+    "fresh_generated_report": true,
+    "p3_scope_complete": false,
+    "horizontal_within_tolerance": false,
+    "exact_span_rules_intact": false,
+    "accepted_composition_set_unchanged": true,
+    "rule_accounting_complete": true,
+    "no_cross_page_rule_binding": false,
+    "emission_scope_is_p3": true
+  },
+  "failed_checks": [
+    "p3_scope_complete",
+    "horizontal_within_tolerance",
+    "exact_span_rules_intact",
+    "no_cross_page_rule_binding"
+  ],
+  "build": {
+    "source_pdf": "acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "source_pdf_page_count": 61,
+    "generated_pdf": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography\\基础投标文件.pdf",
+    "generated_pdf_sha256": "88550900374e68af1ddb66ad32899e594a548222036d265ce7c9ee3ec08e0747",
+    "generated_pdf_page_count": 22,
+    "generation_report": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography\\generation_report.json",
+    "generation_report_sha256": "d8e3b52d7d890aca79c9b7d2e6e572dc29c43cc231c7895b67eaa611cd03f48a"
+  },
+  "tolerance_pt": 2.0,
+  "p3_source_page": 42,
+  "p3_generated_page": 3,
+  "source_to_generated_y_offset_pt": -33.3,
+  "source_row_origin_offset_pt": -2.13,
+  "source_line_pitch_pt": 19.95,
+  "row_offset_evidence": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_y": 138.35,
+      "generated_band_y": 140.48,
+      "row_delta_pt": -2.13
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_y": 158.4,
+      "generated_band_y": 161.58,
+      "row_delta_pt": -3.18
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_y": 198.35,
+      "generated_band_y": 224.88,
+      "row_delta_pt": -26.53
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_y": 218.4,
+      "generated_band_y": 251.7,
+      "row_delta_pt": -33.3
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_y": 318.35,
+      "generated_band_y": 357.5,
+      "row_delta_pt": -39.15
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_y": 418.4,
+      "generated_band_y": 463.15,
+      "row_delta_pt": -44.75
+    }
+  ],
+  "row_origin_supported_rule_ids": [
+    "P42-R1",
+    "P42-R2"
+  ],
+  "row_origin_alternatives": [
+    {
+      "offset_pt": -3.18,
+      "supported_source_rule_ids": [
+        "P42-R1",
+        "P42-R2"
+      ]
+    },
+    {
+      "offset_pt": -26.53,
+      "supported_source_rule_ids": [
+        "P42-R5"
+      ]
+    },
+    {
+      "offset_pt": -33.3,
+      "supported_source_rule_ids": [
+        "P42-R6"
+      ]
+    }
+  ],
+  "shared_source_rows": [
+    178.4
+  ],
+  "preamble_source_rows": [
+    138.35,
+    158.4,
+    178.4,
+    198.35,
+    218.4,
+    318.35,
+    418.4
+  ],
+  "preamble_generated_rows": [
+    140.5,
+    161.6,
+    224.9,
+    251.7,
+    357.5,
+    463.1
+  ],
+  "vertical_row_order": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_row": 138.35,
+      "expected_source_row_index": 0,
+      "generated_row_y": 140.48,
+      "actual_source_row": 138.35,
+      "actual_source_row_index": 0,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_row": 158.4,
+      "expected_source_row_index": 1,
+      "generated_row_y": 161.58,
+      "actual_source_row": 158.4,
+      "actual_source_row_index": 1,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_row": 178.4,
+      "expected_source_row_index": 2,
+      "generated_row_y": null,
+      "actual_source_row": null,
+      "actual_source_row_index": null,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_row": 178.4,
+      "expected_source_row_index": 2,
+      "generated_row_y": null,
+      "actual_source_row": null,
+      "actual_source_row_index": null,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_row": 198.35,
+      "expected_source_row_index": 3,
+      "generated_row_y": 224.88,
+      "actual_source_row": 218.4,
+      "actual_source_row_index": 4,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_row": 218.4,
+      "expected_source_row_index": 4,
+      "generated_row_y": 251.7,
+      "actual_source_row": 218.4,
+      "actual_source_row_index": 4,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_row": 318.35,
+      "expected_source_row_index": 5,
+      "generated_row_y": 357.5,
+      "actual_source_row": 318.35,
+      "actual_source_row_index": 5,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_row": 418.4,
+      "expected_source_row_index": 6,
+      "generated_row_y": 463.15,
+      "actual_source_row": 418.4,
+      "actual_source_row_index": 6,
+      "row_preserved": true
+    }
+  ],
+  "vertical_row_order_preserved": false,
+  "vertical_blocker": null,
+  "source_rule_count": 8,
+  "painted_rule_count": 19,
+  "emitted_source_rule_ids": [
+    "P42-R1",
+    "P42-R2",
+    "P42-R3",
+    "P42-R5",
+    "P42-R6",
+    "P42-R7",
+    "P42-R8",
+    "P44-R12",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R4",
+    "P45-R5"
+  ],
+  "missing_frozen_rule_ids": [
+    "P42-R4"
+  ],
+  "horizontal_failure_ids": [
+    "P42-R3",
+    "P42-R4"
+  ],
+  "vertical_failure_ids": [
+    "P42-R3",
+    "P42-R4",
+    "P42-R5",
+    "P42-R6",
+    "P42-R7",
+    "P42-R8"
+  ],
+  "cross_page_rule_ids": [
+    "P42-R3",
+    "P42-R4"
+  ],
+  "emission_scope_out_of_p3_pages": [],
+  "accepted_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R5"
+  ],
+  "observed_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P44-R12",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R4",
+    "P45-R5"
+  ],
+  "composition_preservation": {
+    "preserved": true,
+    "accepted": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "missing": [],
+    "additions": [
+      "P44-R12",
+      "P45-R4"
+    ],
+    "additions_without_source_glyphs": []
+  },
+  "rows": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "frozen_source_y": 138.35,
+      "registry_relation_type": "TEXT_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA1",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 94.9,
+        "generated_x1": 286.9,
+        "generated_band_center_y": 140.48,
+        "text": "河南省水利第二工程局集团有限公司",
+        "char_count": 16,
+        "generated_decoration_y": 140.48,
+        "x0_error": 0.1,
+        "x1_error": 92.3,
+        "generated_y": 138.35,
+        "y_error": 0.0
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "frozen_source_y": 158.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA2",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 198.2,
+        "generated_x1": 341.96,
+        "generated_band_center_y": 161.58,
+        "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "char_count": 49,
+        "generated_decoration_y": 161.58,
+        "x0_error": 0.1,
+        "x1_error": -33.74,
+        "generated_y": 159.45,
+        "y_error": 1.05
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": null,
+      "emission_mechanism": null,
+      "horizontal_pass": false,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": null,
+      "emission_mechanism": null,
+      "horizontal_pass": false,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "frozen_source_y": 198.35,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": {
+        "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+        "fact_fields": [
+          "duration"
+        ],
+        "resolved_values": [
+          "30日历天"
+        ],
+        "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+        "application_id": "SFA3"
+      },
+      "composition": null,
+      "application_id": "SFA3",
+      "application_kind": "VALUE_IN_FIXED_SLOT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 131.95,
+        "generated_x1": 182.93,
+        "generated_band_center_y": 224.88,
+        "text": "30日历天",
+        "char_count": 5,
+        "generated_decoration_y": 224.88,
+        "x0_error": 0.1,
+        "x1_error": 1.53,
+        "generated_y": 222.75,
+        "y_error": 24.4
+      },
+      "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "frozen_source_y": 218.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 94.9,
+        "x1": 150.7,
+        "y": 251.7,
+        "width": 55.8
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 94.9,
+        "generated_x1": 150.7,
+        "generated_band_center_y": 251.7,
+        "segment_count": 1,
+        "generated_decoration_y": 251.7,
+        "x0_error": -0.35,
+        "x1_error": -0.35,
+        "generated_y": 249.57,
+        "y_error": 31.17
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "frozen_source_y": 318.35,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 357.5,
+        "segment_count": 3
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 352.8,
+        "generated_x1": 388.8,
+        "generated_band_center_y": 357.5,
+        "segment_count": 3,
+        "generated_decoration_y": 357.5,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 355.37,
+        "y_error": 37.02
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "frozen_source_y": 418.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 463.15,
+        "width": 96.0
+      },
+      "value_run": null,
+      "composition": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 463.15,
+        "segment_count": 1
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 112.9,
+        "generated_x1": 208.9,
+        "generated_band_center_y": 463.15,
+        "segment_count": 1,
+        "generated_decoration_y": 463.15,
+        "x0_error": 0.1,
+        "x1_error": 0.1,
+        "generated_y": 461.02,
+        "y_error": 42.62
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    }
+  ],
+  "in_scope_rows": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "frozen_source_y": 138.35,
+      "registry_relation_type": "TEXT_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA1",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 94.9,
+        "generated_x1": 286.9,
+        "generated_band_center_y": 140.48,
+        "text": "河南省水利第二工程局集团有限公司",
+        "char_count": 16,
+        "generated_decoration_y": 140.48,
+        "x0_error": 0.1,
+        "x1_error": 92.3,
+        "generated_y": 138.35,
+        "y_error": 0.0
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "frozen_source_y": 158.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA2",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 198.2,
+        "generated_x1": 341.96,
+        "generated_band_center_y": 161.58,
+        "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "char_count": 49,
+        "generated_decoration_y": 161.58,
+        "x0_error": 0.1,
+        "x1_error": -33.74,
+        "generated_y": 159.45,
+        "y_error": 1.05
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": null,
+      "emission_mechanism": null,
+      "horizontal_pass": false,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": null,
+      "emission_mechanism": null,
+      "horizontal_pass": false,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "frozen_source_y": 198.35,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": {
+        "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+        "fact_fields": [
+          "duration"
+        ],
+        "resolved_values": [
+          "30日历天"
+        ],
+        "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+        "application_id": "SFA3"
+      },
+      "composition": null,
+      "application_id": "SFA3",
+      "application_kind": "VALUE_IN_FIXED_SLOT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 131.95,
+        "generated_x1": 182.93,
+        "generated_band_center_y": 224.88,
+        "text": "30日历天",
+        "char_count": 5,
+        "generated_decoration_y": 224.88,
+        "x0_error": 0.1,
+        "x1_error": 1.53,
+        "generated_y": 222.75,
+        "y_error": 24.4
+      },
+      "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "frozen_source_y": 218.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 94.9,
+        "x1": 150.7,
+        "y": 251.7,
+        "width": 55.8
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 94.9,
+        "generated_x1": 150.7,
+        "generated_band_center_y": 251.7,
+        "segment_count": 1,
+        "generated_decoration_y": 251.7,
+        "x0_error": -0.35,
+        "x1_error": -0.35,
+        "generated_y": 249.57,
+        "y_error": 31.17
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "frozen_source_y": 318.35,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 357.5,
+        "segment_count": 3
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 352.8,
+        "generated_x1": 388.8,
+        "generated_band_center_y": 357.5,
+        "segment_count": 3,
+        "generated_decoration_y": 357.5,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 355.37,
+        "y_error": 37.02
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "frozen_source_y": 418.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 463.15,
+        "width": 96.0
+      },
+      "value_run": null,
+      "composition": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 463.15,
+        "segment_count": 1
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 112.9,
+        "generated_x1": 208.9,
+        "generated_band_center_y": 463.15,
+        "segment_count": 1,
+        "generated_decoration_y": 463.15,
+        "x0_error": 0.1,
+        "x1_error": 0.1,
+        "generated_y": 461.02,
+        "y_error": 42.62
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    }
+  ]
+}

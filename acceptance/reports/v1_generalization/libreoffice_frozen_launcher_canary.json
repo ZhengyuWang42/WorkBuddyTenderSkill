@@ -1,0 +1,66 @@
+{
+  "canary": "libreoffice_frozen_launcher",
+  "invocation": {
+    "launcher_module": "scripts/render_case57.py",
+    "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+    "argv": [
+      "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/_lo_canary_frozen_launcher/_lo_profile_2bf04d4dcbfc",
+      "--headless",
+      "--norestore",
+      "--invisible",
+      "--convert-to",
+      "pdf",
+      "--outdir",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\基础投标文件.docx"
+    ],
+    "argv_is_list": true,
+    "cwd": "D:\\PyCharmProjects\\WBTenderSkill",
+    "user_installation_argument": "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/_lo_canary_frozen_launcher/_lo_profile_2bf04d4dcbfc",
+    "profile_directory": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\_lo_profile_2bf04d4dcbfc",
+    "profile_directory_absolute": true,
+    "profile_name_has_uuid": true,
+    "profile_is_project_controlled": true,
+    "shell": false,
+    "capture_output": true,
+    "creation_flags": "CREATE_NO_WINDOW",
+    "input_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\基础投标文件.docx",
+    "input_path_absolute": true,
+    "output_directory": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher",
+    "output_directory_absolute": true,
+    "environment_overrides": {},
+    "environment_before": {
+      "URE_BOOTSTRAP": null,
+      "UNO_PATH": null,
+      "SAL_CONFIGFILE": null,
+      "HOME": null,
+      "USERPROFILE": "C:\\Users\\WPG",
+      "APPDATA": "C:\\Users\\WPG\\AppData\\Roaming",
+      "LOCALAPPDATA": "C:\\Users\\WPG\\AppData\\Local"
+    },
+    "bootstrap_ini_sha256_before": "9bc1ffa0360adacad9666d1b9d5be2b09e3f9ff1eb851a05f168393819cbabe0"
+  },
+  "result": {
+    "returncode": 0,
+    "stdout_tail": "convert D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\����Ͷ���ļ�.docx as a Writer document -> D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\����Ͷ���ļ�.pdf using filter : writer_pdf_Export\n",
+    "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
+    "pdf_path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\_lo_canary_frozen_launcher\\基础投标文件.pdf",
+    "pdf_exists": true,
+    "pdf_bytes": 300701,
+    "bootstrap_corrupted_message": false,
+    "bootstrap_ini_sha256_after": "9bc1ffa0360adacad9666d1b9d5be2b09e3f9ff1eb851a05f168393819cbabe0",
+    "bootstrap_ini_unchanged": true,
+    "environment_after": {
+      "URE_BOOTSTRAP": null,
+      "UNO_PATH": null,
+      "SAL_CONFIGFILE": null,
+      "HOME": null,
+      "USERPROFILE": "C:\\Users\\WPG",
+      "APPDATA": "C:\\Users\\WPG\\AppData\\Roaming",
+      "LOCALAPPDATA": "C:\\Users\\WPG\\AppData\\Local"
+    },
+    "environment_unchanged": true
+  },
+  "verdict": "PASS"
+}

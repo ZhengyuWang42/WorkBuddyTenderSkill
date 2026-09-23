@@ -1,0 +1,2775 @@
+{
+  "gate": "v09_p3_closure_phase3_reflow_aware",
+  "phase": 3,
+  "status": "PASS",
+  "checks": {
+    "fresh_generated_pdf": true,
+    "fresh_generated_report": true,
+    "region_rows_accounted": true,
+    "mandatory_expansion_independently_justified": true,
+    "no_unexplained_extra_row": true,
+    "no_unexplained_blank_row": true,
+    "source_logical_order_preserved": true,
+    "vertical_residual_within_tolerance": true,
+    "vertical_tolerance_is_frozen": true,
+    "raw_y_error_preserved_in_report": true,
+    "structural_isolation_proven_or_absent": true,
+    "no_text_shrinking": true,
+    "no_absolute_positioning": true,
+    "horizontal_within_tolerance": true,
+    "exact_span_rules_intact": true,
+    "accepted_composition_set_unchanged": true,
+    "rule_accounting_complete": true,
+    "no_cross_page_rule_binding": true,
+    "emission_scope_is_p3": true,
+    "p3_scope_complete": true
+  },
+  "failed_checks": [],
+  "build": {
+    "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "source_pdf_page_count": 61,
+    "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.pdf",
+    "generated_pdf_sha256": "91a52a19302c625a89ada2e9f92e33f6c74a90404bf93ab43d63251f264cd2a9",
+    "generated_pdf_page_count": 22,
+    "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\generation_report.json",
+    "generation_report_sha256": "fcde922261359c2b81fc6f659504798f85bcd472205a509898a84dfa36b38d4f"
+  },
+  "tolerance_pt": 2.0,
+  "p3_source_page": 42,
+  "p3_generated_page": 3,
+  "source_to_generated_y_offset_pt": -52.2,
+  "source_row_origin_offset_pt": 7.7,
+  "source_line_pitch_pt": 19.9971,
+  "row_offset_evidence": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_y": 138.35,
+      "generated_band_y": 140.48,
+      "row_delta_pt": -2.13
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_y": 158.4,
+      "generated_band_y": 161.58,
+      "row_delta_pt": -3.18
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_y": 178.4,
+      "generated_band_y": 230.9,
+      "row_delta_pt": -52.5
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_y": 178.4,
+      "generated_band_y": 230.6,
+      "row_delta_pt": -52.2
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_y": 198.35,
+      "generated_band_y": 246.08,
+      "row_delta_pt": -47.73
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_y": 218.4,
+      "generated_band_y": 272.9,
+      "row_delta_pt": -54.5
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_y": 318.35,
+      "generated_band_y": 378.7,
+      "row_delta_pt": -60.35
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_y": 418.4,
+      "generated_band_y": 484.35,
+      "row_delta_pt": -65.95
+    }
+  ],
+  "row_origin_supported_rule_ids": [
+    "P42-R3",
+    "P42-R4",
+    "P42-R6"
+  ],
+  "row_origin_alternatives": [
+    {
+      "offset_pt": -2.13,
+      "supported_source_rule_ids": [
+        "P42-R1",
+        "P42-R2"
+      ]
+    },
+    {
+      "offset_pt": -3.18,
+      "supported_source_rule_ids": [
+        "P42-R1",
+        "P42-R2"
+      ]
+    },
+    {
+      "offset_pt": -52.2,
+      "supported_source_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ]
+    }
+  ],
+  "shared_source_rows": [
+    178.4
+  ],
+  "preamble_source_rows": [
+    138.35,
+    158.4,
+    178.4,
+    198.35,
+    218.4,
+    318.35,
+    418.4
+  ],
+  "preamble_generated_rows": [
+    140.5,
+    161.6,
+    230.6,
+    230.9,
+    246.1,
+    272.9,
+    378.7,
+    484.4
+  ],
+  "vertical_row_order": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_row": 138.35,
+      "expected_source_row_index": 0,
+      "generated_row_y": 140.48,
+      "actual_source_row": 138.35,
+      "actual_source_row_index": 0,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_row": 158.4,
+      "expected_source_row_index": 1,
+      "generated_row_y": 161.58,
+      "actual_source_row": 158.4,
+      "actual_source_row_index": 1,
+      "row_preserved": true
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_row": 178.4,
+      "expected_source_row_index": 2,
+      "generated_row_y": 230.9,
+      "actual_source_row": 218.4,
+      "actual_source_row_index": 4,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_row": 178.4,
+      "expected_source_row_index": 2,
+      "generated_row_y": 230.6,
+      "actual_source_row": 218.4,
+      "actual_source_row_index": 4,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_row": 198.35,
+      "expected_source_row_index": 3,
+      "generated_row_y": 246.08,
+      "actual_source_row": 218.4,
+      "actual_source_row_index": 4,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_row": 218.4,
+      "expected_source_row_index": 4,
+      "generated_row_y": 272.9,
+      "actual_source_row": 318.35,
+      "actual_source_row_index": 5,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_row": 318.35,
+      "expected_source_row_index": 5,
+      "generated_row_y": 378.7,
+      "actual_source_row": 418.4,
+      "actual_source_row_index": 6,
+      "row_preserved": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_row": 418.4,
+      "expected_source_row_index": 6,
+      "generated_row_y": 484.35,
+      "actual_source_row": 418.4,
+      "actual_source_row_index": 6,
+      "row_preserved": true
+    }
+  ],
+  "vertical_row_order_preserved": true,
+  "vertical_blocker": {
+    "kind": "P3_VERTICAL_ROW_BUDGET",
+    "source_rows_carrying_two_rules": [
+      178.4
+    ],
+    "source_line_pitch_pt": 19.95,
+    "baseline_y_error_pt": 0.57,
+    "rules_displaced_by_whole_rows": [
+      {
+        "source_rule_id": "P42-R1",
+        "source_y": 138.35,
+        "y_error": -50.37,
+        "row_displacement": -2.55
+      },
+      {
+        "source_rule_id": "P42-R2",
+        "source_y": 158.4,
+        "y_error": -49.32,
+        "row_displacement": -2.5
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "source_y": 198.35,
+        "y_error": -4.77,
+        "row_displacement": -0.27
+      },
+      {
+        "source_rule_id": "P42-R7",
+        "source_y": 318.35,
+        "y_error": 7.85,
+        "row_displacement": 0.36
+      },
+      {
+        "source_rule_id": "P42-R8",
+        "source_y": 418.4,
+        "y_error": 13.45,
+        "row_displacement": 0.65
+      }
+    ],
+    "measured_shift_rows": 0.65,
+    "source_row_grid": [
+      138.35,
+      158.4,
+      178.4,
+      198.35,
+      218.4,
+      318.35,
+      418.4
+    ],
+    "generated_row_grid": [
+      140.5,
+      161.6,
+      230.6,
+      230.9,
+      246.1,
+      272.9,
+      378.7,
+      484.4
+    ],
+    "row_budget": {
+      "source_rule_rows": 7,
+      "source_region_rows": 15,
+      "generated_region_rows": 17,
+      "extra_generated_rows": 2,
+      "source_rows_carrying_two_rules": [
+        178.4
+      ],
+      "shared_row_separation_pt": 0.3,
+      "shared_row_required_separation_pt": 0.0,
+      "source_rows_within_the_reflow": 1,
+      "generated_rows_within_the_reflow": 3,
+      "reflow_row_tops": [
+        176.68,
+        197.78
+      ],
+      "generated_region_row_tops": [
+        134.48,
+        155.58,
+        176.68,
+        197.78,
+        218.51,
+        240.08,
+        261.18,
+        282.28,
+        303.38,
+        324.48,
+        345.58,
+        366.31,
+        388.23,
+        409.33,
+        430.43,
+        451.53,
+        472.63
+      ],
+      "source_region_row_tops": [
+        126.78,
+        146.7,
+        166.74,
+        186.78,
+        206.7,
+        226.74,
+        246.78,
+        266.7,
+        286.74,
+        306.78,
+        326.7,
+        346.74,
+        366.78,
+        386.7,
+        406.74
+      ]
+    },
+    "detail": "The P3 form region needs more generated rows than the source template has, and every rule below the extra rows inherits the displacement. The region's first rules reproduce their source rows within 0.57pt, and P42-R3 and P42-R4 now share one generated row (0.30pt apart against a 2.00pt contract), so the shared-row defect is closed. What cannot close is the row budget: the fills on source rows 0-1 resolve to values far wider than the (project name, lot) and (project number) placeholders they replace, so the single source row that separates them from the shared row reflows into 3 generated rows, and every rule from the shared row down keeps a whole-row displacement, reaching 0.65 source line pitches by P42-R8. This is a row-budget residual, not a missed anchor: no paragraph spacing, line spacing or indent can put a rule back on a source row that the reflowed values already occupy, and reaching the frozen 2.0pt tolerance would require shrinking, clipping or overlapping the resolved values, which the accepted contract forbids."
+  },
+  "source_rule_count": 8,
+  "painted_rule_count": 17,
+  "emitted_source_rule_ids": [
+    "P42-R1",
+    "P42-R2",
+    "P42-R3",
+    "P42-R4",
+    "P42-R5",
+    "P42-R6",
+    "P42-R7",
+    "P42-R8",
+    "P44-R12",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R4",
+    "P45-R5"
+  ],
+  "missing_frozen_rule_ids": [],
+  "horizontal_failure_ids": [],
+  "vertical_failure_ids": [],
+  "cross_page_rule_ids": [],
+  "emission_scope_out_of_p3_pages": [],
+  "accepted_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R5"
+  ],
+  "observed_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P44-R12",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R4",
+    "P45-R5"
+  ],
+  "composition_preservation": {
+    "preserved": true,
+    "accepted": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "missing": [],
+    "additions": [
+      "P44-R12",
+      "P45-R4"
+    ],
+    "additions_without_source_glyphs": []
+  },
+  "rows": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "frozen_source_y": 138.35,
+      "registry_relation_type": "TEXT_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA1",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 94.9,
+        "generated_x1": 286.9,
+        "generated_band_center_y": 140.48,
+        "text": "河南省水利第二工程局集团有限公司",
+        "char_count": 16,
+        "generated_decoration_y": 140.48,
+        "x0_error": 0.1,
+        "x1_error": 92.3,
+        "generated_y": 87.98,
+        "y_error": -50.37
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "frozen_source_y": 158.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA2",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 198.2,
+        "generated_x1": 334.9,
+        "generated_band_center_y": 161.58,
+        "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "char_count": 49,
+        "generated_decoration_y": 161.58,
+        "x0_error": 0.1,
+        "x1_error": -40.8,
+        "generated_y": 109.08,
+        "y_error": -49.32
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 169.65,
+        "x1": 322.7,
+        "y": 230.9,
+        "segment_count": 2
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 169.65,
+        "generated_x1": 322.7,
+        "generated_band_center_y": 230.9,
+        "segment_count": 2,
+        "generated_decoration_y": 230.9,
+        "x0_error": 0.0,
+        "x1_error": -0.9,
+        "generated_y": 178.4,
+        "y_error": 0.0
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 384.6,
+        "x1": 458.9,
+        "y": 230.6,
+        "width": 74.3
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 384.6,
+        "generated_x1": 458.9,
+        "generated_band_center_y": 230.6,
+        "segment_count": 1,
+        "generated_decoration_y": 230.6,
+        "x0_error": 0.0,
+        "x1_error": -0.1,
+        "generated_y": 178.1,
+        "y_error": -0.3
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "frozen_source_y": 198.35,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": {
+        "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+        "fact_fields": [
+          "duration"
+        ],
+        "resolved_values": [
+          "30日历天"
+        ],
+        "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+        "application_id": "SFA3"
+      },
+      "composition": null,
+      "application_id": "SFA3",
+      "application_kind": "VALUE_IN_FIXED_SLOT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 131.95,
+        "generated_x1": 182.35,
+        "generated_band_center_y": 246.08,
+        "text": "30日历天",
+        "char_count": 5,
+        "generated_decoration_y": 246.08,
+        "x0_error": 0.1,
+        "x1_error": 0.95,
+        "generated_y": 193.58,
+        "y_error": -4.77
+      },
+      "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "frozen_source_y": 218.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 272.9,
+        "width": 55.8
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 95.25,
+        "generated_x1": 151.05,
+        "generated_band_center_y": 272.9,
+        "segment_count": 1,
+        "generated_decoration_y": 272.9,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 220.4,
+        "y_error": 2.0
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "frozen_source_y": 318.35,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 378.7,
+        "segment_count": 3
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 352.8,
+        "generated_x1": 388.8,
+        "generated_band_center_y": 378.7,
+        "segment_count": 3,
+        "generated_decoration_y": 378.7,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 326.2,
+        "y_error": 7.85
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "frozen_source_y": 418.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 484.35,
+        "width": 96.0
+      },
+      "value_run": null,
+      "composition": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 484.35,
+        "segment_count": 1
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 112.9,
+        "generated_x1": 208.9,
+        "generated_band_center_y": 484.35,
+        "segment_count": 1,
+        "generated_decoration_y": 484.35,
+        "x0_error": 0.1,
+        "x1_error": 0.1,
+        "generated_y": 431.85,
+        "y_error": 13.45
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    }
+  ],
+  "in_scope_rows": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "frozen_source_y": 138.35,
+      "registry_relation_type": "TEXT_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA1",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 94.9,
+        "generated_x1": 286.9,
+        "generated_band_center_y": 140.48,
+        "text": "河南省水利第二工程局集团有限公司",
+        "char_count": 16,
+        "generated_decoration_y": 140.48,
+        "x0_error": 0.1,
+        "x1_error": 92.3,
+        "generated_y": 87.98,
+        "y_error": -50.37
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "frozen_source_y": 158.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": null,
+      "composition": null,
+      "application_id": "SFA2",
+      "application_kind": "PLACEHOLDER_REPLACEMENT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 198.2,
+        "generated_x1": 334.9,
+        "generated_band_center_y": 161.58,
+        "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "char_count": 49,
+        "generated_decoration_y": 161.58,
+        "x0_error": 0.1,
+        "x1_error": -40.8,
+        "generated_y": 109.08,
+        "y_error": -49.32
+      },
+      "emission_mechanism": null,
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 169.65,
+        "x1": 322.7,
+        "y": 230.9,
+        "segment_count": 2
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 169.65,
+        "generated_x1": 322.7,
+        "generated_band_center_y": 230.9,
+        "segment_count": 2,
+        "generated_decoration_y": 230.9,
+        "x0_error": 0.0,
+        "x1_error": -0.9,
+        "generated_y": 178.4,
+        "y_error": 0.0
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "frozen_source_y": 178.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 384.6,
+        "x1": 458.9,
+        "y": 230.6,
+        "width": 74.3
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 384.6,
+        "generated_x1": 458.9,
+        "generated_band_center_y": 230.6,
+        "segment_count": 1,
+        "generated_decoration_y": 230.6,
+        "x0_error": 0.0,
+        "x1_error": -0.1,
+        "generated_y": 178.1,
+        "y_error": -0.3
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "frozen_source_y": 198.35,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "owes_exact_endpoints": false,
+      "painted": null,
+      "value_run": {
+        "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+        "fact_fields": [
+          "duration"
+        ],
+        "resolved_values": [
+          "30日历天"
+        ],
+        "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+        "application_id": "SFA3"
+      },
+      "composition": null,
+      "application_id": "SFA3",
+      "application_kind": "VALUE_IN_FIXED_SLOT",
+      "measurement": {
+        "measurement_kind": "VALUE_RUN",
+        "generated_x0": 131.95,
+        "generated_x1": 182.35,
+        "generated_band_center_y": 246.08,
+        "text": "30日历天",
+        "char_count": 5,
+        "generated_decoration_y": 246.08,
+        "x0_error": 0.1,
+        "x1_error": 0.95,
+        "generated_y": 193.58,
+        "y_error": -4.77
+      },
+      "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "frozen_source_y": 218.4,
+      "registry_relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 95.25,
+        "x1": 151.05,
+        "y": 272.9,
+        "width": 55.8
+      },
+      "value_run": null,
+      "composition": null,
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "PAINTED_RULE",
+        "generated_x0": 95.25,
+        "generated_x1": 151.05,
+        "generated_band_center_y": 272.9,
+        "segment_count": 1,
+        "generated_decoration_y": 272.9,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 220.4,
+        "y_error": 2.0
+      },
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "frozen_source_y": 318.35,
+      "registry_relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": null,
+      "value_run": null,
+      "composition": {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 378.7,
+        "segment_count": 3
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 352.8,
+        "generated_x1": 388.8,
+        "generated_band_center_y": 378.7,
+        "segment_count": 3,
+        "generated_decoration_y": 378.7,
+        "x0_error": 0.0,
+        "x1_error": 0.0,
+        "generated_y": 326.2,
+        "y_error": 7.85
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "frozen_source_y": 418.4,
+      "registry_relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "owes_exact_endpoints": true,
+      "painted": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 484.35,
+        "width": 96.0
+      },
+      "value_run": null,
+      "composition": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 484.35,
+        "segment_count": 1
+      },
+      "application_id": null,
+      "application_kind": null,
+      "measurement": {
+        "measurement_kind": "COMPOSITION_CHAIN",
+        "generated_x0": 112.9,
+        "generated_x1": 208.9,
+        "generated_band_center_y": 484.35,
+        "segment_count": 1,
+        "generated_decoration_y": 484.35,
+        "x0_error": 0.1,
+        "x1_error": 0.1,
+        "generated_y": 431.85,
+        "y_error": 13.45
+      },
+      "emission_mechanism": "SOURCE_RULE_COMPOSITION",
+      "horizontal_pass": true,
+      "vertical_pass": false
+    }
+  ],
+  "vertical_contract_version": "REFLOW_AWARE_V1",
+  "frozen_absolute_vertical_row_order_preserved": false,
+  "frozen_absolute_vertical_failure_ids": [
+    "P42-R1",
+    "P42-R2",
+    "P42-R5",
+    "P42-R7",
+    "P42-R8"
+  ],
+  "frozen_absolute_maximum_y_error_pt": 50.37,
+  "vertical_reflow": {
+    "vertical_contract_version": "REFLOW_AWARE_V1",
+    "tolerance_pt": 2.0,
+    "source_logical_rows": 15,
+    "generated_region_rows": 17,
+    "mandatory_minimum_generated_rows": 17,
+    "unexplained_vertical_expansion_count": 0,
+    "unexplained_blank_row_count": 0,
+    "unexplained_blank_row_gaps": [],
+    "source_line_pitch_pt": 19.9971,
+    "applicable_line_pitch_pt": 21.1344,
+    "line_pitch_expansion_pt": 1.1373,
+    "region_origin_offset_pt": 7.7,
+    "right_limit_pt": 524.4,
+    "region_left_pt": 70.8,
+    "raw_vertical_source_fidelity_difference_present": true,
+    "mandatory_reflow_present": true,
+    "mandatory_reflow_fully_explains_vertical_difference": true,
+    "maximum_raw_y_error_pt": 65.89,
+    "maximum_residual_y_error_pt": 0.68,
+    "structural_isolations": [],
+    "groups": [
+      {
+        "rows": [
+          "RF42-R01"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R02"
+        ],
+        "minimum_lines": 3,
+        "prefix_minimum_lines": [
+          3
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R03"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R04"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R05"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R06"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R07"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R08"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R09"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R10",
+          "RF42-R11"
+        ],
+        "minimum_lines": 2,
+        "prefix_minimum_lines": [
+          1,
+          2
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R12"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R13",
+          "RF42-R14"
+        ],
+        "minimum_lines": 2,
+        "prefix_minimum_lines": [
+          1,
+          2
+        ],
+        "forced_new_line_rule_ids": []
+      },
+      {
+        "rows": [
+          "RF42-R15"
+        ],
+        "minimum_lines": 1,
+        "prefix_minimum_lines": [
+          1
+        ],
+        "forced_new_line_rule_ids": []
+      }
+    ],
+    "rows": [
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R01",
+        "repository_line_identity": "S42-L1",
+        "source_y": 126.78,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 411.6,
+        "participating_content": [
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "text": "河南省水利第二工程局集团有限公司",
+            "source_x0": 112.8,
+            "source_x1": 194.6,
+            "advance_pt": 192.0,
+            "rule_id": "P42-R1",
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "：",
+            "source_x0": 194.6,
+            "source_x1": 206.64,
+            "advance_pt": 12.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 0.0,
+        "line_pitch_expansion_before_row_pt": 0.0,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 134.48,
+        "actual_generated_y": 134.48,
+        "raw_y_error": 7.7,
+        "residual_y_error": 0.0,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 0,
+        "source_rows_in_paragraph": 1,
+        "row_index": 0,
+        "generated_row_index": 2,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "rule_id": "P42-R1",
+            "placement": "FLOW",
+            "starts_at_pt": 112.8,
+            "ends_at_pt": 304.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 304.8,
+            "ends_at_pt": 316.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R02",
+        "repository_line_identity": "S42-L1",
+        "source_y": 146.7,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 427.56,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "我方已充分研究了",
+            "source_x0": 96.84,
+            "source_x1": 198.1,
+            "advance_pt": 96.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+            "source_x0": 198.1,
+            "source_x1": 375.7,
+            "advance_pt": 588.0,
+            "rule_id": "P42-R2",
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "text": "YSEJJXXB202607-18",
+            "source_x0": 198.1,
+            "source_x1": 375.7,
+            "advance_pt": 102.0,
+            "rule_id": "P42-R2",
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "询比文件的全部内容，愿意",
+            "source_x0": 375.7,
+            "source_x1": 523.92,
+            "advance_pt": 144.86,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 3,
+        "paragraph_prefix_minimum_line_count": 3,
+        "mandatory_extra_line_count": 2,
+        "mandatory_extra_height_pt": 42.27,
+        "expansion_reason": "MANDATORY_CONTENT_REFLOW",
+        "cumulative_mandatory_reflow_before_row_pt": 0.0,
+        "line_pitch_expansion_before_row_pt": 1.14,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 155.54,
+        "actual_generated_y": 155.58,
+        "raw_y_error": 8.88,
+        "residual_y_error": 0.04,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 1,
+        "source_rows_in_paragraph": 1,
+        "row_index": 1,
+        "generated_row_index": 3,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 96.84,
+            "ends_at_pt": 192.84,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "rule_id": "P42-R2",
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 327.24,
+            "line_index": 1,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "rule_id": "P42-R2",
+            "placement": "FLOW",
+            "starts_at_pt": 327.24,
+            "ends_at_pt": 429.24,
+            "line_index": 1,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 120.5,
+            "line_index": 2,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R03",
+        "repository_line_identity": "S42-L2",
+        "source_y": 166.74,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 453.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "以人民币（大写）",
+            "source_x0": 70.8,
+            "source_x1": 169.65,
+            "advance_pt": 96.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "text": "（不含税）",
+            "source_x0": 169.65,
+            "source_x1": 323.6,
+            "advance_pt": 153.95,
+            "rule_id": "P42-R3",
+            "anchored": true,
+            "anchor_x_pt": 169.65,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "，（小写）",
+            "source_x0": 323.6,
+            "source_x1": 384.6,
+            "advance_pt": 60.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "text": "",
+            "source_x0": 384.6,
+            "source_x1": 459.0,
+            "advance_pt": 74.4,
+            "rule_id": "P42-R4",
+            "anchored": true,
+            "anchor_x_pt": 384.6,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "元的响应报",
+            "source_x0": 459.0,
+            "source_x1": 519.84,
+            "advance_pt": 60.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 2.27,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 218.98,
+        "actual_generated_y": 218.51,
+        "raw_y_error": 51.77,
+        "residual_y_error": -0.47,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 2,
+        "source_rows_in_paragraph": 1,
+        "row_index": 2,
+        "generated_row_index": 6,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 166.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R3",
+            "placement": "FORWARD_TAB",
+            "starts_at_pt": 169.65,
+            "line_index": 0,
+            "reason": "anchor_ahead_of_cursor"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 323.6,
+            "ends_at_pt": 383.6,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R4",
+            "placement": "FORWARD_TAB",
+            "starts_at_pt": 384.6,
+            "line_index": 0,
+            "reason": "anchor_ahead_of_cursor"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 459.0,
+            "ends_at_pt": 519.0,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R04",
+        "repository_line_identity": "S42-L3",
+        "source_y": 186.78,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 453.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "价，供货期",
+            "source_x0": 70.8,
+            "source_x1": 131.85,
+            "advance_pt": 60.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "text": "30日历天",
+            "source_x0": 131.85,
+            "source_x1": 181.4,
+            "advance_pt": 50.4,
+            "rule_id": "P42-R5",
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "source_x0": 181.4,
+            "source_x1": 522.83,
+            "advance_pt": 336.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 3.41,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 240.16,
+        "actual_generated_y": 240.08,
+        "raw_y_error": 53.3,
+        "residual_y_error": -0.08,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 3,
+        "source_rows_in_paragraph": 1,
+        "row_index": 3,
+        "generated_row_index": 7,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 130.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "RESOLVED_VALUE",
+            "rule_id": "P42-R5",
+            "placement": "FLOW",
+            "starts_at_pt": 130.8,
+            "ends_at_pt": 181.2,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 181.2,
+            "ends_at_pt": 517.2,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R05",
+        "repository_line_identity": "S42-L4",
+        "source_y": 206.7,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 453.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "达到",
+            "source_x0": 70.8,
+            "source_x1": 95.25,
+            "advance_pt": 24.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "text": "",
+            "source_x0": 95.25,
+            "source_x1": 151.05,
+            "advance_pt": 55.8,
+            "rule_id": "P42-R6",
+            "anchored": true,
+            "anchor_x_pt": 95.25,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "。",
+            "source_x0": 151.05,
+            "source_x1": 163.08,
+            "advance_pt": 12.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 4.55,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 261.22,
+        "actual_generated_y": 261.18,
+        "raw_y_error": 54.48,
+        "residual_y_error": -0.04,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 4,
+        "source_rows_in_paragraph": 1,
+        "row_index": 4,
+        "generated_row_index": 8,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 94.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R6",
+            "placement": "FORWARD_TAB",
+            "starts_at_pt": 95.25,
+            "line_index": 0,
+            "reason": "anchor_ahead_of_cursor"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 151.05,
+            "ends_at_pt": 163.05,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R06",
+        "repository_line_identity": "S42-L1",
+        "source_y": 226.74,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "如我方成交，我公司承诺如下：",
+            "source_x0": 94.8,
+            "source_x1": 262.8,
+            "advance_pt": 168.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 5.69,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 282.4,
+        "actual_generated_y": 282.28,
+        "raw_y_error": 55.54,
+        "residual_y_error": -0.12,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 5,
+        "source_rows_in_paragraph": 1,
+        "row_index": 5,
+        "generated_row_index": 9,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 262.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R07",
+        "repository_line_identity": "S42-L1",
+        "source_y": 246.78,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+            "source_x0": 94.8,
+            "source_x1": 472.8,
+            "advance_pt": 378.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 6.82,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 303.57,
+        "actual_generated_y": 303.38,
+        "raw_y_error": 56.6,
+        "residual_y_error": -0.19,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 6,
+        "source_rows_in_paragraph": 1,
+        "row_index": 6,
+        "generated_row_index": 10,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 472.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R08",
+        "repository_line_identity": "S42-L1",
+        "source_y": 266.7,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+            "source_x0": 94.8,
+            "source_x1": 424.8,
+            "advance_pt": 330.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 7.96,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 324.63,
+        "actual_generated_y": 324.48,
+        "raw_y_error": 57.78,
+        "residual_y_error": -0.15,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 7,
+        "source_rows_in_paragraph": 1,
+        "row_index": 7,
+        "generated_row_index": 11,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 424.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R09",
+        "repository_line_identity": "S42-L1",
+        "source_y": 286.74,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "3、将按询比文件的规定履行合同责任和义务。",
+            "source_x0": 94.8,
+            "source_x1": 340.8,
+            "advance_pt": 246.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 9.1,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 345.81,
+        "actual_generated_y": 345.58,
+        "raw_y_error": 58.84,
+        "residual_y_error": -0.23,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 8,
+        "source_rows_in_paragraph": 1,
+        "row_index": 8,
+        "generated_row_index": 12,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 340.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R10",
+        "repository_line_identity": "S42-L1",
+        "source_y": 306.78,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "4、本项目询比有效期为提交响应文件截止之日起",
+            "source_x0": 94.8,
+            "source_x1": 352.8,
+            "advance_pt": 258.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "text": "90",
+            "source_x0": 352.8,
+            "source_x1": 388.8,
+            "advance_pt": 36.0,
+            "rule_id": "P42-R7",
+            "anchored": true,
+            "anchor_x_pt": 352.8,
+            "geometry_source": "SOURCE_RULE_SPAN"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "日历天，在询比有效期内",
+            "source_x0": 388.8,
+            "source_x1": 520.8,
+            "advance_pt": 132.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 2,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 10.24,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 366.99,
+        "actual_generated_y": 366.31,
+        "raw_y_error": 59.53,
+        "residual_y_error": -0.68,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 9,
+        "source_rows_in_paragraph": 2,
+        "row_index": 9,
+        "generated_row_index": 13,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 352.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R7",
+            "placement": "FORWARD_TAB",
+            "starts_at_pt": 352.8,
+            "line_index": 0,
+            "reason": "emission_recorded_forward_reachable"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 388.8,
+            "ends_at_pt": 520.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 199.2,
+            "line_index": 1,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R11",
+        "repository_line_identity": "S42-L2",
+        "source_y": 326.7,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 453.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "不修改、撤销响应文件。",
+            "source_x0": 70.8,
+            "source_x1": 202.8,
+            "advance_pt": 132.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 2,
+        "paragraph_prefix_minimum_line_count": 2,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 11.37,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 388.04,
+        "actual_generated_y": 388.23,
+        "raw_y_error": 61.53,
+        "residual_y_error": 0.19,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 9,
+        "source_rows_in_paragraph": 2,
+        "row_index": 10,
+        "generated_row_index": 14,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 352.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R7",
+            "placement": "FORWARD_TAB",
+            "starts_at_pt": 352.8,
+            "line_index": 0,
+            "reason": "emission_recorded_forward_reachable"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 388.8,
+            "ends_at_pt": 520.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 199.2,
+            "line_index": 1,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R12",
+        "repository_line_identity": "S42-L1",
+        "source_y": 346.74,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "5、在合同约定的期限内完成并移交全部标的。",
+            "source_x0": 94.8,
+            "source_x1": 340.8,
+            "advance_pt": 246.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 12.51,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 409.22,
+        "actual_generated_y": 409.33,
+        "raw_y_error": 62.59,
+        "residual_y_error": 0.11,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 10,
+        "source_rows_in_paragraph": 1,
+        "row_index": 11,
+        "generated_row_index": 15,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 340.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R13",
+        "repository_line_identity": "S42-L1",
+        "source_y": 366.78,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "6、我方在此声明，所递交的响应文件及有关资料内容完整、真实和准确，且不存",
+            "source_x0": 94.8,
+            "source_x1": 520.8,
+            "advance_pt": 426.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 2,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 13.65,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 430.4,
+        "actual_generated_y": 430.43,
+        "raw_y_error": 63.65,
+        "residual_y_error": 0.03,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 11,
+        "source_rows_in_paragraph": 2,
+        "row_index": 12,
+        "generated_row_index": 16,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 520.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 373.2,
+            "line_index": 1,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R14",
+        "repository_line_identity": "S42-L2",
+        "source_y": 386.7,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 453.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "在第二章“供应商须知”第1.5.3项规定的任何一种情形。",
+            "source_x0": 70.8,
+            "source_x1": 382.8,
+            "advance_pt": 306.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 2,
+        "paragraph_prefix_minimum_line_count": 2,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 14.78,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 451.45,
+        "actual_generated_y": 451.53,
+        "raw_y_error": 64.83,
+        "residual_y_error": 0.08,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 11,
+        "source_rows_in_paragraph": 2,
+        "row_index": 13,
+        "generated_row_index": 17,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 520.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 70.8,
+            "ends_at_pt": 373.2,
+            "line_index": 1,
+            "reason": "free_flow"
+          }
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_visual_line_id": "RF42-R15",
+        "repository_line_identity": "S42-L1",
+        "source_y": 406.74,
+        "available_width_pt": 453.6,
+        "first_line_width_pt": 429.6,
+        "participating_content": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "7、",
+            "source_x0": 94.8,
+            "source_x1": 112.8,
+            "advance_pt": 18.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "text": "（其他补充说明）",
+            "source_x0": 112.8,
+            "source_x1": 208.8,
+            "advance_pt": 96.0,
+            "rule_id": "P42-R8",
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_NATURAL_FLOW"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "text": "。",
+            "source_x0": 208.8,
+            "source_x1": 220.8,
+            "advance_pt": 12.0,
+            "rule_id": null,
+            "anchored": false,
+            "anchor_x_pt": null,
+            "geometry_source": "SOURCE_ROW_ORIGIN"
+          }
+        ],
+        "typography": {
+          "font_size_pt": 12.0,
+          "source_line_pitch_pt": 20.0,
+          "applicable_line_pitch_pt": 21.13,
+          "line_pitch_expansion_pt": 1.137,
+          "right_limit_pt": 524.4,
+          "region_left_pt": 70.8
+        },
+        "minimum_required_generated_line_count": 1,
+        "paragraph_prefix_minimum_line_count": 1,
+        "mandatory_extra_line_count": 0,
+        "mandatory_extra_height_pt": 0.0,
+        "expansion_reason": "FITS_ONE_GENERATED_LINE",
+        "cumulative_mandatory_reflow_before_row_pt": 42.27,
+        "line_pitch_expansion_before_row_pt": 15.92,
+        "region_origin_offset_pt": 7.7,
+        "reflow_adjusted_target_y": 472.63,
+        "actual_generated_y": 472.63,
+        "raw_y_error": 65.89,
+        "residual_y_error": 0.0,
+        "pass": true,
+        "forced_new_line_rule_ids": [],
+        "generated_paragraph_index": 12,
+        "source_rows_in_paragraph": 1,
+        "row_index": 14,
+        "generated_row_index": 18,
+        "generated_row_order_preserved": true,
+        "atom_placements": [
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 94.8,
+            "ends_at_pt": 112.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "ANCHOR_RULE",
+            "rule_id": "P42-R8",
+            "placement": "FLOW",
+            "starts_at_pt": 112.8,
+            "ends_at_pt": 208.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          },
+          {
+            "atom_kind": "PRESERVED_TEXT",
+            "rule_id": null,
+            "placement": "FLOW",
+            "starts_at_pt": 208.8,
+            "ends_at_pt": 220.8,
+            "line_index": 0,
+            "reason": "free_flow"
+          }
+        ]
+      }
+    ]
+  },
+  "raw_vertical_row_table": [
+    {
+      "source_rule_id": "P42-R1",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "source_y": null,
+      "generated_y": 87.98,
+      "raw_y_error": -50.37,
+      "raw_vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "source_y": null,
+      "generated_y": 109.08,
+      "raw_y_error": -49.32,
+      "raw_vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_y": null,
+      "generated_y": 178.4,
+      "raw_y_error": 0.0,
+      "raw_vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_y": null,
+      "generated_y": 178.1,
+      "raw_y_error": -0.3,
+      "raw_vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "source_y": null,
+      "generated_y": 193.58,
+      "raw_y_error": -4.77,
+      "raw_vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_y": null,
+      "generated_y": 220.4,
+      "raw_y_error": 2.0,
+      "raw_vertical_pass": true
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_y": null,
+      "generated_y": 326.2,
+      "raw_y_error": 7.85,
+      "raw_vertical_pass": false
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_y": null,
+      "generated_y": 431.85,
+      "raw_y_error": 13.45,
+      "raw_vertical_pass": false
+    }
+  ],
+  "horizontal": {
+    "horizontal_failure_ids": [],
+    "matched": 8,
+    "lost": 0,
+    "invented": 6,
+    "out_of_tolerance": 0,
+    "coverage": {
+      "frozen_rules": 8,
+      "accounted": 8,
+      "ratio": 1.0
+    },
+    "accepted_composition_set": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "observed_composition_set": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P44-R12",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R4",
+      "P45-R5"
+    ]
+  },
+  "semantics": {
+    "transformation_policy_rows": {
+      "P42-R1": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "P42-R2": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "P42-R3": "FIXED_EMPTY_SLOT",
+      "P42-R4": "FIXED_EMPTY_SLOT",
+      "P42-R5": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "P42-R6": "FIXED_EMPTY_SLOT",
+      "P42-R7": "SOURCE_VALUE_UNDERLINE",
+      "P42-R8": "PRESERVE_SOURCE_PLACEHOLDER"
+    },
+    "geometry_intent_rows": {
+      "P42-R1": "ANCHOR_START_ONLY",
+      "P42-R2": "ANCHOR_START_ONLY",
+      "P42-R3": "EXACT_SOURCE_SPAN",
+      "P42-R4": "EXACT_SOURCE_SPAN",
+      "P42-R5": "ANCHOR_START_ONLY",
+      "P42-R6": "EXACT_SOURCE_SPAN",
+      "P42-R7": "EXACT_SOURCE_SPAN",
+      "P42-R8": "EXACT_SOURCE_SPAN"
+    },
+    "accepted_composition_set_unchanged": true
+  },
+  "execution_ownership": {
+    "present": true,
+    "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\phase1_execution_ownership_closure.json",
+    "sha256": "a351873072d4f64d8c230a4a11f1be8f883482d87ab913a7b40456d92d09a143",
+    "status": "PASS",
+    "failed_checks": [],
+    "checks": {
+      "one_owner_per_field": true,
+      "no_multiple_eligible_owner_conflicts": true,
+      "inactive_rules_have_no_owner": true,
+      "inactive_rules_emit_no_value": true,
+      "value_emission_requires_owner": true,
+      "plan_iteration_execution_zero": true,
+      "accepted_composition_set_unchanged": true,
+      "planned_application_coverage_complete": true
+    },
+    "evidence": {
+      "source_form_execution_owner_count": 4,
+      "eligible_value_owner_count": 4,
+      "owner_kind_counts": {
+        "ANCHORED_VALUE_OWNER": 2,
+        "LEGACY_SLOT_OWNER": 0,
+        "SOURCE_FORM_LINE_OWNER": 2,
+        "NONE": 0
+      },
+      "duplicate_eligible_owner_field_ids": [],
+      "execution_inactive_rules": [
+        "P40-R1",
+        "P45-R6"
+      ],
+      "execution_inactive_owner_field_ids": [],
+      "execution_inactive_emissions": [],
+      "valueless_owner_applications": [],
+      "owner_driven_value_emission_count": 2,
+      "value_application_count": 2,
+      "source_rule_compositions": [
+        "P42-R3",
+        "P42-R7",
+        "P42-R8",
+        "P45-R1",
+        "P45-R2",
+        "P45-R3",
+        "P45-R5"
+      ],
+      "accepted_composition_set": [
+        "P42-R3",
+        "P42-R7",
+        "P42-R8",
+        "P45-R1",
+        "P45-R2",
+        "P45-R3",
+        "P45-R5"
+      ],
+      "accepted_compositions_present": [
+        "P42-R3",
+        "P42-R7",
+        "P42-R8",
+        "P45-R1",
+        "P45-R2",
+        "P45-R3",
+        "P45-R5"
+      ],
+      "planned_resolved_application_count": 4,
+      "actual_resolved_application_count": 4,
+      "missing_planned_application_count": 0,
+      "unexpected_application_count": 0,
+      "source_form_line_value_run_count": 2
+    },
+    "conclusion": {
+      "P40-R1_new_plan_driven_execution_owner": 0,
+      "P40-R1_new_plan_driven_value_emission": 0,
+      "P45-R6_new_plan_driven_execution_owner": 0,
+      "P45-R6_new_plan_driven_value_emission": 0
+    }
+  },
+  "source_line_assembly": {
+    "present": true,
+    "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\source_line_assembly_gate.json",
+    "sha256": "b7e4ff9a6d3112741c3afeffe7627d1d28b1e2ed6b539b686a0fa877c9002c9f",
+    "status": "PASS",
+    "failed_checks": [],
+    "checks": {
+      "emission_plans_present": true,
+      "emission_plans_monotonic_in_source_x": true,
+      "needed_rows_assembled": true,
+      "assembly_stays_bounded": true,
+      "r3_r4_share_one_generated_paragraph": true,
+      "shared_paragraph_is_one_row_context": true,
+      "r3_visible_glyphs_intact_once": true,
+      "r3_r4_generated_rows_within_tolerance": true,
+      "resolved_values_present": true,
+      "visible_source_groups_intact": true,
+      "inactive_rules_stay_execution_inactive": true,
+      "accepted_composition_set_unchanged": true,
+      "composition_preservation": {
+        "preserved": true,
+        "accepted": [
+          "P42-R3",
+          "P42-R7",
+          "P42-R8",
+          "P45-R1",
+          "P45-R2",
+          "P45-R3",
+          "P45-R5"
+        ],
+        "missing": [],
+        "additions": [
+          "P44-R12",
+          "P45-R4"
+        ],
+        "additions_without_source_glyphs": []
+      },
+      "frozen_p3_semantics_unchanged": true,
+      "frozen_horizontal_anchors_held": true
+    },
+    "evidence": null,
+    "conclusion": null
+  },
+  "applications": {
+    "planned_resolved_application_count": 3,
+    "actual_resolved_application_count": 3,
+    "source_fill_application_count": 3,
+    "missing_planned_application_count": 0,
+    "unexpected_application_count": 0,
+    "owner_driven_value_emission_count": 1,
+    "source_form_line_value_run_count": 1,
+    "plan_application_metrics": {
+      "planned_resolved_application_count": 3,
+      "actual_resolved_application_count": 3,
+      "logical_application_record_count": 3,
+      "missing_planned_application_count": 0,
+      "unexpected_application_count": 0,
+      "application_fact_mismatch_count": 2,
+      "application_value_mismatch_count": 1,
+      "application_field_mismatch_count": 0,
+      "planned_resolved_fact_count": 3,
+      "actual_covered_resolved_fact_count": 3,
+      "missing_planned_field_ids": [],
+      "unexpected_field_ids": []
+    }
+  },
+  "safety": {
+    "generated_textbox_count": 0,
+    "synthetic_layout_tables": 0,
+    "form_layout_break_count": 0,
+    "unsafe_ooxml": 0,
+    "word_safe_scan_result": "PASS",
+    "positioned_form_layout_breaks": []
+  },
+  "coverage": {
+    "preview_gate": {
+      "present": true,
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\case001_v09_internal_preview_gate.json",
+      "sha256": "a2d16da4d1013e50618c6eb7e2fcdd52dca6e72e6cbba484d261417da04d2ad1",
+      "status": "PASS",
+      "failed_checks": [],
+      "checks": {
+        "current_build_pointer_fresh": true,
+        "build_artifacts_present": true,
+        "build_artifacts_match_pointer": true,
+        "source_pdf_unchanged": true,
+        "field_set_complete": true,
+        "field_statuses_complete": true,
+        "fact_provenance_complete": true,
+        "workbook_healthy": true,
+        "document_healthy": true,
+        "document_render_has_pages": true,
+        "qa_no_failing_checks": true,
+        "qa_no_errors": true,
+        "p3_frozen_rules_all_accounted": true,
+        "p3_contract_acceptance_holds": true,
+        "p3_accepted_composition_set_intact": true,
+        "preview_scope_is_case001": true,
+        "inactive_rules_establish_no_owner": true,
+        "plan_iteration_execution_zero": true,
+        "no_form_layout_break": true,
+        "delivered_artifacts_carry_no_machine_state": true
+      },
+      "evidence": null,
+      "conclusion": null
+    },
+    "phase2_gate": {
+      "present": true,
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\p3_phase2_gate.json",
+      "sha256": "179d2a1b1cd21ce0888e9ae749c1b3d5da90ccfcde2de4ae0d2236c54a7b446d",
+      "status": "PASS",
+      "failed_checks": [],
+      "checks": {
+        "fresh_generated_pdf": true,
+        "fresh_generated_report": true,
+        "p3_scope_complete": true,
+        "horizontal_within_tolerance": true,
+        "exact_span_rules_intact": true,
+        "accepted_composition_set_unchanged": true,
+        "rule_accounting_complete": true,
+        "no_cross_page_rule_binding": true,
+        "emission_scope_is_p3": true
+      },
+      "evidence": null,
+      "conclusion": null
+    }
+  },
+  "accounting": {
+    "source_rule_count": 8,
+    "painted_rule_count": 17,
+    "emitted_source_rule_ids": [
+      "P42-R1",
+      "P42-R2",
+      "P42-R3",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P42-R7",
+      "P42-R8",
+      "P44-R12",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R4",
+      "P45-R5"
+    ],
+    "missing_frozen_rule_ids": [],
+    "cross_page_rule_ids": [],
+    "emission_scope_out_of_p3_pages": [],
+    "region_rows_accounted": true
+  }
+}

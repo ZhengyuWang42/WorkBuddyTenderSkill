@@ -1,0 +1,246 @@
+{
+  "schema": "structural_deviation_evidence/1",
+  "generated_by": "scripts/v1_structural_deviation_evidence.py",
+  "source": {
+    "break_semantics": "NATURAL_WRAP",
+    "evidence": "the source prints one logical paragraph whose own text continues across its wrapped visual rows; the source never printed a line break at this boundary",
+    "source_semantics_proven_by": "the source's own logical-paragraph model"
+  },
+  "generated": {
+    "representation": "PARAGRAPH_BOUNDARY",
+    "same_word_paragraph": false,
+    "paragraph_boundary": true,
+    "w_br": 0,
+    "w_cr": 0,
+    "empty_paragraph_between": 0,
+    "space_before_pt": 0.0,
+    "space_after_pt": 0.0,
+    "reading_order_unchanged": true,
+    "text_content_unchanged": true,
+    "evidence": "the delivered document's own OOXML and paragraph flow",
+    "measured_paragraph_indexes": [
+      28,
+      29
+    ]
+  },
+  "deviation": {
+    "kind": "STRUCTURAL_ISOLATION_REQUIRED_BY_FROZEN_GEOMETRY",
+    "state": "REVIEWED_ACCEPTED",
+    "recorded_isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+    "fidelity_difference": "CONTAINER_IDENTITY",
+    "container_fidelity": "SOURCE_CONTAINER_MISMATCH",
+    "surfaced_in_qa": true,
+    "surfaced_in": "acceptance/reports/v1_generalization/case001_typography_followup3.json :: measurements.hard_break_fidelity",
+    "surfaced_fields": [
+      "source_semantics",
+      "generated_representation",
+      "container_fidelity",
+      "deviation_kind",
+      "deviation_state"
+    ]
+  },
+  "same_word_paragraph_experiment": {
+    "permitted_native_constructs_considered": [
+      "SAME_W_P_NATURAL_WRAP",
+      "TAB_ADVANCE_INLINE",
+      "W_PTAB_INLINE"
+    ],
+    "forbidden_native_constructs": [
+      "W_BR_INLINE",
+      "W_CR_INLINE",
+      "TEXTBOX",
+      "FLOATING_SHAPE",
+      "OVERLAY",
+      "SYNTHETIC_LAYOUT_TABLE"
+    ],
+    "permitted_native_constructs_exhausted": true,
+    "same_word_paragraph_attempted": true,
+    "outcome": "SAME_WORD_PARAGRAPH_UNAVAILABLE",
+    "experiment": "acceptance/reports/v1_generalization/case001_defect_b_merge_experiment.json",
+    "experiment_sha256": "20d4aca9487f3a258906fd9c2bf4c65ecd0794c15fd9733bae31194d578470ba",
+    "merged_paragraphs": 16,
+    "same_word_paragraph_in_experiment": true,
+    "w_br_in_experiment": 0,
+    "w_cr_in_experiment": 0,
+    "boundary_row_transition": true,
+    "continuation_starts_its_own_line": false,
+    "measured_lost_anchor": "the continuation row does not start its own line, so the frozen row's own start anchor is unreachable in the merged representation",
+    "frozen_geometry_gate_outcome": "FAIL",
+    "frozen_geometry_gate_checks": [
+      "p3_scope_complete",
+      "horizontal_within_tolerance",
+      "exact_span_rules_intact",
+      "no_cross_page_rule_binding"
+    ],
+    "geometry_rule_ids_failed": [
+      "P42-R3",
+      "P42-R4"
+    ],
+    "geometry_gate_evidence": {
+      "gate": "v09_p3_closure_phase2",
+      "outcome": "FAIL",
+      "failed_checks": [
+        "p3_scope_complete",
+        "horizontal_within_tolerance",
+        "exact_span_rules_intact",
+        "no_cross_page_rule_binding"
+      ],
+      "horizontal_failure_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "missing_frozen_rule_ids": [
+        "P42-R4"
+      ],
+      "cross_page_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "exact_span_rules_intact": false,
+      "tolerance_pt": 2.0,
+      "report_sha256": "1c71bbfec435aeec72db5beeb94e905a8f63c58d3b34d54cc60706f8adf0872a"
+    }
+  },
+  "predecessor_geometry_contract": {
+    "source": "the predecessor build's own phase-2 closure report",
+    "report": "acceptance/reports/v1_generalization/case001_p3_closure_phase2_followup3.json",
+    "report_sha256": "4047f1ff370a097c5e8ae7633dcbf32f80c8ef8a13bcd6a19154478fcb712f71",
+    "tolerance_pt": "2.0",
+    "tolerance_weakened": false,
+    "rebaselined": false,
+    "rules": [
+      {
+        "source_rule_id": "P42-R1",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "source_x0": 94.8,
+        "source_x1": 194.6,
+        "source_y": 138.35
+      },
+      {
+        "source_rule_id": "P42-R2",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "source_x0": 198.1,
+        "source_x1": 375.7,
+        "source_y": 158.4
+      },
+      {
+        "source_rule_id": "P42-R3",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "source_x0": 169.65,
+        "source_x1": 323.6,
+        "source_y": 178.4
+      },
+      {
+        "source_rule_id": "P42-R4",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "source_x0": 384.6,
+        "source_x1": 459.0,
+        "source_y": 178.4
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "source_x0": 131.85,
+        "source_x1": 181.4,
+        "source_y": 198.35
+      },
+      {
+        "source_rule_id": "P42-R6",
+        "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "source_x0": 95.25,
+        "source_x1": 151.05,
+        "source_y": 218.4
+      },
+      {
+        "source_rule_id": "P42-R7",
+        "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "source_x0": 352.8,
+        "source_x1": 388.8,
+        "source_y": 318.35
+      },
+      {
+        "source_rule_id": "P42-R8",
+        "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "source_x0": 112.8,
+        "source_x1": 208.8,
+        "source_y": 418.4
+      }
+    ],
+    "frozen_exact_span_rule_ids": [
+      "P42-R3",
+      "P42-R4",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "contract_sha256": "15052e12b32985826f7b78f06223af7fa46496e47c9690aebeb1fa373c0d385f"
+  },
+  "predecessor_artifact": {
+    "role": "frozen P3 source geometry the deviation is measured against",
+    "path": "acceptance/reports/v1_generalization/case001_p3_closure_phase2_followup3.json",
+    "sha256": "4047f1ff370a097c5e8ae7633dcbf32f80c8ef8a13bcd6a19154478fcb712f71",
+    "exists": true
+  },
+  "predecessor_measurements": {
+    "P42-R3": {
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "horizontal_pass": true,
+      "x0_error_pt": 0.0,
+      "x1_error_pt": -0.9
+    },
+    "P42-R4": {
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "horizontal_pass": true,
+      "x0_error_pt": 0.0,
+      "x1_error_pt": -0.1
+    }
+  },
+  "frozen_rule_definitions": {
+    "P42-R3": {
+      "source_rule_id": "P42-R3",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4
+    },
+    "P42-R4": {
+      "source_rule_id": "P42-R4",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4
+    }
+  },
+  "review": {
+    "open_review_item": "the human Word review of the delivered boundary stays open: the deviation is disclosed, counted and adjudicated, never signed off by automation",
+    "review_state": "REVIEWED_ACCEPTED",
+    "state": "ACCEPTED_BY_PROJECT_POLICY",
+    "authority": "PROJECT_POLICY",
+    "accepted_by_automation": false,
+    "reviewed_by": "CASE001 final policy / gate / pointer reconciliation",
+    "reviewed_at": "2026-09-22",
+    "authority_order": [
+      "source-visible form geometry",
+      "frozen P3 horizontal contract",
+      "fact correctness / reading order",
+      "source semantic structure",
+      "generated Word container identity"
+    ]
+  },
+  "non_goals": [
+    "no tolerance weakening",
+    "no source geometry rebaseline",
+    "no case/page/rule/literal keying",
+    "no claim of container fidelity",
+    "no re-labelling of the source break as explicit"
+  ]
+}

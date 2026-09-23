@@ -13,6 +13,14 @@ regression-locked here in generic terms:
   merely precedes the rule in document order belongs to another visual row of the
   same paragraph block - frequently another clause's heading - and binding its
   label prints a value the field never asked for.
+
+One further channel is regression-locked too, because a source sentence that
+wraps ends the row above the field's own row: a label sitting at the *end* of
+that row is the wrapped field's label (``RESOLVED_VALUE_IN_FIXED_SLOT`` when the
+field is resolved).  The channel is deliberately narrow - the row above must end
+the label, must not end a sentence, must not end a label terminator, and must be
+one bounded row pitch away - and the tests below pin each of those guards as
+well as the binding itself.
 """
 
 from __future__ import annotations
@@ -187,6 +195,158 @@ def test_preceding_container_on_the_same_row_is_still_evidence(monkeypatch):
 
 def test_cell_text_normalization_ignores_wrapping_only():
     assert normalize_cell_text(" 设备\n清单 ") == "设备清单"
+
+
+class _Page:
+    def __init__(self, page, rules):
+        self.page = page
+        self.lines = rules
+
+
+def _wrapped_row_plan(monkeypatch, *, row_above, resolved=("QUALITY_TARGET",)):
+    """Compile the plan of a glyph-free rule whose label ends the row above."""
+
+    from tender_basic import page_layout
+    from tender_basic.source_format import _slot_contract
+
+    boxes = [
+        _box(row_above, 186.78, is_leaf=True, x0=70.80, x1=522.83),
+        _box("达到\n。", 206.70, is_leaf=False, x0=70.80, x1=163.08, y1=218.98),
+        _box("达到", 206.70, is_leaf=True, x0=70.80, x1=95.04, y1=218.98),
+    ]
+    monkeypatch.setattr(
+        page_layout, "compile_source_visual_text_boxes", lambda page: (boxes, {})
+    )
+    rule = _Rule((95.25, 218.40, 151.05, 218.40))
+    key = (42, round(95.25, 1), round(151.05, 1), round(218.40, 1))
+    plans = page_layout.compile_source_form_field_plans(
+        source_pages=[_Page(42, [rule])],
+        glyph_evidence={key: ("", False)},
+        resolved_fact_fields=frozenset(resolved),
+        slot_contract=_slot_contract,
+    )
+    return plans[key]
+
+
+def test_a_label_that_ends_the_wrapped_row_above_is_offered_as_evidence(monkeypatch):
+    """The row above a wrapped slot offers the label it ends with."""
+
+    from tender_basic import page_layout
+
+    boxes = [
+        _box("价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量", 186.78, is_leaf=True, x0=70.8, x1=522.83),
+        _box("达到\n。", 206.70, is_leaf=False, x0=70.8, x1=163.08, y1=218.98),
+    ]
+    monkeypatch.setattr(
+        page_layout, "compile_source_visual_text_boxes", lambda page: (boxes, {})
+    )
+    candidates, evidence = page_layout.source_rule_structural_context(
+        object(), 95.25, 218.40, 151.05, 218.40
+    )
+    assert evidence["wrap_continuation_row_text"].endswith("供货质量")
+    assert ("wrap_continuation_row", evidence["wrap_continuation_row_text"]) in candidates
+
+
+def test_a_label_that_ends_its_own_sentence_is_not_carried_across_the_wrap(monkeypatch):
+    """A sentence that already ended owns its label; nothing crosses the wrap."""
+
+    from tender_basic import page_layout
+
+    boxes = [
+        _box("供货质量。", 186.78, is_leaf=True, x0=70.8, x1=120.0),
+        _box("达到\n。", 206.70, is_leaf=False, x0=70.8, x1=163.08, y1=218.98),
+    ]
+    monkeypatch.setattr(
+        page_layout, "compile_source_visual_text_boxes", lambda page: (boxes, {})
+    )
+    candidates, evidence = page_layout.source_rule_structural_context(
+        object(), 95.25, 218.40, 151.05, 218.40
+    )
+    assert evidence["wrap_continuation_row_text"] == ""
+    assert all(kind != "wrap_continuation_row" for kind, _text in candidates)
+
+
+def test_a_label_terminator_row_is_not_carried_across_the_wrap(monkeypatch):
+    """A trailing ``：`` means the label expects its own value in place."""
+
+    from tender_basic import page_layout
+
+    boxes = [
+        _box("（招标人名称）：", 186.78, is_leaf=True, x0=70.8, x1=120.0),
+        _box("注册于\n（工商行政管理局名称）之", 206.70, is_leaf=False, x0=70.8, x1=163.08, y1=218.98),
+    ]
+    monkeypatch.setattr(
+        page_layout, "compile_source_visual_text_boxes", lambda page: (boxes, {})
+    )
+    candidates, evidence = page_layout.source_rule_structural_context(
+        object(), 95.25, 218.40, 151.05, 218.40
+    )
+    assert evidence["wrap_continuation_row_text"] == ""
+    assert all(kind != "wrap_continuation_row" for kind, _text in candidates)
+
+
+def test_a_far_row_above_is_not_carried_across_the_wrap(monkeypatch):
+    """One bounded row pitch: a blank gap is never bridged by a label."""
+
+    from tender_basic import page_layout
+
+    boxes = [
+        _box("供货质量", 100.0, is_leaf=True, x0=70.8, x1=120.0),
+        _box("达到\n。", 206.70, is_leaf=False, x0=70.8, x1=163.08, y1=218.98),
+    ]
+    monkeypatch.setattr(
+        page_layout, "compile_source_visual_text_boxes", lambda page: (boxes, {})
+    )
+    candidates, evidence = page_layout.source_rule_structural_context(
+        object(), 95.25, 218.40, 151.05, 218.40
+    )
+    assert evidence["wrap_continuation_row_text"] == ""
+    assert all(kind != "wrap_continuation_row" for kind, _text in candidates)
+
+
+def test_a_wrapped_label_binds_a_resolved_value_into_the_fixed_slot(monkeypatch):
+    """The wrapped field plans ``RESOLVED_VALUE_IN_FIXED_SLOT``."""
+
+    from tender_basic.page_layout import TRANSFORMATION_RESOLVED_VALUE_IN_FIXED_SLOT
+
+    plan = _wrapped_row_plan(
+        monkeypatch,
+        row_above="价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+    )
+    assert plan[0] == TRANSFORMATION_RESOLVED_VALUE_IN_FIXED_SLOT
+    assert [str(getattr(field, "value", field)) for field in plan[1]] == ["quality_target"]
+
+
+def test_a_wrapped_label_for_an_unresolved_field_stays_a_fixed_empty_slot(monkeypatch):
+    """No resolved fact means no value: the slot stays empty, never invented."""
+
+    from tender_basic.page_layout import TRANSFORMATION_FIXED_EMPTY_SLOT
+
+    plan = _wrapped_row_plan(
+        monkeypatch,
+        row_above="价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        resolved=("DURATION",),
+    )
+    assert plan[0] == TRANSFORMATION_FIXED_EMPTY_SLOT
+    # The field the label names is recorded as provenance, but an unresolved fact
+    # plans no insertion: the slot is painted empty exactly as the source drew it.
+    assert [str(getattr(field, "value", field)) for field in plan[1]] == ["quality_target"]
+
+
+def test_a_wrapped_label_ending_its_own_sentence_does_not_bind(monkeypatch):
+    from tender_basic.page_layout import TRANSFORMATION_FIXED_EMPTY_SLOT
+
+    plan = _wrapped_row_plan(monkeypatch, row_above="供货质量。")
+    assert plan[0] == TRANSFORMATION_FIXED_EMPTY_SLOT
+    assert plan[1] == ()
+
+
+def test_a_wrapped_label_terminator_does_not_bind(monkeypatch):
+    from tender_basic.page_layout import TRANSFORMATION_FIXED_EMPTY_SLOT
+
+    plan = _wrapped_row_plan(monkeypatch, row_above="（招标人名称）：")
+    assert plan[0] == TRANSFORMATION_FIXED_EMPTY_SLOT
+    assert plan[1] == ()
     assert normalize_cell_text("设备清单") != normalize_cell_text("设备清单表")
 
 

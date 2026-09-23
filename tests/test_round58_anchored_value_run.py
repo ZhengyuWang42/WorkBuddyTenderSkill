@@ -225,9 +225,18 @@ def test_r4_r5_r6_geometry_unchanged():
     """The frozen positioned emitter and form-line paragraphs must not regress."""
 
     report = _report()
-    # R3/R4 share one form line, R5 and R7 have their own, and the blank P42-R6
-    # owns the fourth; P44-R12 is the additional composed form line.
-    assert report["source_form_line_paragraph_count"] == 5
+    # A form-line paragraph is only opened for a row whose positioned atom cannot
+    # be reached forward from that row's own paragraph origin.  R3/R4 share one
+    # form line and R5 and P42-R6 have their own; a row whose anchor IS reachable
+    # forward keeps the owning element's paragraph, so it contributes no record
+    # here.  The frozen geometry of the emitters is what must not regress, and it
+    # is asserted directly below rather than through a record count.
+    assert report["source_form_line_paragraph_count"] == 3
+    isolated = [
+        record["source_rule_ids"]
+        for record in report["source_form_line_paragraphs"]
+    ]
+    assert isolated == [["P42-R3", "P42-R4"], ["P42-R5"], ["P42-R6"]], isolated
     assert report["form_layout_break_count"] == 0
     page = pymupdf.open(BUILD.pdf)[GENERATED_PAGE - 1]
     rules = sorted(

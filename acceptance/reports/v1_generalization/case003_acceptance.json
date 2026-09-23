@@ -1,8 +1,8 @@
 {
   "schema": "v1_case_acceptance/1",
   "case": "case_003",
-  "build_id": "v1_phaseC_final",
-  "build_dir": "acceptance\\workspace\\case_003\\v1_phaseC_final",
+  "build_id": "v1_round2_regression",
+  "build_dir": "acceptance\\workspace\\case_003\\v1_round2_regression",
   "pinned_pointer": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_003_current_build.json",
   "source": {
     "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\肇源县城市供水管网漏损治理项目三标段-招标文件正文.pdf",
@@ -12,42 +12,42 @@
     "source_pdf_reopen": true
   },
   "generated": {
-    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\基础投标文件.docx",
-    "docx_sha256": "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249",
-    "docx_bytes": 56952,
-    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\基础投标文件.pdf",
-    "pdf_sha256": "fc57fb821ee5c6443e0bc9086be40763d0291d694d2db7d497b7af32d2bd26d4",
-    "pdf_bytes": 894439
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round2_regression\\基础投标文件.docx",
+    "docx_sha256": "111ef72042dd35ab1c57c8c5a9855792e881e97d93a4fe37be0349bfc0ff7edd",
+    "docx_bytes": 56821,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round2_regression\\基础投标文件.pdf",
+    "pdf_sha256": "85408e894ed618485bac07fd213ad055cfe4295c58044874288d41ad80cb4058",
+    "pdf_bytes": 893375
   },
   "pipeline": 0,
   "libreoffice_render": {
     "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
     "argv": [
       "C:\\Program Files\\LibreOffice\\program\\soffice.com",
-      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_003/v1_phaseC_final/_acceptance_render/_acc_profile_c9fc94321445",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_003/v1_round2_regression/_acceptance_render/_acc_profile_1e66260ec309",
       "--headless",
       "--norestore",
       "--convert-to",
       "pdf",
       "--outdir",
-      "acceptance\\workspace\\case_003\\v1_phaseC_final\\_acceptance_render",
-      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\基础投标文件.docx"
+      "acceptance\\workspace\\case_003\\v1_round2_regression\\_acceptance_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round2_regression\\基础投标文件.docx"
     ],
-    "isolated_profile": "acceptance\\workspace\\case_003\\v1_phaseC_final\\_acceptance_render\\_acc_profile_c9fc94321445",
+    "isolated_profile": "acceptance\\workspace\\case_003\\v1_round2_regression\\_acceptance_render\\_acc_profile_1e66260ec309",
     "launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
     "returncode": 0,
-    "elapsed_s": 13.26,
+    "elapsed_s": 11.12,
     "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
-    "pdf": "acceptance\\workspace\\case_003\\v1_phaseC_final\\_acceptance_render\\基础投标文件.pdf",
+    "pdf": "acceptance\\workspace\\case_003\\v1_round2_regression\\_acceptance_render\\基础投标文件.pdf",
     "pdf_exists": true,
-    "pdf_bytes": 894439
+    "pdf_bytes": 893375
   },
   "rendered_pdf": {
     "pdf_page_count": 33,
     "pdf_reopen": true,
     "pdf_blank_pages": [],
     "pdf_blank_page_count": 0,
-    "pdf_extractable_character_count": 6388,
+    "pdf_extractable_character_count": 6308,
     "pdf_text_page_count": 33
   },
   "package_safety": {

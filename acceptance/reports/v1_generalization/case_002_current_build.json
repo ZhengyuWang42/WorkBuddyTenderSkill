@@ -1,12 +1,12 @@
 {
   "schema": "v09_current_build_pointer/1",
-  "build_id": "v1_phaseC_final",
-  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final",
-  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\build_manifest.json",
+  "build_id": "v1_round4_closure8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8\\build_manifest.json",
   "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
-  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\基础投标文件.docx",
-  "generated_docx_sha256": "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387",
-  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\基础投标文件.pdf",
-  "generated_pdf_sha256": "b848f1ef5aef0a38aecc69052b4e717c620de6220751365795bfa6fb077fcbf0",
-  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\generation_report.json"
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8\\基础投标文件.docx",
+  "generated_docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8\\基础投标文件.pdf",
+  "generated_pdf_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8\\generation_report.json"
 }

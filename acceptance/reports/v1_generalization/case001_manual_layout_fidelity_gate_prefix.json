@@ -1,0 +1,164 @@
+{
+  "schema": "v1_manual_layout_fidelity/1",
+  "gate": "v1_manual_word_review_layout_fidelity",
+  "label": "case_001_pre_fix",
+  "status": "FAIL",
+  "checks": [
+    {
+      "check": "section_frame_margin_spread_zero",
+      "ok": false,
+      "observed": {
+        "spreads": {
+          "PORTRAIT_595x842_1": {
+            "left_margin_spread_pt": 113.25,
+            "right_margin_spread_pt": 125.05,
+            "top_margin_spread_pt": 19.0,
+            "page_count": 22
+          }
+        },
+        "outside_tolerance": {
+          "PORTRAIT_595x842_1": {
+            "left_margin_spread_pt": 113.25,
+            "right_margin_spread_pt": 125.05,
+            "top_margin_spread_pt": 19.0,
+            "page_count": 22
+          }
+        }
+      },
+      "note": "tolerance 0.5 pt"
+    },
+    {
+      "check": "every_page_conforms_to_its_section_frame",
+      "ok": false,
+      "observed": {
+        "pages_not_conforming": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "page_count": 22
+      },
+      "note": ""
+    },
+    {
+      "check": "section_count_matches_page_count",
+      "ok": true,
+      "observed": {
+        "pages_grouped_into_a_frame": 22,
+        "measured_pages": 22,
+        "pages_by_frame": {
+          "PORTRAIT_595x842_1": 22
+        },
+        "sections": 22,
+        "generated_pages": 22
+      },
+      "note": ""
+    },
+    {
+      "check": "frame_anchor_is_a_repeated_text_edge",
+      "ok": true,
+      "observed": {
+        "frames_without_a_repeated_text_edge": []
+      },
+      "note": "a frame must be a repeated text body edge, or the centring symmetry of the body; minimum support 2 pages"
+    },
+    {
+      "check": "centered_headings_sit_on_the_page_centre",
+      "ok": false,
+      "observed": {
+        "centered_heading_pages": 22,
+        "outside_tolerance": [
+          2,
+          5,
+          6,
+          7,
+          9,
+          10,
+          12,
+          22
+        ],
+        "max_center_error_pt": 53.88
+      },
+      "note": "tolerance 2.0 pt"
+    },
+    {
+      "check": "source_one_line_headings_stay_one_line",
+      "ok": false,
+      "observed": {
+        "wrapped": [
+          15,
+          18
+        ]
+      },
+      "note": ""
+    },
+    {
+      "check": "no_source_row_is_split_across_generated_lines",
+      "ok": true,
+      "observed": {
+        "pages_with_a_split_source_row": [],
+        "split_source_rows": null,
+        "single_row_elements_checked": null,
+        "unmeasured_source_rows": []
+      },
+      "note": "an unmeasured source row is a row whose trace markers were replaced by a resolved value; it is reported, not failed"
+    },
+    {
+      "check": "no_unexpected_blank_page",
+      "ok": true,
+      "observed": {
+        "blank_pages": []
+      },
+      "note": ""
+    }
+  ],
+  "failed_checks": [
+    "section_frame_margin_spread_zero",
+    "every_page_conforms_to_its_section_frame",
+    "centered_headings_sit_on_the_page_centre",
+    "source_one_line_headings_stay_one_line"
+  ],
+  "thresholds": {
+    "frame_spread_tolerance_pt": 0.5,
+    "center_error_tolerance_pt": 2.0,
+    "table_width_tolerance_pt": 1.0,
+    "min_frame_anchor_support": 2
+  },
+  "build": {
+    "build_id": "v1_phaseC_final2",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2",
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx",
+    "docx_sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d",
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.pdf",
+    "pdf_sha256": "b768d1a08a38410d77f74a37625a9b94f151fd08889a42e2c326e3884e5dac95",
+    "generated_pages": 22,
+    "source_pages": 22,
+    "section_count": 22
+  },
+  "source_audits": {
+    "frame": "v1_case001_page_frame_audit/1",
+    "table": null
+  },
+  "manual_review_required": true,
+  "readiness": {
+    "READY_FOR_SUBMISSION": false,
+    "note": "This gate proves the automated layout contract only. Manual Word review remains required and cannot be completed by automation."
+  }
+}

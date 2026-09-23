@@ -1,0 +1,15 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_followup3",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3\\基础投标文件.docx",
+  "generated_docx_sha256": "f7d990f32736a84af76ae3f71ee60b053b49bdf8fc9acdadd8adbd77c9818d5e",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3\\基础投标文件.pdf",
+  "generated_pdf_sha256": "683727064a24f2c75e24215bf9cd8254fa0ae999d0c17267a8cb507e6eb13891",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3\\generation_report.json",
+  "superseded": true,
+  "superseded_by": "case_002_current_build.json",
+  "superseded_reason": "recorded the pre-hardbreak-closure pointer for CASE002; the shared form-line emitter no longer opens a Word form line for a blank whose own source start is at or ahead of the paragraph cursor, which changed the delivered DOCX (2 of 4 form-layout breaks removed)"
+}

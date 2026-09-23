@@ -162,6 +162,7 @@ def wrap_atoms(
     first_line_start: float,
     line_start: float,
     right_limit: float,
+    forward_reachable_rule_ids: Sequence[str] = (),
 ) -> LineLayout:
     """Greedily lay one logical row's atoms into the fewest generated lines.
 
@@ -177,7 +178,18 @@ def wrap_atoms(
 
     Nothing here reads generated output: only the atoms' own measured widths and
     the row's own source-derived line widths.
+
+    ``forward_reachable_rule_ids`` is the escape hatch for the one case this
+    width model cannot settle on its own.  An atom's advance is a *measurement*,
+    and the emitter measures it against the real font metrics; when the emitter
+    recorded that the atom was in fact reached forward from its row origin, that
+    measurement outranks this estimate.  Without it the estimate's rounding error
+    at the anchor - a cursor a fraction of a point past the anchor the emitter
+    tabbed to successfully - would demand a generated line the emission proves is
+    unnecessary, and the plan would claim one more row than the page can hold.
     """
+
+    forward = {str(rule_id) for rule_id in forward_reachable_rule_ids or ()}
 
     cursor = float(first_line_start)
     line_index = 0
@@ -197,7 +209,7 @@ def wrap_atoms(
     for atom in atoms:
         if atom.anchored:
             anchor = float(atom.anchor_x if atom.anchor_x is not None else atom.source_x0)
-            if cursor >= anchor - MEASURE_EPSILON_PT:
+            if cursor >= anchor - MEASURE_EPSILON_PT and atom.rule_id not in forward:
                 break_line()
                 cursor = anchor
                 if atom.rule_id:
@@ -213,7 +225,9 @@ def wrap_atoms(
                     }
                 )
             else:
-                cursor = anchor
+                # Never move the cursor backwards: a reached-forward atom the
+                # estimate had already passed keeps the further-right position.
+                cursor = max(cursor, anchor)
                 placements.append(
                     {
                         "atom_kind": atom.atom_kind,
@@ -221,7 +235,11 @@ def wrap_atoms(
                         "placement": PLACEMENT_FORWARD_TAB,
                         "starts_at_pt": round(anchor, 2),
                         "line_index": line_index,
-                        "reason": "anchor_ahead_of_cursor",
+                        "reason": (
+                            "anchor_ahead_of_cursor"
+                            if atom.rule_id not in forward
+                            else "emission_recorded_forward_reachable"
+                        ),
                     }
                 )
             cursor += max(0.0, float(atom.advance_pt))
@@ -295,7 +313,10 @@ def next_forward_tab_stop(
     return round(cursor + default_advance, 2)
 
 
-def reflow_axis(group_prefix_minimum_lines: Sequence[Sequence[int]]) -> dict[str, Any]:
+def reflow_axis(
+    group_prefix_minimum_lines: Sequence[Sequence[int]],
+    group_row_start_lines: Sequence[Sequence[int]] | None = None,
+) -> dict[str, Any]:
     """Where mandatory extra lines land along one region's row axis.
 
     ``group_prefix_minimum_lines[g][k]`` is the fewest generated lines that hold
@@ -305,6 +326,14 @@ def reflow_axis(group_prefix_minimum_lines: Sequence[Sequence[int]]) -> dict[str
     needed them, and they move the axis for every row *after* that point only.
     Rows above are untouched, which is what makes the expansion propagate
     strictly downstream.
+
+    ``group_row_start_lines[g][k]`` is the generated line the group's ``k``-th
+    row itself starts on, read from the group layout's own placements.  Rows that
+    share one delivered paragraph share one flow, so how far down the axis a row
+    sits is that line - not the sum of the lines each earlier row's content would
+    need if it ended the line, which only holds when every row is its own
+    paragraph.  Without it the two figures agree on single-row groups, which is
+    what the caller passes when it has no layout to read.
 
     ``extra_lines_attributed_to_row`` is the row's own forcing and is never
     negative: a later row that happens to fit inside an extra line an earlier row
@@ -316,11 +345,20 @@ def reflow_axis(group_prefix_minimum_lines: Sequence[Sequence[int]]) -> dict[str
     extra_self: list[int] = []
     cumulative_before: list[int] = []
     axis = 0
-    for prefixes in group_prefix_minimum_lines:
+    for group_index, prefixes in enumerate(group_prefix_minimum_lines):
+        starts = None
+        if group_row_start_lines is not None and group_index < len(
+            group_row_start_lines
+        ):
+            starts = group_row_start_lines[group_index]
         previous = 0
         for offset, prefix in enumerate(prefixes):
             self_extra = max(0, int(prefix) - (offset + 1))
-            cumulative_before.append(axis + previous)
+            if starts is not None and offset < len(starts):
+                within_group = max(0, int(starts[offset]) - offset)
+            else:
+                within_group = previous
+            cumulative_before.append(axis + within_group)
             extra_self.append(max(0, self_extra - previous))
             previous = self_extra
         axis += max(0, int(prefixes[-1]) - len(prefixes))

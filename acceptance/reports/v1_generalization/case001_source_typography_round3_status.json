@@ -1,0 +1,111 @@
+{
+  "schema": "case001_source_typography_round3_status/1",
+  "superseded_by": {
+    "build_id": "v1_manual_fidelity_round3_p3semantics",
+    "status_file": "acceptance/reports/v1_generalization/case001_round3_p3semantic_reconciliation_status.json",
+    "typography_report": "acceptance/reports/v1_generalization/case001_source_typography_round3_p3semantics.json",
+    "reason": "every typography fix recorded here is preserved on the successor build (gate PASS, no failed family); the successor changes only the authorized-split accounting, because the P42-R6 row no longer needs its own isolated paragraph (authorized splits 2 -> 1, isolated_paragraphs [29])"
+  },
+  "round": 3,
+  "scope": "CASE001 source typography and cell inline structure",
+  "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_p3reconciled",
+  "build_docx_sha256": "0ac9f7bc1da34f1d32f5fe4aa444d2a1317a72a99589134972b8a49134fd39ab",
+  "build_pdf_sha256": "2d282ec4c77269b90c4d69a8b0c0fae8ca937d736941eb175709d30b3cbe29b5",
+  "rendered_pages": 22,
+  "blank_pages": 0,
+  "pre_reconciliation_build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_source_typography",
+  "pre_reconciliation_docx_sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
+  "baseline_build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round2_p21fix",
+  "source_pdf": "acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "committed": false,
+  "pushed": false,
+  "statuses": {
+    "CASE001_SOURCE_TYPOGRAPHY_ROUND3_AUTOMATION": "PASS",
+    "PARAGRAPH_ALIGNMENT": "CLOSED",
+    "HARD_BREAK_FIDELITY": "CLOSED",
+    "TABLE_CELL_LINE_STRUCTURE": "CLOSED",
+    "SOURCE_BOLD_FIDELITY": "CLOSED",
+    "SOURCE_UNDERLINE_FIDELITY": "CLOSED",
+    "FIXED_BLANK_FIDELITY": "CLOSED",
+    "CASE001_ROUND3_P3_RECONCILIATION": "PASS",
+    "P3_SEMANTICS": "8/8",
+    "P3_HORIZONTAL": "8/8",
+    "P3_RULE_ACCOUNTING": "matched=8 lost=0 invented=0 out_of_tolerance=0 invariants=[]",
+    "REFLOW_AWARE_V1": "PASS",
+    "CASE001_AUTOMATED_REGRESSION": "PASS",
+    "CASE002_REGRESSION": "PASS",
+    "CASE003_REGRESSION": "PASS",
+    "THREE_CASE_GENERALIZATION": "PASS",
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false
+  },
+  "gate_report": "acceptance/reports/v1_generalization/case001_source_typography_round3.json",
+  "baseline_gate_report": "acceptance/reports/v1_generalization/case001_source_typography_round3_baseline.json",
+  "baseline_gate_status": "FAIL",
+  "baseline_gate_failed_checks": [
+    "PARAGRAPH_ALIGNMENT",
+    "TABLE_CELL_LINE_STRUCTURE",
+    "SOURCE_BOLD_FIDELITY"
+  ],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 75,
+      "failed": 0,
+      "authorized_splits": 1,
+      "isolated_paragraphs": [29, 30]
+    },
+    "paragraph_alignment": {"checked": 73, "justified_delivered": 6, "failed": 0},
+    "table_cell_line_structure": {"checked": 51, "failed": 0},
+    "source_bold_fidelity": {"checked": 29, "failed": 0, "contents_entries_excluded": 30},
+    "source_underline_fidelity": {"checked": 6, "failed": 0},
+    "fixed_blank_fidelity": {"checked": 34, "failed": 0},
+    "flow_placed_rule_endpoints": {"checked": 1, "failed": 0, "diagnostic_only": true}
+  },
+  "regression": {
+    "case_001_acceptance": "acceptance/reports/v1_generalization/case_001_round3_acceptance.json",
+    "case_001_reflow_aware": "acceptance/reports/v1_generalization/case001_reflow_aware_round3_reconciled.json",
+    "case_001_p3_closure": "acceptance/reports/v1_generalization/case001_p3_closure_round3_reconciled.json",
+    "case_001_underline_inventory": "acceptance/reports/v1_generalization/case001_underline_inventory_round3_reconciled.json",
+    "case_001_p21_structural": "acceptance/reports/v1_generalization/case001_p21_structural_gate_round3_reconciled.json",
+    "case_001_p21_followup": "acceptance/reports/v1_generalization/case001_p21_followup_status.json",
+    "case_001_source_line_assembly": "acceptance/reports/v1_generalization/case001_source_line_assembly_round3_reconciled.json",
+    "case_001_ownership_closure": "acceptance/reports/v1_generalization/case001_ownership_closure_round3_reconciled.json",
+    "case_001_page_frame": "acceptance/reports/v1_generalization/case001_page_frame_audit_round3_reconciled.json",
+    "case_002_acceptance": "acceptance/reports/v1_generalization/case_002_round3_acceptance.json",
+    "case_003_acceptance": "acceptance/reports/v1_generalization/case_003_round3_acceptance.json",
+    "three_case_regression": "acceptance/reports/v1_generalization/three_case_regression_round3_reconciled.json",
+    "automated_candidate_gate": "acceptance/reports/v1_generalization/v1_automated_candidate_gate_round3_reconciled.json",
+    "p3_reconciliation_diagnostic": "acceptance/reports/v1_generalization/case001_round3_p3_contract_reconciliation_diagnostic.json",
+    "p3_reconciliation_status": "acceptance/reports/v1_generalization/case001_round3_p3_contract_reconciliation_status.json",
+    "full_test_suite": "509 passed, 1 skipped, 0 failed"
+  },
+  "disclosures": [
+    {
+      "id": "LETTER_UNDERLINE_INVENTORY_ROUND2_ROW_MODEL",
+      "report": "acceptance/reports/v1_generalization/case001_underline_inventory_round3_reconciled.json",
+      "result": "8 matched / 0 lost / 0 out of tolerance / 0 invented",
+      "reason": "the Round-2 measurement model was replaced by a current one (unmerged drawn segments, endpoint-seeded contiguous runs) while the frozen spans, policies, intents and the 2.0 pt tolerance were left untouched",
+      "superseded_by": "case001_underline_inventory_round3_reconciled.json + case001_round3_p3_contract_reconciliation_diagnostic.json"
+    },
+    {"id": "CONTENTS_ENTRIES_NOT_BOLD", "excluded": 30, "gating": false},
+    {
+      "id": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+      "paragraphs": [29, 30],
+      "rules": [["P42-R3", "P42-R4"], ["P42-R6"]],
+      "detail": "the wrapped rows whose own rules owe both EXACT_SOURCE_SPAN endpoints get their own paragraph context with space_before 0, space_after 0, source-compatible line spacing and no <w:br/>; the authority order puts the frozen geometry above Word paragraph continuity",
+      "gating": false
+    },
+    {
+      "id": "REFLOW_REGION_LEDGER",
+      "accepted_difference": "region_ledger_matches_the_baseline",
+      "reason": "the isolated rows return the response letter's region to per-source-row paragraphs for the rules that owe exact geometry"
+    },
+    {
+      "id": "LEGACY_ABSOLUTE_VERTICAL_PHASE",
+      "result": "red by design",
+      "authority": "REFLOW_AWARE_V1",
+      "detail": "maximum residual y error 0.71 pt inside the 2.0 pt tolerance; the raw y difference is the mandatory reflow of the recorded long project name and values, disclosed and never applied to a horizontal span"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_manual_fidelity_round3_p3semantics",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics\\基础投标文件.docx",
+  "generated_docx_sha256": "0ebfbda52bbc889b432bcff3ea67d26c7f0f1c5beac59c3e521e59294ae3da2b",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics\\基础投标文件.pdf",
+  "generated_pdf_sha256": "1b988e2a84ac78f5524c7d9bda4187caaf4606eb559d4721d92095b67d56f0ea",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics\\generation_report.json",
+  "superseded": true,
+  "superseded_by": "case_001_current_build.json",
+  "superseded_reason": "recorded the pre-reconciliation pointer: the follow-up acceptance build was not the acceptance target while HARD_BREAK_FIDELITY was reported as FAIL"
+}

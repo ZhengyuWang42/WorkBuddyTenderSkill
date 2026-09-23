@@ -45,12 +45,44 @@ def _source_body_strings(template: SourceFormatTemplate) -> list[str]:
     return [value for value in values if value]
 
 
+def _recorded_slot_values(generation_report: dict[str, Any] | None) -> dict[str, str]:
+    """The value the build itself recorded for each slot it substituted.
+
+    The presence diagnostic compares the delivered document with the source's own
+    text, and a filled slot is exactly the place where the delivery *should* differ
+    from the source.  When the build recorded a presentation for a slot, that
+    presentation is the substitution to expect - including a source form field
+    whose own frame the source ruled and the delivery must keep.  The presentation
+    is not taken on trust: the recorded value must carry its own component
+    provenance, and the composite and alignment contracts are gated separately by
+    ``v1_p21_structural_gate`` and the follow-up acceptance checks.
+    """
+
+    if not generation_report:
+        return {}
+    records = (generation_report.get("slot_value_presentations") or {}).get(
+        "records"
+    ) or []
+    values: dict[str, str] = {}
+    for record in records:
+        slot_id = record.get("slot_id")
+        value = record.get("value")
+        components = list(record.get("components") or ())
+        if slot_id is None or not value or not components:
+            continue
+        values[str(slot_id)] = str(value)
+    return values
+
+
 def _expected_source_body_strings(
     template: SourceFormatTemplate,
     project_facts: ProjectFacts,
+    generation_report: dict[str, Any] | None = None,
 ) -> list[str]:
     def locator_key(locator: object) -> str:
         return json.dumps(locator.model_dump(mode="json"), ensure_ascii=False, sort_keys=True)
+
+    recorded = _recorded_slot_values(generation_report)
 
     def replace_slots(text: str, slots: list[object]) -> str:
         # Apply offsets from right to left.  An empty table-cell slot must
@@ -60,10 +92,14 @@ def _expected_source_body_strings(
             replacement = _slot_replacement_for_insertion(slot, project_facts)
             if replacement is None or slot.text_start is None or slot.text_end is None:
                 continue
+            # A recorded presentation is the substitution the build declared; the
+            # recomputed replacement is the fallback for a slot the build left
+            # alone, so the expectation still models the same generic policy.
+            value = recorded.get(str(slot.slot_id), replacement[0])
             start = max(0, min(len(text), int(slot.text_start)))
             end = max(start, min(len(text), int(slot.text_end)))
             if end > start:
-                replacements.append((start, end, replacement[0]))
+                replacements.append((start, end, value))
         for start, end, value in sorted(replacements, reverse=True):
             text = text[:start] + value + text[end:]
         return text
@@ -280,7 +316,9 @@ def build_source_format_qa(
     path = Path(docx_path)
     document = Document(path)
     generated_text = _docx_text(path)
-    expected_strings = _expected_source_body_strings(template, project_facts)
+    expected_strings = _expected_source_body_strings(
+        template, project_facts, generation_report
+    )
     # The renderer itself owns some fill rules: a glyph-free rule whose compiled
     # field plan asks for a resolved value is executed by the renderer's own
     # source-form-line owner rather than through a template ``SourceFillSlot``,

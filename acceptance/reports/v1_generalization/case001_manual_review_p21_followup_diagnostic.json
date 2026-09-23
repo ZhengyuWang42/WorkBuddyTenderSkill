@@ -1,0 +1,4783 @@
+{
+  "schema": "v1_manual_review_p21_followup_diagnostic/1",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.docx",
+  "generated_docx_sha256": "044b2d29c5502b8ca8e092bd0c8069be48bd9a577187fcb39147800705efb8cd",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "defect_a_composite_slot_underline": {
+    "marker": "/",
+    "marker_is_a_fact": false,
+    "marker_creates_a_fact_candidate": false,
+    "composite_slot_count": 1,
+    "slots": [
+      {
+        "slot_id": "slot-60-14",
+        "source_page": 60,
+        "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/",
+        "method": "source_slot_composite_presentation",
+        "components": [
+          {
+            "kind": "FACT_VALUE",
+            "field": "project_name",
+            "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+            "source": "ProjectFacts"
+          },
+          {
+            "kind": "SOURCE_TEMPLATE_LITERAL",
+            "field": null,
+            "text": "、",
+            "source": "SOURCE_SLOT_HINT"
+          },
+          {
+            "kind": "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+            "field": "lot_name",
+            "text": "/",
+            "source": "SOURCE_FORM_STRUCTURE"
+          }
+        ],
+        "component_counts": {
+          "fact_value": 1,
+          "source_template_literal": 1,
+          "source_form_not_applicable_marker": 1
+        },
+        "generated_paragraph_index": 132,
+        "generated_paragraph_indexes_found": [
+          132
+        ],
+        "generated_paragraphs": [
+          {
+            "paragraph_index": 132,
+            "style": "Tender Body First Line",
+            "text": "在河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/询比活动中，我公司保证做到：",
+            "indent": {
+              "raw": {
+                "left": "24",
+                "firstLine": "552",
+                "right": "0"
+              },
+              "left_twips": 24,
+              "left_pt": 1.2,
+              "first_line_twips": 552,
+              "first_line_pt": 27.6,
+              "hanging_twips": null,
+              "hanging_pt": null,
+              "reader_left_pt": 1.2,
+              "reader_first_line_pt": 27.6
+            },
+            "runs": [
+              {
+                "text": "在",
+                "underline_attr": null,
+                "underline_element_present": false,
+                "reader_underline": null
+              },
+              {
+                "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/",
+                "underline_attr": "single",
+                "underline_element_present": true,
+                "reader_underline": true
+              },
+              {
+                "text": "",
+                "underline_attr": null,
+                "underline_element_present": false,
+                "reader_underline": null
+              },
+              {
+                "text": "询比活动中，我公司保证做到：",
+                "underline_attr": null,
+                "underline_element_present": false,
+                "reader_underline": null
+              }
+            ],
+            "value_run_underlines": [
+              "single"
+            ],
+            "value_is_underlined": true,
+            "prose_underlined_outside_value": []
+          }
+        ],
+        "source_text_lines": [
+          {
+            "text": "询比文件",
+            "bbox": [
+              456.0,
+              50.4,
+              492.0,
+              59.61
+            ]
+          },
+          {
+            "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目一体化泵站采购项目",
+            "bbox": [
+              70.8,
+              52.42,
+              384.02,
+              58.92
+            ]
+          },
+          {
+            "text": "十四、反商业贿赂承诺书",
+            "bbox": [
+              221.4,
+              77.74,
+              374.05,
+              92.11
+            ]
+          },
+          {
+            "text": "我公司承诺：",
+            "bbox": [
+              72.12,
+              120.42,
+              147.24,
+              132.7
+            ]
+          },
+          {
+            "text": "在",
+            "bbox": [
+              99.6,
+              145.14,
+              111.6,
+              157.42
+            ]
+          },
+          {
+            "text": "（项目名称、标段）",
+            "bbox": [
+              142.68,
+              145.14,
+              251.52,
+              157.42
+            ]
+          },
+          {
+            "text": "询比活动中，我公司保证做到：",
+            "bbox": [
+              324.72,
+              145.14,
+              494.03,
+              157.42
+            ]
+          },
+          {
+            "text": "一、公平竞争参与本次询比活动。",
+            "bbox": [
+              99.84,
+              168.78,
+              296.64,
+              181.06
+            ]
+          },
+          {
+            "text": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲",
+            "bbox": [
+              99.84,
+              196.74,
+              500.76,
+              209.02
+            ]
+          },
+          {
+            "text": "属提供礼品礼金、有价证券、购物券、回扣、佣金、咨询费、劳务费、资助费、",
+            "bbox": [
+              72.0,
+              221.22,
+              507.24,
+              233.5
+            ]
+          },
+          {
+            "text": "宣传费、宴请；不为其报销各种消费凭证，不支付其旅游、娱乐等费用。",
+            "bbox": [
+              72.0,
+              245.58,
+              478.44,
+              257.86
+            ]
+          },
+          {
+            "text": "三、若出现上述行为，我公司及参与询比的工作人员愿意接受按照国",
+            "bbox": [
+              99.72,
+              270.42,
+              494.52,
+              282.7
+            ]
+          },
+          {
+            "text": "家法律法规等有关规定给予的处罚。",
+            "bbox": [
+              72.0,
+              295.38,
+              277.44,
+              307.66
+            ]
+          },
+          {
+            "text": "供应商：",
+            "bbox": [
+              238.8,
+              377.58,
+              284.88,
+              389.86
+            ]
+          },
+          {
+            "text": "(盖单位公章)",
+            "bbox": [
+              355.8,
+              377.58,
+              425.04,
+              389.86
+            ]
+          },
+          {
+            "text": "法定代表人或其委托代理人：",
+            "bbox": [
+              238.8,
+              400.98,
+              394.8,
+              413.26
+            ]
+          },
+          {
+            "text": "(签字或盖章)",
+            "bbox": [
+              452.4,
+              400.98,
+              524.4,
+              413.26
+            ]
+          },
+          {
+            "text": "年",
+            "bbox": [
+              269.4,
+              428.1,
+              281.4,
+              440.38
+            ]
+          },
+          {
+            "text": "月",
+            "bbox": [
+              303.36,
+              428.1,
+              315.36,
+              440.38
+            ]
+          },
+          {
+            "text": "日",
+            "bbox": [
+              337.32,
+              428.1,
+              349.32,
+              440.38
+            ]
+          },
+          {
+            "text": "56",
+            "bbox": [
+              293.16,
+              781.14,
+              302.22,
+              793.24
+            ]
+          }
+        ],
+        "source_rules": [
+          {
+            "kind": "VALUE_WITH_UNDERLINE",
+            "x0": 111.8,
+            "x1": 318.6,
+            "y": 156.8,
+            "context": "在|（项目名称、标段）|询比活动中，我公司保证做到："
+          },
+          {
+            "kind": "VALUE_WITH_UNDERLINE",
+            "x0": 284.25,
+            "x1": 355.8,
+            "y": 389.15,
+            "context": "供应商：|(盖单位公章)"
+          },
+          {
+            "kind": "VALUE_WITH_UNDERLINE",
+            "x0": 392.4,
+            "x1": 452.4,
+            "y": 412.55,
+            "context": "法定代表人或其委托代理人：|(签字或盖章)"
+          }
+        ],
+        "registry_rules_bound_to_slot": [
+          {
+            "source_rule_id": "P60-R1",
+            "source_page": 60,
+            "x0": 111.8,
+            "x1": 318.6,
+            "y": 156.8,
+            "relation_type": "FORM_LAYOUT_RULE",
+            "text_occupancy": 0.526,
+            "bearing": false,
+            "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+            "geometry_intent": "ANCHOR_START_ONLY",
+            "authoritative_slot_id": "slot-60-14",
+            "authoritative_slot_binding": "GEOMETRY_BINDING",
+            "allowed_fact_fields": [
+              "PROJECT_NAME",
+              "LOT_NAME"
+            ],
+            "resolved_fact_fields": [
+              "PROJECT_NAME"
+            ]
+          }
+        ],
+        "registry_rules_on_page": [
+          {
+            "source_rule_id": "P60-R1",
+            "source_page": 60,
+            "x0": 111.8,
+            "x1": 318.6,
+            "y": 156.8,
+            "relation_type": "FORM_LAYOUT_RULE",
+            "text_occupancy": 0.526,
+            "bearing": false,
+            "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+            "geometry_intent": "ANCHOR_START_ONLY",
+            "authoritative_slot_id": "slot-60-14",
+            "authoritative_slot_binding": "GEOMETRY_BINDING",
+            "allowed_fact_fields": [
+              "PROJECT_NAME",
+              "LOT_NAME"
+            ],
+            "resolved_fact_fields": [
+              "PROJECT_NAME"
+            ]
+          },
+          {
+            "source_rule_id": "P60-R2",
+            "source_page": 60,
+            "x0": 284.25,
+            "x1": 355.8,
+            "y": 389.15,
+            "relation_type": "GAP_FILL_RULE",
+            "text_occupancy": 0.009,
+            "bearing": true,
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_intent": "EXACT_SOURCE_SPAN",
+            "authoritative_slot_id": null,
+            "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+            "allowed_fact_fields": [],
+            "resolved_fact_fields": []
+          },
+          {
+            "source_rule_id": "P60-R3",
+            "source_page": 60,
+            "x0": 392.4,
+            "x1": 452.4,
+            "y": 412.55,
+            "relation_type": "GAP_FILL_RULE",
+            "text_occupancy": 0.04,
+            "bearing": true,
+            "transformation_policy": "FIXED_EMPTY_SLOT",
+            "geometry_intent": "EXACT_SOURCE_SPAN",
+            "authoritative_slot_id": null,
+            "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+            "allowed_fact_fields": [],
+            "resolved_fact_fields": []
+          }
+        ],
+        "underline_authority": {
+          "value_replacing_policies": [
+            "PLACEHOLDER_REPLACED_BY_VALUE",
+            "RESOLVED_VALUE_IN_FIXED_SLOT"
+          ],
+          "bound_decoration_rule_ids": [
+            "P60-R1"
+          ],
+          "emission_authorised": true,
+          "emitted": true,
+          "state": "SLOT_DECORATION_INHERITED",
+          "provenance": [
+            {
+              "component": "FACT_VALUE",
+              "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+              "field": "project_name",
+              "inherited": true
+            },
+            {
+              "component": "SOURCE_TEMPLATE_LITERAL",
+              "text": "、",
+              "field": null,
+              "inherited": true
+            },
+            {
+              "component": "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+              "text": "/",
+              "field": "lot_name",
+              "inherited": true
+            }
+          ],
+          "suffix_prose_underline": false
+        }
+      }
+    ]
+  },
+  "defect_b_paragraph_indent": {
+    "classification_tolerance_pt": 2.0,
+    "paragraphs": [
+      {
+        "source_text_prefix": "第六章响应文件格式",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          192.72,
+          79.71,
+          402.35,
+          102.17
+        ],
+        "container_x0": 76.8,
+        "source_row_origins": [
+          {
+            "x": 192.72,
+            "y": 79.71
+          }
+        ],
+        "source_first_line_x": 192.72,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 192.72,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 192.72,
+          "first_line_x": 192.72,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 40,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          76.8,
+          130.58,
+          518.38,
+          214.93
+        ],
+        "container_x0": 76.8,
+        "source_row_origins": [
+          {
+            "x": 120.96,
+            "y": 130.58
+          },
+          {
+            "x": 76.8,
+            "y": 161.78
+          },
+          {
+            "x": 154.08,
+            "y": 192.98
+          }
+        ],
+        "source_first_line_x": 120.96,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 120.96,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 120.96,
+          "first_line_x": 120.96,
+          "continuation_x": 76.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 40,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "响应文件",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          241.44,
+          291.28,
+          353.75,
+          319.87
+        ],
+        "container_x0": 76.8,
+        "source_row_origins": [
+          {
+            "x": 241.44,
+            "y": 291.28
+          }
+        ],
+        "source_first_line_x": 241.44,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 241.44,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 241.44,
+          "first_line_x": 241.44,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 40,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "目录",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          278.76,
+          80.17,
+          316.32,
+          95.51
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 278.76,
+            "y": 80.17
+          }
+        ],
+        "source_first_line_x": 278.76,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 278.76,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 278.76,
+          "first_line_x": 278.76,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "一、响应函及响应函附录",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          111.82,
+          224.89,
+          126.19
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 111.82
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "二、法定代表人身份证明或法定代表人授权委托书",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          142.42,
+          375.13,
+          157.87
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 142.42
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "三、响应保证金",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          174.22,
+          168.85,
+          188.59
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 174.22
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "四、商务和技术偏差表",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          205.42,
+          209.05,
+          219.79
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 205.42
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "五、分项报价表",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          236.62,
+          167.65,
+          250.99
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 236.62
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "六、资格审查资料",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          267.82,
+          181.45,
+          282.19
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 267.82
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "七、近年（2023 年 1 月 1 日以来）类似项目情况表",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          299.02,
+          378.13,
+          313.39
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 299.02
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "八、响应货物技术性能指标的详细描述及技术支持资料",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          336.22,
+          406.8,
+          350.59
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 336.22
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "九、供货方案",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          366.82,
+          154.33,
+          382.27
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 366.82
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十、应急保障措施",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          398.02,
+          181.93,
+          413.47
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 398.02
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十一、质量保证体系、质量控制文件及质量保证措施",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          429.22,
+          389.05,
+          444.67
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 429.22
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十二、接受银行承兑比例",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          461.02,
+          222.85,
+          475.39
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 461.02
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十三、垫资能力",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          491.62,
+          168.25,
+          507.07
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 491.62
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十四、反商业贿赂承诺书",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          522.82,
+          223.45,
+          538.27
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 522.82
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十五、其他资料",
+        "kind": "Heading",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          554.02,
+          168.25,
+          569.47
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 554.02
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 41,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "一、响应函及响应函附录",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          221.16,
+          77.74,
+          374.17,
+          92.11
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 221.16,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 221.16,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 221.16,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 221.16,
+          "first_line_x": 221.16,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 42,
+        "role": "COVER_TITLE",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "(一)响应函",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          266.28,
+          107.22,
+          328.44,
+          119.5
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 266.28,
+            "y": 107.22
+          }
+        ],
+        "source_first_line_x": 266.28,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 266.28,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 266.28,
+          "first_line_x": 266.28,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 42,
+        "role": "COVER_TITLE",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "(采购人名称) ：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          112.8,
+          126.78,
+          206.64,
+          139.06
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 112.8,
+            "y": 126.78
+          }
+        ],
+        "source_first_line_x": 112.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 42.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 112.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 42.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 42.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 42.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 42.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意以人民币（",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          146.7,
+          523.92,
+          218.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 96.84,
+            "y": 146.7
+          },
+          {
+            "x": 70.8,
+            "y": 166.74
+          },
+          {
+            "x": 70.8,
+            "y": 186.78
+          },
+          {
+            "x": 70.8,
+            "y": 206.7
+          }
+        ],
+        "source_first_line_x": 96.84,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 26.04,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 96.84,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 26.04,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 26.04,
+          "row_count": 4,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 42,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 26.04,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 26.04,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "如我方成交，我公司承诺如下：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          226.74,
+          262.8,
+          239.02
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 226.74
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          246.78,
+          472.8,
+          259.06
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 246.78
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          266.7,
+          424.8,
+          278.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 266.7
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "3、将按询比文件的规定履行合同责任和义务。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          286.74,
+          340.8,
+          299.02
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 286.74
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "4、本项目询比有效期为提交响应文件截止之日起90日历天，在询比有效期内不修改、撤",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          306.78,
+          520.8,
+          338.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 306.78
+          },
+          {
+            "x": 70.8,
+            "y": 326.7
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "5、在合同约定的期限内完成并移交全部标的。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          346.74,
+          340.8,
+          359.02
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 346.74
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "6、我方在此声明，所递交的响应文件及有关资料内容完整、真实和准确，且不存在第二章",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          366.78,
+          520.8,
+          398.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 366.78
+          },
+          {
+            "x": 70.8,
+            "y": 386.7
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "7、（其他补充说明）。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          406.74,
+          220.8,
+          419.02
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 406.74
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 42,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "(二)响应函附录",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          248.64,
+          73.86,
+          344.52,
+          86.14
+        ],
+        "container_x0": 65.33,
+        "source_row_origins": [
+          {
+            "x": 248.64,
+            "y": 73.86
+          }
+        ],
+        "source_first_line_x": 248.64,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 248.64,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 248.64,
+          "first_line_x": 248.64,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 43,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "二、法定代表人身份证明或法定代表人授权委托书",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          145.2,
+          77.74,
+          450.25,
+          92.11
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 145.2,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 145.2,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 145.2,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 145.2,
+          "first_line_x": 145.2,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 44,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "(一)法定代表人身份证明",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          227.52,
+          100.98,
+          367.08,
+          113.26
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 227.52,
+            "y": 100.98
+          }
+        ],
+        "source_first_line_x": 227.52,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 227.52,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 227.52,
+          "first_line_x": 227.52,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 44,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "系(供应商名称)的法定代表人。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          72.12,
+          296.82,
+          410.52,
+          309.1
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 72.12,
+            "y": 296.82
+          }
+        ],
+        "source_first_line_x": 72.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 72.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 72.12,
+          "first_line_x": 72.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 44,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "特此证明。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          334.62,
+          133.2,
+          346.9
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 334.62
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 44,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "附：法定代表人身份证明正反面复印件或扫描件。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          373.5,
+          351.84,
+          385.78
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 373.5
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 44,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（二）法定代表人授权委托书",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          222.6,
+          74.05,
+          372.58,
+          85.82
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 222.6,
+            "y": 74.05
+          }
+        ],
+        "source_first_line_x": 222.6,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 222.6,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 222.6,
+          "first_line_x": 222.6,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 45,
+        "role": "COVER_TITLE",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "本人（姓名）系（供应商名称）的法定代表人，现委托（姓名）为我方代理人。代理人根据",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          112.74,
+          526.8,
+          171.7
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 112.74
+          },
+          {
+            "x": 70.8,
+            "y": 136.02
+          },
+          {
+            "x": 70.8,
+            "y": 159.42
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 45,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "委托期限：。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          182.7,
+          244.8,
+          194.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 182.7
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 45,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "代理人无转委托权。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          206.1,
+          202.8,
+          218.38
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 206.1
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 45,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "注：供应商如授权代理人，则应在响应文件中提供本授权委托书及代理人身份证扫描件，反",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          252.78,
+          524.4,
+          288.46
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 252.78
+          },
+          {
+            "x": 70.8,
+            "y": 276.18
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 45,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "三、响应保证金",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          249.12,
+          77.74,
+          346.33,
+          92.11
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 249.12,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 249.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 249.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 249.12,
+          "first_line_x": 249.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 46,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "附：1、响应保证金转账凭证。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          124.62,
+          232.8,
+          136.9
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 124.62
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 46,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "2、供应商基本账户开户许可证或基本存款账户信息。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          94.8,
+          165.78,
+          376.8,
+          178.06
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 165.78
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 94.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 94.8,
+          "first_line_x": 94.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 46,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "四、商务和技术偏差表",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          228.36,
+          77.74,
+          367.09,
+          92.11
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 228.36,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 228.36,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 228.36,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 228.36,
+          "first_line_x": 228.36,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 47,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "供应商保证：除商务和技术偏差表列出的偏差外，供应商响应询比文件的全部要求。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          381.18,
+          507.6,
+          393.46
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 381.18
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 47,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "五、分项报价表",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          249.12,
+          92.86,
+          346.33,
+          107.23
+        ],
+        "container_x0": 65.33,
+        "source_row_origins": [
+          {
+            "x": 249.12,
+            "y": 92.86
+          }
+        ],
+        "source_first_line_x": 249.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 249.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 249.12,
+          "first_line_x": 249.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 48,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "六、资格审查资料",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          242.16,
+          77.74,
+          353.17,
+          92.11
+        ],
+        "container_x0": 70.64,
+        "source_row_origins": [
+          {
+            "x": 242.16,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 242.16,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 242.16,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 242.16,
+          "first_line_x": 242.16,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 49,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（一）供应商基本情况表",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          227.04,
+          100.98,
+          367.32,
+          113.26
+        ],
+        "container_x0": 70.64,
+        "source_row_origins": [
+          {
+            "x": 227.04,
+            "y": 100.98
+          }
+        ],
+        "source_first_line_x": 227.04,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 227.04,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 227.04,
+          "first_line_x": 227.04,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 49,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "注：后附供应商营业执照、“国家企业信用信息公示系统”网站（http://www.",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          605.22,
+          530.4,
+          640.9
+        ],
+        "container_x0": 70.64,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 605.22
+          },
+          {
+            "x": 70.8,
+            "y": 628.62
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 49,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "非企业性质的供应商无法在该公示系统查询的，则针对此项做出书面承诺，格式自拟并加盖",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          652.02,
+          524.4,
+          687.7
+        ],
+        "container_x0": 70.64,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 652.02
+          },
+          {
+            "x": 70.8,
+            "y": 675.42
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 49,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（二）财务状况承诺书",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          233.4,
+          73.86,
+          361.08,
+          86.14
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 233.4,
+            "y": 73.86
+          }
+        ],
+        "source_first_line_x": 233.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 233.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 233.4,
+          "first_line_x": 233.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 50,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "供应商近三年（2023、2024、2025年）财务状况良好（成立时间不足的以成立",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          110.94,
+          524.4,
+          169.9
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 94.8,
+            "y": 110.94
+          },
+          {
+            "x": 70.8,
+            "y": 134.34
+          },
+          {
+            "x": 70.8,
+            "y": 157.62
+          }
+        ],
+        "source_first_line_x": 94.8,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 24.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 94.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 24.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 24.0,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 50,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（三）信誉要求",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          252.6,
+          73.86,
+          341.64,
+          86.14
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 252.6,
+            "y": 73.86
+          }
+        ],
+        "source_first_line_x": 252.6,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 252.6,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 252.6,
+          "first_line_x": 252.6,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 51,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "1、供应商的“中国执行信息公开网（http://zxgk.court.gov.c",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          108.9,
+          524.4,
+          144.58
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 108.9
+          },
+          {
+            "x": 70.8,
+            "y": 132.3
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 51,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "2、供应商的“中国政府采购网（www.ccgp.gov.cn）-政府采购严重违法",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          155.7,
+          524.39,
+          191.38
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 155.7
+          },
+          {
+            "x": 70.8,
+            "y": 179.1
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 51,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "3、供应商的“信用中国（https://www.creditchina.gov.",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          202.5,
+          530.4,
+          238.18
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 202.5
+          },
+          {
+            "x": 70.8,
+            "y": 225.9
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 51,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（注：网页查询如遇网址或者查询菜单、功能等有调整或变化，上述网页证明材料以调整或",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          249.3,
+          524.4,
+          284.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 249.3
+          },
+          {
+            "x": 70.8,
+            "y": 272.7
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "every source visual row of this paragraph starts in one column"
+        },
+        "source_page": 51,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "（四）其他",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          265.44,
+          73.86,
+          328.8,
+          86.14
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 265.44,
+            "y": 73.86
+          }
+        ],
+        "source_first_line_x": 265.44,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 265.44,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 265.44,
+          "first_line_x": 265.44,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 52,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "供应商须自行承诺，近三年（2023 年 1 月 1 日）以来企业、法定代表人无行",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          108.9,
+          523.8,
+          167.98
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 96.0,
+            "y": 108.9
+          },
+          {
+            "x": 70.8,
+            "y": 132.3
+          },
+          {
+            "x": 70.8,
+            "y": 155.7
+          }
+        ],
+        "source_first_line_x": 96.0,
+        "measured_container_body_left_x": 70.80000305175781,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 25.2,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 96.0,
+          "continuation_x": 70.8,
+          "first_line_indent_pt": 25.2,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 25.2,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 52,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 25.2,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 25.2,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "七、近年（2023 年 1 月 1 日以来）类似项目情况表",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          143.4,
+          80.62,
+          452.05,
+          94.99
+        ],
+        "container_x0": 65.33,
+        "source_row_origins": [
+          {
+            "x": 143.4,
+            "y": 80.62
+          }
+        ],
+        "source_first_line_x": 143.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 143.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 143.4,
+          "first_line_x": 143.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 53,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "注：后附相关证明材料。",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          486.78,
+          202.8,
+          499.06
+        ],
+        "container_x0": 65.33,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 486.78
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 53,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "八、响应货物技术性能指标的详细描述及技术支持资料",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          131.4,
+          80.62,
+          464.05,
+          94.99
+        ],
+        "container_x0": 131.4,
+        "source_row_origins": [
+          {
+            "x": 131.4,
+            "y": 80.62
+          }
+        ],
+        "source_first_line_x": 131.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 131.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 131.4,
+          "first_line_x": 131.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 54,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "九、供货方案",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          256.08,
+          80.62,
+          339.37,
+          94.99
+        ],
+        "container_x0": 256.08,
+        "source_row_origins": [
+          {
+            "x": 256.08,
+            "y": 80.62
+          }
+        ],
+        "source_first_line_x": 256.08,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 256.08,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 256.08,
+          "first_line_x": 256.08,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 55,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十、应急保障措施",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          242.16,
+          77.74,
+          353.17,
+          92.11
+        ],
+        "container_x0": 242.16,
+        "source_row_origins": [
+          {
+            "x": 242.16,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 242.16,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 242.16,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 242.16,
+          "first_line_x": 242.16,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 56,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十一、质量保证体系、质量控制文件及质量保证措施",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          138.24,
+          77.74,
+          457.21,
+          92.11
+        ],
+        "container_x0": 138.24,
+        "source_row_origins": [
+          {
+            "x": 138.24,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 138.24,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 138.24,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 138.24,
+          "first_line_x": 138.24,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 57,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十二、接受银行承兑比例",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          221.4,
+          77.74,
+          373.93,
+          92.11
+        ],
+        "container_x0": 221.4,
+        "source_row_origins": [
+          {
+            "x": 221.4,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 221.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 221.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 221.4,
+          "first_line_x": 221.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 58,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十三、垫资能力",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          249.12,
+          77.74,
+          346.33,
+          92.11
+        ],
+        "container_x0": 249.12,
+        "source_row_origins": [
+          {
+            "x": 249.12,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 249.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 249.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 249.12,
+          "first_line_x": 249.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 59,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "十四、反商业贿赂承诺书",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          221.4,
+          77.74,
+          374.05,
+          92.11
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 221.4,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 221.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 221.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 221.4,
+          "first_line_x": 221.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 60,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "我公司承诺：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          72.12,
+          120.42,
+          147.24,
+          132.7
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 72.12,
+            "y": 120.42
+          }
+        ],
+        "source_first_line_x": 72.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 72.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 72.12,
+          "first_line_x": 72.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 60,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "在（项目名称、标段）询比活动中，我公司保证做到：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          99.6,
+          145.14,
+          494.03,
+          157.42
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.6,
+            "y": 145.14
+          }
+        ],
+        "source_first_line_x": 99.6,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.6,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.6,
+          "continuation_x": null,
+          "first_line_indent_pt": 27.6,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.6,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 60,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.6,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.6,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "一、公平竞争参与本次询比活动。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          99.84,
+          168.78,
+          296.64,
+          181.06
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.84,
+            "y": 168.78
+          }
+        ],
+        "source_first_line_x": 99.84,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.84,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": null,
+          "first_line_indent_pt": 27.84,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.84,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲属提供礼品礼金、有",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          72.0,
+          196.74,
+          507.24,
+          257.86
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.84,
+            "y": 196.74
+          },
+          {
+            "x": 72.0,
+            "y": 221.22
+          },
+          {
+            "x": 72.0,
+            "y": 245.58
+          }
+        ],
+        "source_first_line_x": 99.84,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.84,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": 72.0,
+          "first_line_indent_pt": 27.84,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.84,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "三、若出现上述行为，我公司及参与询比的工作人员愿意接受按照国家法律法规等有关规定",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          72.0,
+          270.42,
+          494.52,
+          307.66
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.72,
+            "y": 270.42
+          },
+          {
+            "x": 72.0,
+            "y": 295.38
+          }
+        ],
+        "source_first_line_x": 99.72,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.72,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.72,
+          "continuation_x": 72.0,
+          "first_line_indent_pt": 27.72,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.72,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 28.92,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.72,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "十五、其他资料",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          249.12,
+          92.86,
+          346.21,
+          107.23
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 249.12,
+            "y": 92.86
+          }
+        ],
+        "source_first_line_x": 249.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 249.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 249.12,
+          "first_line_x": 249.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 61,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "供应商认为应附的其他材料",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          70.8,
+          130.26,
+          224.16,
+          142.54
+        ],
+        "container_x0": 70.8,
+        "source_row_origins": [
+          {
+            "x": 70.8,
+            "y": 130.26
+          }
+        ],
+        "source_first_line_x": 70.8,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 70.8,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 70.8,
+          "first_line_x": 70.8,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 61,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      }
+    ],
+    "changed_paragraph_count": 10,
+    "changed_paragraphs": [
+      {
+        "source_page": 42,
+        "source_text_prefix": "1、在收到成交通知书后，在成交通知书规定的期限内与你方签订合同。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "2、随同本响应函递交的响应函附录属于合同文件的组成部分。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "3、将按询比文件的规定履行合同责任和义务。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "4、本项目询比有效期为提交响应文件截止之日起90日历天，在询比有效期内不修改、撤",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "5、在合同约定的期限内完成并移交全部标的。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "6、我方在此声明，所递交的响应文件及有关资料内容完整、真实和准确，且不存在第二章",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 42,
+        "source_text_prefix": "7、（其他补充说明）。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 24.0,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 0.0,
+          "first_line_pt": 24.0,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 60,
+        "source_text_prefix": "一、公平竞争参与本次询比活动。",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 60,
+        "source_text_prefix": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲属提供礼品礼金、有",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      },
+      {
+        "source_page": 60,
+        "source_text_prefix": "三、若出现上述行为，我公司及参与询比的工作人员愿意接受按照国家法律法规等有关规定",
+        "classification": "FIRST_LINE_INDENT",
+        "current": {
+          "left_pt": 28.92,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.72,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        }
+      }
+    ],
+    "target_rows": [
+      {
+        "source_text_prefix": "十四、反商业贿赂承诺书",
+        "kind": "Heading",
+        "alignment": "center",
+        "bbox": [
+          221.4,
+          77.74,
+          374.05,
+          92.11
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 221.4,
+            "y": 77.74
+          }
+        ],
+        "source_first_line_x": 221.4,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 221.4,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 221.4,
+          "first_line_x": 221.4,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary"
+        },
+        "source_page": 60,
+        "role": "HEADING",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 0.0,
+          "first_line_pt": 0.0,
+          "basis": "CENTERED_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "我公司承诺：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          72.12,
+          120.42,
+          147.24,
+          132.7
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 72.12,
+            "y": 120.42
+          }
+        ],
+        "source_first_line_x": 72.12,
+        "measured_container_body_left_x": null,
+        "accepted_model_left_indent_x": 72.12,
+        "accepted_model_first_line_indent_pt": 0.0,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 72.12,
+          "first_line_x": 72.12,
+          "continuation_x": null,
+          "first_line_indent_pt": 0.0,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 0.0,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column"
+        },
+        "source_page": 60,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.32,
+          "first_line_pt": 0.0,
+          "basis": "ACCEPTED_MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "在（项目名称、标段）询比活动中，我公司保证做到：",
+        "kind": "LogicalParagraph",
+        "alignment": "left",
+        "bbox": [
+          99.6,
+          145.14,
+          494.03,
+          157.42
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.6,
+            "y": 145.14
+          }
+        ],
+        "source_first_line_x": 99.6,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.6,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.6,
+          "continuation_x": null,
+          "first_line_indent_pt": 27.6,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.6,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 60,
+        "role": "FLOW_BODY",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.6,
+          "basis": "MODEL_LEFT_AND_FIRST_LINE"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.6,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": false
+      },
+      {
+        "source_text_prefix": "一、公平竞争参与本次询比活动。",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          99.84,
+          168.78,
+          296.64,
+          181.06
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.84,
+            "y": 168.78
+          }
+        ],
+        "source_first_line_x": 99.84,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.84,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": null,
+          "first_line_indent_pt": 27.84,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.84,
+          "row_count": 1,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲属提供礼品礼金、有",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          72.0,
+          196.74,
+          507.24,
+          257.86
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.84,
+            "y": 196.74
+          },
+          {
+            "x": 72.0,
+            "y": 221.22
+          },
+          {
+            "x": 72.0,
+            "y": 245.58
+          }
+        ],
+        "source_first_line_x": 99.84,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.84,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": 72.0,
+          "first_line_indent_pt": 27.84,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.84,
+          "row_count": 3,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 29.04,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.84,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      },
+      {
+        "source_text_prefix": "三、若出现上述行为，我公司及参与询比的工作人员愿意接受按照国家法律法规等有关规定",
+        "kind": "List",
+        "alignment": "left",
+        "bbox": [
+          72.0,
+          270.42,
+          494.52,
+          307.66
+        ],
+        "container_x0": 72.0,
+        "source_row_origins": [
+          {
+            "x": 99.72,
+            "y": 270.42
+          },
+          {
+            "x": 72.0,
+            "y": 295.38
+          }
+        ],
+        "source_first_line_x": 99.72,
+        "measured_container_body_left_x": 72.0,
+        "accepted_model_left_indent_x": 72.0,
+        "accepted_model_first_line_indent_pt": 27.72,
+        "source_indent": {
+          "schema": "source_paragraph_indent/1",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.72,
+          "continuation_x": 72.0,
+          "first_line_indent_pt": 27.72,
+          "hanging_indent_pt": 0.0,
+          "word_first_line_indent_pt": 27.72,
+          "row_count": 2,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them"
+        },
+        "source_page": 60,
+        "role": "BODY_LIST",
+        "page_content_x0": 70.8,
+        "current_word_indent": {
+          "left_pt": 28.92,
+          "first_line_pt": 0.0,
+          "basis": "LIST_FIRST_SOURCE_ROW_AS_WHOLE_LEFT"
+        },
+        "proposed_word_indent": {
+          "left_pt": 1.2,
+          "first_line_pt": 27.72,
+          "basis": "SOURCE_INDENT_CLASSIFICATION"
+        },
+        "indent_changes": true
+      }
+    ]
+  },
+  "classification_histogram": {
+    "NO_SPECIAL_FIRST_LINE_INDENT": 57,
+    "FIRST_LINE_INDENT": 20
+  },
+  "conclusions": {
+    "composite_value_underline_state": "SLOT_DECORATION_INHERITED",
+    "composite_registry_binding_relation_types": [
+      "FORM_LAYOUT_RULE"
+    ],
+    "composite_registry_binding_policies": [
+      "PLACEHOLDER_REPLACED_BY_VALUE"
+    ],
+    "composite_bound_decoration_rule_ids": [
+      "P60-R1"
+    ],
+    "composite_underline_states": [
+      "SLOT_DECORATION_INHERITED"
+    ],
+    "source_indent_class_histogram": {
+      "NO_SPECIAL_FIRST_LINE_INDENT": 57,
+      "FIRST_LINE_INDENT": 20
+    },
+    "paragraphs_whose_word_indent_would_change": 10
+  }
+}

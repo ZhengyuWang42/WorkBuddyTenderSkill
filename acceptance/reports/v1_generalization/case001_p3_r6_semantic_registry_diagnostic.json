@@ -1,0 +1,470 @@
+{
+  "schema": "v1_p3_r6_semantic_registry_diagnostic/1",
+  "build_id": "v1_manual_fidelity_round3_p3semantics",
+  "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_p3semantics",
+  "source": {
+    "path": "acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "page": 42
+  },
+  "focus_rule": {
+    "source_rule_id": "P42-R6",
+    "source_x0": 95.25,
+    "source_x1": 151.05,
+    "source_y": 218.4,
+    "frozen_semantics": {
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "fact_field": "quality_target"
+    }
+  },
+  "stages": [
+    {
+      "stage": "1_source_rule_detection",
+      "value": {
+        "source_page": 42,
+        "source_x0": 95.25,
+        "source_x1": 151.05,
+        "source_y": 218.4,
+        "orientation": "horizontal",
+        "rule_count_on_page": 8
+      },
+      "semantics": null
+    },
+    {
+      "stage": "2_glyph_occupancy",
+      "value": {
+        "compiled_glyph_evidence_present": true,
+        "compiled_source_text": "",
+        "compiled_has_glyphs": false,
+        "semantics": "glyph-free rule (a physical rule with no source text of its own)"
+      },
+      "semantics": null
+    },
+    {
+      "stage": "3_own_visual_line_label",
+      "value": {
+        "preceding_text_on_own_line": "达到",
+        "boxes_on_own_line": [
+          {
+            "x0": 70.8,
+            "x1": 95.04,
+            "text": "达到"
+          },
+          {
+            "x0": 151.08,
+            "x1": 163.08,
+            "text": "。"
+          }
+        ],
+        "hint_candidates": [
+          {
+            "hint": "达到",
+            "slot_type": "UNKNOWN_SLOT",
+            "allowed_fact_fields": []
+          }
+        ],
+        "bound_fact_fields": [],
+        "semantics": "own-line label channel names no fact field: the label of this slot is not on the rule's own visual line"
+      },
+      "semantics": null
+    },
+    {
+      "stage": "4_structural_neighbourhood",
+      "value": {
+        "owning_container_text": "达到\n。",
+        "owning_container_kind": "SourceParagraph",
+        "same_cell_texts": [],
+        "same_row_texts": [],
+        "adjacent_row_texts": [],
+        "preceding_container_texts": [],
+        "wrap_continuation_row_text": "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "candidates": [
+          {
+            "kind": "owning_container",
+            "text": "达到\n。",
+            "field_hints": []
+          },
+          {
+            "kind": "wrap_continuation_row",
+            "text": "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "field_hints": [
+              {
+                "hint": "供货质量",
+                "slot_type": "QUALITY_SLOT",
+                "allowed_fact_fields": [
+                  "quality_target"
+                ]
+              }
+            ]
+          }
+        ],
+        "visual_row_boxes_above": [
+          {
+            "y0": 166.74,
+            "leaf": false,
+            "text": "以人民币（大写）\n（不含税），（小写）\n元的响应报"
+          },
+          {
+            "y0": 166.74,
+            "leaf": true,
+            "text": "以人民币（大写）"
+          },
+          {
+            "y0": 166.74,
+            "leaf": true,
+            "text": "（不含税），（小写）"
+          },
+          {
+            "y0": 166.74,
+            "leaf": true,
+            "text": "元的响应报"
+          },
+          {
+            "y0": 186.78,
+            "leaf": false,
+            "text": "价，供货期\n，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+          },
+          {
+            "y0": 186.78,
+            "leaf": true,
+            "text": "价，供货期"
+          },
+          {
+            "y0": 186.78,
+            "leaf": true,
+            "text": "，按合同约定实施并完成本项目规定的所有工作内容，供货质量"
+          },
+          {
+            "y0": 206.7,
+            "leaf": false,
+            "text": "达到\n。"
+          },
+          {
+            "y0": 206.7,
+            "leaf": true,
+            "text": "达到"
+          },
+          {
+            "y0": 206.7,
+            "leaf": true,
+            "text": "。"
+          }
+        ]
+      },
+      "semantics": null
+    },
+    {
+      "stage": "5_source_form_plan",
+      "value": {
+        "compiled_plan_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "compiled_plan_fact_fields": [
+          "quality_target"
+        ],
+        "compiled_plan_geometry_intent": "ANCHOR_START_ONLY",
+        "recorded_plan": {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "source_x0": 95.25,
+          "source_x1": 151.05,
+          "source_y": 218.4,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "planned_fact_fields": [
+            "quality_target"
+          ]
+        }
+      },
+      "semantics": null
+    },
+    {
+      "stage": "6_normalized_artifact_reload",
+      "value": {
+        "normalized_document_present": true,
+        "normalized_rule": {
+          "bbox": [
+            95.25,
+            218.4,
+            151.05,
+            218.4
+          ],
+          "orientation": "horizontal",
+          "width": 0.6000000238418579
+        },
+        "semantics": "the serialized artifact carries physical geometry only: it has no policy or geometry-intent field for any rule, so the semantics cannot be lost - or introduced - here"
+      },
+      "semantics": null
+    },
+    {
+      "stage": "7_execution_ownership_and_application",
+      "value": {
+        "execution_owner": {
+          "source_form_field_id": "SFF42|P42-R6|95.2-151.1@218.4",
+          "source_rule_ids": [
+            "P42-R6"
+          ],
+          "owner_kind": "SOURCE_FORM_LINE_OWNER",
+          "representation_type": "SOURCE_FORM_LINE_PARAGRAPH",
+          "source_page": 42,
+          "source_slot_id": null,
+          "accepts_value_insertion": true,
+          "eligible_for_value_emission": true,
+          "paragraph_index": 29,
+          "emitter_identity": "SOURCE_FORM_LINE_OWNER:SOURCE_ANCHORED_VALUE_RUN",
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": null,
+          "planned_fact_fields": [],
+          "source_geometry": [
+            95.25,
+            151.05,
+            218.4
+          ],
+          "registration_reason": "renderer created the source form line that owns this fill rule"
+        },
+        "source_fill_application": {
+          "application_id": "SFA4",
+          "source_form_field_id": "SFF42|P42-R6|95.2-151.1@218.4",
+          "source_rule_ids": [
+            "P42-R6"
+          ],
+          "application_kind": "VALUE_IN_FIXED_SLOT",
+          "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+          "fact_fields": [
+            "quality_target"
+          ],
+          "resolved_values": [
+            "符合国家及行业有关标准、规范和询比文件要求"
+          ],
+          "source_slot_id": null,
+          "source_page": 42,
+          "generated_paragraph_index": 29,
+          "generated_run_index": 14,
+          "planned_fact_fields": [
+            "quality_target"
+          ],
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": null,
+          "source_geometry": [
+            95.25,
+            151.05,
+            218.4
+          ],
+          "owner_kind": "SOURCE_FORM_LINE_OWNER",
+          "execution_owner_id": "SFF42|P42-R6|95.2-151.1@218.4"
+        },
+        "source_form_line_value_run": {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "source_x0": 95.25,
+          "source_x1": 151.05,
+          "source_form_field_id": "SFF42|P42-R6|95.2-151.1@218.4",
+          "owner_kind": "SOURCE_FORM_LINE_OWNER",
+          "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+          "application_kind": "VALUE_IN_FIXED_SLOT",
+          "fact_fields": [
+            "quality_target"
+          ],
+          "resolved_values": [
+            "符合国家及行业有关标准、规范和询比文件要求"
+          ],
+          "generated_paragraph_index": 29,
+          "generated_run_index": 14,
+          "anchor_x": 95.25,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "anchor_tab_position_pt": 24.450000000000003,
+          "underline_semantics": "RESOLVED_VALUE_UNDERLINED_AT_NATURAL_WIDTH",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "geometry_note": "value starts at the source slot anchor and follows its own natural glyph width; the source x1 is retained as provenance only and never forces the value's right edge",
+          "application_id": "SFA4"
+        },
+        "owner_count": 1,
+        "application_count": 1,
+        "semantics": "no owner, no application and no value run for this rule: the plan never asked for a resolved value in the fixed slot, so the owner correctly established nothing (no invented value, no duplicate execution across plan iterations)"
+      },
+      "semantics": null
+    },
+    {
+      "stage": "8_production_rule_registry",
+      "value": {
+        "registry_entry": {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "x0": 95.25,
+          "x1": 151.05,
+          "y": 218.4,
+          "relation_type": "GAP_FILL_RULE",
+          "text_occupancy": 0.0,
+          "bearing": true,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "authoritative_slot_id": null,
+          "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+          "allowed_fact_fields": [],
+          "resolved_fact_fields": []
+        },
+        "registry_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "registry_geometry_intent": "ANCHOR_START_ONLY",
+        "derived_intent_for_policy": "ANCHOR_START_ONLY"
+      },
+      "semantics": null
+    },
+    {
+      "stage": "9_qa_and_gate_representation",
+      "value": {
+        "frozen_closure_gate_row": {
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+          "horizontal_pass": true,
+          "measurement_kind": "VALUE_RUN",
+          "x0_error": 0.1,
+          "x1_error": 196.3
+        },
+        "underline_inventory_row": {
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "gated_axis": "START_ONLY",
+          "status": "MATCHED",
+          "observed_span": {
+            "x0": 95.35,
+            "x1": 347.35,
+            "y": 272.8,
+            "kind": "VALUE_WITH_UNDERLINE"
+          },
+          "start_error_pt": 0.1,
+          "end_error_pt": 196.3,
+          "end_axis_gated": false
+        },
+        "semantics": "both gates read the production registry, so they reported whatever the registry said; neither gate rewrites the semantics"
+      },
+      "semantics": null
+    }
+  ],
+  "pre_reconciliation_build": {
+    "build_id": "v1_manual_fidelity_round3_p3reconciled",
+    "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_p3reconciled",
+    "recorded_source_form_plan": {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "planned_fact_fields": []
+    },
+    "recorded_plan_policy": "FIXED_EMPTY_SLOT",
+    "recorded_plan_fields": [],
+    "derived_intent_for_recorded_policy": "EXACT_SOURCE_SPAN",
+    "production_registry": {
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "matches_frozen_policy": false,
+      "matches_frozen_intent": false
+    },
+    "execution": {
+      "execution_owner": null,
+      "source_fill_application": null,
+      "source_form_line_value_run": null,
+      "owner_count": 0,
+      "application_count": 0,
+      "value_run_count": 0
+    },
+    "frozen_closure_gate_row": {
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "emission_mechanism": "PAINTED_RULE",
+      "horizontal_pass": true,
+      "measurement_kind": "PAINTED_RULE",
+      "x0_error": -0.45,
+      "x1_error": -0.05
+    },
+    "underline_inventory_row": {
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "status": "MATCHED",
+      "observed_span": {
+        "x0": 94.8,
+        "x1": 151.0,
+        "y": 272.8,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.45,
+      "end_error_pt": 0.05,
+      "end_axis_gated": true
+    },
+    "stages_that_agreed_with_the_frozen_contract": [
+      "1_source_rule_detection",
+      "2_glyph_occupancy",
+      "3_own_visual_line_label",
+      "6_normalized_artifact_reload",
+      "7_execution_ownership",
+      "9_qa_and_gate_representation"
+    ],
+    "stage_where_the_frozen_policy_was_lost": "5_source_form_plan",
+    "introduced_by": "4_structural_neighbourhood: the field compiler's evidence channels (own visual line, then the row-scoped structural channels) never offered the label that ends the wrapped row above, so no fact field bound and the plan fell back to FIXED_EMPTY_SLOT with no field",
+    "note": "artifact evidence: the recorded plan, registry and execution records of the build that exhibited the inconsistency.  The in-process recomputation above reflects the repaired production code, so it cannot reproduce the pre-fix plan; this block is the pre-fix trace."
+  },
+  "divergence": {
+    "stage_where_frozen_policy_is_lost": null,
+    "stages_disagreeing_with_the_frozen_policy": [],
+    "compiled_plan": {
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "fact_fields": [
+        "quality_target"
+      ],
+      "matches_frozen_policy": true,
+      "matches_frozen_intent": true
+    },
+    "production_registry": {
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "matches_frozen_policy": true,
+      "matches_frozen_intent": true
+    }
+  },
+  "root_cause": {
+    "kind": "FIELD_BINDING_EVIDENCE_CHANNEL_MISSING",
+    "detail": "the source letter wraps its sentence after the label 供货质量, so the slot that label belongs to sits at the end of the *next* source visual row (达到____。).  The field compiler had no channel for a label that ends the row above: the own-line channel saw only 达到, the structural channels were bounded to the rule's own visual row by the accepted row-scoped contract, and the glyph-free rule therefore planned FIXED_EMPTY_SLOT with no fact field.  The production registry derives its geometry intent from that policy, so the whole pipeline reported FIXED_EMPTY_SLOT / EXACT_SOURCE_SPAN - not because the registry made the error, but because the plan it faithfully mirrors never bound the field.",
+    "not_the_cause": [
+      "the production rule registry (it mirrors the plan; it derives the intent)",
+      "the serialized normalized artifact (geometry only, no semantics)",
+      "the QA and gate representation (both read the registry)",
+      "the execution owner (correctly declined to own an unplanned value)"
+    ],
+    "fix": "a new last-resort evidence channel: the wrapped row above offers the label it ends with, when that row does not end a sentence or a label terminator and sits one bounded row pitch above the rule's own row.  The single-distinct-field contract and the resolved-fact requirement are unchanged, so a wrap can only supply the label - never a value."
+  },
+  "frozen_semantics_table": {
+    "P42-R1": {
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY"
+    },
+    "P42-R2": {
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY"
+    },
+    "P42-R3": {
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN"
+    },
+    "P42-R4": {
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN"
+    },
+    "P42-R5": {
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY"
+    },
+    "P42-R6": {
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY"
+    },
+    "P42-R7": {
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN"
+    },
+    "P42-R8": {
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN"
+    }
+  }
+}

@@ -1,0 +1,868 @@
+{
+  "after_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_manual_fidelity_round3_word_review_final",
+  "before_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_followup3",
+  "br_census_after": {
+    "build": "v1_manual_fidelity_round3_word_review_final",
+    "generated_w_br_total": 2,
+    "paragraphs_with_line_break": [
+      {
+        "first_line": "3、我方拟委派的项目负责人为",
+        "line_break_count": 1,
+        "paragraph_index": 27,
+        "paragraph_text": "3、我方拟委派的项目负责人为\n\t\t。"
+      },
+      {
+        "first_line": "7、我方的投标文件有效期为",
+        "line_break_count": 1,
+        "paragraph_index": 31,
+        "paragraph_text": "7、我方的投标文件有效期为\n\t\t个日历天，若我方中标，投标文件有效期延长至合同执行完毕。"
+      }
+    ]
+  },
+  "br_census_before": {
+    "build": "v1_followup3",
+    "generated_w_br_total": 4,
+    "paragraphs_with_line_break": [
+      {
+        "first_line": "3、我方拟委派的项目负责人为",
+        "line_break_count": 1,
+        "paragraph_index": 27,
+        "paragraph_text": "3、我方拟委派的项目负责人为\n\t\t。"
+      },
+      {
+        "first_line": "7、我方的投标文件有效期为",
+        "line_break_count": 1,
+        "paragraph_index": 31,
+        "paragraph_text": "7、我方的投标文件有效期为\n\t\t个日历天，若我方中标，投标文件有效期延长至合同执行完毕。"
+      },
+      {
+        "first_line": "系",
+        "line_break_count": 1,
+        "paragraph_index": 53,
+        "paragraph_text": "系\n\t\t（投标人名称）的法定代表人。"
+      },
+      {
+        "first_line": "我公司参加贵单位组织的",
+        "line_break_count": 1,
+        "paragraph_index": 102,
+        "paragraph_text": "我公司参加贵单位组织的\n\t\t招标活动，郑重承诺：在参加本次招标活动不存在与参加本项目的其它投标单位负责人为同一人或者存在直接控股、管理关系。本公司对上述承诺的真实性负责。如有虚假，将依法承担相应责任。"
+      }
+    ]
+  },
+  "measured_after": [
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 351.43,
+          "center_y": 345.43,
+          "text": "3、我方拟委派的项目负责人为",
+          "top": 339.43,
+          "x0": 112.05,
+          "x1": 274.05
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 3,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 345.43,
+            "row_index": 1,
+            "text": "3、我方拟委派的项目负责人为",
+            "x0": 112.05,
+            "x1": 274.05
+          },
+          {
+            "center_y": 370.78,
+            "row_index": 2,
+            "text": "               。",
+            "x0": 254.85,
+            "x1": 356.95
+          }
+        ],
+        "rule": {
+          "width_pt": 90.0,
+          "x0": 254.85,
+          "x1": 344.85,
+          "y": 376.5
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 254.85,
+          "x1": 344.85
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p146|254.85-344.85",
+      "label": "3、我方拟委派的项目负责人为",
+      "overshoot_pt": 19.1,
+      "previous_reach_pt": 273.95,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_row": {
+        "label_line": {
+          "bottom": 279.18,
+          "center_y": 273.18,
+          "text": "3、我方拟委派的项目负责人为",
+          "top": 267.18,
+          "x0": 92.88,
+          "x1": 254.88
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 146,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 273.18,
+            "row_index": 1,
+            "text": "3、我方拟委派的项目负责人为。",
+            "x0": 92.88,
+            "x1": 356.88
+          }
+        ],
+        "rule": {
+          "width_pt": 90.0,
+          "x0": 254.85,
+          "x1": 344.85,
+          "y": 279.0
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 254.85,
+          "x1": 344.85
+        }
+      },
+      "span": {
+        "x0": 254.85,
+        "x1": 344.85
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 554.23,
+          "center_y": 548.23,
+          "text": "7、我方的投标文件有效期为",
+          "top": 542.23,
+          "x0": 114.1,
+          "x1": 264.1
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 3,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 548.23,
+            "row_index": 1,
+            "text": "7、我方的投标文件有效期为",
+            "x0": 114.1,
+            "x1": 264.1
+          },
+          {
+            "center_y": 573.58,
+            "row_index": 2,
+            "text": "     个日历天，若我方中标，投标文件有效期延长",
+            "x0": 244.05,
+            "x1": 514.15
+          }
+        ],
+        "rule": {
+          "width_pt": 30.0,
+          "x0": 244.05,
+          "x1": 274.05,
+          "y": 579.3
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 244.05,
+          "x1": 274.05
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p146|244.05-274.05",
+      "label": "7、我方的投标文件有效期为",
+      "overshoot_pt": 19.95,
+      "previous_reach_pt": 264.0,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_row": {
+        "label_line": {
+          "bottom": 419.22,
+          "center_y": 413.22,
+          "text": "7、我方的投标文件有效期为",
+          "top": 407.22,
+          "x0": 94.92,
+          "x1": 244.08
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 146,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 413.22,
+            "row_index": 1,
+            "text": "7、我方的投标文件有效期为个日历天，若我方中标，投标文件有效期延长至",
+            "x0": 94.92,
+            "x1": 524.4
+          },
+          {
+            "center_y": 416.37,
+            "row_index": 2,
+            "text": "西安市综改试验区国企招标集采交易平台",
+            "x0": 172.16,
+            "x1": 413.99
+          }
+        ],
+        "rule": {
+          "width_pt": 30.0,
+          "x0": 244.05,
+          "x1": 274.05,
+          "y": 419.0
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 244.05,
+          "x1": 274.05
+        }
+      },
+      "span": {
+        "x0": 244.05,
+        "x1": 274.05
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 216.78,
+          "center_y": 210.78,
+          "text": "系                    （投标人名称）的法定代表人。",
+          "top": 204.78,
+          "x0": 90.1,
+          "x1": 394.75
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 6,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 210.78,
+            "row_index": 1,
+            "text": "系                    （投标人名称）的法定代表人。",
+            "x0": 90.1,
+            "x1": 394.75
+          }
+        ],
+        "rule": {
+          "width_pt": 124.6,
+          "x0": 102.0,
+          "x1": 226.6,
+          "y": 216.5
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": -0.05,
+        "source_rule_span": {
+          "x0": 102.0,
+          "x1": 226.65
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p148|102.00-226.65",
+      "label": "系",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 102.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 148,
+      "source_row": {
+        "label_line": {
+          "bottom": 202.86,
+          "center_y": 196.86,
+          "text": "系",
+          "top": 190.86,
+          "x0": 90.0,
+          "x1": 102.0
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 148,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 196.86,
+            "row_index": 1,
+            "text": "系（投标人名称）的法定代表人。",
+            "x0": 90.0,
+            "x1": 392.88
+          }
+        ],
+        "rule": {
+          "width_pt": 124.65,
+          "x0": 102.0,
+          "x1": 226.65,
+          "y": 202.4
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 102.0,
+          "x1": 226.65
+        }
+      },
+      "span": {
+        "x0": 102.0,
+        "x1": 226.65
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 215.63,
+          "center_y": 209.63,
+          "text": "我公司参加贵单位组织的                                      招标",
+          "top": 203.63,
+          "x0": 114.1,
+          "x1": 498.1
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 28,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 209.63,
+            "row_index": 1,
+            "text": "我公司参加贵单位组织的                                      招标",
+            "x0": 114.1,
+            "x1": 498.1
+          }
+        ],
+        "rule": {
+          "width_pt": 228.0,
+          "x0": 246.0,
+          "x1": 474.0,
+          "y": 215.35
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 246.0,
+          "x1": 474.0
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p170|246.00-474.00",
+      "label": "我公司参加贵单位组织的",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 246.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 170,
+      "source_row": {
+        "label_line": {
+          "bottom": 206.7,
+          "center_y": 200.7,
+          "text": "我公司参加贵单位组织的",
+          "top": 194.7,
+          "x0": 114.0,
+          "x1": 246.0
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 170,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 200.7,
+            "row_index": 1,
+            "text": "我公司参加贵单位组织的招标",
+            "x0": 114.0,
+            "x1": 498.0
+          }
+        ],
+        "rule": {
+          "width_pt": 228.0,
+          "x0": 246.0,
+          "x1": 474.0,
+          "y": 206.4
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 246.0,
+          "x1": 474.0
+        }
+      },
+      "span": {
+        "x0": 246.0,
+        "x1": 474.0
+      }
+    }
+  ],
+  "measured_before": [
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 351.43,
+          "center_y": 345.43,
+          "text": "3、我方拟委派的项目负责人为",
+          "top": 339.43,
+          "x0": 112.05,
+          "x1": 274.05
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 3,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 345.43,
+            "row_index": 1,
+            "text": "3、我方拟委派的项目负责人为",
+            "x0": 112.05,
+            "x1": 274.05
+          },
+          {
+            "center_y": 370.78,
+            "row_index": 2,
+            "text": "               。",
+            "x0": 254.85,
+            "x1": 356.95
+          }
+        ],
+        "rule": {
+          "width_pt": 90.0,
+          "x0": 254.85,
+          "x1": 344.85,
+          "y": 376.5
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 254.85,
+          "x1": 344.85
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p146|254.85-344.85",
+      "label": "3、我方拟委派的项目负责人为",
+      "overshoot_pt": 19.1,
+      "previous_reach_pt": 273.95,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_row": {
+        "label_line": {
+          "bottom": 279.18,
+          "center_y": 273.18,
+          "text": "3、我方拟委派的项目负责人为",
+          "top": 267.18,
+          "x0": 92.88,
+          "x1": 254.88
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 146,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 273.18,
+            "row_index": 1,
+            "text": "3、我方拟委派的项目负责人为。",
+            "x0": 92.88,
+            "x1": 356.88
+          }
+        ],
+        "rule": {
+          "width_pt": 90.0,
+          "x0": 254.85,
+          "x1": 344.85,
+          "y": 279.0
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 254.85,
+          "x1": 344.85
+        }
+      },
+      "span": {
+        "x0": 254.85,
+        "x1": 344.85
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 554.23,
+          "center_y": 548.23,
+          "text": "7、我方的投标文件有效期为",
+          "top": 542.23,
+          "x0": 114.1,
+          "x1": 264.1
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 3,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 548.23,
+            "row_index": 1,
+            "text": "7、我方的投标文件有效期为",
+            "x0": 114.1,
+            "x1": 264.1
+          },
+          {
+            "center_y": 573.58,
+            "row_index": 2,
+            "text": "     个日历天，若我方中标，投标文件有效期延长",
+            "x0": 244.05,
+            "x1": 514.15
+          }
+        ],
+        "rule": {
+          "width_pt": 30.0,
+          "x0": 244.05,
+          "x1": 274.05,
+          "y": 579.3
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 244.05,
+          "x1": 274.05
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p146|244.05-274.05",
+      "label": "7、我方的投标文件有效期为",
+      "overshoot_pt": 19.95,
+      "previous_reach_pt": 264.0,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_row": {
+        "label_line": {
+          "bottom": 419.22,
+          "center_y": 413.22,
+          "text": "7、我方的投标文件有效期为",
+          "top": 407.22,
+          "x0": 94.92,
+          "x1": 244.08
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 146,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 413.22,
+            "row_index": 1,
+            "text": "7、我方的投标文件有效期为个日历天，若我方中标，投标文件有效期延长至",
+            "x0": 94.92,
+            "x1": 524.4
+          },
+          {
+            "center_y": 416.37,
+            "row_index": 2,
+            "text": "西安市综改试验区国企招标集采交易平台",
+            "x0": 172.16,
+            "x1": 413.99
+          }
+        ],
+        "rule": {
+          "width_pt": 30.0,
+          "x0": 244.05,
+          "x1": 274.05,
+          "y": 419.0
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 244.05,
+          "x1": 274.05
+        }
+      },
+      "span": {
+        "x0": 244.05,
+        "x1": 274.05
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 216.78,
+          "center_y": 210.78,
+          "text": "系",
+          "top": 204.78,
+          "x0": 90.1,
+          "x1": 102.1
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 6,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 210.78,
+            "row_index": 1,
+            "text": "系",
+            "x0": 90.1,
+            "x1": 102.1
+          },
+          {
+            "center_y": 236.13,
+            "row_index": 2,
+            "text": "                    （投标人名称）的法定代表人。",
+            "x0": 102.0,
+            "x1": 394.75
+          }
+        ],
+        "rule": {
+          "width_pt": 124.6,
+          "x0": 102.0,
+          "x1": 226.6,
+          "y": 241.85
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": -0.05,
+        "source_rule_span": {
+          "x0": 102.0,
+          "x1": 226.65
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p148|102.00-226.65",
+      "label": "系",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 102.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 148,
+      "source_row": {
+        "label_line": {
+          "bottom": 202.86,
+          "center_y": 196.86,
+          "text": "系",
+          "top": 190.86,
+          "x0": 90.0,
+          "x1": 102.0
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 148,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 196.86,
+            "row_index": 1,
+            "text": "系（投标人名称）的法定代表人。",
+            "x0": 90.0,
+            "x1": 392.88
+          }
+        ],
+        "rule": {
+          "width_pt": 124.65,
+          "x0": 102.0,
+          "x1": 226.65,
+          "y": 202.4
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 102.0,
+          "x1": 226.65
+        }
+      },
+      "span": {
+        "x0": 102.0,
+        "x1": 226.65
+      }
+    },
+    {
+      "delivered_row": {
+        "label_line": {
+          "bottom": 215.63,
+          "center_y": 209.63,
+          "text": "我公司参加贵单位组织的",
+          "top": 203.63,
+          "x0": 114.1,
+          "x1": 246.1
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 28,
+        "row_count": 2,
+        "rows": [
+          {
+            "center_y": 209.63,
+            "row_index": 1,
+            "text": "我公司参加贵单位组织的",
+            "x0": 114.1,
+            "x1": 246.1
+          },
+          {
+            "center_y": 234.98,
+            "row_index": 2,
+            "text": "                                      招标",
+            "x0": 246.0,
+            "x1": 498.1
+          }
+        ],
+        "rule": {
+          "width_pt": 228.0,
+          "x0": 246.0,
+          "x1": 474.0,
+          "y": 240.7
+        },
+        "rule_row_index": 2,
+        "rule_shares_the_label_row": false,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 246.0,
+          "x1": 474.0
+        }
+      },
+      "emission_id": "POSITIONED_BLANK|p170|246.00-474.00",
+      "label": "我公司参加贵单位组织的",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 246.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 170,
+      "source_row": {
+        "label_line": {
+          "bottom": 206.7,
+          "center_y": 200.7,
+          "text": "我公司参加贵单位组织的",
+          "top": 194.7,
+          "x0": 114.0,
+          "x1": 246.0
+        },
+        "label_row_index": 1,
+        "matched": true,
+        "page": 170,
+        "row_count": 1,
+        "rows": [
+          {
+            "center_y": 200.7,
+            "row_index": 1,
+            "text": "我公司参加贵单位组织的招标",
+            "x0": 114.0,
+            "x1": 498.0
+          }
+        ],
+        "rule": {
+          "width_pt": 228.0,
+          "x0": 246.0,
+          "x1": 474.0,
+          "y": 206.4
+        },
+        "rule_row_index": 1,
+        "rule_shares_the_label_row": true,
+        "rule_x0_error_pt": 0.0,
+        "rule_x1_error_pt": 0.0,
+        "source_rule_span": {
+          "x0": 246.0,
+          "x1": 474.0
+        }
+      },
+      "span": {
+        "x0": 246.0,
+        "x1": 474.0
+      }
+    }
+  ],
+  "schema": "case002_p6_row_measure/1",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
+  "targets": [
+    {
+      "emission_id": "POSITIONED_BLANK|p146|254.85-344.85",
+      "label": "3、我方拟委派的项目负责人为",
+      "overshoot_pt": 19.1,
+      "previous_reach_pt": 273.95,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_rule_id": "P146-R6",
+      "span": {
+        "x0": 254.85,
+        "x1": 344.85
+      }
+    },
+    {
+      "emission_id": "POSITIONED_BLANK|p146|244.05-274.05",
+      "label": "7、我方的投标文件有效期为",
+      "overshoot_pt": 19.95,
+      "previous_reach_pt": 264.0,
+      "real_overshoot": true,
+      "reason": "source form line splits one visual row around a fill rule; Word reflow carried the cursor past the rule",
+      "source_page": 146,
+      "source_rule_id": "P146-R8",
+      "span": {
+        "x0": 244.05,
+        "x1": 274.05
+      }
+    },
+    {
+      "emission_id": "POSITIONED_BLANK|p148|102.00-226.65",
+      "label": "系",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 102.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 148,
+      "source_rule_id": "P148-R6",
+      "span": {
+        "x0": 102.0,
+        "x1": 226.65
+      }
+    },
+    {
+      "emission_id": "POSITIONED_BLANK|p170|246.00-474.00",
+      "label": "我公司参加贵单位组织的",
+      "overshoot_pt": 0.0,
+      "previous_reach_pt": 246.0,
+      "real_overshoot": false,
+      "reason": "fill rule starts its own source form line",
+      "source_page": 170,
+      "source_rule_id": "P170-R2",
+      "span": {
+        "x0": 246.0,
+        "x1": 474.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schema": "v1_p21_followup_status/1",
+  "superseded_by": {
+    "build_id": "v1_manual_fidelity_round3_p3semantics",
+    "status_file": "acceptance/reports/v1_generalization/case001_round3_p3semantic_reconciliation_status.json",
+    "p21_gate_report": "acceptance/reports/v1_generalization/case001_p21_structural_gate_round3_p3semantics.json",
+    "reason": "the P21 composite-underline and first-line-indent fixes recorded here are preserved on the successor build (P21 structural gate PASS: 77 classified, 1 composite slot, 0 failed)"
+  },
+  "build": {
+    "build_id": "v1_manual_fidelity_round3_p3reconciled",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3reconciled",
+    "docx_sha256": "0ac9f7bc1da34f1d32f5fe4aa444d2a1317a72a99589134972b8a49134fd39ab",
+    "pdf_sha256": "2d282ec4c77269b90c4d69a8b0c0fae8ca937d736941eb175709d30b3cbe29b5",
+    "pdf_page_count": 22,
+    "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27"
+  },
+  "baseline": {
+    "build_id": "v1_manual_fidelity_round2_p21fix",
+    "docx_sha256": "044b2d29c5502b8ca8e092bd0c8069be48bd9a577187fcb39147800705efb8cd",
+    "preserved": true
+  },
+  "statuses": {
+    "CASE001_P21_FOLLOWUP_AUTOMATION": "PASS",
+    "COMPOSITE_SLOT_UNDERLINE": "CLOSED",
+    "INTRO_FIRST_LINE_INDENT": "CLOSED",
+    "NUMBERED_PARAGRAPH_INDENT": "CLOSED",
+    "CASE001_AUTOMATED_REGRESSION": "PASS",
+    "CASE002_REGRESSION": "PASS",
+    "CASE003_REGRESSION": "PASS",
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false
+  },
+  "case001_gates": {
+    "p21_structural_gate": "PASS",
+    "underline_inventory": "PASS",
+    "manual_layout_fidelity": "PASS",
+    "source_line_assembly": "PASS",
+    "ownership_closure": "PASS",
+    "reflow_aware_v1": "PASS",
+    "case_acceptance": "PASS",
+    "three_case_regression": "THREE_CASE_GENERALIZATION = PASS"
+  },
+  "evidence": {
+    "composite_slot": {
+      "slot_id": "slot-60-14",
+      "source_page": 60,
+      "generated_page": 21,
+      "generated_paragraph_index": 129,
+      "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/",
+      "bound_rules": [
+        {
+          "source_rule_id": "P60-R1",
+          "relation_type": "FORM_LAYOUT_RULE",
+          "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "resolved_fact_fields": [
+            "PROJECT_NAME"
+          ]
+        }
+      ],
+      "marker_field_status": {
+        "lot_name": "NOT_FOUND"
+      },
+      "marker_occurrences": {
+        "/": 1
+      },
+      "separator_occurrences": {
+        "、": 1
+      },
+      "carrier_run_underline": true,
+      "slot_neighbour_runs": [
+        {
+          "offset": -1,
+          "text": "在",
+          "underline": false
+        },
+        {
+          "offset": 1,
+          "text": "",
+          "underline": false
+        }
+      ],
+      "rendered_rules_under_value": [
+        {
+          "segment": {
+            "x0": 111.69999694824219,
+            "x1": 519.7000122070312,
+            "baseline": 162.0
+          },
+          "rule": {
+            "text_x0": 111.7,
+            "text_x1": 519.7,
+            "rule_x0": 111.7,
+            "rule_x1": 519.7,
+            "rule_y": 161.7,
+            "rule_kind": "VALUE_WITH_UNDERLINE",
+            "overlap_share": 1.0
+          }
+        },
+        {
+          "segment": {
+            "x0": 72.0999984741211,
+            "x1": 270.1000061035156,
+            "baseline": 187.0
+          },
+          "rule": {
+            "text_x0": 72.1,
+            "text_x1": 270.1,
+            "rule_x0": 72.0,
+            "rule_x1": 270.0,
+            "rule_y": 187.05,
+            "rule_kind": "VALUE_WITH_UNDERLINE",
+            "overlap_share": 0.999
+          }
+        }
+      ],
+      "underline_provenance": [
+        {
+          "component": "FACT_VALUE",
+          "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "field": "project_name",
+          "inherited": true
+        },
+        {
+          "component": "SOURCE_TEMPLATE_LITERAL",
+          "text": "、",
+          "field": null,
+          "inherited": true
+        },
+        {
+          "component": "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+          "text": "/",
+          "field": "lot_name",
+          "inherited": true
+        }
+      ],
+      "suffix_prose_underline": false,
+      "bound_decoration_rule_ids": [
+        "P60-R1"
+      ],
+      "accounting_identity": "exactly one logical source rule owns the slot's decoration; the emitter grants the inheritance only to a rule whose placeholder a resolved value replaces"
+    },
+    "paragraph_indents": {
+      "classification_histogram": {
+        "NO_SPECIAL_FIRST_LINE_INDENT": 57,
+        "FIRST_LINE_INDENT": 20
+      },
+      "audited_source_pages": [
+        60
+      ],
+      "changed_paragraph_count": 10,
+      "exempt_paragraph_reasons": [
+        "CENTRED_LINE_POSITIONED_FROM_THE_CONTAINER_CENTRE",
+        "PARAGRAPH_ORIGIN_MOVED_BY_AN_ANCHORED_SOURCE_VALUE"
+      ],
+      "exempt_paragraph_count": 29,
+      "unclassified_paragraph_reasons": [
+        "SOURCE_FORM_LINE_GEOMETRY_OWNED_BY_THE_FORM_ARCHITECTURE"
+      ],
+      "page_rows": [
+        {
+          "paragraph_index": 127,
+          "source_page": 60,
+          "kind": "Heading",
+          "alignment": "center",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 221.4,
+          "first_line_x": 221.4,
+          "continuation_x": null,
+          "measured_continuation": false,
+          "evidence": "a centred line is positioned from the container centre, not from a body boundary",
+          "word_left_pt": 0.0,
+          "word_first_line_pt": 0.0,
+          "source_first_row_x": 221.4,
+          "generated_first_line_x": 70.8,
+          "x_error_pt": 0.0,
+          "exempt_reason": "CENTRED_LINE_POSITIONED_FROM_THE_CONTAINER_CENTRE"
+        },
+        {
+          "paragraph_index": 128,
+          "source_page": 60,
+          "kind": "LogicalParagraph",
+          "alignment": "left",
+          "classification": "NO_SPECIAL_FIRST_LINE_INDENT",
+          "body_left_x": 72.12,
+          "first_line_x": 72.12,
+          "continuation_x": null,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row and no wrapped row in its container was measured, so it is delivered as a single column",
+          "word_left_pt": 1.3,
+          "word_first_line_pt": 0.0,
+          "source_first_row_x": 72.12,
+          "generated_first_line_x": 72.1,
+          "x_error_pt": 0.020002746582036934,
+          "expected_left_pt": 1.32,
+          "expected_first_line_pt": 0.0
+        },
+        {
+          "paragraph_index": 129,
+          "source_page": 60,
+          "kind": "LogicalParagraph",
+          "alignment": "left",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.6,
+          "continuation_x": null,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary",
+          "word_left_pt": 1.2,
+          "word_first_line_pt": 27.6,
+          "source_first_row_x": 99.6,
+          "generated_first_line_x": 99.6,
+          "x_error_pt": 1.5258789005656581e-06,
+          "expected_left_pt": 1.2,
+          "expected_first_line_pt": 27.6
+        },
+        {
+          "paragraph_index": 130,
+          "source_page": 60,
+          "kind": "List",
+          "alignment": "left",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": null,
+          "measured_continuation": false,
+          "evidence": "this paragraph has one source row, and a paragraph that wraps in the same container returns to this measured body boundary",
+          "word_left_pt": 1.2,
+          "word_first_line_pt": 27.85,
+          "source_first_row_x": 99.84,
+          "generated_first_line_x": 99.85,
+          "x_error_pt": 0.010003662109369316,
+          "expected_left_pt": 1.2,
+          "expected_first_line_pt": 27.84
+        },
+        {
+          "paragraph_index": 131,
+          "source_page": 60,
+          "kind": "List",
+          "alignment": "justify",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.84,
+          "continuation_x": 72.0,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them",
+          "word_left_pt": 1.2,
+          "word_first_line_pt": 27.85,
+          "source_first_row_x": 99.84,
+          "generated_first_line_x": 99.85,
+          "x_error_pt": 0.010003662109369316,
+          "expected_left_pt": 1.2,
+          "expected_first_line_pt": 27.84
+        },
+        {
+          "paragraph_index": 132,
+          "source_page": 60,
+          "kind": "List",
+          "alignment": "justify",
+          "classification": "FIRST_LINE_INDENT",
+          "body_left_x": 72.0,
+          "first_line_x": 99.72,
+          "continuation_x": 72.0,
+          "measured_continuation": true,
+          "evidence": "this paragraph's own wrapped rows start at the body boundary and its first row starts right of them",
+          "word_left_pt": 1.2,
+          "word_first_line_pt": 27.7,
+          "source_first_row_x": 99.72,
+          "generated_first_line_x": 99.7,
+          "x_error_pt": 0.02000122070313637,
+          "expected_left_pt": 1.2,
+          "expected_first_line_pt": 27.72
+        }
+      ]
+    },
+    "unchanged_round2_evidence": {
+      "underline_inventory_totals": null,
+      "reflow_contract": {
+        "vertical_contract_version": "REFLOW_AWARE_V1",
+        "tolerance_pt": 2.0,
+        "maximum_residual_y_error_pt": 0.68,
+        "maximum_raw_y_error_pt": 65.89,
+        "row_accounting": {
+          "source_row_count": 15,
+          "mandatory_extra_row_count": 2,
+          "mandatory_minimum_row_count": 17,
+          "generated_row_count": 17,
+          "unexplained_extra_row_count": 0,
+          "unexplained_blank_row_count": 0,
+          "rows_accounted": true
+        },
+        "generated_row_order_preserved": true,
+        "unexplained_extra_row_count": 0,
+        "unexplained_blank_row_gaps": [],
+        "structural_isolation_count": 0,
+        "applicable_line_pitch_pt": 21.1344,
+        "source_line_pitch_pt": 19.9971,
+        "region_left_pt": 70.8,
+        "plan_count": 15,
+        "reflow_vertical_failure_ids": [],
+        "plan_verdicts": [
+          {
+            "source_visual_line_id": "RF42-R01",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R02",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R03",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R04",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R05",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R06",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R07",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R08",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R09",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R10",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R11",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R12",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R13",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R14",
+            "pass": true
+          },
+          {
+            "source_visual_line_id": "RF42-R15",
+            "pass": true
+          }
+        ]
+      },
+      "reflow_checks": {
+        "reflow_aware_contract_is_v1": true,
+        "region_row_budget_is_accounted": true,
+        "no_unexplained_extra_row": true,
+        "no_unexplained_blank_row": true,
+        "generated_row_order_is_preserved": true,
+        "every_region_row_passes": true,
+        "residual_within_the_unrelaxed_tolerance": true,
+        "tolerance_is_not_relaxed": true,
+        "region_ledger_matches_the_baseline": true
+      }
+    }
+  },
+  "pre_existing_residuals": {
+    "p3_closure_phase3": "v09_p3_closure_gate.evaluate_frozen_phase raises ValueError on phase 3 for this build and for the accepted baseline alike; unchanged by this follow-up",
+    "p3_closure_phase2": "FAIL on both this build and the accepted baseline with a byte-identical report body (excluding build path/hash keys)",
+    "case001_internal_preview_gate": "still FAIL on p3_frozen_rules_all_accounted and p3_contract_acceptance_holds, which are the two phase-2 checks above; identical on the accepted baseline"
+  },
+  "deliberate_non_changes": [
+    "the source form's '/' remains a presentation marker: lot_name is still NOT_FOUND",
+    "no resolved value was invented and no source rule was duplicated",
+    "the source section margins were not touched",
+    "no source-form line geometry or vertical-rhythm behaviour was changed",
+    "no prior geometry gate was relaxed"
+  ]
+}

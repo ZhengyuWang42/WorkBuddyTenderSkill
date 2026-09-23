@@ -1,0 +1,12 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_manual_fidelity_round3_word_review_final",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\基础投标文件.docx",
+  "generated_docx_sha256": "16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\基础投标文件.pdf",
+  "generated_pdf_sha256": "ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_final\\generation_report.json"
+}

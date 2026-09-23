@@ -1,0 +1,173 @@
+{
+  "schema": "v1_docs_state_consistency/1",
+  "status": "PASS",
+  "documented_build": {
+    "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+    "docx_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+    "pdf_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927"
+  },
+  "flags": {
+    "manual_word_review_required": true,
+    "case001_manual_word_review": "NOT_YET_CONFIRMED",
+    "v1_production_candidate": false,
+    "ready_for_submission": false
+  },
+  "full_suite": {
+    "tests": 615,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 614
+  },
+  "pointers": {
+    "case_001": {
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "docx_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "pdf_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927"
+    },
+    "case_002": {
+      "build_id": "v1_round4_closure8",
+      "docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "pdf_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455"
+    },
+    "case_003": {
+      "build_id": "v1_round4_closure8",
+      "docx_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+      "pdf_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e"
+    }
+  },
+  "docs": {
+    "checked_human_boxes": 0,
+    "state_doc_bytes": 75536,
+    "decisions_doc_bytes": 38439
+  },
+  "checks": [
+    {
+      "check": "documented_build_id_resolves",
+      "status": "PASS",
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8"
+    },
+    {
+      "check": "documented_docx_hash_is_the_build_hash",
+      "status": "PASS",
+      "recomputed": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "manifest": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "documented": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230"
+    },
+    {
+      "check": "documented_pdf_hash_is_the_build_hash",
+      "status": "PASS",
+      "recomputed": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+      "manifest": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+      "documented": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927"
+    },
+    {
+      "check": "manual_review_still_required",
+      "status": "PASS",
+      "manual_word_review_required": true
+    },
+    {
+      "check": "case001_manual_word_review_not_confirmed",
+      "status": "PASS",
+      "case001_manual_word_review": "NOT_YET_CONFIRMED"
+    },
+    {
+      "check": "not_a_production_candidate",
+      "status": "PASS",
+      "v1_production_candidate": false
+    },
+    {
+      "check": "never_ready_for_submission",
+      "status": "PASS",
+      "ready_for_submission": false
+    },
+    {
+      "check": "full_suite_is_green",
+      "status": "PASS",
+      "tests": 615,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 614
+    },
+    {
+      "check": "documented_full_suite_count_matches_the_run",
+      "status": "PASS",
+      "documented": "614 passed, 1 skipped, 0 failed, 0 errors",
+      "evidence_counts": {
+        "tests": 615,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 614
+      }
+    },
+    {
+      "check": "three_case_regression_present_and_pass",
+      "status": "PASS",
+      "result": "PASS"
+    },
+    {
+      "check": "case_001_pointer_hashes_match_its_build",
+      "status": "PASS",
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build_dir_exists": true,
+      "docx_ok": true,
+      "pdf_ok": true
+    },
+    {
+      "check": "case_002_pointer_hashes_match_its_build",
+      "status": "PASS",
+      "build_id": "v1_round4_closure8",
+      "build_dir_exists": true,
+      "docx_ok": true,
+      "pdf_ok": true
+    },
+    {
+      "check": "case_003_pointer_hashes_match_its_build",
+      "status": "PASS",
+      "build_id": "v1_round4_closure8",
+      "build_dir_exists": true,
+      "docx_ok": true,
+      "pdf_ok": true
+    },
+    {
+      "check": "current_state_docs_exist",
+      "status": "PASS",
+      "state": "D:\\PyCharmProjects\\WBTenderSkill\\docs\\V1_PROJECT_STATE.md",
+      "decisions": "D:\\PyCharmProjects\\WBTenderSkill\\docs\\V1_DECISIONS.md"
+    },
+    {
+      "check": "forbidden_readiness_claims_absent",
+      "status": "PASS",
+      "forbidden": [
+        "READY_FOR_SUBMISSION = true",
+        "READY_FOR_SUBMISSION=true",
+        "V1_PRODUCTION_CANDIDATE = true",
+        "V1_PRODUCTION_CANDIDATE=true"
+      ],
+      "asserted": [],
+      "note": "a line that forbids the claim is not the claim"
+    },
+    {
+      "check": "state_doc_marks_manual_review_not_confirmed",
+      "status": "PASS"
+    },
+    {
+      "check": "state_doc_marks_not_ready_for_submission",
+      "status": "PASS"
+    },
+    {
+      "check": "state_doc_has_the_recovery_map",
+      "status": "PASS"
+    },
+    {
+      "check": "human_review_boxes_unticked",
+      "status": "PASS",
+      "ticked_boxes": 0
+    }
+  ],
+  "failed_checks": [],
+  "note": "read-only: the gate compares the durable docs with the artifacts they describe and never changes a verdict or an artifact"
+}

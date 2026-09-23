@@ -1,0 +1,83 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": "v1_manual_fidelity_round3_p3semantics",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "PASS",
+  "failed_checks": [],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 75,
+      "failed": 0,
+      "authorized_splits": 1,
+      "isolated_paragraphs": [
+        29
+      ]
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 5,
+      "failed": 0
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 0
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 0,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 33,
+      "failed": 0
+    },
+    "flow_placed_rule_endpoints": {
+      "checked": 0,
+      "failed": 0,
+      "diagnostic_only": true,
+      "rules": [],
+      "text_decoration_rules": [],
+      "value_representation_rules": [
+        {
+          "source_rule_id": "P42-R5",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 131.85,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "30日历天"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        },
+        {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 95.25,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "符合国家及行业有关标准、规范和询比文件要求"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        }
+      ]
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [],
+    "PARAGRAPH_ALIGNMENT": [],
+    "TABLE_CELL_LINE_STRUCTURE": [],
+    "SOURCE_BOLD_FIDELITY": [],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": []
+  },
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true."
+}

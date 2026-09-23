@@ -6,18 +6,18 @@
     "case_003"
   ],
   "acceptance_reports": {
-    "case_001": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_acceptance.json",
-    "case_002": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case002_acceptance.json",
-    "case_003": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case003_acceptance.json"
+    "case_001": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_001_round3_acceptance.json",
+    "case_002": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_002_round3_acceptance.json",
+    "case_003": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_003_round3_acceptance.json"
   },
   "cases": [
     {
       "case": "case_001",
-      "build_id": "v1_phaseC_final2",
-      "build_dir": "acceptance\\workspace\\case_001\\v1_phaseC_final2",
+      "build_id": "v1_manual_fidelity_round3_source_typography",
+      "build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
       "automated_result": "PASS",
       "source_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
-      "generated_docx_sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d",
+      "generated_docx_sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
       "checks": [
         {
           "check": "automated_result",
@@ -241,11 +241,11 @@
     },
     {
       "case": "case_002",
-      "build_id": "v1_phaseC_final",
-      "build_dir": "acceptance\\workspace\\case_002\\v1_phaseC_final",
+      "build_id": "v1_round3_source_typography",
+      "build_dir": "acceptance\\workspace\\case_002\\v1_round3_source_typography",
       "automated_result": "PASS",
       "source_sha256": "2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449",
-      "generated_docx_sha256": "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387",
+      "generated_docx_sha256": "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd",
       "checks": [
         {
           "check": "automated_result",
@@ -469,11 +469,11 @@
     },
     {
       "case": "case_003",
-      "build_id": "v1_phaseC_final",
-      "build_dir": "acceptance\\workspace\\case_003\\v1_phaseC_final",
+      "build_id": "v1_round3_source_typography",
+      "build_dir": "acceptance\\workspace\\case_003\\v1_round3_source_typography",
       "automated_result": "PASS",
       "source_sha256": "aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a",
-      "generated_docx_sha256": "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249",
+      "generated_docx_sha256": "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c",
       "checks": [
         {
           "check": "automated_result",
@@ -729,9 +729,9 @@
         "field": "document_structure.paragraph_count",
         "label": "paragraph_count",
         "values": {
-          "case_001": 144,
-          "case_002": 135,
-          "case_003": 196
+          "case_001": 139,
+          "case_002": 131,
+          "case_003": 194
         }
       },
       {
@@ -788,9 +788,9 @@
         "check": "build_directories_distinct",
         "ok": true,
         "observed": [
-          "acceptance\\workspace\\case_001\\v1_phaseC_final2",
-          "acceptance\\workspace\\case_002\\v1_phaseC_final",
-          "acceptance\\workspace\\case_003\\v1_phaseC_final"
+          "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
+          "acceptance\\workspace\\case_002\\v1_round3_source_typography",
+          "acceptance\\workspace\\case_003\\v1_round3_source_typography"
         ]
       },
       {
@@ -806,18 +806,18 @@
         "check": "generated_documents_distinct",
         "ok": true,
         "observed": [
-          "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d",
-          "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387",
-          "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249"
+          "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
+          "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd",
+          "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c"
         ]
       },
       {
         "check": "pointers_resolve_to_the_acceptance_build",
         "ok": true,
         "observed": {
-          "case_001": "v1_phaseC_final2",
-          "case_002": "v1_phaseC_final",
-          "case_003": "v1_phaseC_final"
+          "case_001": "v1_manual_fidelity_round3_source_typography",
+          "case_002": "v1_round3_source_typography",
+          "case_003": "v1_round3_source_typography"
         }
       },
       {

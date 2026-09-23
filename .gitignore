@@ -59,3 +59,13 @@ acceptance/reports/**/*.pdf
 **/loprofile/
 **/lo_profile/
 **/cache/
+
+# --- local pytest trees at the repository root -------------------------------
+# pytest and the ad-hoc probe suites leave numbered temporary trees at the
+# repository root on this host.  They are regenerable test scaffolding, not
+# repository content; one of them also carries a directory ACL that makes Git's
+# worktree scan emit a "Permission denied" warning.  Anchored to the root so
+# nothing else named the same further down is affected.
+/pytest-of-WPG/
+/_r2tmp/
+

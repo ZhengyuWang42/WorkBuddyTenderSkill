@@ -1,0 +1,15 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_round3_p3semantics",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\肇源县城市供水管网漏损治理项目三标段-招标文件正文.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics\\基础投标文件.docx",
+  "generated_docx_sha256": "a5bc3f0c50a4c67f22db302898559c47ae1704b200920ae8f519d77a2b0317ab",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics\\基础投标文件.pdf",
+  "generated_pdf_sha256": "0737d0f53453f0e790da4c030f6ae0ec6ceb1d96f29197462880b13d0746b2dd",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics\\generation_report.json",
+  "superseded": true,
+  "superseded_by": "case_003_current_build.json",
+  "superseded_reason": "recorded the pre-reconciliation pointer; the case acceptance evidence is pinned to the follow-up build"
+}

@@ -1,0 +1,313 @@
+{
+  "gate": "v09_source_line_assembly",
+  "status": "PASS",
+  "failed_checks": [],
+  "checks": {
+    "emission_plans_present": true,
+    "emission_plans_monotonic_in_source_x": true,
+    "needed_rows_assembled": true,
+    "assembly_stays_bounded": true,
+    "r3_r4_share_one_generated_paragraph": true,
+    "shared_paragraph_is_one_row_context": true,
+    "r3_visible_glyphs_intact_once": true,
+    "r3_r4_generated_rows_within_tolerance": true,
+    "resolved_values_present": true,
+    "visible_source_groups_intact": true,
+    "inactive_rules_stay_execution_inactive": true,
+    "accepted_composition_set_unchanged": true,
+    "composition_preservation": {
+      "preserved": true,
+      "accepted": [
+        "P42-R3",
+        "P42-R7",
+        "P42-R8",
+        "P45-R1",
+        "P45-R2",
+        "P45-R3",
+        "P45-R5"
+      ],
+      "missing": [],
+      "additions": [
+        "P44-R12",
+        "P45-R4"
+      ],
+      "additions_without_source_glyphs": []
+    },
+    "frozen_p3_semantics_unchanged": true,
+    "frozen_horizontal_anchors_held": true
+  },
+  "build": {
+    "build_id": "v1_manual_fidelity_round2_p21fix",
+    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.docx",
+    "generated_docx_sha256": "044b2d29c5502b8ca8e092bd0c8069be48bd9a577187fcb39147800705efb8cd",
+    "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\generation_report.json",
+    "generation_report_sha256": "f286f47cfaf3778441b9c463f81d4b98b1c48d2e3863ecb16624d3e5e4db59a6",
+    "generated_pdf_sha256": "6edffd9722073540e477b1af6c9abee006df5a3d0884aaff5b86cc38371609a4"
+  },
+  "tolerance_pt": 2.0,
+  "emission_plan_count": 99,
+  "line_context_row_count": 3,
+  "line_context_rows": [
+    {
+      "source_line_identity": "S42-L2",
+      "source_row_index": 1,
+      "source_y0": 166.74,
+      "source_rule_ids": [
+        "P42-R3",
+        "P42-R4"
+      ],
+      "generated_paragraph_index": 29
+    },
+    {
+      "source_line_identity": "S42-L3",
+      "source_row_index": 2,
+      "source_y0": 186.78,
+      "source_rule_ids": [
+        "P42-R5"
+      ],
+      "generated_paragraph_index": 30
+    },
+    {
+      "source_line_identity": "S42-L4",
+      "source_row_index": 3,
+      "source_y0": 206.7,
+      "source_rule_ids": [
+        "P42-R6"
+      ],
+      "generated_paragraph_index": 31
+    }
+  ],
+  "non_monotonic_rows": [],
+  "unassembled_rows": [],
+  "rows_without_line_context_machinery": [
+    "S45-L2",
+    "S45-L3"
+  ],
+  "assembly_gap_records": [
+    {
+      "source_page": 45,
+      "source_line_identity": "S45-L2",
+      "source_row_index": 1,
+      "source_y0": 136.02,
+      "source_rule_ids": [
+        "P45-R4"
+      ],
+      "reason": "element has no source-form-line paragraph activated; row keeps the accepted inline emission"
+    },
+    {
+      "source_page": 45,
+      "source_line_identity": "S45-L3",
+      "source_row_index": 2,
+      "source_y0": 159.42,
+      "source_rule_ids": [
+        "P45-R5"
+      ],
+      "reason": "element has no source-form-line paragraph activated; row keeps the accepted inline emission"
+    }
+  ],
+  "assembly_out_of_scope_rows": [],
+  "shared_source_row": {
+    "source_rule_ids": [
+      "P42-R3",
+      "P42-R4"
+    ],
+    "generated_paragraph_index": 29,
+    "generated_paragraph_text": "以人民币（大写）\t\t（不含税），（小写）\t\t元的响应报",
+    "r3_generated_row_y": 234.4,
+    "r4_generated_row_y": 234.1,
+    "generated_row_delta_pt": 0.3
+  },
+  "resolved_value_occurrences": {
+    "30日历天": 1,
+    "河南省水利第二工程局集团有限公司": 4,
+    "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目": 3
+  },
+  "source_visible_integrity": {
+    "r3_visible_glyph_group_once": true,
+    "r7_value_emitted_exactly_once": true,
+    "r7_three_segments_one_logical_rule": true,
+    "r8_visible_group_once": true,
+    "r8_one_logical_rule": true
+  },
+  "composition_segment_counts": {
+    "P42-R3": 2,
+    "P42-R7": 3,
+    "P42-R8": 1,
+    "P44-R12": 3,
+    "P45-R1": 1,
+    "P45-R2": 1,
+    "P45-R3": 1,
+    "P45-R4": 2,
+    "P45-R5": 1
+  },
+  "inactive_rule_ownership_count": {
+    "P40-R1": 0,
+    "P45-R6": 0
+  },
+  "inactive_rule_emission_count": {
+    "P40-R1": 0,
+    "P45-R6": 0
+  },
+  "observed_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P44-R12",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R4",
+    "P45-R5"
+  ],
+  "accepted_composition_set": [
+    "P42-R3",
+    "P42-R7",
+    "P42-R8",
+    "P45-R1",
+    "P45-R2",
+    "P45-R3",
+    "P45-R5"
+  ],
+  "frozen_p3_semantics": {
+    "P42-R1": {
+      "expected": [
+        "TEXT_UNDERLINE",
+        "PLACEHOLDER_REPLACED_BY_VALUE",
+        "ANCHOR_START_ONLY"
+      ],
+      "observed": [
+        "TEXT_UNDERLINE",
+        "PLACEHOLDER_REPLACED_BY_VALUE",
+        "ANCHOR_START_ONLY"
+      ]
+    },
+    "P42-R2": {
+      "expected": [
+        "PLACEHOLDER_UNDERLINE",
+        "PLACEHOLDER_REPLACED_BY_VALUE",
+        "ANCHOR_START_ONLY"
+      ],
+      "observed": [
+        "PLACEHOLDER_UNDERLINE",
+        "PLACEHOLDER_REPLACED_BY_VALUE",
+        "ANCHOR_START_ONLY"
+      ]
+    },
+    "P42-R3": {
+      "expected": [
+        "FORM_LAYOUT_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ],
+      "observed": [
+        "FORM_LAYOUT_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ]
+    },
+    "P42-R4": {
+      "expected": [
+        "GAP_FILL_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ],
+      "observed": [
+        "GAP_FILL_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ]
+    },
+    "P42-R5": {
+      "expected": [
+        "GAP_FILL_RULE",
+        "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "ANCHOR_START_ONLY"
+      ],
+      "observed": [
+        "GAP_FILL_RULE",
+        "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "ANCHOR_START_ONLY"
+      ]
+    },
+    "P42-R6": {
+      "expected": [
+        "GAP_FILL_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ],
+      "observed": [
+        "GAP_FILL_RULE",
+        "FIXED_EMPTY_SLOT",
+        "EXACT_SOURCE_SPAN"
+      ]
+    },
+    "P42-R7": {
+      "expected": [
+        "FORM_LAYOUT_RULE",
+        "SOURCE_VALUE_UNDERLINE",
+        "EXACT_SOURCE_SPAN"
+      ],
+      "observed": [
+        "FORM_LAYOUT_RULE",
+        "SOURCE_VALUE_UNDERLINE",
+        "EXACT_SOURCE_SPAN"
+      ]
+    },
+    "P42-R8": {
+      "expected": [
+        "PLACEHOLDER_UNDERLINE",
+        "PRESERVE_SOURCE_PLACEHOLDER",
+        "EXACT_SOURCE_SPAN"
+      ],
+      "observed": [
+        "PLACEHOLDER_UNDERLINE",
+        "PRESERVE_SOURCE_PLACEHOLDER",
+        "EXACT_SOURCE_SPAN"
+      ]
+    }
+  },
+  "semantics_changed": [],
+  "frozen_horizontal": {
+    "P42-R1": {
+      "frozen_anchor_pt": 94.8,
+      "generated_x0_pt": 94.9,
+      "error_pt": 0.1
+    },
+    "P42-R2": {
+      "frozen_anchor_pt": 198.1,
+      "generated_x0_pt": 198.2,
+      "error_pt": 0.1
+    },
+    "P42-R3": {
+      "frozen_anchor_pt": 169.65,
+      "generated_x0_pt": 169.65,
+      "error_pt": 0.0
+    },
+    "P42-R4": {
+      "frozen_anchor_pt": 384.6,
+      "generated_x0_pt": 384.6,
+      "error_pt": 0.0
+    },
+    "P42-R5": {
+      "frozen_anchor_pt": 131.85,
+      "generated_x0_pt": 131.95,
+      "error_pt": 0.1
+    },
+    "P42-R6": {
+      "frozen_anchor_pt": 95.25,
+      "generated_x0_pt": 95.25,
+      "error_pt": 0.0
+    },
+    "P42-R7": {
+      "frozen_anchor_pt": 352.8,
+      "generated_x0_pt": 352.8,
+      "error_pt": 0.0
+    },
+    "P42-R8": {
+      "frozen_anchor_pt": 112.8,
+      "generated_x0_pt": 112.9,
+      "error_pt": 0.1
+    }
+  },
+  "horizontal_failure_ids": []
+}

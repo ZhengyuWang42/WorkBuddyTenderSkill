@@ -1,0 +1,334 @@
+{
+  "schema": "v1_underline_inventory/1",
+  "label": "round3_current_prep3reconciled",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography\\基础投标文件.pdf",
+  "tolerance_pt": 2.0,
+  "contract": {
+    "source_span_authority": "FROZEN_P3_SOURCE_GEOMETRY",
+    "exact_span_policy": "BOTH_ENDPOINTS_WITHIN_TOLERANCE",
+    "anchor_policy": "START_ENDPOINT_WITHIN_TOLERANCE",
+    "tolerance_pt": 2.0,
+    "measurement_model": "UNMERGED_DRAWN_SEGMENTS_UNITED_PER_SOURCE_WINDOW"
+  },
+  "response_letter_source_page": 42,
+  "response_letter_generated_page": 3,
+  "page_mapping_basis": "MEASURED_BY_RULE_START_AGREEMENT",
+  "source_underline_count": 8,
+  "painted_underline_count": 13,
+  "matched": 6,
+  "lost": 0,
+  "invented": 0,
+  "out_of_tolerance": 2,
+  "rules": [
+    {
+      "source_rule_id": "P42-R1",
+      "source_page": 42,
+      "relation_type": "TEXT_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "gated_axis": "START_ONLY",
+      "source_x0": 94.8,
+      "source_x1": 194.6,
+      "source_y": 138.35,
+      "observed": {
+        "x0": 94.9,
+        "x1": 286.9,
+        "y": 146.2,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.1,
+      "end_error_pt": 92.3,
+      "deviation_pt": 0.1,
+      "end_axis_gated": false,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 94.9,
+          "x1": 286.9,
+          "y": 146.2
+        }
+      ],
+      "wrap_continuations": [
+        {
+          "x0": 70.8,
+          "x1": 342.5,
+          "y": 188.4,
+          "evidence": "WRAPPED_UNDERLINE_CONTINUES_AT_LINE_ORIGIN"
+        },
+        {
+          "x0": 343.3,
+          "x1": 349.3,
+          "y": 188.4,
+          "evidence": "WRAPPED_UNDERLINE_CONTINUES_ON_SAME_LINE"
+        },
+        {
+          "x0": 345.7,
+          "x1": 454.05,
+          "y": 188.4,
+          "evidence": "WRAPPED_UNDERLINE_CONTINUES_ON_SAME_LINE"
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    },
+    {
+      "source_rule_id": "P42-R2",
+      "source_page": 42,
+      "relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "gated_axis": "START_ONLY",
+      "source_x0": 198.1,
+      "source_x1": 375.7,
+      "source_y": 158.4,
+      "observed": {
+        "x0": 198.2,
+        "x1": 523.5,
+        "y": 167.3,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.1,
+      "end_error_pt": 147.8,
+      "deviation_pt": 0.1,
+      "end_axis_gated": false,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 198.2,
+          "x1": 523.5,
+          "y": 167.3
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    },
+    {
+      "source_rule_id": "P42-R3",
+      "source_page": 42,
+      "relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "source_x0": 169.65,
+      "source_x1": 323.6,
+      "source_y": 178.4,
+      "observed": {
+        "x0": 238.8,
+        "x1": 323.9,
+        "y": 209.8,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 69.15,
+      "end_error_pt": 0.3,
+      "deviation_pt": 69.15,
+      "end_axis_gated": true,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 238.8,
+          "x1": 323.9,
+          "y": 209.8
+        }
+      ],
+      "wrap_continuations": [
+        {
+          "x0": 131.85,
+          "x1": 150.05,
+          "y": 230.6,
+          "evidence": "WRAPPED_UNDERLINE_CONTINUES_AT_LINE_ORIGIN"
+        },
+        {
+          "x0": 94.9,
+          "x1": 150.7,
+          "y": 251.7,
+          "evidence": "WRAPPED_UNDERLINE_CONTINUES_AT_LINE_ORIGIN"
+        }
+      ],
+      "status": "OUT_OF_TOLERANCE",
+      "matched": false,
+      "reason": "painted rule deviates 69.15 pt from the gated source geometry (tolerance 2.0 pt)"
+    },
+    {
+      "source_rule_id": "P42-R4",
+      "source_page": 42,
+      "relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "source_x0": 384.6,
+      "source_x1": 459.0,
+      "source_y": 178.4,
+      "observed": {
+        "x0": 385.6,
+        "x1": 469.05,
+        "y": 209.5,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 1.0,
+      "end_error_pt": 10.05,
+      "deviation_pt": 10.05,
+      "end_axis_gated": true,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 385.6,
+          "x1": 469.05,
+          "y": 209.5
+        }
+      ],
+      "status": "OUT_OF_TOLERANCE",
+      "matched": false,
+      "reason": "painted rule deviates 10.05 pt from the gated source geometry (tolerance 2.0 pt)"
+    },
+    {
+      "source_rule_id": "P42-R5",
+      "source_page": 42,
+      "relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+      "geometry_intent": "ANCHOR_START_ONLY",
+      "gated_axis": "START_ONLY",
+      "source_x0": 131.85,
+      "source_x1": 181.4,
+      "source_y": 198.35,
+      "observed": {
+        "x0": 131.85,
+        "x1": 150.05,
+        "y": 230.6,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.0,
+      "end_error_pt": 31.35,
+      "deviation_pt": 0.0,
+      "end_axis_gated": false,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 131.85,
+          "x1": 150.05,
+          "y": 230.6
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    },
+    {
+      "source_rule_id": "P42-R6",
+      "source_page": 42,
+      "relation_type": "GAP_FILL_RULE",
+      "transformation_policy": "FIXED_EMPTY_SLOT",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "source_x0": 95.25,
+      "source_x1": 151.05,
+      "source_y": 218.4,
+      "observed": {
+        "x0": 94.9,
+        "x1": 150.7,
+        "y": 251.7,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.35,
+      "end_error_pt": 0.35,
+      "deviation_pt": 0.35,
+      "end_axis_gated": true,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 94.9,
+          "x1": 150.7,
+          "y": 251.7
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    },
+    {
+      "source_rule_id": "P42-R7",
+      "source_page": 42,
+      "relation_type": "FORM_LAYOUT_RULE",
+      "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "source_x0": 352.8,
+      "source_x1": 388.8,
+      "source_y": 318.35,
+      "observed": {
+        "x0": 352.8,
+        "x1": 388.8,
+        "y": 357.5,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.0,
+      "end_error_pt": 0.0,
+      "deviation_pt": 0.0,
+      "end_axis_gated": true,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 352.8,
+          "x1": 388.8,
+          "y": 357.5
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    },
+    {
+      "source_rule_id": "P42-R8",
+      "source_page": 42,
+      "relation_type": "PLACEHOLDER_UNDERLINE",
+      "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+      "geometry_intent": "EXACT_SOURCE_SPAN",
+      "gated_axis": "START_AND_END",
+      "source_x0": 112.8,
+      "source_x1": 208.8,
+      "source_y": 418.4,
+      "observed": {
+        "x0": 112.9,
+        "x1": 208.9,
+        "y": 463.15,
+        "kind": "VALUE_WITH_UNDERLINE"
+      },
+      "start_error_pt": 0.1,
+      "end_error_pt": 0.1,
+      "deviation_pt": 0.1,
+      "end_axis_gated": true,
+      "measurement": "ENDPOINT_SEEDED_CONTIGUOUS_RUN",
+      "painted_segments": [
+        {
+          "x0": 112.9,
+          "x1": 208.9,
+          "y": 463.15
+        }
+      ],
+      "status": "MATCHED",
+      "matched": true,
+      "reason": ""
+    }
+  ],
+  "invented_rules": [],
+  "unclaimed_fragments": [
+    {
+      "x0": 146.45,
+      "x1": 183.05,
+      "y": 230.6,
+      "kind": "VALUE_WITH_UNDERLINE",
+      "reason": "fragment of an already measured rule's own underline"
+    },
+    {
+      "x0": 150.4,
+      "x1": 156.4,
+      "y": 251.7,
+      "kind": "VALUE_WITH_UNDERLINE",
+      "reason": "fragment of an already measured rule's own underline"
+    }
+  ],
+  "status": "FAIL"
+}

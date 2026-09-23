@@ -1,0 +1,2095 @@
+{
+  "schema": "case001_date_row_closure/1",
+  "generated_by": "scripts/v1_date_row_closure_audit.py",
+  "build": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure6",
+  "build_hashes": {
+    "docx_sha256": "b4c2da5e18183a29490ac93fdb52625773b99949cf7614c6b84d9bae6e83f4d6",
+    "pdf_sha256": "4448dcc17b31010d50fc03af06ba054b05ac1583e01eb3a42ced303fa4f253d2",
+    "generation_report_sha256": "df738b7d517344ad97cba0be284ef6118d2770c8617ad46bfab5c518413c71ee"
+  },
+  "source_pdf": "D:/PyCharmProjects/WBTenderSkill/acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+  "tolerance_pt": 2.0,
+  "tolerance_provenance": "tender_basic/geometry_rule_qa.py:33 MANDATORY_TOLERANCE_PT = 2.0, restated in docs/V1_DECISIONS.md section 2.1 as frozen",
+  "rows": [
+    {
+      "source_page": 30,
+      "source_y_top": 404.34,
+      "in_build_scope": false,
+      "verdict": "OUTSIDE_BUILD_SCOPE",
+      "note": "genuine source date row outside the build's source_page range; no generated counterpart exists and none is expected"
+    },
+    {
+      "source_page": 31,
+      "source_y_top": 362.7,
+      "in_build_scope": false,
+      "verdict": "OUTSIDE_BUILD_SCOPE",
+      "note": "genuine source date row outside the build's source_page range; no generated counterpart exists and none is expected"
+    },
+    {
+      "source_page": 40,
+      "source_y_top": 635.41,
+      "source_alignment_class": "SOURCE_ALIGNED_CENTER",
+      "in_build_scope": true,
+      "generated_paragraph_index": 6,
+      "generated_jc": "center",
+      "generated_left_twips": 460,
+      "generated_left_pt": 23.0,
+      "generated_run_count": 6,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 3,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": true,
+          "w_spacing_twips": 1265,
+          "w_spacing_pt": 63.25,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 1,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 2,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": true,
+          "w_spacing_twips": 691,
+          "w_spacing_pt": 34.55,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 3,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 4,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": true,
+          "w_spacing_twips": 804,
+          "w_spacing_pt": 40.2,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 5,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 11.5,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 11.46,
+        "expected_center_inset_pt": 22.92,
+        "emitted_left_inset_pt": 23.0,
+        "inset_is_source_measured": true
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 283.2,
+          "generated_x0": 283.35,
+          "residual_pt": 0.15
+        },
+        "月": {
+          "source_x0": 335.04,
+          "generated_x0": 335.15,
+          "residual_pt": 0.11
+        },
+        "日": {
+          "source_x0": 392.52,
+          "generated_x0": 392.6,
+          "residual_pt": 0.08
+        }
+      },
+      "rule_pairs": [
+        {
+          "source_x0": 214.2,
+          "source_x1": 283.2,
+          "source_y": 646.8,
+          "generated_x0": 214.35,
+          "generated_x1": 283.35,
+          "generated_y": 693.9,
+          "x0_residual_pt": 0.15,
+          "x1_residual_pt": 0.15,
+          "is_leading_rule": true,
+          "source_page": 40,
+          "generated_paragraph_index": 6
+        },
+        {
+          "source_x0": 294.7,
+          "source_x1": 335.0,
+          "source_y": 646.8,
+          "generated_x0": 294.85,
+          "generated_x1": 335.15,
+          "generated_y": 693.9,
+          "x0_residual_pt": 0.15,
+          "x1_residual_pt": 0.15,
+          "is_leading_rule": false,
+          "source_page": 40,
+          "generated_paragraph_index": 6
+        },
+        {
+          "source_x0": 346.4,
+          "source_x1": 392.5,
+          "source_y": 646.8,
+          "generated_x0": 346.65,
+          "generated_x1": 392.55,
+          "generated_y": 693.9,
+          "x0_residual_pt": 0.25,
+          "x1_residual_pt": 0.05,
+          "is_leading_rule": false,
+          "source_page": 40,
+          "generated_paragraph_index": 6
+        }
+      ],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": 0.0,
+      "intervals": {
+        "leading": {
+          "source_width_pt": 69.0,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "NOT_MEASURABLE_AS_GLYPH_GAP"
+        },
+        "year_month": {
+          "source_width_pt": 40.34,
+          "generated_width_pt": 40.3,
+          "residual_pt": -0.04,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 45.98,
+          "generated_width_pt": 45.95,
+          "residual_pt": -0.03,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 42,
+      "source_y_top": 586.14,
+      "source_alignment_class": "SOURCE_ANCHORED_FORM_ROW",
+      "in_build_scope": true,
+      "generated_paragraph_index": 45,
+      "generated_jc": "left",
+      "generated_left_twips": 2940,
+      "generated_left_pt": 147.0,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 120,
+          "w_spacing_pt": 6.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 120,
+          "w_spacing_pt": 6.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": -49.85,
+        "expected_center_inset_pt": -99.7,
+        "emitted_left_inset_pt": 147.0
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 217.8,
+          "generated_x0": 217.9,
+          "residual_pt": 0.1
+        },
+        "月": {
+          "source_x0": 241.8,
+          "generated_x0": 241.9,
+          "residual_pt": 0.1
+        },
+        "日": {
+          "source_x0": 265.8,
+          "generated_x0": 265.9,
+          "residual_pt": 0.1
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 12.0,
+          "generated_width_pt": 12.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 12.0,
+          "generated_width_pt": 12.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 43,
+      "source_y_top": 659.34,
+      "source_alignment_class": "SOURCE_ANCHORED_FORM_ROW",
+      "in_build_scope": true,
+      "generated_paragraph_index": 50,
+      "generated_jc": "left",
+      "generated_left_twips": 7166,
+      "generated_left_pt": 358.3,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 192,
+          "w_spacing_pt": 9.6,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 187,
+          "w_spacing_pt": 9.35,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 164.95,
+        "expected_center_inset_pt": 329.9,
+        "emitted_left_inset_pt": 358.3
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 429.12,
+          "generated_x0": 429.2,
+          "residual_pt": 0.08
+        },
+        "月": {
+          "source_x0": 456.72,
+          "generated_x0": 456.8,
+          "residual_pt": 0.08
+        },
+        "日": {
+          "source_x0": 484.08,
+          "generated_x0": 484.15,
+          "residual_pt": 0.07
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 15.6,
+          "generated_width_pt": 15.6,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 15.36,
+          "generated_width_pt": 15.35,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 44,
+      "source_y_top": 216.9,
+      "source_alignment_class": "SOURCE_ANCHORED_FORM_ROW",
+      "in_build_scope": true,
+      "generated_paragraph_index": 57,
+      "generated_jc": "left",
+      "generated_left_twips": 24,
+      "generated_left_pt": 1.2,
+      "generated_run_count": 9,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 5,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "成立时间：",
+          "text_repr": "'成立时间：'",
+          "length": 5,
+          "codepoints": [
+            "0x6210",
+            "0x7acb",
+            "0x65f6",
+            "0x95f4",
+            "0xff1a"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "OTHER"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 839,
+          "w_spacing_pt": 41.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 359,
+          "w_spacing_pt": 17.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 1,
+          "w_spacing_pt": 0.05,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 5,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 6,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 719,
+          "w_spacing_pt": 35.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 7,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 1,
+          "w_spacing_pt": 0.05,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 8,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": -84.78,
+        "expected_center_inset_pt": -169.56,
+        "emitted_left_inset_pt": 1.2
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 179.88,
+          "generated_x0": 180.05,
+          "residual_pt": 0.17
+        },
+        "月": {
+          "source_x0": 221.88,
+          "generated_x0": 222.05,
+          "residual_pt": 0.17
+        },
+        "日": {
+          "source_x0": 281.88,
+          "generated_x0": 282.05,
+          "residual_pt": 0.17
+        }
+      },
+      "rule_pairs": [
+        {
+          "source_x0": 131.85,
+          "source_x1": 179.85,
+          "source_y": 228.6,
+          "generated_x0": 132.1,
+          "generated_x1": 180.0,
+          "generated_y": 252.6,
+          "x0_residual_pt": 0.25,
+          "x1_residual_pt": 0.15,
+          "is_leading_rule": true,
+          "source_page": 44,
+          "generated_paragraph_index": 57
+        },
+        {
+          "source_x0": 191.85,
+          "source_x1": 215.85,
+          "source_y": 228.6,
+          "generated_x0": 192.05,
+          "generated_x1": 215.95,
+          "generated_y": 252.6,
+          "x0_residual_pt": 0.2,
+          "x1_residual_pt": 0.1,
+          "is_leading_rule": false,
+          "source_page": 44,
+          "generated_paragraph_index": 57
+        },
+        {
+          "source_x0": 233.85,
+          "source_x1": 275.85,
+          "source_y": 228.6,
+          "generated_x0": 234.05,
+          "generated_x1": 275.95,
+          "generated_y": 252.6,
+          "x0_residual_pt": 0.2,
+          "x1_residual_pt": 0.1,
+          "is_leading_rule": false,
+          "source_page": 44,
+          "generated_paragraph_index": 57
+        }
+      ],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": -0.1,
+      "intervals": {
+        "leading": {
+          "source_width_pt": 48.03,
+          "generated_width_pt": 47.95,
+          "residual_pt": -0.08,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER",
+            "OTHER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "year_month": {
+          "source_width_pt": 30.0,
+          "generated_width_pt": 30.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 48.0,
+          "generated_width_pt": 48.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 44,
+      "source_y_top": 450.66,
+      "source_alignment_class": "SOURCE_ALIGNED_LEFT",
+      "in_build_scope": true,
+      "generated_paragraph_index": 64,
+      "generated_jc": "left",
+      "generated_left_twips": 0,
+      "generated_left_pt": 0.0,
+      "generated_run_count": 8,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 5,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 2,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 458,
+          "w_spacing_pt": 22.9,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 1,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 2,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 451,
+          "w_spacing_pt": 22.55,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 0,
+          "w_spacing_pt": 0.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 5,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": true,
+          "w_spacing_twips": 340,
+          "w_spacing_pt": 17.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 6,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 0,
+          "w_spacing_pt": 0.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 7,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": -162.83,
+        "expected_center_inset_pt": -325.66,
+        "emitted_left_inset_pt": 0.0
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 99.72,
+          "generated_x0": 99.8,
+          "residual_pt": 0.08
+        },
+        "月": {
+          "source_x0": 146.04,
+          "generated_x0": 146.35,
+          "residual_pt": 0.31
+        },
+        "日": {
+          "source_x0": 186.84,
+          "generated_x0": 187.35,
+          "residual_pt": 0.51
+        }
+      },
+      "rule_pairs": [
+        {
+          "source_x0": 70.8,
+          "source_x1": 99.7,
+          "source_y": 462.35,
+          "generated_x0": 70.9,
+          "generated_x1": 99.8,
+          "generated_y": 494.45,
+          "x0_residual_pt": 0.1,
+          "x1_residual_pt": 0.1,
+          "is_leading_rule": true,
+          "source_page": 44,
+          "generated_paragraph_index": 64
+        },
+        {
+          "source_x0": 111.35,
+          "source_x1": 140.25,
+          "source_y": 462.35,
+          "generated_x0": 111.8,
+          "generated_x1": 140.3,
+          "generated_y": 494.45,
+          "x0_residual_pt": 0.45,
+          "x1_residual_pt": 0.05,
+          "is_leading_rule": false,
+          "source_page": 44,
+          "generated_paragraph_index": 64
+        },
+        {
+          "source_x0": 157.8,
+          "source_x1": 181.05,
+          "source_y": 462.35,
+          "generated_x0": 158.35,
+          "generated_x1": 181.35,
+          "generated_y": 494.45,
+          "x0_residual_pt": 0.55,
+          "x1_residual_pt": 0.3,
+          "is_leading_rule": false,
+          "source_page": 44,
+          "generated_paragraph_index": 64
+        }
+      ],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": -0.0,
+      "intervals": {
+        "leading": {
+          "source_width_pt": 28.92,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "NOT_MEASURABLE_AS_GLYPH_GAP"
+        },
+        "year_month": {
+          "source_width_pt": 34.32,
+          "generated_width_pt": 34.55,
+          "residual_pt": 0.23,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 28.8,
+          "generated_width_pt": 29.0,
+          "residual_pt": 0.2,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 45,
+      "source_y_top": 466.14,
+      "source_alignment_class": "SOURCE_ANCHORED_FORM_ROW",
+      "in_build_scope": true,
+      "generated_paragraph_index": 76,
+      "generated_jc": "left",
+      "generated_left_twips": 5738,
+      "generated_left_pt": 286.9,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 120,
+          "w_spacing_pt": 6.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 120,
+          "w_spacing_pt": 6.0,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 90.07,
+        "expected_center_inset_pt": 180.14,
+        "emitted_left_inset_pt": 286.9
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 357.72,
+          "generated_x0": 357.8,
+          "residual_pt": 0.08
+        },
+        "月": {
+          "source_x0": 381.72,
+          "generated_x0": 381.8,
+          "residual_pt": 0.08
+        },
+        "日": {
+          "source_x0": 405.72,
+          "generated_x0": 405.8,
+          "residual_pt": 0.08
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 12.0,
+          "generated_width_pt": 12.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 12.0,
+          "generated_width_pt": 12.0,
+          "residual_pt": 0.0,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 47,
+      "source_y_top": 519.66,
+      "source_alignment_class": "SOURCE_ALIGNED_CENTER",
+      "in_build_scope": true,
+      "generated_paragraph_index": 86,
+      "generated_jc": "center",
+      "generated_left_twips": 470,
+      "generated_left_pt": 23.5,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 11.71,
+        "expected_center_inset_pt": 23.42,
+        "emitted_left_inset_pt": 23.5,
+        "inset_is_source_measured": true
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 269.4,
+          "generated_x0": 269.5,
+          "residual_pt": 0.1
+        },
+        "月": {
+          "source_x0": 303.36,
+          "generated_x0": 303.45,
+          "residual_pt": 0.09
+        },
+        "日": {
+          "source_x0": 337.32,
+          "generated_x0": 337.4,
+          "residual_pt": 0.08
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 48,
+      "source_y_top": 688.98,
+      "source_alignment_class": "SOURCE_ANCHORED_FORM_ROW",
+      "in_build_scope": true,
+      "generated_paragraph_index": 91,
+      "generated_jc": "left",
+      "generated_left_twips": 5662,
+      "generated_left_pt": 283.1,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 96.19,
+        "expected_center_inset_pt": 192.38,
+        "emitted_left_inset_pt": 283.1
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 353.88,
+          "generated_x0": 354.0,
+          "residual_pt": 0.12
+        },
+        "月": {
+          "source_x0": 387.84,
+          "generated_x0": 387.95,
+          "residual_pt": 0.11
+        },
+        "日": {
+          "source_x0": 421.8,
+          "generated_x0": 421.9,
+          "residual_pt": 0.1
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 53,
+      "source_y_top": 576.18,
+      "source_alignment_class": "SOURCE_ALIGNED_CENTER",
+      "in_build_scope": true,
+      "generated_paragraph_index": 114,
+      "generated_jc": "center",
+      "generated_left_twips": 470,
+      "generated_left_pt": 23.5,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 11.71,
+        "expected_center_inset_pt": 23.42,
+        "emitted_left_inset_pt": 23.5,
+        "inset_is_source_measured": true
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 269.4,
+          "generated_x0": 269.5,
+          "residual_pt": 0.1
+        },
+        "月": {
+          "source_x0": 303.36,
+          "generated_x0": 303.45,
+          "residual_pt": 0.09
+        },
+        "日": {
+          "source_x0": 337.32,
+          "generated_x0": 337.4,
+          "residual_pt": 0.08
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    },
+    {
+      "source_page": 60,
+      "source_y_top": 428.1,
+      "source_alignment_class": "SOURCE_ALIGNED_CENTER",
+      "in_build_scope": true,
+      "generated_paragraph_index": 136,
+      "generated_jc": "center",
+      "generated_left_twips": 470,
+      "generated_left_pt": 23.5,
+      "generated_run_count": 5,
+      "generated_figure_space_run_count": 0,
+      "generated_intrinsic_spacer_run_count": 2,
+      "generated_tab_run_count": 0,
+      "generated_zero_tracking_spacer_count": 0,
+      "generated_runs": [
+        {
+          "run_index": 0,
+          "text": "年",
+          "text_repr": "'年'",
+          "length": 1,
+          "codepoints": [
+            "0x5e74"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 1,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 2,
+          "text": "月",
+          "text_repr": "'月'",
+          "length": 1,
+          "codepoints": [
+            "0x6708"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        },
+        {
+          "run_index": 3,
+          "text": " ",
+          "text_repr": "' '",
+          "length": 1,
+          "codepoints": [
+            "0x20"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": false,
+          "w_spacing_twips": 319,
+          "w_spacing_pt": 15.95,
+          "tab_state": null,
+          "class": "INTRINSIC_SPACER"
+        },
+        {
+          "run_index": 4,
+          "text": "日",
+          "text_repr": "'日'",
+          "length": 1,
+          "codepoints": [
+            "0x65e5"
+          ],
+          "font_family": "仿宋",
+          "east_asian_font": "仿宋",
+          "font_size_pt": 12.0,
+          "underline": null,
+          "w_spacing_twips": null,
+          "w_spacing_pt": null,
+          "tab_state": null,
+          "class": "TOKEN"
+        }
+      ],
+      "alignment_class_matches": true,
+      "centring": {
+        "source_centroid_offset_pt": 11.71,
+        "expected_center_inset_pt": 23.42,
+        "emitted_left_inset_pt": 23.5,
+        "inset_is_source_measured": true
+      },
+      "collapsed": false,
+      "token_anchors": {
+        "年": {
+          "source_x0": 269.4,
+          "generated_x0": 269.5,
+          "residual_pt": 0.1
+        },
+        "月": {
+          "source_x0": 303.36,
+          "generated_x0": 303.45,
+          "residual_pt": 0.09
+        },
+        "日": {
+          "source_x0": 337.32,
+          "generated_x0": 337.4,
+          "residual_pt": 0.08
+        }
+      },
+      "rule_pairs": [],
+      "rule_lost": 0,
+      "rule_invented": 0,
+      "leading_rule_width_residual_pt": null,
+      "intervals": {
+        "leading": {
+          "source_width_pt": null,
+          "generated_width_pt": null,
+          "residual_pt": null,
+          "mechanism_classes": [],
+          "material_in_source": false,
+          "verdict": "NOT_APPLICABLE"
+        },
+        "year_month": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        },
+        "month_day": {
+          "source_width_pt": 21.96,
+          "generated_width_pt": 21.95,
+          "residual_pt": -0.01,
+          "mechanism_classes": [
+            "INTRINSIC_SPACER"
+          ],
+          "material_in_source": true,
+          "verdict": "PRESERVED"
+        }
+      },
+      "notes": [],
+      "within_tolerance": true,
+      "verdict": "PASS"
+    }
+  ],
+  "accounting": {
+    "source_date_rows_document_wide": 12,
+    "source_date_rows_build_scope": 10,
+    "generated_date_rows": 10,
+    "rows_within_2pt": 10,
+    "rows_within_2pt_label": "10/10",
+    "alignment_mismatch": 0,
+    "collapsed": 0,
+    "lost_gaps": 0,
+    "invented_gaps": 0,
+    "unexpected_indents": 0,
+    "ambiguous": 0,
+    "rows_with_figure_space_geometry": 0,
+    "date_figure_space_geometry_runs": 0,
+    "date_intrinsic_spacer_runs": 27,
+    "date_tab_runs": 0,
+    "date_zero_tracking_spacer_runs": 2,
+    "max_date_gap_residual_pt": 0.23,
+    "max_date_token_anchor_residual_pt": 0.51
+  },
+  "rule_endpoints": {
+    "source_rule_count": 9,
+    "matched": 9,
+    "lost": 0,
+    "invented": 0,
+    "max_x0_residual_pt": 0.55,
+    "max_x1_residual_pt": 0.3,
+    "leading_rule_pairs": 3,
+    "lost_rules": [],
+    "invented_rules": [],
+    "pairs": [
+      {
+        "source_x0": 214.2,
+        "source_x1": 283.2,
+        "source_y": 646.8,
+        "generated_x0": 214.35,
+        "generated_x1": 283.35,
+        "generated_y": 693.9,
+        "x0_residual_pt": 0.15,
+        "x1_residual_pt": 0.15,
+        "is_leading_rule": true,
+        "source_page": 40,
+        "generated_paragraph_index": 6
+      },
+      {
+        "source_x0": 294.7,
+        "source_x1": 335.0,
+        "source_y": 646.8,
+        "generated_x0": 294.85,
+        "generated_x1": 335.15,
+        "generated_y": 693.9,
+        "x0_residual_pt": 0.15,
+        "x1_residual_pt": 0.15,
+        "is_leading_rule": false,
+        "source_page": 40,
+        "generated_paragraph_index": 6
+      },
+      {
+        "source_x0": 346.4,
+        "source_x1": 392.5,
+        "source_y": 646.8,
+        "generated_x0": 346.65,
+        "generated_x1": 392.55,
+        "generated_y": 693.9,
+        "x0_residual_pt": 0.25,
+        "x1_residual_pt": 0.05,
+        "is_leading_rule": false,
+        "source_page": 40,
+        "generated_paragraph_index": 6
+      },
+      {
+        "source_x0": 131.85,
+        "source_x1": 179.85,
+        "source_y": 228.6,
+        "generated_x0": 132.1,
+        "generated_x1": 180.0,
+        "generated_y": 252.6,
+        "x0_residual_pt": 0.25,
+        "x1_residual_pt": 0.15,
+        "is_leading_rule": true,
+        "source_page": 44,
+        "generated_paragraph_index": 57
+      },
+      {
+        "source_x0": 191.85,
+        "source_x1": 215.85,
+        "source_y": 228.6,
+        "generated_x0": 192.05,
+        "generated_x1": 215.95,
+        "generated_y": 252.6,
+        "x0_residual_pt": 0.2,
+        "x1_residual_pt": 0.1,
+        "is_leading_rule": false,
+        "source_page": 44,
+        "generated_paragraph_index": 57
+      },
+      {
+        "source_x0": 233.85,
+        "source_x1": 275.85,
+        "source_y": 228.6,
+        "generated_x0": 234.05,
+        "generated_x1": 275.95,
+        "generated_y": 252.6,
+        "x0_residual_pt": 0.2,
+        "x1_residual_pt": 0.1,
+        "is_leading_rule": false,
+        "source_page": 44,
+        "generated_paragraph_index": 57
+      },
+      {
+        "source_x0": 70.8,
+        "source_x1": 99.7,
+        "source_y": 462.35,
+        "generated_x0": 70.9,
+        "generated_x1": 99.8,
+        "generated_y": 494.45,
+        "x0_residual_pt": 0.1,
+        "x1_residual_pt": 0.1,
+        "is_leading_rule": true,
+        "source_page": 44,
+        "generated_paragraph_index": 64
+      },
+      {
+        "source_x0": 111.35,
+        "source_x1": 140.25,
+        "source_y": 462.35,
+        "generated_x0": 111.8,
+        "generated_x1": 140.3,
+        "generated_y": 494.45,
+        "x0_residual_pt": 0.45,
+        "x1_residual_pt": 0.05,
+        "is_leading_rule": false,
+        "source_page": 44,
+        "generated_paragraph_index": 64
+      },
+      {
+        "source_x0": 157.8,
+        "source_x1": 181.05,
+        "source_y": 462.35,
+        "generated_x0": 158.35,
+        "generated_x1": 181.35,
+        "generated_y": 494.45,
+        "x0_residual_pt": 0.55,
+        "x1_residual_pt": 0.3,
+        "is_leading_rule": false,
+        "source_page": 44,
+        "generated_paragraph_index": 64
+      }
+    ]
+  },
+  "DATE_ROW_ALIGNMENT_FIDELITY": "PASS",
+  "DATE_ROW_GAP_FIDELITY": "PASS",
+  "DATE_ROW_TOKEN_ANCHOR_FIDELITY": "PASS",
+  "DATE_FIGURE_SPACE_GEOMETRY_RUNS": 0,
+  "DATE_RULE_ENDPOINT_FIDELITY": "PASS",
+  "DATE_AUDIT": "PASS",
+  "indent_policy": "A centred row's w:left is legitimate exactly when it equals twice the source row's measured centroid offset (0 below 0.5 pt, where the source proves no asymmetry); that is SOURCE_CENTER_ALIGNMENT_FRAME, the native-alignment contract plus a measured axis correction, not a position surrogate. Non-centred rows state w:jc=left/right and their indent is the source-anchored body indent; their position fidelity is graded by the token anchors.",
+  "disclosures": [
+    "READ-ONLY over the build; only the report artefacts are written.",
+    "Generated underline spans are read from the build PDF's vector drawings with the same rule filter the source audit uses (height <= 2.4 pt, width >= 6 pt), inside a +/- window around the row's rendered top; a rule of another row that shares the window would be reported as invented rather than silently matched.",
+    "Rule pairing is one-to-one and greedy on combined endpoint distance: a single merged generated underline cannot satisfy two source rules, and the second source rule is reported lost.",
+    "The leading interval of a row with nothing printed to its left is not measurable as a glyph gap; it is graded through its own rule endpoint pair and through the year anchor.",
+    "A generated underline is only claimed as a match within 2.0 pt in both endpoints, the frozen geometry tolerance; no new tolerance is introduced."
+  ]
+}

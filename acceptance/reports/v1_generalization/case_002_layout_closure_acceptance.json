@@ -1,0 +1,842 @@
+{
+  "schema": "v1_case_acceptance/1",
+  "case": "case_002",
+  "build_id": "v1_manual_layout_closure",
+  "build_dir": "acceptance\\workspace\\case_002\\v1_manual_layout_closure",
+  "pinned_pointer": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_002_current_build.json",
+  "source": {
+    "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
+    "sha256": "2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449",
+    "source_pdf_page_count": 174,
+    "source_pdf_bytes": 1225757,
+    "source_pdf_reopen": true
+  },
+  "generated": {
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_manual_layout_closure\\基础投标文件.docx",
+    "docx_sha256": "6073735631344a5bad83b536c22d62cfa86b1177bbf6a2fbdd8ab28fdb210c92",
+    "docx_bytes": 60392,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_manual_layout_closure\\基础投标文件.pdf",
+    "pdf_sha256": "502016c68533bb96c062659e390e20644d3545fb698baff83fcd6ffc3d310982",
+    "pdf_bytes": 499876
+  },
+  "pipeline": 0,
+  "libreoffice_render": {
+    "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+    "argv": [
+      "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_002/v1_manual_layout_closure/_acceptance_render/_acc_profile_647b585a8227",
+      "--headless",
+      "--norestore",
+      "--convert-to",
+      "pdf",
+      "--outdir",
+      "acceptance\\workspace\\case_002\\v1_manual_layout_closure\\_acceptance_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_manual_layout_closure\\基础投标文件.docx"
+    ],
+    "isolated_profile": "acceptance\\workspace\\case_002\\v1_manual_layout_closure\\_acceptance_render\\_acc_profile_647b585a8227",
+    "launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
+    "returncode": 0,
+    "elapsed_s": 9.13,
+    "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
+    "pdf": "acceptance\\workspace\\case_002\\v1_manual_layout_closure\\_acceptance_render\\基础投标文件.pdf",
+    "pdf_exists": true,
+    "pdf_bytes": 499876
+  },
+  "rendered_pdf": {
+    "pdf_page_count": 30,
+    "pdf_reopen": true,
+    "pdf_blank_pages": [],
+    "pdf_blank_page_count": 0,
+    "pdf_extractable_character_count": 12702,
+    "pdf_text_page_count": 30
+  },
+  "package_safety": {
+    "word_safe_scan": {
+      "arbitrary_low_level_xml_count": 0,
+      "forbidden_elements": [],
+      "forbidden_relationships": [],
+      "manual_relationships": null,
+      "manual_relationships_note": "Not inferable from bytes; production source is separately API-audited.",
+      "unsafe_table_positioning": 0,
+      "unsafe_break_nodes": 0,
+      "unsafe_style_nodes": 0,
+      "unsafe_section_nodes": 0,
+      "zip_integrity": true,
+      "python_docx_reopen": true,
+      "forensic_errors": [],
+      "unsafe_ooxml": 0,
+      "result": "PASS"
+    },
+    "zip_integrity": true,
+    "python_docx_reopen": true,
+    "unsafe_generated_ooxml": 0,
+    "generated_textbox_count": 0,
+    "generated_media_count": 0,
+    "blocking_overlap": {
+      "anchored_object_count": 0,
+      "floating_table_count": 0,
+      "framed_paragraph_count": 0,
+      "textbox_count": 0,
+      "framed_style_count": 0,
+      "blocking_overlap_count": 0
+    },
+    "content_duplication": {
+      "measured_paragraph_count": 25,
+      "minimum_compared_length": 25,
+      "duplicated_paragraph_count": 0,
+      "duplicated_paragraphs": [],
+      "source_repetition": {
+        "excess_duplicated_paragraph_count": 0,
+        "excess_duplicated_paragraphs": [],
+        "repetition_tolerance": 1.5
+      }
+    }
+  },
+  "document_structure": {
+    "python_docx_reopen": true,
+    "paragraph_count": 135,
+    "word_table_count": 9,
+    "word_table_row_counts": [
+      8,
+      1,
+      1,
+      8,
+      22,
+      6,
+      10,
+      1,
+      6
+    ],
+    "textbox_count": 0,
+    "drawing_count": 0,
+    "inline_shape_count": 0,
+    "anchored_shape_count": 0,
+    "vml_shape_count": 0,
+    "embedded_media_count": 0,
+    "embedded_media": [],
+    "page_break_node_count": 0
+  },
+  "table_continuity": {
+    "pdf_table_fragment_count": 22,
+    "logical_table_count": 9,
+    "continuation_fragments_merged": 13,
+    "orphan_continuation_fragments": 0,
+    "false_continuation_merges": 0,
+    "cell_text_continuations": null,
+    "generated_table_count": 9,
+    "generated_real_tables": 9,
+    "synthetic_layout_tables": 0,
+    "generated_textbox_count": 0,
+    "unpaired_generated_word_table_count": 0,
+    "total_source_cell_count": 300,
+    "total_lost_cell_count": 0,
+    "total_duplicated_cell_count": 0,
+    "total_invented_cell_count": 0,
+    "logical_tables": [
+      {
+        "table_id": "logical_0",
+        "head_page": 147,
+        "head_table_index": 0,
+        "source_pages": [
+          147
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 8,
+        "source_column_count": 2,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 0,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 8,
+        "generated_column_count": 2,
+        "editable_word_table": true,
+        "source_cell_count": 13,
+        "generated_cell_count": 15,
+        "covered_source_cell_count": 13,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 3,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": [
+          {
+            "generated_cell_text_length": 15,
+            "fact_fields": [
+              "duration",
+              "project_location",
+              "project_name"
+            ],
+            "generated_cell_text": "营收系统整合和硬件系统升级项目"
+          },
+          {
+            "generated_cell_text_length": 4,
+            "fact_fields": [
+              "duration",
+              "project_location",
+              "project_name"
+            ],
+            "generated_cell_text": "18个月"
+          },
+          {
+            "generated_cell_text_length": 4,
+            "fact_fields": [
+              "duration",
+              "project_location",
+              "project_name"
+            ],
+            "generated_cell_text": "西安市内"
+          }
+        ]
+      },
+      {
+        "table_id": "logical_1",
+        "head_page": 148,
+        "head_table_index": 0,
+        "source_pages": [
+          148
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 1,
+        "source_column_count": 2,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 1,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 1,
+        "generated_column_count": 2,
+        "editable_word_table": true,
+        "source_cell_count": 2,
+        "generated_cell_count": 2,
+        "covered_source_cell_count": 2,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_2",
+        "head_page": 149,
+        "head_table_index": 0,
+        "source_pages": [
+          149
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 1,
+        "source_column_count": 2,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 2,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 1,
+        "generated_column_count": 2,
+        "editable_word_table": true,
+        "source_cell_count": 2,
+        "generated_cell_count": 2,
+        "covered_source_cell_count": 2,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_3",
+        "head_page": 150,
+        "head_table_index": 0,
+        "source_pages": [
+          150
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 8,
+        "source_column_count": 6,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 3,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 8,
+        "generated_column_count": 6,
+        "editable_word_table": true,
+        "source_cell_count": 13,
+        "generated_cell_count": 13,
+        "covered_source_cell_count": 13,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_4",
+        "head_page": 151,
+        "head_table_index": 0,
+        "source_pages": [
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160
+        ],
+        "source_fragment_count": 10,
+        "source_row_count": 22,
+        "source_column_count": 9,
+        "continuation_fragments": 9,
+        "generated_word_table_index": 4,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 22,
+        "generated_column_count": 9,
+        "editable_word_table": true,
+        "source_cell_count": 135,
+        "generated_cell_count": 107,
+        "covered_source_cell_count": 135,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 7,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 15,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [
+          {
+            "generated_cell_text_length": 542,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "集成配电/10KUPS/ECC800e/门磁/烟感/温湿度/水浸，留给IT设备柜的空间预计30U，带2个电池包。各组件运行稳定，监测数据准确。详细技术要求如下：1、一体化设计：UPS、配电、监控、电池包一体化集成在一个综合柜中；2、环境温湿",
+              "出支路；UPS类型：单进单出，机架安装；UPS输入电压范围：80~280Vac/1Ph；UPS容量：10kVA；UPS配置：单台；UPS输出功率因数：不低于0.8；UPS效率：不低于90%（满载）；4、监控系统监控采集器：1U，机架安装，提"
+            ],
+            "aggregated_source_cell_total_characters": 542,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "集成配电/10KUPS/ECC800e/门磁/烟感/温湿度/水浸，留给IT设备柜的空间预计30U，带2个电池包。各组件运行稳定，监测数据准确。详细技术要求如下：1、一体化设计：UPS、配电、监控、电池包一体化集成在一个综合柜中；2、环境温湿"
+          },
+          {
+            "generated_cell_text_length": 380,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "1、规格：≥2U双路机架式服务器，国产自研品牌，含服务器导轨；★2、CPU：每个节点配置≥2颗国产X86或C86处理器，每颗核心数≥32核，主频≥2.2GHz，三级缓存≥64MB；★3、内存：满足配置≥8根内存，单条容量≥32GB，支持≥3",
+              "6、网卡：板载≥2个千兆以太网RJ45接口（国产网络芯片）；配置≥1张双口万兆网卡；7、电源：配置≥2块电源，支持1+1冗余模式；8、故障诊断：标配诊断模块，可实现对CPU/内存/硬盘/网卡/风扇/温度/电源等关键部件的故障诊断；行故障诊断"
+            ],
+            "aggregated_source_cell_total_characters": 380,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "1、规格：≥2U双路机架式服务器，国产自研品牌，含服务器导轨；★2、CPU：每个节点配置≥2颗国产X86或C86处理器，每颗核心数≥32核，主频≥2.2GHz，三级缓存≥64MB；★3、内存：满足配置≥8根内存，单条容量≥32GB，支持≥3"
+          },
+          {
+            "generated_cell_text_length": 463,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "虚拟化管理平台（1）支持虚拟机和裸金属服务器统一管理，支持对裸金属服务器远程电源管理、挂载安装ISO镜像等操作，可将虚拟机镜像部署为裸金属服务器操作系统，可查看裸金属服务器电源状态、CPU、内存、硬盘等硬件信息，支持打开裸金属服务器控制台进",
+              "持不同类型的报警级别，不同级别的报警需要发出对应级别的报警消息。（5）支持可视化管理，支持动态大屏展示系统健康度、主机健康度、全局资源状态、TOP10虚拟机和主机使用情况。"
+            ],
+            "aggregated_source_cell_total_characters": 463,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "虚拟化管理平台（1）支持虚拟机和裸金属服务器统一管理，支持对裸金属服务器远程电源管理、挂载安装ISO镜像等操作，可将虚拟机镜像部署为裸金属服务器操作系统，可查看裸金属服务器电源状态、CPU、内存、硬盘等硬件信息，支持打开裸金属服务器控制台进"
+          },
+          {
+            "generated_cell_text_length": 370,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "24个1G/10GbpsSFP+光纤接口和2个40/100GQSFP28端口光纤接口，支持两个扩展插槽，双电源。交换容量：≥2.56T，包转发率≥1260Mpps，模块",
+              "化双电源（支持交/直流供电），整机最大功率≤100W。端口配置：≥24个1G/10GSFP+万兆光口，≥2个40G/100GQSFP28端口，扩展插槽≥2个。功能支持：支持VxLAN二层/三层网关（集中式+分布式部署）、IEEE802.1Q"
+            ],
+            "aggregated_source_cell_total_characters": 370,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "24个1G/10GbpsSFP+光纤接口和2个40/100GQSFP28端口光纤接口，支持两个扩展插槽，双电源。交换容量：≥2.56T，包转发率≥1260Mpps，模块化双电源（支持交/直流供电），整机最大功率≤100W。端口配置：≥24个"
+          },
+          {
+            "generated_cell_text_length": 161,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "2U上架专用设备，国产CPU、6个电口（含1个管理口，1个HA口），4个千兆SFP接口插槽（不含光收发模块），3个接口扩展槽，可扩展接口板卡，1个RJ45串口，硬盘8T，双电源。默认含3个被审计数据库服务数，可扩充；★提供产品详细功能描述文",
+              "家认可检测机构出具的技术测试报告复印件（加盖原厂公章）。"
+            ],
+            "aggregated_source_cell_total_characters": 161,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "2U上架专用设备，国产CPU、6个电口（含1个管理口，1个HA口），4个千兆SFP接口插槽（不含光收发模块），3个接口扩展槽，可扩展接口板卡，1个RJ45串口，硬盘8T，双电源。默认含3个被审计数据库服务数，可扩充；★提供产品详细功能描述文"
+          },
+          {
+            "generated_cell_text_length": 396,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "1）主控模块：工控主板，主频intel双核2.8G，8G，固态硬盘120G，集成显卡、声卡、网卡，串口2个，USB接口8个；2）触摸显示模块：21.5寸16:9电容式触显一体屏，显示分辨率1280*1024或以上；3）机柜：一体式机柜，冷轧",
+              "式和非接触式IC卡的读写、磁卡只读。寿命长：磁头≥80万次，IC触点≥50万次，符合RoHS标准，具有银联PBOC3.0认证证书，支持银联卡读取。验收标准：硬件配置与技术要求一致，提供硬件出厂检测报告、认证证书（如银联PBOC3.0认证）。"
+            ],
+            "aggregated_source_cell_total_characters": 396,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "1）主控模块：工控主板，主频intel双核2.8G，8G，固态硬盘120G，集成显卡、声卡、网卡，串口2个，USB接口8个；2）触摸显示模块：21.5寸16:9电容式触显一体屏，显示分辨率1280*1024或以上；3）机柜：一体式机柜，冷轧"
+          },
+          {
+            "generated_cell_text_length": 1181,
+            "aggregated_source_cell_count": 3,
+            "aggregated_source_cells": [
+              "实现水表从入库到报废的全生命周期管理，包括入库、检定、配表、出库、安装、立户上线、首次抄表、故障换表、维修等各环节的详细管控。详细功能如下：1、指标分析(1)业务数量统计：系统需提供业务数量统计功能，如故障/周期换表、停/复水业务数量；(2",
+              "各类问题的待办工单数、水表报废数等；(3)水表分析：系统需支持水表分析功能，如各口径、品牌、型号的超期更换率、水表故障率、口径-水量变化趋势等。2、综合查询：系统需支持灵活实时查询水表表号、安装时间、钢印号、水表用途、水表状态、检定结果、检",
+              "调拨单，当调拨水表到达目标仓库后，目标仓库的负责人负责清点入库；(4)水表信息变更：仅针对入库水表，对已录入的信息不符水表进行微调更新。5、水表管理：水表管理支持配表出库、水表退回、水表遗失、水表报废、水表维修等水表管理模块。6、水表工单管"
+            ],
+            "aggregated_source_cell_total_characters": 1181,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "实现水表从入库到报废的全生命周期管理，包括入库、检定、配表、出库、安装、立户上线、首次抄表、故障换表、维修等各环节的详细管控。详细功能如下：1、指标分析(1)业务数量统计：系统需提供业务数量统计功能，如故障/周期换表、停/复水业务数量；(2"
+          }
+        ],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_5",
+        "head_page": 161,
+        "head_table_index": 0,
+        "source_pages": [
+          161,
+          162,
+          163
+        ],
+        "source_fragment_count": 3,
+        "source_row_count": 6,
+        "source_column_count": 8,
+        "continuation_fragments": 2,
+        "generated_word_table_index": 5,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 6,
+        "generated_column_count": 8,
+        "editable_word_table": true,
+        "source_cell_count": 32,
+        "generated_cell_count": 30,
+        "covered_source_cell_count": 32,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 2,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 5,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [
+          {
+            "generated_cell_text_length": 348,
+            "aggregated_source_cell_count": 3,
+            "aggregated_source_cells": [
+              "IC卡表对接",
+              "技术要求：（1）查询功能：支持通过户号、身份证号、手机号查询用户名称、用水地址、联系人、联系电话、证件类型、证件号码、水费金额、违约金、本次应缴等信息，查询响应时间≤2秒；支持按年份查询用水账单（含缴费状态、账务类型、抄表日期、抄表起止码、",
+              "正常下载、打印。【IC卡表对接过程中须第三方卡表厂家提供读卡器密钥等信息，系统对接和开发属于一次性投入，后期不再重复收取对接费用】"
+            ],
+            "aggregated_source_cell_total_characters": 354,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "技术要求：（1）查询功能：支持通过户号、身份证号、手机号查询用户名称、用水地址、联系人、联系电话、证件类型、证件号码、水费金额、违约金、本次应缴等信息，查询响应时间≤2秒；支持按年份查询用水账单（含缴费状态、账务类型、抄表日期、抄表起止码、"
+          },
+          {
+            "generated_cell_text_length": 395,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "1、基于现有APP抄表功能的基础上，开发OCR数字识别功能，通过算法精准提取表盘数字，直接同步至系统，减少人为记录误差，确保抄表数据与水表实际读数一致，提高西安水司机械表抄表效率；同时实现在APP端的表务相关业务移动端审批，设计各类移动驾驶",
+              "4、系统支持欠费用户信息可视化展示，配备快速检索查询功能，助力业务员精准、高效定位欠费用户，充分适配现场走收业务需求（现场抄表后提供缴费二维码）；同时可便捷查看用户收费记录，并支持发起日结申请操作。"
+            ],
+            "aggregated_source_cell_total_characters": 395,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "1、基于现有APP抄表功能的基础上，开发OCR数字识别功能，通过算法精准提取表盘数字，直接同步至系统，减少人为记录误差，确保抄表数据与水表实际读数一致，提高西安水司机械表抄表效率；同时实现在APP端的表务相关业务移动端审批，设计各类移动驾驶"
+          }
+        ],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_6",
+        "head_page": 164,
+        "head_table_index": 0,
+        "source_pages": [
+          164,
+          165,
+          166
+        ],
+        "source_fragment_count": 3,
+        "source_row_count": 10,
+        "source_column_count": 8,
+        "continuation_fragments": 2,
+        "generated_word_table_index": 6,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 10,
+        "generated_column_count": 8,
+        "editable_word_table": true,
+        "source_cell_count": 59,
+        "generated_cell_count": 46,
+        "covered_source_cell_count": 59,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 2,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 5,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [
+          {
+            "generated_cell_text_length": 174,
+            "aggregated_source_cell_count": 2,
+            "aggregated_source_cells": [
+              "1、银行接口配置管理；2、银行对账文件管理；3、自动代扣签约管理；4、批量代扣任务管理；5、代扣结果回写与入账；6、代扣失败/异常处理；7、银行实时缴费接口对接；8、缴费订单管理；9、对",
+              "账明细自动匹配；10、长短款处理与调账；11、退费/冲正接口对接；12、银行交易查询与统计；13、交易日志与审计；14、接口监控与告警；15、多银行渠道统一管理。"
+            ],
+            "aggregated_source_cell_total_characters": 174,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "1、银行接口配置管理；2、银行对账文件管理；3、自动代扣签约管理；4、批量代扣任务管理；5、代扣结果回写与入账；6、代扣失败/异常处理；7、银行实时缴费接口对接；8、缴费订单管理；9、对账明细自动匹配；10、长短款处理与调账；11、退费/冲"
+          },
+          {
+            "generated_cell_text_length": 520,
+            "aggregated_source_cell_count": 3,
+            "aggregated_source_cells": [
+              "短信平台",
+              "1、短信模板管理：支持短信模板的修改、删除、启用/禁用、查询/列表展示及预览；可按催缴、账单、预警等业务类型进行模板分类管理，并支持按用户名、户号配置模板变量。2、短信发送管理：提供单条手动发送、批量发送、定时发送/取消定时功能；可自动发送",
+              "5、短信统计分析：可按天/按月/按类型统计发送量、统计成功/失败率，按部门/片区/人员统计发送数据，并支持统计报表的展示与导出。6、短信接口对接：实现与第三方短信平台的接口对接、短信发送异步调用、短信回执接收与状态更新、发送失败重试机制，以"
+            ],
+            "aggregated_source_cell_total_characters": 524,
+            "generated_cell_coverage": 1.0,
+            "generated_cell_text": "1、短信模板管理：支持短信模板的修改、删除、启用/禁用、查询/列表展示及预览；可按催缴、账单、预警等业务类型进行模板分类管理，并支持按用户名、户号配置模板变量。2、短信发送管理：提供单条手动发送、批量发送、定时发送/取消定时功能；可自动发送"
+          }
+        ],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_7",
+        "head_page": 167,
+        "head_table_index": 0,
+        "source_pages": [
+          167
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 1,
+        "source_column_count": 8,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 7,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 1,
+        "generated_column_count": 8,
+        "editable_word_table": true,
+        "source_cell_count": 5,
+        "generated_cell_count": 5,
+        "covered_source_cell_count": 5,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_8",
+        "head_page": 168,
+        "head_table_index": 0,
+        "source_pages": [
+          168
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 6,
+        "source_column_count": 8,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 8,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 6,
+        "generated_column_count": 8,
+        "editable_word_table": true,
+        "source_cell_count": 39,
+        "generated_cell_count": 18,
+        "covered_source_cell_count": 39,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      }
+    ]
+  },
+  "source_format_qa": {
+    "compatibility_mode": "WORD_SAFE",
+    "page_count_source_format": 31,
+    "page_count_generated": null,
+    "page_count_note": "Rendered pagination required; flowing tables may add continuation pages.",
+    "paragraph_count": 135,
+    "source_table_count": 22,
+    "table_count": 9,
+    "pdf_table_fragment_count": 22,
+    "logical_table_count": 9,
+    "continuation_fragments_merged": 13,
+    "orphan_continuation_fragments": 0,
+    "false_continuation_merges": 0,
+    "source_text_missing": 0,
+    "source_text_reordered": null,
+    "source_text_reordered_note": "Not measured by this presence-only diagnostic.",
+    "table_geometry_match_rate": null,
+    "merged_cell_match": null,
+    "font_family_match_rate": null,
+    "font_size_match_rate": null,
+    "paragraph_alignment_match_rate": null,
+    "paragraph_spacing_match_rate": null,
+    "fill_slots_detected": 11,
+    "fill_slots_filled": 6,
+    "fill_slots_left_blank": 5,
+    "layout_warnings": [
+      "FORMAT_DEGRADED_FOR_WORD_COMPATIBILITY: geometry mapped to safe paragraph spacing and paragraph-native form lines; no absolute positioning",
+      "FORMAT_DEGRADED_FOR_WORD_COMPATIBILITY: vector artwork, glyph offsets and micro-kerning omitted; row heights are minimums"
+    ],
+    "word_safe_scan": "PASS",
+    "word_normal_open": "PENDING_MANUAL_CONFIRMATION",
+    "result": "PASS_WITH_DEGRADATIONS"
+  },
+  "delivery_qa": {
+    "overall_status": "PASS_WITH_REVIEW",
+    "errors": [],
+    "warnings": [
+      {
+        "id": "business_review_state",
+        "status": "WARN",
+        "message": "ProjectFacts contains fields requiring human review or supplementation."
+      }
+    ],
+    "check_count": 39,
+    "non_pass_check_count": 1
+  },
+  "workbook": {
+    "openpyxl_reopen": true,
+    "sheet_count": 1,
+    "sheets": {
+      "投标项目复核表": {
+        "max_row": 77,
+        "max_column": 16,
+        "non_empty_row_count": 58
+      }
+    }
+  },
+  "project_facts": {
+    "field_count": 23,
+    "status_counts": {
+      "RESOLVED": 18,
+      "NOT_FOUND": 4,
+      "NEEDS_REVIEW": 1
+    },
+    "resolved_field_count": 18,
+    "needs_review_field_count": 1,
+    "not_found_field_count": 4,
+    "resolved_without_evidence_fields": [],
+    "fields": [
+      {
+        "field": "project_name",
+        "status": "RESOLVED",
+        "resolved_value": "营收系统整合和硬件系统升级项目",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "project_number",
+        "status": "RESOLVED",
+        "resolved_value": "ZBGXCG202601014",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "tender_number",
+        "status": "RESOLVED",
+        "resolved_value": "RTZB-2026-028",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "lot_name",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "lot_number",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "purchaser",
+        "status": "RESOLVED",
+        "resolved_value": "西安市自来水有限公司",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "tender_agency",
+        "status": "RESOLVED",
+        "resolved_value": "陕西瑞通工程造价咨询有限公司",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "project_location",
+        "status": "RESOLVED",
+        "resolved_value": "西安市内",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "procurement_scope",
+        "status": "NEEDS_REVIEW",
+        "resolved_value": null,
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "budget",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "max_price",
+        "status": "RESOLVED",
+        "resolved_value": "7507785.65",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "duration",
+        "status": "RESOLVED",
+        "resolved_value": "18个月",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "quality_target",
+        "status": "RESOLVED",
+        "resolved_value": "符合国家现行相关规定及验收规范的合格标准",
+        "evidence_locator_count": 5,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_deadline",
+        "status": "RESOLVED",
+        "resolved_value": "2026-04-14 09:30",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_open_time",
+        "status": "RESOLVED",
+        "resolved_value": "2026-04-14 09:30",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_open_location",
+        "status": "RESOLVED",
+        "resolved_value": "西安市综改试验区国企招标集采交易平台(招采通平台)",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_bond_amount",
+        "status": "RESOLVED",
+        "resolved_value": "50000",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_bond_form",
+        "status": "RESOLVED",
+        "resolved_value": "本项目接受所有符合国家相关规定形式的保证金",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "consortium_allowed",
+        "status": "RESOLVED",
+        "resolved_value": false,
+        "evidence_locator_count": 6,
+        "has_evidence": true
+      },
+      {
+        "field": "procurement_method",
+        "status": "RESOLVED",
+        "resolved_value": "公开招标",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_validity",
+        "status": "RESOLVED",
+        "resolved_value": "90日历天",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "submission_method",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "electronic_platform",
+        "status": "RESOLVED",
+        "resolved_value": "西安市综改试验区国企招标集采交易平台",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      }
+    ]
+  },
+  "review_evidence": {
+    "result": "PASS",
+    "source_requirement_count": 649,
+    "source_mandatory_requirement_count": 35,
+    "source_mandatory_requirement_without_review_item_count": 0,
+    "dynamic_review_item_count": 49,
+    "workbook_row_count": 49,
+    "workbook_rows_match_dynamic_items": true,
+    "invalid_review_evidence_locator_count": 0,
+    "empty_review_evidence_count": 0,
+    "cross_topic_evidence_mismatch_count": 0,
+    "unclassified_dynamic_requirement_count": 0,
+    "hard_gate_failures": []
+  },
+  "problems": [],
+  "automated_result": "PASS"
+}

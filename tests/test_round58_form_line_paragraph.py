@@ -113,16 +113,27 @@ def _painted(rule_id: str):
 def test_source_form_line_paragraphs_created():
     """Every source form line that needs its own geometry gets a paragraph.
 
-    ``P44-R12`` is the additional one: its covered character range now names
-    exactly the glyphs it re-emits, so it is a real composition and needs its own
-    line context exactly like the accepted P3 rules.
+    A form-line paragraph exists for exactly the rows whose positioned atom
+    cannot be reached forward from the row's own paragraph origin.  ``P44-R12``
+    is *not* one of them: its covered character range names exactly the glyphs it
+    re-emits and its anchor lies ahead of the cursor, so it stays in its own
+    row's paragraph and the anchor tab reaches it there - which is why its frozen
+    absolute geometry is asserted separately rather than through this count.
     """
 
     report = _report()
-    assert report.get("source_form_line_paragraph_count") == 5
+    assert report.get("source_form_line_paragraph_count") == 3
     records = report.get("source_form_line_paragraphs") or []
     ids = [record["source_rule_id"] for record in records]
-    assert ids == ["P42-R3", "P42-R5", "P42-R6", "P42-R7", "P44-R12"], ids
+    assert ids == ["P42-R3", "P42-R5", "P42-R6"], ids
+    for record in records:
+        assert (
+            record["isolation_reason"]
+            == "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW"
+        )
+        paragraph_format = record["paragraph_format"]
+        assert paragraph_format["space_before_pt"] == 0.0
+        assert paragraph_format["space_after_pt"] == 0.0
 
 
 def test_r5_and_r6_are_different_paragraphs():
@@ -279,9 +290,32 @@ def test_p45_r6_establishes_no_execution_owner():
 
 
 def test_duplicate_source_rule_id_emission_count_is_zero():
-    ids = [
-        record.get("source_rule_id")
-        for record in _report().get("positioned_blank_records") or []
+    """No positioned blank is emitted twice, whatever its source evidence is.
+
+    A positioned blank's source evidence is a *span*.  Some spans belong to a
+    registered numbered rule and carry its id; others are source vector lines
+    that were never registered, so a rule id is legitimately absent for them.
+    Identity is therefore the emission's own span, which is what makes a
+    duplicated emission detectable in both cases.
+    """
+
+    records = _report().get("positioned_blank_records") or []
+    assert records
+    emission_ids = [record.get("emission_id") for record in records]
+    assert all(emission_ids), "an emission record lost its identity"
+    assert len(emission_ids) == len(set(emission_ids)), emission_ids
+    spans = [
+        (record.get("source_page"), record.get("source_x0"), record.get("source_x1"))
+        for record in records
     ]
-    assert len(ids) == len(set(ids)), ids
-    assert all(ids), "an emission record lost its source_rule_id"
+    assert all(
+        page is not None and x0 is not None and x1 is not None
+        for page, x0, x1 in spans
+    ), spans
+    assert len(spans) == len(set(spans)), spans
+    for record in records:
+        rule_id = record.get("source_rule_id")
+        assert rule_id is None or rule_id in {
+            entry["source_rule_id"]
+            for entry in _report().get("source_rule_registry") or []
+        }, rule_id

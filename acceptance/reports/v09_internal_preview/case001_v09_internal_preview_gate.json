@@ -26,54 +26,54 @@
   },
   "failed_checks": [],
   "build": {
-    "build_id": "v1_phaseC_final2",
-    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2",
-    "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\build_manifest.json",
+    "build_id": "v1_manual_fidelity_round2",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2",
+    "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\build_manifest.json",
     "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
     "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
     "source_pdf_page_count": 61,
-    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx",
-    "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.pdf"
+    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.docx",
+    "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.pdf"
   },
   "artifacts": {
     "project_facts.json": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\project_facts.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\project_facts.json",
       "exists": true,
       "bytes": 41962,
       "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027"
     },
     "投标项目复核表.xlsx": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\投标项目复核表.xlsx",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\投标项目复核表.xlsx",
       "exists": true,
-      "bytes": 23942,
-      "sha256": "ee62f9983e467af5c431f90c60f29377ad83246e347c5d379976b4e3e1a480f1"
+      "bytes": 23943,
+      "sha256": "c8fbabf31fb96332efeecc35682a5cde179031f5be0cd9a1a951b0635f3fc1e3"
     },
     "基础投标文件.docx": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.docx",
       "exists": true,
-      "bytes": 45480,
-      "sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d"
+      "bytes": 45357,
+      "sha256": "be447cb72e39126d088b56b04a2407fb87c58f4b7e30df120624d4ca4f876001"
     },
     "基础投标文件.pdf": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.pdf",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.pdf",
       "exists": true,
-      "bytes": 299453,
-      "sha256": "b768d1a08a38410d77f74a37625a9b94f151fd08889a42e2c326e3884e5dac95"
+      "bytes": 298561,
+      "sha256": "8f8e19bcf42a61d856c63c1095b1757487a8904846ec589532846b7c53718064"
     },
     "generation_report.json": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\generation_report.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\generation_report.json",
       "exists": true,
-      "bytes": 897259,
-      "sha256": "4f236cbc5e92fc191270086c66ec5b75a4b1ee767ca60ac08552b208e1c12d25"
+      "bytes": 974206,
+      "sha256": "21ebe5aa8497659b0c279462b567e1e60b09aefa6e9726181be569916ff8686d"
     },
     "qa_report.json": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\qa_report.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\qa_report.json",
       "exists": true,
-      "bytes": 281325,
-      "sha256": "8beef2be7821628a1ee2e989b1415bdd30c28347ffa0785238340805d8faa38d"
+      "bytes": 281211,
+      "sha256": "79f5f1fdd28739edef924e84f27902c53675b1bcc3f5078f48c7ae5ca5a40bed"
     },
     "metadata.json": {
-      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\metadata.json",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\metadata.json",
       "exists": true,
       "bytes": 4903,
       "sha256": "18d930876ce5f32bd6ce052ada203873f3592c50680dc2812c556a0d7bc1806a"
@@ -406,7 +406,7 @@
   },
   "workbook": {
     "exists": true,
-    "bytes": 23942,
+    "bytes": 23943,
     "sheet_titles": [
       "投标项目复核表"
     ],
@@ -447,9 +447,9 @@
   },
   "document": {
     "docx_exists": true,
-    "docx_bytes": 45480,
-    "paragraph_count": 144,
-    "paragraph_count_with_text": 123,
+    "docx_bytes": 45357,
+    "paragraph_count": 142,
+    "paragraph_count_with_text": 121,
     "empty_paragraph_count": 21,
     "table_count": 5,
     "inline_shape_count": 0,
@@ -574,7 +574,7 @@
         "vertical_pass": false,
         "x0_error": 0.1,
         "x1_error": 92.3,
-        "y_error": -50.52
+        "y_error": -50.37
       },
       {
         "source_rule_id": "P42-R2",
@@ -640,7 +640,7 @@
         "vertical_pass": false,
         "x0_error": 0.0,
         "x1_error": 0.0,
-        "y_error": 29.8
+        "y_error": 7.85
       },
       {
         "source_rule_id": "P42-R8",
@@ -651,7 +651,7 @@
         "vertical_pass": false,
         "x0_error": 0.1,
         "x1_error": 0.1,
-        "y_error": 35.7
+        "y_error": 13.45
       }
     ],
     "horizontal_failure_ids": [],
@@ -663,7 +663,7 @@
       "P42-R8"
     ],
     "vertical_row_order_preserved": true,
-    "source_row_origin_offset_pt": 11.05,
+    "source_row_origin_offset_pt": 7.7,
     "source_line_pitch_pt": 19.9971,
     "frozen_vertical_closure_holds": true,
     "contract_acceptance_holds": true
@@ -680,8 +680,8 @@
     "inactive_rule_ids_with_owner": [],
     "plan_iteration_execution_zero": true,
     "form_layout_break_count": 0,
-    "source_form_line_paragraph_count": 5,
-    "positioned_blank_count": 3
+    "source_form_line_paragraph_count": 3,
+    "positioned_blank_count": 12
   },
   "safety": {
     "scanned_parts": 22,

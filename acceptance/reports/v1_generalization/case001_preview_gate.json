@@ -1,0 +1,718 @@
+{
+  "gate": "v09_case001_internal_preview_precheck",
+  "preview": "V0.9_INTERNAL_PREVIEW",
+  "status": "FAIL",
+  "checks": {
+    "current_build_pointer_fresh": true,
+    "build_artifacts_present": true,
+    "build_artifacts_match_pointer": true,
+    "source_pdf_unchanged": true,
+    "field_set_complete": true,
+    "field_statuses_complete": true,
+    "fact_provenance_complete": true,
+    "workbook_healthy": true,
+    "document_healthy": true,
+    "document_render_has_pages": true,
+    "qa_no_failing_checks": true,
+    "qa_no_errors": true,
+    "p3_frozen_rules_all_accounted": false,
+    "p3_contract_acceptance_holds": false,
+    "p3_accepted_composition_set_intact": true,
+    "preview_scope_is_case001": true,
+    "inactive_rules_establish_no_owner": true,
+    "plan_iteration_execution_zero": true,
+    "no_form_layout_break": true,
+    "delivered_artifacts_carry_no_machine_state": true
+  },
+  "failed_checks": [
+    "p3_frozen_rules_all_accounted",
+    "p3_contract_acceptance_holds"
+  ],
+  "build": {
+    "build_id": "v1_manual_fidelity_round2_p21fix",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix",
+    "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\build_manifest.json",
+    "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "source_pdf_page_count": 61,
+    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.docx",
+    "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.pdf"
+  },
+  "artifacts": {
+    "project_facts.json": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\project_facts.json",
+      "exists": true,
+      "bytes": 41962,
+      "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027"
+    },
+    "投标项目复核表.xlsx": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\投标项目复核表.xlsx",
+      "exists": true,
+      "bytes": 23944,
+      "sha256": "fd759169b1539f910d233dad3bae41c989e5d4d1c7e1b4d5dd65337e1f6952ea"
+    },
+    "基础投标文件.docx": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.docx",
+      "exists": true,
+      "bytes": 45334,
+      "sha256": "044b2d29c5502b8ca8e092bd0c8069be48bd9a577187fcb39147800705efb8cd"
+    },
+    "基础投标文件.pdf": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\基础投标文件.pdf",
+      "exists": true,
+      "bytes": 299055,
+      "sha256": "6edffd9722073540e477b1af6c9abee006df5a3d0884aaff5b86cc38371609a4"
+    },
+    "generation_report.json": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\generation_report.json",
+      "exists": true,
+      "bytes": 1070019,
+      "sha256": "f286f47cfaf3778441b9c463f81d4b98b1c48d2e3863ecb16624d3e5e4db59a6"
+    },
+    "qa_report.json": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\qa_report.json",
+      "exists": true,
+      "bytes": 281211,
+      "sha256": "bf798123e59f160a9bc476bda692ba86450ffb7439fd4e063f1416c60b7921fa"
+    },
+    "metadata.json": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix\\metadata.json",
+      "exists": true,
+      "bytes": 4903,
+      "sha256": "18d930876ce5f32bd6ce052ada203873f3592c50680dc2812c556a0d7bc1806a"
+    }
+  },
+  "missing_artifacts": [],
+  "hash_mismatches": [],
+  "facts": {
+    "field_count": 23,
+    "expected_field_count": 23,
+    "status_counts": {
+      "NEEDS_REVIEW": 1,
+      "NOT_FOUND": 6,
+      "RESOLVED": 16
+    },
+    "summary": {
+      "total_fields": 23,
+      "resolved": 16,
+      "needs_review": 1,
+      "not_found": 6
+    },
+    "unknown_statuses": [],
+    "unresolved_with_value": [],
+    "resolved_without_value": [],
+    "resolved_without_provenance": [],
+    "resolved_without_locator": [],
+    "resolved_without_source_file": [],
+    "provenance_rows": [
+      {
+        "field": "bid_bond_amount",
+        "status": "RESOLVED",
+        "resolved_value": "20000",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 10,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "bid_bond_form",
+        "status": "RESOLVED",
+        "resolved_value": "银行转账方式",
+        "confidence": 0.968,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "label_value_same_line",
+        "locator_type": "pdf_table_cell",
+        "page": 10,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "bid_deadline",
+        "status": "RESOLVED",
+        "resolved_value": "2026-07-28 15:00",
+        "confidence": 0.858,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "label_value_next_line",
+        "locator_type": "pdf_block",
+        "page": 10,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "bid_open_location",
+        "status": "RESOLVED",
+        "resolved_value": "“河南国企阳光招采服务平台”不见面",
+        "confidence": 0.968,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "label_value_same_line",
+        "locator_type": "pdf_table_cell",
+        "page": 11,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "bid_open_time",
+        "status": "RESOLVED",
+        "resolved_value": "2026-07-28 15:00",
+        "confidence": 0.858,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "derived_cross_reference",
+        "locator_type": "pdf_table_cell",
+        "page": 11,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "bid_validity",
+        "status": "RESOLVED",
+        "resolved_value": "90日历天",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 10,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "budget",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      },
+      {
+        "field": "consortium_allowed",
+        "status": "RESOLVED",
+        "resolved_value": false,
+        "confidence": 0.708,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "keyword_window",
+        "locator_type": "pdf_block",
+        "page": 6,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "duration",
+        "status": "RESOLVED",
+        "resolved_value": "30日历天",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "electronic_platform",
+        "status": "NEEDS_REVIEW",
+        "resolved_value": null,
+        "confidence": 0.8,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "platform_phrase",
+        "locator_type": "pdf_block",
+        "page": 6,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "lot_name",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      },
+      {
+        "field": "lot_number",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      },
+      {
+        "field": "max_price",
+        "status": "RESOLVED",
+        "resolved_value": "3100000",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 12,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "procurement_method",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      },
+      {
+        "field": "procurement_scope",
+        "status": "RESOLVED",
+        "resolved_value": "一体化泵站(详见询比文件“第五章采购需求”)",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "project_location",
+        "status": "RESOLVED",
+        "resolved_value": "周口市郸城县石槽泵站",
+        "confidence": 0.998,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "project_name",
+        "status": "RESOLVED",
+        "resolved_value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "confidence": 0.988,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "project_number",
+        "status": "RESOLVED",
+        "resolved_value": "YSEJJXXB202607-18",
+        "confidence": 0.968,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "label_value_same_line",
+        "locator_type": "pdf_block",
+        "page": 1,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "purchaser",
+        "status": "RESOLVED",
+        "resolved_value": "河南省水利第二工程局集团有限公司",
+        "confidence": 0.988,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "quality_target",
+        "status": "RESOLVED",
+        "resolved_value": "符合国家及行业有关标准、规范和询比文件要求",
+        "confidence": 1.0,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "submission_method",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      },
+      {
+        "field": "tender_agency",
+        "status": "RESOLVED",
+        "resolved_value": "河南科源水利建设工程检测有限公司",
+        "confidence": 0.998,
+        "source_file": "7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+        "source_type": "PDF",
+        "method": "table_label_exact",
+        "locator_type": "pdf_table_cell",
+        "page": 9,
+        "has_locator": true,
+        "has_source_file": true
+      },
+      {
+        "field": "tender_number",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "confidence": 0.0,
+        "source_file": null,
+        "source_type": null,
+        "method": null,
+        "locator_type": null,
+        "page": null,
+        "has_locator": false,
+        "has_source_file": false
+      }
+    ],
+    "provenance_complete": true
+  },
+  "workbook": {
+    "exists": true,
+    "bytes": 23944,
+    "sheet_titles": [
+      "投标项目复核表"
+    ],
+    "max_row": 77,
+    "max_column": 16,
+    "header_labels": {
+      "项目名称": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "项目编号/采购编号": "项目编号：YSEJJXXB202607-18",
+      "项目编号：YSEJJXXB202607-18": "招标人/采购人",
+      "投标截止时间": "2026-07-28 15:00",
+      "开标时间": "2026-07-28 15:00",
+      "招标文件要求：1.4.3 本项目的资金来源：见供应商须知前附表。；供应商： 日 八、响应货物技术性能指标的详细描述及技术支持资料 九、供货方案 十、应急保障措施 十一、质量保证体系、质量控制文件及质量保证措施 十二、接受银行承兑比例 十三、垫资能力 十四、反商业贿赂承诺书 我公司承诺： 在 （项目名称、标段）\n复核动作：按招标文件格式出具财务能力承诺，核对承诺内容与上述要求一致。\n核验标准：财务材料按指定期间提供，主体名称与投标人一致。": "第14页 / 1.4 采购内容及供货期、质量要求 / 第1.4.3条 / （pdf_block） 1.4.3 本项目的资金来源：见供应商须知前附表。（源条款 2 条：SR0065）"
+    },
+    "header_label_count": 6,
+    "checklist_header": {
+      "row": 8,
+      "headers": [
+        "序号",
+        "复核模块",
+        "风险等级",
+        "招标文件要求 / 核验标准----复核要点（不限制死）",
+        "招标文件依据\n（章节/条款/页脚页码）",
+        "初审结论",
+        "问题 / 整改要求",
+        "整改责任人",
+        "二次复核",
+        "整改责任人",
+        "三次复核",
+        "整改责任人",
+        "备注"
+      ]
+    },
+    "checklist_row_count": 47,
+    "placeholder_rows": [
+      5
+    ],
+    "structure_intact": true
+  },
+  "document": {
+    "docx_exists": true,
+    "docx_bytes": 45334,
+    "paragraph_count": 142,
+    "paragraph_count_with_text": 121,
+    "empty_paragraph_count": 21,
+    "table_count": 5,
+    "inline_shape_count": 0,
+    "section_count": 22,
+    "style_count": 201,
+    "pdf_page_count": 22,
+    "pdf_blank_pages": [],
+    "pdf_text_pages": 22,
+    "first_paragraph_text": "第六章响应文件格式",
+    "opened": true
+  },
+  "qa": {
+    "overall_status": "PASS_WITH_REVIEW",
+    "format_source": "SOURCE_DOCUMENT",
+    "check_count": 39,
+    "failing_check_ids": [],
+    "warning_ids": [
+      "business_review_state"
+    ],
+    "errors": []
+  },
+  "p3": {
+    "source_rules_on_p3_page": [
+      "P40-R1",
+      "P40-R2",
+      "P40-R3",
+      "P40-R4",
+      "P40-R5",
+      "P42-R1",
+      "P42-R2",
+      "P42-R3",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P42-R7",
+      "P42-R8",
+      "P44-R1",
+      "P44-R10",
+      "P44-R11",
+      "P44-R12",
+      "P44-R13",
+      "P44-R14",
+      "P44-R15",
+      "P44-R16",
+      "P44-R2",
+      "P44-R3",
+      "P44-R4",
+      "P44-R5",
+      "P44-R6",
+      "P44-R7",
+      "P44-R8",
+      "P44-R9",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R4",
+      "P45-R5",
+      "P45-R6",
+      "P45-R7",
+      "P45-R8",
+      "P45-R9",
+      "P47-R1",
+      "P47-R2",
+      "P48-R1",
+      "P48-R2",
+      "P53-R1",
+      "P53-R2",
+      "P60-R1",
+      "P60-R2",
+      "P60-R3"
+    ],
+    "frozen_rule_count": 8,
+    "missing_frozen_rule_ids": [],
+    "rules_without_representation": [
+      "P42-R1",
+      "P42-R2",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6"
+    ],
+    "observed_composition_set": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P44-R12",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R4",
+      "P45-R5"
+    ],
+    "accepted_composition_set": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "accepted_composition_set_intact": true,
+    "composition_preservation": {
+      "preserved": true,
+      "accepted": [
+        "P42-R3",
+        "P42-R7",
+        "P42-R8",
+        "P45-R1",
+        "P45-R2",
+        "P45-R3",
+        "P45-R5"
+      ],
+      "missing": [],
+      "additions": [
+        "P44-R12",
+        "P45-R4"
+      ],
+      "additions_without_source_glyphs": []
+    },
+    "rule_compositions_created": 9,
+    "contract_rows": [
+      {
+        "source_rule_id": "P42-R1",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R2",
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R3",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R4",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R5",
+        "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "emission_mechanism": "SOURCE_ANCHORED_VALUE_RUN",
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R6",
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R7",
+        "transformation_policy": "SOURCE_VALUE_UNDERLINE",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      },
+      {
+        "source_rule_id": "P42-R8",
+        "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "emission_mechanism": null,
+        "horizontal_pass": false,
+        "vertical_pass": false,
+        "x0_error": null,
+        "x1_error": null,
+        "y_error": null
+      }
+    ],
+    "horizontal_failure_ids": [
+      "P42-R1",
+      "P42-R2",
+      "P42-R3",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "vertical_failure_ids": [
+      "P42-R1",
+      "P42-R2",
+      "P42-R3",
+      "P42-R4",
+      "P42-R5",
+      "P42-R6",
+      "P42-R7",
+      "P42-R8"
+    ],
+    "vertical_row_order_preserved": false,
+    "source_row_origin_offset_pt": null,
+    "source_line_pitch_pt": 19.95,
+    "frozen_vertical_closure_holds": false,
+    "contract_acceptance_holds": false
+  },
+  "scope": {
+    "execution_owner_count": 3,
+    "owner_source_pages": [
+      42
+    ],
+    "application_source_pages": [
+      42
+    ],
+    "owner_driven_value_emission_count": 1,
+    "inactive_rule_ids_with_owner": [],
+    "plan_iteration_execution_zero": true,
+    "form_layout_break_count": 0,
+    "source_form_line_paragraph_count": 3,
+    "positioned_blank_count": 12
+  },
+  "safety": {
+    "scanned_parts": 22,
+    "findings": [],
+    "clean": true
+  },
+  "flags": {
+    "INTERNAL_PREVIEW": true,
+    "READY_FOR_INTERNAL_TRIAL": false,
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "READY_FOR_SUBMISSION": false
+  }
+}

@@ -1,0 +1,2539 @@
+{
+  "schema": "v1_case001_page_frame_audit/1",
+  "build": {
+    "build_id": "v1_manual_fidelity_round3_word_review_followup",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup",
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup\\基础投标文件.docx",
+    "docx_sha256": "28648aadaf7b21f4fb9e3e0168ef3e16e405925f89755ddaff84afdcbd9924a1",
+    "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup\\generation_report.json",
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup\\基础投标文件.pdf",
+    "pdf_sha256": "8013ce9945b24ac07fa9493239a5935ebbfed4fa67f4faa3c7c0abf765f41a68",
+    "pdf_page_count": 22,
+    "source_page_count": 22,
+    "section_count": 22
+  },
+  "frame_derivation": {
+    "frames": {
+      "PORTRAIT_595x842_1": {
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_body_frame": 73.86,
+        "bottom_body_frame": 18.0,
+        "usable_text_width": 453.6,
+        "pages": [
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61
+        ],
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame",
+        "confidence": 0.545,
+        "left_anchor": {
+          "x": 70.8,
+          "kind": "text_left",
+          "pages": [
+            41,
+            42,
+            44,
+            45,
+            46,
+            47,
+            49,
+            50,
+            51,
+            52,
+            53,
+            61
+          ],
+          "support": 12,
+          "cluster": [
+            70.6,
+            70.8
+          ]
+        },
+        "right_anchor": {
+          "x": 524.4,
+          "kind": "text_right",
+          "pages": [
+            42,
+            43,
+            45,
+            47,
+            48,
+            49,
+            50,
+            51,
+            53,
+            60
+          ],
+          "support": 10,
+          "cluster": [
+            523.9,
+            524.4,
+            524.6
+          ]
+        },
+        "top_frame": {
+          "modal_first_content_y": 77.74,
+          "modal_support": 10,
+          "min_first_content_y": 73.86,
+          "pages": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61
+          ]
+        },
+        "spanning_pages": [
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          47,
+          48,
+          49,
+          51,
+          53,
+          60
+        ],
+        "first_content_pages": [
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61
+        ],
+        "centered_symmetry": null,
+        "notes": []
+      }
+    },
+    "pages_by_frame": {
+      "PORTRAIT_595x842_1": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ]
+    },
+    "margin_spread": {
+      "PORTRAIT_595x842_1": {
+        "left_margin_spread_pt": 0.0,
+        "right_margin_spread_pt": 0.0,
+        "top_margin_spread_pt": 0.0,
+        "page_count": 22
+      }
+    }
+  },
+  "root_cause": {
+    "proven": true,
+    "mechanism": "section margins were derived per page from that page's own source content x extrema (min body x0 / max body x1, tables included) and clamped to MAX_MARGIN_RATIO of the page width",
+    "clamp_ratio": 0.3,
+    "clamp_value_pt": 178.59,
+    "pages_whose_recorded_margin_is_content_extrema_driven": [
+      47,
+      50
+    ],
+    "pages_audited": 22,
+    "consequence": "a sparse title-only page acquires the clamp margin on both sides (its content is centred on the page, so the narrowed column shifts every centred heading left by half the margin difference) and a table wider than the body contracts the text column; headings the source keeps on one line then wrap"
+  },
+  "pages": [
+    {
+      "generated_page": 1,
+      "generated_section_index": 0,
+      "source_page": 40,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 0,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 40,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 76.8,
+        "visible_x1": 518.38,
+        "first_content_y": 79.71,
+        "element_count": 7,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            192.72,
+            79.71,
+            402.35,
+            102.17
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "第六章响应文件格式"
+        }
+      },
+      "generated": {
+        "visible_x0": 71.95,
+        "visible_x1": 523.45,
+        "first_content_y": 88.16,
+        "last_content_y": 694.21,
+        "line_count": 10,
+        "visual_row_count": 9,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.54,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.16,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 3,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 76.8,
+          "right_margin": 76.92,
+          "top_margin": 79.71,
+          "body_x0": 76.8,
+          "body_x1": 518.38
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 2,
+      "generated_section_index": 1,
+      "source_page": 41,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 1,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 41,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 406.8,
+        "first_content_y": 80.17,
+        "element_count": 16,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            278.76,
+            80.17,
+            316.32,
+            95.51
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "目录"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 406.9,
+        "first_content_y": 85.7,
+        "last_content_y": 630.26,
+        "line_count": 16,
+        "visual_row_count": 16,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.54,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.16,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 10,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 178.59,
+          "top_margin": 80.17,
+          "body_x0": 70.8,
+          "body_x1": 406.8
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 3,
+      "generated_section_index": 2,
+      "source_page": 42,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 2,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 42,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 523.92,
+        "first_content_y": 77.74,
+        "element_count": 13,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            221.16,
+            77.74,
+            374.17,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "一、响应函及响应函附录"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 524.48,
+        "first_content_y": 79.06,
+        "last_content_y": 705.13,
+        "line_count": 39,
+        "visual_row_count": 27,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.67,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 10,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": [
+          {
+            "source_element_kind": "LogicalParagraph",
+            "source_text": "(采购人名称) ：",
+            "leading_marker": "(采",
+            "leading_found": false,
+            "trailing_marker": "名称):",
+            "trailing_found": false,
+            "reason": "TRACE_TEXT_REPLACED_OR_ABSENT"
+          }
+        ]
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 71.38,
+          "top_margin": 77.74,
+          "body_x0": 70.8,
+          "body_x1": 523.92
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 4,
+      "generated_section_index": 3,
+      "source_page": 43,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 3,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 43,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 65.33,
+        "visible_x1": 524.57,
+        "first_content_y": 73.86,
+        "element_count": 4,
+        "widest_element_type": "table",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            248.64,
+            73.86,
+            344.52,
+            86.14
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "(二)响应函附录"
+        }
+      },
+      "generated": {
+        "visible_x0": 81.25,
+        "visible_x1": 520.85,
+        "first_content_y": 78.28,
+        "last_content_y": 696.43,
+        "line_count": 32,
+        "visual_row_count": 22,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 296.58,
+        "generated_center_x": 297.7,
+        "center_error_pt": 1.12,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 3,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 65.33,
+          "right_margin": 70.73,
+          "top_margin": 73.86,
+          "body_x0": 65.33,
+          "body_x1": 524.57
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 5,
+      "generated_section_index": 4,
+      "source_page": 44,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 4,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 44,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 450.25,
+        "first_content_y": 77.74,
+        "element_count": 8,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            145.2,
+            77.74,
+            450.25,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "二、法定代表人身份证明或法定代表人授权委托书"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 451.7,
+        "first_content_y": 79.06,
+        "last_content_y": 494.73,
+        "line_count": 15,
+        "visual_row_count": 13,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 7,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 145.05,
+          "top_margin": 77.74,
+          "body_x0": 70.8,
+          "body_x1": 450.25
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 6,
+      "generated_section_index": 5,
+      "source_page": 45,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 5,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 45,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 533.4,
+        "first_content_y": 74.05,
+        "element_count": 7,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            222.6,
+            74.05,
+            372.58,
+            85.82
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "（二）法定代表人授权委托书"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 527.5,
+        "first_content_y": 78.11,
+        "last_content_y": 549.13,
+        "line_count": 16,
+        "visual_row_count": 15,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.59,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.11,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 5,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 61.9,
+          "top_margin": 74.05,
+          "body_x0": 70.8,
+          "body_x1": 533.4
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 7,
+      "generated_section_index": 6,
+      "source_page": 46,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 6,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 46,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 376.8,
+        "first_content_y": 77.74,
+        "element_count": 3,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            249.12,
+            77.74,
+            346.33,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "三、响应保证金"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 376.9,
+        "first_content_y": 79.06,
+        "last_content_y": 185.73,
+        "line_count": 3,
+        "visual_row_count": 3,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 2,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 178.59,
+          "top_margin": 77.74,
+          "body_x0": 70.8,
+          "body_x1": 376.8
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 8,
+      "generated_section_index": 7,
+      "source_page": 47,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 7,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 47,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 524.4,
+        "first_content_y": 77.74,
+        "element_count": 5,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            228.36,
+            77.74,
+            367.09,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "四、商务和技术偏差表"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 520.9,
+        "first_content_y": 79.06,
+        "last_content_y": 553.48,
+        "line_count": 15,
+        "visual_row_count": 12,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 4,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_margin": 77.74,
+          "body_x0": 70.8,
+          "body_x1": 524.4
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": true,
+        "margin_came_from_page_content_extrema": true,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 9,
+      "generated_section_index": 8,
+      "source_page": 48,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 8,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 48,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 65.33,
+        "visible_x1": 541.77,
+        "first_content_y": 92.86,
+        "element_count": 5,
+        "widest_element_type": "table",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            249.12,
+            92.86,
+            346.33,
+            107.23
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "五、分项报价表"
+        }
+      },
+      "generated": {
+        "visible_x0": 65.45,
+        "visible_x1": 525.3,
+        "first_content_y": 98.06,
+        "last_content_y": 751.08,
+        "line_count": 74,
+        "visual_row_count": 32,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 2,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 65.33,
+          "right_margin": 53.53,
+          "top_margin": 92.86,
+          "body_x0": 65.33,
+          "body_x1": 541.77
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 10,
+      "generated_section_index": 9,
+      "source_page": 49,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 9,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 49,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.64,
+        "visible_x1": 536.61,
+        "first_content_y": 77.74,
+        "element_count": 5,
+        "widest_element_type": "table",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            242.16,
+            77.74,
+            353.17,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "六、资格审查资料"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 514.9,
+        "first_content_y": 79.06,
+        "last_content_y": 708.13,
+        "line_count": 25,
+        "visual_row_count": 20,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.67,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 2,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.64,
+          "right_margin": 58.69,
+          "top_margin": 77.74,
+          "body_x0": 70.64,
+          "body_x1": 536.61
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 11,
+      "generated_section_index": 10,
+      "source_page": 50,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 10,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 50,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 524.4,
+        "first_content_y": 73.86,
+        "element_count": 2,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            233.4,
+            73.86,
+            361.08,
+            86.14
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "（二）财务状况承诺书"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 517.3,
+        "first_content_y": 78.28,
+        "last_content_y": 181.43,
+        "line_count": 4,
+        "visual_row_count": 4,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.24,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.46,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_margin": 73.86,
+          "body_x0": 70.8,
+          "body_x1": 524.4
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": true,
+        "margin_came_from_page_content_extrema": true,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 12,
+      "generated_section_index": 11,
+      "source_page": 51,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 11,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 51,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 530.4,
+        "first_content_y": 73.86,
+        "element_count": 5,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            252.6,
+            73.86,
+            341.64,
+            86.14
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "（三）信誉要求"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 520.9,
+        "first_content_y": 78.28,
+        "last_content_y": 306.48,
+        "line_count": 9,
+        "visual_row_count": 9,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.12,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.58,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 0,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 64.9,
+          "top_margin": 73.86,
+          "body_x0": 70.8,
+          "body_x1": 530.4
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 13,
+      "generated_section_index": 12,
+      "source_page": 52,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 12,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 52,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 523.8,
+        "first_content_y": 73.86,
+        "element_count": 2,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            265.44,
+            73.86,
+            328.8,
+            86.14
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "（四）其他"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 524.14,
+        "first_content_y": 78.28,
+        "last_content_y": 179.73,
+        "line_count": 4,
+        "visual_row_count": 4,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.12,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.58,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 0,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 71.5,
+          "top_margin": 73.86,
+          "body_x0": 70.8,
+          "body_x1": 523.8
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 14,
+      "generated_section_index": 13,
+      "source_page": 53,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 13,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 53,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 65.33,
+        "visible_x1": 529.97,
+        "first_content_y": 80.62,
+        "element_count": 5,
+        "widest_element_type": "table",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            143.4,
+            80.62,
+            452.05,
+            94.99
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "七、近年（2023 年 1 月 1 日以来）类似项目情况表"
+        }
+      },
+      "generated": {
+        "visible_x0": 65.45,
+        "visible_x1": 520.9,
+        "first_content_y": 86.46,
+        "last_content_y": 614.33,
+        "line_count": 14,
+        "visual_row_count": 8,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 4,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 65.33,
+          "right_margin": 65.33,
+          "top_margin": 80.62,
+          "body_x0": 65.33,
+          "body_x1": 529.97
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 15,
+      "generated_section_index": 14,
+      "source_page": 54,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 14,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 54,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 131.4,
+        "visible_x1": 464.05,
+        "first_content_y": 80.62,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            131.4,
+            80.62,
+            464.05,
+            94.99
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "八、响应货物技术性能指标的详细描述及技术支持资料"
+        }
+      },
+      "generated": {
+        "visible_x0": 129.7,
+        "visible_x1": 465.7,
+        "first_content_y": 86.46,
+        "last_content_y": 100.46,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 131.4,
+          "right_margin": 131.25,
+          "top_margin": 80.62,
+          "body_x0": 131.4,
+          "body_x1": 464.05
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 16,
+      "generated_section_index": 15,
+      "source_page": 55,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 15,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 55,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 256.08,
+        "visible_x1": 339.37,
+        "first_content_y": 80.62,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            256.08,
+            80.62,
+            339.37,
+            94.99
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "九、供货方案"
+        }
+      },
+      "generated": {
+        "visible_x0": 255.7,
+        "visible_x1": 339.7,
+        "first_content_y": 86.46,
+        "last_content_y": 100.46,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 0,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 178.59,
+          "right_margin": 178.59,
+          "top_margin": 80.62,
+          "body_x0": 256.08,
+          "body_x1": 339.37
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 17,
+      "generated_section_index": 16,
+      "source_page": 56,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 16,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 56,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 242.16,
+        "visible_x1": 353.17,
+        "first_content_y": 77.74,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            242.16,
+            77.74,
+            353.17,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十、应急保障措施"
+        }
+      },
+      "generated": {
+        "visible_x0": 241.7,
+        "visible_x1": 353.7,
+        "first_content_y": 79.06,
+        "last_content_y": 93.06,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.67,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 178.59,
+          "right_margin": 178.59,
+          "top_margin": 77.74,
+          "body_x0": 242.16,
+          "body_x1": 353.17
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 18,
+      "generated_section_index": 17,
+      "source_page": 57,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 17,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 57,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 138.24,
+        "visible_x1": 457.21,
+        "first_content_y": 77.74,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            138.24,
+            77.74,
+            457.21,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十一、质量保证体系、质量控制文件及质量保证措施"
+        }
+      },
+      "generated": {
+        "visible_x0": 136.7,
+        "visible_x1": 458.7,
+        "first_content_y": 79.06,
+        "last_content_y": 93.06,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 138.24,
+          "right_margin": 138.09,
+          "top_margin": 77.74,
+          "body_x0": 138.24,
+          "body_x1": 457.21
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 19,
+      "generated_section_index": 18,
+      "source_page": 58,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 18,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 58,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 221.4,
+        "visible_x1": 373.93,
+        "first_content_y": 77.74,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            221.4,
+            77.74,
+            373.93,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十二、接受银行承兑比例"
+        }
+      },
+      "generated": {
+        "visible_x0": 220.7,
+        "visible_x1": 374.7,
+        "first_content_y": 79.06,
+        "last_content_y": 93.06,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.67,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 178.59,
+          "right_margin": 178.59,
+          "top_margin": 77.74,
+          "body_x0": 221.4,
+          "body_x1": 373.93
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 20,
+      "generated_section_index": 19,
+      "source_page": 59,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 19,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 59,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 249.12,
+        "visible_x1": 346.33,
+        "first_content_y": 77.74,
+        "element_count": 1,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": true,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            249.12,
+            77.74,
+            346.33,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十三、垫资能力"
+        }
+      },
+      "generated": {
+        "visible_x0": 248.7,
+        "visible_x1": 346.7,
+        "first_content_y": 79.06,
+        "last_content_y": 93.06,
+        "line_count": 1,
+        "visual_row_count": 1,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 0,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 178.59,
+          "right_margin": 178.59,
+          "top_margin": 77.74,
+          "body_x0": 249.12,
+          "body_x1": 346.33
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 21,
+      "generated_section_index": 20,
+      "source_page": 60,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 20,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 60,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 72.0,
+        "visible_x1": 524.4,
+        "first_content_y": 77.74,
+        "element_count": 8,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": true,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            221.4,
+            77.74,
+            374.05,
+            92.11
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十四、反商业贿赂承诺书"
+        }
+      },
+      "generated": {
+        "visible_x0": 72.1,
+        "visible_x1": 523.35,
+        "first_content_y": 79.06,
+        "last_content_y": 482.58,
+        "line_count": 14,
+        "visual_row_count": 13,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.73,
+        "generated_center_x": 297.7,
+        "center_error_pt": -0.03,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 5,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": [
+          {
+            "source_element_kind": "LogicalParagraph",
+            "source_text": "在（项目名称、标段）询比活动中，我公司保证做到：",
+            "leading_marker": "在(",
+            "leading_found": false,
+            "trailing_marker": "证做到:",
+            "trailing_found": true,
+            "reason": "TRACE_MARKER_REPLACED_OR_ABSENT"
+          }
+        ]
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 72.0,
+          "right_margin": 70.9,
+          "top_margin": 77.74,
+          "body_x0": 72.0,
+          "body_x1": 524.4
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    },
+    {
+      "generated_page": 22,
+      "generated_section_index": 21,
+      "source_page": 61,
+      "frame_id": "PORTRAIT_595x842_1",
+      "section": {
+        "section_index": 21,
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "start_type": "NEW_PAGE (2)",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.85,
+        "bottom_margin": 18.0,
+        "usable_text_width": 453.6
+      },
+      "recorded_section_geometry": {
+        "page": 61,
+        "frame_id": "PORTRAIT_595x842_1",
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "orientation": "PORTRAIT",
+        "left_margin": 70.8,
+        "right_margin": 70.9,
+        "top_margin": 73.86,
+        "bottom_margin": 18.0,
+        "body_x0": 70.8,
+        "body_x1": 524.4,
+        "body_y0": 73.86,
+        "usable_text_width": 453.6,
+        "method": "repeated source anchors (page-weighted, clustered) for the body frame; minimum first-content y for the top body frame"
+      },
+      "frame_conformance": {
+        "left_margin_delta": 0.0,
+        "right_margin_delta": 0.0,
+        "top_margin_delta": -0.01,
+        "conforms": true
+      },
+      "source": {
+        "page_width": 595.3,
+        "page_height": 841.9,
+        "visible_x0": 70.8,
+        "visible_x1": 346.21,
+        "first_content_y": 92.86,
+        "element_count": 2,
+        "widest_element_type": "paragraph",
+        "sparse_title_only": false,
+        "spans_body_frame": false,
+        "first_element": {
+          "kind": "LogicalParagraph",
+          "bbox": [
+            249.12,
+            92.86,
+            346.21,
+            107.23
+          ],
+          "centered": true,
+          "visual_rows": 1,
+          "text": "十五、其他资料"
+        }
+      },
+      "generated": {
+        "visible_x0": 70.9,
+        "visible_x1": 346.7,
+        "first_content_y": 98.06,
+        "last_content_y": 150.83,
+        "line_count": 2,
+        "visual_row_count": 2,
+        "is_blank": false
+      },
+      "heading": {
+        "source_center_x": 297.66,
+        "generated_center_x": 297.7,
+        "center_error_pt": 0.04,
+        "center_error_within_tolerance": true,
+        "source_visual_rows": 1,
+        "source_one_line_heading_wrapped": null
+      },
+      "source_row_integrity": {
+        "checked_single_row_elements": 1,
+        "split_single_row_elements": [],
+        "unmeasured_single_row_elements": []
+      },
+      "root_cause": {
+        "legacy_per_page_margin": {
+          "left_margin": 70.8,
+          "right_margin": 178.59,
+          "top_margin": 92.86,
+          "body_x0": 70.8,
+          "body_x1": 346.21
+        },
+        "legacy_margin_clamp_pt": 178.59,
+        "recorded_margin_reproduced_by_content_extrema": false,
+        "margin_came_from_page_content_extrema": false,
+        "expected_stable_frame": {
+          "frame_id": "PORTRAIT_595x842_1",
+          "left_margin": 70.8,
+          "right_margin": 70.9,
+          "top_body_frame": 73.86
+        }
+      }
+    }
+  ],
+  "summary": {
+    "sections": 22,
+    "generated_pages": 22,
+    "blank_pages": [],
+    "pages_using_the_stable_frame": 22,
+    "centered_heading_pages": 22,
+    "centered_heading_pages_outside_tolerance": [],
+    "max_center_error_pt": 1.12,
+    "source_one_line_headings_wrapped": [],
+    "single_row_elements_checked": 63,
+    "pages_with_a_split_source_row": [],
+    "split_source_rows": [],
+    "unmeasured_source_rows": [
+      {
+        "generated_page": 3,
+        "source_element_kind": "LogicalParagraph",
+        "source_text": "(采购人名称) ：",
+        "leading_marker": "(采",
+        "leading_found": false,
+        "trailing_marker": "名称):",
+        "trailing_found": false,
+        "reason": "TRACE_TEXT_REPLACED_OR_ABSENT"
+      },
+      {
+        "generated_page": 21,
+        "source_element_kind": "LogicalParagraph",
+        "source_text": "在（项目名称、标段）询比活动中，我公司保证做到：",
+        "leading_marker": "在(",
+        "leading_found": false,
+        "trailing_marker": "证做到:",
+        "trailing_found": true,
+        "reason": "TRACE_MARKER_REPLACED_OR_ABSENT"
+      }
+    ]
+  }
+}

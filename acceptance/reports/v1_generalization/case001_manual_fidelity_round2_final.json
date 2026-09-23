@@ -1,0 +1,499 @@
+{
+  "schema": "v1_case001_manual_fidelity_round2_final/1",
+  "round": "V1_CASE001_MANUAL_FIDELITY_CLOSURE_ROUND_2",
+  "baseline_commit": "8de9e1f343a6643e11ea5c6c8e1df015dda123a5",
+  "committed": false,
+  "pushed": false,
+  "status": "CASE001_MANUAL_FIDELITY_ROUND2_AUTOMATION = PASS",
+  "manual_word_review_required": true,
+  "v1_production_candidate": false,
+  "ready_for_submission": false,
+  "authority_order_used": [
+    "source-visible form geometry and the frozen P3 horizontal contract",
+    "fact completeness and reading order",
+    "source visual-line semantics",
+    "Word paragraph continuity (subordinate when geometrically impossible)"
+  ],
+  "banked_round1_state": {
+    "build_id": "v1_manual_layout_closure",
+    "untouched": true,
+    "note": "never overwritten, reset, reverted or checked out; reused only as the read-only comparison baseline for every before/after number below"
+  },
+  "build": {
+    "build_id": "v1_manual_fidelity_round2",
+    "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round2",
+    "fresh_build": true,
+    "source_pdf": "acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "source_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "source_page_count": 61,
+    "docx": "acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.docx",
+    "docx_sha256": "be447cb72e39126d088b56b04a2407fb87c58f4b7e30df120624d4ca4f876001",
+    "pdf": "acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.pdf",
+    "pdf_sha256": "8f8e19bcf42a61d856c63c1095b1757487a8904846ec589532846b7c53718064",
+    "generation_report_sha256": "21ebe5aa8497659b0c279462b567e1e60b09aefa6e9726181be569916ff8686d",
+    "pdf_page_count": 22,
+    "pdf_blank_page_count": 0,
+    "pipeline_returncode": 0,
+    "libreoffice_returncode": 0,
+    "libreoffice_launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
+    "libreoffice_profile": "project-controlled unique _lo_profile_<uuid> under the build directory (never the harness temp directory)"
+  },
+  "defects": {
+    "defect_1_underline_ownership": {
+      "status": "CLOSED",
+      "rule": "an underline is owned by the source placeholder it was drawn beneath; when a resolved value replaces that placeholder the value inherits the decoration and the surrounding label text does not",
+      "not_redesigned_this_round": true,
+      "evidence": {
+        "paragraph_28_runs_before": [
+          "我方已充分研究了 underline=True",
+          "project_name underline=False",
+          "project_number underline=False",
+          "询比文件的全部内容，愿意 underline=True"
+        ],
+        "paragraph_28_runs_after": [
+          "我方已充分研究了 underline=None",
+          "project_name underline=True",
+          "project_number underline=True",
+          "询比文件的全部内容，愿意 underline=None"
+        ],
+        "value_inherited_source_slot_underline": 3
+      },
+      "stage_c_full_inventory": {
+        "report": "acceptance/reports/v1_generalization/case001_underline_inventory_round2.json",
+        "response_letter_source_page": 42,
+        "response_letter_generated_page": 3,
+        "page_mapping_basis": "MEASURED_BY_RULE_START_AGREEMENT",
+        "source_underline_count": 8,
+        "matched": 8,
+        "lost": 0,
+        "invented": 0,
+        "out_of_tolerance": 0,
+        "tolerance_pt": 2.0,
+        "status": "PASS",
+        "note": "every source underline on the response-letter page is accounted for exactly once at the source's own geometry; the tolerance was never relaxed to make a rule agree"
+      }
+    },
+    "defect_2_source_visual_line_vs_word_paragraph": {
+      "status": "CLOSED",
+      "rule": "a positioned atom on a later source row does not require a new Word paragraph when the anchor is forward-reachable, reading order is preserved and the frozen source-x contract stays valid; a separate paragraph is still required when the anchor is behind the current cursor",
+      "generic_not_row_index_keyed": true,
+      "no_broad_rules": [
+        "no source_row_index > 0 => paragraph break",
+        "no source_row_index > 0 => same paragraph"
+      ],
+      "decision_input": "actual monotonic-cursor / source-row / atom geometry via _cursor_estimate(), _anchor_ahead() and _anchor_behind()",
+      "preserved_distinction": [
+        "FORWARD_REACHABLE_SAME_ROW",
+        "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW"
+      ],
+      "stage_b2_clause_4_r7": {
+        "source_page": 42,
+        "generated_paragraph_index": 36,
+        "paragraph_count": 1,
+        "text": "4、本项目询比有效期为提交响应文件截止之日起\\t90\\t日历天，在询比有效期内不修改、撤销响应文件。",
+        "left_indent_pt": 24.0,
+        "first_line_indent_pt": 0.0,
+        "space_before_pt": 0.0,
+        "space_after_pt": 0.0,
+        "reachability": "FORWARD_REACHABLE_SAME_ROW",
+        "needs_own_line_context": false,
+        "tab_stop_positions_pt_from_section_margin": [282.0, 294.0, 294.0, 306.0, 318.0],
+        "absolute_span_pt": [352.8, 364.8, 376.8, 388.8],
+        "frozen_source_span_pt": [352.8, 388.8],
+        "runs": [
+          ["4、本项目询比有效期为提交响应文件截止之日起", "not underlined"],
+          ["\\t", "underlined"],
+          ["90", "underlined"],
+          ["\\t", "underlined"],
+          ["日历天，在询比有效期内", "not underlined"],
+          ["不修改、撤销响应文件。", "not underlined"]
+        ],
+        "rendered_rules_pdf_page_3": [[352.8, 364.8], [364.8, 376.8], [376.8, 388.8]],
+        "rendered_rule_y_pt": 378.7,
+        "forward_reachable_emission_count": 5,
+        "forward_reachable_emission_plans": [
+          {"source_page": 42, "source_rule_ids": ["P42-R7"]},
+          {"source_page": 42, "source_rule_ids": ["P42-R8"]},
+          {"source_page": 44, "source_rule_ids": ["P44-R12"]},
+          {"source_page": 45, "source_rule_ids": ["P45-R1", "P45-R2", "P45-R3"]},
+          {"source_page": 45, "source_rule_ids": ["P45-R6"]}
+        ]
+      },
+      "stage_b1_rows_requiring_isolation": {
+        "reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+        "rows": [
+          {"source_rule_ids": ["P42-R3", "P42-R4"], "generated_paragraph_index": 29, "space_before_pt": 0.0, "space_after_pt": 0.0},
+          {"source_rule_ids": ["P42-R5"], "generated_paragraph_index": 30, "space_before_pt": 0.0, "space_after_pt": 0.0},
+          {"source_rule_ids": ["P42-R6"], "generated_paragraph_index": 31, "space_before_pt": 0.0, "space_after_pt": 0.0}
+        ],
+        "unintended_space_before_or_after": 0
+      },
+      "frozen_p3_geometry_preserved": {
+        "note": "the absolute anchor of every accepted composition is identical to the banked baseline; only paragraph indices shifted because R7 and P44-R12 no longer open a paragraph",
+        "P42-R3_absolute_anchors": [169.65, 262.68, 323.6],
+        "P42-R7_absolute_anchors": [352.8, 364.8, 376.8, 388.8],
+        "P42-R8_absolute_anchors": [112.8, 208.8],
+        "P44-R12_absolute_anchors": [84.7, 156.48, 230.04],
+        "P45-R4_absolute_anchors": [454.8, 514.8],
+        "identical_to_baseline": true
+      },
+      "plan_and_emission_now_share_one_decision": {
+        "problem_found_and_fixed": "the region reflow plan's width model estimated the row-1 label's advance a fraction of a point past the anchor and demanded a generated line the emission had already proved unnecessary; the plan claimed 18 rows while the page could hold 17, which pulled every lower row up by one pitch",
+        "fix": "wrap_atoms() accepts forward_reachable_rule_ids from the emitter's own measured emission plan, and the region plan passes the rules the report recorded as FORWARD_REACHABLE_SAME_ROW; the measurement outranks the estimate, and the cursor is never moved backwards",
+        "effect": "mandatory minimum 18 -> 17 rows, matching the 17 the page actually renders"
+      }
+    },
+    "defect_3_anomalous_left_indent": {
+      "status": "CLOSED",
+      "rule": "a row's origin is its own source label x, and later fields are reached from that origin with source-derived tab stops; the label origin is never moved onto the first field anchor",
+      "generic_no_literal_special_case": true,
+      "evidence": {
+        "row": "成立时间：\\t年\\t月\\t\\t日",
+        "source_page": 44,
+        "generated_page": 5,
+        "source_label_x_pt": 72.0,
+        "baseline_source_x_pt": 131.85,
+        "round2_source_x_pt": 72.0,
+        "baseline_paragraph_left_indent_pt": null,
+        "round2_paragraph_left_indent_pt": 1.2,
+        "paragraph_first_line_indent_pt": 0.0,
+        "tab_stop_positions_pt_from_section_margin": [109.05, 145.05, 163.05, 205.05],
+        "absolute_tab_positions_pt": [179.85, 215.85, 233.85, 275.85],
+        "source_blank_spans_pt": [[131.85, 179.85], [191.85, 215.85], [233.85, 275.85]],
+        "label_run_underlined": false,
+        "rendered_rules_pdf_page_5": [[132.0, 179.8], [191.85, 215.85], [233.85, 275.85]],
+        "rendered_label_x0_pt": 72.1,
+        "max_deviation_pt": 0.15
+      },
+      "positioned_blank_provenance": {
+        "note": "the date row's blanks are source vector lines rather than registered numbered rules, so a rule id is legitimately absent; each still carries its own source span identity",
+        "positioned_blank_count": 12,
+        "unreachable_positioned_blank_count": 0,
+        "all_records_have_unique_emission_id": true,
+        "all_records_have_unique_source_span": true,
+        "records_with_a_registered_rule_id": 3,
+        "records_from_source_vector_lines": 9
+      }
+    },
+    "defect_4_vertical_rhythm": {
+      "status": "CLOSED",
+      "rule": "a repeated form row is spaced by the source's own shared vertical rhythm, sampled once per build; only real source block boundaries keep a spacing of their own, and sub-line artefacts collapse to zero with explicit evidence",
+      "no_per_row_absolute_y_compensation": true,
+      "model": "tender_basic/source_vertical_rhythm.py (schema source_vertical_rhythm/1)",
+      "sampler_matches_emitter": "the sampled population is exactly the gap population the emitter produces: same page top (the source section frame's own body top), same per-element cursor advance rule, same per-page scale",
+      "metrics_before_after": {
+        "repeated_form_row_count": 20,
+        "distinct_normal_row_space_before_before": 9,
+        "distinct_normal_row_space_before_after": 4,
+        "shared_row_spacing_level_count_after": 4,
+        "one_off_row_spacing_count_after": 1,
+        "one_off_row_spacing_values_after_pt": [21.84],
+        "unexplained_custom_row_spacing_count_after": 0,
+        "layout_boundary_spacing_count": 103,
+        "distinct_layout_boundary_spacing_values": 23,
+        "baseline_distinct_space_before_values_over_144_paragraphs": 57
+      },
+      "one_off_row_explained": {
+        "value_pt": 21.84,
+        "explanation": "the single row whose source gap is a level no other repeated row shares; it is a real source spacing, is recorded in the boundary population with its own evidence, and is not a per-row absolute-y derivation",
+        "unexplained_count_after": 0
+      },
+      "boundary_population": {
+        "note": "these are real source block boundaries, each reported with its own measured source gap; they are a separate population from repeated form rows and are not the architectural target",
+        "count": 103,
+        "distinct_values": 23,
+        "values_pt": [0.0, 5.76, 6.76, 9.65, 11.12, 13.32, 14.36, 15.64, 17.27, 18.31, 19.4, 21.04, 22.79, 25.08, 26.16, 27.24, 30.72, 37.08, 46.56, 57.84, 67.11, 74.16, 205.95]
+      },
+      "shared_rhythm_semantics": {
+        "dominant_line_pitch_pt": 16.16,
+        "sub_line_gap_max_pt": 4.04,
+        "sub_line_gap_pitch_ratio": 0.25,
+        "collapsed_sub_line_gap_count": 12,
+        "collapsed_sub_line_gaps_pt": [0.0, 0.0, 0.12, 0.12, 0.15, 0.19, 0.28, 0.36, 0.82, 1.65, 3.3, 3.88],
+        "distinct_source_spacing_levels": 22,
+        "snapping_never_compresses": "a class's written value is its largest member, and a candidate gap is compared only against the class's fixed founding anchor, so sharing a spacing never advances the page less far than the source did and near-misses cannot chain one class across the whole population",
+        "why_this_matters": "rounding a gap down to its class minimum tightened the P3 form region until one source row was dropped"
+      }
+    },
+    "defect_5_antibribery_project_lot_slot": {
+      "status": "CLOSED",
+      "rule": "a composite slot whose placeholder ends its own source line presents every component the source's form asks for, using the source's own not-applicable marker for a component with no fact behind it; the marker is presentation provenance and never a fact",
+      "generic_no_case_or_value_literals": true,
+      "evidence": {
+        "slot_id": "slot-60-14",
+        "source_page": 60,
+        "generated_page": 21,
+        "value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/",
+        "method": "source_slot_composite_presentation",
+        "components": [
+          {"kind": "FACT_VALUE", "field": "project_name", "text": "…一体化泵站采购项目", "source": "ProjectFacts"},
+          {"kind": "SOURCE_TEMPLATE_LITERAL", "field": null, "text": "、", "source": "SOURCE_SLOT_HINT"},
+          {"kind": "SOURCE_FORM_NOT_APPLICABLE_MARKER", "field": "lot_name", "text": "/", "source": "SOURCE_FORM_STRUCTURE"}
+        ],
+        "marker_is_a_fact": false,
+        "marker_creates_a_fact_candidate": false,
+        "composed_slot_value_count": 1,
+        "source_form_not_applicable_marker_count": 1,
+        "rendered_line_pdf_page_21": "水工程项目部一体化泵站采购项目、/询比活动中，我公司保证做到："
+      },
+      "discriminator_is_source_structure": {
+        "fires_when": "the suffix after the placeholder begins a new source line, so the placeholder is a line-level form field (source page 60 prints 在 / （项目名称、标段） / 询比活动中，我公司保证做到：)",
+        "suppressed_when": "the suffix continues on the same source line, so the placeholder is one word inside a printed sentence (source page 42 prints 我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意)"
+      },
+      "letter_slot_unaffected": {
+        "slot_id": "slot-42-3",
+        "hint": "项目名称、标段",
+        "baseline_value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "round2_value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "baseline_method": "source_slot",
+        "round2_method": "source_slot",
+        "identical_to_baseline": true
+      },
+      "underline_preserved_across_the_full_fill_region": true
+    }
+  },
+  "stages": {
+    "stage_a_diagnostic": {
+      "status": "COMPLETE_UNCHANGED",
+      "report": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_diagnostic.json",
+      "preserved_as_written": true
+    },
+    "stage_b_implementation": {"status": "COMPLETE"},
+    "stage_c_underline_inventory": {
+      "status": "PASS",
+      "script": "scripts/v1_underline_inventory.py",
+      "report": "acceptance/reports/v1_generalization/case001_underline_inventory_round2.json",
+      "source_underline_count": 8,
+      "matched": 8,
+      "lost": 0,
+      "invented": 0,
+      "out_of_tolerance": 0
+    },
+    "stage_d_form_row_origins": {"status": "COMPLETE"},
+    "stage_e_vertical_rhythm": {"status": "COMPLETE"},
+    "stage_f_composite_presentation": {"status": "COMPLETE"},
+    "stage_g_fresh_build": {
+      "status": "COMPLETE",
+      "build_id": "v1_manual_fidelity_round2",
+      "banked_baseline_not_overwritten": true
+    },
+    "stage_h_structural_gate": {
+      "status": "PASS",
+      "script": "scripts/v1_manual_layout_fidelity_gate.py",
+      "report": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_gate.json",
+      "check_count": 10,
+      "failed_checks": [],
+      "checks": [
+        "section_frame_margin_spread_zero",
+        "every_page_conforms_to_its_section_frame",
+        "section_count_matches_page_count",
+        "frame_anchor_is_a_repeated_text_edge",
+        "centered_headings_sit_on_the_page_centre",
+        "source_one_line_headings_stay_one_line",
+        "no_source_row_is_split_across_generated_lines",
+        "no_unexpected_blank_page",
+        "table_width_keeps_the_source_geometry",
+        "source_underline_inventory_is_complete"
+      ]
+    },
+    "stage_h_companion_v09_gates": {
+      "status": "PASS",
+      "note": "the V0.9 internal-preview gate family was regenerated against the new build so no report in the repository contradicts it",
+      "source_line_assembly_gate": "PASS (14 checks)",
+      "ownership_closure_gate": "PASS",
+      "p3_phase2_gate": "PASS",
+      "p3_reflow_vertical_gate": "PASS",
+      "case001_v09_internal_preview_gate": "PASS",
+      "gate_script_change": "the source-line assembly gate's visible-group integrity now asks whether a composed rule's value is emitted exactly once, read from the rule's own segments, instead of requiring the rule to own a dedicated generated paragraph. The old phrasing re-asserted the pre-round-2 paragraph split, which the authority order replaces: a forward-reachable rule shares its row's paragraph, a backward-anchored one owns its own. Coverage was not reduced - the original per-paragraph assertion still runs whenever the rule does own a line context, and the document-wide uniqueness assertion was added."
+    },
+    "stage_i_case001_acceptance": {
+      "status": "PASS",
+      "script": "scripts/v1_case_acceptance.py",
+      "report": "acceptance/reports/v1_generalization/case001_acceptance.json",
+      "automated_result": "PASS",
+      "problems": [],
+      "p3_semantics": "8/8",
+      "p3_horizontal": "8/8",
+      "reflow_aware_v1": {
+        "status": "PASS",
+        "script": "scripts/v09_p3_reflow_vertical_gate.py",
+        "report": "acceptance/reports/v1_generalization/case001_p3_reflow_vertical_round2.json",
+        "failed_checks": [],
+        "maximum_residual_y_error_pt": 0.68,
+        "frozen_tolerance_pt": 2.0,
+        "unexplained_vertical_expansion_count": 0
+      },
+      "unexplained_vertical_expansion_count": 0,
+      "source_text_missing": 0,
+      "clipping": 0,
+      "duplicated_paragraph_count": 0,
+      "excess_duplicated_paragraph_count": 0,
+      "blocking_overlap_count": 0,
+      "generated_textbox_count": 0,
+      "generated_media_count": 0,
+      "anchored_shape_count": 0,
+      "floating_table_count": 0,
+      "framed_paragraph_count": 0,
+      "synthetic_layout_tables": 0,
+      "total_lost_cell_count": 0,
+      "total_duplicated_cell_count": 0,
+      "total_invented_cell_count": 0,
+      "invented_facts": 0,
+      "lot_name": "NOT_FOUND",
+      "facts": {
+        "total_fields": 23,
+        "resolved": 16,
+        "needs_review": 1,
+        "not_found": 6,
+        "candidate_count": 53,
+        "identical_to_banked_baseline": true
+      },
+      "rendered_pdf_page_count": 22,
+      "pdf_blank_page_count": 0,
+      "delivery_qa": "PASS_WITH_REVIEW (39 checks, 1 warning, 0 errors)",
+      "frozen_absolute_vertical_row_budget": {
+        "plain_phase3_gate_status": "FAIL",
+        "failed_checks": ["vertical_row_order_preserved", "vertical_within_tolerance"],
+        "blocker_kind": "P3_VERTICAL_ROW_BUDGET",
+        "measured_shift_rows": 0.65,
+        "baseline_measured_shift_rows": 1.76,
+        "interpretation": "PRE-EXISTING AND NOT INTRODUCED BY THIS ROUND. The banked baseline fails the same two checks on the same blocker. This round reduced the worst rule displacement from 1.76 to 0.65 source line pitches and left the residual where it was - the reflowed project name on source rows 0-1 resolves far wider than the (project name, lot) and (project number) placeholders it replaces, so the single source row separating them from the shared R3/R4 row reflows into three generated rows. No paragraph spacing, line spacing or indent can put a rule back on a source row that the reflowed values already occupy, and reaching 2.0 pt would require shrinking, clipping or overlapping the resolved values, which the accepted contract forbids.",
+        "per_rule_row_displacement_before_after": {
+          "P42-R1": [-2.56, -2.55],
+          "P42-R2": [-2.5, -2.5],
+          "P42-R5": [-0.27, -0.27],
+          "P42-R7": [1.47, 0.36],
+          "P42-R8": [1.76, 0.65]
+        },
+        "shared_row_defect_closed": "source row 178.4 carries both P42-R3 and P42-R4 on one generated row (0.30 pt apart against the 2.00 pt contract), in both builds",
+        "recorded_as_a_residual_not_silenced": true
+      }
+    },
+    "stage_j_three_case_regression": {
+      "status": "PASS",
+      "script": "scripts/v1_three_case_regression.py",
+      "report": "acceptance/reports/v1_generalization/three_case_regression.json",
+      "result": "THREE_CASE_GENERALIZATION = PASS",
+      "cases": [
+        {"case": "case_001", "build_id": "v1_manual_fidelity_round2", "result": "PASS", "failed_checks": []},
+        {"case": "case_002", "build_id": "v1_round2_regression", "result": "PASS", "failed_checks": [], "pdf_page_count": 30},
+        {"case": "case_003", "build_id": "v1_round2_regression", "result": "PASS", "failed_checks": [], "pdf_page_count": 33}
+      ],
+      "cases_rebuilt_with_this_rounds_code": true,
+      "cross_case_isolation": {
+        "build_directories_distinct": true,
+        "source_documents_distinct": true,
+        "generated_documents_distinct": true,
+        "pointers_resolve_to_the_acceptance_build": true
+      }
+    },
+    "stage_k_tests": {
+      "status": "PASS",
+      "full_suite": {
+        "command": ".venv/Scripts/python.exe -X utf8 scripts/run_pytest_sandbox.py tests -p no:cacheprovider",
+        "exit_code": 0,
+        "passed": 466,
+        "skipped": 1,
+        "failed": 0,
+        "errors": 0,
+        "unexpected_failures": 0,
+        "raw_output": "acceptance/workspace/_round2_probe/suite_final2.txt"
+      },
+      "new_focused_tests": {
+        "file": "tests/test_round2_manual_fidelity_defects.py",
+        "count": 12,
+        "result": "PASS",
+        "covers": [
+          "defect 2 - a forward-reachable anchor stays on the current line and opens no paragraph",
+          "defect 2 - a backward anchor is isolated onto its own line with its rule id recorded",
+          "defect 2 - the emitter's measured forward reachability outranks the wrap model's rounding",
+          "defect 4 - repeated source gaps share one spacing value",
+          "defect 4 - snapping never advances the page less far than the source",
+          "defect 4 - a fixed anchor stops spacing classes from chaining",
+          "defect 4 - sub-line gaps collapse to zero with evidence",
+          "defect 4 - the metrics separate repeated rows from real block boundaries",
+          "defect 5 - a line-level composite slot marks the absent component",
+          "defect 5 - the marker neither creates nor resolves a fact",
+          "defect 5 - an inline composite slot is left alone",
+          "defect 5 - a non-composite slot records no presentation"
+        ]
+      },
+      "updated_contract_tests": [
+        {
+          "file": "tests/test_round58_form_line_paragraph.py",
+          "reason": "the old assertion pinned the pre-round-2 behaviour (five form-line paragraphs including the forward-reachable P42-R7 and P44-R12). It now asserts the three rows that genuinely need isolation, their isolation reason and their zero spacing, and identity for every positioned blank by its own source span rather than by a rule id that a source vector line never had."
+        },
+        {
+          "file": "tests/test_round58_anchored_value_run.py",
+          "reason": "same pre-round-2 count; the test now asserts the isolated row set and keeps its direct measurement of P42-R4's frozen painted geometry."
+        }
+      ],
+      "weakened_assertions": 0
+    }
+  },
+  "production_files_changed": [
+    "tender_basic/source_vertical_rhythm.py (new - the shared vertical rhythm model)",
+    "tender_basic/word_safe_source_builder.py (underline ownership, blank anchor resolution, shared rhythm wiring, positioned-blank emission identity)",
+    "tender_basic/word_style_source_builder.py (logical-paragraph emission plan, shared rhythm wiring, forward-reachability report)",
+    "tender_basic/page_layout.py (forward-representation planning, recorded source rule ids)",
+    "tender_basic/source_fill_policy.py (composite presentation marker and its provenance)",
+    "tender_basic/vertical_reflow_qa.py (forward-reachability input to the wrap model)",
+    "tender_basic/vertical_reflow_region.py (the plan consumes the emitter's measured reachability)"
+  ],
+  "audit_scripts_added": [
+    "scripts/v1_underline_inventory.py (Stage C underline inventory)",
+    "scripts/v1_manual_layout_fidelity_gate.py (Stage H 10-check structural gate)",
+    "scripts/v1_page_frame_audit.py",
+    "scripts/v1_page_table_geometry_audit.py"
+  ],
+  "prohibitions_honoured": {
+    "no_case_page_rule_or_value_literals_in_production": true,
+    "no_textbox_shape_or_overlay": true,
+    "no_section_frame_change": true,
+    "no_slash_written_as_a_fact": true,
+    "no_manual_spaces_used_for_indentation": true,
+    "no_per_row_arbitrary_space_before_as_coordinate_positioning": true,
+    "no_commit": true,
+    "no_push": true,
+    "no_reset_revert_checkout_or_clean": true,
+    "banked_round1_build_untouched": true,
+    "p3_tolerance_not_weakened": true
+  },
+  "human_review_targets": [
+    {
+      "generated_page": 3,
+      "source_page": 42,
+      "artifact": "acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.docx",
+      "recheck": "clause 4 is one paragraph with inline tabs and no paragraph spacing; the 8 source underlines are each emitted exactly once; the fills do not overlap or clip"
+    },
+    {
+      "generated_page": 5,
+      "source_page": 44,
+      "artifact": "acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.docx",
+      "recheck": "成立时间： starts at the label's own x and is not underlined; the year/month/day blanks are underlined at the source positions"
+    },
+    {
+      "generated_page": 21,
+      "source_page": 60,
+      "artifact": "acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.docx",
+      "recheck": "the anti-commercial-bribery composite slot reads …一体化泵站采购项目、/ and the marker is followed by the source's own 询比活动中，我公司保证做到：; page 3's inline placeholder shows no marker"
+    }
+  ],
+  "manual_review_checklist": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_review_checklist.md",
+  "artifacts": {
+    "gate_report": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_gate.json",
+    "underline_inventory": "acceptance/reports/v1_generalization/case001_underline_inventory_round2.json",
+    "page_frame_audit": "acceptance/reports/v1_generalization/case001_page_frame_audit_round2.json",
+    "table_geometry_audit": "acceptance/reports/v1_generalization/case001_table_geometry_round2.json",
+    "p3_reflow_vertical_gate": "acceptance/reports/v1_generalization/case001_p3_reflow_vertical_round2.json",
+    "p3_closure_gate": "acceptance/reports/v1_generalization/case001_p3_closure_round2.json",
+    "case001_acceptance": "acceptance/reports/v1_generalization/case001_acceptance.json",
+    "three_case_regression": "acceptance/reports/v1_generalization/three_case_regression.json",
+    "diagnostic_preserved": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_diagnostic.json"
+  },
+  "what_this_round_does_not_claim": [
+    "automation PASS is not human acceptance: MANUAL_WORD_REVIEW_REQUIRED stays true until a human signs the checklist",
+    "V1_PRODUCTION_CANDIDATE stays false and READY_FOR_SUBMISSION stays false",
+    "the frozen absolute P3 vertical row budget (P3_VERTICAL_ROW_BUDGET) is still not met and cannot be met without shrinking, clipping or overlapping the reflowed values; it is unchanged from the banked baseline apart from being measurably smaller"
+  ]
+}

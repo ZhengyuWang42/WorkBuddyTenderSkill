@@ -1,0 +1,125 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": null,
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "FAIL",
+  "failed_checks": [
+    "HARD_BREAK_FIDELITY"
+  ],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 75,
+      "failed": 1,
+      "authorized_splits": 0,
+      "authorized_classifications": [
+        "SOURCE_EXPLICIT_BREAK"
+      ],
+      "split_classifications": {
+        "NATURAL_WRAP": 1
+      },
+      "isolated_paragraphs": [
+        29
+      ],
+      "classification_model": {
+        "NATURAL_WRAP": "a recorded structural isolation is evidence about the build, not a verdict: only a boundary the SOURCE itself printed is an authorised split, and a split of one source logical paragraph's wrapped rows is reported as NATURAL_WRAP instead of passing as an authorised break",
+        "SOURCE_EXPLICIT_BREAK": "the source's own list items / source-authored rows",
+        "BUILDER_FORCED_BREAK": "one source visual row the builder split",
+        "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW": "a builder split the build recorded as forced by the resolved value's reflow; recorded, never authorised on its own"
+      }
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 5,
+      "failed": 0
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 0
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 0,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 33,
+      "failed": 0
+    },
+    "flow_placed_rule_endpoints": {
+      "checked": 0,
+      "failed": 0,
+      "diagnostic_only": true,
+      "rules": [],
+      "text_decoration_rules": [],
+      "value_representation_rules": [
+        {
+          "source_rule_id": "P42-R5",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 131.85,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "30日历天"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        },
+        {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 95.25,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "符合国家及行业有关标准、规范和询比文件要求"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        }
+      ]
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [
+      {
+        "kind": "SOURCE_ELEMENT_SPLIT_ACROSS_PARAGRAPHS",
+        "source_page": 42,
+        "source_element_kind": "LogicalParagraph",
+        "source_row_count": 4,
+        "source_row_texts": [
+          "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+          "以人民币（大写）（不含税），（小写）元的响应报",
+          "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+          "达到。"
+        ],
+        "delivered_paragraphs": 2,
+        "unauthorized_paragraph_indexes": [],
+        "classification": "NATURAL_WRAP",
+        "classification_reason": "one source logical paragraph printed as 4 wrapped visual rows",
+        "same_word_paragraph": false,
+        "w_br_between_tokens": 0,
+        "w_cr_between_tokens": 0,
+        "empty_paragraph_between_tokens": 0,
+        "authorised_structural_split_between_tokens": false,
+        "recorded_isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+        "text": "我方已充分研究了询比文件的全部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供货期，按合同约定实施并完成本"
+      }
+    ],
+    "PARAGRAPH_ALIGNMENT": [],
+    "TABLE_CELL_LINE_STRUCTURE": [],
+    "SOURCE_BOLD_FIDELITY": [],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": []
+  },
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true.",
+  "superseded": true,
+  "superseded_by": "case001_typography_followup3.json",
+  "superseded_reason": "written before CASE001 final policy / gate / pointer reconciliation; it reported HARD_BREAK_FIDELITY = FAIL because the reviewed structural deviation had not yet been encoded as a generic contract",
+  "superseded_sha256": "58a67ff75293f7b5f09b1b51b39ae28bd2e9c6dcbc328ef54a9e6bfc24dabd66"
+}

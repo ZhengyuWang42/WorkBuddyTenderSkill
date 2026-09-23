@@ -1,0 +1,15 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_round3_p3semantics",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics\\基础投标文件.docx",
+  "generated_docx_sha256": "255980b8b8c281bd456325b1ed80efd69e784cfe6c763c0d3801055c02f37ea7",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics\\基础投标文件.pdf",
+  "generated_pdf_sha256": "f556e26db83a13dca2fe5b609eb30818b48cd5722ac606d2dadca2f84a38b851",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics\\generation_report.json",
+  "superseded": true,
+  "superseded_by": "case_002_current_build.json",
+  "superseded_reason": "recorded the pre-reconciliation pointer; the case acceptance evidence is pinned to the follow-up build"
+}

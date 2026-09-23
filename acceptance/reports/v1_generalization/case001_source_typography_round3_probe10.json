@@ -1,0 +1,229 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": null,
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_round3_probe10",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "FAIL",
+  "failed_checks": [
+    "FIXED_BLANK_FIDELITY"
+  ],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 73,
+      "failed": 0
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 4,
+      "failed": 0
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 0
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 0,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 35,
+      "failed": 28
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [],
+    "PARAGRAPH_ALIGNMENT": [],
+    "TABLE_CELL_LINE_STRUCTURE": [],
+    "SOURCE_BOLD_FIDELITY": [],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": [
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 40,
+        "source_rule_id": "P40-R1",
+        "source_span": [
+          205.65,
+          389.6
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 40,
+        "source_rule_id": "P40-R2",
+        "source_span": [
+          289.3,
+          387.1
+        ]
+      },
+      {
+        "kind": "BLANK_NOT_PAINTED_IN_RENDER",
+        "source_page": 40,
+        "source_rule_id": "P40-R3",
+        "source_span": [
+          214.2,
+          283.2
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 42,
+        "source_rule_id": "P42-R4",
+        "source_span": [
+          384.6,
+          459.0
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 42,
+        "source_rule_id": "P42-R5",
+        "source_span": [
+          131.85,
+          181.4
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 42,
+        "source_rule_id": "P42-R6",
+        "source_span": [
+          95.25,
+          151.05
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R1",
+        "source_span": [
+          147.7,
+          309.7
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R2",
+        "source_span": [
+          134.6,
+          308.6
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R3",
+        "source_span": [
+          108.8,
+          312.8
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R7",
+        "source_span": [
+          134.6,
+          296.6
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R8",
+        "source_span": [
+          105.0,
+          142.05
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R9",
+        "source_span": [
+          175.9,
+          202.4
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R10",
+        "source_span": [
+          236.4,
+          262.8
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R11",
+        "source_span": [
+          296.75,
+          344.4
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 44,
+        "source_rule_id": "P44-R13",
+        "source_span": [
+          118.4,
+          260.4
+        ]
+      },
+      {
+        "kind": "BLANK_NOT_PAINTED_IN_RENDER",
+        "source_page": 44,
+        "source_rule_id": "P44-R14",
+        "source_span": [
+          70.8,
+          99.7
+        ]
+      },
+      {
+        "kind": "BLANK_NOT_PAINTED_IN_RENDER",
+        "source_page": 44,
+        "source_rule_id": "P44-R15",
+        "source_span": [
+          111.35,
+          140.25
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 45,
+        "source_rule_id": "P45-R7",
+        "source_span": [
+          371.4,
+          449.4
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 45,
+        "source_rule_id": "P45-R8",
+        "source_span": [
+          395.4,
+          449.4
+        ]
+      },
+      {
+        "kind": "REGISTERED_GAP_RULE_NOT_DELIVERED_AS_BLANK",
+        "source_page": 45,
+        "source_rule_id": "P45-R9",
+        "source_span": [
+          395.4,
+          449.4
+        ]
+      }
+    ]
+  },
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true."
+}

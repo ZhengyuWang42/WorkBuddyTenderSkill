@@ -62,6 +62,16 @@ OCR_WARNING = "PDF appears image-based or has insufficient extractable text."
 PDF_MIN_TEXT_CHARS_PER_PAGE = 20
 PDF_MIN_TEXT_PAGE_RATIO = 0.5
 PDF_MIN_AVERAGE_CHARS_PER_PAGE = 20
+#: How far apart the text trace and the extracted span may record the same box's
+#: top edge.  A PDF that fakes bold draws one box; the two extractors round it
+#: slightly differently, so the coincidence is matched with a tolerance well
+#: inside the line pitch rather than on exact equality.
+SYNTHETIC_BOLD_Y_TOLERANCE = 1.5
+#: How much of an extracted span's own box must be written by the page's stroked
+#: glyph pass before the span counts as bold.  The trace and the extraction split
+#: one line into spans differently, so a span wholly inside a bold run is what
+#: matters; a span merely touching one is not bold.
+SYNTHETIC_BOLD_COVERAGE_RATIO = 0.6
 
 _SUPPORTED_SUFFIXES = {
     ".pdf": SourceType.PDF,
@@ -154,7 +164,12 @@ def _pdf_block_type(raw_type: object) -> str:
     return names.get(numeric_type, f"unknown:{numeric_type}")
 
 
-def _pdf_text_span(raw_span: dict[str, object], source_order: int) -> PdfTextSpan | None:
+def _pdf_text_span(
+    raw_span: dict[str, object],
+    source_order: int,
+    *,
+    synthetic_bold: bool = False,
+) -> PdfTextSpan | None:
     raw_text = raw_span.get("text", "")
     text = raw_text if isinstance(raw_text, str) else str(raw_text or "")
     raw_chars = raw_span.get("chars", [])
@@ -246,7 +261,10 @@ def _pdf_text_span(raw_span: dict[str, object], source_order: int) -> PdfTextSpa
         font_name=font_name,
         font_size=font_size,
         # PyMuPDF uses bit 16 for bold and bit 2 for italic in its text flags.
-        bold=bool(flags & 16),
+        # A PDF that fakes bold by drawing the same glyphs twice - once filled and
+        # once stroked - carries no such bit, so the page-level trace above is the
+        # only evidence that the source set those glyphs in bold.
+        bold=bool(flags & 16) or bool(synthetic_bold),
         italic=bool(flags & 2),
         underline=False,
         color=color,
@@ -256,11 +274,82 @@ def _pdf_text_span(raw_span: dict[str, object], source_order: int) -> PdfTextSpa
     )
 
 
-def _pdf_text_lines(raw_block: dict[str, object]) -> list[PdfTextLine]:
+def _synthetic_bold_intervals(page: object) -> list:
+    """Boxes the page draws twice, once filled and once stroked, as intervals.
+
+    A PDF can render bold without a bold font: it writes the same glyphs twice at
+    the same place, the second time in stroke mode.  The extracted span then
+    reports the plain face and no bold flag, so a source that visibly set that
+    text in bold would be delivered as regular weight.
+
+    The evidence is the geometry alone, never a font name, a page number or a
+    literal string: a box carried by one filled and one stroked trace entry is
+    bold.  Returned as ``(top edge, left edge, right edge)`` in page points, from
+    the *trace*, because the trace and the extracted spans record the same glyphs
+    at the same places while splitting them into spans differently.
+    """
+
+    try:
+        trace = page.get_texttrace()
+    except (AttributeError, RuntimeError, TypeError, ValueError):
+        return []
+    filled: dict = {}
+    stroked: dict = {}
+    for entry in trace or ():
+        try:
+            text = "".join(chr(char[0]) for char in entry.get("chars") or ())
+            bbox = entry.get("bbox") or ()
+            key = (round(float(bbox[0]), 1), round(float(bbox[2]), 1))
+            y0 = round(float(bbox[1]), 1)
+            render_mode = int(entry.get("type", 0) or 0)
+        except (IndexError, TypeError, ValueError):
+            continue
+        if not text.strip():
+            continue
+        # Render mode 1 is stroke-only, 2 is fill-then-stroke; a plain fill is 0.
+        (stroked if render_mode in (1, 2) else filled).setdefault(key, []).append(y0)
+    intervals = []
+    for (x0, x1), stroke_ys in stroked.items():
+        fill_ys = filled.get((x0, x1))
+        if not fill_ys:
+            continue
+        for y0 in stroke_ys:
+            if any(abs(float(candidate) - y0) <= SYNTHETIC_BOLD_Y_TOLERANCE
+                   for candidate in fill_ys):
+                intervals.append((float(y0), float(x0), float(x1)))
+    return intervals
+
+
+def _drawn_in_bold(box, intervals) -> bool:
+    """Whether a span's box is written by the page's stroked glyph pass.
+
+    The extracted span and the trace split one line into spans differently, so the
+    test is coverage of the span's own box by bold trace boxes on the same line -
+    not equality of either edge.
+    """
+
+    if not intervals or box is None:
+        return False
+    x0, y0, x1, _y1 = (float(value) for value in box)
+    width = x1 - x0
+    if width <= 0:
+        return False
+    covered = 0.0
+    for interval_y, interval_x0, interval_x1 in intervals:
+        if abs(interval_y - y0) > SYNTHETIC_BOLD_Y_TOLERANCE:
+            continue
+        overlap = min(x1, interval_x1) - max(x0, interval_x0)
+        if overlap > 0:
+            covered += overlap
+    return covered / width >= SYNTHETIC_BOLD_COVERAGE_RATIO
+
+
+def _pdf_text_lines(raw_block: dict[str, object], *, bold_intervals=None) -> list[PdfTextLine]:
     lines: list[PdfTextLine] = []
     raw_lines = raw_block.get("lines", [])
     if not isinstance(raw_lines, list):
         return lines
+    bold_intervals = bold_intervals or ()
     span_order = 0
     for line_index, raw_line in enumerate(raw_lines):
         if not isinstance(raw_line, dict):
@@ -271,7 +360,17 @@ def _pdf_text_lines(raw_block: dict[str, object]) -> list[PdfTextLine]:
             for raw_span in raw_spans:
                 if not isinstance(raw_span, dict):
                     continue
-                span = _pdf_text_span(raw_span, span_order)
+                box = None
+                raw_span_bbox = raw_span.get("bbox")
+                if isinstance(raw_span_bbox, (list, tuple)) and len(raw_span_bbox) >= 4:
+                    try:
+                        box = tuple(float(value) for value in raw_span_bbox[:4])
+                    except (TypeError, ValueError):
+                        box = None
+                span = _pdf_text_span(
+                    raw_span, span_order,
+                    synthetic_bold=_drawn_in_bold(box, bold_intervals),
+                )
                 span_order += 1
                 if span is not None:
                     spans.append(span)
@@ -631,11 +730,14 @@ def _parse_pdf(path: Path) -> NormalizedDocument:
             raw_dict_blocks = raw_dict.get("blocks", []) if isinstance(raw_dict, dict) else []
             page_spans: list[PdfTextSpan] = []
             dict_lines: list[tuple[tuple[float, float, float, float], list[PdfTextLine]]] = []
+            synthetic_bold_intervals = _synthetic_bold_intervals(page)
             if isinstance(raw_dict_blocks, list):
                 for raw_dict_block in raw_dict_blocks:
                     if not isinstance(raw_dict_block, dict):
                         continue
-                    lines_for_block = _pdf_text_lines(raw_dict_block)
+                    lines_for_block = _pdf_text_lines(
+                        raw_dict_block, bold_intervals=synthetic_bold_intervals,
+                    )
                     raw_dict_bbox = raw_dict_block.get("bbox")
                     if isinstance(raw_dict_bbox, (list, tuple)) and len(raw_dict_bbox) >= 4:
                         dict_lines.append((_safe_bbox(tuple(raw_dict_bbox)), lines_for_block))

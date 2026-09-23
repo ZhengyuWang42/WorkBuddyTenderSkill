@@ -1,0 +1,575 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": "round2_baseline",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2_p21fix",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "FAIL",
+  "failed_checks": [
+    "PARAGRAPH_ALIGNMENT",
+    "TABLE_CELL_LINE_STRUCTURE",
+    "SOURCE_BOLD_FIDELITY"
+  ],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 75,
+      "failed": 0,
+      "authorized_splits": 1,
+      "isolated_paragraphs": [
+        29,
+        30,
+        31
+      ]
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 0,
+      "failed": 3
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 11
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 29,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 34,
+      "failed": 0
+    },
+    "flow_placed_rule_endpoints": {
+      "checked": 0,
+      "failed": 0,
+      "diagnostic_only": true,
+      "rules": [],
+      "text_decoration_rules": []
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [],
+    "PARAGRAPH_ALIGNMENT": [
+      {
+        "kind": "SOURCE_JUSTIFIED_NOT_DELIVERED",
+        "source_page": 52,
+        "glyph_advance_ratio": 1.05,
+        "text": "供应商须自行承诺，近三年（2023 年 1 月 1 日）以来企业、法定代表人无行贿犯罪行为，企业无不良履约记录。若成交后"
+      },
+      {
+        "kind": "SOURCE_JUSTIFIED_NOT_DELIVERED",
+        "source_page": 60,
+        "glyph_advance_ratio": 1.1,
+        "text": "二、杜绝任何形式的商业贿赂行为。不向国家工作人员、评审专家及亲属提供礼品礼金、有价证券、购物券、回扣、佣金、咨询费、劳务"
+      },
+      {
+        "kind": "SOURCE_JUSTIFIED_NOT_DELIVERED",
+        "source_page": 60,
+        "glyph_advance_ratio": 1.1,
+        "text": "三、若出现上述行为，我公司及参与询比的工作人员愿意接受按照国家法律法规等有关规定给予的处罚。"
+      }
+    ],
+    "TABLE_CELL_LINE_STRUCTURE": [
+      {
+        "source_page": 43,
+        "source_rows": [
+          "响应报价(元）",
+          "（不含税）"
+        ],
+        "delivered_rows": [
+          "响应报价(元）（不含税）"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "不含税单",
+          "价"
+        ],
+        "delivered_rows": [
+          "不含税单价"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "不含税合",
+          "价"
+        ],
+        "delivered_rows": [
+          "不含税合价"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "16000mm×",
+          "8500mm×3500mm"
+        ],
+        "delivered_rows": [
+          "16000mm×8500mm×3500mm"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "单泵流量",
+          "800m3/h，扬程",
+          "35m，功率110kw，",
+          "机组效率≥82%，"
+        ],
+        "delivered_rows": [
+          "单泵流量800m3/h，扬程35m，功率110kw，机组效率≥82%，汽蚀余量≤5"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 4
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "单泵流量",
+          "300m3/h，扬程",
+          "35m，功率45kw，",
+          "机组效率≥82%，"
+        ],
+        "delivered_rows": [
+          "单泵流量300m3/h，扬程35m，功率45kw，机组效率≥82%，汽蚀余量≤4"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 4
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "自动化、监控",
+          "系统"
+        ],
+        "delivered_rows": [
+          "自动化、监控系统"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 48,
+        "source_rows": [
+          "不含税合计（即响应报价）：（大写），元（小写）",
+          "其中：税率：%，税金：（大写），元（小写）。",
+          "总计（含税金额）：（大写），元（小写）。"
+        ],
+        "delivered_rows": [
+          "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 2
+      },
+      {
+        "source_page": 49,
+        "source_rows": [
+          "统一社会信用代",
+          "码"
+        ],
+        "delivered_rows": [
+          "统一社会信用代码"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 53,
+        "source_rows": [
+          "合同金",
+          "额"
+        ],
+        "delivered_rows": [
+          "合同金额"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      },
+      {
+        "source_page": 53,
+        "source_rows": [
+          "签订合同",
+          "时间"
+        ],
+        "delivered_rows": [
+          "签订合同时间"
+        ],
+        "delivered_breaks": 0,
+        "expected_breaks": 1
+      }
+    ],
+    "SOURCE_BOLD_FIDELITY": [
+      {
+        "source_page": 40,
+        "source_run": "第六章响应文件格式",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 40,
+        "source_run": "河南省水利第二工程局集团有限公司",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 40,
+        "source_run": "引江济淮郸城县配套工程水源置换城乡供水工",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 40,
+        "source_run": "程项目部一体化泵站采购项目",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 40,
+        "source_run": "响应文件",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 42,
+        "source_run": "(一)响应函",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 43,
+        "source_run": "(二)响应函附录",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 44,
+        "source_run": "(一)法定代表人身份证明",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 45,
+        "source_run": "（二）法定代表人授权委托书",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 49,
+        "source_run": "（一）供应商基本情况表",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 50,
+        "source_run": "（二）财务状况承诺书",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 51,
+        "source_run": "（三）信誉要求",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 51,
+        "source_run": "（注：网页查询如遇网址或者查询菜单、功能等有调整或变化，上述网页证明材料以调",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 51,
+        "source_run": "整或变化后的现行有效的查询证明材料为准。）",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 52,
+        "source_run": "（四）其他",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 61,
+        "source_run": "供应商认为应附的其他材料",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 48,
+        "source_run": "不含税合计（即响应报价）：",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 48,
+        "source_run": "（大写），",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 48,
+        "source_run": "元（小写）",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_page": 48,
+        "source_run": "其中：税率：",
+        "delivered_bold": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    ],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": []
+  },
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true."
+}

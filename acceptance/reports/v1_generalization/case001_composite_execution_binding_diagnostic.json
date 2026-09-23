@@ -1,0 +1,612 @@
+{
+  "before_repair_diagnostic": "acceptance\\reports\\v1_generalization\\case001_composite_execution_binding_diagnostic_before_repair.json",
+  "build": "v1_manual_fidelity_round3_word_review_final",
+  "build_hashes": {
+    "docx_sha256": "16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191",
+    "generation_report_sha256": "97584ab13b820378669f4fee90d94ef918637c35c4cd86a8fc3c28e172e4e761",
+    "pdf_sha256": "ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174"
+  },
+  "conclusion": {
+    "emitted_surface_is_one_atomically_composed_slot_value": true,
+    "project_facts_changed": false,
+    "rendered_content_changed": false,
+    "source_contract_changed": false,
+    "validator_must_operate_on_atoms": true,
+    "whole_value_equality_is_not_a_valid_test_here": true
+  },
+  "gate_binding_failure_ids": [
+    "P42-R2"
+  ],
+  "gate_binding_failure_ids_after_repair": [],
+  "gate_binding_failure_ids_before_repair": [
+    "P42-R2"
+  ],
+  "gate_collapse": {
+    "after_repair": {
+      "atomic_validation_call_lines": [
+        {
+          "line": 265,
+          "text": "                outcome = validate_presentation_atoms("
+        }
+      ],
+      "emitted_flat_list_lines": [
+        {
+          "line": 226,
+          "text": "        emitted = list(dict.fromkeys(application_values + run_values))"
+        }
+      ],
+      "evidence": "READ_FROM_THE_GATE_SOURCE_ON_DISK_AT_RUN_TIME"
+    },
+    "before_repair": {
+      "emitted_flat_list_line": 226,
+      "evidence": "READ_FROM_THE_PRE_REPAIR_GATE_SOURCE_DURING_THIS_TRACE",
+      "fragment": [
+        "            if emitted and expected_values and emitted[0] not in expected_values:",
+        "                binding_ok = False",
+        "                binding_notes.append(\"EMITTED_VALUE_NOT_FROM_PROJECT_FACTS\")",
+        "            if emitted and emitted[0] not in facts_sourced_values:",
+        "                binding_ok = False",
+        "                binding_notes.append(\"EMITTED_VALUE_UNKNOWN_TO_PROJECT_FACTS\")"
+      ]
+    },
+    "before_repair_fragment_still_present": false,
+    "collapses": "every value an application recorded was flattened into one list of whole strings and only the first was compared, character for character, with one ProjectFacts resolved value",
+    "comparison_operand": "expected_values / facts_sourced_values",
+    "comparison_subject": "emitted[0]",
+    "gate_script": "scripts/v1_p3_semantic_registry_gate.py"
+  },
+  "gate_report": "acceptance/reports/v1_generalization/case001_p3_semantic_registry_gate_final.json",
+  "gate_status_after_repair": "PASS",
+  "gate_status_before_repair": "FAIL",
+  "repository_native_provenance_model": {
+    "classes": [
+      "SlotValuePresentation"
+    ],
+    "component_kinds": [
+      "FACT_VALUE",
+      "SOURCE_TEMPLATE_LITERAL",
+      "SOURCE_FORM_NOT_APPLICABLE_MARKER"
+    ],
+    "marker_literal": "/",
+    "module": "tender_basic/source_fill_policy.py",
+    "note": "the atomic provenance model already exists and is already written by the emitter at the write event; no second model is introduced",
+    "recorded_in_report_key": "slot_value_presentations"
+  },
+  "schema": "v1_composite_execution_binding_diagnostic/1",
+  "totals": {
+    "duplicate_executions": 0,
+    "emitted_surfaces_without_a_presentation_record": 0,
+    "fact_value_mismatches": 0,
+    "invented_atoms": 0,
+    "markers_over_a_resolved_fact": 0,
+    "source_literals_not_printed_by_source": 0,
+    "surfaces_not_fully_reconstructed": 0,
+    "unaccounted_atoms": 0,
+    "unidentified_component_sources": 0
+  },
+  "trace": [
+    {
+      "atoms": [
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_PLACEHOLDER_TEXT",
+          "emitted_text": "(",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": null,
+          "literal_printed_by_source_in_rule_span": true,
+          "ordinal": 0,
+          "provenance_class": "SOURCE_TEMPLATE_LITERAL",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 1,
+          "value_start_offset": 0
+        },
+        {
+          "accounted": true,
+          "declared_source": "ProjectFacts",
+          "emitted_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "fact_matches_project_facts": true,
+          "field": "project_name",
+          "ordinal": 1,
+          "project_facts_resolved_value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "project_facts_status": "RESOLVED",
+          "provenance_class": "FACT_VALUE",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 50,
+          "value_start_offset": 1
+        },
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_SLOT_HINT",
+          "emitted_text": "、",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": null,
+          "literal_printed_by_source_in_rule_span": true,
+          "ordinal": 2,
+          "provenance_class": "SOURCE_TEMPLATE_LITERAL",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 51,
+          "value_start_offset": 50
+        },
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_FORM_STRUCTURE",
+          "emitted_text": "/",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": "lot_name",
+          "marker_does_not_cover_a_resolved_fact": true,
+          "marker_fact_status": "NOT_FOUND",
+          "ordinal": 3,
+          "provenance_class": "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 52,
+          "value_start_offset": 51
+        },
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_PLACEHOLDER_TEXT",
+          "emitted_text": ")",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": null,
+          "literal_printed_by_source_in_rule_span": true,
+          "ordinal": 4,
+          "provenance_class": "SOURCE_TEMPLATE_LITERAL",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 53,
+          "value_start_offset": 52
+        },
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_PLACEHOLDER_TEXT",
+          "emitted_text": "（",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": null,
+          "literal_printed_by_source_in_rule_span": true,
+          "ordinal": 0,
+          "provenance_class": "SOURCE_TEMPLATE_LITERAL",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 1,
+          "value_start_offset": 0
+        },
+        {
+          "accounted": true,
+          "declared_source": "ProjectFacts",
+          "emitted_text": "YSEJJXXB202607-18",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "fact_matches_project_facts": true,
+          "field": "project_number",
+          "ordinal": 1,
+          "project_facts_resolved_value": "YSEJJXXB202607-18",
+          "project_facts_status": "RESOLVED",
+          "provenance_class": "FACT_VALUE",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 18,
+          "value_start_offset": 1
+        },
+        {
+          "accounted": true,
+          "declared_source": "SOURCE_PLACEHOLDER_TEXT",
+          "emitted_text": "）",
+          "execution_owner": "SFF42|P42-R2|198.1-375.7@158.4",
+          "field": null,
+          "literal_printed_by_source_in_rule_span": true,
+          "ordinal": 2,
+          "provenance_class": "SOURCE_TEMPLATE_LITERAL",
+          "source_evidence_declared": true,
+          "source_fill_application_id": null,
+          "source_rule_id": "P42-R2",
+          "underline_inherited": true,
+          "value_end_offset": 19,
+          "value_start_offset": 18
+        }
+      ],
+      "delivered_runs": [
+        {
+          "application_id": "SFA2",
+          "generated_paragraph_index": 28,
+          "runs": [
+            {
+              "character_count": 8,
+              "run_index": 0,
+              "tabs": 0,
+              "text": "我方已充分研究了",
+              "underline": false,
+              "underline_values": []
+            },
+            {
+              "character_count": 1,
+              "run_index": 1,
+              "tabs": 0,
+              "text": "\t",
+              "underline": false,
+              "underline_values": []
+            },
+            {
+              "character_count": 53,
+              "run_index": 2,
+              "tabs": 0,
+              "text": "(河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/)",
+              "underline": true,
+              "underline_values": [
+                "single"
+              ]
+            },
+            {
+              "character_count": 19,
+              "run_index": 3,
+              "tabs": 0,
+              "text": "（YSEJJXXB202607-18）",
+              "underline": true,
+              "underline_values": [
+                "single"
+              ]
+            },
+            {
+              "character_count": 12,
+              "run_index": 4,
+              "tabs": 0,
+              "text": "询比文件的全部内容，愿意",
+              "underline": false,
+              "underline_values": []
+            }
+          ]
+        }
+      ],
+      "emitted_surfaces": [
+        "(河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/)",
+        "YSEJJXXB202607-18"
+      ],
+      "execution_owners": [
+        {
+          "accepts_value_insertion": true,
+          "eligible_for_value_emission": true,
+          "emitter_identity": "ANCHORED_VALUE_OWNER:SOURCE_ANCHORED_VALUE_RUN",
+          "geometry_intent": null,
+          "owner_kind": "ANCHORED_VALUE_OWNER",
+          "paragraph_index": 28,
+          "planned_fact_fields": [
+            "project_name",
+            "lot_name",
+            "project_number"
+          ],
+          "registration_reason": "anchored renderer established the value run at the source anchor",
+          "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+          "source_form_field_id": "SFF42|P42-R2|198.1-375.7@158.4",
+          "source_geometry": [
+            198.1,
+            375.7,
+            158.4
+          ],
+          "source_page": 42,
+          "source_rule_ids": [
+            "P42-R2"
+          ],
+          "source_slot_id": "slot-42-3",
+          "transformation_policy": null
+        }
+      ],
+      "registry_entry": {
+        "allowed_fact_fields": [
+          "PROJECT_NAME",
+          "LOT_NAME"
+        ],
+        "authoritative_slot_binding": "GEOMETRY_BINDING",
+        "authoritative_slot_id": "slot-42-3",
+        "bearing": true,
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "resolved_fact_fields": [
+          "PROJECT_NAME"
+        ],
+        "source_page": 42,
+        "source_rule_id": "P42-R2",
+        "text_occupancy": 1.0,
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4
+      },
+      "slot_value_presentations": [
+        {
+          "components": [
+            {
+              "field": null,
+              "kind": "SOURCE_TEMPLATE_LITERAL",
+              "source": "SOURCE_PLACEHOLDER_TEXT",
+              "text": "("
+            },
+            {
+              "field": "project_name",
+              "kind": "FACT_VALUE",
+              "source": "ProjectFacts",
+              "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目"
+            },
+            {
+              "field": null,
+              "kind": "SOURCE_TEMPLATE_LITERAL",
+              "source": "SOURCE_SLOT_HINT",
+              "text": "、"
+            },
+            {
+              "field": "lot_name",
+              "kind": "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+              "source": "SOURCE_FORM_STRUCTURE",
+              "text": "/"
+            },
+            {
+              "field": null,
+              "kind": "SOURCE_TEMPLATE_LITERAL",
+              "source": "SOURCE_PLACEHOLDER_TEXT",
+              "text": ")"
+            }
+          ],
+          "fact_components": [
+            "project_name"
+          ],
+          "generated_paragraph_index": 28,
+          "marker_components": [
+            "lot_name"
+          ],
+          "method": "source_slot_composite_presentation",
+          "slot_id": "slot-42-3",
+          "source_page": 42,
+          "source_slot_underline_inherited": true,
+          "underline_components": [
+            "SOURCE_TEMPLATE_LITERAL",
+            "FACT_VALUE",
+            "SOURCE_TEMPLATE_LITERAL",
+            "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+            "SOURCE_TEMPLATE_LITERAL"
+          ],
+          "underline_provenance": "the source drew one rule across this form slot, so every component occupying the slot inherits that decoration",
+          "value": "(河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/)"
+        },
+        {
+          "components": [
+            {
+              "field": null,
+              "kind": "SOURCE_TEMPLATE_LITERAL",
+              "source": "SOURCE_PLACEHOLDER_TEXT",
+              "text": "（"
+            },
+            {
+              "field": "project_number",
+              "kind": "FACT_VALUE",
+              "source": "ProjectFacts",
+              "text": "YSEJJXXB202607-18"
+            },
+            {
+              "field": null,
+              "kind": "SOURCE_TEMPLATE_LITERAL",
+              "source": "SOURCE_PLACEHOLDER_TEXT",
+              "text": "）"
+            }
+          ],
+          "fact_components": [
+            "project_number"
+          ],
+          "generated_paragraph_index": 28,
+          "marker_components": [],
+          "method": "source_slot",
+          "slot_id": "slot-42-4",
+          "source_page": 42,
+          "source_slot_underline_inherited": true,
+          "underline_components": [
+            "SOURCE_TEMPLATE_LITERAL",
+            "FACT_VALUE",
+            "SOURCE_TEMPLATE_LITERAL"
+          ],
+          "underline_provenance": "the source drew one rule across this form slot, so every component occupying the slot inherits that decoration",
+          "value": "（YSEJJXXB202607-18）"
+        }
+      ],
+      "source_characters_inside_rule_span": [
+        {
+          "char": "(",
+          "inside_rule_span": true,
+          "x0": 204.6,
+          "x1": 210.6
+        },
+        {
+          "char": "项",
+          "inside_rule_span": true,
+          "x0": 210.84,
+          "x1": 222.84
+        },
+        {
+          "char": "目",
+          "inside_rule_span": true,
+          "x0": 223.32,
+          "x1": 235.32
+        },
+        {
+          "char": "名",
+          "inside_rule_span": true,
+          "x0": 235.8,
+          "x1": 247.8
+        },
+        {
+          "char": "称",
+          "inside_rule_span": true,
+          "x0": 248.28,
+          "x1": 260.28
+        },
+        {
+          "char": "、",
+          "inside_rule_span": true,
+          "x0": 260.88,
+          "x1": 272.88
+        },
+        {
+          "char": "标",
+          "inside_rule_span": true,
+          "x0": 272.04,
+          "x1": 284.04
+        },
+        {
+          "char": "段",
+          "inside_rule_span": true,
+          "x0": 284.52,
+          "x1": 296.52
+        },
+        {
+          "char": ")",
+          "inside_rule_span": true,
+          "x0": 297.12,
+          "x1": 303.12
+        },
+        {
+          "char": "（",
+          "inside_rule_span": true,
+          "x0": 302.04,
+          "x1": 314.04
+        },
+        {
+          "char": "项",
+          "inside_rule_span": true,
+          "x0": 314.52,
+          "x1": 326.52
+        },
+        {
+          "char": "目",
+          "inside_rule_span": true,
+          "x0": 327.0,
+          "x1": 339.0
+        },
+        {
+          "char": "编",
+          "inside_rule_span": true,
+          "x0": 339.48,
+          "x1": 351.48
+        },
+        {
+          "char": "号",
+          "inside_rule_span": true,
+          "x0": 351.96,
+          "x1": 363.96
+        },
+        {
+          "char": "）",
+          "inside_rule_span": false,
+          "x0": 364.56,
+          "x1": 376.56
+        }
+      ],
+      "source_characters_inside_rule_span_text": "(项目名称、标段)（项目编号）",
+      "source_fill_applications": [
+        {
+          "application_id": "SFA2",
+          "application_kind": "PLACEHOLDER_REPLACEMENT",
+          "execution_owner_id": "SFF42|P42-R2|198.1-375.7@158.4",
+          "fact_fields": [
+            "project_name",
+            "lot_name",
+            "project_number"
+          ],
+          "generated_paragraph_index": 28,
+          "generated_run_index": null,
+          "geometry_intent": null,
+          "owner_kind": "ANCHORED_VALUE_OWNER",
+          "planned_fact_fields": [],
+          "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+          "resolved_values": [
+            "(河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/)",
+            "YSEJJXXB202607-18"
+          ],
+          "source_form_field_id": "SFF42|P42-R2|198.1-375.7@158.4",
+          "source_geometry": [
+            198.1,
+            375.7,
+            158.4
+          ],
+          "source_page": 42,
+          "source_rule_ids": [
+            "P42-R2"
+          ],
+          "source_slot_id": "slot-42-3",
+          "transformation_policy": null
+        }
+      ],
+      "source_owning_row": {
+        "owning_row_text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "owning_rows": [
+          {
+            "text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+            "x0": 96.84,
+            "x1": 523.92,
+            "y0": 146.7,
+            "y1": 158.98
+          }
+        ]
+      },
+      "source_rule_id": "P42-R2",
+      "source_rule_span": {
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "source_page": 42,
+        "text_occupancy": 1.0,
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4
+      },
+      "surface_accounting": [
+        {
+          "atom_count": 5,
+          "fact_value_mismatches": 0,
+          "invented_atoms": 0,
+          "is_one_of_the_emitted_surfaces": true,
+          "method": "source_slot_composite_presentation",
+          "reconstruction_equals_recorded_value": true,
+          "recorded_value": "(河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目、/)",
+          "slot_id": "slot-42-3",
+          "source_slot_underline_inherited": true,
+          "unaccounted_atoms": 0,
+          "underline_components": [
+            "SOURCE_TEMPLATE_LITERAL",
+            "FACT_VALUE",
+            "SOURCE_TEMPLATE_LITERAL",
+            "SOURCE_FORM_NOT_APPLICABLE_MARKER",
+            "SOURCE_TEMPLATE_LITERAL"
+          ]
+        },
+        {
+          "atom_count": 3,
+          "fact_value_mismatches": 0,
+          "invented_atoms": 0,
+          "is_one_of_the_emitted_surfaces": false,
+          "method": "source_slot",
+          "reconstruction_equals_recorded_value": true,
+          "recorded_value": "（YSEJJXXB202607-18）",
+          "slot_id": "slot-42-4",
+          "source_slot_underline_inherited": true,
+          "unaccounted_atoms": 0,
+          "underline_components": [
+            "SOURCE_TEMPLATE_LITERAL",
+            "FACT_VALUE",
+            "SOURCE_TEMPLATE_LITERAL"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -37,12 +37,12 @@
     "frozen_horizontal_anchors_held": true
   },
   "build": {
-    "build_id": "v1_phaseC_final2",
-    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx",
-    "generated_docx_sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d",
-    "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\generation_report.json",
-    "generation_report_sha256": "4f236cbc5e92fc191270086c66ec5b75a4b1ee767ca60ac08552b208e1c12d25",
-    "generated_pdf_sha256": "b768d1a08a38410d77f74a37625a9b94f151fd08889a42e2c326e3884e5dac95"
+    "build_id": "v1_manual_fidelity_round2",
+    "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.docx",
+    "generated_docx_sha256": "be447cb72e39126d088b56b04a2407fb87c58f4b7e30df120624d4ca4f876001",
+    "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\generation_report.json",
+    "generation_report_sha256": "21ebe5aa8497659b0c279462b567e1e60b09aefa6e9726181be569916ff8686d",
+    "generated_pdf_sha256": "8f8e19bcf42a61d856c63c1095b1757487a8904846ec589532846b7c53718064"
   },
   "tolerance_pt": 2.0,
   "emission_plan_count": 99,
@@ -124,7 +124,7 @@
   },
   "source_visible_integrity": {
     "r3_visible_glyph_group_once": true,
-    "r7_value_once_on_its_own_row": true,
+    "r7_value_emitted_exactly_once": true,
     "r7_three_segments_one_logical_rule": true,
     "r8_visible_group_once": true,
     "r8_one_logical_rule": true

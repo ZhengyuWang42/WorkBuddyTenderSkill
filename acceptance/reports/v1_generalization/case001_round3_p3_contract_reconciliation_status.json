@@ -1,0 +1,180 @@
+{
+  "schema": "case001_round3_p3_contract_reconciliation_status/1",
+  "superseded_by": {
+    "build_id": "v1_manual_fidelity_round3_p3semantics",
+    "status_file": "acceptance/reports/v1_generalization/case001_round3_p3semantic_reconciliation_status.json",
+    "report": "acceptance/reports/v1_generalization/case001_round3_p3semantic_reconciliation.md",
+    "reason": "this round's file asserted the frozen P3 semantics including P42-R6 = RESOLVED_VALUE_IN_FIXED_SLOT / ANCHOR_START_ONLY, while the build it pinned still carried FIXED_EMPTY_SLOT / EXACT_SOURCE_SPAN in its registry; the semantic-registry reconciliation makes the artifact carry the frozen contract, and the P3 horizontal contract it restored is unchanged (8/8 on the successor build)"
+  },
+  "round": 3,
+  "scope": "Preserve the Round-3 typography improvements and restore the frozen P3 horizontal geometry authority",
+  "build": {
+    "build_id": "v1_manual_fidelity_round3_p3reconciled",
+    "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_p3reconciled",
+    "docx_sha256": "0ac9f7bc1da34f1d32f5fe4aa444d2a1317a72a99589134972b8a49134fd39ab",
+    "pdf_sha256": "2d282ec4c77269b90c4d69a8b0c0fae8ca937d736941eb175709d30b3cbe29b5",
+    "generation_report_sha256": "aed84384ca0b08e6a2bf433bf17c5ec7193badde9018e3cac646d2822146469e",
+    "pdf_page_count": 22,
+    "blank_page_count": 0,
+    "libreoffice_returncode": 0,
+    "pipeline_returncode": 0
+  },
+  "superseded_build": {
+    "build_id": "v1_manual_fidelity_round3_source_typography",
+    "build_dir": "acceptance/workspace/case_001/v1_manual_fidelity_round3_source_typography",
+    "docx_sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
+    "role": "measured as the pre-reconciliation build in the Stage A/B diagnostic; its Round-3 typography fixes are carried into the reconciled build"
+  },
+  "baseline_build": {
+    "build_id": "v1_manual_fidelity_round2_p21fix",
+    "role": "Round-2 banked baseline, unchanged"
+  },
+  "source_pdf": "acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+  "committed": false,
+  "pushed": false,
+  "frozen_contract": {
+    "tolerance_pt": 2.0,
+    "source_page": 42,
+    "generated_page": 3,
+    "rebaselined": false,
+    "rules": [
+      {"source_rule_id": "P42-R1", "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE", "geometry_intent": "ANCHOR_START_ONLY", "source_x0": 94.8, "source_x1": 194.6},
+      {"source_rule_id": "P42-R2", "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE", "geometry_intent": "ANCHOR_START_ONLY", "source_x0": 198.1, "source_x1": 375.7},
+      {"source_rule_id": "P42-R3", "transformation_policy": "FIXED_EMPTY_SLOT", "geometry_intent": "EXACT_SOURCE_SPAN", "source_x0": 169.65, "source_x1": 323.6},
+      {"source_rule_id": "P42-R4", "transformation_policy": "FIXED_EMPTY_SLOT", "geometry_intent": "EXACT_SOURCE_SPAN", "source_x0": 384.6, "source_x1": 459.0},
+      {"source_rule_id": "P42-R5", "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT", "geometry_intent": "ANCHOR_START_ONLY", "source_x0": 131.85, "source_x1": 181.4},
+      {"source_rule_id": "P42-R6", "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT", "geometry_intent": "ANCHOR_START_ONLY", "source_x0": 95.25, "source_x1": 151.05},
+      {"source_rule_id": "P42-R7", "transformation_policy": "SOURCE_VALUE_UNDERLINE", "geometry_intent": "EXACT_SOURCE_SPAN", "source_x0": 352.8, "source_x1": 388.8},
+      {"source_rule_id": "P42-R8", "transformation_policy": "PRESERVE_SOURCE_PLACEHOLDER", "geometry_intent": "EXACT_SOURCE_SPAN", "source_x0": 112.8, "source_x1": 208.8}
+    ],
+    "authority_order": [
+      "source-visible form geometry",
+      "frozen P3 horizontal contract",
+      "fact completeness and reading order",
+      "source visual-line semantics",
+      "Word paragraph continuity"
+    ]
+  },
+  "p3_measurement": {
+    "reconciled": {
+      "matched": 8,
+      "lost": 0,
+      "invented": 0,
+      "out_of_tolerance": 0,
+      "invariants": [],
+      "per_rule_endpoint_error_pt": {
+        "P42-R1": {"painted": [94.9, 286.9], "error_pt": 0.1, "gated_axis": "START_ONLY"},
+        "P42-R2": {"painted": [198.2, 523.5], "error_pt": 0.1, "gated_axis": "START_ONLY"},
+        "P42-R3": {"painted": [169.65, 322.7], "error_pt": 0.9, "gated_axis": "START_AND_END"},
+        "P42-R4": {"painted": [384.6, 458.9], "error_pt": 0.1, "gated_axis": "START_AND_END"},
+        "P42-R5": {"painted": [131.85, 182.25], "error_pt": 0.0, "gated_axis": "START_ONLY"},
+        "P42-R6": {"painted": [94.8, 151.0], "error_pt": 0.45, "gated_axis": "START_AND_END"},
+        "P42-R7": {"painted": [352.8, 388.8], "error_pt": 0.0, "gated_axis": "START_AND_END"},
+        "P42-R8": {"painted": [112.9, 208.9], "error_pt": 0.1, "gated_axis": "START_AND_END"}
+      }
+    },
+    "pre_reconciliation": {
+      "matched": 6,
+      "lost": 0,
+      "invented": 0,
+      "out_of_tolerance": 2,
+      "out_of_tolerance_rule_ids": ["P42-R3", "P42-R4"],
+      "invariants": 2
+    },
+    "old_inventory_disagreements": {
+      "reported": {"matched": 5, "lost": 1, "out_of_tolerance": 2, "invented": 2},
+      "classification_counts": {
+        "ACTUAL_RENDER_REGRESSION": 2,
+        "NEIGHBOUR_RULE_MERGE": 1,
+        "DOUBLE_ACCOUNTING": 2,
+        "OBSOLETE_MEASUREMENT_MODEL": 0,
+        "TEXT_DECORATION_MISCLASSIFICATION": 0,
+        "OTHER_PROVEN_CAUSE": 0
+      },
+      "entries": [
+        {"old_status": "LOST", "source_rule_id": "P42-R3", "classification": "ACTUAL_RENDER_REGRESSION", "old_measured": [238.8, 323.9], "old_deviation_pt": 69.15, "reconciled_error_pt": 0.9},
+        {"old_status": "OUT_OF_TOLERANCE", "source_rule_id": "P42-R4", "classification": "ACTUAL_RENDER_REGRESSION", "old_measured": [385.6, 469.05], "old_deviation_pt": 10.05, "reconciled_error_pt": 0.1},
+        {"old_status": "OUT_OF_TOLERANCE", "source_rule_id": "P42-R6", "classification": "NEIGHBOUR_RULE_MERGE", "old_measured": [94.9, 156.4], "old_deviation_pt": 5.35, "rule_own_span": [94.9, 150.7], "reconciled_error_pt": 0.45},
+        {"old_status": "INVENTED", "source_rule_id": null, "classification": "DOUBLE_ACCOUNTING", "old_measured": [238.8, 323.9], "owner_rule_ids": ["P42-R3"]},
+        {"old_status": "INVENTED", "source_rule_id": null, "classification": "DOUBLE_ACCOUNTING", "old_measured": [324.2, 524.31], "owner_rule_ids": ["P42-R3", "P42-R4"]}
+      ]
+    },
+    "diagnostic_report": "acceptance/reports/v1_generalization/case001_round3_p3_contract_reconciliation_diagnostic.json"
+  },
+  "structural_isolation": [
+    {"generated_paragraph_index": 29, "source_rule_ids": ["P42-R3", "P42-R4"], "isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW", "space_before_pt": 0.0, "space_after_pt": 0.0, "hard_breaks": 0},
+    {"generated_paragraph_index": 30, "source_rule_ids": ["P42-R6"], "isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW", "space_before_pt": 0.0, "space_after_pt": 0.0, "hard_breaks": 0}
+  ],
+  "statuses": {
+    "CASE001_ROUND3_P3_RECONCILIATION": "PASS",
+    "ROUND3_TYPOGRAPHY": "PASS",
+    "PARAGRAPH_ALIGNMENT": "CLOSED",
+    "HARD_BREAK_FIDELITY": "CLOSED",
+    "TABLE_CELL_LINE_STRUCTURE": "CLOSED",
+    "SOURCE_BOLD_FIDELITY": "CLOSED",
+    "SOURCE_UNDERLINE_FIDELITY": "CLOSED",
+    "FIXED_BLANK_FIDELITY": "CLOSED",
+    "P3_SEMANTICS": "8/8",
+    "P3_HORIZONTAL": "8/8",
+    "P3_RULE_ACCOUNTING": "matched=8 lost=0 invented=0 out_of_tolerance=0 invariants=[]",
+    "FLOW_PLACED_RULE_ENDPOINTS": "DIAGNOSTIC_ONLY",
+    "REFLOW_AWARE_V1": "PASS",
+    "CASE001_AUTOMATED_REGRESSION": "PASS",
+    "CASE002_REGRESSION": "PASS",
+    "CASE003_REGRESSION": "PASS",
+    "THREE_CASE_GENERALIZATION": "PASS",
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false
+  },
+  "gates": {
+    "p3_closure_frozen": "acceptance/reports/v1_generalization/case001_p3_closure_round3_reconciled.json",
+    "p3_rule_accounting": "acceptance/reports/v1_generalization/case001_underline_inventory_round3_reconciled.json",
+    "round3_typography": "acceptance/reports/v1_generalization/case001_source_typography_round3.json",
+    "round3_typography_baseline": "acceptance/reports/v1_generalization/case001_source_typography_round3_baseline.json",
+    "reflow_aware": "acceptance/reports/v1_generalization/case001_reflow_aware_round3_reconciled.json",
+    "p3_reflow_vertical": "acceptance/reports/v1_generalization/case001_p3_reflow_vertical_round3_reconciled.json",
+    "source_line_assembly": "acceptance/reports/v1_generalization/case001_source_line_assembly_round3_reconciled.json",
+    "execution_ownership": "acceptance/reports/v1_generalization/case001_ownership_closure_round3_reconciled.json",
+    "p21_structural": "acceptance/reports/v1_generalization/case001_p21_structural_gate_round3_reconciled.json",
+    "page_frame": "acceptance/reports/v1_generalization/case001_page_frame_audit_round3_reconciled.json",
+    "case_001_acceptance": "acceptance/reports/v1_generalization/case_001_round3_acceptance.json",
+    "case_002_acceptance": "acceptance/reports/v1_generalization/case_002_round3_acceptance.json",
+    "case_003_acceptance": "acceptance/reports/v1_generalization/case_003_round3_acceptance.json",
+    "three_case_regression": "acceptance/reports/v1_generalization/three_case_regression_round3_reconciled.json",
+    "automated_candidate": "acceptance/reports/v1_generalization/v1_automated_candidate_gate_round3_reconciled.json"
+  },
+  "contract_notes": [
+    {
+      "kind": "REGISTRY_POLICY_LISTING_DIFFERS_FROM_FROZEN_CONTRACT_LISTING",
+      "source_rule_id": "P42-R6",
+      "frozen_contract_listing": "RESOLVED_VALUE_IN_FIXED_SLOT / ANCHOR_START_ONLY",
+      "production_registry": "FIXED_EMPTY_SLOT / EXACT_SOURCE_SPAN",
+      "delivered_geometry_satisfies_both_readings": true,
+      "delivered_start_error_pt": 0.45,
+      "delivered_end_error_pt": 0.05,
+      "note": "the source has no resolved fact for this slot, so the registry policy stands; the delivered ink satisfies the stricter exact-span reading as well, which is why the row is isolated"
+    },
+    {
+      "kind": "LEGACY_ABSOLUTE_VERTICAL_PHASE_REMAINS_RED_BY_DESIGN",
+      "authority": "REFLOW_AWARE_V1",
+      "maximum_residual_y_error_pt": 0.71,
+      "tolerance_pt": 2.0,
+      "unexplained_vertical_expansion_count": 0,
+      "note": "mandatory reflow of the recorded long project name and values; vertical source-y only, never a horizontal span"
+    }
+  ],
+  "files_changed": {
+    "production": [
+      "tender_basic/word_style_source_builder.py",
+      "tender_basic/word_safe_source_builder.py"
+    ],
+    "gates": [
+      "scripts/v1_underline_inventory.py",
+      "scripts/v1_source_typography_round3_gate.py",
+      "scripts/v1_round3_p3_reconciliation_diagnostic.py"
+    ],
+    "tests": ["tests/test_round3_source_typography.py"]
+  }
+}

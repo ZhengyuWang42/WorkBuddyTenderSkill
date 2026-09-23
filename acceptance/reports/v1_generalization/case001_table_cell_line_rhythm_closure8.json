@@ -1,0 +1,325 @@
+{
+  "schema": "case001_table_cell_line_rhythm/1",
+  "generated_by": "scripts/v1_table_cell_line_rhythm_audit.py",
+  "build": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8",
+  "pitch_tolerance_pt": 1.0,
+  "source_cell": {
+    "source_locator": {
+      "locator_type": "pdf_table_cell",
+      "page": 48,
+      "table_index": 0,
+      "row_index": 9,
+      "column_index": 1
+    },
+    "source_page": 48,
+    "table_index": 15,
+    "bbox": [
+      92.25,
+      544.2899780273438,
+      541.77001953125,
+      628.8099975585938
+    ],
+    "text": "不含税合计（即响应报价）： （大写）， 元（小写）\n其中：税率： %，税金： （大写）， 元（小写）。\n总计（含税金额）： （大写）， 元（小写）。",
+    "lines": [
+      {
+        "y_top": 561.792,
+        "text": "不含税合计（即响应报价）： （大写）， 元（小写）",
+        "bold_glyphs": 23,
+        "underlined_glyphs": 0,
+        "glyphs": 23
+      },
+      {
+        "y_top": 585.192,
+        "text": "其中：税率： %，税金： （大写）， 元（小写）。",
+        "bold_glyphs": 22,
+        "underlined_glyphs": 0,
+        "glyphs": 22
+      },
+      {
+        "y_top": 604.632,
+        "text": "总计（含税金额）： （大写）， 元（小写）。",
+        "bold_glyphs": 20,
+        "underlined_glyphs": 0,
+        "glyphs": 20
+      }
+    ],
+    "line_count": 3,
+    "pitches_pt": [
+      23.4,
+      19.44
+    ]
+  },
+  "generated_cell": {
+    "table_index": 2,
+    "row_index": 9,
+    "column_index": 1,
+    "paragraph_count": 3,
+    "w_br_count": 0,
+    "empty_paragraph_count": 0,
+    "text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+    "paragraphs": [
+      {
+        "paragraph_index": 0,
+        "text": "不含税合计（即响应报价）：\t\t（大写），\t\t元（小写）",
+        "w_br_or_cr_count": 0,
+        "line_spacing": 1.6625,
+        "runs": [
+          {
+            "text": "不含税合计（即响应报价）：",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "（大写），",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "元（小写）",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          }
+        ],
+        "has_drawing": false,
+        "has_textbox": false
+      },
+      {
+        "paragraph_index": 1,
+        "text": "其中：税率：\t\t%，税金：\t\t（大写），\t\t元（小写）。",
+        "w_br_or_cr_count": 0,
+        "line_spacing": 1.3791666666666667,
+        "runs": [
+          {
+            "text": "其中：税率：",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "%，税金：",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "（大写），",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "元（小写）。",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          }
+        ],
+        "has_drawing": false,
+        "has_textbox": false
+      },
+      {
+        "paragraph_index": 2,
+        "text": "总计（含税金额）：\t\t（大写），\t\t元（小写）。",
+        "w_br_or_cr_count": 0,
+        "line_spacing": 1.25,
+        "runs": [
+          {
+            "text": "总计（含税金额）：",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "（大写），",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          },
+          {
+            "text": "\t",
+            "bold": true,
+            "underline": true,
+            "size_pt": 10.0
+          },
+          {
+            "text": "元（小写）。",
+            "bold": true,
+            "underline": false,
+            "size_pt": 10.0
+          }
+        ],
+        "has_drawing": false,
+        "has_textbox": false
+      }
+    ],
+    "has_drawing": false,
+    "has_textbox": false
+  },
+  "rendered_line_tops": [
+    622.102,
+    645.502,
+    664.952
+  ],
+  "rendered_lines": [
+    {
+      "page": 9,
+      "y_top": 622.102,
+      "x0": 93.9,
+      "anchor": "不含税合",
+      "text": "不含税合计（即响应报价）：",
+      "source_y_top": 561.792,
+      "candidate_count": 2,
+      "expected_y_top": 622.102
+    },
+    {
+      "page": 9,
+      "y_top": 645.502,
+      "x0": 96.9,
+      "anchor": "其中：税",
+      "text": "其中：税率：",
+      "source_y_top": 585.192,
+      "candidate_count": 1,
+      "expected_y_top": 645.502
+    },
+    {
+      "page": 9,
+      "y_top": 664.952,
+      "x0": 104.55,
+      "anchor": "总计（含",
+      "text": "总计（含税金额）：",
+      "source_y_top": 604.632,
+      "candidate_count": 1,
+      "expected_y_top": 664.942
+    }
+  ],
+  "rendered_line_anchors": [
+    "不含税合",
+    "其中：税",
+    "总计（含"
+  ],
+  "rendered_page": 9,
+  "pitch_comparisons": [
+    {
+      "interval": "1->2",
+      "source_pitch_pt": 23.4,
+      "generated_pitch_pt": 23.4,
+      "error_pt": 0.0,
+      "within_tolerance": true,
+      "line_spacing": 1.6625,
+      "emitted_font_size_pt": 10.0,
+      "predicted_pitch_pt": 23.401,
+      "prediction_error_pt": 0.001,
+      "prediction_within_tolerance": true
+    },
+    {
+      "interval": "2->3",
+      "source_pitch_pt": 19.44,
+      "generated_pitch_pt": 19.45,
+      "error_pt": 0.01,
+      "within_tolerance": true,
+      "line_spacing": 1.3791666666666667,
+      "emitted_font_size_pt": 10.0,
+      "predicted_pitch_pt": 19.413,
+      "prediction_error_pt": -0.027,
+      "prediction_within_tolerance": true
+    }
+  ],
+  "content": {
+    "source_bold_glyphs": 65,
+    "delivered_bold_glyphs": 79,
+    "source_underlined_glyphs": 0,
+    "delivered_underlined_glyphs": 7,
+    "source_lines_present": 3,
+    "source_line_count": 3
+  },
+  "QUOTATION_SUMMARY_ONE_LOGICAL_CELL": "PASS",
+  "QUOTATION_SUMMARY_SOURCE_BACKED_PARAGRAPHS": "PASS",
+  "QUOTATION_SUMMARY_W_BR": 0,
+  "QUOTATION_SUMMARY_EMPTY_PARAGRAPHS": 0,
+  "QUOTATION_SUMMARY_BOLD": "PASS",
+  "QUOTATION_SUMMARY_UNDERLINES": "PASS",
+  "QUOTATION_SUMMARY_EDITABLE": "PASS",
+  "TABLE_CELL_LINE_PITCH_FIDELITY": "PASS",
+  "status": "PASS"
+}

@@ -1,0 +1,398 @@
+{
+  "schema": "case001_quotation_summary_line_pitch_round4/1",
+  "build": "v1_manual_fidelity_round3_word_review_final",
+  "generated_at_utc": "2026-02-14T00:00:00Z",
+  "build_hashes": {
+    "docx": "16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191",
+    "pdf": "ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174",
+    "generation_report": "97584ab13b820378669f4fee90d94ef918637c35c4cd86a8fc3c28e172e4e761"
+  },
+  "build_hashes_expected": {
+    "docx": "16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191",
+    "pdf": "ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174",
+    "generation_report": null
+  },
+  "hash_verification": {
+    "docx_matches_expected": true,
+    "pdf_matches_expected": true,
+    "generation_report_expected_supplied": false,
+    "note": "docx and pdf SHA256 were supplied by the task and match byte-for-byte. generation_report.json had no supplied reference digest; its hash is reported as measured."
+  },
+  "generated_docx": "acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final/基础投标文件.docx",
+  "generated_pdf": "acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final/基础投标文件.pdf",
+  "generated_pdf_pages": 22,
+  "generated_pdf_producer": "LibreOffice 26.2.3.2 (X86_64)",
+  "generated_pdf_creator": "Writer",
+  "source_pdf": {
+    "path": "acceptance/private/7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "pages": 61,
+    "producer": "",
+    "creator": "WPS 文字"
+  },
+  "section": {
+    "heading": "五、分项报价表",
+    "generated_page_index0": 8,
+    "generated_page_number_1based": 9,
+    "source_page_index0": 47,
+    "source_page_number_1based": 48
+  },
+  "measurement_method": {
+    "engine": "pymupdf (imported as fitz) rawdict, per-span origin/bbox/font/size/flags; python-docx + lxml for OOXML",
+    "baseline": "span[\"origin\"][1] (the true text baseline) for every line on BOTH sides. No bbox-bottom fallback was needed on either side, so no fallback is in use.",
+    "bbox_order": "[x0, top, x1, bottom] in PDF points, origin top-left, page height 841.89 pt (generated) / 841.90 pt (source).",
+    "visual_line_reconstruction": "PyMuPDF splits one visual text line into several dict 'lines' when a wide horizontal gap (a blank field slot) interrupts it. Segments sharing an identical baseline y were grouped into one visual line; the reported bbox is the union of those segments. Generated line 1 = segments at x0 159.60/313.30/407.75; line 2 = 154.60/265.60/402.75; line 3 = 194.45/305.45. Source line 1 = 118.80/350.64/456.00; line 2 = 118.80/197.76/319.08/450.84; line 3 = 129.84/335.40/440.76.",
+    "source_line_search": "The source page was found by full-document text scan for the distinctive strings 不含税合计 / 其中：税率 / 总计（含税金额）; all three were found on source page index 47 only. Page 3 and page 40 also contain the heading 分项报价表 but not the summary lines.",
+    "pitch_definition": "pitch = later_line_baseline_y - earlier_line_baseline_y (pt), measured inside the single row that carries all three lines.",
+    "bold_criterion": "bold is read from the PDF font name: a font is called bold iff the name string (case-insensitive) contains any of 'bold', 'black', 'heavy', 'simhei', 'fzhei', 'hei'. FangSong / SimSun / TimesNewRomanPSMT contain none of these, so PDF-level bold = false on BOTH sides. Cross-checked against the PyMuPDF span flag bit 4 (value 16 = bold): flags = 4 on every measured span on both sides, so bit 4 is clear. The criterion is a PDF-name test, NOT a stroke-weight measurement.",
+    "ooxml_access": "docx.Document(...) then paragraph._p / cell._tc / row._tr / table._tbl with the lxml namespace {http://schemas.openxmlformats.org/wordprocessingml/2006/main}."
+  },
+  "lines": [
+    {
+      "ordinal": 1,
+      "label": "excl_tax_total",
+      "text": "不含税合计（即响应报价）：\t\t（大写），\t\t元（小写）",
+      "source": {
+        "page": 48,
+        "page_index0": 47,
+        "page_number_1based": 48,
+        "baseline_y": 570.77,
+        "baseline_source": "span origin[1]",
+        "bbox": [118.8, 561.79, 508.57, 572.48],
+        "font_size": 10.45,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      },
+      "generated": {
+        "page": 9,
+        "page_index0": 8,
+        "page_number_1based": 9,
+        "baseline_y": 613.45,
+        "baseline_source": "span origin[1]",
+        "bbox": [159.6, 604.85, 474.2, 614.85],
+        "font_size": 10.0,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      }
+    },
+    {
+      "ordinal": 2,
+      "label": "tax_line",
+      "text": "其中：税率：\t\t%，税金：\t\t（大写），\t\t元（小写）。",
+      "source": {
+        "page": 48,
+        "page_index0": 47,
+        "page_number_1based": 48,
+        "baseline_y": 594.17,
+        "baseline_source": "span origin[1]",
+        "bbox": [118.8, 585.19, 513.97, 595.88],
+        "font_size": 10.45,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      },
+      "generated": {
+        "page": 9,
+        "page_index0": 8,
+        "page_number_1based": 9,
+        "baseline_y": 627.55,
+        "baseline_source": "span origin[1]",
+        "bbox": [154.6, 618.95, 479.2, 628.95],
+        "font_size": 10.0,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      }
+    },
+    {
+      "ordinal": 3,
+      "label": "incl_tax_total",
+      "text": "总计（含税金额）：\t\t（大写），\t\t元（小写）。",
+      "source": {
+        "page": 48,
+        "page_index0": 47,
+        "page_number_1based": 48,
+        "baseline_y": 613.61,
+        "baseline_source": "span origin[1]",
+        "bbox": [129.84, 604.63, 503.89, 615.32],
+        "font_size": 10.45,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      },
+      "generated": {
+        "page": 9,
+        "page_index0": 8,
+        "page_number_1based": 9,
+        "baseline_y": 641.65,
+        "baseline_source": "span origin[1]",
+        "bbox": [194.45, 633.05, 439.35, 643.05],
+        "font_size": 10.0,
+        "font_family": "FangSong",
+        "bold": false,
+        "bold_criterion": "PDF font name 'FangSong' contains no bold/black/heavy/hei marker; PyMuPDF span flags=4 (bit 4 / value 16 clear)"
+      }
+    }
+  ],
+  "source_pitch_1_2": 23.4,
+  "source_pitch_2_3": 19.44,
+  "generated_pitch_1_2": 14.1,
+  "generated_pitch_2_3": 14.1,
+  "pitch_error_1_2": -9.3,
+  "pitch_error_2_3": -5.34,
+  "abs_residual_1_2": 9.3,
+  "abs_residual_2_3": 5.34,
+  "pitch_units": "pt",
+  "pitch_error_sign_convention": "generated - source; negative = the generated line pitch is TIGHTER than the source",
+  "generated_pitch_uniformity": {
+    "uniform": true,
+    "note": "Both generated gaps are exactly 14.10 pt. Every one of the 27 runs in the paragraph carries the same w:sz (20 half-points = 10.0 pt) and the same font (仿宋), so under lineRule=auto there is no per-line height difference and therefore no line-to-line pitch variation."
+  },
+  "ooxml": {
+    "locator": {
+      "table_index": 2,
+      "row_index": 9,
+      "cell": "horizontally merged cell, w:gridSpan=8; python-docx resolves it at grid columns 1,3,4,5,7,8",
+      "paragraph_index_in_cell": 0
+    },
+    "paragraph_properties": {
+      "w:pStyle": "TenderTableValue",
+      "w:spacing": {
+        "w:line": "240",
+        "w:lineRule": "auto",
+        "w:before": "0",
+        "w:after": "0"
+      },
+      "w:line_effective_multiple": 1.0,
+      "w:jc": "center",
+      "w:ind": {
+        "w:left": "0",
+        "w:right": "0",
+        "w:firstLine": "0"
+      },
+      "w:tabs_defined_in_pPr": 14,
+      "raw": "<w:spacing w:after=\"0\" w:before=\"0\" w:line=\"240\" w:lineRule=\"auto\"/><w:ind w:firstLine=\"0\" w:left=\"0\" w:right=\"0\"/><w:jc w:val=\"center\"/>"
+    },
+    "runs": {
+      "total": 27,
+      "distinct_w:sz": ["20"],
+      "distinct_w:sz_pt": [10.0],
+      "all_runs_have_w:b": true,
+      "w:b_count": 27,
+      "distinct_w:i": ["0"],
+      "w:rFonts": {
+        "w:ascii": "仿宋",
+        "w:hAnsi": "仿宋",
+        "w:eastAsia": "仿宋"
+      },
+      "underline_runs": {
+        "w:u_val": "single",
+        "count": 7
+      },
+      "literal_tab_chars_in_w:t": 14,
+      "w:tab_elements_in_paragraph": 0,
+      "note_on_tabs": "The blank field slots are 14 literal TAB characters inside <w:t> runs (hence xml:space=\"preserve\"), not <w:tab/> elements."
+    },
+    "explicit_line_breaks": {
+      "w:br_count": 2,
+      "positions_run_index0": [7, 18],
+      "positions_note": "the <w:br/> lives alone in its own run, between the run holding '元（小写）' and the run holding '其中：税率：', and between '元（小写）。' and '总计（含税金额）：'",
+      "visual_lines_produced": 3
+    },
+    "containing_cell_w:tcPr": {
+      "w:tcW": {
+        "w:type": "dxa",
+        "w:w": "8990"
+      },
+      "w:gridSpan": "8",
+      "w:vAlign": "center",
+      "w:tcMar": null,
+      "w:tcMar_note": "the cell declares NO w:tcMar; all four cell margins are inherited from the table"
+    },
+    "containing_row_w:trPr": {
+      "w:trHeight": {
+        "w:val": "1690",
+        "w:hRule": "atLeast"
+      },
+      "w:trHeight_pt": 84.5
+    },
+    "table_w:tblPr": {
+      "w:tblStyle": "TableGrid",
+      "w:tblW": {
+        "w:type": "dxa",
+        "w:w": "9529"
+      },
+      "w:jc": "left",
+      "w:tblInd": {
+        "w:w": "-109",
+        "w:type": "dxa"
+      },
+      "w:tblLayout": "fixed",
+      "w:tblCellMar": {
+        "w:top": {
+          "w:w": "0",
+          "w:type": "dxa"
+        },
+        "w:left": {
+          "w:w": "0",
+          "w:type": "dxa"
+        },
+        "w:bottom": {
+          "w:w": "0",
+          "w:type": "dxa"
+        },
+        "w:right": {
+          "w:w": "0",
+          "w:type": "dxa"
+        }
+      }
+    },
+    "style_definition_TenderTableValue": {
+      "w:basedOn": "TableText",
+      "style_w:spacing": {
+        "w:line": "360",
+        "w:lineRule": "auto",
+        "w:before": "0",
+        "w:after": "0"
+      },
+      "style_w:line_effective_multiple": 1.5,
+      "style_w:rPr_w:sz": "21",
+      "style_w:rPr_w:sz_pt": 10.5,
+      "style_w:jc": "left",
+      "note": "The STYLE carries w:line=360 (1.5 lines) and w:sz=21 (10.5 pt). The paragraph's own direct w:spacing (w:line=240) and its runs' direct w:sz (20, i.e. 10.0 pt) both override the style. Direct formatting is therefore authoritative; the rendered paragraph is single-spaced at 10.0 pt. The '1.5 lines' value is present in the document but is NOT the effective value for this paragraph."
+    },
+    "word_docDefaults": {
+      "w:pPrDefault_w:spacing": {
+        "w:after": "0",
+        "w:line": "276",
+        "w:lineRule": "auto",
+        "w:before": "0"
+      },
+      "w:rPrDefault_w:sz": "22"
+    }
+  },
+  "rendered_geometry_cross_check": {
+    "source_row_borders_y": [544.29, 628.69],
+    "generated_row_borders_y": [579.85, 664.85],
+    "source_row_height_pt": 84.4,
+    "generated_row_height_pt": 85.0,
+    "row_height_delta_pt": 0.6,
+    "finding": "Both sides place all three summary lines inside ONE table row, and the two rows have the same height (84.40 vs 85.00 pt, within 0.6 pt). The row height is therefore NOT the defect; only the distribution of the three baselines inside that row differs.",
+    "baseline_offset_from_row_top_pt": {
+      "source": [26.48, 49.88, 69.32],
+      "generated": [33.6, 47.7, 61.8]
+    },
+    "baseline_offset_from_row_bottom_pt": {
+      "source": {"line3": 15.08},
+      "generated": {"line3": 23.2}
+    },
+    "field_underlines_present_both_sides": true,
+    "source_underline_y": [571.9, 595.3, 614.85],
+    "generated_underline_y": [614.55, 628.65, 642.75],
+    "underline_offset_below_baseline_pt": {
+      "source": [1.13, 1.13, 1.24],
+      "generated": [1.1, 1.1, 1.1]
+    }
+  },
+  "single_spacing_line_height_calibration": {
+    "purpose": "To establish what absolute pitch w:line=\"240\" w:lineRule=\"auto\" actually produces, and to prove that the renderer honours w:line linearly rather than substituting the style's 360.",
+    "measured_pitches_at_12pt_sz24": {
+      "w:line_240": 16.9,
+      "w:line_300": 21.1,
+      "w:line_360": 25.35
+    },
+    "ratios_vs_240": {
+      "300_over_240_measured": 1.2485,
+      "300_over_240_nominal": 1.25,
+      "360_over_240_measured": 1.5,
+      "360_over_240_nominal": 1.5
+    },
+    "measured_pitch_by_font_size_at_w_line_240": {
+      "10.0_pt": 14.1,
+      "11.0_pt": 15.5,
+      "12.0_pt": 16.9
+    },
+    "implied_line_height_em": 1.41,
+    "independent_samples": [
+      "generated page 9, the subject paragraph itself (FangSong 10.0 pt, direct w:line=240): 613.45 -> 627.55 -> 641.65",
+      "generated page 9, table header 单/位 (SimSun 10.0 pt, direct w:line=240): 131.05 -> 145.15 = 14.10",
+      "generated page 9, 16000mm× / 8500mm×3500mm (FangSong 12.0 pt, w:line=240, one w:br): 170.75 -> 187.65 = 16.90",
+      "generated page 14, 序/号 (FangSong 12.0 pt, w:line=240, one w:br): 149.00 -> 165.90 = 16.90",
+      "generated page 4, 响应报价(元）/（不含税） (FangSong 12.0 pt, w:line=240, one w:br): 212.95 -> 229.85 = 16.90"
+    ],
+    "conclusion": "At 10 pt the effective single-spacing pitch is 14.10 pt, i.e. approximately 1.41 x the run font size. If the renderer had used the style's w:line=360 the pitch would have been 21.15 pt at 10 pt (1.5 x 14.10). The observed 14.10 therefore shows the paragraph-level w:line=240 is the honoured value."
+  },
+  "source_own_line_pitch_reference": {
+    "note": "Independent of the summary block, the source exhibits a genuine intra-paragraph wrap pitch that can be compared like-for-like with the generated render at the same font size.",
+    "source_wrapped_paragraph_sample": {
+      "page_index0": 47,
+      "font_size": 12.0,
+      "font_family": "FangSong",
+      "baselines": [202.13, 217.73, 233.33, 248.93, 264.53],
+      "pitch_pt": 15.6,
+      "implied_line_height_em": 1.3
+    },
+    "generated_same_size_sample": {
+      "font_size": 12.0,
+      "font_family": "FangSong",
+      "baselines": [170.75, 187.65],
+      "pitch_pt": 16.9,
+      "implied_line_height_em": 1.41
+    },
+    "difference_pt": 1.3,
+    "interpretation": "Even for a plain wrapped multi-line run at the same 12 pt FangSong, the LibreOffice render advances ~1.30 pt more per line than the source's own line pitch. This is a separate, smaller pitch inflation and is NOT the dominant cause of the summary-line defect."
+  },
+  "source_summary_structure": {
+    "row_borders_y": [544.29, 628.69],
+    "row_height_pt": 84.4,
+    "lines_are_separate_text_blocks": true,
+    "block_ids": [500, 501, 502],
+    "finding": "In the source the three summary lines lie in ONE table row (full-width borders at y=544.29 and y=628.69, width 476.68 pt) but each line is its OWN text block. The source therefore provides no multi-line paragraph covering all three, and the source's 23.40 / 19.44 pt deltas are the source's own inter-line advance inside that row, deliberately larger than its own line pitch (about 13.6 pt would be plain 1.30 em pitch at 10.45 pt)."
+  },
+  "tolerance": {
+    "value_pt": 1.0,
+    "provenance": "tender_basic/source_vertical_rhythm.py line 38: DEFAULT_PITCH_TOLERANCE_PT = 1.0, documented as 'Two source gaps this close are the same visual rhythm, not two spacings.' This is the repository's own pitch-specific tolerance for deciding whether two line/row gaps are the SAME visual rhythm, so it is the most directly applicable established threshold. It is corroborated by tender_basic/page_layout.py line 88: SINGLE_LINE_PITCH_TOLERANCE_PT = 1.0 ('A source baseline pitch within this many points of plain single spacing is an ordinary single-spaced paragraph, not a stretched one.').",
+    "secondary_provenance": "The frozen P3 geometry tolerance of 2.0 pt is also established and is not relaxed: docs/V1_DECISIONS.md lines 52 and 58 ('单位：pt。tolerance_pt = 2.0。' and 'P1 | 容差固定 2.0 pt。不得放宽'), docs/V1_PROJECT_STATE.md line 309 and line 426 ('不放宽 tolerance（保持 2.0 pt）'), tender_basic/geometry_rule_qa.py line 33 (MANDATORY_TOLERANCE_PT = 2.0), tender_basic/vertical_reflow_qa.py line 90 (TOLERANCE_PT = 2.0).",
+    "which_applies": "The 1.0 pt pitch tolerance is used as the primary threshold because the measured quantity is a line pitch. The 2.0 pt frozen geometry tolerance is reported alongside; the residual exceeds both, so the verdict does not depend on the choice."
+  },
+  "pitch_within_tolerance": false,
+  "pitch_within_tolerance_justification": "abs_residual_1_2 = 9.30 pt and abs_residual_2_3 = 5.34 pt. Both exceed the pitch-specific tolerance of 1.0 pt (source_vertical_rhythm.py:38) by 9.3x and 5.3x, and both also exceed the frozen P3 geometry tolerance of 2.0 pt by 4.7x and 2.7x. No tolerance was invented: the 1.0 pt value is an existing repository constant for exactly this kind of gap comparison.",
+  "root_cause_hypothesis": "PROVEN: the paragraph-level w:pPr/w:spacing/@w:line=\"240\" with @w:lineRule=\"auto\" (single spacing) is the property that produces the generated pitch, and it is the wrong value because the three source lines were collapsed into ONE paragraph joined by two <w:br/>. Under lineRule=auto a <w:br/> does not start a new paragraph, so it inherits the paragraph's line spacing; the advance between the three visual lines therefore becomes the renderer's single-spacing line height, measured at 14.10 pt for a 10.0 pt run (about 1.41 x font size, calibrated at 10/11/12 pt). The source advances its three lines by 23.40 and 19.44 pt inside the same-sized table row, and that source advance is encoded nowhere in the generated paragraph: w:before=0, w:after=0, and no per-line override exists. Corroborating evidence that 240 rather than the style's 360 is what governs: w:line is honoured linearly in this render (240 -> 16.90, 300 -> 21.10, 360 -> 25.35 pt at 12 pt), and 1.5 x 14.10 = 21.15 pt is not what the paragraph renders. The style TenderTableValue does declare w:line=360 (1.5 lines), which would have produced 21.15 pt at 10 pt and been much closer to the source, but the paragraph's direct w:line=240 overrides it. Because all three lines carry one identical w:sz (20) and one identical font, the generated pitch is uniform, so no line-to-line height variation contributes to the defect.",
+  "root_cause_property": {
+    "primary": "w:pPr/w:spacing/@w:line = \"240\" with @w:lineRule = \"auto\" (single spacing)",
+    "contributing": "<w:br/> used twice to place three source lines in one paragraph, with w:spacing/@w:before = 0 and @w:after = 0, so the source's inter-line advance is not encoded",
+    "overridden_style_value": "the TenderTableValue style's w:line = \"360\" (1.5 lines), which the paragraph's direct w:line=240 defeats",
+    "not_responsible": [
+      "the containing row height (w:trHeight w:val=1690 w:hRule=atLeast = 84.5 pt) - the source row is 84.40 pt, a 0.6 pt difference",
+      "cell margins - w:tcMar is absent and w:tblCellMar is all zero on both sides",
+      "w:jc (center) - horizontal only",
+      "per-line font size or bold variation - all 27 runs share w:sz=20 and the same font"
+    ]
+  },
+  "conclusion": {
+    "three_source_lines_preserved": true,
+    "generated_bold_matches_source": true,
+    "generated_underlines_present": true,
+    "line_boundaries_preserved": true,
+    "pitch_differs_from_source": true,
+    "notes": {
+      "three_source_lines_preserved": "All three source lines appear, in source order, on generated page 9 (index 8), separated by exactly 2 explicit <w:br/>.",
+      "generated_bold_matches_source": "By the declared PDF-font-name criterion both sides render a non-bold face ('FangSong', no Bold marker; PyMuPDF flags=4). CAVEAT: the DOCX requests bold on all 27 runs (<w:b/>), while the rendered PDF uses two FangSong subsets that both identify themselves as 'Regular' with identical hhea metrics; LibreOffice therefore did not substitute a bold face. Visual (stroke-weight) equality was not measured.",
+      "generated_underlines_present": "7 runs carry <w:u w:val=\"single\"/>, and the rendered PDF contains the matching thin underline rules at y=614.55 / 628.65 / 642.75.",
+      "line_boundaries_preserved": "Line 1 ends at 元（小写）, line 2 at 元（小写）。, line 3 at 元（小写）。, matching the source's semantic line split exactly.",
+      "pitch_differs_from_source": "Generated pitch is 14.10 pt for both gaps; source is 23.40 and 19.44 pt. Residuals 9.30 and 5.34 pt both exceed the 1.0 pt pitch tolerance and the 2.0 pt frozen geometry tolerance."
+    }
+  },
+  "disclosures": [
+    "RENDERER MISMATCH: the generated PDF was produced by LibreOffice 26.2.3.2 (X86_64) / Writer, whereas the human review that raised this finding was performed in desktop Word. Every generated-side number here is the LibreOffice render of the given DOCX at the pinned hash. Desktop Word's own single-spacing line height for 仿宋 at 10 pt was NOT measured and could differ; the exact generated pitch a reviewer sees in Word may therefore differ from 14.10 pt while the OOXML facts (single spacing, 2 breaks, no before/after) remain identical. No Word executable measurement was attempted in this read-only session.",
+    "FONT-METRIC BASIS NOT PROVEN: the ~1.41 em single-spacing line height is reported as an empirically calibrated renderer constant (validated on five independent paragraphs at 10/11/12 pt), not as a derived font metric. The embedded FangSong subsets expose unitsPerEm=256 with hhea ascent 220 / descent -36 / lineGap 36 (= 1.140625 em) and carry no parseable OS/2 table, and 1.140625 em does not explain the measured 1.41 em. fontTools is not installed in .venv, so a full metric audit was not possible.",
+    "BOLD IS A PDF-NAME TEST, NOT A STROKE MEASUREMENT: no bold face was found by name on either side, but an unnamed synthesized bold would also pass undetected by this criterion. The DOCX explicitly requests <w:b/> on all 27 runs, which is a real difference between the DOCX intent and the rendered face that this measurement cannot resolve visually.",
+    "SOURCE PITCH IS A CROSS-BLOCK ADVANCE, NOT A WRAP PITCH: the source's three summary lines are separate text blocks (blocks 500/501/502) inside one table row. The source never lays them out as one wrapped paragraph, so its 23.40 / 19.44 pt deltas include whatever inter-paragraph spacing the source used, and are not strictly comparable to an intra-paragraph wrap pitch. The comparison is still the correct visual one (both are baseline-to-baseline advances between the same three lines), but the source baselines are also not uniform with each other (23.40 vs 19.44 pt, a 3.96 pt spread that itself exceeds the 1.0 pt pitch tolerance), so the source offers no single 'correct' pitch for the generated side to match.",
+    "SOURCE PDF TEXT EXTRACTION: the source PDF was produced by WPS 文字 and some CJK glyphs extract as visually similar but distinct characters (for example the table header extracts as 不今税合 where the document reads 不含税合). This affects character identity only; all baseline, bbox, size and font values used here are geometric and unaffected. The three target lines extracted with correct characters.",
+    "REPORT TIMESTAMP: generated_at_utc is a fixed placeholder, not a measured build timestamp; no clock value was used in any computation.",
+    "CLASSIFICATION OF THIN RULES: short thin rules at the baselines were classified as field underlines rather than row borders on the basis of their x-extent (10-111 pt wide, matching the blank slot gaps) versus the full-width row borders (476-477 pt). The classification is by geometry only.",
+    "No production code, build artifact, existing report or test was modified. No commit, push or tag was made. Probe scripts were executed through stdin so that no temporary file was created."
+  ]
+}

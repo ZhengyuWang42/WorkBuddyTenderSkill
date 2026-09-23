@@ -1,0 +1,525 @@
+{
+  "schema": "case001_intrinsic_spacer_multisegment_calibration/2",
+  "generated_by": "scripts/v1_intrinsic_spacer_multisegment_probe.py",
+  "status": "PASS",
+  "chain_tolerance_pt": 0.5,
+  "matcher_strategy": "marker-bracketed rows, located per *character* rather than per PDF text fragment: the page's characters are grouped into rows by y, sorted by x, joined into a string, and each unique marker 'A<nn>'/'B<nn>' is found inside that string so its own characters supply the left edge (last char x1) and the right edge (first char x0). A row the extractor fragments therefore measures exactly like one it returns whole. Each chain is reported against a zero-spacer control row in the same size group, so the markers' advances cancel.",
+  "probe_document": "D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/intrinsic_spacer_probe_ee913c84/probe.docx",
+  "probe_pdf": "D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/intrinsic_spacer_probe_ee913c84/probe.pdf",
+  "fonts_seen_in_render": [
+    "FangSong"
+  ],
+  "rows": [
+    {
+      "probe_key": 0,
+      "label": "control (no spacer)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [],
+      "segment_count": 0,
+      "predicted_chain_width_pt": 0.0,
+      "measured_chain_pt": 0.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 0.0,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": null,
+      "pairing_evidence": {
+        "marker_left": "A00",
+        "marker_right": "B00",
+        "row_text": "A00B00",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 88.9,
+        "chain_pt": 0.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 1,
+      "label": "1 segment, production target 21.96",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 21.96,
+          "w_spacing_twips": 319,
+          "predicted_rendered_pt": 21.95,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 21.95,
+      "measured_chain_pt": 21.95,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 21.95,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A01",
+        "marker_right": "B01",
+        "row_text": "A01 B01",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 110.85,
+        "chain_pt": 21.95,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 2,
+      "label": "2 segments, 12.00 + 21.96",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 12.0,
+          "w_spacing_twips": 120,
+          "predicted_rendered_pt": 12.0,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 21.96,
+          "w_spacing_twips": 319,
+          "predicted_rendered_pt": 21.95,
+          "representable": true
+        }
+      ],
+      "segment_count": 2,
+      "predicted_chain_width_pt": 33.95,
+      "measured_chain_pt": 33.95,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 33.95,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A02",
+        "marker_right": "B02",
+        "row_text": "A02  B02",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 122.85,
+        "chain_pt": 33.95,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 3,
+      "label": "3 segments, 12.00 + 21.96 + 45.98",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 12.0,
+          "w_spacing_twips": 120,
+          "predicted_rendered_pt": 12.0,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 21.96,
+          "w_spacing_twips": 319,
+          "predicted_rendered_pt": 21.95,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 45.98,
+          "w_spacing_twips": 800,
+          "predicted_rendered_pt": 46.0,
+          "representable": true
+        }
+      ],
+      "segment_count": 3,
+      "predicted_chain_width_pt": 79.95,
+      "measured_chain_pt": 79.95,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 79.95,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A03",
+        "marker_right": "B03",
+        "row_text": "A03   B03",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 168.85,
+        "chain_pt": 79.95,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 4,
+      "label": "mixed 28.90 + 5.79 (one below the floor)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 28.9,
+          "w_spacing_twips": 458,
+          "predicted_rendered_pt": 28.9,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 5.79,
+          "w_spacing_twips": 0,
+          "predicted_rendered_pt": 6.0,
+          "representable": false
+        }
+      ],
+      "segment_count": 2,
+      "predicted_chain_width_pt": 34.9,
+      "measured_chain_pt": 34.9,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 34.9,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A04",
+        "marker_right": "B04",
+        "row_text": "A04  B04",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 123.8,
+        "chain_pt": 34.9,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 6,
+      "label": "base advance (w:spacing = 0)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "raw_twips",
+          "w_spacing_twips": 0,
+          "predicted_rendered_pt": 6.0,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 6.0,
+      "measured_chain_pt": 6.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 6.0,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A06",
+        "marker_right": "B06",
+        "row_text": "A06 B06",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 94.9,
+        "chain_pt": 6.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 7,
+      "label": "tracking response (w:spacing = 200 twips)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "raw_twips",
+          "w_spacing_twips": 200,
+          "predicted_rendered_pt": 16.0,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 16.0,
+      "measured_chain_pt": 16.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 16.0,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A07",
+        "marker_right": "B07",
+        "row_text": "A07 B07",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 104.9,
+        "chain_pt": 16.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 5,
+      "label": "condensed tracking (w:spacing = -4 twips)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "raw_twips",
+          "w_spacing_twips": -4,
+          "predicted_rendered_pt": 5.8,
+          "representable": false
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 5.8,
+      "measured_chain_pt": 6.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 6.0,
+      "residual_pt": 0.2,
+      "residual_per_segment_pt": 0.2,
+      "pairing_evidence": {
+        "marker_left": "A05",
+        "marker_right": "B05",
+        "row_text": "A05 B05",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 94.9,
+        "chain_pt": 6.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 8,
+      "label": "zero tracking, raw (control for the condensed pair)",
+      "font_size_pt": 12.0,
+      "font_family": "仿宋",
+      "control_probe_key": 0,
+      "segments": [
+        {
+          "kind": "raw_twips",
+          "w_spacing_twips": 0,
+          "predicted_rendered_pt": 6.0,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 6.0,
+      "measured_chain_pt": 6.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 6.0,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A08",
+        "marker_right": "B08",
+        "row_text": "A08 B08",
+        "left_marker_x1_pt": 88.9,
+        "right_marker_x0_pt": 94.9,
+        "chain_pt": 6.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 10,
+      "label": "control (no spacer)",
+      "font_size_pt": 11.5,
+      "font_family": "仿宋",
+      "control_probe_key": 10,
+      "segments": [],
+      "segment_count": 0,
+      "predicted_chain_width_pt": 0.0,
+      "measured_chain_pt": 0.0,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 0.0,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": null,
+      "pairing_evidence": {
+        "marker_left": "A10",
+        "marker_right": "B10",
+        "row_text": "A10B10",
+        "left_marker_x1_pt": 88.15,
+        "right_marker_x0_pt": 88.15,
+        "chain_pt": 0.0,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 11,
+      "label": "1 segment, cover target 40.30",
+      "font_size_pt": 11.5,
+      "font_family": "仿宋",
+      "control_probe_key": 10,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 40.3,
+          "w_spacing_twips": 691,
+          "predicted_rendered_pt": 40.3,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 40.3,
+      "measured_chain_pt": 40.3,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 40.3,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A11",
+        "marker_right": "B11",
+        "row_text": "A11 B11",
+        "left_marker_x1_pt": 88.15,
+        "right_marker_x0_pt": 128.45,
+        "chain_pt": 40.3,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 12,
+      "label": "2 segments, 40.30 + 45.96",
+      "font_size_pt": 11.5,
+      "font_family": "仿宋",
+      "control_probe_key": 10,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 40.3,
+          "w_spacing_twips": 691,
+          "predicted_rendered_pt": 40.3,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 45.96,
+          "w_spacing_twips": 804,
+          "predicted_rendered_pt": 45.95,
+          "representable": true
+        }
+      ],
+      "segment_count": 2,
+      "predicted_chain_width_pt": 86.25,
+      "measured_chain_pt": 86.25,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 86.25,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A12",
+        "marker_right": "B12",
+        "row_text": "A12  B12",
+        "left_marker_x1_pt": 88.15,
+        "right_marker_x0_pt": 174.4,
+        "chain_pt": 86.25,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 13,
+      "label": "3 segments, 40.30 + 45.96 + 69.00",
+      "font_size_pt": 11.5,
+      "font_family": "仿宋",
+      "control_probe_key": 10,
+      "segments": [
+        {
+          "kind": "target",
+          "target_width_pt": 40.3,
+          "w_spacing_twips": 691,
+          "predicted_rendered_pt": 40.3,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 45.96,
+          "w_spacing_twips": 804,
+          "predicted_rendered_pt": 45.95,
+          "representable": true
+        },
+        {
+          "kind": "target",
+          "target_width_pt": 69.0,
+          "w_spacing_twips": 1265,
+          "predicted_rendered_pt": 69.0,
+          "representable": true
+        }
+      ],
+      "segment_count": 3,
+      "predicted_chain_width_pt": 155.25,
+      "measured_chain_pt": 155.25,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 155.25,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A13",
+        "marker_right": "B13",
+        "row_text": "A13   B13",
+        "left_marker_x1_pt": 88.15,
+        "right_marker_x0_pt": 243.4,
+        "chain_pt": 155.25,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    },
+    {
+      "probe_key": 16,
+      "label": "base advance (w:spacing = 0)",
+      "font_size_pt": 11.5,
+      "font_family": "仿宋",
+      "control_probe_key": 10,
+      "segments": [
+        {
+          "kind": "raw_twips",
+          "w_spacing_twips": 0,
+          "predicted_rendered_pt": 5.75,
+          "representable": true
+        }
+      ],
+      "segment_count": 1,
+      "predicted_chain_width_pt": 5.75,
+      "measured_chain_pt": 5.75,
+      "measured_control_chain_pt": 0.0,
+      "rendered_chain_width_pt": 5.75,
+      "residual_pt": 0.0,
+      "residual_per_segment_pt": 0.0,
+      "pairing_evidence": {
+        "marker_left": "A16",
+        "marker_right": "B16",
+        "row_text": "A16 B16",
+        "left_marker_x1_pt": 88.15,
+        "right_marker_x0_pt": 93.9,
+        "chain_pt": 5.75,
+        "row_fragment_count": 1,
+        "font_used": "FangSong"
+      }
+    }
+  ],
+  "derived_constants": {
+    "base_advance_pt_at_12": 6.0,
+    "base_advance_pt_at_11_5": 5.75,
+    "base_space_advance_em_from_12": 0.5,
+    "base_space_advance_em_from_11_5": 0.5,
+    "stored_space_advance_em": 0.5,
+    "tracking_response_ratio_measured": 1.0,
+    "stored_tracking_response_ratio": 1.0,
+    "condensed_tracking_row_width_pt": 6.0,
+    "zero_tracking_row_width_pt": 6.0,
+    "condensed_tracking_applied": false,
+    "condensed_amount_measured_pt": 0.0,
+    "condensed_amount_requested_pt": 0.2
+  },
+  "failures": [],
+  "disclosures": [
+    "The probe renders through the same frozen LibreOffice launcher the build uses (scripts/render_case57.py), into a scratch workspace directory; no production artefact is touched.",
+    "Predictions come from tender_basic/intrinsic_spacer.py, the same calibration the builder emits from, and w:spacing is written by the same apply_spacing helper, so a probe row is byte-identical to a document spacer run.",
+    "The control row subtraction removes the markers' own advances; a residual is therefore a property of the spacer runs, not of the brackets.",
+    "The condensed-tracking pair (probe 5 vs probe 8) requests -4 twips and 0 twips. It is a renderer-behaviour measurement only: the production calibration never emits a negative w:spacing."
+  ]
+}

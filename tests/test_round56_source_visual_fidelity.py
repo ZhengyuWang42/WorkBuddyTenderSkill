@@ -25,7 +25,7 @@ from tender_basic.source_fill_patterns import (
     pattern_index,
     replacement_mode_for,
 )
-from tender_basic.source_page_geometry import MIN_MARGIN_PT, section_geometry
+from tender_basic.source_page_geometry import section_geometry
 from tender_basic.source_visual_typography import (
     BOLD_RATIO,
     bold_overrides,
@@ -97,6 +97,10 @@ def test_case001_source_roles_are_measured_from_rendered_glyphs() -> None:
     assert roles["HEADING_1"]["ratio"] > roles["BODY"]["ratio"]
 
 
+# ``source_page_geometry`` is retained as the *legacy* per-page derivation and is
+# used only as the root-cause witness in scripts/v1_page_frame_audit.py.  The
+# production builder derives its section margins from ``source_page_frame``
+# instead, which is what the Stage B tests below cover.
 def test_source_page_geometry_derives_margins_from_the_source_body() -> None:
     body = SimpleNamespace(bbox=(70.8, 100.0, 524.4, 120.0), kind="PARAGRAPH")
     geometry = section_geometry(_layout([body]), _page())
@@ -118,15 +122,173 @@ def test_source_page_geometry_ignores_running_header_and_footer() -> None:
     assert with_chrome.top_margin == without_chrome.top_margin
 
 
-def test_source_page_geometry_keeps_a_mandatory_table_inside_the_usable_width() -> None:
-    narrow_text = SimpleNamespace(bbox=(256.1, 100.0, 339.4, 120.0), kind="PARAGRAPH")
-    table = SimpleNamespace(bbox=(70.8, 130.0, 524.4, 400.0))
-    geometry = section_geometry(
-        _layout([narrow_text]), _page(tables=[table])
+# --------------------------------------------------------------------------- #
+# Stage B: the section frame is stable, and no single page's content can move it
+# --------------------------------------------------------------------------- #
+
+PAGE_W = 595.3
+PAGE_H = 841.9
+
+
+def _span(text, x0, y0, x1, *, height=12.3):
+    return SimpleNamespace(
+        text=text, bbox=(x0, y0, x1, y0 + height), font_size=11.5, font_name="SimSun"
     )
-    assert geometry.usable_text_width >= 524.4 - 70.8 - 0.2
-    assert geometry.left_margin <= 70.9
-    assert geometry.left_margin >= MIN_MARGIN_PT
+
+
+def _source_page(number, paragraphs):
+    """A source page carrying lines at explicit x extents, in source order."""
+
+    return SimpleNamespace(
+        page=number,
+        width=PAGE_W,
+        height=PAGE_H,
+        tables=[],
+        paragraphs=[
+            SimpleNamespace(
+                text="".join(span.text for span in spans),
+                bbox=(min(s.bbox[0] for s in spans), min(s.bbox[1] for s in spans),
+                      max(s.bbox[2] for s in spans), max(s.bbox[3] for s in spans)),
+                lines=[SimpleNamespace(text=span.text, bbox=span.bbox,
+                                       spans=[span], font_size=span.font_size)
+                       for span in spans],
+            )
+            for spans in paragraphs
+        ],
+    )
+
+
+def _elements(extents):
+    return [
+        SimpleNamespace(bbox=(x0, 100.0 + 20.0 * index, x1, 112.0 + 20.0 * index),
+                        kind="PARAGRAPH")
+        for index, (x0, x1) in enumerate(extents)
+    ]
+
+
+def _frame_group():
+    """Four page flavours of one source section, plus deliberate outliers.
+
+    ``dense`` is an ordinary body page, ``sparse`` carries only a short centred
+    title, ``wide_a``/``wide_b`` carry a table that overhangs the body frame on
+    both sides, and ``form`` carries a form row that starts at the body edge and
+    ends at the body edge.  Every one of them belongs to the *same* source
+    section, so all five must resolve to the same frame.
+    """
+
+    body_left, body_right = 70.8, 524.4
+    wide_table = (65.33, 541.77)
+
+    def page(number, extents, *, table=None):
+        source = _source_page(number, [[_span("正文", x0, 100.0, x1)] for x0, x1 in extents])
+        if table is not None:
+            source.tables = [
+                SimpleNamespace(bbox=(table[0], 200.0, table[1], 600.0),
+                                column_widths=[table[1] - table[0]], row_heights=[])
+            ]
+        layout = SimpleNamespace(elements=_elements(extents), horizontal_rules=[])
+        return source, layout
+
+    dense = page(1, [(body_left, body_right)] * 4)
+    sparse = page(2, [(245.0, 350.3)])
+    wide_a = page(3, [(body_left, 300.0)] * 3, table=wide_table)
+    wide_b = page(4, [(body_left, 300.0)] * 3, table=wide_table)
+    form = page(5, [(body_left, 250.0)] * 2 + [(body_left, body_right)])
+    return [dense, sparse, wide_a, wide_b, form]
+
+
+def test_every_page_flavour_of_one_source_section_resolves_to_one_frame() -> None:
+    from tender_basic.source_page_frame import derive_source_section_page_frames
+
+    pages = [source for source, _layout in _frame_group()]
+    layouts = [layout for _source, layout in _frame_group()]
+    frames = derive_source_section_page_frames(pages, layouts)
+
+    assert len(frames) == 5
+    assert len({frame.frame_id for frame in frames.values()}) == 1
+    lefts = {round(frame.left_margin, 2) for frame in frames.values()}
+    rights = {round(frame.right_margin, 2) for frame in frames.values()}
+    usable = {round(frame.usable_text_width, 2) for frame in frames.values()}
+    assert lefts == {70.8}, "a sparse or wide-table page must not move the body frame"
+    assert rights == {round(PAGE_W - 524.4, 2)}
+    assert usable == {round(524.4 - 70.8, 2)}
+    for frame in frames.values():
+        assert frame.left_anchor.kind == "text_left"
+        assert frame.left_anchor.support == 4
+        assert frame.right_anchor.kind == "text_right"
+        assert frame.right_anchor.support == 2
+
+
+def test_sparse_title_only_page_does_not_change_the_section_frame() -> None:
+    from tender_basic.source_page_frame import derive_source_section_page_frames
+
+    group = _frame_group()
+    pages = [source for source, _layout in group]
+    layouts = [layout for _source, layout in group]
+    with_sparse = derive_source_section_page_frames(pages, layouts)[2]
+    keep = [index for index, page in enumerate(pages) if page.page != 2]
+    without_sparse = derive_source_section_page_frames(
+        [pages[index] for index in keep], [layouts[index] for index in keep]
+    )[1]
+    assert with_sparse.frame_id == without_sparse.frame_id
+    assert with_sparse.left_margin == without_sparse.left_margin
+    assert with_sparse.right_margin == without_sparse.right_margin
+    assert with_sparse.usable_text_width == without_sparse.usable_text_width
+
+
+def test_wide_table_page_cannot_contract_the_section_frame() -> None:
+    from tender_basic.source_page_frame import derive_source_section_page_frames
+
+    pages = [source for source, _layout in _frame_group()]
+    layouts = [layout for _source, layout in _frame_group()]
+    frames = derive_source_section_page_frames(pages, layouts)
+    for number in (3, 4):
+        frame = frames[number]
+        assert frame.body_x0 == pytest.approx(70.8, abs=0.01)
+        assert frame.body_x1 == pytest.approx(524.4, abs=0.01)
+        # The overhanging table is evidence, but never the body frame.
+        assert frame.left_anchor.x > 65.33
+        assert frame.right_anchor.x < 541.77
+
+
+def test_single_visual_row_element_keeps_one_emission_row() -> None:
+    """One physical source row drawn as several PDF text objects stays one row."""
+
+    from tender_basic.page_layout import join_single_visual_row
+
+    same_row = [
+        SimpleNamespace(bbox=(72.12, 296.82, 84.12, 309.1), text="系"),
+        SimpleNamespace(bbox=(156.48, 296.82, 230.04, 309.1), text="(供应商名称)"),
+        SimpleNamespace(bbox=(324.72, 296.82, 410.52, 309.1), text="的法定代表人。"),
+    ]
+    assert join_single_visual_row(
+        "系\n(供应商名称)\n的法定代表人。", same_row
+    ) == "系(供应商名称)的法定代表人。"
+    # A genuinely multi-row element keeps every source line break.
+    multi_row = [
+        SimpleNamespace(bbox=(70.8, 100.0, 300.0, 112.0), text="第一行"),
+        SimpleNamespace(bbox=(70.8, 126.0, 300.0, 138.0), text="第二行"),
+    ]
+    assert join_single_visual_row("第一行\n第二行", multi_row) == "第一行\n第二行"
+
+
+def test_table_width_keeps_the_source_width_when_only_the_frame_is_narrower() -> None:
+    from tender_basic.word_safe_source_builder import plan_table_width
+
+    # Source page 9's table: 65.33..541.77 inside a frame of 70.8..524.4.
+    total, available, clamped = plan_table_width(
+        541.77 - 65.33, table_left=65.33, usable=453.6, page_width=595.3
+    )
+    assert clamped is False
+    assert total == pytest.approx(476.44, abs=0.01)
+    assert 65.33 + total == pytest.approx(541.77, abs=0.01)
+    # A table that genuinely does not fit the physical page is still bounded.
+    total, _available, clamped = plan_table_width(
+        700.0, table_left=32.0, usable=453.6, page_width=595.3
+    )
+    assert clamped is True
+    assert total < 700.0
+    assert 32.0 + total <= 595.3
 
 
 def test_blank_kind_is_derived_from_the_source_representation() -> None:

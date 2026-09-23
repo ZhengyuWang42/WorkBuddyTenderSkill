@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "checks": {
+    "one_owner_per_field": true,
+    "no_multiple_eligible_owner_conflicts": true,
+    "inactive_rules_have_no_owner": true,
+    "inactive_rules_emit_no_value": true,
+    "value_emission_requires_owner": true,
+    "plan_iteration_execution_zero": true,
+    "accepted_composition_set_unchanged": true,
+    "planned_application_coverage_complete": true
+  },
+  "check_order": [
+    "one_owner_per_field",
+    "no_multiple_eligible_owner_conflicts",
+    "inactive_rules_have_no_owner",
+    "inactive_rules_emit_no_value",
+    "value_emission_requires_owner",
+    "plan_iteration_execution_zero",
+    "accepted_composition_set_unchanged",
+    "planned_application_coverage_complete"
+  ],
+  "failed_checks": [],
+  "build": {
+    "generation_report": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\generation_report.json",
+    "generation_report_sha256": "21ebe5aa8497659b0c279462b567e1e60b09aefa6e9726181be569916ff8686d",
+    "build_manifest": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\build_manifest.json",
+    "build_id": "v1_manual_fidelity_round2",
+    "generated_docx_sha256": "be447cb72e39126d088b56b04a2407fb87c58f4b7e30df120624d4ca4f876001",
+    "generated_pdf_sha256": "8f8e19bcf42a61d856c63c1095b1757487a8904846ec589532846b7c53718064",
+    "generated_pdf_page_count": 22,
+    "source_pdf_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27"
+  },
+  "evidence": {
+    "source_form_execution_owner_count": 3,
+    "eligible_value_owner_count": 3,
+    "owner_kind_counts": {
+      "ANCHORED_VALUE_OWNER": 2,
+      "LEGACY_SLOT_OWNER": 0,
+      "SOURCE_FORM_LINE_OWNER": 1,
+      "NONE": 0
+    },
+    "duplicate_eligible_owner_field_ids": [],
+    "execution_inactive_rules": [
+      "P40-R1",
+      "P45-R6"
+    ],
+    "execution_inactive_owner_field_ids": [],
+    "execution_inactive_emissions": [],
+    "valueless_owner_applications": [],
+    "owner_driven_value_emission_count": 1,
+    "value_application_count": 1,
+    "source_rule_compositions": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P44-R12",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R4",
+      "P45-R5"
+    ],
+    "accepted_composition_set": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "accepted_compositions_present": [
+      "P42-R3",
+      "P42-R7",
+      "P42-R8",
+      "P45-R1",
+      "P45-R2",
+      "P45-R3",
+      "P45-R5"
+    ],
+    "planned_resolved_application_count": 3,
+    "actual_resolved_application_count": 3,
+    "missing_planned_application_count": 0,
+    "unexpected_application_count": 0,
+    "source_form_line_value_run_count": 1
+  },
+  "conclusion": {
+    "P40-R1_new_plan_driven_execution_owner": 0,
+    "P40-R1_new_plan_driven_value_emission": 0,
+    "P45-R6_new_plan_driven_execution_owner": 0,
+    "P45-R6_new_plan_driven_value_emission": 0
+  }
+}

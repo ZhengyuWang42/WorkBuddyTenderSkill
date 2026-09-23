@@ -1,0 +1,314 @@
+{
+  "before_build": "v1_manual_fidelity_round3_word_review_followup",
+  "build": "v1_manual_fidelity_round3_word_review_final",
+  "conclusions": [
+    {
+      "delivered_row_count": 1,
+      "delivered_rule_shares_the_label_row": true,
+      "generated_paragraph_index": null,
+      "label": "委托期限：",
+      "rows_added": 0,
+      "rule_span_preserved": true,
+      "rule_x0_error_pt": 0.0,
+      "rule_x1_error_pt": 0.0,
+      "selection_basis": "reference_source_row",
+      "source_authoritative_slot": "NO_AUTHORITATIVE_SLOT",
+      "source_blank_class": "FIXED_EMPTY_SLOT",
+      "source_blank_geometry_intent": "EXACT_SOURCE_SPAN",
+      "source_explicit_break_semantics": false,
+      "source_row_count": 1,
+      "source_rule_id": "P45-R6",
+      "source_rule_shares_the_label_row": true,
+      "verdict": "FIDELITY_PRESERVED"
+    }
+  ],
+  "conclusions_before": [
+    {
+      "delivered_row_count": 2,
+      "delivered_rule_shares_the_label_row": false,
+      "label": "委托期限：",
+      "rows_added": 1,
+      "rule_span_preserved": true,
+      "rule_x0_error_pt": 0.0,
+      "rule_x1_error_pt": 0.0,
+      "verdict": "UNEXPECTED_HARD_BREAK_IN_ONE_SOURCE_ROW"
+    }
+  ],
+  "findings": [],
+  "form_layout_break_count": 0,
+  "generated_docx": "基础投标文件.docx",
+  "generated_w_br_total": 0,
+  "generated_w_cr_total": 0,
+  "generation_report": "generation_report.json",
+  "inline_break_paragraph_count": 0,
+  "measured": [
+    {
+      "declared_source_rule_span": {
+        "x0": 154.8,
+        "x1": 232.8
+      },
+      "delivered_label_line": {
+        "bottom": 208.33,
+        "center_y": 202.33,
+        "text": "委托期限：             。",
+        "top": 196.33,
+        "x0": 94.9,
+        "x1": 244.9
+      },
+      "delivered_label_row_index": 1,
+      "delivered_pdf_page": 6,
+      "delivered_row_count": 1,
+      "delivered_rows": [
+        {
+          "bottom": 208.33,
+          "center_y": 202.33,
+          "lines": [
+            {
+              "bottom": 208.33,
+              "center_y": 202.33,
+              "text": "委托期限：             。",
+              "top": 196.33,
+              "x0": 94.9,
+              "x1": 244.9
+            }
+          ],
+          "row_index": 1,
+          "text": "委托期限：             。",
+          "top": 196.33,
+          "x0": 94.9,
+          "x1": 244.9
+        }
+      ],
+      "delivered_rule": {
+        "width_pt": 78.0,
+        "x0": 154.8,
+        "x1": 232.8,
+        "y": 208.05
+      },
+      "delivered_rule_row_index": 1,
+      "delivered_rule_shares_the_label_row": true,
+      "generated_paragraph_index": null,
+      "label": "委托期限：",
+      "rows_added": 0,
+      "rule_x0_error_pt": 0.0,
+      "rule_x1_error_pt": 0.0,
+      "selection_basis": "reference_source_row",
+      "source_label_line": {
+        "bottom": 194.98,
+        "center_y": 188.84,
+        "text": "委托期限：",
+        "top": 182.7,
+        "x0": 94.8,
+        "x1": 154.8
+      },
+      "source_label_row_index": 1,
+      "source_page": 45,
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "bottom": 194.98,
+          "center_y": 188.84,
+          "lines": [
+            {
+              "bottom": 194.98,
+              "center_y": 188.84,
+              "text": "委托期限：",
+              "top": 182.7,
+              "x0": 94.8,
+              "x1": 154.8
+            },
+            {
+              "bottom": 194.98,
+              "center_y": 188.84,
+              "text": "。",
+              "top": 182.7,
+              "x0": 232.8,
+              "x1": 244.8
+            }
+          ],
+          "row_index": 1,
+          "text": "委托期限：。",
+          "top": 182.7,
+          "x0": 94.8,
+          "x1": 244.8
+        }
+      ],
+      "source_rule": {
+        "width_pt": 78.0,
+        "x0": 154.8,
+        "x1": 232.8,
+        "y": 194.4
+      },
+      "source_rule_row_index": 1,
+      "source_rule_shares_the_label_row": true
+    }
+  ],
+  "measured_before": [
+    {
+      "declared_source_rule_span": {
+        "x0": 154.8,
+        "x1": 232.8
+      },
+      "delivered_label_line": {
+        "bottom": 208.33,
+        "center_y": 202.33,
+        "text": "委托期限：",
+        "top": 196.33,
+        "x0": 94.9,
+        "x1": 154.9
+      },
+      "delivered_label_row_index": 1,
+      "delivered_pdf_page": 6,
+      "delivered_row_count": 2,
+      "delivered_rows": [
+        {
+          "bottom": 208.33,
+          "center_y": 202.33,
+          "lines": [
+            {
+              "bottom": 208.33,
+              "center_y": 202.33,
+              "text": "委托期限：",
+              "top": 196.33,
+              "x0": 94.9,
+              "x1": 154.9
+            }
+          ],
+          "row_index": 1,
+          "text": "委托期限：",
+          "top": 196.33,
+          "x0": 94.9,
+          "x1": 154.9
+        },
+        {
+          "bottom": 233.68,
+          "center_y": 227.68,
+          "lines": [
+            {
+              "bottom": 233.68,
+              "center_y": 227.68,
+              "text": "             。",
+              "top": 221.68,
+              "x0": 154.8,
+              "x1": 244.9
+            }
+          ],
+          "row_index": 2,
+          "text": "             。",
+          "top": 221.68,
+          "x0": 154.8,
+          "x1": 244.9
+        }
+      ],
+      "delivered_rule": {
+        "width_pt": 78.0,
+        "x0": 154.8,
+        "x1": 232.8,
+        "y": 233.4
+      },
+      "delivered_rule_row_index": 2,
+      "delivered_rule_shares_the_label_row": false,
+      "generated_paragraph_index": null,
+      "label": "委托期限：",
+      "rows_added": 1,
+      "rule_x0_error_pt": 0.0,
+      "rule_x1_error_pt": 0.0,
+      "selection_basis": "reference_source_row",
+      "source_label_line": {
+        "bottom": 194.98,
+        "center_y": 188.84,
+        "text": "委托期限：",
+        "top": 182.7,
+        "x0": 94.8,
+        "x1": 154.8
+      },
+      "source_label_row_index": 1,
+      "source_page": 45,
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "bottom": 194.98,
+          "center_y": 188.84,
+          "lines": [
+            {
+              "bottom": 194.98,
+              "center_y": 188.84,
+              "text": "委托期限：",
+              "top": 182.7,
+              "x0": 94.8,
+              "x1": 154.8
+            },
+            {
+              "bottom": 194.98,
+              "center_y": 188.84,
+              "text": "。",
+              "top": 182.7,
+              "x0": 232.8,
+              "x1": 244.8
+            }
+          ],
+          "row_index": 1,
+          "text": "委托期限：。",
+          "top": 182.7,
+          "x0": 94.8,
+          "x1": 244.8
+        }
+      ],
+      "source_rule": {
+        "width_pt": 78.0,
+        "x0": 154.8,
+        "x1": 232.8,
+        "y": 194.4
+      },
+      "source_rule_row_index": 1,
+      "source_rule_shares_the_label_row": true
+    }
+  ],
+  "reference_diagnostic": "acceptance\\reports\\v1_generalization\\case001_p6_before_build_diagnostic.json",
+  "root_cause": {
+    "authorising_clause": "paragraph_so_far.strip(\"\\t\")",
+    "classification": "FORM_BLANK_REPRESENTATION_FORCED_BREAK",
+    "emitter_path": "tender_basic/word_safe_source_builder.py::_render_positioned_blank",
+    "emitting_condition": "not managed and not in_table_cell and (paragraph_so_far.strip(\"\\t\") or blank_x0 + 1.0 < reach)",
+    "form_layout_break_count": 1,
+    "geometric_clause": "blank_x0 + 1.0 < reach",
+    "not_a_semantic_break": true,
+    "not_the_reviewed_p3_deviation": true,
+    "proven": "the geometric clause was false - the blank's own source start was at or ahead of the cursor - so only the text-presence clause paragraph_so_far.strip(\"\\t\") authorised the break",
+    "records": [
+      {
+        "blank_was_forward_reachable": true,
+        "overshoot_pt": 0.0,
+        "previous_reach_pt": 154.8,
+        "recorded_reason": "fill rule starts its own source form line",
+        "source_x0": 154.8,
+        "source_x1": 232.8
+      }
+    ]
+  },
+  "root_cause_before": {
+    "authorising_clause": "paragraph_so_far.strip(\"\\t\")",
+    "classification": "FORM_BLANK_REPRESENTATION_FORCED_BREAK",
+    "emitter_path": "tender_basic/word_safe_source_builder.py::_render_positioned_blank",
+    "emitting_condition": "not managed and not in_table_cell and (paragraph_so_far.strip(\"\\t\") or blank_x0 + 1.0 < reach)",
+    "form_layout_break_count": 1,
+    "geometric_clause": "blank_x0 + 1.0 < reach",
+    "not_a_semantic_break": true,
+    "not_the_reviewed_p3_deviation": true,
+    "proven": "the geometric clause was false - the blank's own source start was at or ahead of the cursor - so only the text-presence clause paragraph_so_far.strip(\"\\t\") authorised the break",
+    "records": [
+      {
+        "blank_was_forward_reachable": true,
+        "overshoot_pt": 0.0,
+        "previous_reach_pt": 154.8,
+        "recorded_reason": "fill rule starts its own source form line",
+        "source_x0": 154.8,
+        "source_x1": 232.8
+      }
+    ]
+  },
+  "schema": "p6_form_line_diagnostic/1",
+  "source_form_layout_line_count": 0,
+  "source_rule_registry_matches": [],
+  "verdict": "P6_SOURCE_ROW_CONTINUITY_CLOSED"
+}

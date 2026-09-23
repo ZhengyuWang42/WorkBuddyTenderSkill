@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from types import SimpleNamespace
 
 from docx import Document
 from docx.enum.section import WD_SECTION
@@ -19,6 +20,7 @@ from .page_layout import (
     infer_semantic_line_spacing,
     classify_rule_relation,
     source_rule_geometry_intent,
+    VALUE_REPLACING_POLICIES,
     RULE_TEXT_OCCUPANCY_GAP,
     RULE_TEXT_OCCUPANCY_UNDERLINE,
     FormBlock,
@@ -28,6 +30,7 @@ from .page_layout import (
     bounded_scale,
     build_page_layout,
     join_visual_lines,
+    single_visual_row_join,
     paragraph_coordinate_frame,
     restore_inline_rule_compositions,
     restore_inline_rule_blanks,
@@ -35,15 +38,15 @@ from .page_layout import (
     plan_source_visual_line,
     underline_owner_runs,
 )
-from .source_fill_policy import slot_replacement
+from .source_fill_policy import recorded_slot_presentation, slot_replacement
 from .source_form_execution import (
     execution_owner_metrics,
     plan_application_metrics,
 )
 from .source_fill_patterns import infer_fill_patterns, pattern_index
-from .source_page_geometry import section_geometry
+from .source_page_frame import derive_source_section_page_frames
 from .source_visual_typography import bold_overrides, infer_visual_typography
-from .source_format import DestinationStyleProfile
+from .source_format import DestinationStyleProfile, SourceLine
 from .source_font_policy import font_name
 from .word_safe_xml import set_east_asian_font
 from .style_architecture import (
@@ -56,7 +59,74 @@ from .style_architecture import (
     marker_info,
 )
 from .word_safe_scan import scan_word_safe_docx
-from .word_safe_source_builder import WordSafeSourceDocumentBuilder, _key
+from .word_safe_source_builder import WordSafeSourceDocumentBuilder, _key, set_run_spacing
+
+
+def _row_join_remap(offset, removed):
+    """Translate a payload offset across the same-row separator join."""
+
+    if not removed or offset is None:
+        return offset
+    return int(offset) - sum(1 for index in removed if index < offset)
+
+
+def _run_character_text_offsets(run):
+    """Each recorded source character's own offset inside the run's text.
+
+    The source's per-character boxes are the finest geometry the extraction
+    carries, so a rule that covers only part of a run can be resolved to the exact
+    glyphs it was drawn beneath.  The run's text may carry separators the
+    extraction inserted, so the characters are matched in order instead of by
+    index.  Returns ``[]`` when the source recorded no per-character geometry.
+    """
+
+    characters = list(getattr(run, "characters", ()) or ())
+    text = str(getattr(run, "text", "") or "")
+    if not characters or not text:
+        return []
+    offsets = []
+    cursor = 0
+    for char in characters:
+        glyph = str(getattr(char, "character", "") or "")
+        if not glyph:
+            return []
+        at = text.find(glyph, cursor)
+        if at < 0:
+            return []
+        offsets.append(at)
+        cursor = at + len(glyph)
+    return offsets
+
+
+def _character_majority_under_rule(char, rule_x0, rule_x1) -> bool:
+    """Whether a source character is mostly beneath a drawn rule's extent.
+
+    A rule ends where the source stopped drawing it, which is rarely exactly on a
+    glyph boundary; requiring only an overlap would underline a whole trailing
+    space as well.  A majority of the character's own box is the line's own
+    coverage of it.
+    """
+
+    x0, x1 = float(char.x0), float(char.x1)
+    width = x1 - x0
+    if width <= 0:
+        return False
+    overlap = min(x1, rule_x1) - max(x0, rule_x0)
+    return overlap >= width / 2.0
+
+
+def _cell_rule_text_occupancy(rule, runs):
+    """How much of one drawn cell rule the cell's own glyphs sit on.
+
+    The same occupancy the page-level classifier uses, measured against the
+    cell's runs because a table cell's text is not part of the page's own span
+    list.  A rule the glyphs barely touch is a blank; a rule they cover is an
+    underline of them.
+    """
+
+    from .page_layout import rule_text_occupancy
+
+    return rule_text_occupancy(rule, list(runs))
 
 
 class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
@@ -92,6 +162,10 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         self.fill_patterns = infer_fill_patterns(template, self.layouts)
         self.fill_pattern_index = pattern_index(self.fill_patterns)
         self.section_geometries: list[dict] = []
+        #: V1 manual-layout closure: one stable ``SourceSectionPageFrame`` per
+        #: source page group.  Every page of a group resolves to the *same*
+        #: section frame, so no page's own bounding box can move a margin.
+        self.section_frames: dict = {}
         #: Classified source rule object id -> stable ``P<page>-R<index>`` id, so
         #: a composition knows which source rule it represents.
         self._rule_ids_by_object: dict[int, str] = {}
@@ -121,7 +195,156 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         self.numbering_exception_reason: str | None = None
         self.source_text_qa = source_text_qa or {"source_text_disagreement_count": 0, "source_glyph_mapping_warning_count": 0, "repairs": []}
 
-    def _add_run(self, paragraph, text, source=None, underline=None):
+    def _cell_source_text(self, source_cell, slots):
+        """A table cell's text with the rules the source drew inside it restored.
+
+        A cell's own drawn rules are content, not table geometry: a rule occupied
+        by the cell's glyphs is the underline *of that value* - so the run that
+        owns it is marked underlined instead of receiving a blank - and a rule
+        clear of them is a fixed blank the source left for an editable field,
+        which becomes an inline blank at the rule's own measured span.
+        """
+
+        rules = self._cell_content_rules(source_cell)
+        if not rules:
+            return source_cell.text, slots, source_cell.runs
+        runs = list(getattr(source_cell, "runs", ()) or ())
+        covered = [
+            covered_range
+            for covered_range in (
+                self._cell_rule_covered_range(rule, runs, source_cell.text)
+                for rule in rules
+            )
+            if covered_range is not None
+        ]
+        for text_start, text_end in covered:
+            runs = self._split_runs_for_covered_range(
+                source_cell.text, runs, text_start, text_end,
+            )
+        text, remapped, restored = restore_inline_rule_blanks(
+            source_cell.text, runs, rules, slots,
+        )
+        self.vector_blanks_recovered += restored
+        return text, remapped, runs
+
+    @staticmethod
+    def _cell_rule_covered_range(rule, runs, text):
+        """The cell-text character range a drawn rule underlines, if any.
+
+        A rule whose extent is occupied by the cell's own glyphs is the underline
+        *of that text*: the covered range is read from the run's own box, because
+        a delivered Word run is underlined all-or-nothing and the source may draw
+        the line under only part of it (``…截止之日起 90 日历天`` underlines the
+        figure alone).  A rule the glyphs leave clear is a blank, not an
+        underline, and carries no covered range here.
+        """
+
+        if not runs or not text:
+            return None
+        occupied = _cell_rule_text_occupancy(rule, runs)
+        if occupied < RULE_TEXT_OCCUPANCY_UNDERLINE:
+            return None
+        rule_x0, rule_x1 = float(rule.bbox[0]), float(rule.bbox[2])
+        for run in runs:
+            run_text = str(getattr(run, "text", "") or "")
+            if not run_text.strip():
+                continue
+            x0, _y0, x1, _y1 = (float(value) for value in run.bbox)
+            if x1 <= rule_x0 or x0 >= rule_x1 or x1 <= x0:
+                continue
+            at = text.find(run_text)
+            if at < 0:
+                continue
+            offsets = _run_character_text_offsets(run)
+            if offsets:
+                covered_offsets = [
+                    offset
+                    for char, offset in zip(run.characters, offsets)
+                    if _character_majority_under_rule(char, rule_x0, rule_x1)
+                ]
+                if covered_offsets:
+                    start = at + min(covered_offsets)
+                    end = at + max(covered_offsets) + 1
+                    if end > start:
+                        return (start, end)
+                continue
+            width = x1 - x0
+            span = len(run_text)
+            start_fraction = (max(rule_x0, x0) - x0) / width
+            end_fraction = (min(rule_x1, x1) - x0) / width
+            start = at + int(round(start_fraction * span))
+            end = at + int(round(end_fraction * span))
+            start = max(at, min(start, at + span))
+            end = max(start, min(end, at + span))
+            if end > start:
+                return (start, end)
+        return None
+
+    @staticmethod
+    def _split_runs_for_covered_range(text, runs, text_start, text_end):
+        """Split the run covering a character range into three source runs.
+
+        The middle copy carries the source's own underline, so ``_add_run``
+        underlines exactly the glyphs the source drew the rule beneath and leaves
+        the rest of the run plain - a Word run cannot be underlined in part.
+        """
+
+        result = []
+        cursor = 0
+        for run in runs:
+            run_text = str(getattr(run, "text", "") or "")
+            at = text.find(run_text, cursor) if run_text else -1
+            if at < 0 or at >= text_end or at + len(run_text) <= text_start:
+                result.append(run)
+                if at >= 0:
+                    cursor = at + len(run_text)
+                continue
+            cursor = at + len(run_text)
+            local_start = max(text_start - at, 0)
+            local_end = min(text_end - at, len(run_text))
+            x0, y0, x1, y1 = (float(value) for value in run.bbox)
+            span = max(1, len(run_text))
+            pieces = (
+                (run_text[:local_start], False, 0, local_start),
+                (run_text[local_start:local_end], True, local_start, local_end),
+                (run_text[local_end:], False, local_end, len(run_text)),
+            )
+            for piece, is_covered, offset_start, offset_end in pieces:
+                if not piece:
+                    continue
+                piece_x0 = x0 + (x1 - x0) * offset_start / span
+                piece_x1 = x0 + (x1 - x0) * offset_end / span
+                result.append(
+                    run.model_copy(
+                        update={
+                            "text": piece,
+                            "bbox": (piece_x0, y0, piece_x1, y1),
+                            "underline": True if is_covered else run.underline,
+                        }
+                    )
+                )
+        return result
+
+    @staticmethod
+    def _cell_content_rules(source_cell):
+        """The cell's own drawn rules as rule geometry the restorers understand."""
+        rules = []
+        for entry in getattr(source_cell, "content_rules", ()) or ():
+            try:
+                x0, x1, y = (float(value) for value in entry)
+            except (TypeError, ValueError):
+                continue
+            rules.append(
+                SourceLine(
+                    bbox=(min(x0, x1), y - 0.5, max(x0, x1), y + 0.5),
+                    width=0.5,
+                    color=None,
+                    orientation="horizontal",
+                )
+            )
+        return rules
+
+    def _add_run(self, paragraph, text, source=None, underline=None, spacing_pt=None):
         """Apply the Named Style baseline, then explicit source-owned overrides."""
 
         run = paragraph.add_run()
@@ -130,6 +353,8 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                 if index:
                     run.add_break(WD_BREAK.LINE)
                 run.add_text(line)
+        if spacing_pt:
+            set_run_spacing(run, spacing_pt)
         baseline_role = str(getattr(source, "baseline_role", "NORMAL") or "NORMAL").upper()
         if baseline_role == "SUPERSCRIPT":
             run.font.superscript = True
@@ -352,6 +577,29 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             rpr.remove(rfonts)
         record = self.filled[-1]
         profile = slot.destination_style
+        record["generated_paragraph_index"] = len(paragraph.part.document.paragraphs) - 1
+        presentation = recorded_slot_presentation(slot)
+        if presentation is not None:
+            # The value Word received is composed of several presentation
+            # components.  Each one is recorded separately, so the resolved fact
+            # is distinguishable from the source's own separator and from the
+            # source form's not-applicable marker - and the marker can never be
+            # read back as a resolved value.  The composite occupies one source
+            # form slot, so the slot's own underline intent is inherited by the
+            # components that sit in it; the prose before and after the slot is
+            # written by its own runs and keeps only its own decoration.
+            components = [component["kind"] for component in presentation.get("components", ())]
+            record["value_presentation"] = {
+                **presentation,
+                "source_slot_underline_inherited": bool(run.underline),
+                "underline_components": components if run.underline else [],
+                "underline_provenance": (
+                    "the source drew one rule across this form slot, so every "
+                    "component occupying the slot inherits that decoration"
+                    if run.underline
+                    else "the source drew no rule on this form slot"
+                ),
+            }
         record["generated_value_style"] = {
             "east_asia_font": profile.east_asia_font,
             "latin_font": profile.latin_font,
@@ -365,12 +613,13 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             "word_style": paragraph.style.name,
         }
 
-    def form_block(self, doc, block, *, page_content_x0=18.0, scale=1.0, initial_space_before=0.0):
+    def form_block(self, doc, block, *, page_content_x0=18.0, page_content_x1=None, scale=1.0, initial_space_before=0.0):
         first = len(doc.paragraphs)
         last = super().form_block(
             doc,
             block,
             page_content_x0=page_content_x0,
+            page_content_x1=page_content_x1,
             scale=scale,
             initial_space_before=initial_space_before,
         )
@@ -544,7 +793,8 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                 return True
         return False
 
-    def _prepare_logical_paragraph(self, doc, item, page, layout, gap, page_content_x0, scale):
+    def _prepare_logical_paragraph(self, doc, item, page, layout, gap, page_content_x0, scale,
+                                   *, page_content_x1=None):
         semantic = self._semantic(item, page, layout)
         paragraph = doc.add_paragraph(style=semantic.style_name)
         paragraph.alignment = {
@@ -554,13 +804,14 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         pf = paragraph.paragraph_format
         pf.space_before = Pt(gap)
         pf.space_after = Pt(0)
-        if semantic.role == "BODY_LIST" and item.source_lines:
-            prefix_x = float(item.source_lines[0].bbox[0])
-            pf.left_indent = Pt(max(0.0, prefix_x - page_content_x0))
-            pf.first_line_indent = Pt(0)
-        else:
-            pf.first_line_indent = Pt(0 if item.alignment_hint == "center" else item.first_line_indent_pt)
-            pf.left_indent = Pt(0 if item.alignment_hint == "center" else max(0, item.left_indent_pt - page_content_x0))
+        # SOURCE PARAGRAPH INDENT.  The paragraph's own source visual rows decide
+        # whether its first row is indented, hanging or aligned with the rows it
+        # wraps into, and the body boundary they return to is the paragraph's left
+        # indent.  A list item is not a special case: writing its first row's x as
+        # a whole-paragraph left indent moves every wrapped row off the body
+        # boundary the source returns it to, and forcing its first-line indent to
+        # zero drops the source's own first-line offset.
+        self._apply_source_paragraph_indent(pf, item, page_content_x0)
         # The left edge a tab stop is measured from.  Tab stops are measured from
         # the *section text margin*
         # (``WORD_TAB_REFERENCE_MODEL``), which a first-line or hanging indent
@@ -568,13 +819,43 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         self._positioned_paragraph_left[id(paragraph)] = (
             float(page_content_x0) + float(pf.left_indent.pt or 0.0)
         )
-        pf.right_indent = Pt(0)
+        # A source line that runs past the stable body frame is element-level
+        # geometry, not a reason to widen the section: the paragraph keeps its
+        # source extent through a Word-native negative right indent, which
+        # extends the paragraph into the right margin exactly as far as the
+        # source does.  Without it the frame change would wrap a source line the
+        # source itself keeps on one line.
+        pf.right_indent = Pt(self._frame_overhang_right_indent(item, page_content_x1))
         pf.line_spacing = infer_semantic_line_spacing(
             item.font_size_pt, item.line_pitch_pt * scale,
             source_locator=item.source.locator,
         ).word_value
         pf.widow_control = False
         return paragraph, semantic
+
+    def _frame_overhang_right_indent(self, item, page_content_x1) -> float:
+        """Negative right indent needed to keep a source line's own extent.
+
+        The stable body frame is a *bound*: most source lines end inside it, and
+        a few genuinely end past it.  Reproducing those few must not move the
+        section margin for every page, so the difference rides on the element:
+        ``w:ind/@w:right`` is negative by exactly the source overhang.  A
+        paragraph that stays inside the frame keeps a right indent of zero.
+        """
+
+        if page_content_x1 is None:
+            return 0.0
+        extents = [
+            max((float(span.bbox[2]) for span in line.spans
+                 if str(getattr(span, "text", "") or "").strip()),
+                default=None)
+            for line in (getattr(item, "source_lines", None) or ())
+        ]
+        extents = [value for value in extents if value is not None]
+        if not extents:
+            extents = [float(item.bbox[2])]
+        overhang = max(extents) - float(page_content_x1)
+        return round(min(0.0, -overhang), 2)
 
     def _form_line_rule_spans(self, item, layout):
         """Source rules that fall on this element's own source visual lines.
@@ -707,6 +988,63 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         self._row_context_paragraph = None
         self._current_emission_paragraph = None
 
+    def _covered_text_range_for_rule(self, rule, runs, text):
+        """The character range of ``text`` a rule's own glyphs occupy.
+
+        The same authoritative mapping the restorers use: visible characters are
+        matched to source runs in reading order, so the rule's extent resolves to
+        the offsets of the characters it was drawn beneath.  This is the evidence
+        that lets the emitter hand a source decoration to the semantic slot that
+        occupies the rule, instead of to whichever run happens to contain it.
+        """
+
+        positions = [i for i, character in enumerate(text) if not character.isspace()]
+        compact = "".join(text[i] for i in positions)
+        mapped, cursor = [], 0
+        for run in runs:
+            key = "".join(str(getattr(run, "text", "") or "").split())
+            if not key:
+                continue
+            at = compact.find(key, cursor)
+            if at >= 0:
+                mapped.append((run, positions[at], positions[at + len(key) - 1] + 1))
+                cursor = at + len(key)
+        x0, x1 = float(rule.bbox[0]), float(rule.bbox[2])
+        covered = [
+            (start, end)
+            for run, start, end in mapped
+            if float(run.bbox[2]) > x0 + 0.5 and float(run.bbox[0]) < x1 - 0.5
+        ]
+        if not covered:
+            return None
+        return min(start for start, _ in covered), max(end for _, end in covered)
+
+    def _decoration_transfers_to_replacement_value(self, rule, runs, text, slots) -> bool:
+        """Whether a rule's decoration belongs to a replacement value.
+
+        The test is evidence the renderer actually holds: a rule transfers its
+        decoration when the source characters it was drawn beneath are a
+        placeholder that a resolved value replaces.  The decoration then belongs
+        to that value and must not also be painted onto the surrounding source
+        run, which is what inverts the underline when a placeholder and its
+        prose share one source run.  A rule covering no replaced slot keeps the
+        accepted whole-run underline.
+        """
+
+        covered = self._covered_text_range_for_rule(rule, runs, text)
+        if covered is None:
+            return False
+        for slot in slots:
+            start = getattr(slot, "text_start", None)
+            end = getattr(slot, "text_end", None)
+            if start is None or end is None:
+                continue
+            if not (covered[0] <= start and end <= covered[1]):
+                continue
+            if slot_replacement(slot, self.facts) is not None:
+                return True
+        return False
+
     def _render_logical_content(self, paragraph, item, layout, semantic):
         item_slots = [
             s for fragment, _start, _end in item.fragments
@@ -729,6 +1067,12 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         row_indexes = self._fragment_visual_row_indexes(item, rows)
         rule_spans = self._source_rule_spans_for_emission_plan()
         self._current_emission_paragraph = paragraph
+        # SOURCE VISUAL ROW COUNT: the source's own wrapping is not a line break.
+        # A reconstructed element that owns several physical rows is one flowing
+        # source paragraph whose rows wrap, so none of those rows may open a Word
+        # paragraph of its own; only an element that IS one physical row is a
+        # source form line, and only that may be isolated for its own geometry.
+        self._current_source_visual_row_count = len(rows)
         for fragment_index, (fragment, start, end) in enumerate(item.fragments):
             raw = fragment.text[start:end]
             fragment_slots = [
@@ -738,6 +1082,29 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                 and s.text_start is not None and s.text_end is not None
                 and start <= s.text_start <= s.text_end <= end
             ]
+            # A source row drawn as several PDF text objects arrives with an
+            # extraction newline between them.  That newline is presentation, not
+            # a source line break: joining it here keeps a one-row source element
+            # on one rendered row instead of splitting it into two paragraphs.
+            # An extraction newline a fill slot addresses is the opposite - it is
+            # the blank the source drew between two text objects - so those
+            # offsets are protected, and every remaining offset the join removes
+            # is translated in the slots below instead of shifting them.
+            protected = {
+                offset
+                for slot in fragment_slots
+                for offset in range(int(slot.text_start), int(slot.text_end) + 1)
+            }
+            raw, row_join_offsets = single_visual_row_join(
+                raw, getattr(fragment, "lines", None) or (), protected=protected)
+            if row_join_offsets:
+                fragment_slots = [
+                    s.model_copy(update={
+                        "text_start": _row_join_remap(s.text_start, row_join_offsets),
+                        "text_end": _row_join_remap(s.text_end, row_join_offsets),
+                    })
+                    for s in fragment_slots
+                ]
             if fragment_index == 0:
                 raw, fragment_slots, removed_marker = self._trim_marker(
                     raw, fragment_slots, remove=remove_marker,
@@ -786,18 +1153,65 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             )
             self.rule_compositions_created += composed
             # A rule classified as a text/placeholder/value underline belongs to
-            # one owning source run, which then carries the underline itself.
-            for owner_run, relation in underline_owner_runs(
+            # one owning source run, which then carries the underline itself -
+            # unless the rule decorates a placeholder that a resolved value
+            # replaces.  In that case the source decoration belongs to the
+            # semantic slot and is inherited by the replacement value, so
+            # painting the owning run as well would underline prose the rule
+            # never covered and leave the value undecorated.
+            inherited_decoration_ranges = []
+            # SOURCE_RULE_DECORATION.  A rule the compiler bound to a slot whose
+            # placeholder a resolved value replaces is decoration evidence in its
+            # own right: the binding names the exact slot the source drew the rule
+            # on.  Such a rule's extent commonly carries a blank, the placeholder
+            # and more blank, so the occupancy heuristic labels it a form-layout
+            # rule rather than an underline and the label-based eligibility would
+            # never see the decoration the source drew on the slot.  The binding
+            # is the stronger evidence, so those rules are eligible as well - and
+            # only those, so a rule whose slot keeps its placeholder or stays
+            # empty still paints nothing onto a value.
+            bound_decoration_rule_ids = {
+                rule_id
+                for rule_id, binding in (self._rule_slot_binding or {}).items()
+                if (binding or {}).get("resolved_fact_fields")
+                and (self._rule_transformation_policy or {}).get(rule_id)
+                in VALUE_REPLACING_POLICIES
+            }
+            for owner_run, relation, rule in underline_owner_runs(
                 layout.horizontal_rules,
                 fragment.runs,
                 resolved_values=self._resolved_source_values(),
+                bound_decoration_rule_ids=bound_decoration_rule_ids,
             ):
+                if self._decoration_transfers_to_replacement_value(
+                    rule, fragment.runs, raw, fragment_slots
+                ):
+                    covered = self._covered_text_range_for_rule(rule, fragment.runs, raw)
+                    if covered is not None:
+                        inherited_decoration_ranges.append(covered)
+                    self._page_rule_relations.append(
+                        {
+                            "source_page": self._active_source_page,
+                            "emission_mechanism": "VALUE_INHERITS_SLOT_DECORATION",
+                            "relation_type": relation["relation_type"],
+                            "source_rule_id": (self._rule_ids_by_object or {}).get(id(rule)),
+                            "covered_text_range": None if covered is None else list(covered),
+                            "owner_text": str(getattr(owner_run, "text", ""))[:60],
+                            "owner_bbox": [round(float(v), 2) for v in owner_run.bbox],
+                            "reason": (
+                                "rule decorates a placeholder bound to a resolved fact, so the "
+                                "decoration is inherited by the replacement value instead"
+                            ),
+                        }
+                    )
+                    continue
                 self._underlined_source_run_ids.add(id(owner_run))
                 self._page_rule_relations.append(
                     {
                         "source_page": self._active_source_page,
                         "emission_mechanism": "RUN_UNDERLINE",
                         "relation_type": relation["relation_type"],
+                        "source_rule_id": (self._rule_ids_by_object or {}).get(id(rule)),
                         "owner_text": str(getattr(owner_run, "text", ""))[:60],
                         "owner_bbox": [round(float(v), 2) for v in owner_run.bbox],
                     }
@@ -836,7 +1250,27 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                 rule_spans=rule_spans,
                 source_locator=fragment.locator,
             )
-            if plan.needs_own_line_context:
+            # A row that is not the element's first row cannot trust continuous
+            # flow for its own origin, so it is assembled inside its own
+            # paragraph context - opened *before* its leading text is emitted -
+            # and the row's leading text and every atom of the row end up in one
+            # paragraph as one rendered row.
+            #
+            # A row that IS the element's first row keeps the element's own
+            # paragraph context.  Its positioned atoms are reached forward from
+            # that paragraph's origin by the source-derived tab the atom's own
+            # representation emits, so isolating it would open a second Word
+            # paragraph for a source visual line that never needed one and would
+            # drop the element's own style indent on the continuation.  The
+            # clause ``4、本项目询比有效期为提交响应文件截止之日起90日历天…``
+            # was split exactly that way: its fixed leading text ends at the R7
+            # anchor, so the atom is forward-reachable and the row must stay one
+            # paragraph.
+            if not plan.needs_own_line_context and plan.positioned_atoms:
+                plan.forward_reachable = True
+            if plan.needs_own_line_context and self._row_is_its_own_source_line(
+                plan, len(rows)
+            ):
                 plan.line_context_available = (
                     getattr(self, "_form_line_paragraph_factory", None) is not None
                 )
@@ -862,10 +1296,156 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                             ),
                         }
                     )
+            elif plan.needs_own_line_context:
+                # The row is a wrapped row of a flowing paragraph, so it is not a
+                # line the source drew: the row keeps the element's own paragraph
+                # and its positioned atoms are placed by flow.  Recorded, not
+                # assumed away, so the horizontal gates still measure the result.
+                plan.line_context_available = False
+                plan.wrapped_row_stays_in_paragraph = True
+                self.source_visual_line_assembly_gaps.append(
+                    {
+                        "source_page": plan.source_page,
+                        "source_line_identity": plan.source_line_identity,
+                        "source_row_index": plan.source_row_index,
+                        "source_y0": round(float(plan.source_y0), 2),
+                        "source_rule_ids": plan.source_rule_ids,
+                        "reason": (
+                            "row is one of the element's own wrapped rows, not a "
+                            "source line: the element stays one Word paragraph "
+                            "and the row is placed by flow"
+                        ),
+                    }
+                )
+            # The row's own line context, when it was granted one, is the paragraph
+            # the row's rules are positioned in: the emitter's rule geometry may
+            # then use the source-derived tab stops, and the paragraph's own
+            # justification cannot move them.
+            self._row_owns_line_context = bool(
+                getattr(plan, "owns_line_context", False)
+            )
+            self._inherited_value_decoration_ranges = tuple(inherited_decoration_ranges)
             self.text(paragraph, raw, fragment.runs, fragment_slots, flow=item.flow)
+            self._inherited_value_decoration_ranges = ()
+            self._row_owns_line_context = False
             self.source_visual_line_emission_plans.append(plan.as_dict())
             paragraph = self._current_emission_paragraph or paragraph
         return removed_marker
+
+    def _row_is_its_own_source_line(self, plan, element_row_count) -> bool:
+        """Whether a source visual row must own its own Word paragraph.
+
+        The row assembly exists so a row that carries positioned atoms can be
+        built from its own origin instead of trusting continuous flow.  That is
+        honest for a row the source *drew as its own line* - and it is also what
+        the frozen horizontal contract requires of a wrapped row that carries a
+        rule whose accepted geometry intent is ``EXACT_SOURCE_SPAN``.  Such a rule
+        owes both of its source endpoints inside the frozen 2.0 pt tolerance, and
+        continuous flow cannot reach them: the authority order puts the rule's own
+        geometry above Word paragraph continuity, and a paragraph boundary with
+        zero before/after spacing is the authorised remedy (never a ``<w:br/>``).
+
+        A wrapped row that carries no exact-span rule stays in the element's single
+        paragraph and is placed by flow, exactly as the accepted single-row form
+        lines already are: turning the source's own wrapping into paragraph
+        boundaries is visible, and the row's rules only owe their start anchor,
+        which flow keeps.
+
+        The evidence is the element's own source visual row count and the rule
+        registry's accepted geometry intent - source geometry and the frozen
+        contract, never a page, a rule id or a literal string.
+        """
+
+        if int(element_row_count or 1) <= 1:
+            return True
+        return self._row_owes_exact_source_span(plan)
+
+    def _row_owes_exact_source_span(self, plan) -> bool:
+        """Whether one of this row's own rules owes both of its source endpoints.
+
+        The accepted geometry intent is derived from the rule's own transformation
+        policy through the same function the registry annotation uses, so the row
+        decision and the delivered registry can never disagree about which rules
+        owe an exact source span.
+        """
+
+        for rule_id in getattr(plan, "source_rule_ids", None) or ():
+            policy = self._rule_transformation_policy.get(str(rule_id))
+            if source_rule_geometry_intent(policy) == "EXACT_SOURCE_SPAN":
+                return True
+        return False
+
+    def _source_form_field_slot_ids(self, runs, text, slots) -> frozenset:
+        """Slot ids whose own glyphs the source's rule is drawn beneath.
+
+        ``PLACEHOLDER_UNDERLINE`` with full text occupancy is the source's own
+        statement that the rule decorates the *placeholder's* characters, not a
+        wider blank: at full occupancy the placeholder's glyphs are the whole
+        span the source ruled, so its brackets are the source's form text and the
+        value is substituted inside that frame.  ``TEXT_UNDERLINE`` with partial
+        occupancy is the opposite - the rule is wider than the text it crosses,
+        which is a blank to fill, and the accepted substitution replaces the
+        whole placeholder.
+
+        The rule must also *own* a slot: the registry's ``authoritative_slot_id``
+        names the slot a rule governs, and a rule that governs no slot
+        (``NO_AUTHORITATIVE_SLOT``) cannot be the reason to preserve any
+        placeholder's frame, however its x-band happens to fall across one.  A
+        rule that does own a slot decorates the whole span it covers, so every
+        placeholder inside that span inherits the frame, not only the one the
+        binding names.  Both the relation and the occupancy are read from the
+        registered source rule, and the character range is resolved with the same
+        mapping the decoration restorers use.  Nothing here is keyed to a page, a
+        rule id, a case or a literal value.
+        """
+
+        if not slots or not runs or not text:
+            return frozenset()
+        bindings = getattr(self, "_rule_slot_binding", {}) or {}
+        covered_ranges = []
+        for entry in self.source_rule_registry:
+            if str(entry.get("relation_type")) != "PLACEHOLDER_UNDERLINE":
+                continue
+            authoritative = (bindings.get(entry.get("source_rule_id")) or {}).get(
+                "slot_id"
+            )
+            if authoritative is None:
+                continue
+            try:
+                occupancy = float(entry.get("text_occupancy"))
+            except (TypeError, ValueError):
+                continue
+            if occupancy < 1.0 - 1e-6:
+                continue
+            x0, x1 = entry.get("x0"), entry.get("x1")
+            if x0 is None or x1 is None:
+                continue
+            page = entry.get("source_page")
+            if page is None:
+                continue
+            y = float(entry.get("y") or 0.0)
+            span = SimpleNamespace(bbox=(float(x0), y, float(x1), y))
+            covered = self._covered_text_range_for_rule(span, runs, text)
+            if covered is not None:
+                # The rule's x-band is only meaningful on the page it was read
+                # from: the same x-band on another page crosses different glyphs,
+                # so a rule can never decorate a placeholder on a different page.
+                covered_ranges.append((int(page), covered[0], covered[1]))
+        if not covered_ranges:
+            return frozenset()
+        return frozenset(
+            str(slot.slot_id)
+            for slot in slots
+            if slot.text_start is not None
+            and slot.text_end is not None
+            and getattr(slot, "source_page", None) is not None
+            and any(
+                page == int(slot.source_page)
+                and start <= slot.text_start
+                and slot.text_end <= end
+                for page, start, end in covered_ranges
+            )
+        )
 
     def _source_rule_spans_for_emission_plan(self):
         """``(x0, x1, rule_id)`` of every registered rule, for atom provenance."""
@@ -978,6 +1558,17 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             slot_contract=_slot_contract,
         )
         if not self.template.source_pages:            raise ValueError("Source format has no pages")
+        # V1 manual-layout closure: derive the document/section page frame from
+        # repeated *source* geometry before any page renders.  The frame is a
+        # property of the source section, not of a page's content bounding box.
+        self.section_frames = derive_source_section_page_frames(
+            self.template.source_pages, self.layouts
+        )
+        # The source page frame is now known, so the shared vertical rhythm is
+        # re-sampled from the frame's own body top.  Sampling before this point
+        # would model the page's first element from a different origin than the
+        # emitter uses.
+        self._prepare_source_vertical_rhythm()
         doc = self.style_pack.new_document()
         self.fixture_report = self.style_pack.apply_profile(doc, self.style_profile)
         # The generated list family is retained in the package for explicit
@@ -1008,18 +1599,26 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                 section = doc.add_section(WD_SECTION.NEW_PAGE)
             previous = (page.width, page.height)
             section.page_width, section.page_height = Pt(page.width), Pt(page.height)
-            # Round 5.6: page geometry is source-derived per source section, so
-            # omitting the source header/footer can never widen the text area.
-            geometry = section_geometry(layout, page)
-            self.section_geometries.append(geometry.as_dict())
-            top = geometry.top_margin
+            # V1 manual-layout closure: the section carries the *stable source
+            # page frame*, never a bounding box measured on this one page.
+            # Round 5.6 derived the margin from the page's own min/max content
+            # x, which made a sparse title-only page acquire enormous margins
+            # (the clamp at 30% of the page width) and made a table wider than
+            # the body contract the text column.  Both are element-level
+            # geometry problems: a source x that differs from the frame is
+            # represented on the element (indent, tab stop, table indent,
+            # positioned blank) and never by moving the section margin.
+            frame = self.section_frames[page.page]
+            self.section_geometries.append(frame.page_geometry(page.page))
+            top = frame.top_body_frame
             section.top_margin = Pt(top)
-            section.bottom_margin = Pt(geometry.bottom_margin)
-            section.left_margin = Pt(geometry.left_margin)
-            section.right_margin = Pt(geometry.right_margin)
+            section.bottom_margin = Pt(frame.bottom_body_frame)
+            section.left_margin = Pt(frame.left_margin)
+            section.right_margin = Pt(frame.right_margin)
             self._active_source_page = page.page
-            page_content_x0 = geometry.left_margin
-            usable = geometry.usable_text_width
+            page_content_x0 = frame.left_margin
+            page_content_x1 = frame.body_x1
+            usable = frame.usable_text_width
             scale = self.page_scales.get(page.page, 1.0)
             # Round 5.8: classify this page's rules once.  The ones whose extent
             # is occupied by source text are underlines of that text and are
@@ -1027,19 +1626,26 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             self._register_page_rules(page, layout)
             cursor_y = top
             last_paragraph = None
-            for item in layout.elements:
-                # The source gap above an element is the distance from the
-                # modelled end of the previous element to this element's source
-                # top.  ``cursor_y`` is advanced by the modelled visual line
-                # count because a source element's bbox bottom is not the end of
-                # its rendered lines.
-                gap = max(0, item.bbox[1] - cursor_y) * scale
+            for position, item in enumerate(layout.elements):
+                # SHARED VERTICAL RHYTHM.  The gap above a source element is a
+                # real source block boundary, so it is expressed as the source's
+                # own shared spacing level rather than as this element's private
+                # y offset.  The cursor is the bottom of the furthest content
+                # already emitted: a form block whose rows end above its own
+                # declared extent must not move it backwards, because that would
+                # silently shrink the next real source boundary into a clamp.
+                gap = self._page_vertical_space(
+                    max(0, item.bbox[1] - cursor_y) * scale,
+                    page=page.page,
+                    position=position,
+                )
                 if isinstance(item, FormBlock):
                     last_paragraph = self.form_block(
                         doc, item, page_content_x0=page_content_x0,
+                        page_content_x1=page_content_x1,
                         scale=scale, initial_space_before=gap,
                     )
-                    cursor_y = item.bbox[3]
+                    cursor_y = max(cursor_y, item.bbox[3])
                     continue
                 if not isinstance(item, LogicalParagraph):
                     source = item
@@ -1049,7 +1655,7 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                         # A PDF page fragment that continues an open logical
                         # table is not its own Word table; its rows are already
                         # folded into the head table emitted at the seam.
-                        cursor_y = source.bbox[3]
+                        cursor_y = max(cursor_y, source.bbox[3])
                         last_paragraph = None
                         continue
                     logical = self.logical_plan.table_for(source.page, source.table_index)
@@ -1065,13 +1671,14 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                         usable,
                         page_content_x0=page_content_x0,
                     )
-                    cursor_y = source.bbox[3]
+                    cursor_y = max(cursor_y, source.bbox[3])
                     last_paragraph = None
                     continue
 
                 source = item.source
                 paragraph, semantic = self._prepare_logical_paragraph(
                     doc, item, page, layout, gap, page_content_x0, scale,
+                    page_content_x1=page_content_x1,
                 )
                 # SOURCE_FORM_LINE_PARAGRAPH activation (narrow): only for a
                 # reconstructed paragraph that carries more than one source fill
@@ -1123,8 +1730,24 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                     source_page=page.page,
                 )
                 self.paragraph_layouts.append(paragraph_layout)
-                generated_x = page_content_x0 + (paragraph.paragraph_format.left_indent.pt or 0.0)
-                self.paragraph_x_errors.append(abs(generated_x - source_anchor) if item.alignment_hint != "center" else 0.0)
+                # The delivered line origin.  A paragraph's *first* line carries
+                # its own first-line offset, so the line that starts at the
+                # source's first row is ``left_indent + first_line_indent``.
+                # Measuring the left indent alone would report a first-line
+                # indent as a horizontal error exactly as wide as itself.
+                generated_x = page_content_x0 + (
+                    float(paragraph.paragraph_format.left_indent.pt or 0.0)
+                    + float(paragraph.paragraph_format.first_line_indent.pt or 0.0)
+                )
+                source_first_row_x = (
+                    float(item.source_lines[0].bbox[0])
+                    if item.source_lines
+                    else float(item.bbox[0])
+                )
+                self.paragraph_x_errors.append(
+                    abs(generated_x - source_first_row_x)
+                    if item.alignment_hint != "center" else 0.0
+                )
                 self.paragraph_y_errors.append(0.0)
                 self.logical_records.append({
                     "kind": "Heading" if semantic.role == "HEADING" else ("List" if semantic.role == "BODY_LIST" else item.kind),
@@ -1151,6 +1774,11 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                     ) if semantic.role == "BODY_LIST" else None,
                     "left_indent_pt": paragraph.paragraph_format.left_indent.pt or 0.0,
                     "first_line_indent_pt": paragraph.paragraph_format.first_line_indent.pt or 0.0,
+                    "source_indent": (
+                        item.source_indent.as_dict()
+                        if getattr(item, "source_indent", None) is not None
+                        else None
+                    ),
                     "layout_role": role.value,
                     "container_x0": paragraph_layout.container_x0,
                     "container_x1": paragraph_layout.container_x1,
@@ -1160,6 +1788,8 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
                     "space_before": paragraph_layout.space_before_pt,
                     "tab_stops": [],
                     "x_error_pt": self.paragraph_x_errors[-1],
+                    "source_first_row_x": round(source_first_row_x, 4),
+                    "generated_first_line_x": round(generated_x, 4),
                     "y_error_pt": 0.0,
                     "word_style": semantic.style_name,
                     "numbering_family": semantic.numbering_family,
@@ -1279,6 +1909,50 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             "inline_blank_count": self.inline_blank_count,
             "paragraph_layout_count": len(self.paragraph_layouts),
             "paragraph_layout_records": self.logical_records,
+            "source_vertical_rhythm": self._source_vertical_rhythm_report(),
+            "slot_value_presentations": self._slot_value_presentation_report(),
+            "forward_reachable_emission_count": sum(
+                1
+                for plan in self.source_visual_line_emission_plans
+                if plan.get("forward_reachable")
+            ),
+            "forward_reachable_emission_plans": [
+                {
+                    "source_page": plan.get("source_page"),
+                    "source_line_identity": plan.get("source_line_identity"),
+                    "source_row_index": plan.get("source_row_index"),
+                    "source_rule_ids": plan.get("source_rule_ids"),
+                    "source_y0": plan.get("source_y0"),
+                    "reachability": "FORWARD_REACHABLE_SAME_ROW",
+                    "evidence": (
+                        "the row's positioned atoms are reached forward from the "
+                        "row's own paragraph origin by their own source-derived "
+                        "anchor tabs, so the source visual line stays one Word "
+                        "paragraph"
+                    ),
+                }
+                for plan in self.source_visual_line_emission_plans
+                if plan.get("forward_reachable")
+            ],
+            "structural_isolation_rows": [
+                {
+                    "source_page": record.get("source_page"),
+                    "source_rule_id": record.get("source_rule_id"),
+                    "source_rule_ids": record.get("source_rule_ids"),
+                    "generated_paragraph_index": record.get("generated_paragraph_index"),
+                    "isolation_reason": record.get("isolation_reason"),
+                    "space_before_pt": (
+                        record.get("paragraph_format", {}) or {}
+                    ).get("space_before_pt"),
+                    "space_after_pt": (
+                        record.get("paragraph_format", {}) or {}
+                    ).get("space_after_pt"),
+                }
+                for record in self.source_form_line_paragraphs
+            ],
+            "structural_isolation_reason": (
+                "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW"
+            ),
             "paragraph_x_error_max": max(self.paragraph_x_errors, default=0.0),
             "paragraph_x_error_median": sorted(self.paragraph_x_errors)[len(self.paragraph_x_errors) // 2] if self.paragraph_x_errors else 0.0,
             "paragraph_y_error_max": max(self.paragraph_y_errors, default=0.0),
@@ -1287,6 +1961,7 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             "positioned_blank_records": self.positioned_blank_records,
             "positioned_blank_count": len(self.positioned_blank_records),
             "unreachable_positioned_blank_count": self.unreachable_positioned_blank_count,
+            "flow_inline_blank_count": self.flow_inline_blank_count,
             "positioned_form_layout_breaks": self.positioned_form_layout_breaks,
             "positioned_coordinate_frames": self._positioned_coordinate_frames,
             "source_form_line_paragraphs": self.source_form_line_paragraphs,            "source_form_line_paragraph_count": len(self.source_form_line_paragraphs),
@@ -1391,6 +2066,7 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
             "font_repairs": [],
             "word_open_status": "PENDING_MANUAL_CONFIRMATION",
             "word_safe_scan": scan,
+            "table_geometry_records": self.table_geometry_records,
             "style_profile": self.style_profile.as_dict(),
             "fixture_integrity": fixture_integrity_report(self.style_pack, self.style_profile),
             "fixture_body_list_num_id": self.body_list_num_id,

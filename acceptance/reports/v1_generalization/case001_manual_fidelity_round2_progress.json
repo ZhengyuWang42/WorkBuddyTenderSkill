@@ -1,0 +1,147 @@
+{
+  "schema": "v1_case001_manual_fidelity_round2_progress/1",
+  "round": "V1_CASE001_MANUAL_FIDELITY_CLOSURE_ROUND_2",
+  "baseline_commit": "8de9e1f343a6643e11ea5c6c8e1df015dda123a5",
+  "committed": false,
+  "pushed": false,
+  "status": "CASE001_MANUAL_FIDELITY_ROUND2_AUTOMATION = PASS",
+  "all_five_defects_closed": true,
+  "manual_word_review_required": true,
+  "v1_production_candidate": false,
+  "ready_for_submission": false,
+  "final_report": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_final.json",
+  "banked_round1_state": {
+    "build_id": "v1_manual_layout_closure",
+    "untouched": true,
+    "case001_pointer_build_id": "v1_manual_fidelity_round2",
+    "note": "the banked build and its reports were never reset, reverted, checked out or overwritten; they were read only, as the before/after comparison baseline"
+  },
+  "stage_a": {
+    "status": "COMPLETE",
+    "report": "acceptance/reports/v1_generalization/case001_manual_fidelity_round2_diagnostic.json",
+    "preserved_unchanged": true,
+    "root_causes_demonstrated": [
+      "defect_1_underline_ownership",
+      "defect_2_source_visual_line_vs_word_paragraph",
+      "defect_3_anomalous_left_indent",
+      "defect_4_vertical_rhythm",
+      "defect_5_antibribery_project_lot_slot"
+    ]
+  },
+  "human_decision_stage_b1": {
+    "choice": "Option A",
+    "authority_order": [
+      "source-visible form geometry and the frozen P3 horizontal contract",
+      "fact completeness and reading order",
+      "source visual-line semantics",
+      "Word paragraph continuity (subordinate when geometrically impossible)"
+    ],
+    "must_not": [
+      "re-baseline P42-R3/R4/R5/R6",
+      "weaken the +/-2.0 pt P3 horizontal tolerance",
+      "force rows 1-4 into one paragraph if that moves the frozen source anchors"
+    ],
+    "record_as": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+    "extra_requirement": "the isolation boundary must carry zero unintended space_before/space_after",
+    "honoured": true,
+    "p3_rules_re_baselined": [],
+    "tolerance_weakened": false
+  },
+  "defect_status": {
+    "defect_1_underline_ownership": {
+      "status": "CLOSED",
+      "fixed_and_measured": true,
+      "redesigned_this_round": false,
+      "stage_c_full_inventory_owed_and_now_done": {
+        "report": "acceptance/reports/v1_generalization/case001_underline_inventory_round2.json",
+        "source_underline_count": 8,
+        "matched": 8,
+        "lost": 0,
+        "invented": 0,
+        "out_of_tolerance": 0,
+        "status": "PASS"
+      }
+    },
+    "defect_2_source_visual_line_vs_word_paragraph": {
+      "status": "CLOSED",
+      "clause_4_r7_is_one_paragraph": true,
+      "reachability": "FORWARD_REACHABLE_SAME_ROW",
+      "backward_anchors_still_isolated": ["P42-R3", "P42-R5", "P42-R6"],
+      "isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+      "unintended_spacing_on_isolation_boundaries": 0,
+      "generic_cursor_geometry_no_row_index_rule": true,
+      "frozen_composition_anchors_identical_to_baseline": true
+    },
+    "defect_3_anomalous_left_indent": {
+      "status": "CLOSED",
+      "row": "成立时间：",
+      "label_origin_is_the_source_label_x": true,
+      "source_label_x_pt": 72.0,
+      "baseline_source_x_pt": 131.85,
+      "later_fields_reached_by_source_derived_tabs": true,
+      "max_rendered_deviation_pt": 0.15,
+      "literal_special_case": false
+    },
+    "defect_4_vertical_rhythm": {
+      "status": "CLOSED",
+      "distinct_normal_row_space_before_before": 9,
+      "distinct_normal_row_space_before_after": 4,
+      "repeated_form_row_count": 20,
+      "one_off_row_spacing_count_after": 1,
+      "unexplained_custom_row_spacing_count_after": 0,
+      "per_row_absolute_y_compensation_remaining": 0,
+      "sub_line_artefacts_collapsed_with_evidence": 12,
+      "boundary_population_reported_separately": true,
+      "model": "tender_basic/source_vertical_rhythm.py (schema source_vertical_rhythm/1)"
+    },
+    "defect_5_antibribery_project_lot_slot": {
+      "status": "CLOSED",
+      "composed_slot_value_count": 1,
+      "slot_id": "slot-60-14",
+      "value_suffix": "、/",
+      "marker_is_a_fact": false,
+      "marker_creates_a_fact_candidate": false,
+      "lot_name_status": "NOT_FOUND",
+      "letter_slot_42_3_unaffected": true,
+      "source_underline_preserved_across_the_fill_region": true,
+      "case_or_value_literals_in_production": 0
+    }
+  },
+  "lessons_this_round": [
+    "the vertical rhythm sampler and the emitter must apply the same cursor rule, or the sampled population is not the population being written; a sub-line artefact that only one of them sees becomes a paragraph spacing of its own",
+    "a shared spacing value must be its class's largest member with a fixed comparison anchor: rounding down to the class minimum tightened the P3 form region until a source row was dropped, and a moving representative would let near-misses chain one class across the whole gap population",
+    "the region reflow plan's width model and the emitter's real font metrics can disagree at an anchor by a fraction of a point; when they do, the emitter's own measurement must win, or the plan demands a generated row the page cannot hold and displaces every row below it by one pitch"
+  ],
+  "verification_done_this_round": {
+    "gate_10_checks": "PASS",
+    "underline_inventory": "PASS (8/8, lost 0, invented 0, out_of_tolerance 0)",
+    "reflow_aware_v1": "PASS (max residual 0.68 pt against a frozen 2.0 pt tolerance, unexplained expansion 0)",
+    "v09_internal_preview_gate_family": "PASS (source-line assembly, ownership closure, P3 phase-2, P3 reflow-aware, CASE001 preview)",
+    "case001_acceptance": "PASS (problems [])",
+    "three_case_regression": "THREE_CASE_GENERALIZATION = PASS",
+    "full_test_suite": "466 passed, 1 skipped, 0 failed, 0 errors",
+    "focused_round2_tests": "12 passed",
+    "builds": {
+      "case_001": "acceptance/workspace/case_001/v1_manual_fidelity_round2 (22 pages)",
+      "case_002": "acceptance/workspace/case_002/v1_round2_regression (30 pages)",
+      "case_003": "acceptance/workspace/case_003/v1_round2_regression (33 pages)"
+    }
+  },
+  "known_residuals": [
+    {
+      "id": "P3_VERTICAL_ROW_BUDGET",
+      "status": "PRE_EXISTING_NOT_INTRODUCED",
+      "plain_phase3_gate": "FAIL",
+      "measured_shift_rows": 0.65,
+      "baseline_measured_shift_rows": 1.76,
+      "reason": "the reflowed project name on source rows 0-1 resolves far wider than the placeholders it replaces, so the single source row separating them from the shared R3/R4 row reflows into three generated rows and every rule below keeps a whole-row displacement. Closing it would require shrinking, clipping or overlapping the resolved values, which the accepted contract forbids.",
+      "silenced": false
+    }
+  ],
+  "not_yet_done": [],
+  "next_actions": [
+    "HUMAN ONLY: open acceptance/workspace/case_001/v1_manual_fidelity_round2/基础投标文件.docx in Word and work through acceptance/reports/v1_generalization/case001_manual_fidelity_round2_review_checklist.md",
+    "HUMAN ONLY: recheck page 3 (源 42) clause 4 / underlines, page 5 (源 44) 成立时间 row, page 21 (源 60) composite marker",
+    "no further automation may raise READY_FOR_SUBMISSION; only a signed checklist can"
+  ]
+}

@@ -49,11 +49,27 @@ def test_numbered_continuations_and_shared_list_geometry(tmp_path):
     t=template([('1、我方确认招标文件及其所有附件中的责任和义',96,80,520),
         ('务。',72,100,100),('2、我方在此声明所提供的资料真实且不存',96,120,520),
         ('在文件列明的限制条件。',72,140,250)])
+    layout=build_page_layout(t.source_pages[0])
     output,_=build_source_format_docx(make_project_facts(),t,tmp_path/'list.docx')
     ps=Document(output).paragraphs
     assert len(ps)==2 and '责任和义务' in ps[0].text and '且不存在' in ps[1].text
-    assert {(p.paragraph_format.left_indent.pt,p.paragraph_format.first_line_indent.pt) for p in ps}=={(78,-24)}
-    assert len(build_page_layout(t.source_pages[0]).list_groups)==1
+    # The source prints the numbered first row at x=96 and returns every wrapped
+    # row to x=72, so the paragraph's body boundary is 72 and its first row is
+    # offset by 24 - a first-line indent.  Delivering the first row's own x as the
+    # paragraph's whole left indent would put the wrapped row at 96 and the first
+    # row at 72, which is the source's geometry inverted.
+    content_x0=18.0
+    for paragraph in ps:
+        left=paragraph.paragraph_format.left_indent.pt
+        first=paragraph.paragraph_format.first_line_indent.pt
+        assert left+content_x0==72.0
+        assert left+first+content_x0==96.0
+    for item in layout.elements:
+        indent=item.source_indent
+        assert indent.classification=='FIRST_LINE_INDENT'
+        assert indent.body_left_x==72.0 and indent.measured_continuation
+        assert indent.continuation_x==72.0 and indent.first_line_x==96.0
+    assert len(layout.list_groups)==1
 
 
 def test_numeric_sentence_containing_document_is_not_heading():

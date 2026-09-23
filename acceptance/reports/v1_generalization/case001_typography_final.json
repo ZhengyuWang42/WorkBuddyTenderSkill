@@ -1,0 +1,220 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": "round4_date_rhythm_closure8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION",
+  "failed_checks": [],
+  "measurements": {
+    "hard_break_fidelity": {
+      "status": "PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION",
+      "checked": 75,
+      "failed": 0,
+      "authorized_splits": 0,
+      "authorized_classifications": [
+        "SOURCE_EXPLICIT_BREAK"
+      ],
+      "split_classifications": {
+        "NATURAL_WRAP": 1
+      },
+      "isolated_paragraphs": [
+        29
+      ],
+      "source_natural_wrap_boundaries": 1,
+      "source_explicit_breaks": 0,
+      "generated_w_br": 0,
+      "generated_w_cr": 0,
+      "generated_paragraph_boundaries": 1,
+      "unexplained_structural_splits": 0,
+      "reviewed_structural_deviations": [
+        {
+          "kind": "SOURCE_ELEMENT_SPLIT_ACROSS_PARAGRAPHS",
+          "source_page": 42,
+          "source_element_kind": "LogicalParagraph",
+          "source_row_count": 4,
+          "source_row_texts": [
+            "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+            "以人民币（大写）（不含税），（小写）元的响应报",
+            "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "达到。"
+          ],
+          "delivered_paragraphs": 2,
+          "unauthorized_paragraph_indexes": [],
+          "classification": "NATURAL_WRAP",
+          "classification_reason": "one source logical paragraph printed as 4 wrapped visual rows",
+          "source_semantics": "NATURAL_WRAP",
+          "generated_representation": "PARAGRAPH_BOUNDARY",
+          "container_fidelity": "SOURCE_CONTAINER_MISMATCH",
+          "fidelity_difference": "CONTAINER_IDENTITY",
+          "deviation_kind": "STRUCTURAL_ISOLATION_REQUIRED_BY_FROZEN_GEOMETRY",
+          "deviation_state": "REVIEWED_ACCEPTED",
+          "deviation_conditions": {
+            "source_evidence_proves_one_logical_paragraph": true,
+            "source_boundary_classification_is_natural_wrap": true,
+            "generated_structure_is_a_native_paragraph_boundary": true,
+            "generated_boundary_has_no_w_br_no_w_cr_no_empty_paragraph": true,
+            "generated_boundary_spacing_is_zero_or_source_equivalent": true,
+            "no_visible_blank_row_is_introduced": true,
+            "reading_order_is_unchanged": true,
+            "text_content_is_unchanged": true,
+            "split_occurs_at_a_source_visual_row_transition": true,
+            "same_w_p_rendering_experimentally_tested": true,
+            "experiment_fails_an_independently_frozen_source_geometry_contract": true,
+            "the_violated_geometry_contract_predates_the_deviation": true,
+            "no_permitted_native_inline_construct_satisfies_both": true,
+            "preserving_geometry_requires_no_tolerance_weakening": true,
+            "no_source_geometry_rebaseline_is_performed": true,
+            "deviation_is_surfaced_explicitly": true,
+            "a_human_review_item_remains_open": true
+          },
+          "deviation_missing_conditions": [],
+          "deviation_evidence_path": "acceptance/evidence/structural_deviations/response_letter_natural_wrap_boundary.json",
+          "deviation_evidence_problems": [],
+          "same_word_paragraph": false,
+          "generated_paragraph_boundary": true,
+          "w_br_between_tokens": 0,
+          "w_cr_between_tokens": 0,
+          "empty_paragraph_between_tokens": 0,
+          "authorised_structural_split_between_tokens": false,
+          "recorded_isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+          "text": "我方已充分研究了询比文件的全部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供货期，按合同约定实施并完成本",
+          "unexplained_structural_split": false,
+          "reviewed_structural_deviation": true
+        }
+      ],
+      "builder_forced_breaks": 0,
+      "unexpected_w_br_count": 0,
+      "unexpected_w_cr_count": 0,
+      "documented_structural_deviation_count": 1,
+      "hard_break_disclosure": [],
+      "classification_model": {
+        "NATURAL_WRAP": "a recorded structural isolation is evidence about the build, not a verdict: only a boundary the SOURCE itself printed is an authorised split.  A split of one source logical paragraph's wrapped rows is reported as NATURAL_WRAP; it is a reviewed structural deviation only when the separate deviation contract is fully evidenced, and it is never reported as container fidelity",
+        "SOURCE_EXPLICIT_BREAK": "the source's own list items / source-authored rows",
+        "BUILDER_FORCED_BREAK": "one source visual row the builder split",
+        "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW": "a builder split the build recorded as forced by the resolved value's reflow; recorded, never authorised on its own",
+        "REVIEWED_STRUCTURAL_DEVIATION": "a source natural wrap the container expresses as a paragraph boundary because a contract frozen before the deviation makes the merged representation unreachable; admissible only under the 17-condition deviation contract, reported and never called fidelity"
+      }
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 5,
+      "failed": 0
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 0
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 0,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 33,
+      "failed": 0
+    },
+    "flow_placed_rule_endpoints": {
+      "checked": 0,
+      "failed": 0,
+      "diagnostic_only": true,
+      "rules": [],
+      "text_decoration_rules": [],
+      "value_representation_rules": [
+        {
+          "source_rule_id": "P42-R5",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 131.85,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "30日历天"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        },
+        {
+          "source_rule_id": "P42-R6",
+          "source_page": 42,
+          "transformation_policy": "RESOLVED_VALUE_IN_FIXED_SLOT",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "anchor_x": 95.25,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "resolved_values": [
+            "符合国家及行业有关标准、规范和询比文件要求"
+          ],
+          "reason": "a resolved value in a fixed slot: the owner anchors the value at the source x0, so the rule's start is held by an anchor rather than by the flow"
+        }
+      ]
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [],
+    "PARAGRAPH_ALIGNMENT": [],
+    "TABLE_CELL_LINE_STRUCTURE": [],
+    "SOURCE_BOLD_FIDELITY": [],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": []
+  },
+  "reviewed_structural_deviations": [
+    {
+      "kind": "SOURCE_ELEMENT_SPLIT_ACROSS_PARAGRAPHS",
+      "source_page": 42,
+      "source_element_kind": "LogicalParagraph",
+      "source_row_count": 4,
+      "source_row_texts": [
+        "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "以人民币（大写）（不含税），（小写）元的响应报",
+        "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "达到。"
+      ],
+      "delivered_paragraphs": 2,
+      "unauthorized_paragraph_indexes": [],
+      "classification": "NATURAL_WRAP",
+      "classification_reason": "one source logical paragraph printed as 4 wrapped visual rows",
+      "source_semantics": "NATURAL_WRAP",
+      "generated_representation": "PARAGRAPH_BOUNDARY",
+      "container_fidelity": "SOURCE_CONTAINER_MISMATCH",
+      "fidelity_difference": "CONTAINER_IDENTITY",
+      "deviation_kind": "STRUCTURAL_ISOLATION_REQUIRED_BY_FROZEN_GEOMETRY",
+      "deviation_state": "REVIEWED_ACCEPTED",
+      "deviation_conditions": {
+        "source_evidence_proves_one_logical_paragraph": true,
+        "source_boundary_classification_is_natural_wrap": true,
+        "generated_structure_is_a_native_paragraph_boundary": true,
+        "generated_boundary_has_no_w_br_no_w_cr_no_empty_paragraph": true,
+        "generated_boundary_spacing_is_zero_or_source_equivalent": true,
+        "no_visible_blank_row_is_introduced": true,
+        "reading_order_is_unchanged": true,
+        "text_content_is_unchanged": true,
+        "split_occurs_at_a_source_visual_row_transition": true,
+        "same_w_p_rendering_experimentally_tested": true,
+        "experiment_fails_an_independently_frozen_source_geometry_contract": true,
+        "the_violated_geometry_contract_predates_the_deviation": true,
+        "no_permitted_native_inline_construct_satisfies_both": true,
+        "preserving_geometry_requires_no_tolerance_weakening": true,
+        "no_source_geometry_rebaseline_is_performed": true,
+        "deviation_is_surfaced_explicitly": true,
+        "a_human_review_item_remains_open": true
+      },
+      "deviation_missing_conditions": [],
+      "deviation_evidence_path": "acceptance/evidence/structural_deviations/response_letter_natural_wrap_boundary.json",
+      "deviation_evidence_problems": [],
+      "same_word_paragraph": false,
+      "generated_paragraph_boundary": true,
+      "w_br_between_tokens": 0,
+      "w_cr_between_tokens": 0,
+      "empty_paragraph_between_tokens": 0,
+      "authorised_structural_split_between_tokens": false,
+      "recorded_isolation_reason": "STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW",
+      "text": "我方已充分研究了询比文件的全部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供货期，按合同约定实施并完成本",
+      "unexplained_structural_split": false,
+      "reviewed_structural_deviation": true
+    }
+  ],
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true. A reviewed structural deviation is disclosed and counted; it is never reported as container fidelity, and it leaves a human review item open."
+}

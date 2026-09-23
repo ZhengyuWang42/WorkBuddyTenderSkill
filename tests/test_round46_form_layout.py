@@ -216,7 +216,16 @@ def test_inline_sentence_blank_renders_as_visible_underlined_glyphs(tmp_path):
     assert report["positioned_blank_count"] >= 1
 
 
-def test_numbered_and_nested_lists_use_true_hanging_indent(tmp_path):
+def test_numbered_and_nested_lists_keep_the_source_indent_column(tmp_path):
+    """A list item is delivered with the indent its own source rows show.
+
+    The fixture's items never wrap, so no continuation column was measured for
+    them and the source gives no evidence that their first row is indented at
+    all: each keeps its own first-row origin and declares no first-line indent.
+    What must survive is the list *structure* - four separate items at two
+    levels in three groups - because that is the part the source states.
+    """
+
     main = _paragraph("1、主条款内容很长", bbox=(96, 80, 500, 92))
     nested = _paragraph("（1）子条款", block=1, bbox=(82, 110, 360, 122))
     nested_two = _paragraph("（2）子条款", block=2, bbox=(82, 130, 360, 142))
@@ -226,10 +235,18 @@ def test_numbered_and_nested_lists_use_true_hanging_indent(tmp_path):
     document = Document(output)
     list_paragraphs = [p for p in document.paragraphs if p.text.startswith(("1、", "2、", "（1）", "（2）"))]
     assert len(list_paragraphs) == 4
-    assert all((p.paragraph_format.first_line_indent.pt or 0) < 0 for p in list_paragraphs)
+    # Every item's first line still lands on its own source origin: no item is
+    # given a whole-paragraph left indent its rows do not support.
+    for paragraph, source_x in zip(list_paragraphs, (96, 82, 82, 96)):
+        formatting = paragraph.paragraph_format
+        assert (formatting.left_indent.pt or 0) + (formatting.first_line_indent.pt or 0) == source_x - 18.0
     records = [record for record in generation["logical_paragraph_records"] if record["kind"] == "List"]
     assert {record["list_level"] for record in records} == {0, 1}
     assert len({tuple(record["list_group_key"]) for record in records}) == 3
+    assert all(
+        record["source_indent"]["classification"] == "NO_SPECIAL_FIRST_LINE_INDENT"
+        for record in records
+    )
 
 
 def test_form_block_has_one_shared_grid_for_related_rows(tmp_path):

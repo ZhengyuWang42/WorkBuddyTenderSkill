@@ -1,8 +1,8 @@
 {
   "schema": "v1_case_acceptance/1",
   "case": "case_001",
-  "build_id": "v1_phaseC_final2",
-  "build_dir": "acceptance\\workspace\\case_001\\v1_phaseC_final2",
+  "build_id": "v1_manual_fidelity_round2",
+  "build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2",
   "pinned_pointer": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_001_current_build.json",
   "source": {
     "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
@@ -12,42 +12,42 @@
     "source_pdf_reopen": true
   },
   "generated": {
-    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx",
-    "docx_sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d",
-    "docx_bytes": 45480,
-    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.pdf",
-    "pdf_sha256": "b768d1a08a38410d77f74a37625a9b94f151fd08889a42e2c326e3884e5dac95",
-    "pdf_bytes": 299453
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.docx",
+    "docx_sha256": "be447cb72e39126d088b56b04a2407fb87c58f4b7e30df120624d4ca4f876001",
+    "docx_bytes": 45357,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.pdf",
+    "pdf_sha256": "8f8e19bcf42a61d856c63c1095b1757487a8904846ec589532846b7c53718064",
+    "pdf_bytes": 298561
   },
   "pipeline": 0,
   "libreoffice_render": {
     "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
     "argv": [
       "C:\\Program Files\\LibreOffice\\program\\soffice.com",
-      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/v1_phaseC_final2/_acceptance_render/_acc_profile_9c25331fc055",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_001/v1_manual_fidelity_round2/_acceptance_render/_acc_profile_057918f5bad6",
       "--headless",
       "--norestore",
       "--convert-to",
       "pdf",
       "--outdir",
-      "acceptance\\workspace\\case_001\\v1_phaseC_final2\\_acceptance_render",
-      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2\\基础投标文件.docx"
+      "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\_acceptance_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\基础投标文件.docx"
     ],
-    "isolated_profile": "acceptance\\workspace\\case_001\\v1_phaseC_final2\\_acceptance_render\\_acc_profile_9c25331fc055",
+    "isolated_profile": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\_acceptance_render\\_acc_profile_057918f5bad6",
     "launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
     "returncode": 0,
-    "elapsed_s": 12.58,
+    "elapsed_s": 10.72,
     "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
-    "pdf": "acceptance\\workspace\\case_001\\v1_phaseC_final2\\_acceptance_render\\基础投标文件.pdf",
+    "pdf": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round2\\_acceptance_render\\基础投标文件.pdf",
     "pdf_exists": true,
-    "pdf_bytes": 299453
+    "pdf_bytes": 298561
   },
   "rendered_pdf": {
     "pdf_page_count": 22,
     "pdf_reopen": true,
     "pdf_blank_pages": [],
     "pdf_blank_page_count": 0,
-    "pdf_extractable_character_count": 3795,
+    "pdf_extractable_character_count": 3770,
     "pdf_text_page_count": 22
   },
   "package_safety": {
@@ -81,7 +81,7 @@
       "blocking_overlap_count": 0
     },
     "content_duplication": {
-      "measured_paragraph_count": 20,
+      "measured_paragraph_count": 21,
       "minimum_compared_length": 25,
       "duplicated_paragraph_count": 0,
       "duplicated_paragraphs": [],
@@ -94,7 +94,7 @@
   },
   "document_structure": {
     "python_docx_reopen": true,
-    "paragraph_count": 144,
+    "paragraph_count": 142,
     "word_table_count": 5,
     "word_table_row_counts": [
       14,
@@ -307,7 +307,7 @@
     "page_count_source_format": 22,
     "page_count_generated": null,
     "page_count_note": "Rendered pagination required; flowing tables may add continuation pages.",
-    "paragraph_count": 144,
+    "paragraph_count": 142,
     "source_table_count": 5,
     "table_count": 5,
     "pdf_table_fragment_count": 5,

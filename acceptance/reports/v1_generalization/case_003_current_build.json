@@ -1,12 +1,12 @@
 {
   "schema": "v09_current_build_pointer/1",
-  "build_id": "v1_phaseC_final",
-  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final",
-  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\build_manifest.json",
+  "build_id": "v1_round4_closure8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8\\build_manifest.json",
   "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\肇源县城市供水管网漏损治理项目三标段-招标文件正文.pdf",
-  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\基础投标文件.docx",
-  "generated_docx_sha256": "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249",
-  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\基础投标文件.pdf",
-  "generated_pdf_sha256": "fc57fb821ee5c6443e0bc9086be40763d0291d694d2db7d497b7af32d2bd26d4",
-  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final\\generation_report.json"
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8\\基础投标文件.docx",
+  "generated_docx_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8\\基础投标文件.pdf",
+  "generated_pdf_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8\\generation_report.json"
 }

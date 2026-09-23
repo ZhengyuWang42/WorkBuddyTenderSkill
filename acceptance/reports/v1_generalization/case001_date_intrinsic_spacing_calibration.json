@@ -1,0 +1,38 @@
+{
+  "schema": "v1_date_intrinsic_spacing_calibration/1",
+  "probe_font": "仿宋",
+  "probe_size_pt": 10.5,
+  "mechanism": "single U+0020 run carrying w:spacing (character tracking)",
+  "requested_vs_rendered": [
+    {
+      "requested_spacing_twips": 0,
+      "requested_spacing_pt": 0.0,
+      "rendered_label_advance_pt": 10.332,
+      "rendered_gap_pt": 2.618,
+      "delta_from_zero_tracking_pt": 0.0
+    },
+    {
+      "requested_spacing_twips": 100,
+      "requested_spacing_pt": 5.0,
+      "rendered_label_advance_pt": 10.332,
+      "rendered_gap_pt": 7.618,
+      "delta_from_zero_tracking_pt": 5.0
+    }
+  ],
+  "baseline_gap_at_zero_tracking_pt": 2.618,
+  "per_step_ratio_rendered_per_requested": [
+    1.0
+  ],
+  "ratio_spread": 0.0,
+  "mapping_is_deterministic": true,
+  "conclusion": "PASS - rendered width is a stable affine function of requested tracking, so a source-measured target width can be synthesized",
+  "measured_rows": 2,
+  "requested_rows": 7,
+  "disclosures": [
+    "Rendered through LibreOffice, not Microsoft Word; Word is the delivery renderer and may differ.",
+    "Only 2 of 7 requested tracking values yielded a measurement: at wider tracking the gap exceeds the PDF extractor's intra-line fragment threshold and the two labels come back as separate visual lines, which this matcher does not pair. The mapping is established from the rows that were measurable; the unmeasured rows are not claimed as corroboration.",
+    "The probe measures a left-aligned paragraph; the mapping is assumed to hold inside w:jc=center, which the CENTER pilot tests.",
+    "Only the mapping is calibrated here - the absolute source widths still come from the source document's own geometry.",
+    "Candidate B was CALIBRATED but NOT IMPLEMENTED in this turn: no emitter change and no document integration followed."
+  ]
+}

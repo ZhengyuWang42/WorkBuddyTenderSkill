@@ -2,7 +2,7 @@
   "schema": "v1_automated_candidate_gate/1",
   "regression_report": {
     "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\three_case_regression.json",
-    "sha256": "1beac8d3c014cd437f288f04f2f5633afc43f54de27654f8e093abb8c515be93"
+    "sha256": "701310877ac326d2d9815392f98b12af6d616809bfd972b203a89bc3a00a18a6"
   },
   "cases": [
     "case_001",
@@ -12,7 +12,7 @@
   "deliverables": [
     {
       "case": "case_001",
-      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_phaseC_final2",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
       "files": {
         "project_facts.json": {
           "exists": true,
@@ -21,24 +21,24 @@
         },
         "投标项目复核表.xlsx": {
           "exists": true,
-          "bytes": 23942,
-          "sha256": "ee62f9983e467af5c431f90c60f29377ad83246e347c5d379976b4e3e1a480f1"
+          "bytes": 23943,
+          "sha256": "2ab227e0959e7c9d43f0213799a66a8f9c0a84227adfe314270fb15149a621b7"
         },
         "基础投标文件.docx": {
           "exists": true,
-          "bytes": 45480,
-          "sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d"
+          "bytes": 45507,
+          "sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2"
         },
         "qa_report.json": {
           "exists": true,
-          "bytes": 281325,
-          "sha256": "8beef2be7821628a1ee2e989b1415bdd30c28347ffa0785238340805d8faa38d"
+          "bytes": 281253,
+          "sha256": "828c8fb0a4236e9ae5386191c1668f75b4118da1b0381b7b07b107620335d186"
         }
       }
     },
     {
       "case": "case_002",
-      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_source_typography",
       "files": {
         "project_facts.json": {
           "exists": true,
@@ -47,24 +47,24 @@
         },
         "投标项目复核表.xlsx": {
           "exists": true,
-          "bytes": 25683,
-          "sha256": "e788bc45eb9e6a9245d9a12a33ea447e946c1b7f884852667a658c3b46cf6155"
+          "bytes": 25685,
+          "sha256": "eae58fa3eb56ed1ba1601bae52ad8316dda47f5bfbb69c6746067c75a8542ab3"
         },
         "基础投标文件.docx": {
           "exists": true,
-          "bytes": 60446,
-          "sha256": "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387"
+          "bytes": 60777,
+          "sha256": "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd"
         },
         "qa_report.json": {
           "exists": true,
-          "bytes": 344756,
-          "sha256": "99ade77084b5f1e99b73b0456d727e3f8e4780c37489ea0ad0b76ed2fbde2f34"
+          "bytes": 344623,
+          "sha256": "b54c56d8b2e3e5fd6e145a729b1fb1a2bc207f49e36eef0dc22acb65c74ef980"
         }
       }
     },
     {
       "case": "case_003",
-      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_phaseC_final",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_source_typography",
       "files": {
         "project_facts.json": {
           "exists": true,
@@ -73,18 +73,18 @@
         },
         "投标项目复核表.xlsx": {
           "exists": true,
-          "bytes": 28887,
-          "sha256": "c896601c8bc19441c5677df1faad6d7ef8a8934c3b5cad53c9a7df9d8beec5b5"
+          "bytes": 28888,
+          "sha256": "27700afda3e1f596ff9124e75942c9530d98fc35d3f9136527c9995f350620fc"
         },
         "基础投标文件.docx": {
           "exists": true,
-          "bytes": 56952,
-          "sha256": "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249"
+          "bytes": 56844,
+          "sha256": "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c"
         },
         "qa_report.json": {
           "exists": true,
-          "bytes": 386650,
-          "sha256": "757db5ba574c957b4425bee5170b6a5ec3f5a28f8326bc8d7a86c33c3a8e2974"
+          "bytes": 386557,
+          "sha256": "e901154b144c289a112a5ba2700e020a2ddfc55331b11d19914f2218e475bede"
         }
       }
     }
@@ -95,14 +95,14 @@
       "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\p3_reflow_vertical_gate.json",
       "status": "PASS",
       "failed_checks": [],
-      "sha256": "5a7a7bb95e4da739f3442d4233c28af10cc5a83f48aec1966a68700fa9b45e6e"
+      "sha256": "9aadb04c34f454e3b74288e7bc7af1134f3e09766f7c89a3537e07db393d0eb8"
     },
     {
       "gate": "source_line_assembly_gate",
       "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\source_line_assembly_gate.json",
       "status": "PASS",
       "failed_checks": [],
-      "sha256": "0eab2bfe05c8e657fe33aca94b8f7ae8430c78d2c67af5c1872544cd2ff5b70b"
+      "sha256": "2a2a4366d5c43d318800a003dcf34c52a1dcac309af82bf845e01d24c166893e"
     },
     {
       "gate": "ownership_closure_gate",
@@ -116,7 +116,28 @@
       "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\case001_v09_internal_preview_gate.json",
       "status": "PASS",
       "failed_checks": [],
-      "sha256": "eed91412b25568503074215ba79544b0d27137bb6390978ffc30a82ed7ca634d"
+      "sha256": "ec1df068b13f58f6ff10a8c4d2ed0068c160a51a821fece25f969c65b443bdd2"
+    },
+    {
+      "gate": "typo",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_source_typography_round3.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "db749e59090263502b2eeb508f8b66d7bd07951c21655f931dc33aece378935d"
+    },
+    {
+      "gate": "reflow",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_reflow_aware_round3.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "ad1a37cfc280fddcf0a709c9ff30347d4b7f3fe257fff19f82858045f89dcdd4"
+    },
+    {
+      "gate": "p21",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_p21_structural_gate.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "2189f7f437111716d968fc45dcb11ba28dcc0cd4218b54974b88de695ee66b28"
     }
   ],
   "flags": {
@@ -200,8 +221,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 23942,
-        "sha256": "ee62f9983e467af5c431f90c60f29377ad83246e347c5d379976b4e3e1a480f1"
+        "bytes": 23943,
+        "sha256": "2ab227e0959e7c9d43f0213799a66a8f9c0a84227adfe314270fb15149a621b7"
       }
     },
     {
@@ -210,8 +231,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 45480,
-        "sha256": "905e3ea01e7e59051ab372af4b894c37f777864bdc036e915e4a8d8b2bf4544d"
+        "bytes": 45507,
+        "sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2"
       }
     },
     {
@@ -220,21 +241,21 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 281325,
-        "sha256": "8beef2be7821628a1ee2e989b1415bdd30c28347ffa0785238340805d8faa38d"
+        "bytes": 281253,
+        "sha256": "828c8fb0a4236e9ae5386191c1668f75b4118da1b0381b7b07b107620335d186"
       }
     },
     {
       "check": "deliverable_size::case_001::docx",
       "ok": true,
       "expected": ">10000",
-      "observed": 45480
+      "observed": 45507
     },
     {
       "check": "deliverable_size::case_001::xlsx",
       "ok": true,
       "expected": ">5000",
-      "observed": 23942
+      "observed": 23943
     },
     {
       "check": "delivery_qa_no_errors::case_001",
@@ -258,8 +279,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 25683,
-        "sha256": "e788bc45eb9e6a9245d9a12a33ea447e946c1b7f884852667a658c3b46cf6155"
+        "bytes": 25685,
+        "sha256": "eae58fa3eb56ed1ba1601bae52ad8316dda47f5bfbb69c6746067c75a8542ab3"
       }
     },
     {
@@ -268,8 +289,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 60446,
-        "sha256": "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387"
+        "bytes": 60777,
+        "sha256": "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd"
       }
     },
     {
@@ -278,21 +299,21 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 344756,
-        "sha256": "99ade77084b5f1e99b73b0456d727e3f8e4780c37489ea0ad0b76ed2fbde2f34"
+        "bytes": 344623,
+        "sha256": "b54c56d8b2e3e5fd6e145a729b1fb1a2bc207f49e36eef0dc22acb65c74ef980"
       }
     },
     {
       "check": "deliverable_size::case_002::docx",
       "ok": true,
       "expected": ">10000",
-      "observed": 60446
+      "observed": 60777
     },
     {
       "check": "deliverable_size::case_002::xlsx",
       "ok": true,
       "expected": ">5000",
-      "observed": 25683
+      "observed": 25685
     },
     {
       "check": "delivery_qa_no_errors::case_002",
@@ -316,8 +337,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 28887,
-        "sha256": "c896601c8bc19441c5677df1faad6d7ef8a8934c3b5cad53c9a7df9d8beec5b5"
+        "bytes": 28888,
+        "sha256": "27700afda3e1f596ff9124e75942c9530d98fc35d3f9136527c9995f350620fc"
       }
     },
     {
@@ -326,8 +347,8 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 56952,
-        "sha256": "b92dbf99046126306364e98ead0fc919fd0cec96b87bf881165e9b62b200b249"
+        "bytes": 56844,
+        "sha256": "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c"
       }
     },
     {
@@ -336,21 +357,21 @@
       "expected": true,
       "observed": {
         "exists": true,
-        "bytes": 386650,
-        "sha256": "757db5ba574c957b4425bee5170b6a5ec3f5a28f8326bc8d7a86c33c3a8e2974"
+        "bytes": 386557,
+        "sha256": "e901154b144c289a112a5ba2700e020a2ddfc55331b11d19914f2218e475bede"
       }
     },
     {
       "check": "deliverable_size::case_003::docx",
       "ok": true,
       "expected": ">10000",
-      "observed": 56952
+      "observed": 56844
     },
     {
       "check": "deliverable_size::case_003::xlsx",
       "ok": true,
       "expected": ">5000",
-      "observed": 28887
+      "observed": 28888
     },
     {
       "check": "delivery_qa_no_errors::case_003",
@@ -402,6 +423,42 @@
     },
     {
       "check": "preview_gate_failed_checks::case001_internal_preview_gate",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::typo",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::typo",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::reflow",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::reflow",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::p21",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::p21",
       "ok": true,
       "expected": [],
       "observed": []

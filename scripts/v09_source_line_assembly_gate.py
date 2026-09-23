@@ -296,14 +296,35 @@ def evaluate() -> dict:
         if r7_paragraph is not None and 0 <= r7_paragraph < len(texts)
         else ""
     )
+    #: A composed rule's own visible text, read from its segments.  The integrity
+    #: question is *whether the rule's value is emitted exactly once*, not which
+    #: generated paragraph it lands in: the authority order puts the source
+    #: visual line first, so a rule whose anchor is forward-reachable from its own
+    #: row's text shares that row's paragraph, while a rule whose anchor is behind
+    #: the cursor owns a paragraph of its own.  Both are correct emissions, and
+    #: hard-coding either layout here would only re-assert the pre-round-2 split.
+    def composition_text(rule_id: str) -> str:
+        return "".join(
+            str(segment.get("generated_text") or segment.get("source_text") or "")
+            for record in report.get("source_rule_compositions") or []
+            if record.get("source_rule_id") == rule_id
+            for segment in record.get("segments") or ()
+        )
+
+    r7_value = composition_text("P42-R7")
     integrity = {
         "r3_visible_glyph_group_once": document_text.count(SHARED_ROW_TEXT) == 1,
-        "r7_value_once_on_its_own_row": r7_text.count("90") == 1,
+        "r7_value_emitted_exactly_once": bool(r7_value)
+        and document_text.count(r7_value) == 1,
         "r7_three_segments_one_logical_rule": composition_segments.get("P42-R7") == 3
         and composition_counts["P42-R7"] == 1,
         "r8_visible_group_once": document_text.count("7、（其他补充说明）。") == 1,
         "r8_one_logical_rule": composition_counts["P42-R8"] == 1,
     }
+    if r7_paragraph is not None and 0 <= r7_paragraph < len(texts):
+        # The rule does own a line context, so it must still be the only place
+        # its value appears on that line.
+        integrity["r7_value_once_on_its_own_row"] = r7_text.count("90") == 1
 
     checks = {
         "emission_plans_present": bool(plans),

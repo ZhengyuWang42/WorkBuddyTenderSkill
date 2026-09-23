@@ -32,7 +32,16 @@ if str(ROOT) not in sys.path:
 from tender_basic.logical_table_provenance import iter_body_tables  # noqa: E402
 from tender_basic.word_safe_scan import scan_word_safe_docx  # noqa: E402
 
-SOFFICE = Path(r"C:\Program Files\LibreOffice\program\soffice.com")
+# The FROZEN launcher contract.  This script measures a delivered package, and a
+# render is part of that measurement: it reuses the one launcher implementation
+# rather than carrying its own, so no second invocation can drift from it.
+sys.path.insert(0, str(ROOT / "scripts"))
+from render_case57 import (  # noqa: E402
+    SOFFICE,
+    new_profile as _frozen_new_profile,
+    soffice_argv as _frozen_soffice_argv,
+)
+
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 WORD_NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 DRAWING_NS = "{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}"
@@ -55,11 +64,7 @@ def load_json(path: Path):
 def new_profile(base: Path) -> tuple[Path, str]:
     """A brand-new isolated LibreOffice profile directory for this render."""
 
-    import uuid
-
-    profile = Path(base) / ("_acc_profile_" + uuid.uuid4().hex[:12])
-    profile.mkdir(parents=True, exist_ok=True)
-    return profile, profile.resolve().as_uri()
+    return _frozen_new_profile(base)
 
 
 def render_document(docx: Path, outdir: Path) -> dict:
@@ -69,21 +74,28 @@ def render_document(docx: Path, outdir: Path) -> dict:
     writes over the artifact the build itself produced: rendering into the build
     directory would replace the package the manifest hash pins and make the
     acceptance run change the thing it measures.
+
+    The invocation is the project's FROZEN launcher contract - one
+    implementation, resolved absolute paths, a unique ``UserInstallation``
+    profile URI and ``CREATE_NO_WINDOW`` - so no second launcher can drift from
+    the one every other render uses.
     """
 
-    profile_dir, profile_uri = new_profile(outdir)
+    outdir = Path(outdir).resolve()
+    docx = Path(docx).resolve()
+    outdir.mkdir(parents=True, exist_ok=True)
+    # The profile lives on a deliberately SHORT path.  LibreOffice's own profile
+    # handling is path-length sensitive inside its headless conversion: a
+    # ``UserInstallation`` URI buried deep in a long build-directory path makes
+    # the console launcher die with STATUS_STACK_BUFFER_OVERRUN before it reads
+    # the document, while the same document renders from the same launcher on a
+    # shorter profile path.  The profile is scaffolding, so it does not need to
+    # sit beside the artifact it measures.
+    profile_base = (ROOT / "acceptance" / "workspace" / "_acc_profiles").resolve()
+    profile_base.mkdir(parents=True, exist_ok=True)
+    profile_dir, profile_uri = _frozen_new_profile(profile_base)
     target = outdir / (docx.stem + ".pdf")
-    argv = [
-        str(SOFFICE),
-        "-env:UserInstallation=" + profile_uri,
-        "--headless",
-        "--norestore",
-        "--convert-to",
-        "pdf",
-        "--outdir",
-        str(outdir),
-        str(docx),
-    ]
+    argv = _frozen_soffice_argv(docx, outdir, profile_uri)
     started = time.time()
     completed = subprocess.run(
         argv,
@@ -92,11 +104,11 @@ def render_document(docx: Path, outdir: Path) -> dict:
         timeout=900,
         creationflags=CREATE_NO_WINDOW,
     )
-    return {
+    result = {
         "executable": str(SOFFICE),
         "argv": argv,
         "isolated_profile": str(profile_dir),
-        "launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
+        "launcher_policy": "FROZEN_RENDER_CASE57_CONTRACT",
         "returncode": completed.returncode,
         "elapsed_s": round(time.time() - started, 2),
         "stderr_tail": (completed.stderr or b"").decode("utf-8", "replace")[-2000:],
@@ -104,10 +116,10 @@ def render_document(docx: Path, outdir: Path) -> dict:
         "pdf_exists": target.exists(),
         "pdf_bytes": target.stat().st_size if target.exists() else 0,
     }
+    return result
 
 
 def docx_structure(docx: Path) -> dict:
-    """Structural safety of the generated package, read from the bytes."""
 
     from docx import Document
 
@@ -468,7 +480,7 @@ def build(argv: list[str] | None = None) -> tuple[dict, int]:
     )
     overlap = blocking_overlap(docx)
     scan = scan_word_safe_docx(docx)
-    render_dir = build_dir / "_acceptance_render"
+    render_dir = build_dir / "_acc_render"
     render_dir.mkdir(parents=True, exist_ok=True)
     for stale in render_dir.glob("*.pdf"):
         stale.unlink()

@@ -1,0 +1,12 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_followup3",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_followup3",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_followup3\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\肇源县城市供水管网漏损治理项目三标段-招标文件正文.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_followup3\\基础投标文件.docx",
+  "generated_docx_sha256": "e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_followup3\\基础投标文件.pdf",
+  "generated_pdf_sha256": "7a692d6c5fcaa8c82db32c8036726e536355fd6603de9d11c79bc0ed17300e7e",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_followup3\\generation_report.json"
+}

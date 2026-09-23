@@ -1,0 +1,79 @@
+{
+  "schema": "v1_source_typography_round3_gate/1",
+  "gate": "CASE001_SOURCE_TYPOGRAPHY_ROUND3",
+  "label": "round3_p3reconciled",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3reconciled",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "status": "PASS",
+  "failed_checks": [],
+  "measurements": {
+    "hard_break_fidelity": {
+      "checked": 75,
+      "failed": 0,
+      "authorized_splits": 1,
+      "isolated_paragraphs": [
+        29,
+        30
+      ]
+    },
+    "paragraph_alignment": {
+      "checked": 73,
+      "justified_delivered": 6,
+      "failed": 0
+    },
+    "table_cell_line_structure": {
+      "checked": 51,
+      "failed": 0
+    },
+    "source_bold_fidelity": {
+      "checked": 29,
+      "failed": 0,
+      "contents_entries_excluded": 30
+    },
+    "source_underline_fidelity": {
+      "checked": 6,
+      "failed": 0
+    },
+    "fixed_blank_fidelity": {
+      "checked": 34,
+      "failed": 0
+    },
+    "flow_placed_rule_endpoints": {
+      "checked": 1,
+      "failed": 0,
+      "diagnostic_only": true,
+      "rules": [
+        {
+          "source_span": [
+            131.85,
+            181.4
+          ],
+          "painted_span": [
+            131.85,
+            182.25
+          ],
+          "anchored_endpoint": "START",
+          "anchored_deviation_pt": 0.0,
+          "start_deviation_pt": 0.0,
+          "end_deviation_pt": 0.85,
+          "painted_width_pt": 50.4,
+          "source_width_pt": 49.55,
+          "source_rule_id": "P42-R5",
+          "source_page": 42,
+          "placement": "FLOW_PLACED_WRAPPED_ROW",
+          "reason": "row is one of the element's own wrapped rows, not a source line: the element stays one Word paragraph and the row is placed by flow"
+        }
+      ],
+      "text_decoration_rules": []
+    }
+  },
+  "failures": {
+    "HARD_BREAK_FIDELITY": [],
+    "PARAGRAPH_ALIGNMENT": [],
+    "TABLE_CELL_LINE_STRUCTURE": [],
+    "SOURCE_BOLD_FIDELITY": [],
+    "SOURCE_UNDERLINE_FIDELITY": [],
+    "FIXED_BLANK_FIDELITY": []
+  },
+  "note": "Typography the source carries and the delivery must keep, measured from the source model and the delivered document. A pass here is automation evidence only: MANUAL_WORD_REVIEW_REQUIRED stays true."
+}

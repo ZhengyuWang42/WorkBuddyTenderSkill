@@ -657,12 +657,15 @@ def build_region_reflow_plan(
             cursor = found
 
     group_minimums = []
+    forward_reachable = _forward_reachable_rule_ids(report, source_page)
     for group in groups:
         atoms: list[ContentAtom] = []
+        row_atom_offsets: list[int] = []
         for offset, row_index in enumerate(group):
             row = source_rows[row_index]
             first_start = float(row["x0"]) if offset == 0 else region_left
             _ = first_start
+            row_atom_offsets.append(len(atoms))
             atoms.extend(atoms_by_row[row_index])
         first_start = float(source_rows[group[0]]["x0"])
         layout = wrap_atoms(
@@ -670,7 +673,20 @@ def build_region_reflow_plan(
             first_line_start=first_start,
             line_start=region_left,
             right_limit=float(body_right_limit),
+            forward_reachable_rule_ids=forward_reachable,
         )
+        #: The generated line each source row's first atom lands on.  Rows that
+        #: share one delivered paragraph share one flow, so this is what says how
+        #: far down that flow a row starts - not how many lines the row's own
+        #: content would need if it ended the line.
+        row_start_lines = [
+            (
+                int(layout.placements[offset]["line_index"])
+                if offset < len(layout.placements)
+                else position
+            )
+            for position, offset in enumerate(row_atom_offsets)
+        ]
         prefix_counts = []
         for offset in range(len(group)):
             prefix_atoms: list[ContentAtom] = []
@@ -681,12 +697,14 @@ def build_region_reflow_plan(
                 first_line_start=first_start,
                 line_start=region_left,
                 right_limit=float(body_right_limit),
+                forward_reachable_rule_ids=forward_reachable,
             )
             prefix_counts.append(prefix.line_count)
         group_minimums.append(
             {
                 "rows": list(group),
                 "minimum_lines": layout.line_count,
+                "row_start_lines": row_start_lines,
                 "prefix_minimum_lines": prefix_counts,
                 "forced_new_line_rule_ids": list(layout.forced_new_line_rule_ids),
                 "placements": list(layout.placements),
@@ -722,7 +740,10 @@ def build_region_reflow_plan(
     prefix_by_row: dict[int, int] = {}
     placements_by_row: dict[int, list[dict[str, Any]]] = {}
     forced_by_row: dict[int, list[str]] = {}
-    axis = reflow_axis([record["prefix_minimum_lines"] for record in group_minimums])
+    axis = reflow_axis(
+        [record["prefix_minimum_lines"] for record in group_minimums],
+        group_row_start_lines=[record["row_start_lines"] for record in group_minimums],
+    )
     axis_cursor = 0
     for group_index, record in enumerate(group_minimums):
         group = record["rows"]
@@ -1041,6 +1062,41 @@ def _paragraph_for_top(
     if abs(baseline - top) > TOLERANCE_PT:
         return None
     return paragraph_index
+
+
+def _forward_reachable_rule_ids(
+    report: dict[str, Any], source_page: int
+) -> set[str]:
+    """Rules the emitter measured as reached forward on their own source row.
+
+    The width model in :func:`wrap_atoms` estimates an atom's anchor against the
+    cursor; the emitter measured the same anchor against the real font metrics.
+    Where the emitter recorded ``FORWARD_REACHABLE_SAME_ROW``, that measurement is
+    authoritative and the estimate must not demand a generated line for an atom
+    that was in fact reached on the row's own line.
+
+    A rule standing on one of its element's own *wrapped* rows is the same
+    measurement: the element is one Word paragraph, the row is placed by Word's
+    flow rather than by the emitter's line machinery, and the emitter recorded
+    the row - with its rules - in the assembly gaps for exactly that reason.  The
+    estimate must not ask for a generated line there either, or the plan would
+    claim a row the paragraph cannot have.
+    """
+
+    rules: set[str] = set()
+    for plan in report.get("forward_reachable_emission_plans") or []:
+        if source_page is not None and plan.get("source_page") != source_page:
+            continue
+        for rule_id in plan.get("source_rule_ids") or ():
+            if rule_id:
+                rules.add(str(rule_id))
+    for gap in report.get("source_visual_line_assembly_gaps") or []:
+        if source_page is not None and gap.get("source_page") != source_page:
+            continue
+        for rule_id in gap.get("source_rule_ids") or ():
+            if rule_id:
+                rules.add(str(rule_id))
+    return rules
 
 
 def _line_identity_map(

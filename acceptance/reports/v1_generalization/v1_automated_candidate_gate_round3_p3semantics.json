@@ -1,0 +1,467 @@
+{
+  "schema": "v1_automated_candidate_gate/1",
+  "regression_report": {
+    "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\v1_three_case_regression_round3_p3semantics.json",
+    "sha256": "d8ef0028392be39b0d61c4f9e39446bea7c847bd03197101318860ed8b8ad6f6"
+  },
+  "cases": [
+    "case_001",
+    "case_002",
+    "case_003"
+  ],
+  "deliverables": [
+    {
+      "case": "case_001",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics",
+      "files": {
+        "project_facts.json": {
+          "exists": true,
+          "bytes": 41962,
+          "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027"
+        },
+        "投标项目复核表.xlsx": {
+          "exists": true,
+          "bytes": 23943,
+          "sha256": "423ed1e945173097706ba9020084269e5a2521d6a7872416273b32f7b880cff7"
+        },
+        "基础投标文件.docx": {
+          "exists": true,
+          "bytes": 45542,
+          "sha256": "0ebfbda52bbc889b432bcff3ea67d26c7f0f1c5beac59c3e521e59294ae3da2b"
+        },
+        "qa_report.json": {
+          "exists": true,
+          "bytes": 281274,
+          "sha256": "0a687ac460acf6685cf9b6d270075d7ebce4d886efc3fba68f76d468bb41240e"
+        }
+      }
+    },
+    {
+      "case": "case_002",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round3_p3semantics",
+      "files": {
+        "project_facts.json": {
+          "exists": true,
+          "bytes": 37727,
+          "sha256": "c0ffcb4b9a895a588c46eb1cea2ead6ee7b4d33db90679439017916344114af9"
+        },
+        "投标项目复核表.xlsx": {
+          "exists": true,
+          "bytes": 25685,
+          "sha256": "41e887ad6792b3718175e7a630729ff07685be266ebe77550f99916559eeb566"
+        },
+        "基础投标文件.docx": {
+          "exists": true,
+          "bytes": 60789,
+          "sha256": "255980b8b8c281bd456325b1ed80efd69e784cfe6c763c0d3801055c02f37ea7"
+        },
+        "qa_report.json": {
+          "exists": true,
+          "bytes": 344629,
+          "sha256": "1ca3f4872419f43b2cb0616d11099b8a193d2de4b00a4c7d12cb92bf583704dd"
+        }
+      }
+    },
+    {
+      "case": "case_003",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round3_p3semantics",
+      "files": {
+        "project_facts.json": {
+          "exists": true,
+          "bytes": 51974,
+          "sha256": "ac0b0261fac753365a0177c437c715ffb4eeca4175382ebb566c44e2113f2efb"
+        },
+        "投标项目复核表.xlsx": {
+          "exists": true,
+          "bytes": 28890,
+          "sha256": "77646ddb775a6fc22bb06294b29221b591d202b9f1345a0dc72ef0e4c6679128"
+        },
+        "基础投标文件.docx": {
+          "exists": true,
+          "bytes": 56883,
+          "sha256": "a5bc3f0c50a4c67f22db302898559c47ae1704b200920ae8f519d77a2b0317ab"
+        },
+        "qa_report.json": {
+          "exists": true,
+          "bytes": 386556,
+          "sha256": "fe1f4569bb67c9605ecc7680bb525e3c8cc00c07d92a02e5b16adc0b329e8c77"
+        }
+      }
+    }
+  ],
+  "architecture_gates": [
+    {
+      "gate": "p3_reflow_vertical_gate",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\p3_reflow_vertical_gate.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "9aadb04c34f454e3b74288e7bc7af1134f3e09766f7c89a3537e07db393d0eb8"
+    },
+    {
+      "gate": "source_line_assembly_gate",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\source_line_assembly_gate.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "2a2a4366d5c43d318800a003dcf34c52a1dcac309af82bf845e01d24c166893e"
+    },
+    {
+      "gate": "ownership_closure_gate",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\ownership_closure_gate_build5.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "a731865a0594e57802b95509a15c8c4b788dec9ed07be5bfead49b71c1c602ad"
+    },
+    {
+      "gate": "case001_internal_preview_gate",
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v09_internal_preview\\case001_v09_internal_preview_gate.json",
+      "status": "PASS",
+      "failed_checks": [],
+      "sha256": "ec1df068b13f58f6ff10a8c4d2ed0068c160a51a821fece25f969c65b443bdd2"
+    }
+  ],
+  "flags": {
+    "INTERNAL_PREVIEW": true,
+    "READY_FOR_INTERNAL_TRIAL": true,
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "READY_FOR_SUBMISSION": false
+  },
+  "checks": [
+    {
+      "check": "three_case_regression_present",
+      "ok": true,
+      "expected": true,
+      "observed": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\v1_three_case_regression_round3_p3semantics.json"
+    },
+    {
+      "check": "three_case_regression_result",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "three_case_regression_status",
+      "ok": true,
+      "expected": "THREE_CASE_GENERALIZATION = PASS",
+      "observed": "THREE_CASE_GENERALIZATION = PASS"
+    },
+    {
+      "check": "three_case_regression_failed_checks",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "three_distinct_source_documents",
+      "ok": true,
+      "expected": 3,
+      "observed": 3
+    },
+    {
+      "check": "three_cases_accepted",
+      "ok": true,
+      "expected": 3,
+      "observed": [
+        "case_001",
+        "case_002",
+        "case_003"
+      ]
+    },
+    {
+      "check": "case_accepted::case_001",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "case_accepted::case_002",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "case_accepted::case_003",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "deliverable::case_001::project_facts.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 41962,
+        "sha256": "d1f157618ada064f1b6e3f08d2d6c15b9974318c23ae2445c0343cca1bb57027"
+      }
+    },
+    {
+      "check": "deliverable::case_001::投标项目复核表.xlsx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 23943,
+        "sha256": "423ed1e945173097706ba9020084269e5a2521d6a7872416273b32f7b880cff7"
+      }
+    },
+    {
+      "check": "deliverable::case_001::基础投标文件.docx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 45542,
+        "sha256": "0ebfbda52bbc889b432bcff3ea67d26c7f0f1c5beac59c3e521e59294ae3da2b"
+      }
+    },
+    {
+      "check": "deliverable::case_001::qa_report.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 281274,
+        "sha256": "0a687ac460acf6685cf9b6d270075d7ebce4d886efc3fba68f76d468bb41240e"
+      }
+    },
+    {
+      "check": "deliverable_size::case_001::docx",
+      "ok": true,
+      "expected": ">10000",
+      "observed": 45542
+    },
+    {
+      "check": "deliverable_size::case_001::xlsx",
+      "ok": true,
+      "expected": ">5000",
+      "observed": 23943
+    },
+    {
+      "check": "delivery_qa_no_errors::case_001",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "deliverable::case_002::project_facts.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 37727,
+        "sha256": "c0ffcb4b9a895a588c46eb1cea2ead6ee7b4d33db90679439017916344114af9"
+      }
+    },
+    {
+      "check": "deliverable::case_002::投标项目复核表.xlsx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 25685,
+        "sha256": "41e887ad6792b3718175e7a630729ff07685be266ebe77550f99916559eeb566"
+      }
+    },
+    {
+      "check": "deliverable::case_002::基础投标文件.docx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 60789,
+        "sha256": "255980b8b8c281bd456325b1ed80efd69e784cfe6c763c0d3801055c02f37ea7"
+      }
+    },
+    {
+      "check": "deliverable::case_002::qa_report.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 344629,
+        "sha256": "1ca3f4872419f43b2cb0616d11099b8a193d2de4b00a4c7d12cb92bf583704dd"
+      }
+    },
+    {
+      "check": "deliverable_size::case_002::docx",
+      "ok": true,
+      "expected": ">10000",
+      "observed": 60789
+    },
+    {
+      "check": "deliverable_size::case_002::xlsx",
+      "ok": true,
+      "expected": ">5000",
+      "observed": 25685
+    },
+    {
+      "check": "delivery_qa_no_errors::case_002",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "deliverable::case_003::project_facts.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 51974,
+        "sha256": "ac0b0261fac753365a0177c437c715ffb4eeca4175382ebb566c44e2113f2efb"
+      }
+    },
+    {
+      "check": "deliverable::case_003::投标项目复核表.xlsx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 28890,
+        "sha256": "77646ddb775a6fc22bb06294b29221b591d202b9f1345a0dc72ef0e4c6679128"
+      }
+    },
+    {
+      "check": "deliverable::case_003::基础投标文件.docx",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 56883,
+        "sha256": "a5bc3f0c50a4c67f22db302898559c47ae1704b200920ae8f519d77a2b0317ab"
+      }
+    },
+    {
+      "check": "deliverable::case_003::qa_report.json",
+      "ok": true,
+      "expected": true,
+      "observed": {
+        "exists": true,
+        "bytes": 386556,
+        "sha256": "fe1f4569bb67c9605ecc7680bb525e3c8cc00c07d92a02e5b16adc0b329e8c77"
+      }
+    },
+    {
+      "check": "deliverable_size::case_003::docx",
+      "ok": true,
+      "expected": ">10000",
+      "observed": 56883
+    },
+    {
+      "check": "deliverable_size::case_003::xlsx",
+      "ok": true,
+      "expected": ">5000",
+      "observed": 28890
+    },
+    {
+      "check": "delivery_qa_no_errors::case_003",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::p3_reflow_vertical_gate",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::p3_reflow_vertical_gate",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::source_line_assembly_gate",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::source_line_assembly_gate",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::ownership_closure_gate",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::ownership_closure_gate",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "preview_gate_status::case001_internal_preview_gate",
+      "ok": true,
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "check": "preview_gate_failed_checks::case001_internal_preview_gate",
+      "ok": true,
+      "expected": [],
+      "observed": []
+    },
+    {
+      "check": "flag::INTERNAL_PREVIEW",
+      "ok": true,
+      "expected": true,
+      "observed": true
+    },
+    {
+      "check": "flag::READY_FOR_INTERNAL_TRIAL",
+      "ok": true,
+      "expected": true,
+      "observed": true
+    },
+    {
+      "check": "flag::MANUAL_WORD_REVIEW_REQUIRED",
+      "ok": true,
+      "expected": true,
+      "observed": true
+    },
+    {
+      "check": "flag::READY_FOR_SUBMISSION",
+      "ok": true,
+      "expected": false,
+      "observed": false
+    },
+    {
+      "check": "internal_preview_label",
+      "ok": true,
+      "expected": [
+        "V0.9_INTERNAL_PREVIEW",
+        "V1_INTERNAL_PREVIEW"
+      ],
+      "observed": [
+        "PASS",
+        "V0.9_INTERNAL_PREVIEW"
+      ]
+    },
+    {
+      "check": "ready_for_submission_not_claimed",
+      "ok": true,
+      "expected": false,
+      "observed": false
+    },
+    {
+      "check": "manual_word_review_still_required",
+      "ok": true,
+      "expected": true,
+      "observed": true
+    }
+  ],
+  "failed_checks": [],
+  "automated_candidate_blockers": [],
+  "status": "V1_AUTOMATED_CANDIDATE",
+  "result": "PASS",
+  "constraints": {
+    "MANUAL_WORD_REVIEW_REQUIRED": true,
+    "READY_FOR_SUBMISSION": false,
+    "V1_SCOPE": "text PDF + DOCX input; project_facts.json, 投标项目复核表.xlsx, 基础投标文件.docx, qa_report.json output; no OCR, no external LLM, no database"
+  }
+}

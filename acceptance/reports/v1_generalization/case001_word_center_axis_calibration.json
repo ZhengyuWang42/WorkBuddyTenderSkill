@@ -1,0 +1,42 @@
+{
+  "schema": "v1_word_center_axis_calibration/1",
+  "probe_font": "仿宋",
+  "probe_size_pt": 10.5,
+  "section": {
+    "page_width_pt": 595.3,
+    "page_height_pt": 841.9,
+    "left_margin_pt": 70.8,
+    "right_margin_pt": 70.8,
+    "text_frame_x0_pt": 70.8,
+    "text_frame_x1_pt": 524.5
+  },
+  "raw_frame_center_pt": 297.65,
+  "effective_word_center_axis_pt": 297.766,
+  "effective_minus_raw_pt": 0.116,
+  "measurements": [
+    {
+      "paragraph_left_indent_pt": 0.0,
+      "rendered_glyph_x0": 292.6,
+      "rendered_glyph_x1": 302.932,
+      "rendered_center_pt": 297.766
+    },
+    {
+      "paragraph_left_indent_pt": 23.02,
+      "rendered_glyph_x0": 304.1,
+      "rendered_glyph_x1": 314.432,
+      "rendered_center_pt": 309.266
+    }
+  ],
+  "inset_response_ratio": 0.4996,
+  "cover_comparison": {
+    "cover_derived_delta_pt": 11.51,
+    "cover_source_row_center_pt": 309.11,
+    "round4_assumed_raw_frame_center_pt": 297.65,
+    "round4_emitted_left_inset_pt": 23.02,
+    "uniform_residual_observed_pt": -2.8
+  },
+  "disclosures": [
+    "Rendered through LibreOffice, not Microsoft Word.",
+    "One probe glyph measures the axis; the section geometry is the document's own."
+  ]
+}

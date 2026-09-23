@@ -1,0 +1,925 @@
+{
+  "schema": "v1_case001_manual_fidelity_round2_diagnostic/1",
+  "round": "V1_CASE001_MANUAL_FIDELITY_CLOSURE_ROUND_2",
+  "stage": "A_COMPLETE_DIAGNOSIS",
+  "baseline_commit": "8de9e1f343a6643e11ea5c6c8e1df015dda123a5",
+  "worktree_note": "the previous round's accepted SourceSectionPageFrame correction is present in the worktree uncommitted and was not reset, reverted or checked out",
+  "build_under_diagnosis": {
+    "build_id": "v1_manual_layout_closure",
+    "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_layout_closure",
+    "docx_sha256": "e358ff5d9f3ec85bcba8202b47e65c12407c2c77244c6365b168beb6d002bd8f",
+    "pdf_sha256": "fb2d54e4e990d3c580901ba7d245a4b2ad85299e1edf088b0785cdcd729cf514",
+    "generated_pages": 22
+  },
+  "method": "the delivered DOCX is read as XML/paragraph/run/tab/indent/spacing structure and matched against the page-layout object model built from the same normalized document and against the named records in generation_report.json; no screenshot is used as evidence",
+  "defect_1_underline_ownership": {
+    "human_finding": "the response-letter paragraph underlines the fixed prose and not the replaced placeholder value - the decoration is inverted",
+    "source_identity": {
+      "page": 42,
+      "paragraph_index": 3,
+      "text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+      "runs": 1,
+      "run_bbox": [
+        96.84,
+        146.7,
+        523.92,
+        158.98
+      ],
+      "run_underline": false,
+      "note": "the rule that decorates this line is a separate vector rule, not run-level underline, so ownership has to come from rule geometry"
+    },
+    "source_rule_ownership": {
+      "P42-R1": {
+        "source_rule_id": "P42-R1",
+        "source_page": 42,
+        "x0": 94.8,
+        "x1": 194.6,
+        "y": 138.35,
+        "relation_type": "TEXT_UNDERLINE",
+        "text_occupancy": 0.753,
+        "bearing": true,
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "authoritative_slot_id": "slot-42-2",
+        "authoritative_slot_binding": "GEOMETRY_BINDING",
+        "allowed_fact_fields": [
+          "PURCHASER"
+        ],
+        "resolved_fact_fields": [
+          "PURCHASER"
+        ]
+      },
+      "P42-R2": {
+        "source_rule_id": "P42-R2",
+        "source_page": 42,
+        "x0": 198.1,
+        "x1": 375.7,
+        "y": 158.4,
+        "relation_type": "PLACEHOLDER_UNDERLINE",
+        "text_occupancy": 1.0,
+        "bearing": true,
+        "transformation_policy": "PLACEHOLDER_REPLACED_BY_VALUE",
+        "geometry_intent": "ANCHOR_START_ONLY",
+        "authoritative_slot_id": "slot-42-3",
+        "authoritative_slot_binding": "GEOMETRY_BINDING",
+        "allowed_fact_fields": [
+          "PROJECT_NAME",
+          "LOT_NAME"
+        ],
+        "resolved_fact_fields": [
+          "PROJECT_NAME"
+        ]
+      }
+    },
+    "generated_identity": {
+      "docx_paragraph_index": 28,
+      "style": "Tender Body First Line",
+      "text": "我方已充分研究了\t河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全部内容，愿意",
+      "left_indent_pt": 0.0,
+      "first_line_indent_pt": 26.05,
+      "space_before_pt": 0.15,
+      "space_after_pt": 0.0,
+      "line_spacing": 1.25,
+      "alignment": "LEFT (0)",
+      "run_count": 5,
+      "tabs_in_text": 1,
+      "runs": [
+        {
+          "text": "我方已充分研究了",
+          "underline": true
+        },
+        {
+          "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "underline": false
+        },
+        {
+          "text": "YSEJJXXB202607-18",
+          "underline": false
+        },
+        {
+          "text": "询比文件的全部内容，愿意",
+          "underline": true
+        }
+      ]
+    },
+    "emitter_records": {
+      "source_anchored_value_runs": [
+        {
+          "source_rule_id": "P42-R1",
+          "source_visual_line_id": "S42-L3",
+          "fact_fields": [
+            "PURCHASER_SLOT"
+          ],
+          "resolved_values": [
+            "河南省水利第二工程局集团有限公司"
+          ],
+          "generated_text": "河南省水利第二工程局集团有限公司",
+          "source_anchor_x": 94.8,
+          "generated_value_start_x": null,
+          "generated_value_end_x": null,
+          "paragraph_index": 27,
+          "underline_semantics": "VALUE_SUPPLIES_CONTENT_ONLY",
+          "source_placeholder_underlined": true,
+          "resolved_value_underlined": false,
+          "source_local_pattern": "source field rule under its own placeholder text; the delivered value replaces that placeholder at the field's start anchor and follows natural glyph width",
+          "evidence_reason": "the source rule extent is occupied by the placeholder glyphs, so the rule belongs to the placeholder text; the frozen fill pattern makes the delivered value supply content only, so no underline is invented for it and none is required to satisfy this geometry",
+          "anchor_x": 94.8,
+          "anchor_mechanism": "LINE_ORIGIN_MOVED_TO_SOURCE_ANCHOR",
+          "anchor_tab_position_pt": null,
+          "paragraph_left_indent_pt": 24.0,
+          "paragraph_first_line_indent_pt": 0.0,
+          "paragraph_coordinate_frame": {
+            "page_left_x": 0.0,
+            "section_left_margin": 70.8,
+            "paragraph_left_indent": 24.0,
+            "paragraph_first_line_indent": 0.0,
+            "paragraph_hanging_indent": 0.0,
+            "effective_line_origin_x": 94.8,
+            "current_line_origin_x": 94.8,
+            "tab_stop_reference_origin_x": 70.8,
+            "source_target_x0": 94.8,
+            "source_target_x1": 95.8,
+            "target_tab_start": 24.0,
+            "target_tab_end": 25.0
+          }
+        },
+        {
+          "source_rule_id": "P42-R2",
+          "source_visual_line_id": "S42-L4",
+          "fact_fields": [
+            "PROJECT_AND_LOT_SLOT"
+          ],
+          "resolved_values": [
+            "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目"
+          ],
+          "generated_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+          "source_anchor_x": 198.1,
+          "generated_value_start_x": null,
+          "generated_value_end_x": null,
+          "paragraph_index": 28,
+          "underline_semantics": "VALUE_SUPPLIES_CONTENT_ONLY",
+          "source_placeholder_underlined": true,
+          "resolved_value_underlined": false,
+          "source_local_pattern": "source field rule under its own placeholder text; the delivered value replaces that placeholder at the field's start anchor and follows natural glyph width",
+          "evidence_reason": "the source rule extent is occupied by the placeholder glyphs, so the rule belongs to the placeholder text; the frozen fill pattern makes the delivered value supply content only, so no underline is invented for it and none is required to satisfy this geometry",
+          "anchor_x": 198.1,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "anchor_tab_position_pt": 127.3,
+          "paragraph_left_indent_pt": 0.0,
+          "paragraph_first_line_indent_pt": 26.05,
+          "paragraph_coordinate_frame": {
+            "page_left_x": 0.0,
+            "section_left_margin": 70.8,
+            "paragraph_left_indent": 0.0,
+            "paragraph_first_line_indent": 26.05,
+            "paragraph_hanging_indent": 0.0,
+            "effective_line_origin_x": 96.85,
+            "current_line_origin_x": 70.8,
+            "tab_stop_reference_origin_x": 70.8,
+            "source_target_x0": 198.1,
+            "source_target_x1": 199.1,
+            "target_tab_start": 127.3,
+            "target_tab_end": 128.3
+          }
+        },
+        {
+          "source_rule_id": "P42-R5",
+          "source_page": 42,
+          "source_x0": 131.85,
+          "source_x1": 181.4,
+          "source_form_field_id": "SFF42|P42-R5|131.8-181.4@198.3",
+          "owner_kind": "SOURCE_FORM_LINE_OWNER",
+          "representation_type": "SOURCE_ANCHORED_VALUE_RUN",
+          "application_kind": "VALUE_IN_FIXED_SLOT",
+          "fact_fields": [
+            "duration"
+          ],
+          "resolved_values": [
+            "30日历天"
+          ],
+          "generated_paragraph_index": 30,
+          "generated_run_index": 2,
+          "anchor_x": 131.85,
+          "anchor_mechanism": "SOURCE_POSITIONED_ANCHOR_TAB",
+          "anchor_tab_position_pt": 61.05,
+          "underline_semantics": "RESOLVED_VALUE_UNDERLINED_AT_NATURAL_WIDTH",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "geometry_note": "value starts at the source slot anchor and follows its own natural glyph width; the source x1 is retained as provenance only and never forces the value's right edge",
+          "application_id": "SFA3"
+        }
+      ],
+      "underline_owner_runs_call_site": "tender_basic/word_style_source_builder.py:858 - underline_owner_runs() adds the overlapping source run to _underlined_source_run_ids"
+    },
+    "root_cause": "P42-R2 is a PLACEHOLDER_UNDERLINE carrying transformation_policy PLACEHOLDER_REPLACED_BY_VALUE with geometry_intent ANCHOR_START_ONLY. The source line is a SINGLE run (96.84..523.92) that contains both the placeholder and the surrounding prose. underline_owner_runs() attributes the rule to that whole-line run, so the run's underline is set from the rule. The slot replacement then splits the run: the leftover prose keeps underline=True, while the replacement value is emitted by the value path with resolved_value_underlined=false as recorded (underline_semantics=VALUE_SUPPLIES_CONTENT_ONLY). The decoration therefore lands on the prose that the rule never covered and is absent from the value the rule does cover.",
+    "recorded_semantics_that_are_wrong": [
+      "source_anchored_value_runs[P42-R1].underline_semantics = VALUE_SUPPLIES_CONTENT_ONLY",
+      "source_anchored_value_runs[P42-R1].resolved_value_underlined = false",
+      "source_anchored_value_runs[P42-R2].underline_semantics = VALUE_SUPPLIES_CONTENT_ONLY",
+      "source_anchored_value_runs[P42-R2].resolved_value_underlined = false"
+    ],
+    "contrast_with_the_accepted_value_path": {
+      "record": "source_form_line_value_runs[P42-R5]",
+      "underline_semantics": "RESOLVED_VALUE_UNDERLINED_AT_NATURAL_WIDTH",
+      "meaning": "the repository already has the correct contract - a replacement value that inherits the source placeholder underline - it is simply not selected on the PLACEHOLDER_UNDERLINE/TEXT_UNDERLINE + PLACEHOLDER_REPLACED_BY_VALUE path"
+    },
+    "not_a_semantic_change": "slot type, fact binding, SourceFillApplication.application_kind and the rule's relation_type/policy are all unchanged by the required fix; only which run carries the decoration changes"
+  },
+  "defect_2_source_visual_line_vs_word_paragraph": {
+    "human_finding": "a source visual-line boundary is emitted as a Word paragraph boundary after '全部内容，愿意' and after '提交响应文件截止之日起'",
+    "the_layout_model_is_already_correct": {
+      "authority": "tender_basic/page_layout.py::build_page_layout -> can_continue",
+      "element_index_on_source_page_42": 3,
+      "element_kind": "LogicalParagraph",
+      "fragment_count": 4,
+      "source_line_count": 8,
+      "logical_text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意以人民币（大写）（不含税），（小写）元的响应报价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量达到。",
+      "logical_bbox": [
+        70.8,
+        146.7,
+        523.92,
+        218.98
+      ],
+      "meaning": "the merge predicate already joined source paragraphs 3,4,5,6 into ONE LogicalParagraph with four fragments and eight source lines; the sentence is one logical paragraph in the model",
+      "clause_4": {
+        "element_kind": "List",
+        "fragment_count": 2,
+        "source_line_count": 4,
+        "logical_text": "4、本项目询比有效期为提交响应文件截止之日起90日历天，在询比有效期内不修改、撤销响应文件。",
+        "meaning": "item 4 is one List logical paragraph owning two fragments; its own 90 and its wrapped continuation are inside it"
+      },
+      "merge_verdicts": [
+        {
+          "pair": "letter fragment 0 -> 1",
+          "accepted": true
+        },
+        {
+          "pair": "clause 4 fragment 0 -> 1",
+          "accepted": true
+        }
+      ]
+    },
+    "where_the_split_is_created": {
+      "call_site": "tender_basic/word_style_source_builder.py:894-926",
+      "predicate": "plan_source_visual_line(...).needs_own_line_context, defined as bool(positioned_atoms) and source_row_index > 0 (tender_basic/page_layout.py:1836), extended at word_style_source_builder.py:917 to any single-row element carrying a positioned atom",
+      "effect": "_assemble_source_visual_line() opens a NEW Word paragraph for every fragment that carries a positioned atom, so one LogicalParagraph with four such fragments becomes four Word paragraphs",
+      "mechanism_a_within_one_visual_row": {
+        "source": {
+          "source_rule_id": "P42-R7",
+          "source_page": 42,
+          "source_x0": 352.8,
+          "source_x1": 388.8,
+          "source_y": 318.35,
+          "geometry_intent": "EXACT_SOURCE_SPAN",
+          "row": "layout element for item 4, single row y0=306.78 x 94.80..520.80",
+          "row_text": "4、本项目询比有效期为提交响应文件截止之日起\\n90\\n日历天，在询比有效期内"
+        },
+        "generated": [
+          {
+            "docx_paragraph_index": 36,
+            "style": "Tender Body List 1",
+            "text": "4、本项目询比有效期为提交响应文件截止之日起",
+            "left_indent_pt": 24.0,
+            "first_line_indent_pt": 0.0,
+            "space_before_pt": 0.1,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 1,
+            "tabs_in_text": 0,
+            "runs": [
+              {
+                "text": "4、本项目询比有效期为提交响应文件截止之日起",
+                "underline": null
+              }
+            ]
+          },
+          {
+            "docx_paragraph_index": 37,
+            "style": "Tender Body List 1",
+            "text": "\t\t90\t日历天，在询比有效期内不修改、撤销响应文件。",
+            "left_indent_pt": 0.0,
+            "first_line_indent_pt": 0.0,
+            "space_before_pt": 0.0,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 6,
+            "tabs_in_text": 3,
+            "runs": [
+              {
+                "text": "\t",
+                "underline": true
+              },
+              {
+                "text": "90",
+                "underline": true
+              },
+              {
+                "text": "\t",
+                "underline": true
+              },
+              {
+                "text": "日历天，在询比有效期内",
+                "underline": null
+              },
+              {
+                "text": "不修改、撤销响应文件。",
+                "underline": null
+              }
+            ]
+          }
+        ],
+        "note": "the 90 anchor was reached only after the row's leading text had been emitted, so the emitter opened a second paragraph for it and the list indent 24.0 pt was lost on the continuation (left_indent 0.0)"
+      },
+      "mechanism_b_across_visual_rows": {
+        "source_rows": [
+          {
+            "row": 1,
+            "y0": 146.7,
+            "text": "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+            "x1": 523.92,
+            "rule": "P42-R2"
+          },
+          {
+            "row": 2,
+            "y0": 166.74,
+            "text": "以人民币（大写）____（不含税），（小写）____元的响应报",
+            "x1": 519.84,
+            "rules": [
+              "P42-R3",
+              "P42-R4"
+            ]
+          },
+          {
+            "row": 3,
+            "y0": 186.78,
+            "text": "价，供货期____，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "x1": 522.83,
+            "rules": [
+              "P42-R5"
+            ]
+          },
+          {
+            "row": 4,
+            "y0": 206.7,
+            "text": "达到____。",
+            "x1": 163.08,
+            "rules": [
+              "P42-R6"
+            ]
+          }
+        ],
+        "wrap_evidence": "rows 1-3 each run to the right margin (523.92 / 519.84 / 522.83 against the 524.40 frame) and only the final row stops short at 163.08 - the visible justified-wrap signature, which is why the model merged them",
+        "generated": [
+          {
+            "docx_paragraph_index": 28,
+            "style": "Tender Body First Line",
+            "text": "我方已充分研究了\t河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目YSEJJXXB202607-18询比文件的全部内容，愿意",
+            "left_indent_pt": 0.0,
+            "first_line_indent_pt": 26.05,
+            "space_before_pt": 0.15,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 5,
+            "tabs_in_text": 1,
+            "runs": [
+              {
+                "text": "我方已充分研究了",
+                "underline": true
+              },
+              {
+                "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+                "underline": false
+              },
+              {
+                "text": "YSEJJXXB202607-18",
+                "underline": false
+              },
+              {
+                "text": "询比文件的全部内容，愿意",
+                "underline": true
+              }
+            ]
+          },
+          {
+            "docx_paragraph_index": 29,
+            "style": "Tender Body First Line",
+            "text": "以人民币（大写）\t\t（不含税），（小写）\t\t元的响应报",
+            "left_indent_pt": 0.0,
+            "first_line_indent_pt": 0.0,
+            "space_before_pt": 0.0,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 8,
+            "tabs_in_text": 4,
+            "runs": [
+              {
+                "text": "以人民币（大写）",
+                "underline": null
+              },
+              {
+                "text": "\t",
+                "underline": true
+              },
+              {
+                "text": "（不含税）",
+                "underline": true
+              },
+              {
+                "text": "，（小写）",
+                "underline": null
+              },
+              {
+                "text": "\t",
+                "underline": true
+              },
+              {
+                "text": "元的响应报",
+                "underline": null
+              }
+            ]
+          },
+          {
+            "docx_paragraph_index": 30,
+            "style": "Tender Body First Line",
+            "text": "价，供货期\t30日历天，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+            "left_indent_pt": 0.0,
+            "first_line_indent_pt": 0.0,
+            "space_before_pt": 0.0,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 4,
+            "tabs_in_text": 1,
+            "runs": [
+              {
+                "text": "价，供货期",
+                "underline": null
+              },
+              {
+                "text": "30日历天",
+                "underline": true
+              },
+              {
+                "text": "，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+                "underline": null
+              }
+            ]
+          },
+          {
+            "docx_paragraph_index": 31,
+            "style": "Tender Body First Line",
+            "text": "达到\t\t。",
+            "left_indent_pt": 0.0,
+            "first_line_indent_pt": 0.0,
+            "space_before_pt": 0.0,
+            "space_after_pt": 0.0,
+            "line_spacing": 1.25,
+            "alignment": "LEFT (0)",
+            "run_count": 4,
+            "tabs_in_text": 2,
+            "runs": [
+              {
+                "text": "达到",
+                "underline": null
+              },
+              {
+                "text": "\t",
+                "underline": true
+              },
+              {
+                "text": "。",
+                "underline": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "the_hard_constraint_that_blocks_merging_rows_1_to_4": {
+      "gate": "acceptance/reports/v09_internal_preview/p3_phase2_gate.json",
+      "gate_status": "PASS",
+      "gate_pages": "source page 42 -> generated page 3",
+      "gate_tolerance_pt": 2.0,
+      "rows_with_exact_span_obligation_on_these_rows": [
+        {
+          "source_rule_id": "P42-R3",
+          "geometry_intent": "EXACT_SOURCE_SPAN",
+          "owes_exact_endpoints": true,
+          "current_x0_error_pt": 0.0,
+          "current_x1_error_pt": -0.9
+        },
+        {
+          "source_rule_id": "P42-R4",
+          "geometry_intent": "EXACT_SOURCE_SPAN",
+          "owes_exact_endpoints": true,
+          "current_x0_error_pt": 0.0,
+          "current_x1_error_pt": -0.1
+        },
+        {
+          "source_rule_id": "P42-R5",
+          "geometry_intent": "ANCHOR_START_ONLY",
+          "owes_exact_endpoints": false,
+          "current_x0_error_pt": 0.1,
+          "current_x1_error_pt": 0.95
+        },
+        {
+          "source_rule_id": "P42-R6",
+          "geometry_intent": "EXACT_SOURCE_SPAN",
+          "owes_exact_endpoints": true,
+          "current_x0_error_pt": 0.0,
+          "current_x1_error_pt": 0.0
+        }
+      ],
+      "conflict": "rows 2-4 carry exact source x obligations and are reached today by tab stops measured from their own row origin. The resolved project name (49 characters) replaces an 8-character placeholder on row 1, so the sentence reflows far past x=169.65/384.60/131.85/95.25 (mandatory semantic-content reflow). In one Word paragraph a tab can only move forward, so those four anchors become unreachable and their measured x would leave the frozen +/-2.0 pt P3 horizontal tolerance.",
+      "brief_rule_that_resolves_it": "the brief forbids structural isolation only when the source logical paragraph requires inline continuity AND a valid preplanned forward representation exists. For clause 4 / P42-R7 a forward representation does exist (the row's leading text is source-fixed and ends at x=352.80, exactly the anchor), so that split must be removed. For rows 2-4 no valid forward representation exists, so the same rule does not forbid the source-row frame.",
+      "decision_required_from_the_human": true
+    }
+  },
+  "defect_3_anomalous_left_indent": {
+    "human_finding": "成立时间 begins about 60 pt further right than its sibling rows",
+    "generated": {
+      "anomalous_row": {
+        "docx_paragraph_index": 60,
+        "style": "Tender Signature Block",
+        "text": "成立时间：       年    月      日",
+        "left_indent_pt": 61.05,
+        "first_line_indent_pt": 0.0,
+        "space_before_pt": 13.9,
+        "space_after_pt": 0.0,
+        "line_spacing": 1.0,
+        "alignment": "LEFT (0)",
+        "run_count": 7,
+        "tabs_in_text": 0,
+        "runs": [
+          {
+            "text": "成立时间：",
+            "underline": null
+          },
+          {
+            "text": "       ",
+            "underline": true
+          },
+          {
+            "text": "年",
+            "underline": null
+          },
+          {
+            "text": "    ",
+            "underline": true
+          },
+          {
+            "text": "月",
+            "underline": null
+          },
+          {
+            "text": "      ",
+            "underline": true
+          },
+          {
+            "text": "日",
+            "underline": null
+          }
+        ]
+      },
+      "siblings": [
+        {
+          "docx_paragraph_index": 57,
+          "style": "Tender Signature Block",
+          "text": "供应商名称：                         ",
+          "left_indent_pt": 1.2,
+          "first_line_indent_pt": 0.0,
+          "space_before_pt": 27.6,
+          "space_after_pt": 0.0,
+          "line_spacing": 1.0,
+          "alignment": "LEFT (0)",
+          "run_count": 2,
+          "tabs_in_text": 0,
+          "runs": [
+            {
+              "text": "供应商名称：",
+              "underline": null
+            },
+            {
+              "text": "                         ",
+              "underline": true
+            }
+          ]
+        },
+        {
+          "docx_paragraph_index": 58,
+          "style": "Tender Signature Block",
+          "text": "单位性质：                          ",
+          "left_indent_pt": 1.2,
+          "first_line_indent_pt": 0.0,
+          "space_before_pt": 9.55,
+          "space_after_pt": 0.0,
+          "line_spacing": 1.0,
+          "alignment": "LEFT (0)",
+          "run_count": 2,
+          "tabs_in_text": 0,
+          "runs": [
+            {
+              "text": "单位性质：",
+              "underline": null
+            },
+            {
+              "text": "                          ",
+              "underline": true
+            }
+          ]
+        },
+        {
+          "docx_paragraph_index": 59,
+          "style": "Tender Signature Block",
+          "text": "地址：                               ",
+          "left_indent_pt": 1.2,
+          "first_line_indent_pt": 0.0,
+          "space_before_pt": 14.25,
+          "space_after_pt": 0.0,
+          "line_spacing": 1.0,
+          "alignment": "LEFT (0)",
+          "run_count": 2,
+          "tabs_in_text": 0,
+          "runs": [
+            {
+              "text": "地址：",
+              "underline": null
+            },
+            {
+              "text": "                               ",
+              "underline": true
+            }
+          ]
+        },
+        {
+          "docx_paragraph_index": 61,
+          "style": "Tender Signature Block",
+          "text": "经营期限：                         ",
+          "left_indent_pt": 1.2,
+          "first_line_indent_pt": 0.0,
+          "space_before_pt": 14.35,
+          "space_after_pt": 0.0,
+          "line_spacing": 1.0,
+          "alignment": "LEFT (0)",
+          "run_count": 2,
+          "tabs_in_text": 0,
+          "runs": [
+            {
+              "text": "经营期限：",
+              "underline": null
+            },
+            {
+              "text": "                         ",
+              "underline": true
+            }
+          ]
+        },
+        {
+          "docx_paragraph_index": 62,
+          "style": "Tender Signature Block",
+          "text": "姓名：      性别：    年龄：    职务：       。",
+          "left_indent_pt": 1.2,
+          "first_line_indent_pt": 0.0,
+          "space_before_pt": 14.35,
+          "space_after_pt": 0.0,
+          "line_spacing": 1.0,
+          "alignment": "LEFT (0)",
+          "run_count": 9,
+          "tabs_in_text": 0,
+          "runs": [
+            {
+              "text": "姓名：",
+              "underline": null
+            },
+            {
+              "text": "      ",
+              "underline": true
+            },
+            {
+              "text": "性别：",
+              "underline": null
+            },
+            {
+              "text": "    ",
+              "underline": true
+            },
+            {
+              "text": "年龄：",
+              "underline": null
+            },
+            {
+              "text": "    ",
+              "underline": true
+            },
+            {
+              "text": "职务：",
+              "underline": null
+            },
+            {
+              "text": "       ",
+              "underline": true
+            },
+            {
+              "text": "。",
+              "underline": null
+            }
+          ]
+        }
+      ],
+      "sibling_left_indents_pt": [
+        1.2,
+        1.2,
+        1.2,
+        1.2,
+        1.2
+      ]
+    },
+    "source_identity": {
+      "page": 44,
+      "paragraph_index": 5,
+      "text": "成立时间：\n年\n月\n日",
+      "rows_on_one_visual_line": 4,
+      "same_y0": 216.9,
+      "glyph_boxes": [
+        [
+          131.88,
+          72.0
+        ],
+        [
+          191.88,
+          179.88
+        ],
+        [
+          233.88,
+          221.88
+        ],
+        [
+          293.88,
+          281.88
+        ]
+      ],
+      "container_x0": 72.0,
+      "first_rule": {
+        "source_rule_id": "P44-R4",
+        "source_page": 44,
+        "x0": 131.85,
+        "x1": 179.85,
+        "y": 228.6,
+        "relation_type": "GAP_FILL_RULE",
+        "text_occupancy": 0.0,
+        "bearing": true,
+        "transformation_policy": "FIXED_EMPTY_SLOT",
+        "geometry_intent": "EXACT_SOURCE_SPAN",
+        "authoritative_slot_id": null,
+        "authoritative_slot_binding": "NO_AUTHORITATIVE_SLOT",
+        "allowed_fact_fields": [],
+        "resolved_fact_fields": []
+      },
+      "note": "'成立时间：' starts at the block origin exactly like its siblings; the three blanks sit between the label and 年/月/日"
+    },
+    "origin_records": {
+      "generated_left_indent": 61.05,
+      "trace": [
+        "generation_report.json:/paragraph_layout_records[52]/generated_left_indent = 61.05",
+        "generation_report.json:/logical_paragraph_records[52]/generated_left_indent = 61.05",
+        "generation_report.json:/positioned_coordinate_frames[1]/target_tab_start = 61.05",
+        "generation_report.json:/source_anchored_value_runs[2]/anchor_tab_position_pt = 61.05",
+        "generation_report.json:/source_form_line_value_runs[0]/anchor_tab_position_pt = 61.05"
+      ],
+      "arithmetic": "P44-R4 x0 131.85 - page content x0 70.80 = 61.05"
+    },
+    "code_path": {
+      "file": "tender_basic/word_safe_source_builder.py",
+      "lines": "2088-2096",
+      "branch": "LINE_ORIGIN_MOVED_TO_SOURCE_ANCHOR",
+      "code": "if anchor_x < origin - 1.0: formatting.left_indent = Pt(max(0.0, anchor_x - page_content_x0)); formatting.first_line_indent = Pt(0)"
+    },
+    "root_cause": "the row's first positioned blank anchor (P44-R4 x0=131.85) is resolved against a line origin that is not the row's own text origin, so instead of tabbing forward from the row origin (72.00) the emitter MOVES the paragraph's left origin onto the anchor. The label '成立时间：' is then dragged right by the full anchor offset. Sibling rows are unaffected because their first blank's anchor is bounded differently, which is why exactly one row in the block is anomalous. Nothing here is specific to the literal text '成立时间'."
+  },
+  "defect_4_vertical_rhythm": {
+    "human_finding": "form rows are positioned mainly through per-paragraph 段前 and the document declares an 18 pt document grid",
+    "generated_measurements": {
+      "distinct_space_before_values": 57,
+      "space_before_counts": {
+        "0.0": 18,
+        "0.1": 5,
+        "0.15": 1,
+        "0.2": 1,
+        "0.3": 3,
+        "0.35": 1,
+        "0.8": 1,
+        "3.3": 1,
+        "3.9": 10,
+        "5.1": 2,
+        "5.25": 5,
+        "5.75": 1,
+        "5.85": 1,
+        "6.3": 1,
+        "6.75": 3,
+        "7.1": 2,
+        "7.4": 1,
+        "9.55": 1,
+        "9.65": 1,
+        "11.0": 2,
+        "11.1": 7,
+        "11.25": 1,
+        "13.3": 1,
+        "13.9": 1,
+        "14.25": 1,
+        "14.35": 4,
+        "14.4": 1,
+        "14.45": 3,
+        "14.85": 4,
+        "15.05": 8,
+        "15.65": 2,
+        "15.75": 1,
+        "17.75": 1,
+        "19.0": 2,
+        "19.4": 1,
+        "21.05": 1,
+        "21.25": 3,
+        "21.4": 1,
+        "22.8": 1,
+        "23.2": 1,
+        "23.3": 1,
+        "23.55": 1,
+        "25.1": 1,
+        "25.45": 1,
+        "25.6": 1,
+        "26.5": 1,
+        "27.25": 2,
+        "27.35": 1,
+        "27.6": 1,
+        "30.7": 1,
+        "37.1": 1,
+        "46.55": 1,
+        "57.85": 1,
+        "67.1": 1,
+        "74.15": 1,
+        "205.95": 1,
+        "None": 21
+      },
+      "line_spacing_counts": {
+        "1.0": 87,
+        "1.2": 1,
+        "1.25": 14,
+        "1.5": 17,
+        "2.0": 4,
+        "None": 21
+      },
+      "legal_representative_block_space_before_pt": [
+        27.6,
+        9.55,
+        14.25,
+        13.9,
+        14.35,
+        14.35
+      ],
+      "doc_grid": {
+        "element": [
+          "<w:docGrid w:linePitch=\"360\"/>"
+        ],
+        "occurrences": 22,
+        "line_pitch_pt": 18.0,
+        "sections": 22,
+        "snap_to_grid_declarations": 0
+      }
+    },
+    "code_path": {
+      "file": "tender_basic/word_safe_source_builder.py",
+      "line": 541,
+      "code": "gap = initial_space_before if index == 0 else max(0.0, row.item.bbox[1] - previous_bottom) * scale",
+      "note": "the gap is then written as paragraph_format.space_before at line 399/547"
+    },
+    "root_cause": "every consecutive form row computes its own space_before from its own source y minus the previous row's bottom, so the paragraph's spacing value is a per-row absolute-y compensation rather than the source's vertical rhythm. That is why 57 distinct space_before values appear across 144 paragraphs while line_spacing stays at 1.0/1.25/1.5, and why the declared 18 pt document grid is never used."
+  },
+  "defect_5_antibribery_project_lot_slot": {
+    "human_finding": "the anti-commercial-bribery form's combined project/lot slot must render project_name + source separator + '/' for the structurally absent lot",
+    "current_behaviour": {
+      "policy": "tender_basic/source_fill_policy.py::slot_replacement",
+      "branch": "PROJECT_AND_LOT_SLOT",
+      "code": "values are joined with '、' and only RESOLVED components contribute",
+      "effect": "lot_name is NOT_FOUND, so only project_name is emitted and the source's second component is silently absent"
+    },
+    "required_semantics": {
+      "lot_name_status_must_stay": "NOT_FOUND",
+      "marker_is_not_a_fact": true,
+      "provenance_must_distinguish": [
+        "project_name: FACT_VALUE",
+        "'/': SOURCE_FORM_NOT_APPLICABLE_MARKER"
+      ],
+      "write_must_still_be_recorded_through": "SourceFillApplication"
+    }
+  },
+  "production_files_that_will_change": [
+    "tender_basic/word_safe_source_builder.py (underline ownership, blank anchor resolution, vertical rhythm, composite slot emission)",
+    "tender_basic/word_style_source_builder.py (logical-paragraph emission plan)",
+    "tender_basic/page_layout.py (forward-representation planning)",
+    "tender_basic/source_fill_policy.py (composite presentation marker)"
+  ],
+  "edits_made_in_stage_a": 0,
+  "status": "STAGE_A_COMPLETE"
+}

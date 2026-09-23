@@ -1,8 +1,8 @@
 {
   "schema": "v1_case_acceptance/1",
   "case": "case_002",
-  "build_id": "v1_phaseC_final",
-  "build_dir": "acceptance\\workspace\\case_002\\v1_phaseC_final",
+  "build_id": "v1_round2_regression",
+  "build_dir": "acceptance\\workspace\\case_002\\v1_round2_regression",
   "pinned_pointer": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_002_current_build.json",
   "source": {
     "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\营收系统整合和硬件系统升级项目招标文件.pdf",
@@ -12,43 +12,43 @@
     "source_pdf_reopen": true
   },
   "generated": {
-    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\基础投标文件.docx",
-    "docx_sha256": "46159ec9200a929c3b54f85d96411e086343b4dadd5bf1a1d49792b96fdb1387",
-    "docx_bytes": 60446,
-    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\基础投标文件.pdf",
-    "pdf_sha256": "b848f1ef5aef0a38aecc69052b4e717c620de6220751365795bfa6fb077fcbf0",
-    "pdf_bytes": 500859
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round2_regression\\基础投标文件.docx",
+    "docx_sha256": "6a37990b4666feb852cfe7b33575ef07a84bf695c0a1b05813862eb8a9f42013",
+    "docx_bytes": 60378,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round2_regression\\基础投标文件.pdf",
+    "pdf_sha256": "e39859ec199f6d4840b0357e0cbcb5e0ef534da1b6e82efa8ea8d121d1853934",
+    "pdf_bytes": 497876
   },
   "pipeline": 0,
   "libreoffice_render": {
     "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
     "argv": [
       "C:\\Program Files\\LibreOffice\\program\\soffice.com",
-      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_002/v1_phaseC_final/_acceptance_render/_acc_profile_a29851985ec5",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/case_002/v1_round2_regression/_acceptance_render/_acc_profile_a68fee429958",
       "--headless",
       "--norestore",
       "--convert-to",
       "pdf",
       "--outdir",
-      "acceptance\\workspace\\case_002\\v1_phaseC_final\\_acceptance_render",
-      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_phaseC_final\\基础投标文件.docx"
+      "acceptance\\workspace\\case_002\\v1_round2_regression\\_acceptance_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round2_regression\\基础投标文件.docx"
     ],
-    "isolated_profile": "acceptance\\workspace\\case_002\\v1_phaseC_final\\_acceptance_render\\_acc_profile_a29851985ec5",
+    "isolated_profile": "acceptance\\workspace\\case_002\\v1_round2_regression\\_acceptance_render\\_acc_profile_a68fee429958",
     "launcher_policy": "DIRECT_ARGV_NO_SHELL_CREATE_NO_WINDOW_UNIQUE_PROFILE",
     "returncode": 0,
-    "elapsed_s": 12.7,
+    "elapsed_s": 10.28,
     "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
-    "pdf": "acceptance\\workspace\\case_002\\v1_phaseC_final\\_acceptance_render\\基础投标文件.pdf",
+    "pdf": "acceptance\\workspace\\case_002\\v1_round2_regression\\_acceptance_render\\基础投标文件.pdf",
     "pdf_exists": true,
-    "pdf_bytes": 500859
+    "pdf_bytes": 497876
   },
   "rendered_pdf": {
-    "pdf_page_count": 31,
+    "pdf_page_count": 30,
     "pdf_reopen": true,
     "pdf_blank_pages": [],
     "pdf_blank_page_count": 0,
-    "pdf_extractable_character_count": 12608,
-    "pdf_text_page_count": 31
+    "pdf_extractable_character_count": 12691,
+    "pdf_text_page_count": 30
   },
   "package_safety": {
     "word_safe_scan": {
@@ -94,7 +94,7 @@
   },
   "document_structure": {
     "python_docx_reopen": true,
-    "paragraph_count": 135,
+    "paragraph_count": 133,
     "word_table_count": 9,
     "word_table_row_counts": [
       8,
@@ -596,7 +596,7 @@
     "page_count_source_format": 31,
     "page_count_generated": null,
     "page_count_note": "Rendered pagination required; flowing tables may add continuation pages.",
-    "paragraph_count": 135,
+    "paragraph_count": 133,
     "source_table_count": 22,
     "table_count": 9,
     "pdf_table_fragment_count": 22,

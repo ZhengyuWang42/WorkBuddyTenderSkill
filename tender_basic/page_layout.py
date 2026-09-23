@@ -323,6 +323,18 @@ class LogicalParagraph:
     list_level: int = 0
     list_group_id: int = 0
     alignment_role: AlignmentRole = AlignmentRole.LEFT_BODY
+    #: The paragraph's authoritative source indent, classified from the origins of
+    #: its own source visual rows (and, when it never wraps, from the body
+    #: boundary its container measured).  ``None`` until the page layout has been
+    #: fully assembled, because the container's boundary is only measurable once
+    #: every paragraph on the page is known.
+    #: classification ``SOURCE_BODY_JUSTIFIED`` / ``SOURCE_BODY_LEFT`` for a
+    #: narrative paragraph whose own wrapped rows prove a stretched line.
+    source_indent: object = None
+    #: The paragraph's source-backed horizontal alignment, classified from the
+    #: glyph advance of its own wrapped rows.  ``None`` until the page layout has
+    #: been fully assembled.
+    source_alignment: object = None
 
     @property
     def text_bbox(self):
@@ -428,6 +440,11 @@ def build_page_layout(page):
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes),
            max(b[2] for b in boxes), max(b[3] for b in boxes)) if boxes else (0,0,page.width,page.height)
     result = SourcePageLayout(page.page, page.width, page.height, box, classify_page(page))
+    # Collected before the paragraph pass: a form row's alignment is judged on
+    # the row the source actually composed, and for a date row that row is
+    # carried by the fill-in rules the source draws *under* its glyphs.  See
+    # the form-row branch below.
+    horizontal_rules = [line for line in page.lines if line.orientation == 'horizontal']
     for item in page.elements:
         if item.type == 'table':
             result.elements.append(page.tables[item.index])
@@ -450,6 +467,34 @@ def build_page_layout(page):
                 source_container_center=page.width/2.0
                 centered_geometry=abs(source_line_center-source_container_center) <= max(8.0,page.width*.02)
                 if paragraph.kind == 'FormRow':
+                    # THE ROW THE SOURCE COMPOSED, NOT THE GLYPHS IT PRINTED.
+                    # A fill-in row is written ``____年____月____日``: the
+                    # labels are only part of it, and the source carries the
+                    # row out to its real edges with the rules it draws under
+                    # the blanks.  Measuring the row from its glyphs alone
+                    # understates a centred date row - the three date labels
+                    # sit right of the row's true centre because the widest
+                    # blank is the leading one - and would anchor a centred
+                    # row to the left edge of its own first glyph.  Extend the
+                    # row by the rules it owns: the ones drawn in the row's own
+                    # band that touch or overlap its glyph span.  A page-wide
+                    # table border shares the band but is not a row blank, so
+                    # an abutting rule is only accepted while the row is still
+                    # blank-width, never as a rule that merely crosses it.
+                    extent_x0, extent_x1 = paragraph.bbox[0], paragraph.bbox[2]
+                    glyph_width = max(1.0, extent_x1 - extent_x0)
+                    for rule in horizontal_rules:
+                        rule_y = float(rule.bbox[1])
+                        if not (paragraph.bbox[1] - 2.0 <= rule_y <= paragraph.bbox[3] + 4.0):
+                            continue
+                        if rule.bbox[2] < extent_x0 - 1.5 or rule.bbox[0] > extent_x1 + 1.5:
+                            continue
+                        if float(rule.bbox[2] - rule.bbox[0]) > glyph_width * 3.0:
+                            continue
+                        extent_x0 = min(extent_x0, float(rule.bbox[0]))
+                        extent_x1 = max(extent_x1, float(rule.bbox[2]))
+                    source_line_center = (extent_x0 + extent_x1) / 2.0
+                    centered_geometry = abs(source_line_center - source_container_center) <= max(8.0, page.width * .02)
                     paragraph.alignment_role=(AlignmentRole.CENTERED_FORM_LINE
                         if centered_geometry and len(text) <= 24 else AlignmentRole.LEFT_FORM_LINE)
                 elif paragraph.kind == 'List':
@@ -514,7 +559,7 @@ def build_page_layout(page):
         else:
             merged.append(paragraph)
     result.elements=merged
-    result.horizontal_rules = [line for line in page.lines if line.orientation == 'horizontal']
+    result.horizontal_rules = horizontal_rules
     # Sibling list items share one source geometry.  In these PDFs the
     # extracted continuation line is sometimes left of the first line: that
     # is the marker column, not the body column.  Normalize the two anchors
@@ -535,8 +580,12 @@ def build_page_layout(page):
         group=ListLayoutGroup(number, text_x, box[2], pitch, level=sibling_level or 0, group_id=group_id)
         result.list_groups.append(group)
         for p in siblings:
-            p.left_indent_pt=text_x
-            p.first_line_indent_pt=number-text_x
+            # The group record keeps the source's own marker/body columns for
+            # numbering and level bookkeeping.  The paragraph's *delivered* left
+            # and first-line indents are not decided here: they come from the
+            # paragraph's own measured row geometry in
+            # ``_apply_source_paragraph_indents``, so a list item cannot be given
+            # a whole-paragraph left indent that its wrapped rows contradict.
             p.line_pitch_pt=pitch
             p.list_level=sibling_level or 0
             p.list_group_id=group_id
@@ -580,7 +629,74 @@ def build_page_layout(page):
         result.form_blocks.append(form_block)
         grouped.append(form_block)
     result.elements=grouped
+    _apply_source_paragraph_indents(result.elements)
+    _apply_source_paragraph_alignments(result.elements)
     return result
+
+
+def _apply_source_paragraph_alignments(elements):
+    """The authoritative source alignment of every reconstructed paragraph.
+
+    A PDF carries no alignment property, so the paragraph's own wrapped rows are
+    the evidence: a row stretched past the font's natural glyph advance can only
+    have been justified to the right edge of its measure.  The classification is
+    the source's own geometry and replaces the reconstruction's earlier guess,
+    which was ``direction``-derived and therefore always left for this corpus.
+
+    A paragraph whose kind is not narrative text keeps the alignment its own role
+    already declares - a centred heading, a form line and a list marker are
+    positioned by their role, and stretching them would move the very glyphs the
+    source aligned.
+    """
+
+    from .source_paragraph_alignment import classify_source_paragraph_alignment
+
+    for item in elements:
+        if not isinstance(item, LogicalParagraph):
+            continue
+        if item.kind not in ("LogicalParagraph", "List"):
+            item.source_alignment = None
+            continue
+        alignment = classify_source_paragraph_alignment(
+            source_visual_rows(item.source_lines)
+        )
+        item.source_alignment = alignment
+        if alignment.justified:
+            item.alignment_hint = "justify"
+            item.alignment_role = AlignmentRole.JUSTIFIED_BODY
+
+
+def _apply_source_paragraph_indents(elements):
+    """The authoritative source indent of every reconstructed paragraph.
+
+    Runs once, after the page's list groups and form blocks have been formed, so
+    a paragraph's own measured rows *and* the body boundary its container
+    actually measured are both available.  It replaces the left/first-line pair
+    the reconstruction inferred earlier, which encoded a single row's own x as
+    the paragraph's whole left indent whenever the source's indent could not be
+    read from one row - and which represented a hanging indent by a negative
+    first-line value on a paragraph whose left edge was the *body* column.
+
+    ``left_indent_pt`` is the body boundary the source returns wrapped rows to
+    and ``first_line_indent_pt`` is Word's signed ``w:ind/@w:firstLine``, so a
+    first-line indent, a hanging indent and no special indent are three distinct
+    deliveries instead of one.
+
+    A paragraph whose reconstruction found no source row carries no evidence to
+    classify, so it keeps the geometry it was built with.
+    """
+
+    from .source_paragraph_indent import classify_paragraph_source_indent
+
+    paragraphs = [item for item in elements if isinstance(item, LogicalParagraph)]
+    for item in paragraphs:
+        if not item.source_lines:
+            item.source_indent = None
+            continue
+        indent = classify_paragraph_source_indent(item, container_paragraphs=paragraphs)
+        item.source_indent = indent
+        item.left_indent_pt = indent.body_left_x
+        item.first_line_indent_pt = indent.word_first_line_indent_pt
 
 
 def _list_level(text):
@@ -614,15 +730,20 @@ def _list_group_anchors(siblings):
     first=median(first_x)
     if continuation_x:
         continuation=median(continuation_x)
-        if continuation < first-2.0:
-            # Source first lines begin at the body anchor while wrapped lines
-            # expose the marker-column anchor.
-            return continuation, first
         if abs(continuation-first) <= 2.0:
-            # Some extracted lists place continuation lines on the same
-            # source x as the marker.  Reserve the marker advance explicitly
-            # so wrapped text cannot collapse onto the number column.
+            # The extracted rows all sit in one column, so the wrapped rows
+            # expose no second column to measure.  Reserve the marker advance
+            # explicitly, so a wrapped line can never collapse onto the number
+            # column.  The paragraph's own authoritative indent still comes from
+            # ``classify_paragraph_source_indent``.
             return first, first+median(_marker_advance(p.logical_text,p.font_size_pt) for p in siblings)
+        # The first row is the marker column and the wrapped rows expose the body
+        # column.  Whichever side the body column is on, the pair is returned in
+        # (marker, body) order: a body column right of the marker is a hanging
+        # indent, and a body column *left* of it is the source's first-line
+        # indent - the first row carries the marker inside its own text and every
+        # wrapped row returns to the body boundary.  Reading the left column as
+        # the marker column instead inverts the two and indents every wrapped row.
         return first, continuation
     return first, first+median(_marker_advance(p.logical_text,p.font_size_pt) for p in siblings)
 
@@ -1258,7 +1379,7 @@ def paragraph_coordinate_frame(paragraph, source_x0, source_x1, *, page_left_x=0
     )
 
 
-def underline_owner_runs(rules, runs, *, resolved_values=()):
+def underline_owner_runs(rules, runs, *, resolved_values=(), bound_decoration_rule_ids=()):
     """The runs that a classified underline rule attaches to.
 
     A rule classified as a text/placeholder/value underline belongs to one
@@ -1266,8 +1387,23 @@ def underline_owner_runs(rules, runs, *, resolved_values=()):
     run it happens to touch.  Returning the run objects (not a geometric band)
     is what keeps a Word underline from spilling onto neighbouring text, since
     a delivered run's underline is all-or-nothing.
+
+    The owning rule is returned alongside its run because the *caller* owns the
+    decoration-ownership decision: when the rule decorates a placeholder that a
+    resolved value replaces, the decoration belongs to the replacement value and
+    must not also paint the surrounding source run.
+
+    ``bound_decoration_rule_ids`` are ``id(rule)`` values of rules whose own
+    compiled binding already establishes that they decorate a slot a resolved
+    value replaces.  Such a rule is a *line the source drew on a fill slot*, but
+    its extent commonly carries both blank and glyphs, so the occupancy
+    heuristic labels it a form-layout rule rather than an underline.  The
+    binding is stronger evidence than the label, so those rules are eligible
+    here while the label-based geometry fallback stays restricted to the
+    underline relations.
     """
 
+    bound_decoration_rule_ids = frozenset(bound_decoration_rule_ids or ())
     owners = []
     for rule in rules:
         if getattr(rule, "orientation", None) != "horizontal":
@@ -1277,7 +1413,7 @@ def underline_owner_runs(rules, runs, *, resolved_values=()):
             "TEXT_UNDERLINE",
             "PLACEHOLDER_UNDERLINE",
             "VALUE_UNDERLINE",
-        ):
+        ) and id(rule) not in bound_decoration_rule_ids:
             continue
         rule_x0, rule_x1 = float(rule.bbox[0]), float(rule.bbox[2])
         rule_y = (float(rule.bbox[1]) + float(rule.bbox[3])) / 2.0
@@ -1303,7 +1439,7 @@ def underline_owner_runs(rules, runs, *, resolved_values=()):
                 best_score = score
                 best = run
         if best is not None:
-            owners.append((best, relation))
+            owners.append((best, relation, rule))
     return owners
 
 
@@ -1356,9 +1492,15 @@ def restore_inline_rule_blanks(text, runs, rules, slots, *, spans=None, resolved
                 continue
             if any(s.text_start is not None and s.text_start <= end <= s.text_end for s in slots):
                 continue
+            # A fixed blank's rule begins in the gap the field left, and its
+            # source extent is the physical width authority.  Its far end may run
+            # a little past the *next* label's first glyph: the template drew a
+            # fixed-length blank and the following label was placed over its tail.
+            # Requiring both ends inside the gap would drop such a blank
+            # altogether - the source's own blank line would then be missing from
+            # the delivery - so only the rule's start has to be in the gap.
             if not (
                 left.bbox[2] - 1.5 <= rule_x0 <= right.bbox[0] + 1.5
-                and left.bbox[2] - 1.5 <= rule_x1 <= right.bbox[0] + 1.5
             ):
                 continue
             if abs(rule_y - left.bbox[3]) > max(6.0, size * 1.2):
@@ -1555,6 +1697,61 @@ def source_visual_rows(source_lines, *, tolerance=SOURCE_VISUAL_ROW_TOLERANCE):
     return rows
 
 
+def single_visual_row_join(text, lines, *, tolerance=SOURCE_VISUAL_ROW_TOLERANCE, protected=()):
+    """Drop extraction line separators that sit *inside* one source visual row.
+
+    A source PDF may draw a single physical row as several text objects, and the
+    extraction joins those objects with a newline.  That newline is usually a
+    property of the extraction, not a source line break: an element whose lines
+    all lie in one visual row must stay one row, and leaving the separator in the
+    emission payload turns one source row into two rendered lines (the assembled
+    form line ``系 …（供应商名称）… 的法定代表人。`` was split exactly this way).
+
+    A separator that a *fill slot* addresses is the exception and is never
+    removed: there the source drew a blank between two text objects and the
+    extraction newline **is** that blank's position, so the slot's
+    ``text_start``/``text_end`` point straight at it.  Removing it would delete
+    the place the resolved value is inserted into and silently drop a fill - the
+    ``我单位收到贵公司 … 项目招标文件`` paragraph, whose project-name slot covers
+    exactly one newline, is the regression this guard exists for.
+
+    Returns ``(joined_text, removed_offsets)``.  The offsets are the positions in
+    the *input* text of the separators that were removed, so a caller that also
+    holds character offsets into that text - a fill slot's ``text_start`` /
+    ``text_end`` - can translate them instead of silently targeting the wrong
+    range.
+
+    Only separators between lines of the *same* row are removed, and only when
+    the element's lines all lie in one row, so a genuinely multi-row element
+    keeps its line structure untouched.
+    """
+
+    rows = source_visual_rows(lines, tolerance=tolerance)
+    if len(rows) != 1 or len(rows[0]) < 2:
+        return text, ()
+    keep = {int(offset) for offset in protected}
+    removed = tuple(
+        index
+        for index, char in enumerate(text)
+        if char in ("\r", "\n") and index not in keep
+    )
+    if not removed:
+        return text, ()
+    dropped = set(removed)
+    return (
+        "".join(char for index, char in enumerate(text) if index not in dropped),
+        removed,
+    )
+
+
+def join_single_visual_row(text, lines, *, tolerance=SOURCE_VISUAL_ROW_TOLERANCE, protected=()):
+    """The joined text of :func:`single_visual_row_join`."""
+
+    return single_visual_row_join(
+        text, lines, tolerance=tolerance, protected=protected
+    )[0]
+
+
 @dataclass
 class SourceVisualLineAtom:
     """One emission atom of a source visual line, retained with provenance."""
@@ -1605,10 +1802,22 @@ class SourceVisualLineEmissionPlan:
     #: atom: continuous flow cannot guarantee this row's own origin, so the row
     #: is assembled inside its own paragraph context before it is emitted.
     needs_own_line_context: bool = False
+    #: True when the row keeps the owning element's own Word paragraph because
+    #: every positioned atom on it is reachable forward from that paragraph's
+    #: origin with the atom's own source-derived tab.  A forward-reachable atom
+    #: must never open a second paragraph: doing so would split one source visual
+    #: line, drop the element's own style indent on the continuation and leave an
+    #: otherwise-unneeded paragraph boundary in the delivered document.
+    forward_reachable: bool = False
     #: Whether the owning element actually has the source-form-line paragraph
     #: machinery activated.  Without it the row keeps the accepted inline
     #: emission, and the gap is recorded instead of silently assumed away.
     line_context_available: bool = False
+    #: True when the row needs a line context but is one of the owning element's
+    #: own wrapped rows.  A wrapped row is not a line the source drew, so the
+    #: element stays one Word paragraph and the row is placed by flow: turning the
+    #: source's own wrapping into paragraph boundaries is a visible defect.
+    wrapped_row_stays_in_paragraph: bool = False
     owns_line_context: bool = False
     generated_paragraph_index: int | None = None
     source_locator: object | None = None
@@ -1640,9 +1849,12 @@ class SourceVisualLineEmissionPlan:
             "owning_element_kind": self.owning_element_kind,
             "atom_count": len(self.atoms),
             "atoms": [atom.as_dict() for atom in self.atoms],
+            "source_rule_ids": self.source_rule_ids,
             "atom_order_is_source_x": self.atom_order_is_source_x(),
             "needs_own_line_context": self.needs_own_line_context,
+            "forward_reachable": self.forward_reachable,
             "line_context_available": self.line_context_available,
+            "wrapped_row_stays_in_paragraph": self.wrapped_row_stays_in_paragraph,
             "owns_line_context": self.owns_line_context,
             "generated_paragraph_index": self.generated_paragraph_index,
         }
@@ -2018,6 +2230,34 @@ def source_rule_geometry_intent(transformation_policy):
     )
 
 
+#: Policies under which a resolved value takes the source placeholder's place.
+#: A rule carrying one of them is a rule the source drew on a slot that is about
+#: to be filled, so the decoration it carries belongs to the replacement value.
+VALUE_REPLACING_POLICIES = frozenset(
+    {
+        TRANSFORMATION_PLACEHOLDER_REPLACED_BY_VALUE,
+        TRANSFORMATION_RESOLVED_VALUE_IN_FIXED_SLOT,
+    }
+)
+
+
+def source_rule_replaces_placeholder_with_value(entry) -> bool:
+    """Whether a rule registry entry announces a value in the slot it decorates.
+
+    The entry is the annotated registry record, which carries the compiled
+    binding: the slot the rule was bound to and the fact fields that will
+    actually be written into it.  Both must be present - a policy alone is a
+    statement about what would happen *if* a value resolved, and a fixed-empty or
+    unresolved slot has no replacement value for a decoration to attach to.
+    """
+
+    if not entry:
+        return False
+    if str(entry.get("transformation_policy") or "") not in VALUE_REPLACING_POLICIES:
+        return False
+    return bool(entry.get("resolved_fact_fields"))
+
+
 def _fact_field_key(name) -> str:
     """Canonical key of a fact field name, whether a member or a plain string."""
 
@@ -2239,12 +2479,70 @@ def _visual_row_band(box, *, tolerance=2.5):
     return round(float(box["y0"]) / float(tolerance))
 
 
+#: A source visual row that wraps leaves the wrapped slot's label at the end of
+#: the row above.  The label is carried across the wrap only when the row above
+#: does not end a sentence and does not end a label terminator, and when the two
+#: rows are one bounded row pitch apart, so no label is ever carried across an
+#: ended clause, across a label that expects its own value in place, or across a
+#: blank gap.
+_WRAP_CONTINUATION_MAX_BANDS = 12
+_SENTENCE_END_CHARS = "。！？；;!?"
+_LABEL_TERMINATOR_CHARS = "：:"
+_LABEL_TRAILING_CHARS = "，,、　 \t"
+
+
+def _wrap_continuation_row_text(unified, owner):
+    """The source visual row above the rule's own row, when it wraps into it.
+
+    Returns the leaf text of the nearest row above the owning box, or ``""``
+    when that row ends a sentence, ends a label terminator (``：``), or sits
+    further than one bounded row pitch away.  The rule's label is then the row's
+    own trailing label, which the caller confirms before binding anything: a
+    wrap only *offers* evidence, and the single-distinct-field contract still
+    decides whether a fact is bound.
+    """
+
+    own_band = _visual_row_band(owner)
+    rows: dict = {}
+    for box in unified:
+        if not box.get("is_leaf"):
+            continue
+        band = _visual_row_band(box)
+        if band >= own_band:
+            continue
+        rows.setdefault(band, []).append(box)
+    if not rows:
+        return ""
+    previous_band = max(rows)
+    if own_band - previous_band > _WRAP_CONTINUATION_MAX_BANDS:
+        return ""
+    text = "".join(str(box.get("text") or "") for box in rows[previous_band]).strip()
+    tail = text.rstrip(_LABEL_TRAILING_CHARS)
+    if not tail or tail[-1] in _SENTENCE_END_CHARS or tail[-1] in _LABEL_TERMINATOR_CHARS:
+        return ""
+    return text
+
+
+def _wrap_bound_label(row_text, hint):
+    """True when ``hint`` is the label the wrapped source row ends with.
+
+    Only a label sitting at the row's own end is the label of the field the
+    source wrapped onto the next row; a field named earlier in that row belongs
+    to whatever its own text carried.
+    """
+
+    compact = re.sub(r"\s+", "", row_text or "").rstrip(_LABEL_TRAILING_CHARS)
+    label = re.sub(r"\s+", "", hint or "")
+    return bool(label) and compact.endswith(label)
+
+
 def source_rule_structural_context(page, rule_x0, rule_y0, rule_x1, rule_y1):
     """Structural neighbourhood of a physical rule, most specific first.
 
     Returns ``(selected, evidence)`` where evidence records the owning
-    container text and the same-cell / same-row / adjacent-row texts, each
-    ordered deterministically and bounded to the rule's own structural family.
+    container text, the same-cell / same-row / adjacent-row texts and the text
+    of the wrapped row above, each ordered deterministically and bounded to the
+    rule's own structural family.
     """
 
     unified, _report = compile_source_visual_text_boxes(page)
@@ -2262,6 +2560,7 @@ def source_rule_structural_context(page, rule_x0, rule_y0, rule_x1, rule_y1):
         "same_row_texts": [],
         "adjacent_row_texts": [],
         "preceding_container_texts": [],
+        "wrap_continuation_row_text": "",
     }
     candidates = []
     if owners:
@@ -2316,6 +2615,14 @@ def source_rule_structural_context(page, rule_x0, rule_y0, rule_x1, rule_y1):
                 ):
                     evidence["adjacent_row_texts"].append(box["text"])
                     candidates.append(("adjacent_row", box["text"]))
+        # A source sentence that wraps ends the row above the field's own row, so
+        # a label sitting at the end of that row is this field's label.  The
+        # channel is offered last: it is the widest-proximity evidence, and the
+        # nearer structural channels above are consulted first.
+        wrap_text = _wrap_continuation_row_text(unified, owner)
+        if wrap_text:
+            evidence["wrap_continuation_row_text"] = wrap_text
+            candidates.append(("wrap_continuation_row", wrap_text))
     return candidates, evidence
 
 
@@ -2453,8 +2760,15 @@ def compile_source_form_field_plans(*, source_pages, glyph_evidence, resolved_fa
                     candidate_fields: list = []
                     for hint in _field_hint_candidates(text):
                         _slot_type, allowed = slot_contract(hint)
-                        if allowed:
-                            candidate_fields.extend(allowed)
+                        if not allowed:
+                            continue
+                        if _source_kind == "wrap_continuation_row" and not _wrap_bound_label(
+                            text, hint
+                        ):
+                            # The wrapped row only offers the label it ends with:
+                            # a field named earlier in that row is that row's own.
+                            continue
+                        candidate_fields.extend(allowed)
                     bound = _single_distinct_field(candidate_fields)
                     if bound:
                         fields = bound

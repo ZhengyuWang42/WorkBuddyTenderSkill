@@ -139,6 +139,14 @@ def test_date_line_and_multi_field_line_remain_one_paragraph(tmp_path):
 
 
 def test_hanging_list_and_nested_hanging_list_are_paragraphs(tmp_path):
+    """Nested list items stay their own paragraphs at their own source origin.
+
+    Neither fixture item wraps, so the source shows no continuation column for
+    them and no first-line indent is claimed; each keeps its own source x.  The
+    structural claim - one Word paragraph per source list item, no synthetic
+    table - is what the source actually justifies.
+    """
+
     main = _paragraph("1、主要条款内容很长，续行必须回到正文锚点。", bbox=(96.0, 80.0, 520.0, 92.0))
     nested = _paragraph("（1）嵌套条款", block=1, bbox=(82.0, 110.0, 360.0, 122.0))
     output, report = build_source_format_docx(
@@ -146,9 +154,19 @@ def test_hanging_list_and_nested_hanging_list_are_paragraphs(tmp_path):
     )
     document = Document(output)
     assert len(document.tables) == 0
-    assert all((p.paragraph_format.first_line_indent.pt or 0) < 0 for p in document.paragraphs)
+    assert len(document.paragraphs) == 2
+    for paragraph, source_x in zip(document.paragraphs, (96.0, 82.0)):
+        formatting = paragraph.paragraph_format
+        assert (formatting.left_indent.pt or 0) + (formatting.first_line_indent.pt or 0) == source_x - 18.0
     assert report["logical_paragraph_records"]
-    assert all(record["first_line_indent_pt"] < 0 for record in report["logical_paragraph_records"] if record["kind"] == "List")
+    list_records = [
+        record for record in report["logical_paragraph_records"] if record["kind"] == "List"
+    ]
+    assert list_records
+    assert all(
+        record["source_indent"]["classification"] == "NO_SPECIAL_FIRST_LINE_INDENT"
+        for record in list_records
+    )
 
 
 def test_real_source_table_stays_table_and_word_safe(tmp_path):

@@ -1,0 +1,194 @@
+{
+  "schema": "case001_manual_review_followup_3defects_diagnostic/1",
+  "stage": "STAGE_1_READ_ONLY_DIAGNOSTIC",
+  "read_only": true,
+  "re_derived_from_source_and_artifacts": true,
+  "note": "Read-only diagnostic: every claim below is re-derived from the source artifact, the accepted build and the delivered package, not from a remembered case.  The repaired outcomes were measured after the follow-up build; the accepted-build measurements and the source evidence they rest on are unchanged by that timing.",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "accepted_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics",
+  "followup_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_word_review_followup",
+  "accepted_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_p3semantics\\基础投标文件.docx",
+  "accepted_letter_paragraph_indexes": [
+    28
+  ],
+  "accepted_letter_paragraph_runs": [
+    {
+      "text": "我方已充分研究了",
+      "underline": null
+    },
+    {
+      "text": "\t",
+      "underline": null
+    },
+    {
+      "text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+      "underline": "single"
+    },
+    {
+      "text": "YSEJJXXB202607-18",
+      "underline": "single"
+    },
+    {
+      "text": "询比文件的全部内容，愿意",
+      "underline": null
+    }
+  ],
+  "defect_a_response_letter_composite_slot": {
+    "reported": "the response letter's composite placeholder must read with the source's own frame and a not-applicable marker, keeping the prose un-underlined and never mutating the unresolved lot fact",
+    "source_evidence": {
+      "decorated_composite_rules": [
+        {
+          "source_rule_id": "P42-R2",
+          "source_page": 42,
+          "relation_type": "PLACEHOLDER_UNDERLINE",
+          "text_occupancy": 1.0,
+          "slot_id": "slot-42-3",
+          "slot_original_text": "(项目名称、标段)",
+          "derived_frame": [
+            "(",
+            ")"
+          ],
+          "frame_glyphs": [
+            {
+              "character": "(",
+              "codepoint": "0x28"
+            },
+            {
+              "character": ")",
+              "codepoint": "0x29"
+            }
+          ],
+          "recorded_value": null,
+          "recorded_component_kinds": []
+        }
+      ],
+      "marker": "/",
+      "scoping_rule": "PLACEHOLDER_UNDERLINE at full text occupancy means the source's rule decorates the placeholder's own glyphs, so its brackets are source form text that survives the substitution; TEXT_UNDERLINE / FORM_LAYOUT_RULE at partial occupancy is a blank to fill, and the accepted replacement of the whole placeholder stands"
+    },
+    "resolution": "REPAIRED_WITH_THE_GENERIC_COMPOSITE_SLOT_MODEL",
+    "resolution_detail": "source_placeholder_frame derives the frame from the slot's own original_text; _composite_presentation composes frame + value + separator + marker + frame and records each component by kind.  The emitter decides which slots are source form fields from the registered rule's relation type and occupancy, page-scoped.  No literal, page number, case name or slot id is referenced.",
+    "verification": "scripts/v1_case001_followup_acceptance.py :: RESPONSE_LETTER_COMPOSITE_SLOT"
+  },
+  "defect_b_response_letter_paragraph_continuity": {
+    "reported": "the response letter's continuation must share one w:p with the preceding tokens - no paragraph boundary, no w:br, no w:cr and no empty paragraph - classified NATURAL_WRAP",
+    "source_evidence": {
+      "source_page": 42,
+      "kind": "LogicalParagraph",
+      "row_count": 4,
+      "row_texts": [
+        "我方已充分研究了(项目名称、标段)（项目编号）询比文件的全部内容，愿意",
+        "以人民币（大写）（不含税），（小写）元的响应报",
+        "价，供货期，按合同约定实施并完成本项目规定的所有工作内容，供货质量",
+        "达到。"
+      ],
+      "source_lines": 8
+    },
+    "why_it_is_one_w_p": "the source printed ONE logical paragraph as 4 wrapped visual rows; the source never broke a line between the tokens, so a delivered paragraph boundary there is an invented break",
+    "competing_frozen_contracts": {
+      "text_flow_continuity": "the tokens must share one w:p, and only a paragraph break, an explicit w:br/w:cr, a frame/shape (banned) or a natural wrap can start a visual line; tabs cannot move the cursor backwards and w:ptab carries no position attribute",
+      "frozen_p3_rule_geometry": {
+        "rules": [
+          {
+            "source_rule_id": "P42-R3",
+            "frozen_source_y_pt": 178.4
+          },
+          {
+            "source_rule_id": "P42-R4",
+            "frozen_source_y_pt": 178.4
+          },
+          {
+            "source_rule_id": "P42-R5",
+            "frozen_source_y_pt": 198.35
+          },
+          {
+            "source_rule_id": "P42-R6",
+            "frozen_source_y_pt": 218.4
+          },
+          {
+            "source_rule_id": "P42-R7",
+            "frozen_source_y_pt": 318.35
+          },
+          {
+            "source_rule_id": "P42-R8",
+            "frozen_source_y_pt": 418.4
+          }
+        ],
+        "tolerance_pt": 2.0,
+        "exact_policies": [
+          "EXACT_SOURCE_SPAN"
+        ],
+        "requirement": "R3/R4/R7/R8 must satisfy BOTH endpoints via EXACT_SOURCE_SPAN at the frozen source y values"
+      }
+    },
+    "measured_outcome": {
+      "merged_paragraph_experiment": "acceptance/reports/v1_generalization/_probe_defectb_merge.json - removing only the </w:p><w:p> boundary between the two paragraphs, then rendering through the frozen launcher, puts '文件的全部内容，愿意以人民币（大写）' on one line starting at x=70.9 with '以人民币（大写）' mid-line, so the continuation row never starts its own line and the R3 anchor at x=169.65 is unreachable",
+      "nowrap_build_experiment": "acceptance/workspace/case_001/v1_probe_nowrap - with the wrapped row isolation disabled, the frozen P3 gate fails on p3_scope_complete, horizontal_within_tolerance, exact_span_rules_intact and no_cross_page_rule_binding, with P42-R3 and P42-R4 in horizontal_failure_ids and P42-R4 missing from the frozen rules"
+    },
+    "resolution": "PROVEN_CONFLICT_REPORTED_AS_A_BLOCKER",
+    "resolution_detail": "No generic Word-native representation preserves both contracts: the row's frozen source anchors are reachable only while that row owns its line context, and the required joining of the tokens removes it.  The instruction authorises reporting the conflict rather than weakening either requirement, so the accepted paragraph structure is kept and the HARD-BREAK gate was repaired to stop passing this boundary as an authorised structural isolation.  The 2.0 pt tolerance and the EXACT_SOURCE_SPAN policy are untouched.",
+    "gate_repair": "scripts/v1_source_typography_round3_gate.py now classifies every boundary as NATURAL_WRAP, SOURCE_EXPLICIT_BREAK, BUILDER_FORCED_BREAK or STRUCTURAL_ISOLATION_REQUIRED_BY_RESOLVED_REFLOW from the source's own kind/row structure, and reports same_word_paragraph, w_br_between_tokens, w_cr_between_tokens, empty_paragraph_between_tokens, authorised_structural_split_between_tokens and classification for each split.  A recorded isolation is evidence about the build, not a verdict.  Source-backed breaks elsewhere are untouched: the SOURCE_EXPLICIT_BREAK and List paths still authorise them.",
+    "verification": "scripts/v1_source_typography_round3_gate.py :: HARD_BREAK_FIDELITY"
+  },
+  "defect_c_source_table_cell_alignment": {
+    "reported": "the qualification-table label cell for the social-credit code must be horizontally CENTER instead of JUSTIFY, and stay vertically CENTER, located by semantic table/cell identity",
+    "source_evidence": [
+      {
+        "source_page": 49,
+        "source_table_index": 0,
+        "source_row_index": 6,
+        "source_column_index": 0,
+        "cell_text": "统一社会信用代\n码",
+        "cell_box_pt": [
+          70.64,
+          265.02,
+          161.2,
+          303.02
+        ],
+        "measured_lines": [
+          [
+            273.54,
+            71.52,
+            159.72
+          ],
+          [
+            289.14,
+            109.56,
+            121.56
+          ]
+        ],
+        "classified_alignment": "center",
+        "classification_reason": "stable center axis (spread 0.06 pt)"
+      }
+    ],
+    "accepted_build_state": [
+      {
+        "delivered_table_index": 3,
+        "delivered_row_index": 6,
+        "delivered_column_index": 0,
+        "before_jc": "both",
+        "before_vAlign": "center",
+        "w_br_in_cell": 1
+      }
+    ],
+    "root_cause": "the symmetric-padding classifier accepted a two-line wrap as JUSTIFY without requiring the final line to be ranged left, so a centred wrapped label was labelled justified",
+    "resolution": "REPAIRED_IN_THE_GENERIC_CELL_ALIGNMENT_CLASSIFIER",
+    "resolution_detail": "the JUSTIFY branch now also requires the last line to be ranged left (flush with the body's own leading edge, within the cell's edge padding).  Justification is a property of where the final line stops, so a genuinely justified cell is unaffected; the stable-axis logic and the unknown-to-left default are untouched.",
+    "verification": "scripts/v1_case001_followup_acceptance.py :: SOURCE_TABLE_CELL_ALIGNMENT"
+  },
+  "global_prohibitions_honoured": [
+    "no ProjectFacts change",
+    "lot_name left NOT_FOUND",
+    "the marker is never turned into a fact",
+    "no CASE001 literal in production code",
+    "no global table-cell centring",
+    "no global paragraph merge",
+    "every PDF visual-row boundary is not treated as an explicit Word break",
+    "no w:br/w:cr used for a natural source wrap",
+    "no underscore glyphs for form rules",
+    "no textboxes, shapes or overlays",
+    "the 2.0 pt tolerance was never relaxed",
+    "R3/R4/R7/R8 EXACT_SOURCE_SPAN was never weakened",
+    "the P3 source geometry was never rebaselined",
+    "the accepted build was never overwritten"
+  ]
+}

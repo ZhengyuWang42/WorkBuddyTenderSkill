@@ -1,0 +1,866 @@
+{
+  "schema": "v1_three_case_regression/1",
+  "case_order": [
+    "case_001",
+    "case_002",
+    "case_003"
+  ],
+  "acceptance_reports": {
+    "case_001": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_acceptance_final.json",
+    "case_002": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case002_acceptance_final.json",
+    "case_003": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_003_followup3_acceptance.json"
+  },
+  "cases": [
+    {
+      "case": "case_001",
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8",
+      "automated_result": "PASS",
+      "source_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+      "generated_docx_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "checks": [
+        {
+          "check": "automated_result",
+          "field": "automated_result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "problems",
+          "field": "problems",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "pipeline_returncode",
+          "field": "pipeline",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "libreoffice_returncode",
+          "field": "libreoffice_render.returncode",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_reopen",
+          "field": "rendered_pdf.pdf_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_blank_pages",
+          "field": "rendered_pdf.pdf_blank_page_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "source_text_missing",
+          "field": "source_format_qa.source_text_missing",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "word_safe_scan",
+          "field": "package_safety.word_safe_scan.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "unsafe_generated_ooxml",
+          "field": "package_safety.unsafe_generated_ooxml",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "zip_integrity",
+          "field": "package_safety.zip_integrity",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "textbox_count",
+          "field": "document_structure.textbox_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "anchored_shape_count",
+          "field": "document_structure.anchored_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "vml_shape_count",
+          "field": "document_structure.vml_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "embedded_media_count",
+          "field": "document_structure.embedded_media_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "synthetic_layout_tables",
+          "field": "table_continuity.synthetic_layout_tables",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "orphan_continuation_fragments",
+          "field": "table_continuity.orphan_continuation_fragments",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "false_continuation_merges",
+          "field": "table_continuity.false_continuation_merges",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_lost_cell_count",
+          "field": "table_continuity.total_lost_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_duplicated_cell_count",
+          "field": "table_continuity.total_duplicated_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_invented_cell_count",
+          "field": "table_continuity.total_invented_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "excess_duplicated_paragraph_count",
+          "field": "package_safety.content_duplication.source_repetition.excess_duplicated_paragraph_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "blocking_overlap_count",
+          "field": "package_safety.blocking_overlap.blocking_overlap_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "resolved_without_evidence_fields",
+          "field": "project_facts.resolved_without_evidence_fields",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_result",
+          "field": "review_evidence.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_hard_gate_failures",
+          "field": "review_evidence.hard_gate_failures",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "invalid_review_evidence_locator_count",
+          "field": "review_evidence.invalid_review_evidence_locator_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "workbook_reopen",
+          "field": "workbook.openpyxl_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        }
+      ],
+      "failed_checks": [],
+      "case_result": "PASS"
+    },
+    {
+      "case": "case_002",
+      "build_id": "v1_round4_closure8",
+      "build_dir": "acceptance\\workspace\\case_002\\v1_round4_closure8",
+      "automated_result": "PASS",
+      "source_sha256": "2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449",
+      "generated_docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "checks": [
+        {
+          "check": "automated_result",
+          "field": "automated_result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "problems",
+          "field": "problems",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "pipeline_returncode",
+          "field": "pipeline",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "libreoffice_returncode",
+          "field": "libreoffice_render.returncode",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_reopen",
+          "field": "rendered_pdf.pdf_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_blank_pages",
+          "field": "rendered_pdf.pdf_blank_page_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "source_text_missing",
+          "field": "source_format_qa.source_text_missing",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "word_safe_scan",
+          "field": "package_safety.word_safe_scan.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "unsafe_generated_ooxml",
+          "field": "package_safety.unsafe_generated_ooxml",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "zip_integrity",
+          "field": "package_safety.zip_integrity",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "textbox_count",
+          "field": "document_structure.textbox_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "anchored_shape_count",
+          "field": "document_structure.anchored_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "vml_shape_count",
+          "field": "document_structure.vml_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "embedded_media_count",
+          "field": "document_structure.embedded_media_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "synthetic_layout_tables",
+          "field": "table_continuity.synthetic_layout_tables",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "orphan_continuation_fragments",
+          "field": "table_continuity.orphan_continuation_fragments",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "false_continuation_merges",
+          "field": "table_continuity.false_continuation_merges",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_lost_cell_count",
+          "field": "table_continuity.total_lost_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_duplicated_cell_count",
+          "field": "table_continuity.total_duplicated_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_invented_cell_count",
+          "field": "table_continuity.total_invented_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "excess_duplicated_paragraph_count",
+          "field": "package_safety.content_duplication.source_repetition.excess_duplicated_paragraph_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "blocking_overlap_count",
+          "field": "package_safety.blocking_overlap.blocking_overlap_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "resolved_without_evidence_fields",
+          "field": "project_facts.resolved_without_evidence_fields",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_result",
+          "field": "review_evidence.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_hard_gate_failures",
+          "field": "review_evidence.hard_gate_failures",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "invalid_review_evidence_locator_count",
+          "field": "review_evidence.invalid_review_evidence_locator_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "workbook_reopen",
+          "field": "workbook.openpyxl_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        }
+      ],
+      "failed_checks": [],
+      "case_result": "PASS"
+    },
+    {
+      "case": "case_003",
+      "build_id": "v1_round4_closure8",
+      "build_dir": "acceptance\\workspace\\case_003\\v1_round4_closure8",
+      "automated_result": "PASS",
+      "source_sha256": "aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a",
+      "generated_docx_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+      "checks": [
+        {
+          "check": "automated_result",
+          "field": "automated_result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "problems",
+          "field": "problems",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "pipeline_returncode",
+          "field": "pipeline",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "libreoffice_returncode",
+          "field": "libreoffice_render.returncode",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_reopen",
+          "field": "rendered_pdf.pdf_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "rendered_pdf_blank_pages",
+          "field": "rendered_pdf.pdf_blank_page_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "source_text_missing",
+          "field": "source_format_qa.source_text_missing",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "word_safe_scan",
+          "field": "package_safety.word_safe_scan.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "unsafe_generated_ooxml",
+          "field": "package_safety.unsafe_generated_ooxml",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "zip_integrity",
+          "field": "package_safety.zip_integrity",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "textbox_count",
+          "field": "document_structure.textbox_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "anchored_shape_count",
+          "field": "document_structure.anchored_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "vml_shape_count",
+          "field": "document_structure.vml_shape_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "embedded_media_count",
+          "field": "document_structure.embedded_media_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "synthetic_layout_tables",
+          "field": "table_continuity.synthetic_layout_tables",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "orphan_continuation_fragments",
+          "field": "table_continuity.orphan_continuation_fragments",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "false_continuation_merges",
+          "field": "table_continuity.false_continuation_merges",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_lost_cell_count",
+          "field": "table_continuity.total_lost_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_duplicated_cell_count",
+          "field": "table_continuity.total_duplicated_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "total_invented_cell_count",
+          "field": "table_continuity.total_invented_cell_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "excess_duplicated_paragraph_count",
+          "field": "package_safety.content_duplication.source_repetition.excess_duplicated_paragraph_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "blocking_overlap_count",
+          "field": "package_safety.blocking_overlap.blocking_overlap_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "resolved_without_evidence_fields",
+          "field": "project_facts.resolved_without_evidence_fields",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_result",
+          "field": "review_evidence.result",
+          "expected": "PASS",
+          "observed": "PASS",
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "review_evidence_hard_gate_failures",
+          "field": "review_evidence.hard_gate_failures",
+          "expected": "EMPTY",
+          "observed": [],
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "invalid_review_evidence_locator_count",
+          "field": "review_evidence.invalid_review_evidence_locator_count",
+          "expected": 0,
+          "observed": 0,
+          "present": true,
+          "ok": true
+        },
+        {
+          "check": "workbook_reopen",
+          "field": "workbook.openpyxl_reopen",
+          "expected": true,
+          "observed": true,
+          "present": true,
+          "ok": true
+        }
+      ],
+      "failed_checks": [],
+      "case_result": "PASS"
+    }
+  ],
+  "generalization": {
+    "requirements": [
+      {
+        "field": "table_continuity.generated_table_count",
+        "label": "table_count",
+        "values": {
+          "case_001": 5,
+          "case_002": 9,
+          "case_003": 16
+        }
+      },
+      {
+        "field": "table_continuity.logical_table_count",
+        "label": "logical_table_count",
+        "values": {
+          "case_001": 5,
+          "case_002": 9,
+          "case_003": 16
+        }
+      },
+      {
+        "field": "document_structure.word_table_count",
+        "label": "word_table_count",
+        "values": {
+          "case_001": 5,
+          "case_002": 9,
+          "case_003": 16
+        }
+      },
+      {
+        "field": "document_structure.paragraph_count",
+        "label": "paragraph_count",
+        "values": {
+          "case_001": 140,
+          "case_002": 134,
+          "case_003": 196
+        }
+      },
+      {
+        "field": "source_format_qa.fill_slots_detected",
+        "label": "fill_slots_detected",
+        "values": {
+          "case_001": 16,
+          "case_002": 11,
+          "case_003": 19
+        }
+      },
+      {
+        "field": "source_format_qa.fill_slots_filled",
+        "label": "fill_slots_filled",
+        "values": {
+          "case_001": 6,
+          "case_002": 6,
+          "case_003": 7
+        }
+      },
+      {
+        "field": "source_format_qa.fill_slots_left_blank",
+        "label": "fill_slots_left_blank",
+        "values": {
+          "case_001": 10,
+          "case_002": 5,
+          "case_003": 12
+        }
+      },
+      {
+        "field": "source_format_qa.result",
+        "label": "result",
+        "values": {
+          "case_001": "PASS_WITH_DEGRADATIONS",
+          "case_002": "PASS_WITH_DEGRADATIONS",
+          "case_003": "PASS_WITH_DEGRADATIONS"
+        }
+      },
+      {
+        "field": "delivery_qa.overall_status",
+        "label": "delivery_qa_status",
+        "values": {
+          "case_001": "PASS_WITH_REVIEW",
+          "case_002": "PASS_WITH_REVIEW",
+          "case_003": "PASS_WITH_REVIEW"
+        }
+      }
+    ],
+    "basis": "one architecture produced every case; per-case values are recorded, not forced equal"
+  },
+  "cross_case_isolation": {
+    "checks": [
+      {
+        "check": "build_directories_distinct",
+        "ok": true,
+        "observed": [
+          "acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8",
+          "acceptance\\workspace\\case_002\\v1_round4_closure8",
+          "acceptance\\workspace\\case_003\\v1_round4_closure8"
+        ]
+      },
+      {
+        "check": "source_documents_distinct",
+        "ok": true,
+        "observed": [
+          "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+          "2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449",
+          "aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a"
+        ]
+      },
+      {
+        "check": "generated_documents_distinct",
+        "ok": true,
+        "observed": [
+          "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+          "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+          "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54"
+        ]
+      },
+      {
+        "check": "pointers_resolve_to_the_acceptance_build",
+        "ok": true,
+        "observed": {
+          "case_001": "v1_manual_fidelity_round4_date_rhythm_closure8",
+          "case_002": "v1_round4_closure8",
+          "case_003": "v1_round4_closure8"
+        }
+      },
+      {
+        "check": "pointers_exist_for_every_case",
+        "ok": true,
+        "observed": [
+          "case_001",
+          "case_002",
+          "case_003"
+        ]
+      }
+    ],
+    "failed_checks": []
+  },
+  "cross_case_leakage": {
+    "checks": [
+      {
+        "check": "no_foreign_resolved_fact_text_available",
+        "case": "case_001",
+        "ok": true,
+        "observed_foreign_value_count": 20,
+        "note": "resolved values that belong only to another case; leakage is asserted by the per-case evidence checks, and this census records the vocabulary a leak would have to draw on"
+      },
+      {
+        "check": "no_foreign_resolved_fact_text_available",
+        "case": "case_002",
+        "ok": true,
+        "observed_foreign_value_count": 20,
+        "note": "resolved values that belong only to another case; leakage is asserted by the per-case evidence checks, and this census records the vocabulary a leak would have to draw on"
+      },
+      {
+        "check": "no_foreign_resolved_fact_text_available",
+        "case": "case_003",
+        "ok": true,
+        "observed_foreign_value_count": 22,
+        "note": "resolved values that belong only to another case; leakage is asserted by the per-case evidence checks, and this census records the vocabulary a leak would have to draw on"
+      }
+    ],
+    "failed_checks": []
+  },
+  "distinct_source_count": 3,
+  "distinct_architecture_paths": 1,
+  "failed_checks": [],
+  "result": "PASS",
+  "status": "THREE_CASE_GENERALIZATION = PASS"
+}
