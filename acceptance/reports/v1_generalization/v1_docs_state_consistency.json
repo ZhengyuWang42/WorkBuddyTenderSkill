@@ -111,7 +111,7 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 85606,
+    "state_doc_bytes": 86483,
     "decisions_doc_bytes": 51313
   },
   "checks": [
@@ -400,9 +400,9 @@
     {
       "check": "checklist_current_excel_object_is_round3",
       "status": "PASS",
-      "current_marker_at": 15521,
-      "history_marker_at": 17252,
-      "first_round1_reference_at": 17371,
+      "current_marker_at": 17933,
+      "history_marker_at": 19753,
+      "first_round1_reference_at": 19872,
       "note": "the current Excel review object is Round3; Round1/Round2 references must sit behind a history marker"
     },
     {
@@ -412,6 +412,105 @@
     {
       "check": "decisions_record_private_reference_workbooks_as_style_only",
       "status": "PASS"
+    },
+    {
+      "check": "checklist_current_word_object_matches_case_001_pointer",
+      "status": "PASS",
+      "pointer_build": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "pointer_dir": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "docx_hash_present": true,
+      "archived_build_presented_as_current": []
+    },
+    {
+      "check": "checklist_current_word_object_matches_case_002_pointer",
+      "status": "PASS",
+      "pointer_build": "v1_round4_closure8",
+      "pointer_dir": "v1_round4_closure8",
+      "docx_hash_present": true,
+      "archived_build_presented_as_current": []
+    },
+    {
+      "check": "checklist_current_word_object_matches_case_003_pointer",
+      "status": "PASS",
+      "pointer_build": "v1_round4_closure8",
+      "pointer_dir": "v1_round4_closure8",
+      "docx_hash_present": true,
+      "archived_build_presented_as_current": []
+    },
+    {
+      "check": "superseded_build_ids_are_not_current",
+      "status": "PASS",
+      "superseded_ids": [
+        "v1_followup3",
+        "v1_manual_fidelity_round3_p3semantics",
+        "v1_manual_fidelity_round3_word_review_final",
+        "v1_manual_fidelity_round3_word_review_followup",
+        "v1_round3_p3semantics"
+      ],
+      "mislabelled": [],
+      "note": "a line that describes the CURRENT review object or pointer target must not name a superseded build id unless the mention is marked as history"
+    },
+    {
+      "check": "deviation_coordination_is_not_self_contradictory",
+      "status": "PASS",
+      "uncoordinated": [],
+      "coordinated": [
+        "已完全协调进",
+        "已完全协调进门禁"
+      ]
+    },
+    {
+      "check": "current_final_status_covers_every_case",
+      "status": "PASS",
+      "recorded": [
+        "case_001",
+        "case_002",
+        "case_003"
+      ]
+    },
+    {
+      "check": "case_001_current_final_status_exposes_gate_counts",
+      "status": "PASS",
+      "gate_checks_passed": 40,
+      "gate_checks_total": 40
+    },
+    {
+      "check": "case_002_current_final_status_exposes_gate_counts",
+      "status": "PASS",
+      "gate_checks_passed": 40,
+      "gate_checks_total": 40
+    },
+    {
+      "check": "case_003_current_final_status_exposes_gate_counts",
+      "status": "PASS",
+      "gate_checks_passed": 40,
+      "gate_checks_total": 40
+    },
+    {
+      "check": "current_final_status_records_its_supersession",
+      "status": "PASS",
+      "supersedes": "review_workbook_round3_final_status.json",
+      "supersession_reason": "MEASUREMENT_AGGREGATOR_KEY_MISMATCH",
+      "recorded_sha256": "d225dc141ada3c119c9b4e2ec02eaa0394eb6212a515e698fad35db5b33190a0",
+      "actual_sha256": "d225dc141ada3c119c9b4e2ec02eaa0394eb6212a515e698fad35db5b33190a0"
+    },
+    {
+      "check": "case_001_round3_workbook_in_checklist_matches_final_status",
+      "status": "PASS",
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3",
+      "workbook_sha256": "746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5"
+    },
+    {
+      "check": "case_002_round3_workbook_in_checklist_matches_final_status",
+      "status": "PASS",
+      "build_id": "v1_round4_closure8_review_workbook3",
+      "workbook_sha256": "e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05"
+    },
+    {
+      "check": "case_003_round3_workbook_in_checklist_matches_final_status",
+      "status": "PASS",
+      "build_id": "v1_round4_closure8_review_workbook3",
+      "workbook_sha256": "0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322"
     }
   ],
   "failed_checks": [],

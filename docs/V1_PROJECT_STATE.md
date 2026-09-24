@@ -573,7 +573,10 @@ CASE001/CASE002/CASE003 的人工 Word 复核仍为 `NOT_YET_CONFIRMED`，
 
 ### 7.1 缺陷 B —— 响应函「愿意」/「以人民币（大写）」段落边界（当前唯一开口偏差）
 
-**这是当前最重要的架构偏差，尚未完全协调进所有门禁 / 状态 / 指针。**
+**这是当前最重要的架构偏差。该偏差仍然存在**，并且**保持显式、可审计**：
+它已被**完全协调进门禁 / 状态 / 指针**（见本节末），门禁表现为
+`HARD_BREAK_FIDELITY = PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION`（**不是**普通 `PASS`）；
+但**人工 Word 确认仍然未完成**（`CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`）。
 
 | 维度 | 值 |
 | --- | --- |
@@ -882,8 +885,13 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
 | **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；工作簿轮次细节见 §12.3 |
 
-> 第 3 轮（当前）的机器状态以 `acceptance/reports/v1_generalization/review_workbook_round3_final_status.json`
-> 为准（`result = PASS`、`blockers = []`）；第 2 轮的状态**只是历史**，不得再当作当前机器状态。
+> 第 3 轮（当前）的机器状态以
+> `acceptance/reports/v1_generalization/review_workbook_round3_final_status_reconciled.json`
+> 为准（`result = PASS`、`blockers = []`、三案例门禁 `40/40`）；它**取代**首个产物
+> `review_workbook_round3_final_status.json`，取代原因 `MEASUREMENT_AGGREGATOR_KEY_MISMATCH`
+> （该首产物把门禁计数打印成 `None/None`，结论同为 `PASS`；被取代产物**逐字节保留、未改写**，
+> SHA256 `d225dc141ada3c119c9b4e2ec02eaa0394eb6212a515e698fad35db5b33190a0`）。
+> 第 2 轮的状态**只是历史**，不得再当作当前机器状态。
 
 ### 12.3 复核工作簿轮次（REVIEW WORKBOOK ROUND，已完成机器闭环）
 
@@ -900,7 +908,7 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 工作簿门禁 | `scripts/v1_review_workbook_gate.py`（第 1 轮 37 项；第 2/3 轮 `--legacy-text-refresh` **40 项**；第 3 轮三案例各 **40/40 PASS**） |
 | 渲染 QA | `scripts/v1_review_workbook_visual_qa.py`（LibreOffice PDF + 重算副本） |
 | **Round3 内容质量报告** | `scripts/v1_review_workbook_round3_report.py` → `review_workbook_round3_content_quality_case_00{1,2,3}.{json,md}` |
-| **Round3 最终状态** | `scripts/v1_review_workbook_round3_final_status.py` → `review_workbook_round3_final_status.{json,md}`（`result = PASS`） |
+| **Round3 最终状态** | `scripts/v1_review_workbook_round3_final_status.py` → **当前** `review_workbook_round3_final_status_reconciled.{json,md}`（`result = PASS`、三案例门禁 40/40）；取代 `review_workbook_round3_final_status.{json,md}`（`supersession_reason = MEASUREMENT_AGGREGATOR_KEY_MISMATCH`，被取代产物逐字节保留） |
 | **Round3 后继构建（当前复核对象）** | CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3`（43 行，`投标项目复核表.xlsx` sha256 `746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5`，74783 B）<br>CASE002 `acceptance/workspace/case_002/v1_round4_closure8_review_workbook3`（44 行，sha256 `e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05`，81743 B）<br>CASE003 `acceptance/workspace/case_003/v1_round4_closure8_review_workbook3`（47 行，sha256 `0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322`，84711 B） |
 | **Round3 测试模块** | `tests/test_round64_review_concern_ownership.py`（32 项覆盖） |
 | **Round3 全套测试** | **716 collected / 715 passed / 1 skipped / 0 failed / 0 errors**（`review_workbook_round3_full_test_suite.txt` / `.xml`） |
@@ -918,7 +926,7 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | --- | --- | --- |
 | **A** | 改进 `投标项目复核表.xlsx`（复核视图：总览、事实、关键条款、强制/★项、报价与限价、文件结构与签章、冲突与缺失、证据索引） | ✅ 已完成：三案例工作簿门禁 37/37 PASS + 渲染 QA PASS（`REVIEW_WORKBOOK_THREE_CASE_GENERALIZATION = PASS`） |
 | **A2** | 复核工作簿第 2 轮：把复核行改写为**人工复核要点合成**（要求/复核要点/通过标准/不满足后果/准备材料/评分提示），删除样板文字与无关数字 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例、8 组 BEFORE→AFTER、19 种复核类型覆盖测试）、全套测试 684 收集 / 683 passed / 1 skipped / 0 failed |
-| **A3** | 复核工作簿第 3 轮：**复核关注点归属**（`SourceRequirementAtom -> ReviewConcern -> ReviewPoint`），每个渲染组件必须同源且同关注点；修正质保期/质保金/释放期语义 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（14/14 A–N、20/20 审计、≥15 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）、32 项归属测试、全套测试 716 收集 / 715 passed / 1 skipped / **0 failed / 0 errors**（`review_workbook_round3_final_status.json` = PASS） |
+| **A3** | 复核工作簿第 3 轮：**复核关注点归属**（`SourceRequirementAtom -> ReviewConcern -> ReviewPoint`），每个渲染组件必须同源且同关注点；修正质保期/质保金/释放期语义 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（14/14 A–N、20/20 审计、≥15 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）、32 项归属测试、全套测试 716 收集 / 715 passed / 1 skipped / **0 failed / 0 errors**（`review_workbook_round3_final_status_reconciled.json` = PASS） |
 | **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认 |
 | **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |

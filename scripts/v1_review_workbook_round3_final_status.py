@@ -13,6 +13,7 @@ still absent (no checkbox may be ticked by this tool).
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -81,6 +82,17 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=REPORTS / "review_workbook_round3_final_status.json")
     parser.add_argument("--md", type=Path, default=REPORTS / "review_workbook_round3_final_status.md")
+    parser.add_argument(
+        "--supersedes",
+        default=None,
+        help="filename of an earlier final-status artifact this report replaces "
+        "(its sha256 is recorded so the superseded artifact stays verifiable)",
+    )
+    parser.add_argument(
+        "--supersession-reason",
+        default=None,
+        help="machine-readable reason for the supersession, e.g. MEASUREMENT_AGGREGATOR_KEY_MISMATCH",
+    )
     args = parser.parse_args(argv)
 
     cases: dict[str, dict] = {}
@@ -215,6 +227,16 @@ def main(argv: list[str] | None = None) -> int:
         },
     }
 
+    if args.supersedes:
+        superseded = Path(args.supersedes)
+        if not superseded.is_absolute():
+            superseded = REPORTS / superseded
+        payload["supersedes"] = superseded.name
+        payload["supersession_reason"] = args.supersession_reason
+        payload["superseded_artifact_sha256"] = (
+            hashlib.sha256(superseded.read_bytes()).hexdigest() if superseded.is_file() else None
+        )
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -226,6 +248,19 @@ def main(argv: list[str] | None = None) -> int:
         f"- invariant: {payload['invariant']}",
         f"- planned commit subject: `{payload['commit_subject']}`",
         "",
+    ]
+    if payload.get("supersedes"):
+        lines += [
+            "## Supersession",
+            "",
+            f"- supersedes: `{payload['supersedes']}`",
+            f"- supersession_reason: `{payload['supersession_reason']}`",
+            f"- superseded artifact sha256: `{payload['superseded_artifact_sha256']}`",
+            "- the superseded artifact is preserved unchanged; only its measurement "
+            "presentation (gate counts) was repaired here",
+            "",
+        ]
+    lines += [
         "## Per-case machine gates",
         "",
         "| case | gate | quality | fixtures | warranty/retention | audit | examples | false conflicts | visual QA | Word |",

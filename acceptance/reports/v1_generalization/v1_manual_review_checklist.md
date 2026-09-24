@@ -59,7 +59,8 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 第 3 轮的对象是**机器侧语义**，不改变人工复核义务：工作簿每个渲染组件（招标文件要求、
 数字、准备材料、不满足后果、评分提示、证据）现在同时满足「源文件可回溯」与「由同一个
-`ReviewConcern` 拥有」。机器证据：`review_workbook_round3_final_status.json`（PASS）、
+`ReviewConcern` 拥有」。机器证据：`review_workbook_round3_final_status_reconciled.json`（PASS；其被取代的
+`review_workbook_round3_final_status.json` 保留未改，见第 5 节）、
 `review_workbook_round3_content_quality_case_00{1,2,3}.json`、`case_00{1,2,3}_review_workbook_gate_round3.json`、
 `case_00{1,2,3}_review_workbook_visual_qa_round3.json`。
 
@@ -205,27 +206,46 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 ## 1.6 当前 CASE001 复核对象 (current CASE001 build under review)
 
-**这是当前应打开复核的 build，并且它已经是 `case_001_current_build.json` 的指针目标。**
+**这是当前应打开复核的 build，并且它就是 `case_001_current_build.json` 的指针目标**
+（哈希取自指针 JSON 与 `build_manifest.json`，二者一致）。
 
 | 项 | 值 |
 | --- | --- |
-| build id | `v1_manual_fidelity_round3_word_review_final` |
-| build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final` |
+| build id | `v1_manual_fidelity_round4_date_rhythm_closure8` |
+| build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8` |
 | manifest | `build_manifest.json`（`FRESH_BUILD`，pipeline rc 0，render rc 0） |
-| DOCX | `16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191`（45533 B） |
-| PDF | `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`（301445 B，22 页） |
+| DOCX | `8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230`（45700 B） |
+| PDF | `3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927`（308449 B，22 页） |
 | 源 PDF | `8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27`（61 页） |
-| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_manual_fidelity_round3_word_review_final`（`POINTER_CHECK = PASS`） |
+| generation_report | `1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace` |
+| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_manual_fidelity_round4_date_rhythm_closure8`（`POINTER_CHECK = PASS`） |
 | 自动化状态 | `HARD_BREAK_FIDELITY = PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION`，`documented_structural_deviation_count = 1`，`unexplained_structural_split_count = 0`，`unexpected_w_br_count = 0`，`unexpected_w_cr_count = 0` |
 | 人工状态 | `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`（本清单**全部未勾选**） |
-| 上一候选（已被取代，**未删除**） | `v1_manual_fidelity_round3_word_review_followup`（其 `w:br` 已在本轮关闭）；状态与清单归档为 `*_superseded_by_unexpected_hardbreak_closure.{json,md}` |
+| 上一候选（已被取代，**未删除**） | `v1_manual_fidelity_round3_word_review_final`（见下方 HISTORICAL 块） |
 
 生成文档 22 页，生成页 = 源页序 − 39。
 
-> **本轮变化摘要（复核时请注意）：** 与上一候选相比，DOCX 只有**两处**内容差异会产生像素变化——
-> 即本文件第 1.6.1 节的 `委托期限：` 源表单行：它此前被交付成**两行**（标签一行、规则+句号一行），
-> 现在交付成**一行**。除此之外整篇文档 `generated_w_br = 0`、`generated_w_cr = 0`。
-> 第 7.1 节那**一个**已复核段落边界**完全未动**。
+> **本轮变化摘要（复核时请注意）：** 与上一候选相比，DOCX 的变化来自第 4 轮续作 VII 的两项关闭
+> （前导日期空白几何、单元格内源行节奏），以及 `委托期限：` 表单行意外硬换行的修复
+> （见第 1.6.1 节）。整篇文档 `generated_w_br = 0`、`generated_w_cr = 0`。
+> 第 7.1 节那**一个**已复核段落边界**完全未动**（见下）。
+
+### 1.6.2 历史复核对象（HISTORICAL / SUPERSEDED）
+
+以下 build 是**当时**的当前复核对象，已被 closure8 取代，**不得**当作当前状态；
+其历史人工结论也一并保留：
+
+| 项 | 历史值 |
+| --- | --- |
+| build id | `v1_manual_fidelity_round3_word_review_final` |
+| build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final` |
+| DOCX | `16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191`（45533 B） |
+| PDF | `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`（301445 B，22 页） |
+| generation_report | `97584ab13b820378669f4fee90d94ef918637c35c4cd86a8fc3c28e172e4e761` |
+| 历史人工结论 | **`CASE001_MANUAL_WORD_REVIEW = FAIL`**（第 4 轮桌面 Word 人工复核针对**该** build 作出，并给出 §0.5 的 A / B / C 三项发现）——历史事实，**不得删除或改写** |
+| 当时的后续候选 | `v1_manual_fidelity_round3_word_review_followup`（其 `w:br` 已关闭）；状态与清单归档为 `*_superseded_by_unexpected_hardbreak_closure.{json,md}` |
+| 取代它的当前对象 | `v1_manual_fidelity_round4_date_rhythm_closure8`（见上表）；A / B / C 已 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，因此当前人工状态回到 `NOT_YET_CONFIRMED` |
+| 历史指针副本 | `case_001_current_build_superseded_by_{unexpected_hardbreak_closure,policy_reconciliation,round4_date_rhythm_closure8}.json`（原文件逐字节保留） |
 
 #### 1.6.1 本轮关闭的缺陷：`委托期限：` 表单行意外换行（P6）
 
@@ -313,8 +333,16 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 ### CASE002 — 营收系统整合和硬件系统升级项目
 
-当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_manual_fidelity_round3_word_review_final`
-DOCX sha256 = `5206b4103338f4319c0510d3edaeed15e9628164db7161ca2b83e66989f08012`
+当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_round4_closure8`
+DOCX sha256 = `1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d`（61167 B）
+PDF sha256 = `851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455`（552557 B，33 页）
+源 PDF sha256 = `2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449`（174 页）
+generation_report sha256 = `4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859`
+
+> **历史（HISTORICAL / SUPERSEDED）**：旧当前指针曾是
+> `v1_manual_fidelity_round3_word_review_final`（DOCX `5206b410…f08012`），已被 `v1_round4_closure8`
+> 取代；历史指针副本保留为 `case_002_current_build_superseded_by_*.json`。以下关于该轮修复的描述
+> 属那个历史 build 的记录。
 
 > 本轮共用修复重建了 CASE002，并把 4 条表单行 `w:br` 中的 **2** 条关闭（`系`、
 > `我公司参加贵单位组织的` 两行）；保留的 **2** 条（`3、我方拟委派的项目负责人为`、
@@ -335,14 +363,22 @@ DOCX sha256 = `5206b4103338f4319c0510d3edaeed15e9628164db7161ca2b83e66989f08012`
 
 ### CASE003 — 肇源县城市供水管网漏损治理项目三标段
 
-当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_followup3`
-DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
+当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_round4_closure8`
+DOCX sha256 = `74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54`（56952 B）
+PDF sha256 = `c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e`（899832 B，33 页）
+源 PDF sha256 = `aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a`（203 页）
+generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d`
 
-> 本轮共用修复也重建了 CASE003，但重建产物的 `generation_report.json`（`1248666a…`）、
-> `project_facts.json`、`normalized_document.json`、`source_format_qa.json` 与被接受产物
-> **逐字节相同**，该案例有 **0** 条表单行换行，修复对它是 **no-op**。因此指针**不迁移**
-> （不为 ZIP 时间戳而 churn），三案例回归以该产物自身的验收证据评分。
-> 重建产物自身的验收报告保留为 `case003_acceptance_final.json`。
+> **历史（HISTORICAL / SUPERSEDED）：CASE003 的旧当前指针是 `v1_followup3`
+> （DOCX `e013b1f2…cf3e2365`）。当时「指针不迁移」的判断已由 ROUND4 CLOSURE8 取代 ——
+> `case_003_current_build.json` 现在指向 `v1_round4_closure8`（见上）。**
+>
+> 历史理由（**已 SUPERSEDED BY ROUND4 CLOSURE8，仅作历史证据**）：当时共用修复也重建了 CASE003，
+> 但重建产物的 `generation_report.json`（`1248666a…`）、`project_facts.json`、
+> `normalized_document.json`、`source_format_qa.json` 与被接受产物**逐字节相同**，该案例有 **0**
+> 条表单行换行，修复对它是 **no-op**。因此当时指针**不迁移**（不为 ZIP 时间戳而 churn），
+> 三案例回归以该产物自身的验收证据评分。重建产物自身的验收报告保留为 `case003_acceptance_final.json`。
+> 历史指针副本保留为 `case_003_current_build_superseded_by_{policy_reconciliation,round4_date_rhythm_closure8}.json`。
 
 - [ ] **强制**：标段（lot/section）语义有意义——`lot_name = 三标段` 具源证据，且**未**继承 CASE001 的 `lot_name = NOT_FOUND` 行为
 - [ ] 确认 12 个留空槽位与标段信息的人工填写位置正确
@@ -380,7 +416,8 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
   （CASE001 `14/14` A–N 已知坏例、`20/20 coherent` 人工风格审计、16 组 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）
 - 渲染 QA PASS（`case_00{1,2,3}_review_workbook_visual_qa_round3.json`；
   `clipping_bounded` WARN：CASE001 **8** / CASE002 **10** / CASE003 **26**，基线 10/17/26）
-- 最终状态：`review_workbook_round3_final_status.json` = `PASS`、`blockers = []`
+- 最终状态：`review_workbook_round3_final_status_reconciled.json` = `PASS`、`blockers = []`、
+  三案例门禁 `40/40`（取代 `review_workbook_round3_final_status.json`；后者保留未改，见第 5 节）
 - 全套测试：`review_workbook_round3_full_test_suite.txt` / `.xml` = 716 collected / 715 passed /
   1 skipped / 0 failed / 0 errors
 - Word 产物未重新渲染：DOCX `8dedddb7…`、PDF `3fe5b5b9…`、报告 `1274c205…` 与已验收构建逐字节相同
@@ -461,3 +498,27 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 > 自动化结论：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
 > `CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
 > `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`。以上复选框全部保持未勾选。
+
+## 5. Round3 最终状态产物：测量聚合修正与取代记录
+
+第 3 轮最终状态的**首个**产物 `review_workbook_round3_final_status.json` / `.md` 存在一处
+**测量/呈现缺陷**：聚合脚本读取了门禁报告里不存在的字段名（`checks_passed` / `checks_total`，
+实际字段为 `passed` / `check_count`），因此三案例的门禁计数被打印成 `PASS None/None`，
+JSON 里对应字段为 `null`。**该缺陷只影响计数呈现，不影响任何结论**——当时与现在的
+`result` 均为 `PASS`，门禁本身一直是 40/40。
+
+处理方式：**不覆盖历史产物**，而是生成继任产物并记录取代关系。
+
+| 项 | 值 |
+| --- | --- |
+| 当前产物（CURRENT） | `review_workbook_round3_final_status_reconciled.json` / `.md` |
+| `status` | `PASS` |
+| `blockers` | `[]` |
+| CASE001 / CASE002 / CASE003 门禁 | `40/40` / `40/40` / `40/40` |
+| `supersedes` | `review_workbook_round3_final_status.json` |
+| `supersession_reason` | `MEASUREMENT_AGGREGATOR_KEY_MISMATCH` |
+| 被取代产物的 sha256 | `d225dc141ada3c119c9b4e2ec02eaa0394eb6212a515e698fad35db5b33190a0`（**逐字节保留，未改动**） |
+| 修复 | `scripts/v1_review_workbook_round3_final_status.py` 改为读取 `passed` / `check_count`，并新增 `--supersedes` / `--supersession-reason` 记录取代关系 |
+
+- [ ] 确认已按上表打开**当前**产物 `review_workbook_round3_final_status_reconciled.json`，
+      而不是被取代的那个

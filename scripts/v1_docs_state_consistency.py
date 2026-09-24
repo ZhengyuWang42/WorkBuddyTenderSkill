@@ -43,16 +43,37 @@ CHECKLIST_NAME = "v1_manual_review_checklist.md"
 FULL_SUITE_XML = "case001_full_test_suite_round4_closure8.xml"
 
 #: Round-3 review-workbook current-truth evidence.
-ROUND3_FINAL_STATUS = "review_workbook_round3_final_status.json"
+ROUND3_FINAL_STATUS = "review_workbook_round3_final_status_reconciled.json"
+ROUND3_FINAL_STATUS_SUPERSEDED = "review_workbook_round3_final_status.json"
 ROUND3_SUITE_XML = "review_workbook_round3_full_test_suite.xml"
 ROUND3_GATE = "{case}_review_workbook_gate_round3.json"
 ROUND3_QUALITY = "review_workbook_round3_content_quality_{case}.json"
 ROUND3_VISUAL = "{case}_review_workbook_visual_qa_round3.json"
+ARCHIVED_POINTER_GLOB = "case_*_current_build_superseded_by_*.json"
 ROUND3_BUILD_ID = {
     "case_001": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3",
     "case_002": "v1_round4_closure8_review_workbook3",
     "case_003": "v1_round4_closure8_review_workbook3",
 }
+
+#: Lines of look-back allowed when deciding whether a superseded build id is
+#: introduced by a history marker rather than presented as current.
+HISTORY_LOOKBACK = 10
+
+#: A deviation may not be described as both uncoordinated and coordinated.
+UNCOORDINATED_PATTERNS = (r"尚未[^\n。]{0,24}协调", r"未(?:完全)?协调进")
+COORDINATED_PATTERNS = (r"已完全协调进", r"已(?:完全)?协调进门禁")
+
+#: A heading that claims to describe the *current* review object.  Superseded
+#: build ids may not appear under such a heading unless the mention itself sits
+#: under a history-marked sub-heading.
+CURRENT_SECTION_RE = re.compile(
+    r"(当前|current)[^\n]{0,24}(复核对象|build under review)", re.IGNORECASE
+)
+
+#: A line that asserts a current pointer target.  Such a line may not name a
+#: superseded build id without a history marker, whatever section it sits in.
+CURRENT_TARGET_RE = re.compile(r"当前[^\n]{0,16}指针目标|指针目标|当前指针")
 
 #: Wording that marks a statement as history rather than current state.
 HISTORY_MARKERS = ("历史", "HISTORICAL", "SUPERSEDED", "基线", "baseline", "被取代")
@@ -492,7 +513,7 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
     current_marker = "当前复核对象（CURRENT = Round3）"
     history_marker = "历史复核对象（HISTORICAL"
     current_at = checklist_text.find(current_marker)
-    history_at = checklist_text.find(history_marker)
+    history_at = checklist_text.find(history_marker, current_at) if current_at >= 0 else -1
     legacy_at = checklist_text.find("review_workbook1")
     gate.check(
         "checklist_current_excel_object_is_round3",
@@ -529,6 +550,174 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
         and "HUMAN_WORKFLOW_REFERENCE_ONLY" in decisions_text
         and ("永不提交" in decisions_text or "忽略" in decisions_text),
     )
+
+    # --- current vs historical reconciliation ------------------------------- #
+    def _history_context(lines: list[str], index: int) -> bool:
+        """Whether the line is explicitly marked (or headed) as history."""
+
+        marked = lambda text: any(marker in text for marker in HISTORY_MARKERS)  # noqa: E731
+        if marked(lines[index]):
+            return True
+        for previous in range(max(0, index - 2), index):
+            if marked(lines[previous]):
+                return True
+        for above in range(index, -1, -1):
+            if lines[above].lstrip().startswith("#"):
+                return marked(lines[above])
+        return False
+
+    def _current_section_spans(lines: list[str]) -> list[tuple[int, int]]:
+        """Spans of sections whose heading claims to describe the *current* object."""
+
+        spans: list[tuple[int, int]] = []
+        for index, line in enumerate(lines):
+            stripped = line.lstrip()
+            if not stripped.startswith("#") or not CURRENT_SECTION_RE.search(stripped):
+                continue
+            level = len(stripped) - len(stripped.lstrip("#"))
+            end = len(lines)
+            for below in range(index + 1, len(lines)):
+                other = lines[below].lstrip()
+                if other.startswith("#") and (len(other) - len(other.lstrip("#"))) <= level:
+                    end = below
+                    break
+            spans.append((index, end))
+        return spans
+
+    pointers: dict[str, dict] = {}
+    for case in CASES:
+        pointer_path = general / f"{case}_current_build.json"
+        if not pointer_path.is_file():
+            continue
+        pointer = load(pointer_path)
+        pointers[case] = {
+            "build_id": pointer.get("build_id"),
+            "build_dir": Path(str(pointer.get("build_dir") or "")).name,
+            "docx_sha256": pointer.get("generated_docx_sha256"),
+            "pdf_sha256": pointer.get("generated_pdf_sha256"),
+        }
+    current_ids = {str(entry["build_id"]) for entry in pointers.values()}
+    superseded_ids: set[str] = set()
+    pointer_history: dict[str, list[dict]] = {}
+    for archived_path in sorted(general.glob(ARCHIVED_POINTER_GLOB)):
+        record = load(archived_path)
+        archived_id = record.get("build_id")
+        case = archived_path.name.split("_current_build_superseded_by_")[0]
+        if archived_id and archived_id not in current_ids:
+            superseded_ids.add(str(archived_id))
+        pointer_history.setdefault(case, []).append(
+            {
+                "build_id": archived_id,
+                "docx_sha256": record.get("generated_docx_sha256"),
+            }
+        )
+
+    # A/B/C: the checklist must resolve each case to its live pointer target, and
+    # must not present that case's archived build as the current object.
+    checklist_lines = checklist_text.splitlines()
+    for case, entry in pointers.items():
+        stale_assertions = [
+            f"{index + 1}: {line.strip()[:110]}"
+            for index, line in enumerate(checklist_lines)
+            if not _history_context(checklist_lines, index)
+            and any(
+                archived.get("docx_sha256") and archived["docx_sha256"] in line
+                for archived in pointer_history.get(case, [])
+            )
+        ]
+        gate.check(
+            f"checklist_current_word_object_matches_{case}_pointer",
+            bool(entry["build_id"])
+            and entry["build_dir"] in checklist_text
+            and entry["docx_sha256"] in checklist_text
+            and not stale_assertions,
+            pointer_build=entry["build_id"],
+            pointer_dir=entry["build_dir"],
+            docx_hash_present=entry["docx_sha256"] in checklist_text,
+            archived_build_presented_as_current=stale_assertions,
+        )
+
+    mislabelled: list[str] = []
+    for label, text in (("state", state_text), ("checklist", checklist_text)):
+        lines = text.splitlines()
+        current_object_lines: set[int] = set()
+        for start, end in _current_section_spans(lines):
+            current_object_lines.update(range(start, end))
+        for index, line in enumerate(lines):
+            if not any(superseded in line for superseded in superseded_ids):
+                continue
+            asserted_current = index in current_object_lines or CURRENT_TARGET_RE.search(line)
+            if not asserted_current or _history_context(lines, index):
+                continue
+            mislabelled.append(f"{label}:{index + 1}: {line.strip()[:120]}")
+    gate.check(
+        "superseded_build_ids_are_not_current",
+        not mislabelled,
+        superseded_ids=sorted(superseded_ids),
+        mislabelled=mislabelled,
+        note="a line that describes the CURRENT review object or pointer target must not "
+        "name a superseded build id unless the mention is marked as history",
+    )
+
+    # E: a deviation may not be both uncoordinated and coordinated.
+    uncoordinated = [
+        match.group(0)
+        for pattern in UNCOORDINATED_PATTERNS
+        for match in re.finditer(pattern, state_text)
+    ]
+    coordinated = [
+        match.group(0)
+        for pattern in COORDINATED_PATTERNS
+        for match in re.finditer(pattern, state_text)
+    ]
+    gate.check(
+        "deviation_coordination_is_not_self_contradictory",
+        not (uncoordinated and coordinated),
+        uncoordinated=uncoordinated,
+        coordinated=coordinated,
+    )
+
+    # F: the current round-3 final status must expose real gate counts, and the
+    #    artifact it supersedes must be preserved byte-for-byte.
+    recorded_cases = final.get("cases") or {}
+    gate.check(
+        "current_final_status_covers_every_case",
+        all(case in recorded_cases for case in CASES),
+        recorded=sorted(recorded_cases),
+    )
+    for case, data in recorded_cases.items():
+        passed = data.get("gate_checks_passed")
+        total = data.get("gate_checks_total")
+        gate.check(
+            f"{case}_current_final_status_exposes_gate_counts",
+            isinstance(passed, int) and isinstance(total, int) and passed == total == 40,
+            gate_checks_passed=passed,
+            gate_checks_total=total,
+        )
+    superseded_path = general / ROUND3_FINAL_STATUS_SUPERSEDED
+    gate.check(
+        "current_final_status_records_its_supersession",
+        final.get("supersedes") == ROUND3_FINAL_STATUS_SUPERSEDED
+        and isinstance(final.get("supersession_reason"), str)
+        and bool(final.get("supersession_reason"))
+        and superseded_path.is_file()
+        and final.get("superseded_artifact_sha256") == sha256(superseded_path),
+        supersedes=final.get("supersedes"),
+        supersession_reason=final.get("supersession_reason"),
+        recorded_sha256=final.get("superseded_artifact_sha256"),
+        actual_sha256=sha256(superseded_path) if superseded_path.is_file() else None,
+    )
+
+    # G: the checklist's round-3 workbooks must be the final-status authority.
+    for case, data in (final.get("cases") or {}).items():
+        build_id = Path(str(data.get("build_dir") or "")).name
+        digest = data.get("workbook_sha256")
+        gate.check(
+            f"{case}_round3_workbook_in_checklist_matches_final_status",
+            bool(build_id) and build_id in checklist_text and bool(digest) and digest in checklist_text,
+            build_id=build_id,
+            workbook_sha256=digest,
+        )
 
     return {"cases": cases, "full_suite": suite_counts, "workbook_sha256": hashes}
 
