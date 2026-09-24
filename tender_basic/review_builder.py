@@ -609,9 +609,18 @@ def _build_dynamic_review_rows(
         values[4] = evidence
         values[5] = "待核对"
         values[8] = "待复核"
+        linked_keys = list(
+            getattr(getattr(item, "review_point", None), "linked_fact_keys", ()) or ()
+        )
+        if not linked_keys and item.related_project_fact:
+            linked_keys = [item.related_project_fact]
         values[12] = (
             f"类型：{item.requirement_type}/{item.submodule or item.topic}"
-            + (f"；关联事实：{item.related_project_fact}" if item.related_project_fact else "")
+            + (
+                f"；关联事实：{'、'.join(str(key) for key in linked_keys)}"
+                if linked_keys
+                else ""
+            )
         )
         rows.append(values)
         if not module_groups or module_groups[-1][2] != item.module:

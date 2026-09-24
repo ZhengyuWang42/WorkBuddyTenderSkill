@@ -36,6 +36,7 @@ from typing import Iterable, Mapping, Sequence
 
 from .dynamic_requirements import VALUE_TYPES, SourceRequirementUnit
 from .models import ContractModel
+from .review_rendering import foreign_terms
 
 # ---------------------------------------------------------------------------
 # vocabularies
@@ -61,6 +62,11 @@ ROLE_RESPONSE_DAYS = "RESPONSE_DAYS"
 ROLE_CONTACT = "CONTACT_INFO"
 ROLE_TENDER_FEE = "TENDER_FEE"
 ROLE_OTHER = "OTHER"
+#: Round 4: a retention clause has two independent numbers -- the money kept
+#: back and the moment it is released.  Neither is a project warranty period and
+#: neither is a payment/scoring ratio, so each gets its own role and wording.
+ROLE_RETENTION_MONEY_RATIO = "RETENTION_MONEY_RATIO"
+ROLE_RETENTION_RELEASE_PERIOD = "RETENTION_RELEASE_PERIOD"
 
 #: which roles may appear inside a row of a given requirement type
 ROLES_BY_TYPE: dict[str, frozenset[str]] = {
@@ -68,15 +74,29 @@ ROLES_BY_TYPE: dict[str, frozenset[str]] = {
     "BOND": frozenset({ROLE_BOND_AMOUNT}),
     "VALIDITY": frozenset({ROLE_VALIDITY_DAYS}),
     "DURATION": frozenset({ROLE_DURATION_DAYS}),
-    "WARRANTY": frozenset({ROLE_WARRANTY_MONTHS}),
-    "QUALITY": frozenset({ROLE_WARRANTY_MONTHS}),
-    "EVALUATION": frozenset({ROLE_SCORE, ROLE_PAYMENT_RATIO, ROLE_PRICE}),
-    "CONTRACT": frozenset({ROLE_PAYMENT_RATIO, ROLE_PRICE, ROLE_WARRANTY_MONTHS}),
+    "WARRANTY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RETENTION_RELEASE_PERIOD, ROLE_RETENTION_MONEY_RATIO}),
+    "QUALITY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RETENTION_RELEASE_PERIOD, ROLE_RETENTION_MONEY_RATIO}),
+    "EVALUATION": frozenset(
+        {
+            ROLE_SCORE,
+            ROLE_PAYMENT_RATIO,
+            ROLE_PRICE,
+            ROLE_RETENTION_MONEY_RATIO,
+            ROLE_RETENTION_RELEASE_PERIOD,
+        }
+    ),
+    "CONTRACT": frozenset(
+        {
+            ROLE_PAYMENT_RATIO,
+            ROLE_PRICE,
+            ROLE_WARRANTY_MONTHS,
+            ROLE_RETENTION_MONEY_RATIO,
+            ROLE_RETENTION_RELEASE_PERIOD,
+        }
+    ),
     "TECHNICAL": frozenset({ROLE_QUANTITY, ROLE_RESPONSE_DAYS}),
     "PERSONNEL": frozenset({ROLE_PERSON_COUNT}),
     "FINANCIAL": frozenset({ROLE_PRICE}),
-    "WARRANTY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RESPONSE_DAYS}),
-    "QUALITY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RESPONSE_DAYS}),
 }
 
 #: roles that are never a bidder review value, whatever the row type
@@ -89,13 +109,18 @@ _DURATION_RE = re.compile(r"\d+\s*(?:个)?(?:日历天|自然日|日|天|个月|
 _COUNT_RE = re.compile(r"\d+\s*(?:名|人|台|套|个|件|批|辆|次|项|份)")
 _ALL_NUMBER_RE = re.compile(
     r"\d[\d,]*(?:\.\d+)?\s*(?:万元|元|%|分|名|人|台|套|个|件|批|辆|次|项|份|"
-    r"个?日历天|自然日|日|天|个月|月|年|小时|分钟)?"
+    r"个?工作日|个?日历天|自然日|日|天|个月|月|年|小时|分钟)?"
 )
 
 _BOND_CTX = ("保证金", "投标担保", "响应担保")
 _VALIDITY_CTX = ("有效期", "投标有效")
 _DURATION_CTX = ("工期", "交货期", "供货期", "服务期", "履约期", "完工", "交付期", "完成时间")
 _WARRANTY_CTX = ("质保", "保修", "质量保证期", "免费维护", "运维期", "缺陷责任期")
+_RESPONSE_CTX = ("响应", "应答", "答复", "到场", "到达", "维修", "修复", "派人", "服务", "处理")
+#: retention (money kept back) context, distinct from a warranty period
+_RETENTION_CTX = ("质保金", "质量保证金", "保留金", "尾款", "余款", "剩余")
+#: retention *release* context (the moment the kept-back money is paid out)
+_RETENTION_RELEASE_CTX = ("期满后", "无息付清", "付清", "返还", "退还", "释放", "结算")
 _PRICE_CTX = ("报价", "限价", "预算", "最高限价", "控制价", "总价", "单价", "合价", "金额", "费用", "暂列金额", "暂估价")
 _SCORE_CTX = ("得分", "评分", "分值", "加分", "扣分", "满分", "基础分")
 _PAYMENT_CTX = (
@@ -346,6 +371,10 @@ class ReviewPoint(ContractModel):
     numeric_evidence: list[NumericEvidence] = []
     consequence_evidence_id: str = ""
     notes: str = ""
+    #: Whitespace-free text of the concern's owned atoms/values/materials.  The
+    #: rendered numeric wording is chosen from this backing, so the legacy cell
+    #: and the rendered component say the same thing.
+    owned_backing: str = ""
     # round 3: review-concern ownership (all optional so round-2 callers and
     # round-2 evidence stay valid)
     concern_id: str = ""
@@ -386,6 +415,8 @@ def _role_for(text: str, value: str, start: int, end: int) -> str:
             return ROLE_TENDER_FEE
         return ROLE_OTHER
     if "%" in value:
+        if any(term in wide for term in _RETENTION_CTX):
+            return ROLE_RETENTION_MONEY_RATIO
         if any(term in wide for term in _PAYMENT_CTX):
             return ROLE_PAYMENT_RATIO
         if any(term in wide for term in _SCORE_CTX):
@@ -393,10 +424,19 @@ def _role_for(text: str, value: str, start: int, end: int) -> str:
         return ROLE_OTHER
     if "分" in value and any(term in wide for term in _SCORE_CTX):
         return ROLE_SCORE
-    if re.search(r"(日历天|自然日|日|天|个月|月|年|小时|分钟)", value):
+    if re.search(r"(工作日|日历天|自然日|日|天|个月|月|年|小时|分钟)", value):
+        if any(term in wide for term in _RETENTION_CTX) and any(term in wide for term in _RETENTION_RELEASE_CTX):
+            # "作为质保金，质保期 12 个月，质保期满后无息付清余款": the period is a
+            # payment-release condition, not a project warranty commitment.
+            return ROLE_RETENTION_RELEASE_PERIOD
         if any(term in wide for term in _WARRANTY_CTX):
             if re.search(r"小时|分钟|日|天", value) and not re.search(r"个月|月|年", value):
-                return ROLE_RESPONSE_DAYS
+                # A day-based warranty clause is a *response* time only when the
+                # value's own context promises one; "提交竣工验收报告90天后进入
+                # 缺陷责任期" is a defect-liability trigger, not a response time.
+                if any(term in near for term in _RESPONSE_CTX):
+                    return ROLE_RESPONSE_DAYS
+                return ROLE_OTHER
             return ROLE_WARRANTY_MONTHS
         if any(term in wide for term in _VALIDITY_CTX):
             return ROLE_VALIDITY_DAYS
@@ -650,28 +690,60 @@ def _anchor(units: Sequence[SourceRequirementUnit]) -> str:
     return "".join(parts)
 
 
-def _value_sentence(role: str, value: str) -> str:
+def _value_sentence(role: str, value: str, backing: str = "") -> str:
     if role == ROLE_BOND_AMOUNT:
-        return f"保证金金额为 {value}"
+        term = _source_term(backing, ("响应保证金", "投标保证金", "保证金"), "保证金")
+        return f"{term}金额为 {value}"
     if role == ROLE_VALIDITY_DAYS:
-        return f"投标有效期不少于 {value}"
+        term = _source_term(backing, ("投标有效期", "响应有效期", "报价有效期", "有效期"), "有效期")
+        return f"{term}不少于 {value}"
     if role == ROLE_DURATION_DAYS:
-        return f"工期/供货期满足 {value}"
+        term = _source_term(backing, ("供货期", "交货期", "交付期", "服务期", "工期", "履约期限"), "供货期")
+        return f"{term}满足 {value}"
     if role == ROLE_WARRANTY_MONTHS:
-        return f"质保期不低于 {value}"
+        term = _source_term(backing, ("质保期", "保修期", "质量保证期", "免费保修期"), "质保期")
+        return f"{term}不低于 {value}"
     if role == ROLE_RESPONSE_DAYS:
-        return f"服务响应时间不超过 {value}"
+        term = _source_term(backing, ("响应时间", "到场时间", "维修时间", "服务时间"), "响应时间")
+        return f"{term}不超过 {value}"
     if role == ROLE_PRICE:
-        return f"金额/限价为 {value}"
+        term = _source_term(backing, ("最高限价", "采购预算", "预算金额", "控制价", "限价", "金额"), "金额")
+        return f"{term}为 {value}"
     if role == ROLE_SCORE:
         return f"该评分因素最高 {value}"
     if role == ROLE_PAYMENT_RATIO:
-        return f"付款/计分比例为 {value}"
+        term = _source_term(backing, ("付款比例", "计分比例", "付款条件", "得分", "比例"), "比例")
+        return f"{term}为 {value}"
+    if role == ROLE_RETENTION_MONEY_RATIO:
+        return f"{_source_term(backing, _RETENTION_TERMS, '质保金')}比例为 {value}"
+    if role == ROLE_RETENTION_RELEASE_PERIOD:
+        return f"{_source_term(backing, _RETENTION_TERMS, '质保金')}释放相关期限为 {value}（合同付款条件）"
     if role == ROLE_PERSON_COUNT:
         return f"人员配备数量为 {value}"
     if role == ROLE_QUANTITY:
         return f"数量要求为 {value}"
     return f"指标为 {value}"
+
+
+#: Retention wording is chosen from the source's own term, so the rendered cell
+#: never says "质保金" about a clause that only speaks of a 尾款 (or vice versa).
+_RETENTION_TERMS = ("质量保证金", "质保金", "保留金", "尾款", "余款")
+
+
+def _source_term(backing: str, candidates: Sequence[str], default: str) -> str:
+    """Pick the wording the source itself uses (never a foreign synonym)."""
+
+    flat = _nospace(backing)
+    for term in candidates:
+        if term in flat:
+            return term
+    return default
+
+
+def value_sentence(role: str, value: str, backing: str = "") -> str:
+    """Public wording helper: how a number of ``role`` is rendered."""
+
+    return _value_sentence(role, value, backing)
 
 
 # ---------------------------------------------------------------------------
@@ -883,6 +955,17 @@ CONCERN_PASS_CRITERIA: dict[str, str] = {
     "CONTRACT_DELIVERY": "合同交付义务与招标要求一致。",
     "CONTRACT_ACCEPTANCE": "验收标准与程序可执行且已被接受。",
     "SOURCE_REQUIREMENT_CONFLICT": "冲突双方的理解与适用条件已由人工裁决。",
+    "QUERY_DEADLINE": "按招标文件规定的提问/澄清时间与方式执行，并留存记录。",
+    "AGENCY_SERVICE_FEE": "代理服务费的金额与缴纳时点已明确并可履约。",
+    "PERFORMANCE_BOND": "履约保证金的形式、金额与提交时点符合合同条款。",
+    "SCORING_PAYMENT_CONDITION": "该付款条件评分因素在响应文件中有对应内容与证明材料。",
+    "SCORING_DELIVERY_PLAN": "该供货方案评分因素在响应文件中有对应章节与证明材料。",
+    "SCORING_EMERGENCY_PLAN": "该应急保障评分因素在响应文件中有对应内容与证明材料。",
+    "SCORING_QUALITY_SYSTEM": "该质量保证体系评分因素在响应文件中有对应内容与证明材料。",
+    "SCORING_PERFORMANCE": "该业绩评分因素的时间、金额与证明口径满足要求。",
+    "SCORING_TECHNICAL": "该技术方案评分因素在响应文件中有对应章节与证明材料。",
+    "SCORING_PERSONNEL": "该人员评分因素在响应文件中有对应证书与劳动关系证明。",
+    "SCORING_PRICE_FORMULA": "价格分计算公式所需数据在报价文件中可核验。",
 }
 
 #: Concrete review checks per concern (first person actions, source-grounded).
@@ -940,11 +1023,66 @@ CONCERN_CHECKS: dict[str, tuple[str, ...]] = {
     "GENERAL_BIDDER_OBLIGATION": ("核对该条款对应的响应内容", "确认响应完整、可核验"),
     "PROJECT_BASIC_INFO": ("核对项目基本信息", "确认与招标文件一致"),
     "SOURCE_REQUIREMENT_CONFLICT": ("核对冲突双方条款的适用条件", "提请人工裁决并记录依据"),
+    "QUERY_DEADLINE": ("核对提问/澄清的时间与提交方式", "确认澄清或修改文件的接收与留档"),
+    "AGENCY_SERVICE_FEE": ("核对代理服务费的金额与缴纳时点", "确认缴纳主体与凭证留存"),
+    "PERFORMANCE_BOND": ("核对履约保证金的形式、金额与提交时点", "确认在规定时间前提交"),
+    "SCORING_PAYMENT_CONDITION": ("核对付款条件对应的评分条件", "确认响应文件接受该付款条件并附证明"),
+    "SCORING_DELIVERY_PLAN": ("核对供货方案的得分条件与证明材料", "确认方案章节可定位"),
+    "SCORING_EMERGENCY_PLAN": ("核对应急保障措施的得分条件与证明材料", "确认保障措施章节可定位"),
+    "SCORING_QUALITY_SYSTEM": ("核对质量保证体系的得分条件与证明材料", "确认体系文件可定位"),
+    "SCORING_PERFORMANCE": ("核对业绩评分的口径与证明材料", "确认业绩合同与验收证明可定位"),
+    "SCORING_TECHNICAL": ("核对技术方案的得分条件与证明材料", "确认技术标章节可定位"),
+    "SCORING_PERSONNEL": ("核对人员配置的得分条件与证明材料", "确认证书与劳动关系材料可定位"),
+    "SCORING_PRICE_FORMULA": ("核对价格分公式、基准价与分值", "确认报价数据满足评分计算要求"),
 }
 
 
 def _concern_atom_text(concern: Any) -> str:
     return " ".join(str(atom.source_text) for atom in getattr(concern, "atoms", ()))
+
+
+def _owned_backing(concern: Any, owned_numbers: Sequence[NumericEvidence]) -> str:
+    """Text a rendered instruction may legitimately quote for this concern."""
+
+    atoms = list(getattr(concern, "atoms", ()))
+    parts = [str(atom.source_text) for atom in atoms]
+    parts.extend(value.value for value in owned_numbers)
+    materials = getattr(concern, "owned_materials", None)
+    if callable(materials):
+        parts.extend(str(name) for name in materials())
+    rule, _atom = concern.owned_score_rule() if hasattr(concern, "owned_score_rule") else ("", "")
+    if rule:
+        parts.append(str(rule))
+    consequence, _catom = concern.owned_consequence() if hasattr(concern, "owned_consequence") else ("", "")
+    if consequence:
+        parts.append(str(consequence))
+    return " ".join(parts)
+
+
+def _derived_checks(concern: Any, owned_numbers: Sequence[NumericEvidence], backing: str) -> list[str]:
+    """Source-owned replacement for a template that named a foreign concept."""
+
+    checks: list[str] = []
+    materials = getattr(concern, "owned_materials", None)
+    if callable(materials):
+        for name in materials()[:2]:
+            if str(name) in backing:
+                checks.append(f"核对该条要求对应的{name}")
+    if owned_numbers:
+        checks.append("按上述要求的数值逐项核对响应文件")
+    checks.append("按本条要求逐条核对响应文件的对应内容")
+    return list(dict.fromkeys(checks))
+
+
+def _derived_criterion(concern: Any, backing: str) -> str:
+    """Source-owned pass criterion for concerns whose template is ungrounded."""
+
+    materials = getattr(concern, "owned_materials", None)
+    if callable(materials):
+        owned = [str(name) for name in materials()[:3] if str(name) in backing]
+        if owned:
+            return f"已按本条要求提供{('、'.join(owned))}，内容与要求一致。"
+    return "本条要求的内容在响应文件中可核验，且与要求一致。"
 
 
 #: Tender-file fee sentences must never enter a review point.
@@ -955,11 +1093,22 @@ _ANAPHORIC_ONLY_RE = re.compile(r"(此项|本项|该事项|上述|本条|该表)
 
 
 def _concern_summary(concern: Any, limit: int = 180) -> str:
-    """Requirement text built ONLY from atoms owned by this concern."""
+    """Requirement text built ONLY from atoms owned by this concern.
+
+    Round 4: the excerpt must also be *facet*-owned (the concern's decisive
+    atoms), and it is cut at sentence boundaries so the rendered cell can never
+    end in a half word or a dangling "；；" (a truncation artifact that made a
+    broad group's text unreadable).
+    """
 
     atoms = list(getattr(concern, "atoms", ()))
     if not atoms:
         return ""
+    facet = getattr(concern, "facet_atoms", None)
+    if callable(facet):
+        facet_atoms = list(facet())
+        if facet_atoms:
+            atoms = facet_atoms
     owned_values = {value.value for value in concern.owned_numbers()}
     # A short anaphoric fragment ("针对此项…加盖公章") is not evidence of *this*
     # concern: prefer atoms that name their own subject when any exist.
@@ -981,15 +1130,166 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
             score += 3
         if len(_topic_terms(str(atom.topic))) == 0:
             score += 1
+        if re.search(r"(应当|须|必须|不得|禁止|不允许|不接受|要求)", text):
+            score -= 2  # an imperative clause is the requirement itself
         ranked.append((score, order, atom))
     ranked.sort(key=lambda row: (row[0], row[1]))
 
     excerpts: list[str] = []
-    for _score, _order, atom in ranked[:2]:
+    for _score, _order, atom in ranked[:3]:
         cleaned = _clean(_FEE_FRAGMENT_RE.sub("", str(atom.source_text)))
-        excerpts.append(_truncate(cleaned, 110))
+        cleaned = cleaned.strip("；;，,。 ")
+        if not cleaned:
+            continue
+        for sentence in _facet_sentences(cleaned, concern):
+            if sentence in excerpts:
+                continue
+            excerpts.append(_sentence_bounded(sentence, 110))
+            if len(excerpts) >= 2:
+                break
+        if len(excerpts) >= 2:
+            break
     summary = "；".join(part for part in excerpts if part)
-    return _truncate(summary, limit)
+    return _sentence_bounded(summary, limit)
+
+
+#: Sentences that carry a score/points rule (only a scoring concern may quote them).
+_SCORE_SENTENCE_RE = re.compile(r"(得\s*\d+(?:\.\d+)?\s*分|（\s*\d+\s*分\s*）|\(\s*\d+\s*分\s*\)|最高得?\s*\d+(?:\.\d+)?\s*分|分值|评分|计分)")
+#: Sentences that are a contact block, not a review requirement.
+_CONTACT_SENTENCE_RE = re.compile(r"(联系方式|联系人|联系电话|邮政编码|邮编|电子邮箱|邮箱：|@|https?://)")
+
+
+def _facet_sentences(text: str, concern: Any) -> list[str]:
+    """Keep only the sentences of ``text`` that this concern owns.
+
+    One extracted atom can concatenate unrelated source fragments (a contact
+    block followed by a scoring/payment sentence -- round-4 fixture G).  Round 4
+    therefore attributes *sentences*: a sentence is kept when it carries the
+    concern's own facet, an owned value/material/consequence, or is neutral
+    prose; a scoring or contact sentence is dropped unless the concern owns
+    scores or contacts.
+    """
+
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    scoring = concern_id.startswith("SCORING_") or concern_id == "EVALUATION_SCORING"
+    pattern_text = _decisive_pattern(concern)
+    matcher = None
+    if pattern_text:
+        try:
+            matcher = re.compile(pattern_text)
+        except re.error:  # pragma: no cover - registry typo guard
+            matcher = None
+    owned_values = {value.value for value in concern.owned_numbers()} if hasattr(concern, "owned_numbers") else set()
+    materials = concern.owned_materials() if hasattr(concern, "owned_materials") else []
+    consequence, _atom = concern.owned_consequence() if hasattr(concern, "owned_consequence") else ("", "")
+
+    kept: list[str] = []
+    for raw in re.split(r"(?<=[。；;])", text):
+        sentence = raw.strip("；;，,。 ").lstrip("”’）〕】、、，")
+        if not sentence:
+            continue
+        flat = _nospace(sentence)
+        if _UNBALANCED_RE.search(sentence):
+            continue  # an extraction fragment, not a self-contained requirement
+        if _SCORE_SENTENCE_RE.search(sentence) and not scoring:
+            continue
+        if _CONTACT_SENTENCE_RE.search(sentence) and not matcher:
+            continue
+        anchored = bool(matcher and matcher.search(flat))
+        owns_value = any(value and _nospace(value) in flat for value in owned_values)
+        owns_material = any(str(name) and _nospace(name) in flat for name in materials)
+        owns_consequence = bool(consequence) and _nospace(consequence) in flat
+        if matcher is not None and not (anchored or owns_value or owns_material or owns_consequence):
+            # The concern declares a facet and this sentence is not part of it.
+            continue
+        if _owned_elsewhere(flat, concern_id, len(matcher.search(flat).group(0)) if (matcher and anchored) else 0):
+            # Another concern's facet matches this sentence more specifically:
+            # the phrase belongs to that concern's row, not this one.
+            continue
+        kept.append(sentence)
+    if not kept:
+        cleaned = text.strip()
+        return [cleaned] if cleaned else []
+    return kept
+
+
+def _nospace(text: object) -> str:
+    """Whitespace-free comparison form."""
+
+    return re.sub(r"[\s\u3000]+", "", str(text or ""))
+
+
+#: A sentence carrying an unmatched closing bracket is an extraction fragment.
+_UNBALANCED_RE = re.compile(r"^[^（]*）|）[^（]*$")
+
+#: concern_id -> compiled decisive facet (lazily built from the registry).
+_CONCERN_FACETS: dict[str, re.Pattern[str]] = {}
+
+
+def _concern_facets() -> dict[str, re.Pattern[str]]:
+    if _CONCERN_FACETS:
+        return _CONCERN_FACETS
+    from .review_concern import CONCERNS  # local import: review_concern imports this module
+
+    for concern_id, spec in CONCERNS.items():
+        pattern = getattr(spec, "decisive_pattern", "")
+        if not pattern:
+            continue
+        try:
+            _CONCERN_FACETS[concern_id] = re.compile(pattern)
+        except re.error:  # pragma: no cover - registry typo guard
+            continue
+    return _CONCERN_FACETS
+
+
+def _owned_elsewhere(sentence: str, concern_id: str, own_match_length: int) -> bool:
+    """True when a different concern matches this sentence more specifically."""
+
+    best_id = ""
+    best_length = own_match_length
+    for other_id, pattern in _concern_facets().items():
+        if other_id == concern_id:
+            continue
+        match = pattern.search(sentence)
+        if match and len(match.group(0)) > best_length:
+            best_id = other_id
+            best_length = len(match.group(0))
+    return bool(best_id)
+
+
+def _decisive_pattern(concern: Any) -> str:
+    """The concern's declared decisive facet, duck-typed."""
+
+    pattern = getattr(concern, "decisive_pattern", "")
+    if pattern:
+        return str(pattern)
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    if not concern_id:
+        return ""
+    from .review_concern import concern_spec  # local import: review_concern imports this module
+
+    spec = concern_spec(concern_id)
+    return str(getattr(spec, "decisive_pattern", "") or "")
+
+
+#: Sentence terminators used to cut a rendered excerpt without breaking a word.
+_SENTENCE_END = "。；;！？!?"
+
+
+def _sentence_bounded(text: str, limit: int) -> str:
+    """Truncate ``text`` at a sentence boundary, never inside a phrase."""
+
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    window = text[:limit]
+    cut = max(window.rfind(mark) for mark in _SENTENCE_END)
+    if cut >= max(8, limit // 3):
+        return window[: cut + 1].strip()
+    comma = max(window.rfind(mark) for mark in "，,、")
+    if comma >= max(8, limit // 2):
+        return window[:comma].strip()
+    return window.rstrip() + "…"
 
 
 def synthesize_concern_point(
@@ -1024,6 +1324,14 @@ def synthesize_concern_point(
         # read as a bidder duty the supplier has to answer.
         summary = f"〔采购人内部程序/定义条款，仅备查，无需投标响应〕{summary}"
 
+    # Round 4: a rendered instruction may only name a concept the concern's own
+    # source establishes.  A canonical template that names a foreign concept
+    # (a licence grade for a licence-only clause, binding/pagination for a
+    # format-reference clause, project name/number for a funding clause) is
+    # dropped and replaced by wording derived from the owned material.
+    owned_backing = _owned_backing(concern, owned_numbers)
+    dropped_templates: list[str] = []
+
     checks: list[str] = []
     concern_checks = CONCERN_CHECKS.get(concern_id, ())
     if not concern_checks:
@@ -1034,22 +1342,30 @@ def synthesize_concern_point(
             "仅作背景备查，不作为废标/评分依据",
         )
     # Concern-canonical checks are owned by construction (they are keyed by the
-    # concern id itself), so they are always kept; only quoted source text has to
-    # pass the grounding guard.
-    checks.extend(concern_checks)
+    # concern id itself), but any concept they name must exist in the concern's
+    # own source text; otherwise the claim is not owned and is replaced.
+    for check in concern_checks:
+        if foreign_terms(check, owned_backing):
+            dropped_templates.append(check)
+            continue
+        checks.append(check)
+    if dropped_templates:
+        checks.extend(_derived_checks(concern, owned_numbers, owned_backing))
     anchor = _anchor([_unit_like_atom(atom) for atom in atoms]) if atoms else ""
     if anchor:
         checks.append(f"依据{anchor}逐条比对响应文件对应章节")
     for value in owned_numbers[:4]:
-        checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value)}")
+        checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value, owned_backing)}")
 
     criteria: list[str] = []
     base_criterion = CONCERN_PASS_CRITERIA.get(concern_id, "")
     if not base_criterion:
         base_criterion = "该条款的响应内容在响应文件中可核验，且与要求一致。"
+    if foreign_terms(base_criterion, owned_backing):
+        base_criterion = _derived_criterion(concern, owned_backing)
     criteria.append(base_criterion)
     for value in owned_numbers[:3]:
-        criteria.append(f"{_value_sentence(value.role, value.value)}，且响应文件一致。")
+        criteria.append(f"{_value_sentence(value.role, value.value, owned_backing)}，且响应文件一致。")
 
     consequence, consequence_atom = concern.owned_consequence()
     score_text, score_atom = concern.owned_score_rule()
@@ -1069,12 +1385,17 @@ def synthesize_concern_point(
         pass_criteria=list(dict.fromkeys(criteria)),
         failure_consequence=consequence,
         preparation_materials=concern.owned_materials()[:4],
-        scoring_guidance=(score_text if concern_id == "EVALUATION_SCORING" and score_text else ""),
+        scoring_guidance=(
+            score_text
+            if score_text and (concern_id == "EVALUATION_SCORING" or concern_id.startswith("SCORING_"))
+            else ""
+        ),
         linked_fact_keys=linked,
         evidence_ids=[str(atom.source_clause_id) for atom in atoms],
         numeric_evidence=owned_numbers[:6],
         consequence_evidence_id=consequence_atom,
         notes=f"concern={concern_id}; atoms={','.join(str(a.atom_id) for a in atoms[:6])}",
+        owned_backing=owned_backing,
     )
     point.concern_id = concern_id
     point.concern_label = str(getattr(concern, "label", "") or "")
@@ -1324,6 +1645,8 @@ __all__ = [
     "render_review_cell",
     "scan_review_point",
     "scan_review_points",
+    "synthesize_concern_point",
     "synthesize_review_point",
     "usable_numbers",
+    "value_sentence",
 ]

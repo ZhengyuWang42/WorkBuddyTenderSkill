@@ -1,0 +1,341 @@
+{
+  "schema": "v1_review_workbook_round4_final_status/1",
+  "generated_at": "2026-09-24T04:25:03.924598+00:00",
+  "round": "review_workbook_round4",
+  "commit_subject": "feat: enforce rendered review-component provenance",
+  "pipeline": "SourceRequirementAtom -> ReviewConcern -> ReviewPoint -> RenderedReviewComponent -> workbook views",
+  "invariant": "SEMANTIC OWNERSHIP MUST SURVIVE RENDERING",
+  "result": "PASS",
+  "blockers": [],
+  "flags": {
+    "REVIEW_WORKBOOK_ROUND4": "PASS",
+    "RENDERED_SOURCE_REQUIREMENT_CONCERN_MISMATCH": 0,
+    "RENDERED_REVIEW_CHECK_CONCERN_MISMATCH": 0,
+    "RENDERED_PASS_CRITERION_CONCERN_MISMATCH": 0,
+    "RENDERED_FAILURE_CONSEQUENCE_CONCERN_MISMATCH": 0,
+    "RENDERED_PREPARATION_MATERIAL_CONCERN_MISMATCH": 0,
+    "RENDERED_SCORING_GUIDANCE_CONCERN_MISMATCH": 0,
+    "RENDERED_NUMERIC_STATEMENT_CONCERN_MISMATCH": 0,
+    "RENDERED_EVIDENCE_SUMMARY_CONCERN_MISMATCH": 0,
+    "CASE001_FIXTURES_A_TO_S": "19/19 PASS",
+    "CASE001_FINAL_CELL_AUDIT": "30/30 coherent",
+    "CASE001_FINAL_CELL_AUDIT_SCOPE": "138/138 coherent",
+    "PROJECT_WARRANTY": "24 months",
+    "RETENTION_MONEY_RATIO": "5%",
+    "RETENTION_RELEASE_PERIOD": "12 months",
+    "RETENTION_12M_AS_PROJECT_WARRANTY": false,
+    "RETENTION_5PCT_AS_SCORING_RATIO": false,
+    "CASE001": "PASS",
+    "CASE002": "PASS",
+    "CASE003": "PASS",
+    "THREE_CASE_GENERALIZATION": "PASS",
+    "WORD_ARTIFACTS_UNCHANGED": "PASS",
+    "FULL_SUITE": "PASS",
+    "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false
+  },
+  "cases": {
+    "case_001": {
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4",
+      "build_dir": null,
+      "workbook": null,
+      "workbook_sha256": null,
+      "workbook_bytes": null,
+      "requirement_rows": null,
+      "word_render_repeated": null,
+      "word_artifacts_byte_identical": {
+        "基础投标文件.docx": true,
+        "基础投标文件.pdf": true,
+        "generation_report.json": true
+      },
+      "round4_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4.json",
+      "verdict": "PASS",
+      "checks_passed": 25,
+      "checks_total": 25,
+      "failed_checks": [],
+      "rendered_component_count": 357,
+      "rendered_component_unverified_count": 0,
+      "rendered_component_concern_mismatch_total": 0,
+      "rendered_mismatch_counts": {
+        "rendered_source_requirement_concern_mismatch": 0,
+        "rendered_review_check_concern_mismatch": 0,
+        "rendered_pass_criterion_concern_mismatch": 0,
+        "rendered_preparation_material_concern_mismatch": 0,
+        "rendered_failure_consequence_concern_mismatch": 0,
+        "rendered_scoring_guidance_concern_mismatch": 0,
+        "rendered_numeric_statement_concern_mismatch": 0,
+        "rendered_evidence_summary_concern_mismatch": 0,
+        "rendered_linked_fact_concern_mismatch": 0,
+        "rendered_component_concern_mismatch_total": 0
+      },
+      "fixtures": {
+        "evaluated": 19,
+        "passed": 19,
+        "failed": [],
+        "not_applicable": []
+      },
+      "final_cell_audit": {
+        "audited_cells": 138,
+        "coherent_cells": 138,
+        "incoherent_cells": 0,
+        "sampled": 30,
+        "sample_addresses": []
+      },
+      "provenance": {
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round4_rendered_component_provenance_case_001.json",
+        "component_count": 338,
+        "unverified_count": 0,
+        "cells": null
+      },
+      "round3_gate_on_round4_workbook": {
+        "result": "PASS",
+        "passed": 40,
+        "total": 40
+      },
+      "visual_qa": {
+        "result": "PASS",
+        "bounded_clipping_warnings": 8,
+        "round3_baseline_warnings": 8,
+        "no_clipped_dashboard_text": "PASS"
+      }
+    },
+    "case_002": {
+      "build_id": "v1_round4_closure8_review_workbook4",
+      "build_dir": null,
+      "workbook": null,
+      "workbook_sha256": null,
+      "workbook_bytes": null,
+      "requirement_rows": null,
+      "word_render_repeated": null,
+      "word_artifacts_byte_identical": {
+        "基础投标文件.docx": true,
+        "基础投标文件.pdf": true,
+        "generation_report.json": true
+      },
+      "round4_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case002_review_workbook_round4.json",
+      "verdict": "PASS",
+      "checks_passed": 23,
+      "checks_total": 23,
+      "failed_checks": [],
+      "rendered_component_count": 352,
+      "rendered_component_unverified_count": 0,
+      "rendered_component_concern_mismatch_total": 0,
+      "rendered_mismatch_counts": {
+        "rendered_source_requirement_concern_mismatch": 0,
+        "rendered_review_check_concern_mismatch": 0,
+        "rendered_pass_criterion_concern_mismatch": 0,
+        "rendered_preparation_material_concern_mismatch": 0,
+        "rendered_failure_consequence_concern_mismatch": 0,
+        "rendered_scoring_guidance_concern_mismatch": 0,
+        "rendered_numeric_statement_concern_mismatch": 0,
+        "rendered_evidence_summary_concern_mismatch": 0,
+        "rendered_linked_fact_concern_mismatch": 0,
+        "rendered_component_concern_mismatch_total": 0
+      },
+      "fixtures": {
+        "evaluated": 0,
+        "passed": 0,
+        "failed": [],
+        "not_applicable": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S"
+        ]
+      },
+      "final_cell_audit": {
+        "audited_cells": 138,
+        "coherent_cells": 138,
+        "incoherent_cells": 0,
+        "sampled": 30,
+        "sample_addresses": []
+      },
+      "provenance": {
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round4_rendered_component_provenance_case_002.json",
+        "component_count": 333,
+        "unverified_count": 0,
+        "cells": null
+      },
+      "round3_gate_on_round4_workbook": {
+        "result": "PASS",
+        "passed": 40,
+        "total": 40
+      },
+      "visual_qa": {
+        "result": "PASS",
+        "bounded_clipping_warnings": 10,
+        "round3_baseline_warnings": 10,
+        "no_clipped_dashboard_text": "PASS"
+      }
+    },
+    "case_003": {
+      "build_id": "v1_round4_closure8_review_workbook4",
+      "build_dir": null,
+      "workbook": null,
+      "workbook_sha256": null,
+      "workbook_bytes": null,
+      "requirement_rows": null,
+      "word_render_repeated": null,
+      "word_artifacts_byte_identical": {
+        "基础投标文件.docx": true,
+        "基础投标文件.pdf": true,
+        "generation_report.json": true
+      },
+      "round4_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case003_review_workbook_round4.json",
+      "verdict": "PASS",
+      "checks_passed": 23,
+      "checks_total": 23,
+      "failed_checks": [],
+      "rendered_component_count": 378,
+      "rendered_component_unverified_count": 0,
+      "rendered_component_concern_mismatch_total": 0,
+      "rendered_mismatch_counts": {
+        "rendered_source_requirement_concern_mismatch": 0,
+        "rendered_review_check_concern_mismatch": 0,
+        "rendered_pass_criterion_concern_mismatch": 0,
+        "rendered_preparation_material_concern_mismatch": 0,
+        "rendered_failure_consequence_concern_mismatch": 0,
+        "rendered_scoring_guidance_concern_mismatch": 0,
+        "rendered_numeric_statement_concern_mismatch": 0,
+        "rendered_evidence_summary_concern_mismatch": 0,
+        "rendered_linked_fact_concern_mismatch": 0,
+        "rendered_component_concern_mismatch_total": 0
+      },
+      "fixtures": {
+        "evaluated": 0,
+        "passed": 0,
+        "failed": [],
+        "not_applicable": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S"
+        ]
+      },
+      "final_cell_audit": {
+        "audited_cells": 147,
+        "coherent_cells": 147,
+        "incoherent_cells": 0,
+        "sampled": 30,
+        "sample_addresses": []
+      },
+      "provenance": {
+        "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round4_rendered_component_provenance_case_003.json",
+        "component_count": 351,
+        "unverified_count": 0,
+        "cells": null
+      },
+      "round3_gate_on_round4_workbook": {
+        "result": "PASS",
+        "passed": 40,
+        "total": 40
+      },
+      "visual_qa": {
+        "result": "PASS",
+        "bounded_clipping_warnings": 25,
+        "round3_baseline_warnings": 26,
+        "no_clipped_dashboard_text": "PASS"
+      }
+    }
+  },
+  "rendered_component_buckets": {
+    "rendered_source_requirement_concern_mismatch": 0,
+    "rendered_review_check_concern_mismatch": 0,
+    "rendered_pass_criterion_concern_mismatch": 0,
+    "rendered_failure_consequence_concern_mismatch": 0,
+    "rendered_preparation_material_concern_mismatch": 0,
+    "rendered_scoring_guidance_concern_mismatch": 0,
+    "rendered_numeric_statement_concern_mismatch": 0,
+    "rendered_evidence_summary_concern_mismatch": 0
+  },
+  "retention_warranty_semantics": {
+    "case_001": {
+      "PROJECT_WARRANTY": "24个月（项目/产品质保期）",
+      "RETENTION_MONEY_RATIO": "5%（质保金/尾款比例）",
+      "RETENTION_RELEASE_PERIOD": "12个月（质保金释放/付款期）",
+      "12_month_retention_worded_as_project_warranty": false,
+      "5_percent_retention_worded_as_scoring_ratio": false,
+      "reported_as_source_conflict": false,
+      "rendered_rows": {
+        "warranty": [
+          "DR004"
+        ],
+        "retention_money": [
+          "DR049"
+        ],
+        "retention_release": [
+          "DR046"
+        ]
+      }
+    }
+  },
+  "human_review": {
+    "record": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review.json",
+    "human_verdict": "FAIL",
+    "fail_reason": "RENDERED_COMPONENT_CONCERN_OWNERSHIP",
+    "automation_closure": {
+      "closed": true,
+      "closed_in_round": "review_workbook_round4",
+      "closed_by": "rendered-component provenance closure (automation only)",
+      "mechanism": [
+        "RenderedReviewComponent: the delivered D cell is now rendered from concern-owned components (cell_from_components)",
+        "per-cell provenance maps record cell address, rendered block, sentence index, concern id, source atom ids, numeric/material/evidence ids",
+        "the rendered-output gate re-reads the FINAL xlsx cells and verifies every rendered phrase against its concern's own backing",
+        "sentence-level arbitration keeps a phrase in its decisive concern instead of inheriting it from a broad topic group"
+      ],
+      "evidence": [
+        "acceptance/reports/v1_generalization/case001_review_workbook_round4.json",
+        "acceptance/reports/v1_generalization/review_workbook_round4_rendered_component_provenance_case_001.json"
+      ],
+      "human_review_state": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+      "human_checkboxes_ticked": 0
+    },
+    "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "human_checkboxes_ticked": 0
+  },
+  "full_test_suite": {
+    "passed": 769,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "collected": 770,
+    "source": "junit_xml"
+  },
+  "release": {
+    "tag_created": false,
+    "release_created": false
+  }
+}

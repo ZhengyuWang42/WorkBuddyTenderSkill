@@ -678,3 +678,51 @@ D48 记录的是**类别 A**（仓库内历史手填工作簿）的定位，其�
 - 类别 B 位于 `acceptance/private/`，被 `.gitignore` 覆盖：**必须保持 ignore / untracked**，
   不得提交、不得引用其内容作为证据，只能引用"存在且仅作风格参考"这一事实。
 - 生成的工作簿只以当前案例的源文件与 `ProjectFacts` 为依据；参考件的存在不改变任何门禁结论。
+
+### D56 渲染层归属：SEMANTIC OWNERSHIP MUST SURVIVE RENDERING
+
+第 3 轮把归属放进模型对象，**不足**：人工复核第 3 轮工作簿时判 `FAIL`
+（`FAIL_REASON = RENDERED_COMPONENT_CONCERN_OWNERSHIP`）——模型里每行都有归属，但**渲染出来的
+Excel 单元格文本**仍可能沿用过期/过宽来源组或旧主题模板的措辞。第 4 轮因此把不变量提升到渲染层：
+
+> **每一个渲染进 XLSX 的实质短语，都必须有"关注点自有"的出处。**
+
+落地机制（通用规则，无案例分支）：
+
+- `tender_basic/review_rendering.py` 新增 `RenderedReviewComponent`：九类组件
+  （SOURCE_REQUIREMENT / REVIEW_CHECK / PASS_CRITERION / FAILURE_CONSEQUENCE /
+  PREPARATION_MATERIAL / SCORING_GUIDANCE / NUMERIC_STATEMENT / EVIDENCE_SUMMARY /
+  LINKED_FACT），每个组件携带 `concern_id`、来源原子 id、数值/材料/证据 id 与
+  `ownership_verified`。
+- 交付表 D 列文本不再由模板拼接，而是由**已校验组件投影**生成
+  （`dynamic_review.cell_from_components`）；`review_rendering.verify_component` 逐类校验，
+  `foreign_terms` 判定"渲染文本点名了关注点不具备的概念"。
+- 句级仲裁：同一句若被更长的决定性模式命中，则归属该处（旧组/宽泛主题不能"顺带"渲染该句）；
+  数值措辞用源文件自己的术语（`_source_term` / `value_sentence`），避免质保金↔尾款、
+  供货期↔交货期等外来同义词。
+- 输出门禁读取**最终** xlsx 单元格（不是模型对象）复核：`scripts/v1_review_workbook_round4_report.py`
+  校验 `rendered_cell_equals_component_projection`、八类 `RENDERED_*_CONCERN_MISMATCH = 0`、
+  `final_cell_text_owned_by_concern`、`every_rendered_component_present_in_final_cell`、
+  `stale_linked_facts_absent`、以及 30 格最终单元格审计（记录地址与显示文本）；
+  出处映射持久化为 `review_workbook_round4_rendered_component_provenance_case_00{1,2,3}.json`。
+
+人工复核结论**不得**由自动化改写：第 3 轮人工 `FAIL` 保留在
+`case001_review_workbook_round4_human_review.json` 中，自动化只能把状态推进到
+`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，不勾选任何人工框。
+
+### D57 第 4 轮证据与冻结事实
+
+三案例第 4 轮后继构建报告 PASS（CASE001 25/25、CASE002 23/23、CASE003 23/23），
+八类 `RENDERED_*_CONCERN_MISMATCH = 0`，A–S 人工坏例 19/19 PASS，CASE001 最终单元格审计
+全格一致（CASE001 138/138、CASE002 138/138、CASE003 147/147 单元格一致，抽样 30 格记录地址与
+显示文本），结构门禁复用第 3 轮 40 项在三案例第 4 轮工作簿上各 40/40 PASS，渲染 QA PASS
+（`clipping_bounded` WARN 为 CASE001 8、CASE002 10、CASE003 25，均不劣于基线）。
+Word 产物在各后继目录中逐字节一致（`word_render_repeated=false`，第 1–4 轮**从未**重新渲染 Word）。
+CASE002 `budget` 仍为 NOT_FOUND、`max_price 7507785.65` 仍 RESOLVED，分项报价行 36 = 源文件 36 行；
+CASE003 `lot_name 三标段` 仍 RESOLVED、分项报价 0 行 + 空白表单 4 项。CASE001 的
+`PROJECT_WARRANTY = 24个月`、`RETENTION_MONEY_RATIO = 5%`、`RETENTION_RELEASE_PERIOD = 12个月`
+在渲染文本中保持三个不同关注点：12 个月**不**被写成项目质保期、5% **不**被写成评分/付款比例，
+`FALSE_CONFLICT_COUNT = 0`。人工确认状态：`CASE001_XLSX_MANUAL_REVIEW =
+AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（人工第 3 轮判 FAIL）、CASE002/003 仍为
+`NOT_YET_CONFIRMED`，`V1_PRODUCTION_CANDIDATE=false`、`READY_FOR_SUBMISSION=false`，
+未创建任何 tag 或 release。

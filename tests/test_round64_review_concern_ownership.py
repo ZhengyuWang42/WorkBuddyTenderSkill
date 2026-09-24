@@ -48,6 +48,7 @@ from tender_basic.review_point import (  # noqa: E402
 import v1_review_workbook_round3_report as report  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
+BUILD4 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4"
 BUILD3 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3"
 BUILD2 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2"
 WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
@@ -213,10 +214,17 @@ def test_project_warranty_owns_the_project_warranty_period(ctx):
 
 # 18 ------------------------------------------------------------------------ #
 def test_retention_money_ratio_owns_the_ratio(ctx):
+    """The 5% retention money ratio stays in the retention concern.
+
+    Round 4 refined the role from the generic ``PAYMENT_RATIO`` to the explicit
+    ``RETENTION_MONEY_RATIO`` so the rendered wording can use the source's own
+    term (质保金 vs 尾款) without naming a foreign one.
+    """
+
     match = [p for c, p in ctx["points"] if c.concern_id == "RETENTION_MONEY_RATIO"]
     assert match
     assert any(
-        value.role == "PAYMENT_RATIO" and "5%" in value.value
+        value.role in {"RETENTION_MONEY_RATIO", "PAYMENT_RATIO"} and "5%" in value.value
         for value in match[0].numeric_evidence
     )
 
@@ -326,11 +334,18 @@ def test_false_conflict_count_is_zero(ctx):
 
 # 32 ------------------------------------------------------------------------ #
 def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
+    """The current successor workbook is the projection of the current plan.
+
+    Round 4 renders the delivered cell from the verified review components, so
+    the invariant is asserted against the *round-4* successor (the round-3
+    workbook stays frozen as the artifact the human reviewed and failed).
+    """
+
     plan = ctx["plan"]
     qa = dynamic_review_qa(plan, ctx["document"], ctx["facts"])
     assert qa["result"] == "PASS", qa["hard_gate_failures"]
 
-    workbook = load_workbook(BUILD3 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD4 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     assert workbook.sheetnames[0] == "投标项目复核表"
     sheet = workbook["投标项目复核表"]
     written = [
@@ -344,8 +359,8 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     assert written == expected
 
     identities = json.loads(
-        (ROOT / "acceptance/reports/v1_generalization/case_001_review_workbook_build_round3.json").read_text(
-            encoding="utf-8"
-        )
+        (BUILD4 / "build_manifest.json").read_text(encoding="utf-8")
     )["artifact_identity"]
     assert all(entry["byte_identical"] for entry in identities.values())
+    # the frozen round-3 workbook is preserved untouched next to its successor
+    assert (BUILD3 / "投标项目复核表.xlsx").is_file()

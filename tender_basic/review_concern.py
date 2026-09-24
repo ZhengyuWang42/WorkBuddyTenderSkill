@@ -73,7 +73,7 @@ AUTHORITY_SCOPES = (
 )
 
 #: Concerns that are never a bidder checklist row on their own.
-INTERNAL_CONCERNS = frozenset({"INTERNAL_PROCEDURE"})
+INTERNAL_CONCERNS = frozenset({"INTERNAL_PROCEDURE", "PURCHASER_PROCEDURE"})
 
 
 # --------------------------------------------------------------------------- #
@@ -95,6 +95,18 @@ class ConcernSpec:
     #: True for concerns whose components may legitimately come from another
     #: concern's clause when the source relationship is explicit
     allows_reuse: bool = False
+    #: ProjectFacts fields this concern is allowed to link.  A fact linked by a
+    #: concern that does not own it is a round-4 rendering defect (a retention
+    #: clause must not read as if it were a quality/warranty target).
+    fact_fields: frozenset[str] = frozenset()
+    #: Presentation slot for the review row when the source clause's own type
+    #: would mislabel the row (an anti-bribery qualification clause must not be
+    #: presented as a signature row).  Empty means "inherit from the source".
+    review_type: str = ""
+    review_topic: str = ""
+    #: Regex naming the facet that must carry the row's evidence locator, so the
+    #: printed locator/source is the concern's own decisive clause.
+    decisive_pattern: str = ""
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -103,6 +115,9 @@ class ConcernSpec:
             "question": self.question,
             "numeric_roles": sorted(self.numeric_roles),
             "bidder_facing": self.bidder_facing,
+            "fact_fields": sorted(self.fact_fields),
+            "review_type": self.review_type,
+            "review_topic": self.review_topic,
         }
 
 
@@ -114,6 +129,10 @@ def _spec(
     *,
     bidder_facing: bool = True,
     allows_reuse: bool = False,
+    facts: Iterable[str] = (),
+    review_type: str = "",
+    review_topic: str = "",
+    decisive: str = "",
 ) -> ConcernSpec:
     return ConcernSpec(
         concern_id=concern_id,
@@ -122,124 +141,305 @@ def _spec(
         numeric_roles=frozenset(roles),
         bidder_facing=bidder_facing,
         allows_reuse=allows_reuse,
+        fact_fields=frozenset(facts),
+        review_type=review_type,
+        review_topic=review_topic,
+        decisive_pattern=decisive,
     )
 
 
 CONCERNS: dict[str, ConcernSpec] = {
     spec.concern_id: spec
     for spec in (
-        _spec("PROJECT_BASIC_INFO", "项目基本信息", "本项目的基本信息是否与招标文件一致？", ()),
-        _spec("BID_VALIDITY", "投标有效期", "投标有效期是否满足并覆盖评审定标全过程？", ("VALIDITY_DAYS",)),
-        _spec("AFTER_SALES_SERVICE", "售后服务与运维", "售后服务与运维承诺是否满足要求？", ("RESPONSE_DAYS",)),
+        _spec(
+            "PROJECT_BASIC_INFO",
+            "项目基本信息",
+            "本项目的基本信息是否与招标文件一致？",
+            (),
+            review_topic="项目基本信息",
+            decisive=r"(项目名称|项目编号|采购编号|标段|采购范围|资金来源|采购内容)",
+        ),
+        _spec("BID_VALIDITY", "投标有效期", "投标有效期是否满足并覆盖评审定标全过程？", ("VALIDITY_DAYS",), facts=("bid_validity",), decisive=r"(投标有效期|响应有效期|有效期为)"),
+        _spec("AFTER_SALES_SERVICE", "售后服务与运维", "售后服务与运维承诺是否满足要求？", ("RESPONSE_DAYS",), decisive=r"(售后服务|运维|质保期内服务|响应时间|备件)"),
         _spec(
             "TECHNICAL_INSTALLATION",
             "安装调试与验收",
             "安装、调试、检测与验收标准是否满足要求？",
-            ("QUANTITY", "WARRANTY_MONTHS"),
+            ("QUANTITY", "RESPONSE_DAYS"),
+            decisive=r"(安装调试|设备安装|安装工程|调试|验收|检测报告|检测实验)",
         ),
         _spec(
             "SIGNATURE_RED_LINE",
             "签章否决红线",
             "签章/签字缺陷是否会导致否决？",
         ),
-        _spec("REJECTION_GENERAL", "其他否决情形", "还有哪些情形会导致投标被否决？"),
+        _spec("REJECTION_GENERAL", "其他否决情形", "还有哪些情形会导致投标被否决？", decisive=r"(否决|无效|不得参加|取消)"),
         _spec(
             "GENERAL_BIDDER_OBLIGATION",
             "一般投标人义务",
             "该条款对投标人提出了什么具体义务？",
+            decisive=r"(供应商|投标人|响应人)",
         ),
         # qualification
-        _spec("QUALIFICATION_LICENSE", "资格·营业执照与资质", "营业执照/资质证书是否有效并按要求提供？", ()),
-        _spec("QUALIFICATION_FINANCIAL", "资格·财务能力", "财务能力承诺或审计报告是否按要求提供？", ()),
-        _spec("QUALIFICATION_CREDIT", "资格·信用记录", "信用记录查询结果是否满足要求？", ()),
-        _spec("QUALIFICATION_ANTI_BRIBERY", "资格·无行贿与履约记录", "无行贿/无不良履约记录承诺是否按要求提交？", ()),
-        _spec("QUALIFICATION_PERFORMANCE", "资格·类似业绩", "类似项目业绩是否满足数量与时间范围要求？", ("PERSON_COUNT",)),
+        _spec("QUALIFICATION_LICENSE", "资格·营业执照与资质", "营业执照/资质证书是否有效并按要求提供？", (), decisive=r"(营业执照|统一社会信用代码|独立法人)"),
+        _spec("QUALIFICATION_FINANCIAL", "资格·财务能力", "财务能力承诺或审计报告是否按要求提供？", (), facts=(), decisive=r"(审计报告|财务报表|财务|资产负债)"),
+        _spec(
+            "QUALIFICATION_CREDIT",
+            "资格·信用记录",
+            "信用记录查询结果是否满足要求？",
+            (),
+            decisive=r"(信用中国|失信被执行人|严重违法失信|重大税收违法|信用记录|经营异常)",
+        ),
+        _spec(
+            "QUALIFICATION_ANTI_BRIBERY",
+            "资格·无行贿与履约记录",
+            "无行贿/无不良履约记录承诺是否按要求提交？",
+            (),
+            review_type="QUALIFICATION",
+            review_topic="资格·无行贿与履约记录",
+            decisive=r"(行贿|不良履约记录|重大违法记录)",
+        ),
+        _spec("QUALIFICATION_PERFORMANCE", "资格·类似业绩", "类似项目业绩是否满足数量与时间范围要求？", ("PERSON_COUNT",), decisive=r"(类似业绩|类似项目|业绩)"),
         _spec(
             "QUALIFICATION_RELATIONSHIP_RESTRICTION",
             "资格·关联关系限制",
             "是否存在单位负责人同一人或控股、管理关系等禁止情形？",
+            (),
+            review_type="REJECTION",
+            review_topic="资格·关联关系限制",
+            decisive=r"(单位负责人|直接控股|管理关系|关联关系)",
         ),
-        _spec("CONSORTIUM", "联合体", "是否允许联合体投标，响应是否与之一致？"),
-        _spec("SUBCONTRACT", "分包与转包", "是否存在违规分包、转包情形？"),
+        _spec("CONSORTIUM", "联合体", "是否允许联合体投标，响应是否与之一致？", facts=("consortium_allowed",), decisive=r"(联合体|联合投标)"),
+        _spec("SUBCONTRACT", "分包与转包", "是否存在违规分包、转包情形？", decisive=r"(分包|转包|挂靠)"),
         # submission / electronic
-        _spec("SUBMISSION_DEADLINE", "递交截止时间", "是否在规定截止时间前完成递交？", ("RESPONSE_DAYS",)),
+        _spec(
+            "SUBMISSION_DEADLINE",
+            "递交截止时间",
+            "是否在规定截止时间前完成递交？",
+            ("RESPONSE_DAYS",),
+            facts=("bid_deadline",),
+            decisive=r"(提交响应文件截止|响应文件递交截止|递交截止|提交截止)",
+        ),
         _spec("SUBMISSION_PLATFORM", "递交地点与平台", "递交方式、地点/平台是否符合要求？"),
+        _spec(
+            "QUERY_DEADLINE",
+            "提问与澄清截止",
+            "提问/澄清/文件修改的时间与程序要求是什么？",
+            (),
+            review_type="SUBMISSION",
+            review_topic="提问与澄清截止时间",
+            decisive=r"(提出问题|提问|澄清|修改|质疑)",
+        ),
         _spec(
             "SUBMISSION_COPIES",
             "文件份数与电子版",
             "正副本份数与电子版要求是否满足？",
             ("QUANTITY",),
         ),
-        _spec("ELECTRONIC_UPLOAD", "电子上传与加密", "电子文件是否按规定加密/上传成功？"),
-        _spec("OPENING_DECRYPTION", "开标与解密", "是否按时完成签到与解密？", ("RESPONSE_DAYS",)),
+        _spec("ELECTRONIC_UPLOAD", "电子上传与加密", "电子文件是否按规定加密/上传成功？", decisive=r"(上传|加密|CA|数字证书|电子响应文件)"),
+        _spec("OPENING_DECRYPTION", "开标与解密", "是否按时完成签到与解密？", ("RESPONSE_DAYS",), decisive=r"(远程开标大厅|不见面开标|签到|解密)"),
         # signature
-        _spec("SIGNATURE_AND_SEAL", "签章要求", "哪些位置必须签字/盖章，形式是否合规？"),
-        _spec("SIGNATURE_EXECUTION", "签章执行核对", "逐页/逐处签章是否执行到位？"),
-        _spec("AUTHORIZATION", "授权委托", "授权代表签署的授权链条是否完整？"),
+        _spec("SIGNATURE_AND_SEAL", "签章要求", "哪些位置必须签字/盖章，形式是否合规？", decisive=r"(签字盖章要求|加盖公章|公章|签字或盖章|签章|印章)"),
+        _spec("SIGNATURE_EXECUTION", "签章执行核对", "逐页/逐处签章是否执行到位？", decisive=r"(签章|盖章|签字)"),
+        _spec("AUTHORIZATION", "授权委托", "授权代表签署的授权链条是否完整？", decisive=r"(授权委托书|法定代表人身份证明|授权的代理人|委托代理人|授权代表)"),
         # bid bond
-        _spec("BID_BOND_AMOUNT", "保证金金额", "保证金金额是否与招标文件一致？", ("BOND_AMOUNT",)),
-        _spec("BID_BOND_FORM", "保证金形式", "保证金形式是否符合规定？"),
-        _spec("BID_BOND_TRANSFER", "保证金转出账户", "是否从规定账户转出？"),
-        _spec("BID_BOND_DEADLINE", "保证金到账时间", "保证金是否在截止前到账？", ("RESPONSE_DAYS",)),
-        _spec("BID_BOND_EVIDENCE", "保证金凭证", "保证金凭证是否放入响应文件？"),
+        _spec(
+            "BID_BOND_AMOUNT",
+            "保证金金额",
+            "保证金金额是否与招标文件一致？",
+            ("BOND_AMOUNT",),
+            facts=("bid_bond_amount", "bid_bond_form"),
+            decisive=r"(响应保证金|投标保证金).{0,24}(金额|元)|保证金金额",
+        ),
+        _spec("BID_BOND_FORM", "保证金形式", "保证金形式是否符合规定？", facts=("bid_bond_amount", "bid_bond_form"), decisive=r"(保函|电汇|转账|保险|形式)"),
+        _spec("BID_BOND_TRANSFER", "保证金转出账户", "是否从规定账户转出？", facts=("bid_bond_amount",), decisive=r"(基本账户|基本存款账户|开户许可证|转出)"),
+        _spec("BID_BOND_DEADLINE", "保证金到账时间", "保证金是否在截止前到账？", ("RESPONSE_DAYS",), facts=("bid_bond_amount",), decisive=r"(到账|截止时间前)"),
+        _spec("BID_BOND_EVIDENCE", "保证金凭证", "保证金凭证是否放入响应文件？", facts=("bid_bond_amount",), decisive=r"(凭证|回单|扫描件|复印件)"),
+        _spec(
+            "PERFORMANCE_BOND",
+            "履约保证金",
+            "履约保证金的形式、金额与提交时点是否清楚？",
+            ("BOND_AMOUNT",),
+            review_type="CONTRACT",
+            review_topic="履约保证金",
+            decisive=r"履约保证金|履约担保",
+        ),
         # price
-        _spec("PRICE_CEILING", "报价与最高限价", "报价是否不超过最高限价？", ("PRICE",)),
-        _spec("PRICE_ARITHMETIC", "报价算术与大小写", "大小写、单价×数量、分项合计是否一致？", ("PRICE",)),
-        _spec("PRICE_COMPLETENESS", "报价完整性", "是否存在漏项、重复项或未包含费用？", ("PRICE", "QUANTITY")),
-        _spec("PRICE_TAX_BASIS", "报价税务口径", "税率与含税口径是否一致？", ("SCORE",)),
-        _spec("PRICE_ITEMIZATION", "分项报价与暂列金额", "分项限价/暂列金额是否与源表一致？", ("PRICE", "QUANTITY")),
+        _spec("PRICE_CEILING", "报价与最高限价", "报价是否不超过最高限价？", ("PRICE",), facts=("max_price", "budget"), decisive=r"(最高限价|控制价|预算金额|采购预算)"),
+        _spec("PRICE_ARITHMETIC", "报价算术与大小写", "大小写、单价×数量、分项合计是否一致？", ("PRICE",), facts=("max_price",), decisive=r"(大写|小写|单价|合计)"),
+        _spec("PRICE_COMPLETENESS", "报价完整性", "是否存在漏项、重复项或未包含费用？", ("PRICE", "QUANTITY"), facts=("max_price",), decisive=r"(报价|费用|漏项|运费|税费)"),
+        _spec("PRICE_TAX_BASIS", "报价税务口径", "税率与含税口径是否一致？", ("SCORE",), facts=("max_price",), decisive=r"(税金|税率|含税|不含税)"),
+        _spec("PRICE_ITEMIZATION", "分项报价与暂列金额", "分项限价/暂列金额是否与源表一致？", ("PRICE", "QUANTITY"), facts=("max_price",), decisive=r"(分项限价|暂列金额|暂估价|工程量清单|限价表)"),
         # delivery / quality / warranty
-        _spec("DELIVERY_PERIOD", "工期与供货期", "工期/供货期是否满足并覆盖交付节点？", ("DURATION_DAYS",)),
-        _spec("DELIVERY_LOCATION", "交付地点", "交付地点与实施范围是否符合要求？"),
-        _spec("SITE_VISIT", "现场踏勘", "是否按须知规定参加/安排了现场踏勘，记录是否留档？"),
+        _spec(
+            "DELIVERY_PERIOD",
+            "工期与供货期",
+            "工期/供货期是否满足并覆盖交付节点？",
+            ("DURATION_DAYS",),
+            facts=("duration",),
+            decisive=r"(工期|交货期|供货期|服务期|交付期|完成时间)",
+        ),
+        _spec(
+            "DELIVERY_LOCATION",
+            "交付地点",
+            "交付地点与实施范围是否符合要求？",
+            facts=("project_location",),
+            decisive=r"(交付地点|交货地点|实施地点|供货地点)",
+        ),
+        _spec("SITE_VISIT", "现场踏勘", "是否按须知规定参加/安排了现场踏勘，记录是否留档？", decisive=r"(踏勘|现场考察)"),
         _spec(
             "TERM_DEFINITION",
             "术语与主体定义",
             "（仅词汇定义，非投标人义务）",
             bidder_facing=False,
         ),
-        _spec("QUALITY_TARGET", "质量目标", "质量/验收标准是否达标？"),
-        _spec("PROJECT_WARRANTY", "项目/产品质保", "项目/产品质保期与范围是否满足要求？", ("WARRANTY_MONTHS",)),
-        _spec("RETENTION_MONEY_RATIO", "质保金比例", "质保金/尾款比例是否与合同条款一致？", ("PAYMENT_RATIO",)),
+        _spec("QUALITY_TARGET", "质量目标", "质量/验收标准是否达标？", facts=("quality_target",), decisive=r"(质量目标|质量标准|质量要求|验收标准)"),
+        _spec(
+            "PROJECT_WARRANTY",
+            "项目/产品质保",
+            "项目/产品质保期与范围是否满足要求？",
+            ("WARRANTY_MONTHS",),
+            review_type="WARRANTY",
+            review_topic="项目质保期",
+            decisive=r"(质保期|保修期|质量保证期|质保范围)",
+        ),
+        _spec(
+            "RETENTION_MONEY_RATIO",
+            "质保金比例",
+            "质保金/尾款比例是否与合同条款一致？",
+            ("RETENTION_MONEY_RATIO",),
+            review_type="CONTRACT",
+            review_topic="合同付款·质保金比例",
+            decisive=r"(质保金|质量保证金|保留金|尾款|余款|剩余)",
+        ),
         _spec(
             "RETENTION_RELEASE_PERIOD",
             "质保金释放期限",
             "质保金/尾款返还或释放期限及条件是否清楚？",
-            ("WARRANTY_MONTHS", "DURATION_DAYS"),
+            ("RETENTION_RELEASE_PERIOD",),
+            review_type="CONTRACT",
+            review_topic="合同付款·质保金释放",
+            decisive=r"(质保金|质量保证金|保留金|尾款|余款|剩余)",
         ),
         # file
-        _spec("FILE_COMPOSITION", "响应文件组成", "响应文件应由哪些部分组成、是否齐全？"),
-        _spec("FILE_FORMAT", "响应文件格式", "格式、装订、目录与页码是否按要求？"),
+        _spec("FILE_COMPOSITION", "响应文件组成", "响应文件应由哪些部分组成、是否齐全？", decisive=r"(组成|包括|应包含|应当包含|附件|目录清单)"),
+        _spec("FILE_FORMAT", "响应文件格式", "格式、装订、目录与页码是否按要求？", decisive=r"(装订|目录|页码|编排|字体|密封|封装|格式)"),
         # technical
-        _spec("TECHNICAL_PARAMETER", "技术参数与配置", "技术参数是否逐条响应、有无负偏离？", ("QUANTITY",)),
-        _spec("TECHNICAL_PROOF", "技术证明材料", "证明材料是否齐全、可核验？"),
+        _spec("TECHNICAL_PARAMETER", "技术参数与配置", "技术参数是否逐条响应、有无负偏离？", ("QUANTITY",), decisive=r"(技术参数|参数|★|配置|技术要求)"),
+        _spec("TECHNICAL_PROOF", "技术证明材料", "证明材料是否齐全、可核验？", decisive=r"(证明材料|复印件|检测报告|材料清单|合同协议书)"),
         _spec(
             "TECHNICAL_PLAN",
             "技术方案与实施组织",
             "技术方案/进度/人员机具/质量/应急是否完整可实施？",
         ),
         # evaluation
-        _spec("EVALUATION_FORMAL_REVIEW", "评审·形式审查", "形式审查要点是否满足？"),
-        _spec("EVALUATION_QUALIFICATION_REVIEW", "评审·资格审查", "资格审查要点是否满足？"),
-        _spec("EVALUATION_RESPONSIVENESS", "评审·响应性审查", "实质性响应要求是否全部满足？"),
+        _spec("EVALUATION_FORMAL_REVIEW", "评审·形式审查", "形式审查要点是否满足？", decisive=r"(形式审查|初步评审|形式评审)"),
+        _spec("EVALUATION_QUALIFICATION_REVIEW", "评审·资格审查", "资格审查要点是否满足？", decisive=r"(资格审查|资格评审)"),
+        _spec("EVALUATION_RESPONSIVENESS", "评审·响应性审查", "实质性响应要求是否全部满足？", decisive=r"(实质性响应|响应性审查|重大偏差|负偏离)"),
         _spec(
             "EVALUATION_SCORING",
             "评分标准与分值构成",
             "每个评分因素如何得分、需要什么证明？",
             ("SCORE", "PERSON_COUNT", "QUANTITY", "PAYMENT_RATIO", "PRICE"),
             allows_reuse=True,
+            decisive=r"(评分|分值|得分)",
         ),
-        _spec("EVALUATION_COLLUSION", "评审·串标与弄虚作假", "是否存在串标、弄虚作假情形？"),
+        # Round 4: one scoring factor is one human decision.  Merging several
+        # factors into a single "评分标准与分值构成" row made the rendered text
+        # carry conditions, points and proof demands that belong to other factors.
+        _spec(
+            "SCORING_PAYMENT_CONDITION",
+            "评分·付款条件响应",
+            "付款条件/质保金安排的评分条件是什么、得几分？",
+            ("SCORE", "PAYMENT_RATIO", "RETENTION_MONEY_RATIO"),
+            review_type="EVALUATION",
+            review_topic="评分·付款条件",
+            decisive=r"(付款|支付|质保金|承兑|垫资|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_DELIVERY_PLAN",
+            "评分·供货方案",
+            "供货方案的评分条件与证明材料是什么？",
+            ("SCORE",),
+            review_type="EVALUATION",
+            review_topic="评分·供货方案",
+            decisive=r"(供货方案|供货计划|实施方案|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_EMERGENCY_PLAN",
+            "评分·应急保障",
+            "应急保障措施的评分条件与证明材料是什么？",
+            ("SCORE",),
+            review_type="EVALUATION",
+            review_topic="评分·应急保障措施",
+            decisive=r"(应急|保障措施|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_QUALITY_SYSTEM",
+            "评分·质量保证体系",
+            "质量保证体系的评分条件与证明材料是什么？",
+            ("SCORE",),
+            review_type="EVALUATION",
+            review_topic="评分·质量保证体系",
+            decisive=r"(质量保证|质量体系|质量管理|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_PERFORMANCE",
+            "评分·企业业绩",
+            "业绩评分的时间、金额与证明口径是什么？",
+            ("SCORE",),
+            review_type="EVALUATION",
+            review_topic="评分·企业业绩",
+            decisive=r"(业绩|类似项目|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_TECHNICAL",
+            "评分·技术方案",
+            "技术方案的评分条件与证明材料是什么？",
+            ("SCORE",),
+            review_type="EVALUATION",
+            review_topic="评分·技术方案",
+            decisive=r"(技术方案|技术标|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_PERSONNEL",
+            "评分·人员配置",
+            "拟投入人员的评分条件与证明材料是什么？",
+            ("SCORE", "PERSON_COUNT"),
+            review_type="EVALUATION",
+            review_topic="评分·人员配置",
+            decisive=r"(人员|项目负责人|职称|证书|得\s*\d+(?:\.\d+)?\s*分|分值)",
+        ),
+        _spec(
+            "SCORING_PRICE_FORMULA",
+            "评分·价格分计算",
+            "价格分的计算公式、基准价与分值是什么？",
+            ("SCORE", "PRICE"),
+            review_type="EVALUATION",
+            review_topic="评分·价格分计算",
+            decisive=r"(价格分|报价得分|基准价|评标价|价格评分|得\s*\d+(?:\.\d+)?\s*分)",
+        ),
+        _spec("EVALUATION_COLLUSION", "评审·串标与弄虚作假", "是否存在串标、弄虚作假情形？", decisive=r"(串标|串通|雷同|弄虚作假|机器码|制作机器)"),
         # contract
         _spec(
             "CONTRACT_PAYMENT",
             "合同付款与结算",
             "付款方式、结算依据与付款条件是否可接受？",
             ("PAYMENT_RATIO", "PRICE"),
+            decisive=r"(付款|支付|结算|价款|预付款|进度款)",
         ),
-        _spec("CONTRACT_RISK", "合同风险与违约责任", "是否存在采购人不能接受的附加条件或风险？"),
-        _spec("CONTRACT_DELIVERY", "合同交付义务", "合同交付义务与招标要求是否一致？", ("DURATION_DAYS",)),
-        _spec("CONTRACT_ACCEPTANCE", "合同验收", "验收标准与程序是否可执行？"),
+        _spec(
+            "AGENCY_SERVICE_FEE",
+            "代理服务费",
+            "代理服务费的金额、缴纳主体与缴纳时点是什么？",
+            (),
+            review_type="CONTRACT",
+            review_topic="代理服务费",
+            decisive=r"(代理服务费|招标代理服务费|采购代理服务费|中标服务费)",
+        ),
+        _spec("CONTRACT_RISK", "合同风险与违约责任", "是否存在采购人不能接受的附加条件或风险？", decisive=r"(违约|赔偿|索赔|争议|仲裁|诉讼|不可抗力|附加条件)"),
+        _spec("CONTRACT_DELIVERY", "合同交付义务", "合同交付义务与招标要求是否一致？", ("DURATION_DAYS",), decisive=r"(交货|交付|供货|工期)"),
+        _spec("CONTRACT_ACCEPTANCE", "合同验收", "验收标准与程序是否可执行？", decisive=r"(验收)"),
         # conflict
         _spec("SOURCE_REQUIREMENT_CONFLICT", "条款冲突", "不同来源条款是否真正互相冲突？", allows_reuse=True),
         # internal (never an ordinary bidder row)
@@ -247,6 +447,12 @@ CONCERNS: dict[str, ConcernSpec] = {
             "INTERNAL_PROCEDURE",
             "采购方内部程序",
             "采购方/评审委员会内部程序事项",
+            bidder_facing=False,
+        ),
+        _spec(
+            "PURCHASER_PROCEDURE",
+            "采购人评审程序",
+            "采购人评审/定标/异议处理程序事项（非投标人义务）",
             bidder_facing=False,
         ),
         # fallback
@@ -285,6 +491,9 @@ class SourceRequirementAtom:
     source_section: str = ""
     source_locator: str = ""
     source_structure_id: str = ""
+    #: Set when ``source_text`` is a derived facet: the text it was cut from, so
+    #: the rendered evidence remains literally present in the source.
+    source_origin_text: str = ""
     actor: str = ACTOR_OTHER
     object: str = ""
     action: str = ""
@@ -797,7 +1006,7 @@ _RETENTION_TEXT = re.compile(r"(质保金|质量保证金|保留金|尾款|余�
 _RETENTION_RELEASE_TEXT = re.compile(r"(返还|退还|释放|付清|无息支付|期满后)")
 _SUBMISSION_CUES = re.compile(r"(递交|提交|送达|上传|截止|拒收|逾期)")
 _PRICE_CEILING_CUES = re.compile(r"(最高限价|控制价|预算金额|采购预算|超过限价)")
-_COLLUSION_CUES = re.compile(r"(串标|串通|雷同|恶意串通|弄虚作假|行贿)")
+_COLLUSION_CUES = re.compile(r"(串标|串通|雷同|恶意串通|弄虚作假|行贿|机器码|制作机器|制作标识)")
 _FORMAT_CUES = re.compile(r"(装订|目录|页码|编排|字体|密封|封装|格式)")
 _COMPOSITION_CUES = re.compile(r"(组成|包括|应包含|应当包含|附件)")
 _ITEMIZATION_CUES = re.compile(r"(暂列金额|分项限价|已标价工程量清单|限价表)")
@@ -810,6 +1019,76 @@ _ITEMIZATION_CUES = re.compile(r"(暂列金额|分项限价|已标价工程量�
 #: relationship restriction, a same-manufacturer rejection ground, a site-visit
 #: arrangement or a pure definitional clause (fixtures E/I/N class).
 _DECISIVE_RULES: tuple[tuple[re.Pattern[str], str, str], ...] = (
+    (
+        re.compile(r"(失信被执行人|严重违法失信|重大税收违法|信用中国|经营异常名录|信用记录|信誉要求)"),
+        "QUALIFICATION_CREDIT",
+        "credit-record exclusion wording",
+    ),
+    (
+        re.compile(r"(机器码|制作机器码|制作标识|雷同|串通投标|恶意串通|弄虚作假)"),
+        "EVALUATION_COLLUSION",
+        "collusion / machine-code sameness ground",
+    ),
+    (
+        re.compile(r"(异议函|提出异议方法|提出异议|质疑|投诉|评审标准|初步评审标准|对采购人的纪律要求|干扰、影响评审|不得泄露采购活动)"),
+        "PURCHASER_PROCEDURE",
+        "purchaser evaluation/award/objection procedure, not a bidder duty",
+    ),
+    (
+        re.compile(r"(甲方提出异议|乙方在接到甲方通知后|验收完毕后\s*\d+\s*个工作日)"),
+        "CONTRACT_ACCEPTANCE",
+        "contract acceptance/objection handling procedure",
+    ),
+    (
+        re.compile(r"(收费标准的\s*\d+(?:\.\d+)?\s*%|向成交供应商.{0,8}(收取|支付))"),
+        "AGENCY_SERVICE_FEE",
+        "agency service fee rate/collection",
+    ),
+    (
+        re.compile(r"(同意延长|延长响应文件递交截止|延长响应文件的递交)"),
+        "QUERY_DEADLINE",
+        "amendment/extension of the submission deadline",
+    ),
+    (
+        re.compile(r"(偏离[:：]|为正偏离|为负偏离)"),
+        "TERM_DEFINITION",
+        "definitional deviation clause, not a bidder duty",
+    ),
+    (
+        re.compile(r"(被依法暂停|取消响应资格|责令停产停业|吊销营业执照)"),
+        "REJECTION_GENERAL",
+        "statutory disqualification ground",
+    ),
+    (
+        re.compile(r"(澄清、说明或者更正|澄清、说明或补正)"),
+        "EVALUATION_RESPONSIVENESS",
+        "clarification scope rule inside the evaluation procedure",
+    ),
+    (
+        re.compile(r"(代理服务费|招标代理服务费|采购代理服务费|中标服务费)"),
+        "AGENCY_SERVICE_FEE",
+        "agency service fee, not a contract purchase-price payment",
+    ),
+    (
+        re.compile(r"(否决所有响应|推荐成交候选|成交候选人.{0,6}名|评审小组成员|确定方式|工作人员.{0,6}纪律|擅离职守)"),
+        "PURCHASER_PROCEDURE",
+        "purchaser evaluation/award procedure, not a bidder duty",
+    ),
+    (
+        re.compile(r"(授权委托书|法定代表人授权|授权代表|委托代理人)"),
+        "AUTHORIZATION",
+        "authorisation/attorney chain wording",
+    ),
+    (
+        re.compile(r"(提出问题的时间|提出问题的截止|供应商提问|答疑澄清|澄清截止|修改询比文件|修改招标文件|延长响应文件递交截止)"),
+        "QUERY_DEADLINE",
+        "question/clarification/amendment deadline",
+    ),
+    (
+        re.compile(r"(履约保证金|履约担保)"),
+        "PERFORMANCE_BOND",
+        "performance bond, not the response bond",
+    ),
     (
         re.compile(r"(单位负责人为同一人|直接控股|管理关系|同一人或者存在)"),
         "QUALIFICATION_RELATIONSHIP_RESTRICTION",
@@ -867,6 +1146,21 @@ _OVERRIDABLE_BASES = frozenset(
     }
 )
 
+#: Concerns whose failure consequence may be a score loss.
+_SCORING_CONCERNS = frozenset(
+    {
+        "EVALUATION_SCORING",
+        "SCORING_PAYMENT_CONDITION",
+        "SCORING_DELIVERY_PLAN",
+        "SCORING_EMERGENCY_PLAN",
+        "SCORING_QUALITY_SYSTEM",
+        "SCORING_PERFORMANCE",
+        "SCORING_TECHNICAL",
+        "SCORING_PERSONNEL",
+        "SCORING_PRICE_FORMULA",
+    }
+)
+
 #: Consequences that only a scoring concern may own.
 _SCORE_ONLY_CONSEQUENCES = frozenset({"0分", "扣分", "不得分"})
 
@@ -874,6 +1168,13 @@ _FEE_FRAGMENT = re.compile(r"(?:\d+[、.)]?\s*)?[^。；\n]*(?:售价|工本费|
 
 
 _ANAPHORIC = re.compile(r"(此项|该事项|本项|上述|本项目|该条款|本条)")
+
+#: A score/points or payment-ratio fragment ("（12 分）…15%…支付总货款").
+_SCORING_FRAGMENT = re.compile(
+    r"(得\s*\d+(?:\.\d+)?\s*分|（\s*\d+\s*分\s*）|最高得?\s*\d+(?:\.\d+)?\s*分|分值|评分|计分"
+    r"|\d+(?:\.\d+)?\s*%.{0,14}(?:支付|付款|付清|货款|比例)"
+    r"|(?:支付|付款|货款|比例).{0,14}\d+(?:\.\d+)?\s*%)"
+)
 
 #: Concerns strong enough to be inherited by an anaphoric sibling atom inside
 #: the same source clause (``此项``/``本项`` refers to the same requirement).
@@ -889,6 +1190,12 @@ _STRONG_CONCERNS = frozenset(
         "SUBCONTRACT",
     }
 )
+
+
+def _nospace(text: object) -> str:
+    """Whitespace-free comparison form (extraction inserts spaces inside terms)."""
+
+    return re.sub(r"[\s\u3000]+", "", str(text or ""))
 
 
 def _topic_concern(atom: SourceRequirementAtom) -> str:
@@ -917,6 +1224,36 @@ def _clean_fragment(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip(" ；;。")
 
 
+def _scoring_factor(text: str) -> tuple[str, str] | None:
+    """Split one scoring clause into the *single* factor it scores.
+
+    Round 4 fixture O: a "评分标准与分值构成" family that keeps delivery plan,
+    emergency measures, quality system, performance, acceptance-of-bank-draft,
+    advance funding and the price formula in one row renders conditions and
+    points that belong to other factors.
+    """
+
+    if re.search(r"(价格分|报价得分|评标价|基准价|价格评分|报价评分|价格计算公式)", text):
+        return "SCORING_PRICE_FORMULA", "price-formula scoring factor"
+    if re.search(r"(供货方案|供货计划|实施方案|组织方案|进度计划)", text):
+        return "SCORING_DELIVERY_PLAN", "delivery-plan scoring factor"
+    if re.search(r"(应急|保障措施|突发)", text):
+        return "SCORING_EMERGENCY_PLAN", "emergency-plan scoring factor"
+    if re.search(r"(质量保证体系|质量体系|质量管理|质量控制)", text):
+        return "SCORING_QUALITY_SYSTEM", "quality-system scoring factor"
+    if re.search(r"(类似业绩|业绩|类似项目)", text):
+        return "SCORING_PERFORMANCE", "performance scoring factor"
+    if re.search(r"(拟投入人员|项目负责人|项目经理|职称|资格证书|人员配置)", text):
+        return "SCORING_PERSONNEL", "personnel scoring factor"
+    if re.search(r"(接受.{0,4}银行承兑|银行承兑|承兑汇票|垫资)", text):
+        return "SCORING_PAYMENT_CONDITION", "payment-condition scoring factor"
+    if re.search(r"(付款|支付|质保金|价款)", text):
+        return "SCORING_PAYMENT_CONDITION", "payment-condition scoring factor"
+    if re.search(r"(技术方案|技术标|技术响应|技术措施)", text):
+        return "SCORING_TECHNICAL", "technical scoring factor"
+    return None
+
+
 def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
     """Refine the topic family into the exact human concern."""
 
@@ -931,10 +1268,16 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
         return "ELECTRONIC_UPLOAD", "electronic signing/upload wording dominates the signature keyword"
 
     # A scoring rule about a payment ratio is a scoring item, not a retention
-    # clause; an explicit score cue therefore wins over retention wording.
+    # clause; an explicit score cue therefore wins over retention wording.  The
+    # sentence still belongs to the *specific* scoring factor it scores, so the
+    # 95%/5% payment-condition rule renders in its own scoring row instead of
+    # being flattened into the generic 评分标准与分值构成 row (round-4 fixture O).
     if re.search(r"(得\s*\d+(?:\.\d+)?\s*分|分值|最高得?\s*\d+(?:\.\d+)?\s*分)", text):
         if _COLLUSION_CUES.search(text):
             return "EVALUATION_COLLUSION", "collusion/fraud wording inside a scoring clause"
+        factor = _scoring_factor(text)
+        if factor:
+            return factor
         return "EVALUATION_SCORING", "scoring clause"
 
     # retention wording always wins over the warranty topic: same keyword,
@@ -974,6 +1317,8 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
         return base, "bond clause"
 
     if base == "SUBMISSION_DEADLINE":
+        if re.search(r"(提出问题|提问|澄清|修改|质疑|延长)", text):
+            return "QUERY_DEADLINE", "question/clarification/amendment deadline"
         if re.search(r"(地点|方式|平台|送达|递交至)", text):
             return "SUBMISSION_PLATFORM", "submission place/method"
         if re.search(r"(正本|副本|份数|U盘|电子版)", text):
@@ -994,11 +1339,16 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
     if base == "EVALUATION_SCORING":
         if _COLLUSION_CUES.search(text):
             return "EVALUATION_COLLUSION", "collusion/fraud wording inside the evaluation topic"
-        if re.search(r"(得\s*\d+(?:\.\d+)?\s*分|分值|最高得?\s*\d+(?:\.\d+)?\s*分)", text):
-            return "EVALUATION_SCORING", "scoring item"
+        factor = _scoring_factor(text)
+        if factor:
+            return factor
         return "EVALUATION_SCORING", "evaluation-method clause"
 
     if base == "FILE_FORMAT":
+        if re.search(r"(异议函|质疑|投诉|评审小组成员|专家.{0,6}(抽取|库)|工作人员.{0,6}(纪律|擅离职守))", text):
+            return "PURCHASER_PROCEDURE", "purchaser procedure text inside a format topic"
+        if re.search(r"(澄清|说明或者更正|修改询比文件|修改招标文件)", text):
+            return "QUERY_DEADLINE", "clarification/amendment procedure is not a format requirement"
         if _FORMAT_CUES.search(text):
             return "FILE_FORMAT", "response-file format requirement"
         if _COMPOSITION_CUES.search(text):
@@ -1006,8 +1356,12 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
         return "UNSUPPORTED_FORMAT_CLAIM", "format topic without format source content"
 
     if base == "FILE_COMPOSITION":
-        if re.search(r"异议", text):
-            return "UNSUPPORTED_FORMAT_CLAIM", "objection-letter text is not file composition"
+        if re.search(r"(异议函|质疑|投诉)", text):
+            return "PURCHASER_PROCEDURE", "objection/complaint procedure is not file composition"
+        if re.search(r"(评审小组成员|专家.{0,6}(确定方式|抽取)|工作人员.{0,6}(纪律|擅离职守))", text):
+            return "PURCHASER_PROCEDURE", "committee/procedure text is not file composition"
+        if re.search(r"(澄清|说明或者更正|修改)", text):
+            return "QUERY_DEADLINE", "clarification/amendment procedure is not file composition"
         if _COMPOSITION_CUES.search(text) or _FORMAT_CUES.search(text):
             return "FILE_COMPOSITION", "response-file composition requirement"
         return "GENERAL_BIDDER_OBLIGATION", "composition topic without composition content"
@@ -1021,11 +1375,24 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
         return "PRICE_COMPLETENESS", "price topic without a ceiling value"
 
     if base == "PRICE_COMPLETENESS":
+        if re.search(r"(结算|变更|调价|索赔|图纸|施工环境)", text):
+            return "CONTRACT_RISK", "contract settlement/change wording, not a price-completeness item"
+        if re.search(r"(甲方|乙方).{0,12}(签字|盖章|验收单|交付完成)", text):
+            return "CONTRACT_ACCEPTANCE", "contract delivery/acceptance wording"
         if re.search(r"(税金|税率|含税|不含税)", text):
             return "PRICE_TAX_BASIS", "tax basis wording"
         if re.search(r"(大写|小写|单价|合计|总价)", text):
             return "PRICE_ARITHMETIC", "price arithmetic wording"
+        if re.search(r"(盖单位公章|法定代表人或其委托代理人|年\s*月\s*日)", text):
+            return "SIGNATURE_AND_SEAL", "signature block is not price content"
         return base, "price completeness wording"
+
+    if base == "TECHNICAL_PARAMETER":
+        if re.search(r"(材料清单|合同协议书|供货业绩|业绩证明).{0,20}(复印件|扫描件|提供)", text) and not re.search(
+            r"(技术参数|参数|★|技术要求|配置)", text
+        ):
+            return "TECHNICAL_PROOF", "proof-material note is not a technical parameter"
+        return base, "technical parameter"
 
     if base == "QUALIFICATION_FINANCIAL" and re.search(r"(资金来源|自筹|财政资金|资金来源为)", text):
         return "PROJECT_BASIC_INFO", "project financing is not a bidder financial duty"
@@ -1192,6 +1559,9 @@ def _retention_ratio_atoms(atom: SourceRequirementAtom) -> list[SourceRequiremen
             atom,
             atom_id=f"{atom.atom_id}.r",
             source_text=fragment,
+            # the derived facet keeps the text it was cut from, so the rendered
+            # evidence stays literally grounded in the source unit
+            source_origin_text=text,
             owner_concern_id="RETENTION_MONEY_RATIO",
             owner_reason="decisive: retention-money ratio facet of a combined retention clause",
         )
@@ -1356,11 +1726,47 @@ class ReviewConcern:
     def is_bidder_facing(self) -> bool:
         return concern_spec(self.concern_id).bidder_facing
 
+    def facet_atoms(self) -> list[SourceRequirementAtom]:
+        """Atoms that actually carry this concern's own facet.
+
+        A concern groups every atom that answers one human question, but a few
+        of those atoms are only *related* to it (a quantity table next to an
+        acceptance clause, a payment schedule next to a retention ratio).  A
+        component manufactured from an atom -- a number, a material list, a
+        failure consequence -- may only come from an atom that names the
+        concern's own facet, otherwise the rendered row inherits the neighbour's
+        content.  When nothing matches (or no facet is declared) every owned
+        atom stays eligible, so coverage is never lost.
+        """
+
+        pattern = concern_spec(self.concern_id).decisive_pattern
+        if not pattern:
+            return list(self.atoms)
+        try:
+            compiled = re.compile(pattern)
+        except re.error:  # pragma: no cover - registry typo guard
+            return list(self.atoms)
+        scoring_concern = self.concern_id.startswith("SCORING_") or self.concern_id == "EVALUATION_SCORING"
+        matching: list[SourceRequirementAtom] = []
+        for atom in self.atoms:
+            # The extracted text often carries a space inside a term
+            # ("具备有效的营业 执照"), so the facet is matched on a
+            # whitespace-free form of the text.
+            text = _nospace(atom.source_text)
+            if not compiled.search(text):
+                continue
+            if not scoring_concern and _SCORING_FRAGMENT.search(text):
+                # a score/payment fragment next to the concern is a scoring item,
+                # never the facet atom of an operational concern
+                continue
+            matching.append(atom)
+        return matching or list(self.atoms)
+
     def owned_numbers(self) -> list[NumericEvidence]:
         roles = concern_spec(self.concern_id).numeric_roles
         owned: list[NumericEvidence] = []
         seen: set[tuple[str, str]] = set()
-        for atom in self.atoms:
+        for atom in self.facet_atoms():
             for value in extract_numeric_evidence([_unit_like(atom)]):
                 # ownership is decided by the semantic role, not by the round-2
                 # usability gate (which is keyed on the old requirement_type)
@@ -1375,24 +1781,30 @@ class ReviewConcern:
 
     def owned_materials(self) -> list[str]:
         materials: list[str] = []
-        for atom in self.atoms:
+        for atom in self.facet_atoms():
             for name in atom.required_materials:
-                if name not in materials:
-                    materials.append(name)
+                if name in materials:
+                    continue
+                if _material_foreign(str(name), self.concern_id):
+                    # A material named by another concern's facet (a bond receipt
+                    # listed inside an authorisation clause) is not this row's
+                    # preparation material.
+                    continue
+                materials.append(name)
         return materials
 
     def owned_consequence(self) -> tuple[str, str]:
-        for atom in self.atoms:
+        for atom in self.facet_atoms():
             marker = atom.explicit_consequence
             if not marker:
                 continue
-            if marker in _SCORE_ONLY_CONSEQUENCES and self.concern_id != "EVALUATION_SCORING":
+            if marker in _SCORE_ONLY_CONSEQUENCES and self.concern_id not in _SCORING_CONCERNS:
                 continue  # a score loss is not this concern's failure consequence
             return marker, atom.atom_id
         return "", ""
 
     def owned_score_rule(self) -> tuple[str, str]:
-        for atom in self.atoms:
+        for atom in self.facet_atoms():
             if atom.explicit_score_rule:
                 return atom.source_text, atom.atom_id
         return "", ""
@@ -1417,6 +1829,41 @@ class ReviewConcern:
             "multi_concern_reuse": self.multi_concern_reuse,
             "bidder_facing": self.is_bidder_facing,
         }
+
+
+_FACET_CACHE: dict[str, "re.Pattern[str] | None"] = {}
+
+
+def _facet_pattern(concern_id: str) -> "re.Pattern[str] | None":
+    if concern_id in _FACET_CACHE:
+        return _FACET_CACHE[concern_id]
+    pattern = concern_spec(concern_id).decisive_pattern
+    compiled = None
+    if pattern:
+        try:
+            compiled = re.compile(pattern)
+        except re.error:  # pragma: no cover - registry typo guard
+            compiled = None
+    _FACET_CACHE[concern_id] = compiled
+    return compiled
+
+
+def _material_foreign(name: str, concern_id: str) -> bool:
+    """True when another concern's facet names this material more specifically."""
+
+    text = _nospace(name)
+    own = _facet_pattern(concern_id)
+    own_length = len(own.search(text).group(0)) if (own and own.search(text)) else 0
+    for other_id in CONCERNS:
+        if other_id == concern_id:
+            continue
+        other = _facet_pattern(other_id)
+        if other is None:
+            continue
+        match = other.search(text)
+        if match and len(match.group(0)) > own_length:
+            return True
+    return False
 
 
 def build_concerns(atoms: Sequence[SourceRequirementAtom]) -> list[ReviewConcern]:

@@ -111,8 +111,8 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 86483,
-    "decisions_doc_bytes": 51313
+    "state_doc_bytes": 90047,
+    "decisions_doc_bytes": 55039
   },
   "checks": [
     {
@@ -368,12 +368,13 @@
       "status": "PASS"
     },
     {
-      "check": "docs_name_the_current_round3_builds",
+      "check": "docs_name_the_round3_builds_as_history",
       "status": "PASS",
-      "missing": []
+      "missing": [],
+      "note": "round 3 is history; its build ids must still be recorded somewhere in the docs"
     },
     {
-      "check": "docs_name_the_current_round3_xlsx_hashes",
+      "check": "docs_record_the_round3_xlsx_hashes_as_history",
       "status": "PASS",
       "missing": []
     },
@@ -381,10 +382,10 @@
       "check": "docs_record_the_round3_suite_counts",
       "status": "PASS",
       "state_has_counts": true,
-      "checklist_has_counts": true
+      "decisions_has_counts": false
     },
     {
-      "check": "state_doc_marks_xlsx_review_not_confirmed",
+      "check": "state_doc_marks_the_round3_xlsx_review_as_superseded",
       "status": "PASS"
     },
     {
@@ -398,12 +399,12 @@
       "note": "a sentence about a previous round may stay only where it is marked as history"
     },
     {
-      "check": "checklist_current_excel_object_is_round3",
+      "check": "checklist_current_excel_object_is_round4",
       "status": "PASS",
-      "current_marker_at": 17933,
-      "history_marker_at": 19753,
-      "first_round1_reference_at": 19872,
-      "note": "the current Excel review object is Round3; Round1/Round2 references must sit behind a history marker"
+      "current_marker_at": 4323,
+      "history_marker_at": 4980,
+      "first_round1_reference_at": 22430,
+      "note": "the current Excel review object is Round4; round-1/2/3 references sit behind history markers"
     },
     {
       "check": "checklist_has_the_round3_manual_checks",

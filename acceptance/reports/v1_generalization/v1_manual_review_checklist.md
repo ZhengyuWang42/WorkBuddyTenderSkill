@@ -72,6 +72,55 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 - `CASE00{1,2,3}_XLSX_MANUAL_REVIEW` 仍为 `NOT_YET_CONFIRMED`；本节**不勾选**任何复选框，
   人工 Excel 复核（第 0.5 节之后的任务 B）仍待人工执行。
 
+## 0.7 第 4 轮渲染层出处闭环（Round4 / ROUND-4 RENDERED-COMPONENT PROVENANCE）
+
+> 本节由第 4 轮人工加入；若用 `scripts/v1_manual_review_checklist.py` 重新生成，需要重新追加。
+
+人工复核第 3 轮工作簿（`..._review_workbook3`）判 **FAIL**，原因
+`RENDERED_COMPONENT_CONCERN_OWNERSHIP`：**语义归属存在于模型对象，但渲染出来的 Excel 单元格
+文本仍可能沿用过期/过宽来源组或旧主题模板的措辞**。第 4 轮把不变量推进到渲染层：
+
+> **SEMANTIC OWNERSHIP MUST SURVIVE RENDERING**——每一个渲染进 XLSX 的实质短语，
+> 都必须有"关注点自有"的出处。
+
+**当前 Excel 复核对象（CURRENT = Round4）**：
+
+| 项目 | 值 |
+| --- | --- |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4/投标项目复核表.xlsx` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook4/投标项目复核表.xlsx` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook4/投标项目复核表.xlsx` |
+| 机器状态 | `review_workbook_round4_final_status.json`（CASE001 25/25、CASE002 23/23、CASE003 23/23；八类 `RENDERED_*_CONCERN_MISMATCH = 0`；A–S 19/19；最终单元格审计全格一致） |
+| 全套测试 | 770 collected / 769 passed / 1 skipped / 0 failed / 0 errors（`review_workbook_round4_full_test_suite.{txt,xml}`） |
+
+**历史复核对象（HISTORICAL = Round3，人工判 FAIL，未删除、未改写）**：
+`acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3`、
+`acceptance/workspace/case_002/v1_round4_closure8_review_workbook3`、
+`acceptance/workspace/case_003/v1_round4_closure8_review_workbook3`
+（SHA256 见 `review_workbook_round3_final_status_reconciled.json`；`review_workbook_round3_full_test_suite` = 716 collected / 715 passed）。
+
+机器证据：`review_workbook_round4_final_status.json`、`case00{1,2,3}_review_workbook_round4.{json,md}`、
+`review_workbook_round4_rendered_component_provenance_case_00{1,2,3}.json`、
+`case_00{1,2,3}_review_workbook_round4_gate.json`（第 3 轮 40 项门禁在**第 4 轮工作簿**上各 40/40 PASS）、
+`case_00{1,2,3}_review_workbook_visual_qa_round4.json`、`review_workbook_round4_full_test_suite.{txt,xml}`。
+
+第 4 轮修复的人工可见缺陷（复核时请重点确认）：
+
+- 资质/信用行不再出现 `资质证书` / `专业类别` / `资质等级`；签章行不再出现 CA 上传 / 澄清 /
+  授权委托书；否决行不再出现"推荐成交候选人 1–3 名"或凭空的无效后果。
+- 每个数字都能在其**所属关注点**的来源与角色里找到：工期行不出现"14 个/3 个"、安装行不出现
+  联系人、评分行按 95%/5% 付款条件、40 分价格公式、最高 1 分**分行**呈现（不再合并成一行）。
+- CASE001：`PROJECT_WARRANTY = 24个月`、`RETENTION_MONEY_RATIO = 5%`、
+  `RETENTION_RELEASE_PERIOD = 12个月` 三行并存且措辞各自独立——12 个月**不**被写成项目质保期，
+  5% **不**被写成评分/付款比例。
+- 机器列（E 证据定位、M 类型/关联事实）只承载本关注点的证据与**允许的**关联事实键。
+
+人工复核义务不变：第 3 轮人工 `FAIL` **保留**在
+`case001_review_workbook_round4_human_review.json`，自动化只能关闭为
+`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，
+**不勾选任何人工结论**（`已通过 = 0`；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`，
+无 tag、无 release）。
+
 ## 0. 自动化结论 (automated result)
 
 | 项目 | 值 |

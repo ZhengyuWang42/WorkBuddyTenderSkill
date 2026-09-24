@@ -56,6 +56,33 @@ ROUND3_BUILD_ID = {
     "case_003": "v1_round4_closure8_review_workbook3",
 }
 
+#: Round-4 review-workbook current-truth evidence.  Round 4 supersedes round 3 as
+#: the *current* review object (the human reviewed round 3, failed it, and round 4
+#: closes the rendered-component provenance defect); the round-3 artifacts above
+#: stay frozen and keep being verified as history.
+ROUND4_FINAL_STATUS = "review_workbook_round4_final_status.json"
+ROUND4_REPORT = "{case}_review_workbook_round4.json"
+ROUND4_GATE = "{case}_review_workbook_round4_gate.json"
+ROUND4_VISUAL = "{case}_review_workbook_visual_qa_round4.json"
+ROUND4_PROVENANCE = "review_workbook_round4_rendered_component_provenance_{case}.json"
+ROUND4_SUITE_XML = "review_workbook_round4_full_test_suite.xml"
+ROUND4_BUILD_ID = {
+    "case_001": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4",
+    "case_002": "v1_round4_closure8_review_workbook4",
+    "case_003": "v1_round4_closure8_review_workbook4",
+}
+ROUND4_INVARIANT = "SEMANTIC OWNERSHIP MUST SURVIVE RENDERING"
+ROUND4_MISMATCH_BUCKETS = (
+    "rendered_source_requirement_concern_mismatch",
+    "rendered_review_check_concern_mismatch",
+    "rendered_pass_criterion_concern_mismatch",
+    "rendered_failure_consequence_concern_mismatch",
+    "rendered_preparation_material_concern_mismatch",
+    "rendered_scoring_guidance_concern_mismatch",
+    "rendered_numeric_statement_concern_mismatch",
+    "rendered_evidence_summary_concern_mismatch",
+)
+
 #: Lines of look-back allowed when deciding whether a superseded build id is
 #: introduced by a history marker rather than presented as current.
 HISTORY_LOOKBACK = 10
@@ -316,8 +343,214 @@ def check_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text:
     }
 
 
+def check_round4_docs(
+    gate: Gate, state_text: str, decisions_text: str, checklist_text: str
+) -> dict:
+    """Round-4 current truth: the rendered workbook must agree with the docs.
+
+    Round 4 supersedes round 3 as the current review object.  The machine state is
+    authoritative; the docs are checked *against* it, never the other way round.
+    The round-3 object stays frozen and documented as history.
+    """
+
+    general = REPO / GENERALIZATION
+    final_path = general / ROUND4_FINAL_STATUS
+    if not final_path.is_file():
+        gate.check("round4_final_status_exists", False, path=str(final_path))
+        return {}
+    final = load(final_path)
+    gate.check(
+        "round4_final_status_is_pass",
+        str(final.get("result")) == "PASS" and not final.get("blockers"),
+        result=final.get("result"),
+        blockers=final.get("blockers"),
+    )
+
+    cases: dict[str, dict] = {}
+    for case in CASES:
+        entry: dict[str, object] = {}
+        report_path = general / ROUND4_REPORT.format(case=case)
+        if report_path.is_file():
+            report = load(report_path)
+            counts = report.get("rendered_mismatch_counts") or {}
+            audit = report.get("final_cell_audit") or {}
+            entry["report"] = {
+                "verdict": report.get("verdict"),
+                "checks": f"{report.get('passed_count')}/{report.get('check_count')}",
+                "mismatch_total": report.get("rendered_component_concern_mismatch_total"),
+                "unverified": report.get("rendered_component_unverified_count"),
+                "audit": f"{audit.get('coherent_cell_count')}/{audit.get('audited_cell_count')}",
+            }
+            gate.check(
+                f"{case}_round4_report_pass",
+                report.get("verdict") == "PASS"
+                and report.get("failed_checks") == []
+                and report.get("rendered_component_concern_mismatch_total") == 0
+                and report.get("rendered_component_unverified_count") == 0
+                and all(counts.get(bucket) == 0 for bucket in ROUND4_MISMATCH_BUCKETS)
+                and int(audit.get("incoherent_cell_count", 1)) == 0,
+                **entry["report"],
+            )
+        else:
+            gate.check(f"{case}_round4_report_pass", False, path=str(report_path))
+
+        provenance_path = general / ROUND4_PROVENANCE.format(case=case)
+        if provenance_path.is_file():
+            provenance = load(provenance_path)
+            entry["provenance"] = {
+                "components": provenance.get("component_count"),
+                "unverified": provenance.get("unverified_count"),
+                "cells": provenance.get("cell_count"),
+            }
+            gate.check(
+                f"{case}_round4_provenance_complete",
+                bool(provenance.get("component_count"))
+                and provenance.get("unverified_count") == 0
+                and bool(provenance.get("cells"))
+                and bool(provenance.get("workbook_sha256")),
+                **entry["provenance"],
+            )
+        else:
+            gate.check(f"{case}_round4_provenance_complete", False, path=str(provenance_path))
+
+        gate_path = general / ROUND4_GATE.format(case=case)
+        if gate_path.is_file():
+            structure = load(gate_path)
+            entry["gate"] = {
+                "result": structure.get("result"),
+                "passed": structure.get("passed"),
+                "check_count": structure.get("check_count"),
+            }
+            gate.check(
+                f"{case}_round4_structure_gate_40_of_40",
+                structure.get("result") == "PASS"
+                and structure.get("passed") == structure.get("check_count") == 40,
+                **entry["gate"],
+            )
+        else:
+            gate.check(f"{case}_round4_structure_gate_40_of_40", False, path=str(gate_path))
+
+        visual_path = general / ROUND4_VISUAL.format(case=case)
+        if visual_path.is_file():
+            visual = load(visual_path)
+            checks = visual.get("checks") or {}
+            entry["visual_qa"] = {
+                "result": visual.get("result"),
+                "bounded_clipping_warnings": (checks.get("clipping_bounded") or {}).get("total"),
+                "no_clipped_dashboard_text": (checks.get("no_clipped_dashboard_text") or {}).get("result"),
+            }
+            gate.check(
+                f"{case}_round4_visual_qa_pass",
+                visual.get("result") == "PASS"
+                and entry["visual_qa"]["no_clipped_dashboard_text"] == "PASS",
+                **entry["visual_qa"],
+            )
+        else:
+            gate.check(f"{case}_round4_visual_qa_pass", False, path=str(visual_path))
+        cases[case] = entry
+
+    suite_path = general / ROUND4_SUITE_XML
+    suite_counts: dict[str, object] = {}
+    if suite_path.is_file():
+        import xml.etree.ElementTree as ET
+
+        suite = next(ET.parse(suite_path).getroot().iter("testsuite"))
+        suite_counts = {
+            "collected": int(suite.get("tests", "0")),
+            "failures": int(suite.get("failures", "0")),
+            "errors": int(suite.get("errors", "0")),
+            "skipped": int(suite.get("skipped", "0")),
+        }
+        suite_counts["passed"] = (
+            suite_counts["collected"]
+            - suite_counts["failures"]
+            - suite_counts["errors"]
+            - suite_counts["skipped"]
+        )
+        gate.check(
+            "round4_full_suite_is_green",
+            suite_counts["failures"] == 0 and suite_counts["errors"] == 0,
+            **suite_counts,
+        )
+    else:
+        gate.check("round4_full_suite_is_green", False, path=str(suite_path))
+
+    # --- documentation agreement ------------------------------------------- #
+    gate.check(
+        "state_doc_names_the_round4_pipeline",
+        "Round4" in state_text
+        and ROUND4_INVARIANT in state_text
+        and "RenderedReviewComponent" in state_text
+        and "review_rendering.py" in state_text
+        and "当前轮次" in state_text,
+    )
+    missing_paths = [
+        build_id
+        for build_id in ROUND4_BUILD_ID.values()
+        if build_id not in state_text or build_id not in checklist_text
+    ]
+    gate.check("docs_name_the_current_round4_builds", not missing_paths, missing=missing_paths)
+
+    hashes = {
+        case: (data.get("workbook_sha256") or "")
+        for case, data in (final.get("cases") or {}).items()
+    }
+    missing_hashes = [
+        case
+        for case, digest in hashes.items()
+        if not digest or digest not in state_text or digest not in checklist_text
+    ]
+    gate.check("docs_name_the_current_round4_xlsx_hashes", not missing_hashes, missing=missing_hashes)
+
+    gate.check(
+        "docs_record_the_round4_suite_counts",
+        bool(suite_counts)
+        and f"{suite_counts.get('collected')} collected" in state_text
+        and f"{suite_counts.get('passed')} passed" in state_text,
+        state_has_counts=(
+            f"{suite_counts.get('collected')} collected" in state_text
+            and f"{suite_counts.get('passed')} passed" in state_text
+        ),
+        counts=suite_counts,
+    )
+    gate.check(
+        "state_doc_marks_xlsx_review_state",
+        "CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW" in state_text
+        and all(
+            f"CASE00{index}_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED" in state_text
+            for index in (2, 3)
+        ),
+        note="round 4 may only close the human FAIL as pending-review, never tick a box",
+    )
+    human_path = general / "case001_review_workbook_round4_human_review.json"
+    human = load(human_path) if human_path.is_file() else {}
+    gate.check(
+        "human_fail_is_preserved_not_rewritten",
+        str(human.get("human_verdict", "")).upper() == "FAIL"
+        and human.get("fail_reason") == "RENDERED_COMPONENT_CONCERN_OWNERSHIP"
+        and human.get("must_not_be_rewritten") is True,
+        record=str(human_path),
+        human_verdict=human.get("human_verdict"),
+        fail_reason=human.get("fail_reason"),
+    )
+    gate.check(
+        "decisions_record_the_rendering_invariant",
+        ROUND4_INVARIANT in decisions_text
+        and "RenderedReviewComponent" in decisions_text
+        and "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW" in decisions_text,
+    )
+    gate.check(
+        "checklist_current_excel_object_is_round4",
+        "Round4" in checklist_text
+        and all(build_id in checklist_text for build_id in ROUND4_BUILD_ID.values()),
+        note="the checklist must point the human at the round-4 workbooks",
+    )
+
+    return {"result": "PASS" if not gate.problems else "FAIL", "cases": cases, "suite": suite_counts}
+
+
 def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text: str) -> dict:
-    """Round-3 current truth: docs must agree with the round-3 machine evidence.
+    """Round-3 history: the round-3 artifacts stay frozen and documented.
 
     The round-3 machine state is authoritative; the docs are checked *against* it,
     never the other way round.  A previous round may still be described, but only
@@ -464,31 +697,38 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
     missing_paths = [
         build_id
         for build_id in ROUND3_BUILD_ID.values()
-        if build_id not in state_text or build_id not in checklist_text
+        if build_id not in state_text and build_id not in checklist_text
     ]
-    gate.check("docs_name_the_current_round3_builds", not missing_paths, missing=missing_paths)
+    gate.check(
+        "docs_name_the_round3_builds_as_history",
+        not missing_paths,
+        missing=missing_paths,
+        note="round 3 is history; its build ids must still be recorded somewhere in the docs",
+    )
 
     hashes = {
         case: (data.get("workbook_sha256") or "")
         for case, data in (load(final_path).get("cases") or {}).items()
     }
     missing_hashes = [
-        case for case, digest in hashes.items() if not digest or digest not in state_text or digest not in checklist_text
+        case
+        for case, digest in hashes.items()
+        if not digest or (digest not in state_text and digest not in checklist_text)
     ]
-    gate.check("docs_name_the_current_round3_xlsx_hashes", not missing_hashes, missing=missing_hashes)
+    gate.check("docs_record_the_round3_xlsx_hashes_as_history", not missing_hashes, missing=missing_hashes)
 
     gate.check(
         "docs_record_the_round3_suite_counts",
-        "716 collected" in state_text and "715 passed" in state_text and "716 collected" in checklist_text,
+        ("716 collected" in state_text or "716 collected" in decisions_text)
+        and ("715 passed" in state_text or "715 passed" in decisions_text),
         state_has_counts=("716 collected" in state_text and "715 passed" in state_text),
-        checklist_has_counts=("716 collected" in checklist_text),
+        decisions_has_counts=("716 collected" in decisions_text and "715 passed" in decisions_text),
     )
     gate.check(
-        "state_doc_marks_xlsx_review_not_confirmed",
-        all(
-            f"CASE00{index}_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED" in state_text
-            for index in (1, 2, 3)
-        ),
+        "state_doc_marks_the_round3_xlsx_review_as_superseded",
+        "review_workbook3" in state_text
+        and "review_workbook4" in state_text
+        and "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW" in state_text,
     )
     gate.check(
         "state_doc_keeps_history_marked_as_history",
@@ -510,24 +750,21 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
         note="a sentence about a previous round may stay only where it is marked as history",
     )
 
-    current_marker = "当前复核对象（CURRENT = Round3）"
+    current_marker = "当前 Excel 复核对象（CURRENT = Round4）"
     history_marker = "历史复核对象（HISTORICAL"
     current_at = checklist_text.find(current_marker)
     history_at = checklist_text.find(history_marker, current_at) if current_at >= 0 else -1
     legacy_at = checklist_text.find("review_workbook1")
     gate.check(
-        "checklist_current_excel_object_is_round3",
+        "checklist_current_excel_object_is_round4",
         current_at >= 0
         and history_at > current_at
         and (legacy_at < 0 or legacy_at > history_at)
-        and all(
-            build_id in checklist_text
-            for build_id in ROUND3_BUILD_ID.values()
-        ),
+        and all(build_id in checklist_text for build_id in ROUND4_BUILD_ID.values()),
         current_marker_at=current_at,
         history_marker_at=history_at,
         first_round1_reference_at=legacy_at,
-        note="the current Excel review object is Round3; Round1/Round2 references must sit behind a history marker",
+        note="the current Excel review object is Round4; round-1/2/3 references sit behind history markers",
     )
     gate.check(
         "checklist_has_the_round3_manual_checks",

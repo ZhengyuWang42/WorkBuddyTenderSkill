@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Iterable, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 from pydantic import Field
 
@@ -42,13 +42,31 @@ from .dynamic_requirements import (
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
 from .output_helpers import value_text
-from .review_concern import actionable_concerns, atomize_units, build_concerns
+from .review_concern import actionable_concerns, atomize_units, build_concerns, concern_spec
 from .review_point import (
+    CONCERN_CHECKS,
+    CONCERN_PASS_CRITERIA,
     ReviewPoint,
     render_checks,
     render_review_cell,
     synthesize_concern_point,
     synthesize_review_point,
+    value_sentence,
+)
+from .review_rendering import (
+    EVIDENCE_SUMMARY,
+    FAILURE_CONSEQUENCE,
+    LINKED_FACT,
+    NUMERIC_STATEMENT,
+    PASS_CRITERION,
+    PREPARATION_MATERIAL,
+    REVIEW_CHECK,
+    SCORING_GUIDANCE,
+    SOURCE_REQUIREMENT,
+    ComponentOwnership,
+    RenderedReviewComponent,
+    mismatch_counts,
+    verify_component,
 )
 
 _STATUS_PENDING = "待核对"
@@ -314,6 +332,9 @@ class DynamicReviewItem(ContractModel):
     # round 3: the human review concern that owns every rendered component
     concern_id: str = ""
     concern_label: str = ""
+    # round 4: every material phrase rendered from this row, with the concern-owned
+    # inputs it came from (see tender_basic.review_rendering)
+    rendered_components: list[dict[str, Any]] = Field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -324,6 +345,10 @@ class DynamicReviewPlan:
     dropped_duplicate_count: int
     filtered_non_actionable_count: int = 0
     filtered_non_actionable_topics: tuple[str, ...] = ()
+    #: Non-bidder-facing clauses kept for coverage/traceability.  They are never
+    #: rendered as ordinary delivery rows (round-4 fixture: an internal-procedure
+    #: row must not appear as a normal row, let alone a HIGH-risk one).
+    background_items: tuple[DynamicReviewItem, ...] = ()
 
     def rows(self) -> list[DynamicReviewItem]:
         return list(self.items)
@@ -493,6 +518,7 @@ def build_dynamic_review_plan(
     units_by_id = {unit.requirement_id: unit for unit in source_index.units}
 
     items: list[DynamicReviewItem] = []
+    background_items: list[DynamicReviewItem] = []
     filtered_topics: list[str] = [
         f"{concern.label}（{concern.topic}）" for concern in filtered
     ]
@@ -502,10 +528,15 @@ def build_dynamic_review_plan(
         if not units:
             filtered_topics.append(f"{concern.label}（{concern.topic}）")
             continue
-        requirement_type = units[0].requirement_type
-        topic = units[0].topic
+        spec = concern_spec(concern.concern_id)
+        # Round 4: the row's presentation slot and its facts come from the
+        # concern, not from whichever clause happened to be first (an
+        # anti-bribery qualification concern must not be presented as a
+        # signature row, and a retention clause must not link the quality target).
+        requirement_type = spec.review_type or units[0].requirement_type
+        topic = spec.review_topic or units[0].topic
         module = _module_for(units, requirement_type, topic)
-        fact_fields = FACT_FOR_TYPE.get(requirement_type, ())
+        fact_fields = tuple(field for field in FACT_FOR_TYPE.get(requirement_type, ()) if field in spec.fact_fields)
         fact_hints: dict[str, str] = {}
         related_field = ""
         related_value = ""
@@ -530,12 +561,19 @@ def build_dynamic_review_plan(
             # Non-actionable or source-less concern: not a bidder review row.
             filtered_topics.append(f"{concern.label}（{topic}）")
             continue
+        owned_numbers = list(concern.owned_numbers())
+        owned_values = {value.value for value in owned_numbers}
         source_requirement = point.requirement_summary
-        values = [value for value in _concrete_values(units) if value not in related_value]
+        # Round 4: the row's numbers are the concern's *owned* numbers, rendered
+        # with a role-appropriate sentence.  The old broad extractor could put a
+        # neighbouring clause's quantity, contact or score into this row.
+        values = [value.value for value in owned_numbers]
         verification_action = render_checks(point)
         pass_criteria = " ".join(point.pass_criteria)
         consequence = point.failure_consequence
-        primary = sorted(units, key=_unit_priority(topic), reverse=True)[0]
+        primary_atom, primary = _primary_source(
+            concern, units_by_id, units, spec.decisive_pattern, owned_values, point.requirement_summary
+        )
         locator_parts = []
         if primary.page:
             locator_parts.append(f"第{primary.page}页")
@@ -547,40 +585,62 @@ def build_dynamic_review_plan(
             f"（{primary.source_kind}）"
         )
         counter += 1
-        items.append(
-            DynamicReviewItem(
-                item_id=f"DR{counter:03d}",
-                module=module,
-                submodule=concern.label or topic,
-                risk_level=RISK_BY_TYPE.get(requirement_type, "中"),
-                requirement_type=requirement_type,
-                topic=topic,
-                source_requirement=source_requirement,
-                verification_action=verification_action,
-                pass_criteria=pass_criteria,
-                consequence_if_failed=consequence,
-                source_locator=" / ".join(locator_parts),
-                source_page=primary.page,
-                source_section=primary.section,
-                source_evidence=primary.evidence_text,
-                source_requirement_ids=[
-                    unit.requirement_id for unit in units
-                ]
-                + [merged for unit in units for merged in unit.merged_ids],
-                related_project_fact=related_field,
-                related_fact_value=related_value,
-                confidence=round(
-                    sum(unit.mandatory or unit.high_risk for unit in units) / max(len(units), 1),
-                    3,
-                ),
-                values=values[:12],
-                notes=point.notes,
-                cell_text=render_review_cell(point),
-                review_point=point,
-                concern_id=point.concern_id,
-                concern_label=point.concern_label,
-            )
+        item_id = f"DR{counter:03d}"
+        evidence_text = str(getattr(primary_atom, "source_origin_text", "") or primary_atom.source_text)
+        if not _shared_grounding(evidence_text, units):
+            # a derived atom keeps its clause as the rendered evidence, so the
+            # evidence stays literally present in the source
+            evidence_text = str(getattr(primary, "text", "") or evidence_text)
+        components = _render_components(
+            item_id=item_id,
+            concern=concern,
+            point=point,
+            spec=spec,
+            owned_numbers=owned_numbers,
+            primary_atom=primary_atom,
+            primary=primary,
+            units=units,
+            fact_hints=fact_hints,
+            evidence_text=evidence_text,
         )
+        item = DynamicReviewItem(
+            item_id=item_id,
+            module=module,
+            submodule=concern.label or topic,
+            risk_level=RISK_BY_TYPE.get(requirement_type, "中"),
+            requirement_type=requirement_type,
+            topic=topic,
+            source_requirement=source_requirement,
+            verification_action=verification_action,
+            pass_criteria=pass_criteria,
+            consequence_if_failed=consequence,
+            source_locator=" / ".join(locator_parts),
+            source_page=primary.page,
+            source_section=primary.section,
+            source_evidence=evidence_text,
+            source_requirement_ids=[
+                unit.requirement_id for unit in units
+            ]
+            + [merged for unit in units for merged in unit.merged_ids],
+            related_project_fact=related_field,
+            related_fact_value=related_value,
+            confidence=round(
+                sum(unit.mandatory or unit.high_risk for unit in units) / max(len(units), 1),
+                3,
+            ),
+            values=values[:12],
+            notes=point.notes,
+            cell_text=cell_from_components(components),
+            review_point=point,
+            concern_id=point.concern_id,
+            concern_label=point.concern_label,
+            rendered_components=[component.as_dict() for component in components],
+        )
+        if spec.bidder_facing:
+            items.append(item)
+        else:
+            # Kept for coverage/traceability, never rendered as a delivery row.
+            background_items.append(item)
     return DynamicReviewPlan(
         items=tuple(items),
         index=source_index,
@@ -588,7 +648,254 @@ def build_dynamic_review_plan(
         dropped_duplicate_count=source_index.merged_duplicates,
         filtered_non_actionable_count=len(filtered_topics),
         filtered_non_actionable_topics=tuple(filtered_topics),
+        background_items=tuple(background_items),
     )
+
+
+def _primary_source(
+    concern: Any,
+    units_by_id: dict[str, Any],
+    units: Sequence[Any],
+    decisive_pattern: str,
+    owned_values: set[str],
+    requirement_summary: str = "",
+) -> tuple[Any, Any]:
+    """Pick the clause that actually carries this concern's facet.
+
+    Ranking: the clause the rendered requirement was quoted from, then the
+    concern's decisive facet, then an owned value, then owned
+    materials/consequence, then source order.  The printed locator, page and
+    evidence therefore belong to the same clause as the requirement text
+    (round-4 fixture H: a response-bond row must not cite the performance-bond
+    clause; fixture N: a price-completeness row must cite its own price clause).
+    """
+
+    atoms = list(getattr(concern, "atoms", ()))
+    facet = list(concern.facet_atoms()) if hasattr(concern, "facet_atoms") else atoms
+    pattern = None
+    if decisive_pattern:
+        try:
+            pattern = re.compile(decisive_pattern)
+        except re.error:  # pragma: no cover - registry typo guard
+            pattern = None
+    summary_key = re.sub(r"\s+", "", str(requirement_summary or ""))[:24]
+
+    def rank(indexed: tuple[int, Any]) -> tuple[int, int]:
+        index, atom = indexed
+        score = 0
+        flat_atom = re.sub(r"[\s\u3000]+", "", str(atom.source_text))
+        if summary_key:
+            first = True
+            for sentence in re.split(r"[；;。]", str(requirement_summary or "")):
+                probe = re.sub(r"[\s\u3000]+", "", sentence)[:24]
+                if probe and probe in flat_atom:
+                    # The clause the rendered requirement was quoted from is the
+                    # row's evidence; the first quoted sentence is decisive.
+                    score += 100 if first else 16
+                    break
+                if probe:
+                    first = False
+        if pattern is not None and pattern.search(flat_atom):
+            score += 8
+        if any(value and re.sub(r"[\s\u3000]+", "", value) in flat_atom for value in owned_values):
+            score += 4
+        if atom.required_materials:
+            score += 2
+        if atom.explicit_consequence:
+            score += 1
+        if atom.explicit_score_rule:
+            score += 1
+        if _OBLIGATION_CUE.search(atom.source_text):
+            # an imperative clause is the requirement itself; a bare table cell
+            # ("准 供应商名称 … 与营业执照一致") is only a cross-reference
+            score += 3
+        if re.search(r"\d+\.\d+(?:\.\d+)?", f"{atom.source_structure_id}{atom.source_text[:24]}"):
+            score += 2
+        return (score, -index)
+
+    pool = facet or atoms
+    if not pool:
+        return (None, units[0])
+    primary_atom = max(enumerate(pool), key=rank)[1]
+    primary = units_by_id.get(primary_atom.source_clause_id)
+    if primary is None:
+        primary = units[0]
+    return (primary_atom, primary)
+
+
+#: The cell block each component kind is rendered into.
+BLOCK_OF_KIND = {
+    SOURCE_REQUIREMENT: "招标文件要求",
+    REVIEW_CHECK: "复核要点",
+    PASS_CRITERION: "通过标准",
+    PREPARATION_MATERIAL: "准备材料",
+    FAILURE_CONSEQUENCE: "不满足后果",
+    SCORING_GUIDANCE: "评分提示",
+    NUMERIC_STATEMENT: "数值指标",
+    EVIDENCE_SUMMARY: "证据摘要",
+    LINKED_FACT: "关联事实",
+}
+
+
+def _components_from_dicts(payloads: Sequence[Mapping[str, Any]]) -> list[RenderedReviewComponent]:
+    return [RenderedReviewComponent.from_dict(payload) for payload in payloads]
+
+
+_CELL_MARKS = "①②③④⑤⑥⑦⑧⑨"
+
+
+def cell_from_components(components: Sequence[RenderedReviewComponent]) -> str:
+    """Render the legacy review cell *from* the verified components.
+
+    Round 4: the cell is a projection of the components, so a phrase cannot
+    appear in the sheet unless a concern-owned component produced it.  The
+    block labels and bullet marks match the historical cell layout.
+    """
+
+    def texts(kind: str) -> list[str]:
+        return [c.rendered_text for c in components if c.component_kind == kind]
+
+    blocks: list[str] = []
+    requirements = texts(SOURCE_REQUIREMENT)
+    if requirements:
+        blocks.append(f"招标文件要求：{requirements[0]}")
+    checks = texts(REVIEW_CHECK)
+    if checks:
+        lines = []
+        for index, check in enumerate(checks):
+            mark = _CELL_MARKS[index] if index < len(_CELL_MARKS) else f"({index + 1})"
+            lines.append(f"{mark} {check}")
+        blocks.append("复核要点：\n" + "\n".join(lines))
+    criteria = texts(PASS_CRITERION)
+    if criteria:
+        blocks.append("通过标准：\n" + "\n".join(f"· {criterion}" for criterion in criteria))
+    consequences = texts(FAILURE_CONSEQUENCE)
+    if consequences:
+        blocks.append(f"不满足后果：{consequences[0]}")
+    materials = texts(PREPARATION_MATERIAL)
+    if materials:
+        blocks.append("准备材料：" + "、".join(materials))
+    guidance = texts(SCORING_GUIDANCE)
+    if guidance:
+        blocks.append(f"评分提示：{guidance[0]}")
+    return "\n".join(block for block in blocks if block.strip())
+
+
+def _shorten(text: str, limit: int) -> str:
+    text = text.strip()
+    return text if len(text) <= limit else text[:limit].rstrip() + "…"
+
+
+#: An imperative requirement clause (as opposed to a cross-reference table cell).
+_OBLIGATION_CUE = re.compile(r"(应当|须|必须|不得|禁止|不允许|不接受|要求|应)")
+
+
+def _render_components(
+    *,
+    item_id: str,
+    concern: Any,
+    point: ReviewPoint,
+    spec: Any,
+    owned_numbers: Sequence[Any],
+    primary_atom: Any,
+    primary: Any = None,
+    units: Sequence[Any] = (),
+    fact_hints: Mapping[str, str],
+    evidence_text: str = "",
+) -> list[RenderedReviewComponent]:
+    """Build and verify the rendered components of one review row."""
+
+    concern_id = point.concern_id
+    atoms = list(getattr(concern, "atoms", ()))
+    materials = list(getattr(concern, "owned_materials", lambda: [])())
+    ownership = ComponentOwnership(
+        concern_id=concern_id,
+        atom_ids=tuple(str(atom.atom_id) for atom in atoms),
+        atom_text=" ".join(
+            f"{atom.source_text} {getattr(atom, 'source_origin_text', '') or ''}" for atom in atoms
+        ),
+        clause_text=" ".join(str(unit.text) for unit in units),
+        numeric_values=tuple(str(value.value) for value in owned_numbers),
+        materials=tuple(str(name) for name in materials),
+        evidence_ids=tuple(point.owned_clause_ids),
+        allowed_fact_keys=frozenset(spec.fact_fields),
+        fact_values={field: hint for field, hint in fact_hints.items()},
+    )
+    components: list[RenderedReviewComponent] = []
+    counter = 0
+    kind_counts: dict[str, int] = {}
+
+    def add(
+        kind: str,
+        text: str,
+        *,
+        rule: str,
+        evidence_ids: Sequence[str] = (),
+        numeric_ids: Sequence[str] = (),
+        fact_keys: Sequence[str] = (),
+    ) -> None:
+        nonlocal counter
+        counter += 1
+        kind_counts[kind] = kind_counts.get(kind, 0) + 1
+        component = RenderedReviewComponent(
+            component_id=f"{item_id}:{kind}:{counter:02d}",
+            review_point_id=item_id,
+            concern_id=concern_id,
+            component_kind=kind,
+            rendered_text=str(text),
+            source_atom_ids=tuple(str(atom.atom_id) for atom in atoms),
+            evidence_ids=tuple(str(value) for value in evidence_ids),
+            linked_fact_keys=tuple(str(value) for value in fact_keys),
+            numeric_evidence_ids=tuple(str(value) for value in numeric_ids),
+            generation_rule=rule,
+            block=BLOCK_OF_KIND.get(kind, kind),
+            sentence_index=kind_counts[kind],
+        )
+        components.append(verify_component(component, ownership))
+
+    add(SOURCE_REQUIREMENT, point.requirement_summary, rule="CONCERN_SUMMARY_OWNED_ATOMS")
+    templates = set(CONCERN_CHECKS.get(concern_id, ()))
+    for check in point.review_checks:
+        add(
+            REVIEW_CHECK,
+            check,
+            rule="CONCERN_CHECK_TEMPLATE" if check in templates else "CONCERN_CHECK_DERIVED_OWNED",
+        )
+    criteria_templates = {CONCERN_PASS_CRITERIA.get(concern_id, "")}
+    for criterion in point.pass_criteria:
+        add(
+            PASS_CRITERION,
+            criterion,
+            rule="CONCERN_CRITERION_TEMPLATE" if criterion in criteria_templates else "CONCERN_CRITERION_DERIVED_OWNED",
+        )
+    for name in materials:
+        add(PREPARATION_MATERIAL, str(name), rule="CONCERN_OWNED_MATERIAL")
+    if point.failure_consequence:
+        add(FAILURE_CONSEQUENCE, point.failure_consequence, rule="CONCERN_OWNED_CONSEQUENCE")
+    if point.scoring_guidance:
+        add(SCORING_GUIDANCE, point.scoring_guidance, rule="CONCERN_OWNED_SCORE_RULE")
+    numeric_backing = str(getattr(point, "owned_backing", "") or "") or ownership.backing_text
+    for value in owned_numbers[:4]:
+        # only the numbers the row actually renders (its checks/criteria carry the
+        # first four) become rendered components; further owned values stay data
+        add(
+            NUMERIC_STATEMENT,
+            value_sentence(value.role, value.value, numeric_backing),
+            rule=f"CONCERN_OWNED_NUMERIC:{value.role}",
+            numeric_ids=[str(getattr(value, "unit_id", "") or value.value)],
+        )
+    if primary_atom is not None:
+        add(
+            EVIDENCE_SUMMARY,
+            _shorten(evidence_text or str(primary_atom.source_text), 300),
+            rule="CONCERN_DECISIVE_ATOM",
+            evidence_ids=[str(primary_atom.source_clause_id)],
+        )
+    for field in getattr(point, "linked_fact_keys", ()) or ():
+        if field not in fact_hints:
+            continue
+        add(LINKED_FACT, f"关联事实：{field}", rule="CONCERN_ALLOWED_FACT", fact_keys=[field])
+    return components
 
 
 def order_review_items(items: Sequence[DynamicReviewItem]) -> list[DynamicReviewItem]:
@@ -648,6 +955,10 @@ def dynamic_review_qa(
     units_by_id = {unit.requirement_id: unit for unit in plan.index.units}
     covered_ids: set[str] = set()
     for item in plan.items:
+        covered_ids.update(item.source_requirement_ids)
+    # Background (non-bidder-facing) clauses are still covered: they are retained
+    # for traceability but are not rendered as delivery rows.
+    for item in getattr(plan, "background_items", ()) or ():
         covered_ids.update(item.source_requirement_ids)
 
     high_risk_units = [
@@ -742,6 +1053,7 @@ def dynamic_review_qa(
 
     metrics: dict[str, object] = {
         "dynamic_review_item_count": len(plan.items),
+        "background_review_item_count": len(getattr(plan, "background_items", ()) or ()),
         "review_items_by_module": module_counts,
         "review_items_by_risk": risk_counts,
         "review_items_by_type": type_counts,
@@ -777,6 +1089,37 @@ def dynamic_review_qa(
         "workbook_rows_match_dynamic_items": workbook_rows_match,
         "workbook_mismatch_rows": workbook_mismatch_rows[:20],
     }
+    # Round 4: every rendered phrase must be owned by the row's concern.  The
+    # counts are per component kind so a failure names the rendering path.
+    rendered_counts = {f"rendered_{kind.lower()}_concern_mismatch": 0 for kind in (
+        SOURCE_REQUIREMENT,
+        REVIEW_CHECK,
+        PASS_CRITERION,
+        PREPARATION_MATERIAL,
+        FAILURE_CONSEQUENCE,
+        SCORING_GUIDANCE,
+        NUMERIC_STATEMENT,
+        EVIDENCE_SUMMARY,
+        LINKED_FACT,
+    )}
+    rendered_counts["rendered_component_concern_mismatch_total"] = 0
+    mismatch_ids: list[str] = []
+    unverified_component_count = 0
+    for item in list(plan.items) + list(getattr(plan, "background_items", ()) or ()):
+        component_dicts = list(getattr(item, "rendered_components", ()) or ())
+        unverified_component_count += sum(1 for row in component_dicts if not row.get("ownership_verified"))
+        counts = mismatch_counts(_components_from_dicts(component_dicts))
+        for key, value in counts.items():
+            rendered_counts[key] = rendered_counts.get(key, 0) + value
+        if any(not row.get("ownership_verified") for row in component_dicts):
+            mismatch_ids.append(item.item_id)
+    metrics.update(rendered_counts)
+    metrics["rendered_component_concern_mismatch_item_ids"] = mismatch_ids[:20]
+    metrics["rendered_component_count"] = sum(
+        len(getattr(item, "rendered_components", ()) or ())
+        for item in list(plan.items) + list(getattr(plan, "background_items", ()) or ())
+    )
+    metrics["rendered_component_unverified_count"] = unverified_component_count
     hard_gates = {
         "source_mandatory_requirement_without_review_item_count": metrics[
             "source_mandatory_requirement_without_review_item_count"
@@ -791,6 +1134,8 @@ def dynamic_review_qa(
         ],
         "dynamic_review_item_count": metrics["dynamic_review_item_count"],
     }
+    for key, value in rendered_counts.items():
+        hard_gates[key] = value
     metrics["hard_gate_values"] = hard_gates
     metrics["hard_gate_failures"] = [
         name

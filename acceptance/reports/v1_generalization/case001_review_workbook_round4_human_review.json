@@ -1,0 +1,39 @@
+{
+  "schema": "v1_review_workbook_human_review/1",
+  "case": "case_001",
+  "round": "review_workbook_round3",
+  "recorded_by": "human manual review (reported to the agent)",
+  "artifact_reviewed": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3/投标项目复核表.xlsx",
+  "human_verdict": "FAIL",
+  "fail_reason": "RENDERED_COMPONENT_CONCERN_OWNERSHIP",
+  "human_note": "Semantic ownership exists in the model objects, but rendered Excel cell text can still contain content inherited from stale or broad source groups, or from old topic/template paths.",
+  "required_invariant": "EVERY MATERIAL PHRASE RENDERED INTO XLSX MUST HAVE CONCERN-OWNED PROVENANCE",
+  "must_not_be_rewritten": true,
+  "automation_may_not_mark_pass": true,
+  "automation_closure": {
+    "closed": true,
+    "closed_in_round": "review_workbook_round4",
+    "closed_by": "rendered-component provenance closure (automation only)",
+    "mechanism": [
+      "RenderedReviewComponent: the delivered D cell is now rendered from concern-owned components (cell_from_components)",
+      "per-cell provenance maps record cell address, rendered block, sentence index, concern id, source atom ids, numeric/material/evidence ids",
+      "the rendered-output gate re-reads the FINAL xlsx cells and verifies every rendered phrase against its concern's own backing",
+      "sentence-level arbitration keeps a phrase in its decisive concern instead of inheriting it from a broad topic group"
+    ],
+    "evidence": [
+      "acceptance/reports/v1_generalization/case001_review_workbook_round4.json",
+      "acceptance/reports/v1_generalization/review_workbook_round4_rendered_component_provenance_case_001.json"
+    ],
+    "human_review_state": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "human_checkboxes_ticked": 0
+  },
+  "resolved_findings": [
+    "stale broad-group phrases are no longer rendered (final-cell text is owned by the concern)",
+    "the 95%/5% payment-condition scoring rule now renders in its own scoring concern instead of the combined 评分标准与分值构成 row",
+    "12-month retention wording never appears as a project warranty; 5% retention money never appears as a scoring ratio"
+  ],
+  "still_open_for_the_human": [
+    "CASE001_XLSX_MANUAL_REVIEW remains unconfirmed; automation never ticks a human box",
+    "V1_PRODUCTION_CANDIDATE = false, READY_FOR_SUBMISSION = false"
+  ]
+}
