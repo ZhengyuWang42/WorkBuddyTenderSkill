@@ -1,6 +1,6 @@
 {
  "schema": "v1_review_workbook_round5_final_status/1",
- "generated_at": "2026-09-24T06:16:11.129391+00:00",
+ "generated_at": "2026-09-24T06:24:38.583503+00:00",
  "round": "review_workbook_round5",
  "commit_subject": "feat: add independent concern contracts to review workbook",
  "pipeline": "SourceRequirementAtom -> ReviewConcern -> ReviewPoint -> RenderedReviewComponent -> ConcernContract (independent semantic validation) -> workbook views",
@@ -1032,7 +1032,7 @@
  "full_test_suite": {
   "report": "acceptance\\reports\\v1_generalization\\review_workbook_round5_full_test_suite.txt",
   "xml": "acceptance\\reports\\v1_generalization\\review_workbook_round5_full_test_suite.xml",
-  "tests": 806,
+  "tests": 809,
   "failed": 0,
   "errors": 0,
   "skipped": 1,

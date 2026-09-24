@@ -468,3 +468,50 @@ def test_delivered_case001_rows_agree_with_their_contracts():
     assert not failed, failed
     assert report["delivered_row_audit_count"] == len(report["rows"]) > 0
     assert report["fixtures_passed"].startswith("20/20")
+
+
+def test_delivered_rows_are_read_from_the_final_cells():
+    """§19: the audit reads the workbook, not the in-memory model objects."""
+
+    if not REPORT5.is_file():
+        pytest.skip("round-5 CASE001 report is not present")
+    report = json.loads(REPORT5.read_text(encoding="utf-8"))
+    checks = {check["check"]: check for check in report["checks"]}
+    assert checks["delivered_rows_read_from_final_cells"]["ok"]
+    for row in report["rows"]:
+        assert row["cell"].startswith("投标项目复核表!")
+        assert row["evidence_cell"].startswith("投标项目复核表!")
+        assert row["note_cell"].startswith("投标项目复核表!")
+
+
+def test_final_view_sheets_are_audited_against_the_contracts():
+    """§20: 02/03 row cells and 06 are audited independently of the legacy rows."""
+
+    if not REPORT5.is_file():
+        pytest.skip("round-5 CASE001 report is not present")
+    report = json.loads(REPORT5.read_text(encoding="utf-8"))
+    checks = {check["check"]: check for check in report["checks"]}
+    views = checks["sheet_views_are_semantically_coherent"]
+    assert views["ok"]
+    assert views["evidence"]["rows_audited"] > 0
+    assert views["evidence"]["violations"] == []
+    assert views["evidence"]["unbound_rows"] == []
+
+    conflicts = checks["conflict_sheet_has_no_false_platform_conflicts"]
+    assert conflicts["ok"]
+    # 06 is compared with the ProjectFacts SSOT, never with the legacy sheet
+    assert conflicts["evidence"]["contradictions"] == []
+    assert "SSOT" in conflicts["detail"]
+
+
+def test_final_view_rows_are_not_judged_by_legacy_equality():
+    """The view audit must read the frozen sheet cells, not a legacy row copy."""
+
+    source = (ROOT / "scripts/v1_review_workbook_round5_report.py").read_text(encoding="utf-8")
+    assert "sheet_rows(sheet)" in source
+    assert "(CLAUSE_SHEET, 3, 11)" in source
+    assert "(MANDATORY_SHEET, 4, 12)" in source
+    assert "sheet_rows(CONFLICT_SHEET)" in source
+    # 06 is cross-checked with the ProjectFacts SSOT, not with the legacy rows
+    assert "facts.fields" in source and "SSOT" in source
+

@@ -21,8 +21,8 @@
 | payment_ratio_95_is_not_retention | PASS | RETENTION_MONEY_RATIO never carries 95% |
 | scoring_points_are_scoring_only | PASS | SCORE_POINTS values: ['12分', '1分', '2分', '30分', '40分', '4分', '8分'] |
 | bank_acceptance_ratio_separate | PASS | bank-acceptance ratio and payment ratio are distinct roles |
-| sheet_views_are_semantically_coherent | PASS | 02_关键条款 and 03_资格否决与强制项 audited from final cell text |
-| conflict_sheet_has_no_false_platform_conflicts | PASS | 8 conflict rows audited |
+| sheet_views_are_semantically_coherent | PASS | 02_关键条款 and 03_资格否决与强制项: 60 view rows validated against their concern contracts |
+| conflict_sheet_has_no_false_platform_conflicts | PASS | 7 conflict rows audited against the ProjectFacts SSOT |
 | word_artifacts_unchanged | PASS | 3 carried-over artifacts are byte-identical to their source build |
 | review_workbook5_written | PASS | 投标项目复核表.xlsx sha256=2ab34c754792 (71049 bytes) |
 | rendered_row_provenance_persisted | PASS | 49 rendered rows carry their exact cell address |

@@ -239,17 +239,20 @@
   {
    "check": "sheet_views_are_semantically_coherent",
    "ok": true,
-   "detail": "02_关键条款 and 03_资格否决与强制项 audited from final cell text",
+   "detail": "02_关键条款 and 03_资格否决与强制项: 60 view rows validated against their concern contracts",
    "evidence": {
-    "violations": []
+    "rows_audited": 60,
+    "violations": [],
+    "unbound_rows": []
    }
   },
   {
    "check": "conflict_sheet_has_no_false_platform_conflicts",
    "ok": true,
-   "detail": "8 conflict rows audited",
+   "detail": "7 conflict rows audited against the ProjectFacts SSOT",
    "evidence": {
-    "platform_mentions": 4
+    "platform_mentions": 4,
+    "contradictions": []
    }
   },
   {

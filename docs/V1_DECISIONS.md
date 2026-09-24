@@ -757,6 +757,11 @@ AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（人工第 3 轮判 FAIL）、CASE002/0
 - 片段而非要求：`is_incomplete_fragment` 把抽取残片
   （如"意见》的通知中规定的收费标准的 70%向成交供应商"）路由到 **NEEDS_REVIEW**，
   既不出现在交付行里，也不被静默丢弃（`needs_review_topics` / `needs_review_clause_ids`）。
+- 冻结视图同样受语义校验（**与旧表相等 ≠ 正确**）：`02_关键条款` 与
+  `03_资格否决与强制项` 的**每一行**都从最终单元格读出，用其产出关注点的契约重新校验
+  （CASE001 60 行、CASE002 53 行、CASE003 56 行，0 违规），且每一行都必须绑定到已交付关注点
+  （视图不得凭空造行）；`06_冲突与缺失` 与 **ProjectFacts SSOT** 双向比对
+  （SSOT 已 RESOLVED 的事实不得出现在冲突表、SSOT 未解决的事实不得在冲突表里缺失）。
 
 ### D59 五个角色必须分开（BANK the five roles）
 

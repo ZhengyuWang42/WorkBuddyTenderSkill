@@ -550,6 +550,7 @@ CASE001/CASE002/CASE003 的人工 Word 复核仍为 `NOT_YET_CONFIRMED`，
 | CASE001 `..._review_workbook5` 关注点契约报告 | **16/16 检查**，A–T 人工坏例 **20/20 PASS**，交付行审计 **49/49** |
 | CASE002 / CASE003 `..._review_workbook5` | **15/15**（45/45 行）/ **15/15**（48/48 行），A–T 对非 CASE001 记为 `NOT_APPLICABLE` |
 | 第 4 轮溯源门禁在**第 5 轮工作簿**上复跑 | CASE001 **25/25**、CASE002 **23/23**、CASE003 **23/23**，`rendered_mismatch_total = 0`，A–S 19/19 |
+| §20 冻结视图校验（**与旧表相等 ≠ 正确**） | `02_关键条款` / `03_资格否决与强制项` 逐行从最终单元格读出并用产出关注点的契约重校验：CASE001 **60 行**、CASE002 **53 行**、CASE003 **56 行**，违规 0、未绑定行 0；`06_冲突与缺失` 与 **ProjectFacts SSOT** 双向比对（已 RESOLVED 的事实不得列为未解决、未解决的事实不得缺失），矛盾 0，且无虚假平台冲突 |
 | 动态复核 QA | 三案例 `concern_contract_violation_count = 0`、`contract_uncovered_concern_count = 0`、`false_platform_conflict_count = 0`、`source_mandatory_requirement_without_review_item_count = 0` |
 | 数值角色 | `RETENTION_MONEY_RATIO = 5%`、`RETENTION_RELEASE = 12 months`、`PROJECT_WARRANTY = 24 months`、`PAYMENT_RATIO_95_AS_RETENTION = false`、`BANK_ACCEPTANCE_RATIO_SEPARATE = true` |
 | 污染类 | `QUALITY_LOCATION_CONTAMINATION = 0`、`VALIDITY_BLACKLIST_CONTAMINATION = 0`、`CONTRACT_PAYMENT_FOREIGN_CLAUSE = 0`、`PERFORMANCE_BOND_RESPONSE_BOND_EVIDENCE = 0`、`UNSUPPORTED_PRICE_COMPLETENESS_ASSERTIONS = 0`、`PRICE_ACCEPTANCE_MIXED_CONCERNS = 0`、`TECHNICAL_ACCEPTANCE_MIXED_CONCERNS = 0`、`FALSE_PLATFORM_CONFLICTS = 0` |

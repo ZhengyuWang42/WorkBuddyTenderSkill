@@ -728,52 +728,126 @@ class Round5Report:
         )
 
     def check_sheet_audit(self) -> None:
-        """§20: audit the final 02/03/06 views independently of the legacy rows."""
+        """§20: audit the final 02/03/06 views independently of the legacy rows.
 
+        Equality with the legacy sheet is *not* evidence of correctness: the views
+        are re-read from the frozen workbook cells and every row is validated
+        against the contract of the concern that produced it.
+        """
+
+        concern_by_item = {str(item.item_id): str(item.concern_id) for item in self.items}
         contract_violations: list[dict[str, str]] = []
-        for sheet in (CLAUSE_SHEET, MANDATORY_SHEET):
+        unbound_rows: list[str] = []
+        rows_audited = 0
+        for sheet, requirement_column, evidence_column in (
+            (CLAUSE_SHEET, 3, 11),
+            (MANDATORY_SHEET, 4, 12),
+        ):
             for index, values in enumerate(self.cells.sheet_rows(sheet)[1:], start=2):
-                if len(values) < 3:
+                if len(values) <= max(requirement_column, evidence_column):
                     continue
-                requirement = values[1] if len(values) > 1 else ""
-                if not requirement:
+                item_id = str(values[1] or "")
+                concern_id = concern_by_item.get(item_id)
+                if not concern_id:
+                    if item_id:
+                        unbound_rows.append(f"{sheet}!{index}:{item_id}")
                     continue
-                for column, value in enumerate(values[2:], start=3):
-                    if not value:
-                        continue
-                    text = str(value)
-                    if any(token in text for token in LOCATION_TOKENS) and "质量" in requirement:
+                requirement = str(values[requirement_column] or "")
+                criteria = str(values[requirement_column + 1] or "")
+                evidence = str(values[evidence_column] or "")
+                if not requirement and not evidence:
+                    continue
+                rows_audited += 1
+                for violation in validate_point(
+                    concern_id,
+                    displayed_text=requirement,
+                    pass_criteria=[criteria] if criteria else [],
+                    evidence_text=evidence,
+                ):
+                    contract_violations.append(
+                        {
+                            "sheet": sheet,
+                            "row": str(index),
+                            "item_id": item_id,
+                            "concern_id": concern_id,
+                            "code": violation.code,
+                            "detail": violation.detail[:200],
+                        }
+                    )
+                for token in LOCATION_TOKENS + CREDIT_TOKENS + AGENCY_TOKENS:
+                    if token in requirement and token not in owned_text(concern_id, requirement):
                         contract_violations.append(
                             {
                                 "sheet": sheet,
-                                "cell": self.cells.address(sheet, index, column),
-                                "concern_id": "QUALITY_TARGET",
-                                "reason": "location token inside a quality requirement cell",
-                            }
-                        )
-                    if any(token in text for token in CREDIT_TOKENS) and "有效期" in requirement:
-                        contract_violations.append(
-                            {
-                                "sheet": sheet,
-                                "cell": self.cells.address(sheet, index, column),
-                                "concern_id": "BID_VALIDITY",
-                                "reason": "credit/blacklist token inside a validity cell",
+                                "row": str(index),
+                                "item_id": item_id,
+                                "concern_id": concern_id,
+                                "code": "VIEW_FOREIGN_FACET",
+                                "detail": f"{token} is not owned by {concern_id}",
                             }
                         )
         self.check(
             "sheet_views_are_semantically_coherent",
-            not contract_violations,
-            f"{CLAUSE_SHEET} and {MANDATORY_SHEET} audited from final cell text",
-            {"violations": contract_violations[:10]},
+            not contract_violations and not unbound_rows,
+            f"{CLAUSE_SHEET} and {MANDATORY_SHEET}: {rows_audited} view rows validated "
+            f"against their concern contracts",
+            {
+                "rows_audited": rows_audited,
+                "violations": contract_violations[:10],
+                "unbound_rows": unbound_rows[:10],
+            },
         )
 
-        conflict_rows = self.cells.sheet_rows(CONFLICT_SHEET)
+        # 06_冲突与缺失 is audited against the ProjectFacts SSOT, not against the
+        # legacy sheet: a missing/unresolved claim must match the SSOT status and
+        # every non-resolved fact must be surfaced.
+        missing_sentinel = "no credible candidate"
+        conflict_rows = [
+            [("" if value is None else str(value)) for value in values]
+            for values in self.cells.sheet_rows(CONFLICT_SHEET)[1:]
+        ]
         conflict_text = " ".join(" ".join(values) for values in conflict_rows)
+        contradictions: list[str] = []
+        declared: set[str] = set()
+        for values in conflict_rows:
+            if len(values) < 4:
+                continue
+            statement, candidate = values[2], values[3]
+            key = values[1].strip()
+            declared.add(key)
+            field = getattr(self.r4.facts.fields, key, None) if key else None
+            status = str(getattr(field, "status", "") or "")
+            unresolved = "NOT_FOUND" in statement or "NEEDS_REVIEW" in statement
+            if not unresolved:
+                contradictions.append(f"{statement[:60]}: neither NOT_FOUND nor NEEDS_REVIEW")
+                continue
+            if "NOT_FOUND" in statement:
+                if candidate.strip() and missing_sentinel not in candidate.lower():
+                    contradictions.append(f"{statement[:60]} carries a candidate {candidate[:40]}")
+                if status and "NOT_FOUND" not in status:
+                    contradictions.append(f"{statement[:60]} but the SSOT says {status}")
+            if "NEEDS_REVIEW" in statement:
+                if missing_sentinel in candidate.lower() or not candidate.strip():
+                    contradictions.append(f"{statement[:60]} carries no candidate at all")
+                if status and "NEEDS_REVIEW" not in status:
+                    contradictions.append(f"{statement[:60]} but the SSOT says {status}")
+        # every non-resolved SSOT fact must be surfaced here, and no resolved fact may be
+        for name, field in vars(self.r4.facts.fields).items():
+            status = str(getattr(field, "status", "") or "")
+            if not status:
+                continue
+            if "RESOLVED" in status and name in declared:
+                contradictions.append(f"{name} is RESOLVED in the SSOT but listed as unresolved")
+            if "RESOLVED" not in status and name not in declared:
+                contradictions.append(f"{name} is {status} in the SSOT but absent from the sheet")
         self.check(
             "conflict_sheet_has_no_false_platform_conflicts",
-            "不同平台" not in conflict_text,
-            f"{len(conflict_rows)} conflict rows audited",
-            {"platform_mentions": conflict_text.count("平台")},
+            "不同平台" not in conflict_text and not contradictions,
+            f"{len(conflict_rows)} conflict rows audited against the ProjectFacts SSOT",
+            {
+                "platform_mentions": conflict_text.count("平台"),
+                "contradictions": contradictions[:10],
+            },
         )
 
     def check_word_unchanged(self) -> None:

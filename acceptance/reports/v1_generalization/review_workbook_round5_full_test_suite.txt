@@ -1,11 +1,11 @@
 # full test suite (Windows ACL compatibility path)
-# command  : .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --basetemp D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\pytest_fullsuite_e897dd03ceab4406ade15351bebc7906 --junitxml D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_e897dd03ceab4406ade15351bebc7906.xml
+# command  : .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --basetemp D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\pytest_fullsuite_053c3d13199744e6ab53e4ad039d5814 --junitxml D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_053c3d13199744e6ab53e4ad039d5814.xml
 # host note: PYTEST_PLUGINS=pytest_fscompat (scripts/dev/pytest_fscompat.py)
 #            Path.mkdir(mode=0o700) is relaxed to the default mode because this
 #            host cannot enumerate a directory created with mode 0o700; the plugin
 #            changes no assertion, no test and no product module.
-# result   : 805 passed, 1 skipped, 0 failed, 0 errors
-# junitxml : tests=806 failures=0 errors=0 skipped=1 time=99.525s
+# result   : 808 passed, 1 skipped, 0 failed, 0 errors
+# junitxml : tests=809 failures=0 errors=0 skipped=1 time=135.307s
 # exit code: 0
 
 ........................................................................ [  8%]
@@ -17,9 +17,9 @@
 ........................................................................ [ 62%]
 ........................................................................ [ 71%]
 ........................................................................ [ 80%]
-........................................................................ [ 89%]
-.......................................................................s [ 98%]
-..............                                                           [100%]
+........................................................................ [ 88%]
+........................................................................ [ 97%]
+..s..............                                                        [100%]
 ============================== warnings summary ===============================
 tests/test_logical_layout.py: 9 warnings
 tests/test_page_layout.py: 4 warnings
@@ -44,5 +44,5 @@ tests/test_word_safe_builder.py: 12 warnings
     fact = getattr(fields, name)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-- generated xml file: D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_e897dd03ceab4406ade15351bebc7906.xml -
+- generated xml file: D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_053c3d13199744e6ab53e4ad039d5814.xml -
 
