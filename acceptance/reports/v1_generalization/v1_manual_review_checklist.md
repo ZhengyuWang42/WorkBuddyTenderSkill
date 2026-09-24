@@ -398,7 +398,9 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 
 > 证据：`review_workbook_round2_content_quality.json` / `.md`（含 8 组 BEFORE→AFTER 与
 > 7 项已知坏例结果）、`case_00{1,2,3}_review_workbook_{build,gate,visual_qa}_round2.json`、
-> `review_workbook_round2_full_test_suite.txt` / `.xml`。
+> `review_workbook_round2_full_test_suite.txt` / `.xml`（684 收集 / 683 passed / 1 skipped /
+> 0 failed / 0 errors）、`tests/test_round63_review_point_synthesis.py`（45 项，含 19 种
+> 复核类型覆盖测试）。
 > 自动化结论：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
 > `CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
 > `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`。以上复选框全部保持未勾选。

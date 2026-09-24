@@ -448,6 +448,81 @@ def test_delivered_row_is_the_rendered_review_point() -> None:
     assert sheet.cell(row=75, column=9).value != "签字：" or sheet.cell(row=75, column=9).value
 
 
+#: The review types the round-2 brief requires type-specific synthesis for.
+REQUIRED_TYPES = (
+    "REJECTION",
+    "QUALIFICATION",
+    "PRICING",
+    "BOND",
+    "DURATION",
+    "VALIDITY",
+    "LOCATION",
+    "QUALITY",
+    "WARRANTY",
+    "CONSORTIUM",
+    "SUBCONTRACT",
+    "SIGNATURE",
+    "ELECTRONIC",
+    "SUBMISSION",
+    "FORM",
+    "PROOF",
+    "TECHNICAL",
+    "EVALUATION",
+    "CONTRACT",
+)
+
+
+#: A realistic source clause per required review type, used for coverage checks.
+TYPE_CLAUSES = {
+    "REJECTION": "投标文件未按招标文件要求密封或者未加盖公章的，其投标将被否决。",
+    "QUALIFICATION": "投标人须具备有效的营业执照与相应资质证书，并具备独立法人资格。",
+    "PRICING": "投标报价不得超过最高限价，各分项报价应与开标一览表金额一致。",
+    "BOND": "投标人须在递交截止时间前提交投标保证金，金额、形式与到账时间以本条规定为准。",
+    "DURATION": "供货期为合同签订后 30 日历天，须覆盖全部交付节点。",
+    "VALIDITY": "投标有效期为 90 日历天，应覆盖评审与定标全过程。",
+    "LOCATION": "交付地点为采购人指定地点，实施地点与服务范围以本条规定为准。",
+    "QUALITY": "投标人须承诺工程质量达到合格标准，并符合验收标准。",
+    "WARRANTY": "质保期为 24 个月，质保范围包括全部设备与软件。",
+    "CONSORTIUM": "本项目不接受联合体投标，投标人不得以联合体形式参加。",
+    "SUBCONTRACT": "投标人不得违规分包、转包或将主体工作交由他人完成。",
+    "SIGNATURE": "响应文件应由法定代表人或其授权代理人签字并加盖单位公章。",
+    "ELECTRONIC": "本项目采用电子招投标，投标人须使用有效的CA介质加密上传响应文件并按时解密。",
+    "SUBMISSION": "响应文件应在递交截止时间前上传至电子平台，逾期不予受理。",
+    "FORM": "响应文件应按规定的格式、组成与编排要求编制，并编制目录与页码。",
+    "PROOF": "投标人须提供与响应内容对应的证明材料，并保证清晰可核验。",
+    "TECHNICAL": "投标人须逐条响应技术参数，并提供可核验的证明材料，不得出现负偏离。",
+    "EVALUATION": "评审按评分因素逐项计分，每个评分因素均应有对应响应内容与证明材料。",
+    "CONTRACT": "投标人须接受合同条款、付款方式与履约要求，不得附加采购人不能接受的条件。",
+}
+
+
+@pytest.mark.parametrize("requirement_type", REQUIRED_TYPES)
+def test_each_required_type_has_its_own_synthesis(requirement_type: str) -> None:
+    """Every required type renders its own pass criterion, not the generic one.
+
+    The sample clause is realistic for the type: the grounding guard must accept
+    a criterion only when the row's own source clause supports it.
+    """
+
+    from tender_basic.review_point import _PASS_BY_TYPE
+
+    assert requirement_type in _PASS_BY_TYPE, requirement_type
+    criterion = _PASS_BY_TYPE[requirement_type]
+    assert criterion != _PASS_BY_TYPE["OTHER"], requirement_type
+    point = point_for(
+        unit(
+            "SR0001",
+            requirement_type=requirement_type,
+            topic="一般要求",
+            text=TYPE_CLAUSES[requirement_type],
+        )
+    )
+    assert point is not None
+    assert criterion in render_review_cell(point)
+    assert point.review_checks
+    assert scan_review_point(point)["generic"] is False
+
+
 def test_no_historical_status_is_copied() -> None:
     point = point_for(
         unit(

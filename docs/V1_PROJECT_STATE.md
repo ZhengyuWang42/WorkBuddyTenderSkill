@@ -875,7 +875,7 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 顺序 | 任务 | 完成判据 |
 | --- | --- | --- |
 | **A** | 改进 `投标项目复核表.xlsx`（复核视图：总览、事实、关键条款、强制/★项、报价与限价、文件结构与签章、冲突与缺失、证据索引） | ✅ 已完成：三案例工作簿门禁 37/37 PASS + 渲染 QA PASS（`REVIEW_WORKBOOK_THREE_CASE_GENERALIZATION = PASS`） |
-| **A2** | 复核工作簿第 2 轮：把复核行改写为**人工复核要点合成**（要求/复核要点/通过标准/不满足后果/准备材料/评分提示），删除样板文字与无关数字 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例、8 组 BEFORE→AFTER）、全套测试 665 收集 / 664 passed / 1 skipped / 0 failed |
+| **A2** | 复核工作簿第 2 轮：把复核行改写为**人工复核要点合成**（要求/复核要点/通过标准/不满足后果/准备材料/评分提示），删除样板文字与无关数字 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例、8 组 BEFORE→AFTER、19 种复核类型覆盖测试）、全套测试 684 收集 / 683 passed / 1 skipped / 0 failed |
 | **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认 |
 | **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |
