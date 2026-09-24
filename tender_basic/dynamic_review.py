@@ -42,10 +42,12 @@ from .dynamic_requirements import (
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
 from .output_helpers import value_text
+from .review_concern import actionable_concerns, atomize_units, build_concerns
 from .review_point import (
     ReviewPoint,
     render_checks,
     render_review_cell,
+    synthesize_concern_point,
     synthesize_review_point,
 )
 
@@ -309,6 +311,9 @@ class DynamicReviewItem(ContractModel):
     notes: str = ""
     cell_text: str = ""
     review_point: "ReviewPoint | None" = None
+    # round 3: the human review concern that owns every rendered component
+    concern_id: str = ""
+    concern_label: str = ""
 
 
 @dataclass(frozen=True)
@@ -478,21 +483,27 @@ def build_dynamic_review_plan(
     """Project the source requirement index into project-specific review rows."""
 
     source_index = index if index is not None else build_requirement_index(document)
-    groups: dict[tuple[str, str], list[SourceRequirementUnit]] = {}
-    order: list[tuple[str, str]] = []
-    for unit in source_index.units:
-        key = (unit.requirement_type, unit.topic)
-        if key not in groups:
-            groups[key] = []
-            order.append(key)
-        groups[key].append(unit)
+    # Round 3: atomize the source once, resolve each atom to the human review
+    # concern it belongs to, and synthesize one row per concern.  A concern --
+    # not the old (requirement_type, topic) bucket -- owns the rendered
+    # requirement, numbers, materials, consequence and evidence.
+    atoms = atomize_units(source_index.units)
+    concerns = build_concerns(atoms)
+    kept, filtered = actionable_concerns(concerns)
+    units_by_id = {unit.requirement_id: unit for unit in source_index.units}
 
     items: list[DynamicReviewItem] = []
-    filtered_topics: list[str] = []
+    filtered_topics: list[str] = [
+        f"{concern.label}（{concern.topic}）" for concern in filtered
+    ]
     counter = 0
-    for key in order:
-        units = groups[key]
-        requirement_type, topic = key
+    for concern in kept:
+        units = [units_by_id[cid] for cid in concern.clause_ids if cid in units_by_id]
+        if not units:
+            filtered_topics.append(f"{concern.label}（{concern.topic}）")
+            continue
+        requirement_type = units[0].requirement_type
+        topic = units[0].topic
         module = _module_for(units, requirement_type, topic)
         fact_fields = FACT_FOR_TYPE.get(requirement_type, ())
         fact_hints: dict[str, str] = {}
@@ -508,22 +519,19 @@ def build_dynamic_review_plan(
             if not related_field:
                 related_field = field
                 related_value = resolved
-        point = synthesize_review_point(
-            units=units,
-            requirement_type=requirement_type,
-            topic=topic,
+        point = synthesize_concern_point(
+            concern,
             fact_hints=fact_hints,
             linked_fields=tuple(field for field in fact_fields if field in fact_hints),
+            requirement_type=requirement_type,
+            topic=topic,
         )
         if point is None:
-            # Non-actionable purchaser-internal procedure: not a bidder review row.
-            filtered_topics.append(topic)
+            # Non-actionable or source-less concern: not a bidder review row.
+            filtered_topics.append(f"{concern.label}（{topic}）")
             continue
         source_requirement = point.requirement_summary
-        if related_value and related_value not in source_requirement:
-            source_requirement = f"{source_requirement}（{fact_hints[related_field]}）"
         values = [value for value in _concrete_values(units) if value not in related_value]
-        backing = " ".join(unit.text for unit in units)
         verification_action = render_checks(point)
         pass_criteria = " ".join(point.pass_criteria)
         consequence = point.failure_consequence
@@ -543,7 +551,7 @@ def build_dynamic_review_plan(
             DynamicReviewItem(
                 item_id=f"DR{counter:03d}",
                 module=module,
-                submodule=topic,
+                submodule=concern.label or topic,
                 risk_level=RISK_BY_TYPE.get(requirement_type, "中"),
                 requirement_type=requirement_type,
                 topic=topic,
@@ -569,6 +577,8 @@ def build_dynamic_review_plan(
                 notes=point.notes,
                 cell_text=render_review_cell(point),
                 review_point=point,
+                concern_id=point.concern_id,
+                concern_label=point.concern_label,
             )
         )
     return DynamicReviewPlan(
@@ -675,7 +685,15 @@ def dynamic_review_qa(
             generic_text.append(item.item_id)
             continue
         if item.requirement_type in VALUE_TYPES:
-            concrete = [value for unit in units for value in unit.values]
+            # Round 3: only a value the *concern* owns counts as a specific
+            # source value for this row.  A value owned by another concern (a
+            # tender fee, a contact number, another row's quantity) must not be
+            # forced into this row's text.
+            owned = {
+                value.value
+                for value in (item.review_point.numeric_evidence if item.review_point else [])
+            }
+            concrete = [value for unit in units for value in unit.values if value in owned]
             if concrete and not any(value in item.cell_text for value in concrete):
                 if not item.related_fact_value or item.related_fact_value not in item.cell_text:
                     generic_text.append(item.item_id)

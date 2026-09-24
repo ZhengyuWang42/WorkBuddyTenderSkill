@@ -1,0 +1,1476 @@
+{
+  "schema": "v1_review_workbook_round3_content_quality/1",
+  "generated_at": "2026-09-24T02:38:53.193429+00:00",
+  "case": "case_001",
+  "build": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3",
+  "before_build": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2",
+  "result": "PASS",
+  "failure_reasons": [],
+  "pipeline": "SourceRequirementAtom -> ReviewConcern -> ReviewPoint",
+  "invariant": "PROVENANCE IS NECESSARY BUT NOT SUFFICIENT (source-backed AND same concern)",
+  "counters": {
+    "source_atom_count": 309,
+    "review_concern_count": 44,
+    "review_point_count": 43,
+    "multi_atom_concern_count": 35,
+    "legitimate_multi_concern_reuse_count": 4,
+    "source_concern_mismatch": 0,
+    "numeric_concern_mismatch": 0,
+    "material_concern_mismatch": 0,
+    "consequence_concern_mismatch": 0,
+    "evidence_concern_mismatch": 0,
+    "authority_scope_mismatch": 0,
+    "foreign_role_numeric": 0,
+    "unsupported_review_action_count": 0,
+    "coherent_review_point_count": 43,
+    "coherence_note": "43",
+    "mismatch_detail": {
+      "source_concern_mismatch": [],
+      "numeric_concern_mismatch": [],
+      "material_concern_mismatch": [],
+      "consequence_concern_mismatch": [],
+      "evidence_concern_mismatch": [],
+      "authority_scope_mismatch": [],
+      "foreign_role_numeric": []
+    },
+    "filtered_non_actionable_concern_count": 1,
+    "filtered_non_actionable_concerns": [
+      {
+        "concern_id": "TERM_DEFINITION",
+        "topic": "技术方案与实施组织",
+        "atoms": [
+          "SRA0059"
+        ]
+      }
+    ],
+    "requirement_count": 297
+  },
+  "conflicts": {
+    "true_conflict_count": 3,
+    "true_conflicts": [
+      {
+        "concern_id": "DELIVERY_PERIOD",
+        "role": "DURATION_DAYS",
+        "scope": "",
+        "values": "30天, 30日历天",
+        "atoms": "SRA0002, SRA0024, SRA0066, SRA0166"
+      },
+      {
+        "concern_id": "TECHNICAL_INSTALLATION",
+        "role": "QUANTITY",
+        "scope": "",
+        "values": "14个, 3个",
+        "atoms": "SRA0023, SRA0184, SRA0186, SRA0239"
+      },
+      {
+        "concern_id": "EVALUATION_SCORING",
+        "role": "PAYMENT_RATIO",
+        "scope": "",
+        "values": "5%, 95%",
+        "atoms": "SRA0050, SRA0129, SRA0143, SRA0155"
+      }
+    ],
+    "false_conflict_count": 0,
+    "false_conflicts": [],
+    "naive_keyword_conflicts_avoided": 1,
+    "naive_conflicts_avoided": [
+      {
+        "keyword": "质保",
+        "concerns": "EVALUATION_SCORING, PROJECT_WARRANTY, RETENTION_MONEY_RATIO, RETENTION_RELEASE_PERIOD",
+        "reason": "same keyword, different semantic concepts"
+      }
+    ]
+  },
+  "warranty_retention_fixture": {
+    "result": "PASS",
+    "project_warranty_concept": "PROJECT_WARRANTY",
+    "project_warranty_value": "24个月",
+    "project_warranty_role": "WARRANTY_MONTHS",
+    "project_warranty_atoms": [
+      "SRA0004",
+      "SRA0026",
+      "SRA0267",
+      "SRA0277"
+    ],
+    "project_warranty_sources": [
+      "第39页",
+      "第43页",
+      "第5页",
+      "第9页"
+    ],
+    "retention_money_concept": "RETENTION_MONEY_RATIO",
+    "retention_ratio_value": "5%",
+    "retention_release_concept": "RETENTION_RELEASE_PERIOD",
+    "retention_release_value": "12个月",
+    "generic_separation_ok": true,
+    "percent_values_in_project_warranty": [],
+    "duration_values_in_retention_ratio": [],
+    "shared_values_between_concepts": [],
+    "expectation_failures": [],
+    "reported_as_conflict": false,
+    "detail": "PROJECT_WARRANTY owns only the project/product warranty obligation; retention money and its release period are separate contract concerns. A shared 质保 keyword does not create a source conflict."
+  },
+  "fixtures": {
+    "A": {
+      "fixture": "A",
+      "label": "signature vs electronic upload",
+      "result": "PASS",
+      "old_concern": "SIGNATURE (from CA/upload text)",
+      "new_concern": "SIGNATURE_AND_SEAL / ELECTRONIC_UPLOAD",
+      "source_atom_ids": [
+        "SRA0007",
+        "SRA0013",
+        "SRA0021",
+        "SRA0028",
+        "SRA0036"
+      ],
+      "reason": "signature rows quote signature/seal clauses; CA upload text stays in ELECTRONIC_UPLOAD"
+    },
+    "B": {
+      "fixture": "B",
+      "label": "submission contamination",
+      "result": "PASS",
+      "old_concern": "SUBMISSION (with 评审报告/0元)",
+      "new_concern": "SUBMISSION_DEADLINE / SUBMISSION_PLATFORM / SUBMISSION_COPIES",
+      "source_atom_ids": [
+        "SRA0018",
+        "SRA0027",
+        "SRA0029",
+        "SRA0030",
+        "SRA0037"
+      ],
+      "reason": "submission rows carry only deadline/platform/copies content; fee and evaluation-report text is not owned"
+    },
+    "C": {
+      "fixture": "C",
+      "label": "file composition evidence",
+      "result": "PASS",
+      "old_concern": "FILE_COMPOSITION (from 异议函 text)",
+      "new_concern": "FILE_COMPOSITION",
+      "source_atom_ids": [
+        "SRA0081",
+        "SRA0127",
+        "SRA0128",
+        "SRA0142"
+      ],
+      "reason": "composition rows are built from composition/format clauses, never from objection-letter text"
+    },
+    "D": {
+      "fixture": "D",
+      "label": "file format evidence",
+      "result": "PASS",
+      "old_concern": "FILE_FORMAT (from 备选方案/联系方式)",
+      "new_concern": "FILE_FORMAT",
+      "source_atom_ids": [
+        "SRA0080",
+        "SRA0088",
+        "SRA0103",
+        "SRA0105",
+        "SRA0159"
+      ],
+      "reason": "format rows quote real format clauses; unsupported format claims are filtered"
+    },
+    "E": {
+      "fixture": "E",
+      "label": "technical plan evidence",
+      "result": "PASS",
+      "old_concern": "TECHNICAL_PLAN (from supplier definition / site visit)",
+      "new_concern": "TECHNICAL_PLAN",
+      "source_atom_ids": [],
+      "reason": "technical-plan rows require plan/进度/应急/质量 source atoms"
+    },
+    "F": {
+      "fixture": "F",
+      "label": "financial commitment ownership",
+      "result": "PASS",
+      "old_concern": "QUALIFICATION_FINANCIAL (from 资金来源：企业自筹)",
+      "new_concern": "QUALIFICATION_FINANCIAL / PROJECT_BASIC_INFO",
+      "source_atom_ids": [
+        "SRA0006",
+        "SRA0162",
+        "SRA0291",
+        "SRA0297"
+      ],
+      "reason": "project financing is not a supplier financial-capability duty"
+    },
+    "G": {
+      "fixture": "G",
+      "label": "installation quantities",
+      "result": "PASS",
+      "old_concern": "TECHNICAL/安装调试与验收 (any nearby quantity)",
+      "new_concern": "TECHNICAL_INSTALLATION",
+      "source_atom_ids": [
+        "SRA0023",
+        "SRA0184",
+        "SRA0186",
+        "SRA0239",
+        "SRA0241"
+      ],
+      "reason": "only concern-owned quantities render (foreign: none)"
+    },
+    "H": {
+      "fixture": "H",
+      "label": "bid-bond material isolation",
+      "result": "PASS",
+      "old_concern": "BID_BOND (with experience/authorization materials)",
+      "new_concern": "BID_BOND_AMOUNT / FORM / TRANSFER / DEADLINE / EVIDENCE",
+      "source_atom_ids": [
+        "SRA0032",
+        "SRA0034",
+        "SRA0098",
+        "SRA0099",
+        "SRA0100",
+        "SRA0101"
+      ],
+      "reason": "bond materials come only from bond atoms (transfer receipt, basic-account documents)"
+    },
+    "I": {
+      "fixture": "I",
+      "label": "contract/payment contamination",
+      "result": "PASS",
+      "old_concern": "CONTRACT_PAYMENT (with relationship restrictions)",
+      "new_concern": "CONTRACT_PAYMENT / CONTRACT_RISK / CONTRACT_DELIVERY / CONTRACT_ACCEPTANCE",
+      "source_atom_ids": [
+        "SRA0049.1",
+        "SRA0049.2",
+        "SRA0134",
+        "SRA0172",
+        "SRA0231"
+      ],
+      "reason": "qualification restrictions are owned by QUALIFICATION_RELATIONSHIP_RESTRICTION"
+    },
+    "J": {
+      "fixture": "J",
+      "label": "internal procedure filtering",
+      "result": "PASS",
+      "old_concern": "bidder rows from 评审小组回避/纪律/术语定义",
+      "new_concern": "filtered, or an explicit non-bidder 备查 row",
+      "source_atom_ids": [
+        "SRA0038",
+        "SRA0145",
+        "SRA0228",
+        "SRA0229"
+      ],
+      "reason": "internal procedure / definition atoms are filtered or labelled 仅备查，无需投标响应"
+    },
+    "K": {
+      "fixture": "K",
+      "label": "false price-limit concern",
+      "result": "PASS",
+      "old_concern": "PRICING/分项限价与暂列金额 (from a heading)",
+      "new_concern": "PRICE_ITEMIZATION (only with limit/amount evidence)",
+      "source_atom_ids": [],
+      "reason": "a 分项报价表 heading alone never creates a limit/provisional-sum row"
+    },
+    "L": {
+      "fixture": "L",
+      "label": "scoring ownership",
+      "result": "PASS",
+      "old_concern": "EVALUATION (generic method text)",
+      "new_concern": "EVALUATION_SCORING",
+      "source_atom_ids": [
+        "SRA0050",
+        "SRA0129",
+        "SRA0143",
+        "SRA0155",
+        "SRA0156"
+      ],
+      "reason": "every score figure traces to the concern's own scoring atoms (untraceable: none)"
+    },
+    "M": {
+      "fixture": "M",
+      "label": "mixed evaluation split",
+      "result": "PASS",
+      "old_concern": "EVALUATION (串标 + 银行承兑 combined)",
+      "new_concern": "EVALUATION_COLLUSION vs EVALUATION_SCORING",
+      "source_atom_ids": [
+        "SRA0050",
+        "SRA0129",
+        "SRA0143",
+        "SRA0155",
+        "SRA0156"
+      ],
+      "reason": "collusion analysis and acceptance-ratio scoring are separate concerns"
+    },
+    "N": {
+      "fixture": "N",
+      "label": "technical vs eligibility/rejection",
+      "result": "PASS",
+      "old_concern": "TECHNICAL_PARAMETER (eligibility restriction)",
+      "new_concern": "eligibility/rejection concern",
+      "source_atom_ids": [
+        "SRA0179",
+        "SRA0240",
+        "SRA0264",
+        "SRA0266"
+      ],
+      "reason": "same-manufacturer/same-brand restrictions are eligibility/competition rules, not technical parameters"
+    }
+  },
+  "fixtures_passed": 14,
+  "fixtures_total": 14,
+  "human_style_audit": {
+    "sample_size": 20,
+    "coherent_count": 20,
+    "result": "20/20 coherent",
+    "rows": [
+      {
+        "concern_id": "BID_BOND_AMOUNT",
+        "concern_label": "保证金金额",
+        "q1_requirement": "3.4.1 响应保证金 响应保证金的金额：人民币贰万元整。；响应保证金的递交截止时间：同提交响应文件截止",
+        "q2_inspect": "核对响应文件中的保证金金额 确认凭证金额与招标文件一致 依据第24页逐条比对响应文件对应章节",
+        "q3_pass_condition": "保证金金额与招标文件规定一致。",
+        "q4_evidence": "SRA0032, SRA0034, SRA0098",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "BID_BOND_EVIDENCE",
+        "concern_label": "保证金凭证",
+        "q1_requirement": "3.4.1项要求提交响应保证金的，评审小组将否决其响应。",
+        "q2_inspect": "核对保证金凭证 确认凭证已放入响应文件对应位置 依据第18页第3.4.1条逐条比对响应文件对应章节",
+        "q3_pass_condition": "保证金凭证放入响应文件，可核验。",
+        "q4_evidence": "SRA0097",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": "否决"
+      },
+      {
+        "concern_id": "BID_BOND_FORM",
+        "concern_label": "保证金形式",
+        "q1_requirement": "响应保证金的形式：银行转账方式。；3.4.1 供应商在递交响应文件的同时，应按供应商须知前附表规定的金额、形式和 第六章“响应文件格式”规定的响应保证金格式递交响应保证金，并作为其响应文件的 组成部分。",
+        "q2_inspect": "核对保证金形式（电汇/转账/保函等） 确认形式符合招标文件规定 依据第10页逐条比对响应文件对应章节",
+        "q3_pass_condition": "保证金形式符合规定，且来源合法。",
+        "q4_evidence": "SRA0033, SRA0095, SRA0132",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [
+          "身份证扫描件",
+          "响应保证金转账凭证"
+        ],
+        "consequence": ""
+      },
+      {
+        "concern_id": "BID_BOND_TRANSFER",
+        "concern_label": "保证金转出账户",
+        "q1_requirement": "响应保证金从供应商基本账户一次性汇入指定账 户。；境内供应商以现金或者支票形式提交的响应保证金，应当从其基本账户转出 并在响应文件中附上基本账户开户证明。",
+        "q2_inspect": "核对保证金转出账户 确认从规定账户转出并留存凭证 依据第18页逐条比对响应文件对应章节",
+        "q3_pass_condition": "保证金从规定的账户转出。",
+        "q4_evidence": "SRA0035, SRA0096",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [
+          "基本账户开户许可证或基本存款账户信息"
+        ],
+        "consequence": ""
+      },
+      {
+        "concern_id": "BID_VALIDITY",
+        "concern_label": "投标有效期",
+        "q1_requirement": "3.3.1 询比有效期 提交响应文件截止之日起 90 日历天；司黑名单有效期限内的供应商不得确定为中标人。",
+        "q2_inspect": "核对投标函中的投标有效期 确认覆盖评审与定标全过程 依据第12页逐条比对响应文件对应章节 核对响应文件已载明：投标有效期不少于 90日历天",
+        "q3_pass_condition": "投标有效期达到规定天数，且覆盖评审与定标全过程。 投标有效期不少于 90日历天，且响应文件一致。",
+        "q4_evidence": "SRA0031, SRA0047, SRA0093",
+        "q5_same_decision": "yes",
+        "owned_numbers": [
+          "90日历天(VALIDITY_DAYS)"
+        ],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "CONSORTIUM",
+        "concern_label": "联合体",
+        "q1_requirement": "1.5.2 是否接受联合体响应：不接受。",
+        "q2_inspect": "核对投标主体形式 确认与联合体规定一致 依据第6页第2.6条逐条比对响应文件对应章节",
+        "q3_pass_condition": "响应文件的投标主体形式与招标文件关于联合体的规定一致。",
+        "q4_evidence": "SRA0015, SRA0071",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "CONTRACT_PAYMENT",
+        "concern_label": "合同付款与结算",
+        "q1_requirement": "3、支付时间：领取《成交通知书》时缴纳。；缴纳账",
+        "q2_inspect": "核对合同付款条款响应 核对付款方式、结算依据与付款条件 依据第22页第7.4.1条逐条比对响应文件对应章节",
+        "q3_pass_condition": "付款方式、结算依据与付款条件在响应文件中被接受。",
+        "q4_evidence": "SRA0049.1, SRA0049.2, SRA0134",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "CONTRACT_RISK",
+        "concern_label": "合同风险与违约责任",
+        "q1_requirement": "采购人 将依序确定排名第一的成交候选供应商为成交人，若第一成交候选供应商放弃成交、因 不可抗力不能履行合同、或者被查实存在影响成交结果的违法行为等情形，不符合成交 条件的，采购人可以按照评审小组提出的成交候选人名单排序…；成交人无正当理由拒签合同的，采购人取消其成交资格， 给采购人造成损失的，成交人还应当予以赔偿。",
+        "q2_inspect": "核对违约、索赔与争议条款响应 确认无采购人不能接受的附加条件 依据第22页逐条比对响应文件对应章节",
+        "q3_pass_condition": "不存在采购人不能接受的附加条件或未响应风险条款。",
+        "q4_evidence": "SRA0131, SRA0135, SRA0136",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "DELIVERY_LOCATION",
+        "concern_label": "交付地点",
+        "q1_requirement": "准 交货地点 交货地点 符合第二章“供应商须知”第 1.4.6 款规定",
+        "q2_inspect": "核对交付地点与实施范围 确认与招标文件一致 依据第24页逐条比对响应文件对应章节",
+        "q3_pass_condition": "交付地点与实施范围符合招标文件要求。",
+        "q4_evidence": "SRA0063, SRA0067, SRA0167",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "DELIVERY_PERIOD",
+        "concern_label": "工期与供货期",
+        "q1_requirement": "7、供货期：合同签订后30 日历天。；1.4.5 供货期 签订合同后 30 日历天。",
+        "q2_inspect": "核对响应函与进度计划中的工期/供货期 确认覆盖全部交付与验收节点 依据第24页逐条比对响应文件对应章节 核对响应文件已载明：工期/供货期满足 30日历天 核对响应文件已载明：工期/供货期满足 30天",
+        "q3_pass_condition": "工期/供货期达到规定期限，且覆盖全部交付节点。 工期/供货期满足 30日历天，且响应文件一致。 工期/供货期满足 30天，且响应文件一致。",
+        "q4_evidence": "SRA0002, SRA0024, SRA0066",
+        "q5_same_decision": "yes",
+        "owned_numbers": [
+          "30日历天(DURATION_DAYS)",
+          "30天(DURATION_DAYS)"
+        ],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "ELECTRONIC_UPLOAD",
+        "concern_label": "电子上传与加密",
+        "q1_requirement": "供应商须使用电子交易系统提供的投标文件制作工具进行电子响应文件的制作，并在提 交响应文件截止时间前通过“河南国企阳光招采服务平台”上传经CA 密钥签章和加密 的电子响应文件（.EJYTF 格式），加密电子响应文件逾期上…；3.7.3 响应文件全部采用电子文档，除供应商须知前附表另有规定外，响应文件所 附证书证件均为原件扫描件，并采用单位和个人数字证书，按询…",
+        "q2_inspect": "核对电子文件加密与上传记录 确认上传成功且文件完整 依据第7页逐条比对响应文件对应章节",
+        "q3_pass_condition": "电子文件按规定加密并上传成功。",
+        "q4_evidence": "SRA0019, SRA0108, SRA0112",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": "不予受理"
+      },
+      {
+        "concern_id": "EVALUATION_COLLUSION",
+        "concern_label": "评审·串标与弄虚作假",
+        "q1_requirement": "投标人投标文件制作机器码一致视为串通投标行为；9.2 对供应商的纪律要求 供应商不得相互串通响应或与采购人串通响应，不得向采购人或者评审小组成员行 贿谋取成交，不得以他人名义响应或者以其他方式弄虚作假骗取成交；",
+        "q2_inspect": "核对不存在串标、弄虚作假的证据 确认响应文件无雷同与异常一致 依据第22页第9.2条逐条比对响应文件对应章节",
+        "q3_pass_condition": "不存在串标、弄虚作假情形。",
+        "q4_evidence": "SRA0051, SRA0140, SRA0160",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "EVALUATION_RESPONSIVENESS",
+        "concern_label": "评审·响应性审查",
+        "q1_requirement": "10.8 实质性要求和条件 本表格中带“*”条款；；其中，响应函附录在满足询比文件实质性要求的基础上， 可以提出比询比文件要求更有利于采购人的承诺。",
+        "q2_inspect": "核对实质性响应要求 确认无重大偏差 依据第28页第(3)条逐条比对响应文件对应章节",
+        "q3_pass_condition": "实质性响应要求全部满足，无重大偏差。",
+        "q4_evidence": "SRA0053, SRA0106, SRA0188",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "EVALUATION_SCORING",
+        "concern_label": "评分标准与分值构成",
+        "q1_requirement": "款 95%（5%质保金质保期满无息支付）的得 12 分；；（12 分） 95%（5%质保金质保期满无息支付）的得 8 分；",
+        "q2_inspect": "将评分因素拆解为得分条件、证明材料与页码 确认每项都有对应响应内容 依据第21页逐条比对响应文件对应章节 核对响应文件已载明：付款/计分比例为 95% 核对响应文件已载明：付款/计分比例为 5% 核对响应文件已载明：该评分因素最高 1分",
+        "q3_pass_condition": "每个评分因素都有对应响应内容与证明材料。 付款/计分比例为 95%，且响应文件一致。 付款/计分比例为 5%，且响应文件一致。 该评分因素最高 1分，且响应文件一致。",
+        "q4_evidence": "SRA0050, SRA0129, SRA0143",
+        "q5_same_decision": "yes",
+        "owned_numbers": [
+          "95%(PAYMENT_RATIO)",
+          "5%(PAYMENT_RATIO)",
+          "1分(SCORE)"
+        ],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "FILE_COMPOSITION",
+        "concern_label": "响应文件组成",
+        "q1_requirement": "如有疑问，应按照供应商须知前附表规定的时间前以书 面形式（包括信函、电报、传真等可以有形地表现所载内容的形式，下同），要求采购 人对询比文件予以澄清，否则由此引起的任何后果均由供应商自己承担，采购人和采购 代理机构不承…；评审小组成员人数以及技术、经济等方面专家的确定方式 见供应商须知前附表。",
+        "q2_inspect": "按招标文件要求的组成部分逐项清点 确认无缺项、无多余替代件 依据第20页第6.1.2条逐条比对响应文件对应章节",
+        "q3_pass_condition": "响应文件组成齐全，与招标文件要求的组成部分一致。",
+        "q4_evidence": "SRA0081, SRA0127, SRA0128",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "FILE_FORMAT",
+        "concern_label": "响应文件格式",
+        "q1_requirement": "(6) 响应文件格式。；3.1.1 详见第六章“响应文件格式”。",
+        "q2_inspect": "核对格式、装订、目录与页码 确认符合响应文件格式规定 依据第17页第(6)条逐条比对响应文件对应章节",
+        "q3_pass_condition": "格式、装订、目录与页码符合招标文件要求。",
+        "q4_evidence": "SRA0080, SRA0088, SRA0103",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "GENERAL_BIDDER_OBLIGATION",
+        "concern_label": "一般投标人义务",
+        "q1_requirement": "完成注册后进行供应商登录，再点击【招采服务平台】-【招标采购】（页 面跳转）至“e招投标交易平台”，在此业务系统进行账号绑定后，首先需要供应商完 善诚信库信息，然后点击【采购业务】-【采购公告】，查询要参加的项目公告信…；成交人 否，推荐的成交候选人数：1-3 名",
+        "q2_inspect": "核对该条款对应的响应内容 确认响应完整、可核验 依据第18页逐条比对响应文件对应章节",
+        "q3_pass_condition": "响应文件对该条款作出可核验的对应响应。",
+        "q4_evidence": "SRA0016, SRA0039, SRA0048",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": "无效"
+      },
+      {
+        "concern_id": "INTERNAL_PROCEDURE",
+        "concern_label": "采购方内部程序",
+        "q1_requirement": "〔采购人内部程序/定义条款，仅备查，无需投标响应〕面的专家 2 人，共 3 人组成。；在评 审活动中，与评审活动有关的工作人员不得擅离职守，影响评审程序正常进行。",
+        "q2_inspect": "确认该条属于采购人内部程序或术语定义，无需投标人响应 仅作背景备查，不作为废标/评分依据 依据第22页逐条比对响应文件对应章节",
+        "q3_pass_condition": "该条款的响应内容在响应文件中可核验，且与要求一致。",
+        "q4_evidence": "SRA0038, SRA0145, SRA0228",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "OPENING_DECRYPTION",
+        "concern_label": "开标与解密",
+        "q1_requirement": "供应商登录“远程开标大厅”后，先进行签到，其后应一直 保持在线状态，保证能准时参加响应文件的解密、答疑澄清等活动。",
+        "q2_inspect": "核对签到与解密时间 确认在规定时间内完成解密 依据第7页逐条比对响应文件对应章节",
+        "q3_pass_condition": "在规定时间内完成签到与解密。",
+        "q4_evidence": "SRA0022",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      },
+      {
+        "concern_id": "PRICE_ARITHMETIC",
+        "concern_label": "报价算术与大小写",
+        "q1_requirement": "等） 如因图纸、施工环境、业主要求变更导致实际采购内容发生变更，与表中差距较大的， 乙方表示理解，并同意按照表中单价与实际使用数量结算，不得以此作为调价和索赔依 据。",
+        "q2_inspect": "核对大小写金额 核对单价×数量与分项合计、总价 依据第32页逐条比对响应文件对应章节",
+        "q3_pass_condition": "大小写金额一致，单价×数量等于合计，分项合计与总价一致。",
+        "q4_evidence": "SRA0230",
+        "q5_same_decision": "yes",
+        "owned_numbers": [],
+        "owned_materials": [],
+        "consequence": ""
+      }
+    ]
+  },
+  "examples": [
+    {
+      "concern_id": "SIGNATURE_AND_SEAL",
+      "concern_label": "签章要求",
+      "before_item_text": "招标文件要求：如 果出现上述情况，改动之处应加盖单位公章并由供应商的法定代表人或其授权的代理人 签字确认。；异议函应当包括下列内容： 异议函及授权委托书应按照规定签字并加盖公 章。\n复核要点：\n① 按招标文件签章要求逐页核对签字人、盖章种类与位置\n② 确认授权链条完整、印章清晰\n③ 依据第19页逐条比对响应文件对应章节\n通过标准：\n· 所有指定位置签字/盖章齐全有效，授权链条一致。\n准备材料：类似项目合同及验收证明、法定代表人授权委托书",
+      "before_row_index": 42,
+      "after_source_atoms": [
+        "SRA0007",
+        "SRA0013",
+        "SRA0021",
+        "SRA0028",
+        "SRA0036"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [
+        "法定代表人授权委托书",
+        "身份证扫描件"
+      ],
+      "after_owned_consequence": "无效",
+      "after_requirement": "盖企业公章的扫描件和可编辑的Word 电子版）上传。；3.7.3 签字盖章要求 1．所有要求供应商加盖公章的地方都应用供应商单 位的 CA 印章。",
+      "after_checks": [
+        "按招标文件签章要求逐处核对签字人与印章",
+        "确认授权链条完整、印章清晰",
+        "依据第19页逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "所有指定位置的签字、盖章齐全且形式合规。"
+      ],
+      "why_round2_ownership_was_wrong": "哪些位置必须签字/盖章，形式是否合规？"
+    },
+    {
+      "concern_id": "SUBMISSION_DEADLINE",
+      "concern_label": "递交截止时间",
+      "before_item_text": "招标文件要求：3.4.2 评审小组完成评审后，应当向采购人提交书面评审报告。；4.询比文件售价：0元 四、响应文件提交 1.截止时间：2026 年7 月28 日15 时00 分（北京时间）。\n复核要点：\n① 核对递交方式、递交地点/平台与截止时间\n② 确认预留足够提前量并完成签到/解密准备\n③ 依据第29页第3.4.2条逐条比对响应文件对应章节\n通过标准：\n· 在规定时间前按要求完成递交/上传与解密。",
+      "before_row_index": 45,
+      "after_source_atoms": [
+        "SRA0018",
+        "SRA0027",
+        "SRA0029",
+        "SRA0030",
+        "SRA0037"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "1.10.2 供应商提出问题的时间 提交响应文件截止时间 2 日前在“河南国企阳光招",
+      "after_checks": [
+        "核对递交截止时间",
+        "确认完成递交的时间与凭证",
+        "依据第29页第3.4.2条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "在规定的截止时间前完成递交。"
+      ],
+      "why_round2_ownership_was_wrong": "是否在规定截止时间前完成递交？"
+    },
+    {
+      "concern_id": "FILE_COMPOSITION",
+      "concern_label": "响应文件组成",
+      "before_item_text": "招标文件要求：6.1.2 评审小组成员有下列情形之一的，应当回避： (1）供应商或供应商的主要负责人的近亲属；；9.3 对评审小组成员的纪律要求 评审小组成员不得收受他人的财物或者其他好处，不得向他人透露对响应文件的评 审和比较、成交候选供应商的推荐情况以及评审有关的其他情况。\n复核要点：\n① 按招标文件清单核对响应文件组成与格式\n② 依据第20页第6.1.2条逐条比对响应文件对应章节\n通过标准：\n· 响应文件对应内容与该条款一致。",
+      "before_row_index": 19,
+      "after_source_atoms": [
+        "SRA0081",
+        "SRA0127",
+        "SRA0128",
+        "SRA0142"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "如有疑问，应按照供应商须知前附表规定的时间前以书 面形式（包括信函、电报、传真等可以有形地表现所载内容的形式，下同），要求采购 人对询比文件予以澄清，否则由此引起的任何后果均由供应商自己承担，采购人和采购 代理机构不承…；评审小组成员人数以及技术、经济等方面专家的确定方式 见供应商须知前附表。",
+      "after_checks": [
+        "按招标文件要求的组成部分逐项清点",
+        "确认无缺项、无多余替代件",
+        "依据第20页第6.1.2条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "响应文件组成齐全，与招标文件要求的组成部分一致。"
+      ],
+      "why_round2_ownership_was_wrong": "响应文件应由哪些部分组成、是否齐全？"
+    },
+    {
+      "concern_id": "FILE_FORMAT",
+      "concern_label": "响应文件格式",
+      "before_item_text": "招标文件要求：异议函应当包括下列内容：（1）供应商的姓名或者；异议函应当包括下列内容：\n复核要点：\n① 按招标文件组成清单逐项清点响应文件章节与附表\n② 确认无遗漏、无多余内容冲突\n③ 依据第11页逐条比对响应文件对应章节\n通过标准：\n· 响应文件格式、组成与编排符合规定。",
+      "before_row_index": 17,
+      "after_source_atoms": [
+        "SRA0080",
+        "SRA0088",
+        "SRA0103",
+        "SRA0105",
+        "SRA0159"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "(6) 响应文件格式。；3.1.1 详见第六章“响应文件格式”。",
+      "after_checks": [
+        "核对格式、装订、目录与页码",
+        "确认符合响应文件格式规定",
+        "依据第17页第(6)条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "格式、装订、目录与页码符合招标文件要求。"
+      ],
+      "why_round2_ownership_was_wrong": "格式、装订、目录与页码是否按要求？"
+    },
+    {
+      "concern_id": "QUALIFICATION_FINANCIAL",
+      "concern_label": "资格·财务能力",
+      "before_item_text": "招标文件要求：2.1.2 资格评审标准 资格评审标准 财务状况 财务状况 符合第二章“供应商须知”第 1.5.1 款规定；2.2 供应商近三年（2023、2024、2025年）财务状况良好（成立时间不足的以成立 之日为准），没有处于财务被接管、冻结、破产状态；\n复核要点：\n① 按招标文件指定年度/期间提供财务材料\n② 核对主体名称、数据口径与盖章\n③ 依据第24页第2.1.2条逐条比对响应文件对应章节\n通过标准：\n· 财务材料按指定期间提供，主体名称与投标人一致。\n准备材料：经审计的财务报告或财务状况承诺书、承诺函（按招标文件格式）",
+      "before_row_index": 11,
+      "after_source_atoms": [
+        "SRA0006",
+        "SRA0162",
+        "SRA0291",
+        "SRA0297"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "2.2 供应商近三年（2023、2024、2025年）财务状况良好（成立时间不足的以成立 之日为准），没有处于财务被接管、冻结、破产状态；；2.1.2 资格评审标准 资格评审标准 财务状况 财务状况 符合第二章“供应商须知”第 1.5.1 款规定",
+      "after_checks": [
+        "核对财务审计报告或财务承诺",
+        "确认数据与出具主体符合要求",
+        "依据第24页第2.1.2条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "财务能力材料按要求提供且数据可核验。"
+      ],
+      "why_round2_ownership_was_wrong": "财务能力承诺或审计报告是否按要求提供？"
+    },
+    {
+      "concern_id": "TECHNICAL_INSTALLATION",
+      "concern_label": "安装调试与验收",
+      "before_item_text": "招标文件要求：3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： （1）《二次供水工程技术规程》CJJ140-2018 （2）《室外给水设计规范》GB50013-2018 （3）《建筑给水排水设计规范》GB50015-…；*流量计等相关计量仪器需提供第三方检测实验报告 第四条\n复核要点：\n① 核对安装、调试、检测与验收标准\n② 确认验收节点与招标文件要求一致\n③ 依据第34页第3.1条逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n· 数量要求为 24个，且响应文件一致。\n· 数量要求为 14个，且响应文件一致。",
+      "before_row_index": 35,
+      "after_source_atoms": [
+        "SRA0023",
+        "SRA0184",
+        "SRA0186",
+        "SRA0239",
+        "SRA0241"
+      ],
+      "after_owned_numbers": [
+        "14个(QUANTITY)",
+        "3个(QUANTITY)"
+      ],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "八、联系方式 1、采购人信息 名称：河南省水利第二工程局集团有限公司 地址：河南省郑州市经济技术开发区经北五路8 号 联系人：丁先生 联系方式：18703979494 2、采购代理机构信息 名称：河南科源水利建设工程检…；（12 分） 于等于 15%，并且接受设备安装完成验收合格后三个月内支付总货款",
+      "after_checks": [
+        "核对安装、调试与验收标准",
+        "确认验收节点与招标文件一致",
+        "依据第34页第3.1条逐条比对响应文件对应章节",
+        "核对响应文件已载明：数量要求为 14个",
+        "核对响应文件已载明：数量要求为 3个"
+      ],
+      "after_pass_criteria": [
+        "安装、调试、检测与验收节点在响应文件中逐项落实。",
+        "数量要求为 14个，且响应文件一致。",
+        "数量要求为 3个，且响应文件一致。"
+      ],
+      "why_round2_ownership_was_wrong": "安装、调试、检测与验收标准是否满足要求？"
+    },
+    {
+      "concern_id": "BID_BOND_EVIDENCE",
+      "concern_label": "保证金凭证",
+      "before_item_text": "招标文件要求：3.4.1项要求提交响应保证金的，评审小组将否决其响应。\n复核要点：\n① 核对缴纳凭证的付款主体、收款账户与到账时间\n② 核对保证金金额与形式是否符合招标文件\n③ 依据第18页第3.4.1条逐条比对响应文件对应章节\n通过标准：\n· 不存在该条列明的否决/无效情形。\n不满足后果：3.4.1项要求提交响应保证金的，评审小组将否决其响应。",
+      "before_row_index": 6,
+      "after_source_atoms": [
+        "SRA0097"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "否决",
+      "after_requirement": "3.4.1项要求提交响应保证金的，评审小组将否决其响应。",
+      "after_checks": [
+        "核对保证金凭证",
+        "确认凭证已放入响应文件对应位置",
+        "依据第18页第3.4.1条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "保证金凭证放入响应文件，可核验。"
+      ],
+      "why_round2_ownership_was_wrong": "保证金凭证是否放入响应文件？"
+    },
+    {
+      "concern_id": "CONTRACT_PAYMENT",
+      "concern_label": "合同付款与结算",
+      "before_item_text": "",
+      "before_row_index": null,
+      "after_source_atoms": [
+        "SRA0049.1",
+        "SRA0049.2",
+        "SRA0134",
+        "SRA0172",
+        "SRA0231"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "3、支付时间：领取《成交通知书》时缴纳。；缴纳账",
+      "after_checks": [
+        "核对合同付款条款响应",
+        "核对付款方式、结算依据与付款条件",
+        "依据第22页第7.4.1条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "付款方式、结算依据与付款条件在响应文件中被接受。"
+      ],
+      "why_round2_ownership_was_wrong": "付款方式、结算依据与付款条件是否可接受？"
+    },
+    {
+      "concern_id": "EVALUATION_SCORING",
+      "concern_label": "评分标准与分值构成",
+      "before_item_text": "招标文件要求：第三章“评审办法”没有规定的方法、评审因素和标准，不作为评审依据。；在评审活动中，评审 小组成员不得擅离职守，影响评审程序正常进行，不得使用第三章《评审办法》没有规 定的评审因素和标准进行评审。\n复核要点：\n① 将评分因素拆解为得分条件、证明材料、响应文件页码与预估得分\n② 确认每一项评分因素都有对应响应内容\n③ 依据第21页逐条比对响应文件对应章节\n④ 核对响应文件已载明：该评分因素最高 1分\n通过标准：\n· 每个评分因素都有对应响应内容与证明材料，预估得分可追溯。\n· 该评分因素最高 1分，且响应文件一致。\n准备材料：法定代表人授权委托书、投标报价表/开标一览表\n评分提示：按“得分条件—证明材料—响应文件位置—预估得分”逐项落实。分值线索：1分。",
+      "before_row_index": 39,
+      "after_source_atoms": [
+        "SRA0050",
+        "SRA0129",
+        "SRA0143",
+        "SRA0155",
+        "SRA0156"
+      ],
+      "after_owned_numbers": [
+        "95%(PAYMENT_RATIO)",
+        "5%(PAYMENT_RATIO)",
+        "1分(SCORE)"
+      ],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "款 95%（5%质保金质保期满无息支付）的得 12 分；；（12 分） 95%（5%质保金质保期满无息支付）的得 8 分；",
+      "after_checks": [
+        "将评分因素拆解为得分条件、证明材料与页码",
+        "确认每项都有对应响应内容",
+        "依据第21页逐条比对响应文件对应章节",
+        "核对响应文件已载明：付款/计分比例为 95%",
+        "核对响应文件已载明：付款/计分比例为 5%",
+        "核对响应文件已载明：该评分因素最高 1分"
+      ],
+      "after_pass_criteria": [
+        "每个评分因素都有对应响应内容与证明材料。",
+        "付款/计分比例为 95%，且响应文件一致。",
+        "付款/计分比例为 5%，且响应文件一致。",
+        "该评分因素最高 1分，且响应文件一致。"
+      ],
+      "why_round2_ownership_was_wrong": "每个评分因素如何得分、需要什么证明？"
+    },
+    {
+      "concern_id": "EVALUATION_COLLUSION",
+      "concern_label": "评审·串标与弄虚作假",
+      "before_item_text": "招标文件要求：投标人投标文件制作机器码一致视为串通投标行为；9.2 对供应商的纪律要求 供应商不得相互串通响应或与采购人串通响应，不得向采购人或者评审小组成员行 贿谋取成交，不得以他人名义响应或者以其他方式弄虚作假骗取成交；\n复核要点：\n① 核验业绩、证书、人员材料的真实性\n② 排查与其他投标人文件、联系信息、制作信息雷同等情形\n③ 依据第22页第9.2条逐条比对响应文件对应章节\n通过标准：\n· 不存在该条列明的否决/无效情形。",
+      "before_row_index": 3,
+      "after_source_atoms": [
+        "SRA0051",
+        "SRA0140",
+        "SRA0160",
+        "SRA0205"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "投标人投标文件制作机器码一致视为串通投标行为；9.2 对供应商的纪律要求 供应商不得相互串通响应或与采购人串通响应，不得向采购人或者评审小组成员行 贿谋取成交，不得以他人名义响应或者以其他方式弄虚作假骗取成交；",
+      "after_checks": [
+        "核对不存在串标、弄虚作假的证据",
+        "确认响应文件无雷同与异常一致",
+        "依据第22页第9.2条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "不存在串标、弄虚作假情形。"
+      ],
+      "why_round2_ownership_was_wrong": "是否存在串标、弄虚作假情形？"
+    },
+    {
+      "concern_id": "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+      "concern_label": "资格·关联关系限制",
+      "before_item_text": "招标文件要求：2.3 供应商被列入“中国执行信息公开网（https://zxgk.court.gov.cn/shixin） 一全国法院失信被执行人名单信息公布与查询平台-失信被执行人”的、“中国政府采 购网（https://www.…；1.5.3 供应商不得存在下列情形之一： （1）与采购人存在利害关系且可能影响采购公正性；\n复核要点：\n① 在招标文件指定平台查询并留存查询结果截图\n② 确认不存在失信被执行人、严重违法失信等禁止性记录\n③ 依据第6页第2.3条逐条比对响应文件对应章节\n通过标准：\n· 不存在该条列明的否决/无效情形。\n准备材料：指定平台查询结果截图",
+      "before_row_index": 1,
+      "after_source_atoms": [
+        "SRA0008",
+        "SRA0011",
+        "SRA0072",
+        "SRA0292",
+        "SRA0293"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [
+        "信用查询截图"
+      ],
+      "after_owned_consequence": "不得参加",
+      "after_requirement": "2.3 供应商被列入“中国执行信息公开网（https://zxgk.court.gov.cn/shixin） 一全国法院失信被执行人名单信息公布与查询平台-失信被执行人”的、“中国政府采 购网（https://www.…；2.4 单位负责人为同一人或者存在直接控股、管理关系的不同供应商，不得参加同 一合同项下的采购活动。",
+      "after_checks": [
+        "核对不存在关联关系禁止情形",
+        "确认声明或证明材料齐全",
+        "依据第6页第2.3条逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "不存在单位负责人同一人或控股、管理关系等禁止情形。"
+      ],
+      "why_round2_ownership_was_wrong": "是否存在单位负责人同一人或控股、管理关系等禁止情形？"
+    },
+    {
+      "concern_id": "PROJECT_WARRANTY",
+      "concern_label": "项目/产品质保",
+      "before_item_text": "招标文件要求：款 95%（5%质保金质保期满无息支付）的得 12 分； 2、预付款比例小；准 质保期 质保期 符合第二章“供应商须知”第 1.4.8 款规定\n复核要点：\n① 核对质保期承诺与质保范围\n② 确认响应方式、费用承担与招标文件一致\n③ 依据第24页逐条比对响应文件对应章节\n④ 与项目事实核对：质量要求 符合国家及行业有关标准、规范和询比文件要求（第9页）\n通过标准：\n· 质保期与质保范围不低于规定期限。\n准备材料：类似项目合同及验收证明",
+      "before_row_index": 32,
+      "after_source_atoms": [
+        "SRA0004",
+        "SRA0026",
+        "SRA0069",
+        "SRA0169",
+        "SRA0183.2"
+      ],
+      "after_owned_numbers": [
+        "24个月(WARRANTY_MONTHS)"
+      ],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "1.4.8 质保期 24 个月（自工程完工验收合格之日起算）；准 质保期 质保期 符合第二章“供应商须知”第 1.4.8 款规定",
+      "after_checks": [
+        "核对响应文件中的质保期与质保范围",
+        "确认起算点与覆盖范围符合要求",
+        "依据第24页逐条比对响应文件对应章节",
+        "核对响应文件已载明：质保期不低于 24个月"
+      ],
+      "after_pass_criteria": [
+        "项目/产品质保期与质保范围符合招标文件要求。",
+        "质保期不低于 24个月，且响应文件一致。"
+      ],
+      "why_round2_ownership_was_wrong": "项目/产品质保期与范围是否满足要求？"
+    },
+    {
+      "concern_id": "RETENTION_RELEASE_PERIOD",
+      "concern_label": "质保金释放期限",
+      "before_item_text": "招标文件要求：1.12 分包 是否允许分包：见供应商须知前附表。\n复核要点：\n① 确认响应文件无违规分包、转包安排\n② 如允许分包，核对分包范围符合招标文件限制\n③ 依据第16页第1.12条逐条比对响应文件对应章节\n通过标准：\n· 无违规分包、转包、挂靠情形。",
+      "before_row_index": 15,
+      "after_source_atoms": [
+        "SRA0235"
+      ],
+      "after_owned_numbers": [
+        "12个月(WARRANTY_MONTHS)"
+      ],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "作为质保金，质保期 12 个月，质保期满后无息付清余款。",
+      "after_checks": [
+        "核对质保金/尾款释放期限与条件",
+        "确认与合同条款一致",
+        "依据第33页逐条比对响应文件对应章节",
+        "核对响应文件已载明：质保期不低于 12个月"
+      ],
+      "after_pass_criteria": [
+        "质保金/尾款释放期限与条件在响应文件中明确。",
+        "质保期不低于 12个月，且响应文件一致。"
+      ],
+      "why_round2_ownership_was_wrong": "质保金/尾款返还或释放期限及条件是否清楚？"
+    },
+    {
+      "concern_id": "ELECTRONIC_UPLOAD",
+      "concern_label": "电子上传与加密",
+      "before_item_text": "招标文件要求：供应商须使用电子交易系统提供的投标文件制作工具进行电子响应文件的制作，并在提 交响应文件截止时间前通过“河南国企阳光招采服务平台”上传经CA 密钥签章和加密 的电子响应文件（.EJYTF 格式），加密电子响应文件逾期上…\n复核要点：\n① 逐页核对招标文件指定位置的签字、盖章、电子签章是否齐全\n② 核对签署人与授权委托书上的被授权人是否一致\n③ 依据第7页逐条比对响应文件对应章节\n通过标准：\n· 不存在该条列明的否决/无效情形。\n不满足后果：供应商须使用电子交易系统提供的投标文件制作工具进行电子响应文件的制作，并在提 交响应文件截止时间前通过“河南国企阳光招采服务平台”上传经CA 密钥签章和加密 的电子响应文件（.EJYTF 格式），加密电子响应文件逾期上传的，采购人不予受理…",
+      "before_row_index": 2,
+      "after_source_atoms": [
+        "SRA0019",
+        "SRA0108",
+        "SRA0112",
+        "SRA0117",
+        "SRA0118"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "不予受理",
+      "after_requirement": "供应商须使用电子交易系统提供的投标文件制作工具进行电子响应文件的制作，并在提 交响应文件截止时间前通过“河南国企阳光招采服务平台”上传经CA 密钥签章和加密 的电子响应文件（.EJYTF 格式），加密电子响应文件逾期上…；3.7.3 响应文件全部采用电子文档，除供应商须知前附表另有规定外，响应文件所 附证书证件均为原件扫描件，并采用单位和个人数字证书，按询…",
+      "after_checks": [
+        "核对电子文件加密与上传记录",
+        "确认上传成功且文件完整",
+        "依据第7页逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "电子文件按规定加密并上传成功。"
+      ],
+      "why_round2_ownership_was_wrong": "电子文件是否按规定加密/上传成功？"
+    },
+    {
+      "concern_id": "TECHNICAL_PARAMETER",
+      "concern_label": "技术参数与配置",
+      "before_item_text": "招标文件要求：进出水口各预留1 米不锈钢管含配套法兰、螺栓，以便于泵站外部管网对接 *流量计等相关计量仪器需提供第三方校检证书 二、采购范围：包含但不限于供货、包装、运输、保险、装车、配合验收、安装、调试 以及质量保证等伴随服务。；注：提供合同协议书复印件、材料清单复印件（若合同协议书中已\n复核要点：\n① 核对接口、协议与平台对接的技术方案\n② 确认方案可实施并附承诺\n③ 依据第39页逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n准备材料：类似项目合同及验收证明",
+      "before_row_index": 38,
+      "after_source_atoms": [
+        "SRA0179",
+        "SRA0240",
+        "SRA0264",
+        "SRA0266"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [],
+      "after_owned_consequence": "",
+      "after_requirement": "注：提供合同协议书复印件、材料清单复印件（若合同协议书中已；3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： （1）《二次供水工程技术规程》CJJ140-2018 （2）《室外给水设计规范》GB50013-2018 （3）《建筑给水排水设计规范》GB50015-…",
+      "after_checks": [
+        "逐条核对技术参数响应",
+        "确认无负偏离并标注证明材料位置",
+        "依据第39页逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "技术参数逐条响应，无负偏离。"
+      ],
+      "why_round2_ownership_was_wrong": "技术参数是否逐条响应、有无负偏离？"
+    },
+    {
+      "concern_id": "QUALIFICATION_CREDIT",
+      "concern_label": "资格·信用记录",
+      "before_item_text": "招标文件要求：供应商需提供在“国家企业信用信息公示系统”网站 （https://www.gsxt.gov.cn/index.html）查询其企业信息、股东或投资人信息的截图。；3、供应商的“信用中国（https://www.creditchina.gov.cn/xinyongfuwu/?navPage=4） -严重失信主体名单”的查询截图。\n复核要点：\n① 在招标文件指定平台查询并留存查询截图\n② 确认查询结果无禁止性记录且截图在有效期内取得\n③ 依据第6页逐条比对响应文件对应章节\n通过标准：\n· 资格材料齐全有效，主体信息一致。\n准备材料：指定平台查询结果截图",
+      "before_row_index": 12,
+      "after_source_atoms": [
+        "SRA0012",
+        "SRA0294"
+      ],
+      "after_owned_numbers": [],
+      "after_owned_materials": [
+        "信用查询截图"
+      ],
+      "after_owned_consequence": "",
+      "after_requirement": "供应商需提供在“国家企业信用信息公示系统”网站 （https://www.gsxt.gov.cn/index.html）查询其企业信息、股东或投资人信息的截图。；3、供应商的“信用中国（https://www.creditchina.gov.cn/xinyongfuwu/?navPage=4） -严重失信主体名单”的查询截图。",
+      "after_checks": [
+        "核对信用查询截图",
+        "确认查询时间与查询结果满足要求",
+        "依据第6页逐条比对响应文件对应章节"
+      ],
+      "after_pass_criteria": [
+        "信用记录查询结果满足招标文件要求。"
+      ],
+      "why_round2_ownership_was_wrong": "信用记录查询结果是否满足要求？"
+    }
+  ],
+  "concern_registry": {
+    "AFTER_SALES_SERVICE": {
+      "concern_id": "AFTER_SALES_SERVICE",
+      "label": "售后服务与运维",
+      "question": "售后服务与运维承诺是否满足要求？",
+      "numeric_roles": [
+        "RESPONSE_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "AUTHORIZATION": {
+      "concern_id": "AUTHORIZATION",
+      "label": "授权委托",
+      "question": "授权代表签署的授权链条是否完整？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "BID_BOND_AMOUNT": {
+      "concern_id": "BID_BOND_AMOUNT",
+      "label": "保证金金额",
+      "question": "保证金金额是否与招标文件一致？",
+      "numeric_roles": [
+        "BOND_AMOUNT"
+      ],
+      "bidder_facing": true
+    },
+    "BID_BOND_DEADLINE": {
+      "concern_id": "BID_BOND_DEADLINE",
+      "label": "保证金到账时间",
+      "question": "保证金是否在截止前到账？",
+      "numeric_roles": [
+        "RESPONSE_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "BID_BOND_EVIDENCE": {
+      "concern_id": "BID_BOND_EVIDENCE",
+      "label": "保证金凭证",
+      "question": "保证金凭证是否放入响应文件？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "BID_BOND_FORM": {
+      "concern_id": "BID_BOND_FORM",
+      "label": "保证金形式",
+      "question": "保证金形式是否符合规定？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "BID_BOND_TRANSFER": {
+      "concern_id": "BID_BOND_TRANSFER",
+      "label": "保证金转出账户",
+      "question": "是否从规定账户转出？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "BID_VALIDITY": {
+      "concern_id": "BID_VALIDITY",
+      "label": "投标有效期",
+      "question": "投标有效期是否满足并覆盖评审定标全过程？",
+      "numeric_roles": [
+        "VALIDITY_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "CONSORTIUM": {
+      "concern_id": "CONSORTIUM",
+      "label": "联合体",
+      "question": "是否允许联合体投标，响应是否与之一致？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "CONTRACT_ACCEPTANCE": {
+      "concern_id": "CONTRACT_ACCEPTANCE",
+      "label": "合同验收",
+      "question": "验收标准与程序是否可执行？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "CONTRACT_DELIVERY": {
+      "concern_id": "CONTRACT_DELIVERY",
+      "label": "合同交付义务",
+      "question": "合同交付义务与招标要求是否一致？",
+      "numeric_roles": [
+        "DURATION_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "CONTRACT_PAYMENT": {
+      "concern_id": "CONTRACT_PAYMENT",
+      "label": "合同付款与结算",
+      "question": "付款方式、结算依据与付款条件是否可接受？",
+      "numeric_roles": [
+        "PAYMENT_RATIO",
+        "PRICE"
+      ],
+      "bidder_facing": true
+    },
+    "CONTRACT_RISK": {
+      "concern_id": "CONTRACT_RISK",
+      "label": "合同风险与违约责任",
+      "question": "是否存在采购人不能接受的附加条件或风险？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "DELIVERY_LOCATION": {
+      "concern_id": "DELIVERY_LOCATION",
+      "label": "交付地点",
+      "question": "交付地点与实施范围是否符合要求？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "DELIVERY_PERIOD": {
+      "concern_id": "DELIVERY_PERIOD",
+      "label": "工期与供货期",
+      "question": "工期/供货期是否满足并覆盖交付节点？",
+      "numeric_roles": [
+        "DURATION_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "ELECTRONIC_UPLOAD": {
+      "concern_id": "ELECTRONIC_UPLOAD",
+      "label": "电子上传与加密",
+      "question": "电子文件是否按规定加密/上传成功？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "EVALUATION_COLLUSION": {
+      "concern_id": "EVALUATION_COLLUSION",
+      "label": "评审·串标与弄虚作假",
+      "question": "是否存在串标、弄虚作假情形？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "EVALUATION_FORMAL_REVIEW": {
+      "concern_id": "EVALUATION_FORMAL_REVIEW",
+      "label": "评审·形式审查",
+      "question": "形式审查要点是否满足？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "EVALUATION_QUALIFICATION_REVIEW": {
+      "concern_id": "EVALUATION_QUALIFICATION_REVIEW",
+      "label": "评审·资格审查",
+      "question": "资格审查要点是否满足？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "EVALUATION_RESPONSIVENESS": {
+      "concern_id": "EVALUATION_RESPONSIVENESS",
+      "label": "评审·响应性审查",
+      "question": "实质性响应要求是否全部满足？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "EVALUATION_SCORING": {
+      "concern_id": "EVALUATION_SCORING",
+      "label": "评分标准与分值构成",
+      "question": "每个评分因素如何得分、需要什么证明？",
+      "numeric_roles": [
+        "PAYMENT_RATIO",
+        "PERSON_COUNT",
+        "PRICE",
+        "QUANTITY",
+        "SCORE"
+      ],
+      "bidder_facing": true
+    },
+    "FILE_COMPOSITION": {
+      "concern_id": "FILE_COMPOSITION",
+      "label": "响应文件组成",
+      "question": "响应文件应由哪些部分组成、是否齐全？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "FILE_FORMAT": {
+      "concern_id": "FILE_FORMAT",
+      "label": "响应文件格式",
+      "question": "格式、装订、目录与页码是否按要求？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "GENERAL_BIDDER_OBLIGATION": {
+      "concern_id": "GENERAL_BIDDER_OBLIGATION",
+      "label": "一般投标人义务",
+      "question": "该条款对投标人提出了什么具体义务？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "INTERNAL_PROCEDURE": {
+      "concern_id": "INTERNAL_PROCEDURE",
+      "label": "采购方内部程序",
+      "question": "采购方/评审委员会内部程序事项",
+      "numeric_roles": [],
+      "bidder_facing": false
+    },
+    "OPENING_DECRYPTION": {
+      "concern_id": "OPENING_DECRYPTION",
+      "label": "开标与解密",
+      "question": "是否按时完成签到与解密？",
+      "numeric_roles": [
+        "RESPONSE_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "PRICE_ARITHMETIC": {
+      "concern_id": "PRICE_ARITHMETIC",
+      "label": "报价算术与大小写",
+      "question": "大小写、单价×数量、分项合计是否一致？",
+      "numeric_roles": [
+        "PRICE"
+      ],
+      "bidder_facing": true
+    },
+    "PRICE_CEILING": {
+      "concern_id": "PRICE_CEILING",
+      "label": "报价与最高限价",
+      "question": "报价是否不超过最高限价？",
+      "numeric_roles": [
+        "PRICE"
+      ],
+      "bidder_facing": true
+    },
+    "PRICE_COMPLETENESS": {
+      "concern_id": "PRICE_COMPLETENESS",
+      "label": "报价完整性",
+      "question": "是否存在漏项、重复项或未包含费用？",
+      "numeric_roles": [
+        "PRICE",
+        "QUANTITY"
+      ],
+      "bidder_facing": true
+    },
+    "PRICE_ITEMIZATION": {
+      "concern_id": "PRICE_ITEMIZATION",
+      "label": "分项报价与暂列金额",
+      "question": "分项限价/暂列金额是否与源表一致？",
+      "numeric_roles": [
+        "PRICE",
+        "QUANTITY"
+      ],
+      "bidder_facing": true
+    },
+    "PRICE_TAX_BASIS": {
+      "concern_id": "PRICE_TAX_BASIS",
+      "label": "报价税务口径",
+      "question": "税率与含税口径是否一致？",
+      "numeric_roles": [
+        "SCORE"
+      ],
+      "bidder_facing": true
+    },
+    "PROJECT_BASIC_INFO": {
+      "concern_id": "PROJECT_BASIC_INFO",
+      "label": "项目基本信息",
+      "question": "本项目的基本信息是否与招标文件一致？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "PROJECT_WARRANTY": {
+      "concern_id": "PROJECT_WARRANTY",
+      "label": "项目/产品质保",
+      "question": "项目/产品质保期与范围是否满足要求？",
+      "numeric_roles": [
+        "WARRANTY_MONTHS"
+      ],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_ANTI_BRIBERY": {
+      "concern_id": "QUALIFICATION_ANTI_BRIBERY",
+      "label": "资格·无行贿与履约记录",
+      "question": "无行贿/无不良履约记录承诺是否按要求提交？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_CREDIT": {
+      "concern_id": "QUALIFICATION_CREDIT",
+      "label": "资格·信用记录",
+      "question": "信用记录查询结果是否满足要求？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_FINANCIAL": {
+      "concern_id": "QUALIFICATION_FINANCIAL",
+      "label": "资格·财务能力",
+      "question": "财务能力承诺或审计报告是否按要求提供？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_LICENSE": {
+      "concern_id": "QUALIFICATION_LICENSE",
+      "label": "资格·营业执照与资质",
+      "question": "营业执照/资质证书是否有效并按要求提供？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_PERFORMANCE": {
+      "concern_id": "QUALIFICATION_PERFORMANCE",
+      "label": "资格·类似业绩",
+      "question": "类似项目业绩是否满足数量与时间范围要求？",
+      "numeric_roles": [
+        "PERSON_COUNT"
+      ],
+      "bidder_facing": true
+    },
+    "QUALIFICATION_RELATIONSHIP_RESTRICTION": {
+      "concern_id": "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+      "label": "资格·关联关系限制",
+      "question": "是否存在单位负责人同一人或控股、管理关系等禁止情形？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "QUALITY_TARGET": {
+      "concern_id": "QUALITY_TARGET",
+      "label": "质量目标",
+      "question": "质量/验收标准是否达标？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "REJECTION_GENERAL": {
+      "concern_id": "REJECTION_GENERAL",
+      "label": "其他否决情形",
+      "question": "还有哪些情形会导致投标被否决？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "RETENTION_MONEY_RATIO": {
+      "concern_id": "RETENTION_MONEY_RATIO",
+      "label": "质保金比例",
+      "question": "质保金/尾款比例是否与合同条款一致？",
+      "numeric_roles": [
+        "PAYMENT_RATIO"
+      ],
+      "bidder_facing": true
+    },
+    "RETENTION_RELEASE_PERIOD": {
+      "concern_id": "RETENTION_RELEASE_PERIOD",
+      "label": "质保金释放期限",
+      "question": "质保金/尾款返还或释放期限及条件是否清楚？",
+      "numeric_roles": [
+        "DURATION_DAYS",
+        "WARRANTY_MONTHS"
+      ],
+      "bidder_facing": true
+    },
+    "SIGNATURE_AND_SEAL": {
+      "concern_id": "SIGNATURE_AND_SEAL",
+      "label": "签章要求",
+      "question": "哪些位置必须签字/盖章，形式是否合规？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SIGNATURE_EXECUTION": {
+      "concern_id": "SIGNATURE_EXECUTION",
+      "label": "签章执行核对",
+      "question": "逐页/逐处签章是否执行到位？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SIGNATURE_RED_LINE": {
+      "concern_id": "SIGNATURE_RED_LINE",
+      "label": "签章否决红线",
+      "question": "签章/签字缺陷是否会导致否决？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SITE_VISIT": {
+      "concern_id": "SITE_VISIT",
+      "label": "现场踏勘",
+      "question": "是否按须知规定参加/安排了现场踏勘，记录是否留档？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SOURCE_REQUIREMENT_CONFLICT": {
+      "concern_id": "SOURCE_REQUIREMENT_CONFLICT",
+      "label": "条款冲突",
+      "question": "不同来源条款是否真正互相冲突？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SUBCONTRACT": {
+      "concern_id": "SUBCONTRACT",
+      "label": "分包与转包",
+      "question": "是否存在违规分包、转包情形？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "SUBMISSION_COPIES": {
+      "concern_id": "SUBMISSION_COPIES",
+      "label": "文件份数与电子版",
+      "question": "正副本份数与电子版要求是否满足？",
+      "numeric_roles": [
+        "QUANTITY"
+      ],
+      "bidder_facing": true
+    },
+    "SUBMISSION_DEADLINE": {
+      "concern_id": "SUBMISSION_DEADLINE",
+      "label": "递交截止时间",
+      "question": "是否在规定截止时间前完成递交？",
+      "numeric_roles": [
+        "RESPONSE_DAYS"
+      ],
+      "bidder_facing": true
+    },
+    "SUBMISSION_PLATFORM": {
+      "concern_id": "SUBMISSION_PLATFORM",
+      "label": "递交地点与平台",
+      "question": "递交方式、地点/平台是否符合要求？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "TECHNICAL_INSTALLATION": {
+      "concern_id": "TECHNICAL_INSTALLATION",
+      "label": "安装调试与验收",
+      "question": "安装、调试、检测与验收标准是否满足要求？",
+      "numeric_roles": [
+        "QUANTITY",
+        "WARRANTY_MONTHS"
+      ],
+      "bidder_facing": true
+    },
+    "TECHNICAL_PARAMETER": {
+      "concern_id": "TECHNICAL_PARAMETER",
+      "label": "技术参数与配置",
+      "question": "技术参数是否逐条响应、有无负偏离？",
+      "numeric_roles": [
+        "QUANTITY"
+      ],
+      "bidder_facing": true
+    },
+    "TECHNICAL_PLAN": {
+      "concern_id": "TECHNICAL_PLAN",
+      "label": "技术方案与实施组织",
+      "question": "技术方案/进度/人员机具/质量/应急是否完整可实施？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "TECHNICAL_PROOF": {
+      "concern_id": "TECHNICAL_PROOF",
+      "label": "技术证明材料",
+      "question": "证明材料是否齐全、可核验？",
+      "numeric_roles": [],
+      "bidder_facing": true
+    },
+    "TERM_DEFINITION": {
+      "concern_id": "TERM_DEFINITION",
+      "label": "术语与主体定义",
+      "question": "（仅词汇定义，非投标人义务）",
+      "numeric_roles": [],
+      "bidder_facing": false
+    },
+    "UNCLASSIFIED": {
+      "concern_id": "UNCLASSIFIED",
+      "label": "未归类",
+      "question": "待人工归类",
+      "numeric_roles": [],
+      "bidder_facing": false
+    },
+    "UNSUPPORTED_FORMAT_CLAIM": {
+      "concern_id": "UNSUPPORTED_FORMAT_CLAIM",
+      "label": "无源依据的格式主张",
+      "question": "该格式/组成主张在源文件中是否有真实依据？",
+      "numeric_roles": [],
+      "bidder_facing": false
+    }
+  }
+}

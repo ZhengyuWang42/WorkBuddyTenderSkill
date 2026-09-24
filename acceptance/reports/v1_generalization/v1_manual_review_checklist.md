@@ -53,6 +53,24 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 > 这些维度此前**没有任何门禁测量过**，因此「机器门禁全绿」不构成反驳。
 > 修复完成后转为 AUTOMATION-CLOSED，但**下列复选框一律保持未勾选**，人工复核须重新进行。
 
+## 0.6 第 3 轮复核关注点归属（ROUND-3 REVIEW-CONCERN OWNERSHIP）
+
+> 本节由第 3 轮人工加入；若用 `scripts/v1_manual_review_checklist.py` 重新生成，需要重新追加。
+
+第 3 轮的对象是**机器侧语义**，不改变人工复核义务：工作簿每个渲染组件（招标文件要求、
+数字、准备材料、不满足后果、评分提示、证据）现在同时满足「源文件可回溯」与「由同一个
+`ReviewConcern` 拥有」。机器证据：`review_workbook_round3_final_status.json`（PASS）、
+`review_workbook_round3_content_quality_case_00{1,2,3}.json`、`case_00{1,2,3}_review_workbook_gate_round3.json`、
+`case_00{1,2,3}_review_workbook_visual_qa_round3.json`。
+
+- CASE001 `项目质保期 24 个月` / `剩余 5% 作为质保金` / `质保期 12 个月…无息付清余款` 分别是
+  `PROJECT_WARRANTY`、`RETENTION_MONEY_RATIO`、`RETENTION_RELEASE_PERIOD` 三个关注点，
+  **不再被当作同一"质保"概念的冲突**；人工复核时请按三个独立问题分别核对。
+- 非投标人面向的内部程序/定义条款若仍出现在工作簿中，会带
+  `〔采购人内部程序/定义条款，仅备查，无需投标响应〕` 标记，人工无需响应。
+- `CASE00{1,2,3}_XLSX_MANUAL_REVIEW` 仍为 `NOT_YET_CONFIRMED`；本节**不勾选**任何复选框，
+  人工 Excel 复核（第 0.5 节之后的任务 B）仍待人工执行。
+
 ## 0. 自动化结论 (automated result)
 
 | 项目 | 值 |

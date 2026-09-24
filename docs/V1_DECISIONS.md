@@ -614,3 +614,47 @@ BEFORE→AFTER；已知坏例（48小时/69152076、0元、平台服务费300元
 混行数字、CONTRACT 无关后果、无归属值）全部由通用规则关闭，未使用案例专用分支。
 渲染 QA 的 `clipping_bounded` WARN 为 CASE001 10（第 1 轮 8，结构化视图 E/F 列多出 2
 格）、CASE002 17（18）、CASE003 26（26）；该 WARN 不是失败项，也不构成提交就绪。
+
+### D50 复核关注点归属：PROVENANCE IS NECESSARY BUT NOT SUFFICIENT
+
+第 3 轮引入 `SourceRequirementAtom -> ReviewConcern -> ReviewPoint` 归属链。来源可追溯
+不再足以让一个数字、材料或后果出现在某一行：每个渲染组件必须**同时**是源文件可回溯的、
+**且**由同一个 `ReviewConcern` 拥有。引擎新增 `tender_basic/review_concern.py`
+（原子化、关注点分类注册表、归属违规检查器），`ReviewPoint` 增加 `concern_id` /
+`concern_label` / `concern_question` / `owned_atom_ids` / `owned_clause_ids`，
+`dynamic_review.build_dynamic_review_plan` 改为按关注点合成行（一个关注点 = 一行 = 一个人工问题）。
+
+### D51 源条款按语义切分，而非按标点切分
+
+源文件常把同一段商务条款拆到不同 unit（例如 `剩余 5%` 与 `作为质保金，质保期 12 个月，
+质保期满后无息付清余款`）。因此保留金条款的**金额面**在**节（section）级**派生一个额外原子：
+当同一节同时出现保留期、质保金/尾款/余款措辞与百分比时，从原文中截取**逐字片段**生成
+`RETENTION_MONEY_RATIO` 原子。派生原子不含新增数字、不引入案例分支。
+
+### D52 同一中文关键词不等于同一语义概念
+
+CASE001 的 `项目质保期 24 个月`（PROJECT_WARRANTY，WARRANTY_MONTHS）、
+`剩余 5% 作为质保金`（RETENTION_MONEY_RATIO，PAYMENT_RATIO）、
+`质保期 12 个月…质保期满后无息付清余款`（RETENTION_RELEASE_PERIOD，WARRANTY_MONTHS）
+是三个不同关注点，**不得**被报告为源文件冲突。`FALSE_CONFLICT_COUNT = 0`；
+冲突判定要求"同一关注点 + 同一角色 + 同一权限范围 + 值不等"，朴素关键词匹配会报出的
+假冲突由该规则显式计数为 `naive_keyword_conflicts_avoided`，不进入工作簿。
+
+### D53 可执行性：内部程序与定义条款不作为投标人义务行
+
+非投标人面向的关注点（`INTERNAL_PROCEDURE`、`TERM_DEFINITION`）默认被过滤；仅当其中
+含强制/高风险条款（否则丢失覆盖）时保留，且该行必须以
+`〔采购人内部程序/定义条款，仅备查，无需投标响应〕` 标记，并配"无需投标人响应"的复核要点，
+使人工不会误把它当成需要响应的废标项。
+
+### D54 第 3 轮证据与冻结事实
+
+三案例第 3 轮后继构建门禁 40/40 PASS、内容质量报告 PASS（14/14 A–N 已知坏例、
+20/20 人工风格审计、≥15 组 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）、结构渲染 QA PASS
+（`clipping_bounded` WARN 为 CASE001 8（第 2 轮 10）、CASE002 10（17）、CASE003 26（26），
+均不劣于基线）。全套测试 716 收集 / 715 passed / 1 skipped / **0 failed / 0 errors**。
+Word 产物在各后继目录中逐字节一致（`word_render_repeated=false`）。CASE002 `budget` 仍为
+NOT_FOUND、`max_price 7507785.65` 仍 RESOLVED，分项报价行 36 = 源文件 36 行；CASE003
+`lot_name 三标段` 仍 RESOLVED。人工确认状态保持未勾选：`CASE00{1,2,3}_XLSX_MANUAL_REVIEW`
+均为 `NOT_YET_CONFIRMED`，`V1_PRODUCTION_CANDIDATE=false`、`READY_FOR_SUBMISSION=false`，
+未创建任何 tag 或 release。

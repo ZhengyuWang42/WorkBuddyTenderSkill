@@ -346,6 +346,13 @@ class ReviewPoint(ContractModel):
     numeric_evidence: list[NumericEvidence] = []
     consequence_evidence_id: str = ""
     notes: str = ""
+    # round 3: review-concern ownership (all optional so round-2 callers and
+    # round-2 evidence stay valid)
+    concern_id: str = ""
+    concern_label: str = ""
+    concern_question: str = ""
+    owned_atom_ids: list[str] = []
+    owned_clause_ids: list[str] = []
 
 
 # ---------------------------------------------------------------------------
@@ -436,14 +443,21 @@ def extract_numeric_evidence(units: Sequence[SourceRequirementUnit]) -> list[Num
             if not raw or not re.search(r"\d", raw):
                 continue
             value = re.sub(r"\s+", "", raw)
-            if _is_reference_number(text, match.start(), match.end(), value):
+            end = match.end()
+            # "24 个月" must stay a duration, not collapse to the quantity
+            # "24个": extend the captured unit when the source spells it out.
+            tail = re.match(r"\s*(个月|月|年|小时|分钟|日历天|自然日|天|日|周)", text[end:])
+            if tail:
+                value = f"{value}{tail.group(1)}"
+                end = end + tail.end()
+            if _is_reference_number(text, match.start(), end, value):
                 continue
-            role = _role_for(text, value, match.start(), match.end())
+            role = _role_for(text, value, match.start(), end)
             key = (value, role)
             if key in seen:
                 continue
             seen.add(key)
-            context = re.sub(r"\s+", " ", _window(text, match.start(), match.end(), 14)).strip()
+            context = re.sub(r"\s+", " ", _window(text, match.start(), end, 14)).strip()
             found.append(
                 NumericEvidence(
                     value=value,
@@ -808,6 +822,320 @@ def synthesize_review_point(
 # ---------------------------------------------------------------------------
 
 
+# ---------------------------------------------------------------------------
+# round 3: concern-owned synthesis
+# ---------------------------------------------------------------------------
+
+#: Pass criteria per review concern (generic; grounded against the concern's own
+#: source atoms before rendering).
+CONCERN_PASS_CRITERIA: dict[str, str] = {
+    "PROJECT_BASIC_INFO": "项目名称、编号、标段等基本信息与招标文件一致。",
+    "BID_VALIDITY": "投标有效期达到规定天数，且覆盖评审与定标全过程。",
+    "AFTER_SALES_SERVICE": "售后服务响应时间与运维方案在响应文件中有明确承诺。",
+    "TECHNICAL_INSTALLATION": "安装、调试、检测与验收节点在响应文件中逐项落实。",
+    "SIGNATURE_RED_LINE": "签字盖章齐全有效，不存在因签章缺陷被否决的情形。",
+    "SIGNATURE_AND_SEAL": "所有指定位置的签字、盖章齐全且形式合规。",
+    "SIGNATURE_EXECUTION": "逐处签章已按招标文件要求执行完毕，无遗漏。",
+    "AUTHORIZATION": "授权代表签署的授权链条完整，授权书有效。",
+    "REJECTION_GENERAL": "不存在该情形，或已在响应文件中作出符合要求的响应。",
+    "GENERAL_BIDDER_OBLIGATION": "响应文件对该条款作出可核验的对应响应。",
+    "BID_BOND_AMOUNT": "保证金金额与招标文件规定一致。",
+    "BID_BOND_FORM": "保证金形式符合规定，且来源合法。",
+    "BID_BOND_TRANSFER": "保证金从规定的账户转出。",
+    "BID_BOND_DEADLINE": "保证金在递交截止时间前到账。",
+    "BID_BOND_EVIDENCE": "保证金凭证放入响应文件，可核验。",
+    "PRICE_CEILING": "投标报价不超过最高限价。",
+    "PRICE_ARITHMETIC": "大小写金额一致，单价×数量等于合计，分项合计与总价一致。",
+    "PRICE_COMPLETENESS": "报价无漏项、重复项，已包含要求的一切费用。",
+    "PRICE_TAX_BASIS": "税率与含税口径在响应文件中一致。",
+    "PRICE_ITEMIZATION": "分项报价与源表金额逐项一致，暂列金额按源表列示。",
+    "DELIVERY_PERIOD": "工期/供货期达到规定期限，且覆盖全部交付节点。",
+    "DELIVERY_LOCATION": "交付地点与实施范围符合招标文件要求。",
+    "QUALITY_TARGET": "质量标准与验收标准在响应文件中明确并达标。",
+    "PROJECT_WARRANTY": "项目/产品质保期与质保范围符合招标文件要求。",
+    "RETENTION_MONEY_RATIO": "质保金/尾款比例与合同条款一致。",
+    "RETENTION_RELEASE_PERIOD": "质保金/尾款释放期限与条件在响应文件中明确。",
+    "FILE_COMPOSITION": "响应文件组成齐全，与招标文件要求的组成部分一致。",
+    "FILE_FORMAT": "格式、装订、目录与页码符合招标文件要求。",
+    "TECHNICAL_PARAMETER": "技术参数逐条响应，无负偏离。",
+    "TECHNICAL_PROOF": "证明材料齐全、清晰、可核验。",
+    "TECHNICAL_PLAN": "技术方案、进度计划、人员机具、质量与应急措施完整可实施。",
+    "EVALUATION_FORMAL_REVIEW": "形式审查要点在响应文件中全部满足。",
+    "EVALUATION_QUALIFICATION_REVIEW": "资格审查要点在响应文件中全部满足。",
+    "EVALUATION_RESPONSIVENESS": "实质性响应要求全部满足，无重大偏差。",
+    "EVALUATION_SCORING": "每个评分因素都有对应响应内容与证明材料。",
+    "EVALUATION_COLLUSION": "不存在串标、弄虚作假情形。",
+    "QUALIFICATION_LICENSE": "营业执照与资质证书在有效期内且已提供。",
+    "QUALIFICATION_FINANCIAL": "财务能力材料按要求提供且数据可核验。",
+    "QUALIFICATION_CREDIT": "信用记录查询结果满足招标文件要求。",
+    "QUALIFICATION_ANTI_BRIBERY": "无行贿与无不良履约记录承诺按要求提交。",
+    "QUALIFICATION_PERFORMANCE": "类似业绩满足数量与时间范围要求，证明齐全。",
+    "QUALIFICATION_RELATIONSHIP_RESTRICTION": "不存在单位负责人同一人或控股、管理关系等禁止情形。",
+    "CONSORTIUM": "响应文件的投标主体形式与招标文件关于联合体的规定一致。",
+    "SUBCONTRACT": "不存在违规分包、转包情形，或已按允许范围说明。",
+    "SUBMISSION_DEADLINE": "在规定的截止时间前完成递交。",
+    "SUBMISSION_PLATFORM": "递交方式、地点/平台符合招标文件要求。",
+    "SUBMISSION_COPIES": "正副本份数与电子版要求满足。",
+    "ELECTRONIC_UPLOAD": "电子文件按规定加密并上传成功。",
+    "OPENING_DECRYPTION": "在规定时间内完成签到与解密。",
+    "CONTRACT_PAYMENT": "付款方式、结算依据与付款条件在响应文件中被接受。",
+    "CONTRACT_RISK": "不存在采购人不能接受的附加条件或未响应风险条款。",
+    "CONTRACT_DELIVERY": "合同交付义务与招标要求一致。",
+    "CONTRACT_ACCEPTANCE": "验收标准与程序可执行且已被接受。",
+    "SOURCE_REQUIREMENT_CONFLICT": "冲突双方的理解与适用条件已由人工裁决。",
+}
+
+#: Concrete review checks per concern (first person actions, source-grounded).
+CONCERN_CHECKS: dict[str, tuple[str, ...]] = {
+    "BID_BOND_AMOUNT": ("核对响应文件中的保证金金额", "确认凭证金额与招标文件一致"),
+    "BID_BOND_FORM": ("核对保证金形式（电汇/转账/保函等）", "确认形式符合招标文件规定"),
+    "BID_BOND_TRANSFER": ("核对保证金转出账户", "确认从规定账户转出并留存凭证"),
+    "BID_BOND_DEADLINE": ("核对保证金到账时间", "确认早于递交截止时间"),
+    "BID_BOND_EVIDENCE": ("核对保证金凭证", "确认凭证已放入响应文件对应位置"),
+    "PRICE_CEILING": ("核对投标总报价", "确认不超过最高限价"),
+    "PRICE_ARITHMETIC": ("核对大小写金额", "核对单价×数量与分项合计、总价"),
+    "PRICE_COMPLETENESS": ("核对报价组成", "确认无漏项、重复项与未包含费用"),
+    "PRICE_ITEMIZATION": ("核对分项报价表逐行金额", "确认与源表限价/暂列金额一致"),
+    "SUBMISSION_DEADLINE": ("核对递交截止时间", "确认完成递交的时间与凭证"),
+    "SUBMISSION_PLATFORM": ("核对递交方式与地点/平台", "确认按指定方式递交"),
+    "SUBMISSION_COPIES": ("核对正副本份数与电子版", "确认份数、介质与格式满足要求"),
+    "ELECTRONIC_UPLOAD": ("核对电子文件加密与上传记录", "确认上传成功且文件完整"),
+    "OPENING_DECRYPTION": ("核对签到与解密时间", "确认在规定时间内完成解密"),
+    "SIGNATURE_AND_SEAL": ("按招标文件签章要求逐处核对签字人与印章", "确认授权链条完整、印章清晰"),
+    "SIGNATURE_EXECUTION": ("逐页检查签章执行情况", "记录需签字/盖法人章的页码并复核"),
+    "SIGNATURE_RED_LINE": ("核对签章是否齐全", "确认不存在因签章缺陷被否决的情形"),
+    "AUTHORIZATION": ("核对授权委托书", "确认授权代表与签署人一致且在有效期内"),
+    "QUALIFICATION_LICENSE": ("核对营业执照与资质证书", "确认专业类别、等级与有效期满足要求"),
+    "QUALIFICATION_FINANCIAL": ("核对财务审计报告或财务承诺", "确认数据与出具主体符合要求"),
+    "QUALIFICATION_CREDIT": ("核对信用查询截图", "确认查询时间与查询结果满足要求"),
+    "QUALIFICATION_PERFORMANCE": ("核对类似业绩合同与验收证明", "确认时间范围与数量满足要求"),
+    "PROJECT_WARRANTY": ("核对响应文件中的质保期与质保范围", "确认起算点与覆盖范围符合要求"),
+    "RETENTION_MONEY_RATIO": ("核对合同条款中的质保金/尾款比例", "确认响应文件接受该比例"),
+    "RETENTION_RELEASE_PERIOD": ("核对质保金/尾款释放期限与条件", "确认与合同条款一致"),
+    "TECHNICAL_PARAMETER": ("逐条核对技术参数响应", "确认无负偏离并标注证明材料位置"),
+    "TECHNICAL_PROOF": ("核对证明材料清单", "确认材料清晰、可核验且与响应内容对应"),
+    "TECHNICAL_PLAN": ("核对技术方案与进度计划", "核对人员机具配置、质量措施与应急预案"),
+    "EVALUATION_SCORING": ("将评分因素拆解为得分条件、证明材料与页码", "确认每项都有对应响应内容"),
+    "EVALUATION_COLLUSION": ("核对不存在串标、弄虚作假的证据", "确认响应文件无雷同与异常一致"),
+    "FILE_COMPOSITION": ("按招标文件要求的组成部分逐项清点", "确认无缺项、无多余替代件"),
+    "FILE_FORMAT": ("核对格式、装订、目录与页码", "确认符合响应文件格式规定"),
+    "DELIVERY_PERIOD": ("核对响应函与进度计划中的工期/供货期", "确认覆盖全部交付与验收节点"),
+    "DELIVERY_LOCATION": ("核对交付地点与实施范围", "确认与招标文件一致"),
+    "QUALITY_TARGET": ("核对质量标准与验收标准", "确认响应文件承诺达标"),
+    "CONTRACT_PAYMENT": ("核对合同付款条款响应", "核对付款方式、结算依据与付款条件"),
+    "CONTRACT_RISK": ("核对违约、索赔与争议条款响应", "确认无采购人不能接受的附加条件"),
+    "CONTRACT_DELIVERY": ("核对合同交付义务响应", "确认交付时间地点与招标要求一致"),
+    "CONTRACT_ACCEPTANCE": ("核对验收标准与程序响应", "确认验收条件可执行"),
+    "CONSORTIUM": ("核对投标主体形式", "确认与联合体规定一致"),
+    "SUBCONTRACT": ("核对分包安排", "确认无违规分包、转包"),
+    "QUALIFICATION_RELATIONSHIP_RESTRICTION": ("核对不存在关联关系禁止情形", "确认声明或证明材料齐全"),
+    "QUALIFICATION_ANTI_BRIBERY": ("核对无行贿犯罪记录承诺", "确认承诺主体与盖章符合要求"),
+    "BID_VALIDITY": ("核对投标函中的投标有效期", "确认覆盖评审与定标全过程"),
+    "AFTER_SALES_SERVICE": ("核对售后服务响应时间与运维方案", "确认承诺可执行"),
+    "TECHNICAL_INSTALLATION": ("核对安装、调试与验收标准", "确认验收节点与招标文件一致"),
+    "EVALUATION_FORMAL_REVIEW": ("核对形式审查要点", "确认全部满足"),
+    "EVALUATION_QUALIFICATION_REVIEW": ("核对资格审查要点", "确认全部满足"),
+    "EVALUATION_RESPONSIVENESS": ("核对实质性响应要求", "确认无重大偏差"),
+    "REJECTION_GENERAL": ("核对该否决情形对应的响应内容", "确认不触发该情形"),
+    "GENERAL_BIDDER_OBLIGATION": ("核对该条款对应的响应内容", "确认响应完整、可核验"),
+    "PROJECT_BASIC_INFO": ("核对项目基本信息", "确认与招标文件一致"),
+    "SOURCE_REQUIREMENT_CONFLICT": ("核对冲突双方条款的适用条件", "提请人工裁决并记录依据"),
+}
+
+
+def _concern_atom_text(concern: Any) -> str:
+    return " ".join(str(atom.source_text) for atom in getattr(concern, "atoms", ()))
+
+
+#: Tender-file fee sentences must never enter a review point.
+_FEE_FRAGMENT_RE = re.compile(r"(?:\d+[、.)]?\s*)?[^。；\n]*(?:售价|工本费|平台服务费|标书费|文件费)[^。；\n]*[。；]?")
+
+#: Short anaphoric fragments carry no self-contained meaning of their own.
+_ANAPHORIC_ONLY_RE = re.compile(r"(此项|本项|该事项|上述|本条|该表)")
+
+
+def _concern_summary(concern: Any, limit: int = 180) -> str:
+    """Requirement text built ONLY from atoms owned by this concern."""
+
+    atoms = list(getattr(concern, "atoms", ()))
+    if not atoms:
+        return ""
+    owned_values = {value.value for value in concern.owned_numbers()}
+    # A short anaphoric fragment ("针对此项…加盖公章") is not evidence of *this*
+    # concern: prefer atoms that name their own subject when any exist.
+    named = [
+        atom
+        for atom in atoms
+        if not (_ANAPHORIC_ONLY_RE.search(str(atom.source_text)) and len(str(atom.source_text)) < 80)
+    ]
+    candidates = named or atoms
+    ranked: list[tuple[int, int, Any]] = []
+    for order, atom in enumerate(candidates):
+        text = str(atom.source_text)
+        if _is_fee_clause(text) and not any(value and value in text for value in owned_values):
+            continue  # a tender-file fee is never a bidder review requirement
+        score = 0
+        if any(value and value in text for value in owned_values):
+            score -= 3  # prefer the atom that actually carries the owned value
+        if _is_fee_clause(text):
+            score += 3
+        if len(_topic_terms(str(atom.topic))) == 0:
+            score += 1
+        ranked.append((score, order, atom))
+    ranked.sort(key=lambda row: (row[0], row[1]))
+
+    excerpts: list[str] = []
+    for _score, _order, atom in ranked[:2]:
+        cleaned = _clean(_FEE_FRAGMENT_RE.sub("", str(atom.source_text)))
+        excerpts.append(_truncate(cleaned, 110))
+    summary = "；".join(part for part in excerpts if part)
+    return _truncate(summary, limit)
+
+
+def synthesize_concern_point(
+    concern: Any,
+    *,
+    fact_hints: Mapping[str, str],
+    linked_fields: Sequence[str] = (),
+    requirement_type: str | None = None,
+    topic: str | None = None,
+) -> ReviewPoint | None:
+    """Build a ReviewPoint whose every component is owned by ``concern``.
+
+    The concern is consumed duck-typed (``tender_basic.review_concern`` imports
+    this module, so the reverse import is avoided); only its ownership surface is
+    used: ``concern_id``/``label``/``question``/``atoms``/``owned_numbers``/
+    ``owned_materials``/``owned_consequence``/``owned_score_rule``.
+    """
+
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    atoms = list(getattr(concern, "atoms", ()))
+    if not concern_id or not atoms:
+        return None
+
+    owned_numbers = list(concern.owned_numbers())
+    summary = _concern_summary(concern)
+    if not summary:
+        return None
+
+    internal_row = not bool(getattr(concern, "is_bidder_facing", True))
+    if internal_row:
+        # The clause is retained for traceability/coverage, but it must never
+        # read as a bidder duty the supplier has to answer.
+        summary = f"〔采购人内部程序/定义条款，仅备查，无需投标响应〕{summary}"
+
+    checks: list[str] = []
+    concern_checks = CONCERN_CHECKS.get(concern_id, ())
+    if not concern_checks:
+        concern_checks = ("逐条核对本条要求在响应文件中的对应内容", "确认响应文件中可核验的对应位置")
+    if internal_row:
+        concern_checks = (
+            "确认该条属于采购人内部程序或术语定义，无需投标人响应",
+            "仅作背景备查，不作为废标/评分依据",
+        )
+    # Concern-canonical checks are owned by construction (they are keyed by the
+    # concern id itself), so they are always kept; only quoted source text has to
+    # pass the grounding guard.
+    checks.extend(concern_checks)
+    anchor = _anchor([_unit_like_atom(atom) for atom in atoms]) if atoms else ""
+    if anchor:
+        checks.append(f"依据{anchor}逐条比对响应文件对应章节")
+    for value in owned_numbers[:4]:
+        checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value)}")
+
+    criteria: list[str] = []
+    base_criterion = CONCERN_PASS_CRITERIA.get(concern_id, "")
+    if not base_criterion:
+        base_criterion = "该条款的响应内容在响应文件中可核验，且与要求一致。"
+    criteria.append(base_criterion)
+    for value in owned_numbers[:3]:
+        criteria.append(f"{_value_sentence(value.role, value.value)}，且响应文件一致。")
+
+    consequence, consequence_atom = concern.owned_consequence()
+    score_text, score_atom = concern.owned_score_rule()
+    linked = list(linked_fields)
+    for atom in atoms:
+        for key in getattr(atom, "linked_fact_keys", ()) or ():
+            if key not in linked:
+                linked.append(key)
+
+    point = ReviewPoint(
+        requirement_type=requirement_type or str(getattr(atoms[0], "requirement_type", "") or ""),
+        topic=topic or str(getattr(concern, "topic", "") or ""),
+        actionability=ACTIONABLE,
+        status=READY,
+        requirement_summary=summary,
+        review_checks=list(dict.fromkeys(checks)),
+        pass_criteria=list(dict.fromkeys(criteria)),
+        failure_consequence=consequence,
+        preparation_materials=concern.owned_materials()[:4],
+        scoring_guidance=(score_text if concern_id == "EVALUATION_SCORING" and score_text else ""),
+        linked_fact_keys=linked,
+        evidence_ids=[str(atom.source_clause_id) for atom in atoms],
+        numeric_evidence=owned_numbers[:6],
+        consequence_evidence_id=consequence_atom,
+        notes=f"concern={concern_id}; atoms={','.join(str(a.atom_id) for a in atoms[:6])}",
+    )
+    point.concern_id = concern_id
+    point.concern_label = str(getattr(concern, "label", "") or "")
+    point.concern_question = str(getattr(concern, "question", "") or "")
+    point.owned_atom_ids = [str(atom.atom_id) for atom in atoms]
+    point.owned_clause_ids = [str(atom.source_clause_id) for atom in atoms]
+    if score_atom:
+        point.notes += f"; score_atom={score_atom}"
+    return point
+
+
+def _unit_like_atom(atom: Any) -> Any:
+    """Adaptor so round-2 helpers can read an atom like a source unit."""
+
+    class _Adaptor:
+        pass
+
+    adaptor = _Adaptor()
+    adaptor.text = str(getattr(atom, "source_text", ""))
+    adaptor.topic = str(getattr(atom, "topic", ""))
+    adaptor.requirement_type = str(getattr(atom, "requirement_type", ""))
+    adaptor.requirement_id = str(getattr(atom, "source_clause_id", "") or getattr(atom, "atom_id", ""))
+    adaptor.page = getattr(atom, "source_page", None)
+    adaptor.clause = str(getattr(atom, "source_structure_id", ""))
+    adaptor.section = str(getattr(atom, "source_section", ""))
+    adaptor.mandatory = bool(getattr(atom, "mandatory", False))
+    adaptor.high_risk = bool(getattr(atom, "high_risk", False))
+    return adaptor
+
+
+def _line_grounded_in_concern(line: str, atoms: Sequence[Any]) -> bool:
+    """A rendered line must be supported by the concern's own atoms."""
+
+    backing = " ".join(str(getattr(atom, "source_text", "")) for atom in atoms)
+    if not line.strip():
+        return False
+    if not backing:
+        return False
+    return line_is_grounded(backing, line)
+
+
+def _shares_term(line: str, backing: str) -> bool:
+    """True when a concern-canonical line shares a content term with the source."""
+
+    if not line.strip() or not backing:
+        return False
+    for term in grounding_terms():
+        if term in line and term in backing:
+            return True
+    return False
+
+
+def concern_reuse_note(concern: Any) -> str:
+    """Human-readable ownership note used by the round-3 reports."""
+
+    atoms = list(getattr(concern, "atoms", ()))
+    return f"{getattr(concern, 'concern_id', '')}: " + ", ".join(
+        f"{getattr(atom, 'atom_id', '')}@{getattr(atom, 'authority_scope', '')}" for atom in atoms[:4]
+    )
+
+
 def render_checks(point: ReviewPoint) -> str:
     marks = "①②③④⑤⑥⑦⑧⑨"
     lines = []
@@ -870,6 +1198,10 @@ class QualityScan:
 
 
 _OBSERVABLE_TERMS = (
+    "核对",
+    "确认",
+    "比对",
+    "核验",
     "核对", "比对", "确认", "清点", "查询", "验证", "核验", "检查", "提交", "载明",
     "一致", "齐全", "有效", "覆盖", "留存", "对照", "逐条", "逐项", "提供", "准备",
     "出具", "编制", "完成", "拆解", "落实", "排查", "统计", "记录", "满足", "符合",
