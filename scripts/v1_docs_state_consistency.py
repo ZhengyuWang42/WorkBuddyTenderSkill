@@ -42,6 +42,21 @@ THREE_CASE_NAME = "v1_three_case_regression_final.json"
 CHECKLIST_NAME = "v1_manual_review_checklist.md"
 FULL_SUITE_XML = "case001_full_test_suite_round4_closure8.xml"
 
+#: Round-3 review-workbook current-truth evidence.
+ROUND3_FINAL_STATUS = "review_workbook_round3_final_status.json"
+ROUND3_SUITE_XML = "review_workbook_round3_full_test_suite.xml"
+ROUND3_GATE = "{case}_review_workbook_gate_round3.json"
+ROUND3_QUALITY = "review_workbook_round3_content_quality_{case}.json"
+ROUND3_VISUAL = "{case}_review_workbook_visual_qa_round3.json"
+ROUND3_BUILD_ID = {
+    "case_001": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3",
+    "case_002": "v1_round4_closure8_review_workbook3",
+    "case_003": "v1_round4_closure8_review_workbook3",
+}
+
+#: Wording that marks a statement as history rather than current state.
+HISTORY_MARKERS = ("历史", "HISTORICAL", "SUPERSEDED", "基线", "baseline", "被取代")
+
 CASES = ("case_001", "case_002", "case_003")
 
 #: Statements that must never appear in a current-state document.
@@ -280,6 +295,244 @@ def check_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text:
     }
 
 
+def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text: str) -> dict:
+    """Round-3 current truth: docs must agree with the round-3 machine evidence.
+
+    The round-3 machine state is authoritative; the docs are checked *against* it,
+    never the other way round.  A previous round may still be described, but only
+    where the sentence is marked as history.
+    """
+
+    general = REPO / GENERALIZATION
+    final_path = general / ROUND3_FINAL_STATUS
+    if not final_path.is_file():
+        gate.check("round3_final_status_exists", False, path=str(final_path))
+        return {}
+    final = load(final_path)
+    gate.check(
+        "round3_final_status_is_pass",
+        str(final.get("result")) == "PASS" and not final.get("blockers"),
+        result=final.get("result"),
+        blockers=final.get("blockers"),
+    )
+
+    cases: dict[str, dict] = {}
+    for case in CASES:
+        entry: dict[str, object] = {}
+        gate_path = general / ROUND3_GATE.format(case=case)
+        if gate_path.is_file():
+            report = load(gate_path)
+            entry["gate"] = {
+                "result": report.get("result"),
+                "passed": report.get("passed"),
+                "check_count": report.get("check_count"),
+                "failed": report.get("failed"),
+            }
+            gate.check(
+                f"{case}_round3_structure_gate_40_of_40",
+                report.get("result") == "PASS"
+                and report.get("passed") == report.get("check_count") == 40
+                and report.get("failed") == 0,
+                **entry["gate"],
+            )
+        else:
+            gate.check(f"{case}_round3_structure_gate_40_of_40", False, path=str(gate_path))
+
+        quality_path = general / ROUND3_QUALITY.format(case=case)
+        if quality_path.is_file():
+            quality = load(quality_path)
+            counters = quality.get("counters") or {}
+            audit = quality.get("human_style_audit") or {}
+            conflicts = quality.get("conflicts") or {}
+            entry["quality"] = {
+                "result": quality.get("result"),
+                "fixtures": f"{quality.get('fixtures_passed')}/{quality.get('fixtures_total')}",
+                "audit": audit.get("result"),
+                "false_conflict_count": conflicts.get("false_conflict_count"),
+            }
+            gate.check(
+                f"{case}_round3_content_quality_pass",
+                quality.get("result") == "PASS"
+                and quality.get("fixtures_passed") == quality.get("fixtures_total") == 14
+                and (quality.get("fixtures_total") or 0) == 14
+                and audit.get("coherent_count") == audit.get("sample_size") == 20
+                and conflicts.get("false_conflict_count") == 0,
+                **entry["quality"],
+            )
+            gate.check(
+                f"{case}_round3_ownership_buckets_empty",
+                all(
+                    counters.get(key) == 0
+                    for key in (
+                        "source_concern_mismatch",
+                        "numeric_concern_mismatch",
+                        "material_concern_mismatch",
+                        "consequence_concern_mismatch",
+                        "evidence_concern_mismatch",
+                        "authority_scope_mismatch",
+                        "foreign_role_numeric",
+                    )
+                ),
+                counters={
+                    key: counters.get(key)
+                    for key in (
+                        "source_concern_mismatch",
+                        "numeric_concern_mismatch",
+                        "material_concern_mismatch",
+                        "consequence_concern_mismatch",
+                        "evidence_concern_mismatch",
+                        "authority_scope_mismatch",
+                        "foreign_role_numeric",
+                    )
+                },
+            )
+        else:
+            gate.check(f"{case}_round3_content_quality_pass", False, path=str(quality_path))
+
+        visual_path = general / ROUND3_VISUAL.format(case=case)
+        if visual_path.is_file():
+            visual = load(visual_path)
+            checks = visual.get("checks") or {}
+            entry["visual_qa"] = {
+                "result": visual.get("result"),
+                "bounded_clipping_warnings": (checks.get("clipping_bounded") or {}).get("total"),
+                "no_clipped_dashboard_text": (checks.get("no_clipped_dashboard_text") or {}).get("result"),
+            }
+            gate.check(
+                f"{case}_round3_visual_qa_pass",
+                visual.get("result") == "PASS"
+                and entry["visual_qa"]["no_clipped_dashboard_text"] == "PASS",
+                **entry["visual_qa"],
+            )
+        else:
+            gate.check(f"{case}_round3_visual_qa_pass", False, path=str(visual_path))
+        cases[case] = entry
+
+    suite_path = general / ROUND3_SUITE_XML
+    suite_counts: dict[str, object] = {}
+    if suite_path.is_file():
+        import xml.etree.ElementTree as ET
+
+        suite = next(ET.parse(suite_path).getroot().iter("testsuite"))
+        suite_counts = {
+            "collected": int(suite.get("tests", "0")),
+            "failures": int(suite.get("failures", "0")),
+            "errors": int(suite.get("errors", "0")),
+            "skipped": int(suite.get("skipped", "0")),
+        }
+        suite_counts["passed"] = (
+            suite_counts["collected"] - suite_counts["failures"] - suite_counts["errors"] - suite_counts["skipped"]
+        )
+        gate.check(
+            "round3_full_suite_is_green",
+            suite_counts["failures"] == 0 and suite_counts["errors"] == 0 and suite_counts["passed"] == 715,
+            **suite_counts,
+        )
+    else:
+        gate.check("round3_full_suite_is_green", False, path=str(suite_path))
+
+    # --- documentation agreement ------------------------------------------- #
+    gate.check(
+        "state_doc_names_the_round3_pipeline",
+        "Round3" in state_text
+        and "SourceRequirementAtom" in state_text
+        and "ReviewConcern" in state_text
+        and "review_concern.py" in state_text
+        and "当前轮次" in state_text,
+    )
+    missing_paths = [
+        build_id
+        for build_id in ROUND3_BUILD_ID.values()
+        if build_id not in state_text or build_id not in checklist_text
+    ]
+    gate.check("docs_name_the_current_round3_builds", not missing_paths, missing=missing_paths)
+
+    hashes = {
+        case: (data.get("workbook_sha256") or "")
+        for case, data in (load(final_path).get("cases") or {}).items()
+    }
+    missing_hashes = [
+        case for case, digest in hashes.items() if not digest or digest not in state_text or digest not in checklist_text
+    ]
+    gate.check("docs_name_the_current_round3_xlsx_hashes", not missing_hashes, missing=missing_hashes)
+
+    gate.check(
+        "docs_record_the_round3_suite_counts",
+        "716 collected" in state_text and "715 passed" in state_text and "716 collected" in checklist_text,
+        state_has_counts=("716 collected" in state_text and "715 passed" in state_text),
+        checklist_has_counts=("716 collected" in checklist_text),
+    )
+    gate.check(
+        "state_doc_marks_xlsx_review_not_confirmed",
+        all(
+            f"CASE00{index}_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED" in state_text
+            for index in (1, 2, 3)
+        ),
+    )
+    gate.check(
+        "state_doc_keeps_history_marked_as_history",
+        "历史（HISTORICAL / SUPERSEDED build）" in state_text
+        and "历史指针值（HISTORICAL / SUPERSEDED）" in state_text,
+    )
+
+    stale: list[str] = []
+    for line in state_text.splitlines():
+        if ("第 2 轮" not in line and "Round2" not in line) or "当前" not in line:
+            continue
+        if any(marker in line for marker in HISTORY_MARKERS):
+            continue
+        stale.append(line.strip()[:140])
+    gate.check(
+        "no_previous_round_claimed_as_current",
+        not stale,
+        stale_lines=stale,
+        note="a sentence about a previous round may stay only where it is marked as history",
+    )
+
+    current_marker = "当前复核对象（CURRENT = Round3）"
+    history_marker = "历史复核对象（HISTORICAL"
+    current_at = checklist_text.find(current_marker)
+    history_at = checklist_text.find(history_marker)
+    legacy_at = checklist_text.find("review_workbook1")
+    gate.check(
+        "checklist_current_excel_object_is_round3",
+        current_at >= 0
+        and history_at > current_at
+        and (legacy_at < 0 or legacy_at > history_at)
+        and all(
+            build_id in checklist_text
+            for build_id in ROUND3_BUILD_ID.values()
+        ),
+        current_marker_at=current_at,
+        history_marker_at=history_at,
+        first_round1_reference_at=legacy_at,
+        note="the current Excel review object is Round3; Round1/Round2 references must sit behind a history marker",
+    )
+    gate.check(
+        "checklist_has_the_round3_manual_checks",
+        all(
+            phrase in checklist_text
+            for phrase in (
+                "每一行 displayed source requirement 与 ReviewConcern 是同一事项",
+                "项目质保期 24个月作为 `PROJECT_WARRANTY` 单独核对",
+                "5% 质保金比例作为 `RETENTION_MONEY_RATIO` 单独核对",
+                "合同付款语境的 12个月作为 `RETENTION_RELEASE_PERIOD` 单独核对",
+                "24个月 / 12个月没有被错误报告成同一质保事实冲突",
+                "随机抽查至少 20 条 ReviewPoint",
+            )
+        ),
+    )
+    gate.check(
+        "decisions_record_private_reference_workbooks_as_style_only",
+        "acceptance/private/reference_review_workbooks/" in decisions_text
+        and "STYLE_ONLY" in decisions_text
+        and "HUMAN_WORKFLOW_REFERENCE_ONLY" in decisions_text
+        and ("永不提交" in decisions_text or "忽略" in decisions_text),
+    )
+
+    return {"cases": cases, "full_suite": suite_counts, "workbook_sha256": hashes}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -300,12 +553,16 @@ def main() -> int:
     flags = check_flags(gate, status)
     counts = check_full_suite(gate, status)
     pointers = check_pointers(gate)
+    state_text = (REPO / "docs/V1_PROJECT_STATE.md").read_text(encoding="utf-8")
+    decisions_text = (REPO / "docs/V1_DECISIONS.md").read_text(encoding="utf-8")
+    checklist_text = (REPO / GENERALIZATION / CHECKLIST_NAME).read_text(encoding="utf-8")
     docs = check_docs(
         gate,
-        (REPO / "docs/V1_PROJECT_STATE.md").read_text(encoding="utf-8"),
-        (REPO / "docs/V1_DECISIONS.md").read_text(encoding="utf-8"),
-        (REPO / GENERALIZATION / CHECKLIST_NAME).read_text(encoding="utf-8"),
+        state_text,
+        decisions_text,
+        checklist_text,
     )
+    round3 = check_round3_docs(gate, state_text, decisions_text, checklist_text)
 
     report = {
         "schema": "v1_docs_state_consistency/1",
@@ -313,6 +570,7 @@ def main() -> int:
         "documented_build": build,
         "flags": flags,
         "full_suite": counts,
+        "round3": round3,
         "pointers": pointers,
         "docs": docs,
         "checks": gate.checks,

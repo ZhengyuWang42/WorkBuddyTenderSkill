@@ -127,8 +127,8 @@ def main(argv: list[str] | None = None) -> int:
                 name: entry.get("byte_identical") for name, entry in identity.items()
             },
             "gate_result": gate_result,
-            "gate_checks_passed": gate.get("checks_passed"),
-            "gate_checks_total": gate.get("checks_total"),
+            "gate_checks_passed": gate.get("passed"),
+            "gate_checks_total": gate.get("check_count"),
             "content_quality_result": quality_result,
             "source_atoms": counters.get("source_atom_count"),
             "review_concerns": counters.get("review_concern_count"),

@@ -87,7 +87,9 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 ## 1. 逐案例交付物 (deliverables to open)
 
 > **历史轮次记录（HISTORICAL）**：本节的构建目录与结果属于本清单首次生成时的轮次。
-> 自动化结论仍然有效；但 CASE001 的**当前**复核对象是第 1.6 节的 `v1_manual_fidelity_round3_word_review_final`。
+> 自动化结论仍然有效；但 CASE001 的**当前**复核对象是 §5.6 / 第 0.6 节所述的 closure8 build
+> （`v1_manual_fidelity_round4_date_rhythm_closure8`），**不是**历史候选
+> `v1_manual_fidelity_round3_word_review_final`。
 > 本节的 `[ ]` 仍然保持未勾选——它们没有被任何后续轮次完成或作废。
 
 ### CASE001 - 引江济淮郸城配套项目一体化泵站询比文件
@@ -361,20 +363,57 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-复核对象（后继构建，Word 产物与 closure8 逐字节相同）：
+**当前复核对象（CURRENT = Round3）**：第 3 轮后继构建，Word 产物与 closure8 逐字节相同
+（`word_render_repeated=false`）。路径与 sha256 取自 `review_workbook_round3_final_status.json`。
 
-| 案例 | 工作簿 |
-| --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1/投标项目复核表.xlsx` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook1/投标项目复核表.xlsx` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook1/投标项目复核表.xlsx` |
+| 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
+| --- | --- | --- | --- |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3/投标项目复核表.xlsx` | 43 | `746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook3/投标项目复核表.xlsx` | 44 | `e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook3/投标项目复核表.xlsx` | 47 | `0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322` |
 
 机器闭环证据（**已通过，不代替人工复核**）：
 
-- 工作簿门禁 37/37 PASS（`v1_review_workbook_gate.py`，三案例各自的 `*_review_workbook_gate.json`）
-- 渲染 QA PASS（`v1_review_workbook_visual_qa.py`：LibreOffice PDF + 重算副本核对总览公式）
+- 结构门禁 **40/40 PASS**，三案例各自（`scripts/v1_review_workbook_gate.py --legacy-text-refresh`；
+  `case_00{1,2,3}_review_workbook_gate_round3.json`，`check_count = passed = 40`、`failed = 0`）
+- 内容质量报告 PASS：`review_workbook_round3_content_quality_case_00{1,2,3}.json` / `.md`
+  （CASE001 `14/14` A–N 已知坏例、`20/20 coherent` 人工风格审计、16 组 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）
+- 渲染 QA PASS（`case_00{1,2,3}_review_workbook_visual_qa_round3.json`；
+  `clipping_bounded` WARN：CASE001 **8** / CASE002 **10** / CASE003 **26**，基线 10/17/26）
+- 最终状态：`review_workbook_round3_final_status.json` = `PASS`、`blockers = []`
+- 全套测试：`review_workbook_round3_full_test_suite.txt` / `.xml` = 716 collected / 715 passed /
+  1 skipped / 0 failed / 0 errors
 - Word 产物未重新渲染：DOCX `8dedddb7…`、PDF `3fe5b5b9…`、报告 `1274c205…` 与已验收构建逐字节相同
 - 状态：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`
+
+> **历史复核对象（HISTORICAL，已被上一表取代）**：第 1 轮后继构建
+> `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1/投标项目复核表.xlsx`
+> （CASE002 `case_002/v1_round4_closure8_review_workbook1`、CASE003 `case_003/v1_round4_closure8_review_workbook1`），
+> 当时门禁 37/37 PASS、渲染 QA PASS。第 2 轮后继构建 `..._review_workbook2` 同样为历史。两者均**未删除**。
+
+### 第 3 轮（复核关注点归属）人工复核点（全部未勾选）
+
+第 3 轮把每一行绑定到一个**人工复核关注点**：行的招标文件要求、复核要点、通过标准、准备材料、
+不满足后果、评分提示必须同源**且**同关注点（`SourceRequirementAtom → ReviewConcern → ReviewPoint`）。
+人工复核时请逐项确认：
+
+- [ ] 每一行 displayed source requirement 与 ReviewConcern 是同一事项
+- [ ] 复核要点 / 通过标准 / 准备材料 / 后果 / 评分提示均属于同一个关注点
+- [ ] 不存在真实但属于其他关注点的数字串入当前行
+- [ ] 不存在属于其他关注点的准备材料串入当前行
+- [ ] 不存在属于其他关注点的否决后果串入当前行
+- [ ] 采购人/评审小组内部程序没有被当成普通投标人响应任务
+- [ ] 项目质保期 24个月作为 `PROJECT_WARRANTY` 单独核对
+- [ ] 5% 质保金比例作为 `RETENTION_MONEY_RATIO` 单独核对
+- [ ] 合同付款语境的 12个月作为 `RETENTION_RELEASE_PERIOD` 单独核对
+- [ ] 24个月 / 12个月没有被错误报告成同一质保事实冲突
+- [ ] 签章、电子上传、授权委托分别核对，不互相串项
+- [ ] 投标保证金的金额/形式/账户/截止时间/凭证材料没有串入业绩或授权材料
+- [ ] 文件组成来自真正的响应文件组成/格式源证据，不来自异议函或内部程序
+- [ ] 评分项的分值、档位、证明材料属于同一评分因素
+- [ ] `06_冲突与缺失` 只包含真实未决/冲突，不包含关键词造成的假冲突
+- [ ] `clipping_bounded` WARN 中不存在影响人工阅读的关键文本截断
+- [ ] 随机抽查至少 20 条 ReviewPoint：source requirement / human check / pass criteria / evidence 四者确属同一事项
 
 ### CASE001 复核步骤（人工填写，自动化永不勾选）
 
@@ -396,7 +435,7 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 > `project_facts.json`；若人工发现事实错误，须走 `scripts/apply_resolution.py` 的受控流程
 > （仅 `NEEDS_REVIEW` 可被人工裁决），并留下审计记录。
 
-### 第 2 轮（复核要点合成）新增复核点（全部未勾选）
+### 第 2 轮（复核要点合成）新增复核点（HISTORICAL，全部未勾选）
 
 第 2 轮把每一行改写为**合成的人工复核要点**：招标文件要求 / 复核要点（①②③）/ 通过标准 /
 不满足后果 / 准备材料 / 评分提示。人工复核时请额外确认：

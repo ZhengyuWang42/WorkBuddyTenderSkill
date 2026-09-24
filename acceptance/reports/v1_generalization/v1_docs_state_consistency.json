@@ -19,6 +19,79 @@
     "skipped": 1,
     "passed": 614
   },
+  "round3": {
+    "cases": {
+      "case_001": {
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40,
+          "failed": 0
+        },
+        "quality": {
+          "result": "PASS",
+          "fixtures": "14/14",
+          "audit": "20/20 coherent",
+          "false_conflict_count": 0
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 8,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      },
+      "case_002": {
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40,
+          "failed": 0
+        },
+        "quality": {
+          "result": "PASS",
+          "fixtures": "14/14",
+          "audit": "20/20 coherent",
+          "false_conflict_count": 0
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 10,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      },
+      "case_003": {
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40,
+          "failed": 0
+        },
+        "quality": {
+          "result": "PASS",
+          "fixtures": "14/14",
+          "audit": "20/20 coherent",
+          "false_conflict_count": 0
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 26,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      }
+    },
+    "full_suite": {
+      "collected": 716,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 715
+    },
+    "workbook_sha256": {
+      "case_001": "746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5",
+      "case_002": "e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05",
+      "case_003": "0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322"
+    }
+  },
   "pointers": {
     "case_001": {
       "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
@@ -38,8 +111,8 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 77941,
-    "decisions_doc_bytes": 42044
+    "state_doc_bytes": 85606,
+    "decisions_doc_bytes": 51313
   },
   "checks": [
     {
@@ -166,6 +239,179 @@
       "check": "human_review_boxes_unticked",
       "status": "PASS",
       "ticked_boxes": 0
+    },
+    {
+      "check": "round3_final_status_is_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "blockers": []
+    },
+    {
+      "check": "case_001_round3_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40,
+      "failed": 0
+    },
+    {
+      "check": "case_001_round3_content_quality_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "fixtures": "14/14",
+      "audit": "20/20 coherent",
+      "false_conflict_count": 0
+    },
+    {
+      "check": "case_001_round3_ownership_buckets_empty",
+      "status": "PASS",
+      "counters": {
+        "source_concern_mismatch": 0,
+        "numeric_concern_mismatch": 0,
+        "material_concern_mismatch": 0,
+        "consequence_concern_mismatch": 0,
+        "evidence_concern_mismatch": 0,
+        "authority_scope_mismatch": 0,
+        "foreign_role_numeric": 0
+      }
+    },
+    {
+      "check": "case_001_round3_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 8,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "case_002_round3_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40,
+      "failed": 0
+    },
+    {
+      "check": "case_002_round3_content_quality_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "fixtures": "14/14",
+      "audit": "20/20 coherent",
+      "false_conflict_count": 0
+    },
+    {
+      "check": "case_002_round3_ownership_buckets_empty",
+      "status": "PASS",
+      "counters": {
+        "source_concern_mismatch": 0,
+        "numeric_concern_mismatch": 0,
+        "material_concern_mismatch": 0,
+        "consequence_concern_mismatch": 0,
+        "evidence_concern_mismatch": 0,
+        "authority_scope_mismatch": 0,
+        "foreign_role_numeric": 0
+      }
+    },
+    {
+      "check": "case_002_round3_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 10,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "case_003_round3_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40,
+      "failed": 0
+    },
+    {
+      "check": "case_003_round3_content_quality_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "fixtures": "14/14",
+      "audit": "20/20 coherent",
+      "false_conflict_count": 0
+    },
+    {
+      "check": "case_003_round3_ownership_buckets_empty",
+      "status": "PASS",
+      "counters": {
+        "source_concern_mismatch": 0,
+        "numeric_concern_mismatch": 0,
+        "material_concern_mismatch": 0,
+        "consequence_concern_mismatch": 0,
+        "evidence_concern_mismatch": 0,
+        "authority_scope_mismatch": 0,
+        "foreign_role_numeric": 0
+      }
+    },
+    {
+      "check": "case_003_round3_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 26,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "round3_full_suite_is_green",
+      "status": "PASS",
+      "collected": 716,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 715
+    },
+    {
+      "check": "state_doc_names_the_round3_pipeline",
+      "status": "PASS"
+    },
+    {
+      "check": "docs_name_the_current_round3_builds",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "check": "docs_name_the_current_round3_xlsx_hashes",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "check": "docs_record_the_round3_suite_counts",
+      "status": "PASS",
+      "state_has_counts": true,
+      "checklist_has_counts": true
+    },
+    {
+      "check": "state_doc_marks_xlsx_review_not_confirmed",
+      "status": "PASS"
+    },
+    {
+      "check": "state_doc_keeps_history_marked_as_history",
+      "status": "PASS"
+    },
+    {
+      "check": "no_previous_round_claimed_as_current",
+      "status": "PASS",
+      "stale_lines": [],
+      "note": "a sentence about a previous round may stay only where it is marked as history"
+    },
+    {
+      "check": "checklist_current_excel_object_is_round3",
+      "status": "PASS",
+      "current_marker_at": 15521,
+      "history_marker_at": 17252,
+      "first_round1_reference_at": 17371,
+      "note": "the current Excel review object is Round3; Round1/Round2 references must sit behind a history marker"
+    },
+    {
+      "check": "checklist_has_the_round3_manual_checks",
+      "status": "PASS"
+    },
+    {
+      "check": "decisions_record_private_reference_workbooks_as_style_only",
+      "status": "PASS"
     }
   ],
   "failed_checks": [],

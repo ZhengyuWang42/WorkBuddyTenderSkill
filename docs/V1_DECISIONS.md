@@ -658,3 +658,23 @@ NOT_FOUND、`max_price 7507785.65` 仍 RESOLVED，分项报价行 36 = 源文件
 `lot_name 三标段` 仍 RESOLVED。人工确认状态保持未勾选：`CASE00{1,2,3}_XLSX_MANUAL_REVIEW`
 均为 `NOT_YET_CONFIRMED`，`V1_PRODUCTION_CANDIDATE=false`、`READY_FOR_SUBMISSION=false`，
 未创建任何 tag 或 release。
+
+### D55 参考工作簿的两个类别：仓库历史手填件与用户私有参考件
+
+D48 记录的是**类别 A**（仓库内历史手填工作簿）的定位，其含义不改写。为避免两类参考件
+被混为一谈，补充记录**类别 B**：
+
+| 类别 | 位置 | 是否纳入版本控制 | 允许用途 |
+| --- | --- | --- | --- |
+| **A. 仓库历史手填工作簿** | `acceptance/manual_delivery_round54|55|56/case_00{1,2,3}/投标项目复核表.xlsx`（D48） | 是（历史可见） | `STYLE_ONLY` + `HUMAN_WORKFLOW_REFERENCE_ONLY` |
+| **B. 用户私有参考工作簿** | `acceptance/private/reference_review_workbooks/` | **否 —— 被 `.gitignore` 忽略，永不提交** | `STYLE_ONLY` + `HUMAN_WORKFLOW_REFERENCE_ONLY` |
+
+两类参考件的共同约束：
+
+- **既不是** `ProjectFacts` 权威，**也不是** `ReviewEvidence` 权威，**更不是**当前案例的事实证据；
+  只能用于写作风格与人工复核流程参考。
+- 不得复制其事实、数值、结论状态（如"已核对"）、责任人姓名或任何状态值进入生成的工作簿、
+  `ProjectFacts` 或验收产物。
+- 类别 B 位于 `acceptance/private/`，被 `.gitignore` 覆盖：**必须保持 ignore / untracked**，
+  不得提交、不得引用其内容作为证据，只能引用"存在且仅作风格参考"这一事实。
+- 生成的工作簿只以当前案例的源文件与 `ProjectFacts` 为依据；参考件的存在不改变任何门禁结论。
