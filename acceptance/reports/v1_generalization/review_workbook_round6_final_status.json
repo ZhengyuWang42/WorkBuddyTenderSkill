@@ -1,6 +1,6 @@
 {
   "schema": "v1_review_workbook_round6_final_status/1",
-  "generated_at": "2026-09-24T07:47:09.859831+00:00",
+  "generated_at": "2026-09-24T07:51:27.073794+00:00",
   "round": "review_workbook_round6",
   "commit_subject": "feat: preserve substantive requirement markers in review workbook",
   "pipeline": "SOURCE MARKER -> TENDER-SPECIFIC SUBSTANTIVE REQUIREMENT RULE -> CONSEQUENCE RULE -> REVIEW CRITICALITY",
@@ -377,7 +377,7 @@
     "result": "PASS",
     "duration_seconds": 89.3
   },
-  "git_head": "c11c8ffd213d16111c1aecae82222f81df59c5aa",
+  "git_head": "541fe956a0aab35c299b3e7710afcdc101ec4614",
   "human_review": {
     "records": [
       "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review.json",

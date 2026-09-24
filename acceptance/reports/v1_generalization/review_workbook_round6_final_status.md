@@ -4,7 +4,7 @@
 - chain: `SOURCE MARKER -> TENDER-SPECIFIC SUBSTANTIVE REQUIREMENT RULE -> CONSEQUENCE RULE -> REVIEW CRITICALITY`
 - result: **PASS**
 - blockers: none
-- git head: `c11c8ffd213d16111c1aecae82222f81df59c5aa`
+- git head: `541fe956a0aab35c299b3e7710afcdc101ec4614`
 
 ## Flags
 
