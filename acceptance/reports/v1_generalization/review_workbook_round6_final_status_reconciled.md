@@ -7,7 +7,7 @@
 - current closure result: **PASS**
 - result: **PASS**
 - blockers: none
-- git head: `58c1a37798407fa188f85eee2e92b89a138a14ff`
+- git head: `39ba8f6adb8333bc576ed6a414b3a04b10dc1fad`
 
 ## Defects closed
 

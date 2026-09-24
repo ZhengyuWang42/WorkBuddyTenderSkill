@@ -1,6 +1,6 @@
 {
   "schema": "v1_review_workbook_round6_final_status_reconciled/1",
-  "generated_at": "2026-09-24T08:58:19.072507+00:00",
+  "generated_at": "2026-09-24T08:58:33.205508+00:00",
   "round": "review_workbook_round6_marker_closure",
   "supersedes": "acceptance/reports/v1_generalization/review_workbook_round6_final_status.json",
   "supersedes_sha256": "e74217d04d89a9387eae2d11be76722d2aedcb2141a9cb98d31fac26b2ba6b5a",
@@ -750,7 +750,7 @@
     "result": "PASS",
     "duration_seconds": 70.7
   },
-  "git_head": "58c1a37798407fa188f85eee2e92b89a138a14ff",
+  "git_head": "39ba8f6adb8333bc576ed6a414b3a04b10dc1fad",
   "human_review": {
     "records": [
       "acceptance/reports/v1_generalization/case001_review_workbook_round4_human_review.json",
