@@ -354,10 +354,14 @@ def build_status(args: argparse.Namespace) -> dict:
         ),
         "invariant": "SOURCE-VISIBLE CRITICALITY IS SEMANTIC DATA",
         "dimensions": [
+            # the labels of the *initial* round-6 dashboard this record audited;
+            # the closure renamed the source-marker counter to a row-count label
+            # (see review_workbook_round6_final_status_reconciled.json)
             "源标记条款数（带★）",
             "实质性要求数（源依据）",
             "明示或可证明否决项数",
         ],
+        "dimensions_superseded_by": "review_workbook_round6_final_status_reconciled.json",
         "result": "PASS" if not blockers else "FAIL",
         "blockers": blockers,
         "flags": flags,

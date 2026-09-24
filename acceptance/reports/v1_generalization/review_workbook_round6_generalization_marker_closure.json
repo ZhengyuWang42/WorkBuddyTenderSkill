@@ -1,0 +1,100 @@
+{
+  "schema": "v1_review_workbook_round6_generalization/1",
+  "stage": "marker_closure",
+  "cases": {
+    "case_001": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "marker_vocabulary": [
+        "*"
+      ],
+      "counts": {
+        "source_marker_atom_count": 34,
+        "source_marked_row_count": 17,
+        "substantive_requirement_row_count": 31,
+        "rejection_consequence_row_count": 33,
+        "explicit_rejection_row_count": 10,
+        "derived_rejection_row_count": 23,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "marker_unattributed_count": 0,
+        "marker_unresolved_count": 0,
+        "direct_delivered_marker_visibility_failures": 0,
+        "reference_parent_coverage_failures": 0,
+        "source_marker_occurrence_count": 18,
+        "raw_source_marker_discovery_count": 18,
+        "duplicate_source_marker_record_count": 0,
+        "source_marker_evidence_count": 18,
+        "direct_source_marked_review_row_count": 17,
+        "substantive_review_row_count": 31,
+        "marker_carrying_source_atom_count": 34,
+        "source_substantive_requirement_without_review_coverage_count": 0,
+        "source_substantive_actionable_uncovered_count": 0
+      }
+    },
+    "case_002": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "marker_vocabulary": [
+        "★"
+      ],
+      "counts": {
+        "source_marker_atom_count": 32,
+        "source_marked_row_count": 3,
+        "substantive_requirement_row_count": 1,
+        "rejection_consequence_row_count": 3,
+        "explicit_rejection_row_count": 3,
+        "derived_rejection_row_count": 0,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "marker_unattributed_count": 0,
+        "marker_unresolved_count": 0,
+        "direct_delivered_marker_visibility_failures": 0,
+        "reference_parent_coverage_failures": 0,
+        "source_marker_occurrence_count": 45,
+        "raw_source_marker_discovery_count": 45,
+        "duplicate_source_marker_record_count": 0,
+        "source_marker_evidence_count": 24,
+        "direct_source_marked_review_row_count": 3,
+        "substantive_review_row_count": 1,
+        "marker_carrying_source_atom_count": 32,
+        "source_substantive_requirement_without_review_coverage_count": 0,
+        "source_substantive_actionable_uncovered_count": 0
+      }
+    },
+    "case_003": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "marker_vocabulary": [
+        "*"
+      ],
+      "counts": {
+        "source_marker_atom_count": 6,
+        "source_marked_row_count": 4,
+        "substantive_requirement_row_count": 4,
+        "rejection_consequence_row_count": 10,
+        "explicit_rejection_row_count": 10,
+        "derived_rejection_row_count": 0,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "marker_unattributed_count": 0,
+        "marker_unresolved_count": 0,
+        "direct_delivered_marker_visibility_failures": 0,
+        "reference_parent_coverage_failures": 0,
+        "source_marker_occurrence_count": 6,
+        "raw_source_marker_discovery_count": 6,
+        "duplicate_source_marker_record_count": 0,
+        "source_marker_evidence_count": 6,
+        "direct_source_marked_review_row_count": 4,
+        "substantive_review_row_count": 4,
+        "marker_carrying_source_atom_count": 6,
+        "source_substantive_requirement_without_review_coverage_count": 0,
+        "source_substantive_actionable_uncovered_count": 0
+      }
+    }
+  },
+  "verdict": "PASS"
+}

@@ -869,3 +869,33 @@ AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（人工第 3 轮判 FAIL）、CASE002/0
 - 第 5 轮人工结论 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）保留且不得改写；
   自动化只能把状态推进到 `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`；
   `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+
+### D65 第 6 轮收口：计数一致性与标记归属必须闭合（长期规则，BANK）
+
+D64 记录的是**初次**第 6 轮结果，已被只读一致性审计判定为**无效**
+（`review_workbook_round6_count_consistency_note.json`，`ROUND6_COUNT_CONSISTENCY = FAIL`）。
+时序不得删除任一步：初次 PASS → 审计判无效（D1/D2）→ 收口修复两者。
+
+1. **D1 `DASHBOARD_SUBSTANTIVE_COUNT_FORMULA_BROKEN`。** 汇总公式不得对**多值单元格**做
+   精确匹配求和：`03_资格否决与强制项` 的 `强制性类型`(J) 存放"；"连接的多值
+   （`SUBSTANTIVE_STARRED；REJECTION` 等），必须用**通配前缀**计数
+   （`COUNTIF(range,"SUBSTANTIVE*")`）。仪表盘门禁必须同时校验
+   **期望值 / 公式 / LibreOffice 重算值 / 独立重算值**，只检查"标签存在且公式里有某个 token"
+   的门禁等同于无门禁。`B27` 标签必须是**行数**语义（带源标记的复核条目数），
+   不得被读成源文件标记**出现次数**。
+2. **D2 标记保真必须从"源文发现全集"闭合。** 审计不得从 `marker_present = True` 的原子出发：
+   `DISCOVERED_MARKERS = ATTRIBUTED_MARKERS + EXPLICITLY_ACCOUNTED_NON_DELIVERED_MARKERS`
+   必须对每个**出现**成立，`UNRESOLVED` 一律视为失败。为此引入一等对象
+   `MarkerOccurrence`（`occurrence_id` / `evidence_id` / 页码 / 定位 / 原标记 / 文本 /
+   续行文本 / 去重键 / 归属原子与复核行 / 处置与理由），并支持
+   中段文本归属、换行续行归属、同一语句跨页重复归属，以及
+   1 标记→N 行、N 标记→1 行、N 标记→1 原子。
+3. **三个计数彼此独立，不得互相替代**：`source_marker_occurrence_count`（源文出现次数）、
+   `direct_source_marked_review_row_count`（带源标记的复核行数）、
+   `substantive_review_row_count`（实质性要求行数）。`★` 永不自动等于否决，
+   `BACKGROUND_NON_ACTIONABLE` 必须给出理由且不得掩盖已交付要求。
+4. **收口是追加，不是重写**：初次第 6 轮产物保留为失效证据，
+   收口产物写入 `..._review_workbook6_marker_closure` 与
+   `review_workbook_round6_marker_closure_case_00X.json` /
+   `review_workbook_round6_final_status_reconciled.json`；历史审计笔记
+   （`review_workbook_round6_count_consistency_note.json`）作为历史证据提交且**修复后不得改写**。

@@ -155,6 +155,34 @@ COVERAGE_REFERENCE_PARENT = "REFERENCE_PARENT_CLAUSE"
 COVERAGE_UNCOVERED = "UNCOVERED"
 
 # --------------------------------------------------------------------------- #
+# occurrence-level coverage (round 6 marker closure)
+#
+# Fidelity is closed from the *discovered occurrence universe*, never from the
+# atoms that already claim a marker: every visual marker the source prints must
+# end in exactly one of these dispositions.
+# --------------------------------------------------------------------------- #
+
+COVERAGE_KIND_DIRECT_DELIVERED = "DIRECT_DELIVERED"
+COVERAGE_KIND_REFERENCE_PARENT = "REFERENCE_PARENT"
+COVERAGE_KIND_BACKGROUND = "BACKGROUND_NON_ACTIONABLE"
+COVERAGE_KIND_DUPLICATE = "DUPLICATE_SOURCE_OCCURRENCE"
+COVERAGE_KIND_UNRESOLVED = "UNRESOLVED"
+
+COVERAGE_KINDS: tuple[str, ...] = (
+    COVERAGE_KIND_DIRECT_DELIVERED,
+    COVERAGE_KIND_REFERENCE_PARENT,
+    COVERAGE_KIND_BACKGROUND,
+    COVERAGE_KIND_DUPLICATE,
+    COVERAGE_KIND_UNRESOLVED,
+)
+
+#: A marked source fragment shorter than this never attributes by containment:
+#: two unrelated clauses can share a handful of characters.
+MIN_OCCURRENCE_FRAGMENT = 8
+#: Longest normalized fragment used for containment matching.
+OCCURRENCE_FRAGMENT_LENGTH = 28
+
+# --------------------------------------------------------------------------- #
 # marker / clause / rule patterns
 # --------------------------------------------------------------------------- #
 
@@ -264,6 +292,86 @@ class SourceMarkerEvidence:
 
 
 @dataclass(frozen=True)
+class MarkerOccurrence:
+    """One *visual* source marker occurrence, tracked from discovery to row.
+
+    A single atom may carry several occurrences (``raw_marker_occurrence_ids``),
+    and one occurrence may be attributed to several atoms / review rows; the
+    occurrence -- not the atom -- is the unit the fidelity audit closes over.
+    """
+
+    occurrence_id: str
+    evidence_id: str
+    raw_marker: str
+    normalized_marker: str
+    clause: str
+    label: str
+    page: int | None
+    locator: str
+    source_text: str
+    source_kind: str
+    scope: str
+    dedup_key: str
+    text_key: str
+    #: The marked line plus the wrapped continuation lines the extractor split it
+    #: into (a PDF line break inside a marked clause is not a new clause).
+    continuation_text: str = ""
+    #: How many extractor records described this same visual marker.
+    extractor_record_count: int = 1
+    #: The occurrence this record duplicates ("" when it is the first one).
+    duplicate_of: str = ""
+
+    @property
+    def is_table_label(self) -> bool:
+        return self.source_kind == MARKER_SOURCE_TABLE_CELL and bool(self.clause)
+
+    @property
+    def full_source_text(self) -> str:
+        return str(self.continuation_text or self.source_text or "")
+
+    @property
+    def body_text(self) -> str:
+        """The marked text without the marker character itself."""
+
+        text = str(self.source_text or "")
+        return _LEADING_MARKER_RE.sub("", text, count=1)
+
+    @property
+    def match_key(self) -> str:
+        """Whitespace-free body text used for occurrence identity."""
+
+        return _normalize(self.body_text)
+
+    @property
+    def marked_fragment(self) -> str:
+        """Whitespace-free ``marker + body`` prefix, as it appears in source."""
+
+        return _normalize(f"{self.raw_marker}{self.body_text}")[:OCCURRENCE_FRAGMENT_LENGTH]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "occurrence_id": self.occurrence_id,
+            "evidence_id": self.evidence_id,
+            "raw_marker": self.raw_marker,
+            "normalized_marker": self.normalized_marker,
+            "clause": self.clause,
+            "label": self.label,
+            "page": self.page,
+            "locator": self.locator,
+            "source_text": self.source_text,
+            "continuation_text": self.continuation_text,
+            "source_kind": self.source_kind,
+            "scope": self.scope,
+            "dedup_key": self.dedup_key,
+            "text_key": self.text_key,
+            "match_key": self.match_key,
+            "marked_fragment": self.marked_fragment,
+            "extractor_record_count": self.extractor_record_count,
+            "duplicate_of": self.duplicate_of,
+        }
+
+
+@dataclass(frozen=True)
 class SubstantiveRule:
     """A governing clause that defines substantive requirements."""
 
@@ -336,6 +444,8 @@ class SourceRequirementCriticality:
     marker_source_location: str = ""
     marker_source_text: str = ""
     marker_evidence_id: str = ""
+    #: Every discovered marker occurrence this atom visibly carries.
+    marker_occurrence_ids: tuple[str, ...] = ()
     #: What the document says its own marker means (SEMANTICS_*).
     marker_semantics: str = SEMANTICS_UNESTABLISHED
     substantive_requirement: bool | None = None
@@ -405,6 +515,8 @@ class SourceRequirementCriticality:
             "marker_source_location": self.marker_source_location,
             "marker_source_text": self.marker_source_text,
             "marker_evidence_id": self.marker_evidence_id,
+            "marker_occurrence_ids": list(self.marker_occurrence_ids),
+            "marker_occurrence_count": len(self.marker_occurrence_ids),
             "marker_semantics": self.marker_semantics,
             "substantive_requirement": self.substantive_requirement,
             "substantive_basis_kind": self.substantive_basis_kind,
@@ -646,6 +758,280 @@ def discover_marker_evidence(
             locator = f"第{page}页 / 表{table_index} 第{getattr(locator_obj, 'row_index', 0)}行"
             scan(text, page, locator, MARKER_SOURCE_TABLE_CELL)
     return tuple(found)
+
+
+def _marker_source_records(
+    document: Any,
+    label_index: Mapping[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Every raw marker record the extractor saw, in document order.
+
+    One record per *visual* marker hit: a marked clause label of the clause-number
+    tables, or a marked line inside a block / table cell.  No de-duplication
+    happens here -- that is what the two callers decide, and they decide it
+    differently on purpose.
+    """
+
+    records: list[dict[str, Any]] = []
+    for clause, record in sorted(label_index.items()):
+        marker = str(record.get("marker") or "")
+        if not marker:
+            continue
+        records.append(
+            {
+                "raw_marker": marker,
+                "clause": clause,
+                "label": str(record.get("label") or ""),
+                "page": record.get("marker_page"),
+                "locator": str(record.get("marker_locator") or ""),
+                "text": str(record.get("marker_source_text") or ""),
+                "source_kind": MARKER_SOURCE_TABLE_CELL,
+                "scope": "TABLE_LABEL",
+            }
+        )
+
+    def scan(text: str, page: int | None, locator: str, kind: str) -> None:
+        lines = str(text or "").split("\n")
+        for index, line in enumerate(lines):
+            match = _INLINE_LINE_RE.match(line)
+            if not match:
+                continue
+            raw, body = match.group(1), match.group(2).strip()
+            clause_match = _LEADING_MARKER_CLAUSE_RE.match(line)
+            clause = clause_match.group(2) if clause_match else ""
+            if clause and clause in label_index:
+                # the clause-number table already records this marker
+                continue
+            records.append(
+                {
+                    "raw_marker": raw,
+                    "clause": clause,
+                    "label": "",
+                    "page": page,
+                    "locator": locator,
+                    "text": f"{raw}{body}",
+                    "continuation": _marked_line_continuation(lines, index),
+                    "source_kind": kind,
+                    "scope": "BODY_TEXT",
+                }
+            )
+
+    for page in getattr(document, "pages", ()) or ():
+        number = int(getattr(page, "page_number", 0) or 0)
+        for block in getattr(page, "blocks", ()) or ():
+            locator_obj = getattr(block, "locator", None)
+            locator = f"第{number}页 / 块{getattr(block, 'block_index', 0)}"
+            if locator_obj is None:
+                locator = f"第{number}页"
+            scan(str(getattr(block, "text", "") or ""), number, locator, MARKER_SOURCE_INLINE)
+    for page, table_index, cells in _table_rows(document):
+        for cell in cells:
+            text = str(getattr(cell, "text", "") or "")
+            if not _INLINE_LINE_RE.match(text.strip()):
+                continue
+            locator_obj = getattr(cell, "locator", None)
+            locator = f"第{page}页 / 表{table_index} 第{getattr(locator_obj, 'row_index', 0)}行"
+            scan(text, page, locator, MARKER_SOURCE_TABLE_CELL)
+    return records
+
+
+def _marked_line_continuation(lines: Sequence[str], index: int) -> str:
+    """The marked line plus the wrapped lines that continue the same clause.
+
+    A PDF block frequently breaks one marked clause over several lines
+    (``★提供产品计算机软件著作权证书和网络关键设备、`` + ``网络安全专用产品安全认证
+    证书（加盖原厂公章）。``).  The continuation is part of the marked clause even
+    though the extractor printed the marker only on the first line.
+    """
+
+    line = str(lines[index] or "").rstrip()
+    if not line or line[-1] in "。；;！？!?）)】」”\"'":
+        return ""
+    parts = [line]
+    for follow in lines[index + 1 :]:
+        text = str(follow or "").strip()
+        if not text:
+            continue
+        if _INLINE_LINE_RE.match(text):
+            break
+        if re.match(rf"^\s*{_CLAUSE_NUMBER}[\s、.]", text):
+            break
+        parts.append(text)
+        if text[-1] in "。；;！？!?）)】」”\"'":
+            break
+        if len(parts) > 4:
+            break
+    if len(parts) == 1:
+        return ""
+    return "\n".join(parts)
+
+
+def _marker_text_key(record: Mapping[str, Any]) -> tuple[str, str]:
+    """The identity a *text* de-duplication uses (the round-6 evidence key)."""
+
+    raw = str(record.get("raw_marker") or "")
+    clause = str(record.get("clause") or "")
+    if clause:
+        return (raw, clause)
+    return (raw, _normalize(record.get("text"))[:48])
+
+
+def _marker_visual_key(record: Mapping[str, Any]) -> tuple[Any, ...]:
+    """The identity of one *visual* marker: page + location + marked text.
+
+    Two records that describe the same printed marker collapse; the same text
+    printed on another page stays a separate occurrence, because the source
+    really does print it twice.
+    """
+
+    raw = str(record.get("raw_marker") or "")
+    clause = str(record.get("clause") or "")
+    page = record.get("page")
+    locator = str(record.get("locator") or "")
+    if clause:
+        return (raw, clause)
+    return (raw, page, locator, _normalize(record.get("text"))[:48])
+
+
+def discover_marker_occurrences(
+    document: Any,
+    labels: Mapping[str, Mapping[str, Any]] | None = None,
+) -> tuple[MarkerOccurrence, ...]:
+    """The complete de-duplicated source-marker occurrence universe.
+
+    * ``raw_source_marker_discovery_count`` = ``sum(extractor_record_count)``
+    * ``source_marker_occurrence_count`` = ``len(occurrences)``
+    * ``duplicate_source_marker_record_count`` = the difference
+
+    Round-6 fidelity starts here, never from the atoms that already claim a
+    marker: a marker that was discovered but attributed to no atom must stay
+    visible to the audit instead of disappearing.
+    """
+
+    label_index = dict(labels or discover_clause_labels(document))
+    records = _marker_source_records(document, label_index)
+
+    # evidence ids keep the round-6 numbering (identical text identity)
+    evidence_by_key: dict[tuple[str, str], str] = {}
+    evidence_counter = 0
+    for record in records:
+        key = _marker_text_key(record)
+        if key not in evidence_by_key:
+            evidence_counter += 1
+            evidence_by_key[key] = f"MK{evidence_counter:04d}"
+
+    occurrences: list[MarkerOccurrence] = []
+    by_visual: dict[tuple[Any, ...], MarkerOccurrence] = {}
+    counts: dict[str, int] = {}
+    for record in records:
+        visual = _marker_visual_key(record)
+        first = by_visual.get(visual)
+        if first is not None:
+            counts[first.occurrence_id] = counts.get(first.occurrence_id, 1) + 1
+            continue
+        occurrence = MarkerOccurrence(
+            occurrence_id=f"MO{len(occurrences) + 1:04d}",
+            evidence_id=evidence_by_key[_marker_text_key(record)],
+            raw_marker=str(record["raw_marker"]),
+            normalized_marker=VISIBLE_MARKER,
+            clause=str(record["clause"]),
+            label=str(record["label"]),
+            page=record["page"],
+            locator=str(record["locator"]),
+            source_text=str(record["text"])[:400],
+            continuation_text=str(record.get("continuation") or "")[:1200],
+            source_kind=str(record["source_kind"]),
+            scope=str(record["scope"]),
+            dedup_key="|".join(str(part) for part in visual),
+            text_key="|".join(_marker_text_key(record)),
+        )
+        by_visual[visual] = occurrence
+        counts[occurrence.occurrence_id] = 1
+        occurrences.append(occurrence)
+
+    return tuple(
+        replace(
+            occurrence,
+            extractor_record_count=counts.get(occurrence.occurrence_id, 1),
+        )
+        for occurrence in occurrences
+    )
+
+
+def raw_marker_discovery_count(occurrences: Sequence[MarkerOccurrence]) -> int:
+    """Every extractor record behind the de-duplicated occurrences."""
+
+    return sum(int(occurrence.extractor_record_count or 1) for occurrence in occurrences)
+
+
+def duplicate_marker_record_count(occurrences: Sequence[MarkerOccurrence]) -> int:
+    return raw_marker_discovery_count(occurrences) - len(occurrences)
+
+
+#: Two occurrences belong to the same source statement when the shorter marked
+#: body is a prefix of the longer one and at least this long: the PDF extractor
+#: wraps the same repeated clause at different columns on different pages.
+OCCURRENCE_IDENTITY_MIN = 12
+
+
+def _same_marked_identity(left: MarkerOccurrence, right: MarkerOccurrence) -> bool:
+    if left.raw_marker != right.raw_marker:
+        return False
+    left_body, right_body = left.match_key, right.match_key
+    if not left_body or not right_body:
+        return False
+    short, long = (
+        (left_body, right_body)
+        if len(left_body) <= len(right_body)
+        else (right_body, left_body)
+    )
+    return len(short) >= OCCURRENCE_IDENTITY_MIN and long.startswith(short)
+
+
+def _propagate_occurrences_within_text_identity(
+    criticalities: dict[str, SourceRequirementCriticality],
+    occurrences: Sequence[MarkerOccurrence],
+) -> None:
+    """Give an unattributed occurrence the atoms of its own marked statement.
+
+    The requirement index collapses repeated clauses, so the same marked clause
+    printed on page 67, 95 and 156 may own an atom only once, and the extractor
+    wraps the repeats at different columns.  An occurrence left without an atom
+    therefore inherits the atoms of an occurrence whose marked body is a
+    prefix-compatible restatement of it.  Occurrences that already have atoms are
+    never widened, and statements that only share a wording prefix (different
+    requirements that start alike) never match, because the shorter body must be
+    a *prefix* of the longer one.
+    """
+
+    by_id = {occurrence.occurrence_id: occurrence for occurrence in occurrences}
+    donors: list[tuple[MarkerOccurrence, str]] = []
+    for atom_id, record in criticalities.items():
+        for occurrence_id in record.marker_occurrence_ids:
+            source = by_id.get(occurrence_id)
+            if source is not None:
+                donors.append((source, atom_id))
+
+    attributed = {
+        occurrence_id
+        for record in criticalities.values()
+        for occurrence_id in record.marker_occurrence_ids
+    }
+    for occurrence in occurrences:
+        if occurrence.occurrence_id in attributed:
+            continue
+        for donor, atom_id in donors:
+            if not _same_marked_identity(occurrence, donor):
+                continue
+            record = criticalities[atom_id]
+            criticalities[atom_id] = replace(
+                record,
+                marker_occurrence_ids=(
+                    *record.marker_occurrence_ids,
+                    occurrence.occurrence_id,
+                ),
+            )
+            attributed.add(occurrence.occurrence_id)
 
 
 def _governing_windows(
@@ -1349,6 +1735,7 @@ class CriticalityIndex:
 
     labels: dict[str, dict[str, Any]] = field(default_factory=dict)
     markers: tuple[SourceMarkerEvidence, ...] = ()
+    occurrences: tuple[MarkerOccurrence, ...] = ()
     substantive_rules: tuple[SubstantiveRule, ...] = ()
     rejection_rules: tuple[RejectionRule, ...] = ()
     reference_links: tuple[ReferenceLink, ...] = ()
@@ -1358,7 +1745,38 @@ class CriticalityIndex:
     # -- queries ---------------------------------------------------------- #
 
     @property
-    def marker_by_clause(self) -> dict[str, SourceMarkerEvidence]:
+    def occurrence_by_id(self) -> dict[str, MarkerOccurrence]:
+        return {item.occurrence_id: item for item in self.occurrences}
+
+    @property
+    def source_marker_occurrence_count(self) -> int:
+        """De-duplicated visual marker occurrences (the fidelity universe)."""
+
+        return len(self.occurrences)
+
+    @property
+    def raw_source_marker_discovery_count(self) -> int:
+        return raw_marker_discovery_count(self.occurrences)
+
+    @property
+    def duplicate_source_marker_record_count(self) -> int:
+        return duplicate_marker_record_count(self.occurrences)
+
+    def marker_occurrence_ids(self, atom_id: str) -> tuple[str, ...]:
+        record = self.criticalities.get(str(atom_id))
+        return tuple(record.marker_occurrence_ids) if record is not None else ()
+
+    def atoms_for_occurrence(self, occurrence_id: str) -> tuple[str, ...]:
+        """Every atom that visibly carries this marker occurrence."""
+
+        return tuple(
+            atom_id
+            for atom_id, record in self.criticalities.items()
+            if occurrence_id in record.marker_occurrence_ids
+        )
+
+    def reference_parent_atom_ids(self) -> set[str]:
+        return {link.parent_atom_id for link in self.reference_links}
         out: dict[str, SourceMarkerEvidence] = {}
         for evidence in self.markers:
             if evidence.clause and evidence.clause not in out:
@@ -1470,6 +1888,13 @@ class CriticalityIndex:
             reason_parts.append("明示否决后果")
         elif derived:
             reason_parts.append("推导否决后果（实质性要求不满足）")
+        marker_occurrence_ids = tuple(
+            dict.fromkeys(
+                occurrence_id
+                for record in marked
+                for occurrence_id in record.marker_occurrence_ids
+            )
+        )
         return SourceRequirementCriticality(
             source_atom_id=primary.source_atom_id,
             raw_source_marker=primary.raw_source_marker if marked else "",
@@ -1477,6 +1902,7 @@ class CriticalityIndex:
             marker_source_location=primary.marker_source_location if marked else "",
             marker_source_text=primary.marker_source_text if marked else "",
             marker_evidence_id=primary.marker_evidence_id if marked else "",
+            marker_occurrence_ids=marker_occurrence_ids,
             marker_semantics=semantics,
             substantive_requirement=True if substantive else (False if records else None),
             substantive_basis_kind=basis_kind,
@@ -1498,6 +1924,9 @@ class CriticalityIndex:
     def as_dict(self) -> dict[str, Any]:
         counts: dict[str, int] = {
             "marker_count": len(self.markers),
+            "source_marker_occurrence_count": self.source_marker_occurrence_count,
+            "raw_source_marker_discovery_count": self.raw_source_marker_discovery_count,
+            "duplicate_source_marker_record_count": self.duplicate_source_marker_record_count,
             "substantive_rule_count": len(self.substantive_rules),
             "rejection_rule_count": len(self.rejection_rules),
             "reference_link_count": len(self.reference_links),
@@ -1525,6 +1954,7 @@ class CriticalityIndex:
             "schema": SCHEMA,
             "counts": counts,
             "markers": [evidence.as_dict() for evidence in self.markers],
+            "occurrences": [occurrence.as_dict() for occurrence in self.occurrences],
             "substantive_rules": [rule.as_dict() for rule in self.substantive_rules],
             "rejection_rules": [rule.as_dict() for rule in self.rejection_rules],
             "reference_links": [link.as_dict() for link in self.reference_links],
@@ -1589,6 +2019,93 @@ def _chapter_of(spans: Sequence[tuple[int, int, str]], page: Any) -> str:
         if start <= number < end:
             return key
     return ""
+
+
+def _occurrence_ids_for_atom(
+    atom: Any,
+    occurrences: Sequence[MarkerOccurrence],
+    *,
+    primary: SourceMarkerEvidence | None,
+    marker_chapter: Mapping[str, str] | None = None,
+    chapter_spans: Sequence[tuple[int, int, str]] = (),
+) -> tuple[str, ...]:
+    """Marker occurrences this atom visibly carries.
+
+    Three generic routes, in this order:
+
+    1. the occurrence is the atom's own clause (the chapter-guarded clause match
+       that already produced the primary evidence),
+    2. the *marked* fragment -- marker character included -- is visible inside the
+       atom's text, which is what closes mid-text / mid-block markers such as
+       ``… 附件 *泵站内部进出水管材质使用304 不锈钢…`` or ``验收标准： ★…``,
+    3. the atom's own text is quoted inside the occurrence (a restated
+       requirement), mirroring the labelled-row content rule.
+
+    Route 2 deliberately requires the marker character: attributing on the bare
+    text would mark every clause that merely quotes a marked requirement while
+    the source never printed a marker there.
+    """
+
+    flat = _normalize(getattr(atom, "source_text", "") or "")
+    if not flat:
+        return ()
+    clause_tokens = set(_atom_clause_tokens(atom))
+    atom_chapter = _chapter_of(chapter_spans, getattr(atom, "source_page", None))
+    primary_text = _normalize(getattr(primary, "source_text", "") or "")
+    out: list[str] = []
+    for occurrence in occurrences:
+        hit = False
+        if primary is not None and occurrence.evidence_id == primary.evidence_id:
+            hit = True
+        if not hit and primary_text and _normalize(occurrence.source_text) == primary_text:
+            hit = True
+        if not hit and occurrence.clause and occurrence.clause in clause_tokens:
+            marker_chapter_key = (marker_chapter or {}).get(occurrence.clause, "")
+            if not (atom_chapter and marker_chapter_key and atom_chapter != marker_chapter_key):
+                hit = True
+        if not hit:
+            fragment = occurrence.marked_fragment
+            if len(fragment) >= MIN_OCCURRENCE_FRAGMENT and fragment in flat:
+                hit = True
+        if not hit:
+            # the atom is the wrapped continuation of a marked clause (the source
+            # printed the marker on the first line only).  A printed line never
+            # wraps across pages, so the continuation must stay on the page the
+            # marker was printed on.
+            occurrence_text = _normalize(
+                occurrence.continuation_text or occurrence.source_text
+            )
+            same_page = (
+                occurrence.page is None
+                or getattr(atom, "source_page", None) is None
+                or int(occurrence.page) == int(getattr(atom, "source_page"))
+            )
+            if (
+                same_page
+                and len(flat) >= MIN_OCCURRENCE_FRAGMENT
+                and flat in occurrence_text
+            ):
+                hit = True
+        if hit and occurrence.occurrence_id not in out:
+            out.append(occurrence.occurrence_id)
+    return tuple(out)
+
+
+def _evidence_from_occurrence(occurrence: MarkerOccurrence) -> SourceMarkerEvidence:
+    """The evidence record an occurrence contributes when no rule found it."""
+
+    return SourceMarkerEvidence(
+        evidence_id=occurrence.evidence_id,
+        raw_marker=occurrence.raw_marker,
+        normalized_marker=occurrence.normalized_marker,
+        clause=occurrence.clause,
+        label=occurrence.label,
+        page=occurrence.page,
+        locator=occurrence.locator,
+        source_text=occurrence.source_text,
+        source_kind=occurrence.source_kind,
+        scope=occurrence.scope or "OCCURRENCE_CONTAINMENT",
+    )
 
 
 def _marker_for_atom(
@@ -1675,6 +2192,8 @@ def build_criticality_index(
 
     label_index = dict(labels or discover_clause_labels(document))
     markers = discover_marker_evidence(document, label_index)
+    occurrences = discover_marker_occurrences(document, label_index)
+    occurrence_by_id = {item.occurrence_id: item for item in occurrences}
     marker_by_clause = {}
     for evidence in markers:
         if evidence.clause and evidence.clause not in marker_by_clause:
@@ -1744,6 +2263,23 @@ def build_criticality_index(
             marker_chapter=marker_chapter,
             chapter_spans=chapter_spans,
         )
+        occurrence_ids = _occurrence_ids_for_atom(
+            atom,
+            occurrences,
+            primary=evidence,
+            marker_chapter=marker_chapter,
+            chapter_spans=chapter_spans,
+        )
+        if evidence is None and occurrence_ids:
+            # the atom visibly carries marked source text although no clause rule
+            # found it: mid-text / mid-block markers must not disappear
+            evidence = _evidence_from_occurrence(occurrence_by_id[occurrence_ids[0]])
+        elif evidence is not None and not occurrence_ids:
+            occurrence_ids = tuple(
+                item.occurrence_id
+                for item in occurrences
+                if item.evidence_id == evidence.evidence_id
+            )[:1]
         clause_tokens = set(_atom_clause_tokens(atom))
 
         # ---- substantive requirement ------------------------------------ #
@@ -1873,6 +2409,7 @@ def build_criticality_index(
             marker_source_location=evidence.locator if evidence is not None else "",
             marker_source_text=evidence.source_text if evidence is not None else "",
             marker_evidence_id=evidence.evidence_id if evidence is not None else "",
+            marker_occurrence_ids=occurrence_ids,
             marker_semantics=marker_semantics,
             substantive_requirement=substantive,
             substantive_basis_kind=basis_kind,
@@ -1889,9 +2426,18 @@ def build_criticality_index(
             governing_clause_atom_id=governing_atom,
         )
 
+    # Second pass: a marked clause the source prints more than once (regulatory
+    # tables repeat the same ★ wording on several pages) is merged into a single
+    # requirement atom by the extractor.  The occurrences on the other pages are
+    # the *same* source text, so they inherit the atoms of their text identity --
+    # this closes the universe without matching unrelated clauses that merely
+    # share a wording suffix.
+    _propagate_occurrences_within_text_identity(criticalities, occurrences)
+
     return CriticalityIndex(
         labels=label_index,
         markers=markers,
+        occurrences=occurrences,
         substantive_rules=substantive_rules,
         rejection_rules=rejection_rules,
         reference_links=reference_links,
@@ -1909,6 +2455,12 @@ __all__ = [
     "BASIS_SOURCE_MARKER",
     "COVERAGE_BACKGROUND_ROW",
     "COVERAGE_DELIVERED_ROW",
+    "COVERAGE_KIND_BACKGROUND",
+    "COVERAGE_KIND_DIRECT_DELIVERED",
+    "COVERAGE_KIND_DUPLICATE",
+    "COVERAGE_KIND_REFERENCE_PARENT",
+    "COVERAGE_KIND_UNRESOLVED",
+    "COVERAGE_KINDS",
     "COVERAGE_REFERENCE_CHILD",
     "COVERAGE_REFERENCE_PARENT",
     "COVERAGE_UNCOVERED",
@@ -1929,6 +2481,9 @@ __all__ = [
     "MARKER_CLASS",
     "MARKER_SOURCE_INLINE",
     "MARKER_SOURCE_TABLE_CELL",
+    "MIN_OCCURRENCE_FRAGMENT",
+    "MarkerOccurrence",
+    "OCCURRENCE_FRAGMENT_LENGTH",
     "REJECTION_CUES",
     "REJECTION_DERIVED",
     "REJECTION_EXPLICIT",
@@ -1949,8 +2504,11 @@ __all__ = [
     "build_criticality_index",
     "discover_clause_labels",
     "discover_marker_evidence",
+    "discover_marker_occurrences",
     "discover_marker_semantics",
     "discover_reference_links",
     "discover_rejection_rules",
     "discover_substantive_rules",
+    "duplicate_marker_record_count",
+    "raw_marker_discovery_count",
 ]

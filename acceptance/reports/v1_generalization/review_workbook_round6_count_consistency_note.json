@@ -1,0 +1,164 @@
+{
+  "schema": "v1_review_workbook_round6_count_consistency_note/1",
+  "generated_at": "2026-09-24T16:05:00+00:00",
+  "subject": "round-6 criticality count consistency (18 markers / 17 starred rows / 31 substantive rows / the reported \"x4\")",
+  "mode": "READ_ONLY_VERIFICATION",
+  "candidate": {
+    "workbook": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6/投标项目复核表.xlsx",
+    "sha256": "56d3f14d0a00b891e13374a7db371303c6c3660809c92c93c3106e2728d9dd0e",
+    "unchanged": true
+  },
+  "verdict": {
+    "ROUND6_COUNT_CONSISTENCY": "FAIL",
+    "formula_multiplication_by_4": false,
+    "explanation_for_the_chat_text_x4": "C",
+    "summary": "The workbook formula does not multiply by 4 (the \"x4\" was an unpersisted chat paraphrase of the four basis-kind COUNTIF terms). Independently, the dashboard formula B28 is wrong for two of three cases, and marker_lost_count is blind to markers that were discovered but attributed to no atom."
+  },
+  "dashboard_cells_case_001": {
+    "B27": {
+      "label": "源标记条款数（带★）",
+      "formula": "=COUNTIF('03_资格否决与强制项'!$H$2:$H$999,\"★\")",
+      "recalculated_value": 17,
+      "independent_value": 17,
+      "consistent": true
+    },
+    "B28": {
+      "label": "实质性要求数（源依据）",
+      "formula": "=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_STARRED\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_EXPLICIT_WORDING\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_VIA_REFERENCE*\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_BY_LAW*\")",
+      "recalculated_value": 7,
+      "independent_value": 31,
+      "consistent": false,
+      "defect": "D1",
+      "reason": "J cells hold '；'-joined multi-type strings (e.g. 'SUBSTANTIVE_STARRED；REJECTION'). The first two COUNTIF patterns carry no '*' wildcard, so they match nothing; only 'SUBSTANTIVE_VIA_REFERENCE*' matches (7 rows)."
+    },
+    "B29": {
+      "label": "明示或可证明否决项数",
+      "formula": "=COUNTIF('03_资格否决与强制项'!$I$2:$I$999,\"是\")",
+      "recalculated_value": 33,
+      "independent_value": 33,
+      "consistent": true
+    },
+    "B30": {
+      "label": "其中：明示否决（源文明确示后果）",
+      "formula": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"EXPLICIT*\")",
+      "recalculated_value": 10,
+      "independent_value": 10,
+      "consistent": true
+    },
+    "B31": {
+      "label": "其中：推导否决（源文实质性要求规则）",
+      "formula": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"DERIVED*\")",
+      "recalculated_value": 23,
+      "independent_value": 23,
+      "consistent": true
+    }
+  },
+  "dashboard_b28_all_cases": {
+    "case_001": {"recalculated": 7, "independent": 31},
+    "case_002": {"recalculated": 1, "independent": 1},
+    "case_003": {"recalculated": 3, "independent": 4}
+  },
+  "counts": {
+    "case_001": {
+      "discovered_markers": 18,
+      "discovered_marker_breakdown": "14 marked 前附表 table-row clauses (MK0001-MK0014) + 4 inline starred body clauses (MK0015-MK0018)",
+      "marker_carrying_atoms": 32,
+      "attributed_markers": 16,
+      "attributed_to_delivered_rows": 13,
+      "attributed_to_background_rows_only": 3,
+      "unattributed_markers": 2,
+      "unattributed_detail": [
+        "MK0017 p39 块4 '*泵站内部进出水管材质使用304 不锈钢…' -> atom SRA0263 marker_present=False, owner DR015 (shows ★ from other markers)",
+        "MK0018 p39 块5 '*流量计等相关计量仪器需提供第三方校检证书' -> atom SRA0264 marker_present=False, owner DR047 (shows ★ from other markers)"
+      ],
+      "starred_rows": 17,
+      "rows_total": 39,
+      "substantive_rows": 31,
+      "substantive_decomposition": {"SOURCE_MARKER": 17, "EXPLICIT_WORDING": 7, "REFERENCE_PROPAGATION": 7, "LEGAL_RULE": 0},
+      "rejection_rows": 33,
+      "rejection_decomposition": {"EXPLICIT": 10, "DERIVED": 23},
+      "reported_marker_lost_count": 0,
+      "markers_not_reaching_any_starred_row": 0
+    },
+    "case_002": {
+      "discovered_markers": 24,
+      "marker_carrying_atoms": 16,
+      "attributed_markers": 8,
+      "attributed_to_delivered_rows": 2,
+      "attributed_to_background_rows_only": 6,
+      "unattributed_markers": 16,
+      "unattributed_with_delivered_owner_without_star": 6,
+      "unattributed_detail": [
+        "MK0012 p72 / MK0022 p97 '★投标人提供的全生命周期管理系统、表务管理系统…' -> atoms SRA0545.2/SRA0635.2 marker_present=False, owner DR028 (★ cell empty)",
+        "MK0013 p78 / MK0023 p101 '★投标人提供的水务营销一体化平台须具备软件…' -> atoms SRA0559.2/SRA0637.2 marker_present=False, owner DR028 (★ cell empty)",
+        "MK0014 p78 / MK0024 p101 '★投标人提供的水务营销一体化平台须具备信创产品…' -> atoms SRA0561.2/SRA0639.2 marker_present=False, owner DR028 (★ cell empty)"
+      ],
+      "unattributed_with_no_atom": 10,
+      "starred_rows": 1,
+      "rows_total": 37,
+      "substantive_rows": 1,
+      "substantive_decomposition": {"SOURCE_MARKER": 0, "EXPLICIT_WORDING": 0, "REFERENCE_PROPAGATION": 0, "LEGAL_RULE": 1},
+      "rejection_rows": 3,
+      "rejection_decomposition": {"EXPLICIT": 3, "DERIVED": 0},
+      "reported_marker_lost_count": 0,
+      "markers_not_reaching_any_starred_row": 6,
+      "note": "DR039 ★ row keeps 否决性 blank (★ does not imply rejection, verified); DR028 is a delivered 03 row whose source clauses carry ★ but whose ★ cell is empty."
+    },
+    "case_003": {
+      "discovered_markers": 6,
+      "marker_carrying_atoms": 6,
+      "attributed_markers": 6,
+      "attributed_to_delivered_rows": 6,
+      "unattributed_markers": 0,
+      "starred_rows": 4,
+      "rows_total": 39,
+      "substantive_rows": 4,
+      "substantive_decomposition": {"SOURCE_MARKER": 4, "EXPLICIT_WORDING": 0, "REFERENCE_PROPAGATION": 0, "LEGAL_RULE": 0},
+      "rejection_rows": 10,
+      "rejection_decomposition": {"EXPLICIT": 10, "DERIVED": 0},
+      "reported_marker_lost_count": 0,
+      "markers_not_reaching_any_starred_row": 0
+    }
+  },
+  "why_18_is_not_17": {
+    "18": "len(CriticalityIndex.markers) = distinct source-marker occurrences discovered in the document (14 table-row + 4 inline).",
+    "17": "distinct delivered 03 rows that show ★. 16 of the 18 markers are attributed to atoms: 3 of them (MK0002/MK0003/MK0008) are owned only by the non-delivered background row DR023, and 4 of the remaining 13 have several owner rows (MK0005->DR003+DR030, MK0010->DR001+DR024, MK0012->DR018/019/020/036, MK0013->DR007+DR015), which yields 17 distinct starred rows. The last 2 markers (MK0017/MK0018) are attributed to no atom at all.",
+    "arithmetic_contradiction": false
+  },
+  "why_substantive_total_is_31": {
+    "rows_with_J_starting_SUBSTANTIVE": 31,
+    "row_audit_primary_kinds": {"SOURCE_MARKER": 17, "EXPLICIT_WORDING": 7, "REFERENCE_PROPAGATION": 7},
+    "double_counting": "none - the primary basis kind is a partition of the 31 rows; rows that additionally cite a reference parent are reported inside their primary kind"
+  },
+  "defects_found": {
+    "D1": {
+      "severity": "material",
+      "where": "00_复核总览!B28 (all three workbooks)",
+      "what": "实质性要求数（源依据） lacks the '*' wildcard on the SUBSTANTIVE_STARRED and SUBSTANTIVE_EXPLICIT_WORDING terms, so it evaluates to 7 (CASE001) and 3 (CASE003) instead of 31 and 4.",
+      "why_the_gates_missed_it": "scripts/v1_review_workbook_round6_report.py check_dashboard only asserts the labels exist and that a token appears in the formula text; scripts/v1_review_workbook_visual_qa.py dashboard_formulas_evaluate only compares the 7 manual-review counters and never evaluates the criticality counts."
+    },
+    "D2": {
+      "severity": "material (marker fidelity)",
+      "where": "marker_lost_count in all three round-6 audits",
+      "what": "audit_markers iterates atoms with marker_present=True, so markers discovered by discover_marker_evidence but never attributed to an atom are invisible: CASE001 2 markers, CASE002 6 markers owned by the delivered row DR028 (★ cell empty) plus 10 with no atom, CASE003 0.",
+      "consequence": "marker_lost_count=0 and 'every source-marked row shows ★' (CASE002: 1 marked row) are not established for CASE001/CASE002 as stated."
+    },
+    "D3": {
+      "severity": "cosmetic (chat only)",
+      "where": "the round-6 final chat response",
+      "what": "the formula was paraphrased as COUNTIF(03!J:J,\"SUBSTANTIVE_*\")x4; no committed artifact contains that text.",
+      "explanation": "C - the four basis-kind COUNTIF terms were described as 'x4' and got confused with the formula text."
+    }
+  },
+  "actions": {
+    "product_code_modified": false,
+    "workbook_modified": false,
+    "docs_modified": false,
+    "committed": false,
+    "scratch_artifacts": [
+      "acceptance/workspace/_r6/count_check/投标项目复核表.xlsx (LibreOffice recalculation of a copy, for calculated values only)",
+      "acceptance/workspace/_r6/count_check_*.py (read-only probes)"
+    ],
+    "next": "fix D1 by adding the '*' wildcard (or by matching the separated sub-values) and extend the audit to count discovered-but-unattributed markers; both are product changes and were deliberately not made in this read-only pass."
+  }
+}

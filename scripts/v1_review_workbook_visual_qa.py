@@ -262,6 +262,78 @@ def main() -> int:
         "compared": len(expected),
         "mismatches": mismatches,
     }
+    # Round-6 closure: the *criticality* counters are checked the same way -- from
+    # the LibreOffice-recalculated copy, never from a stale cached value and never
+    # from the formula text alone.
+    criticality_expected = {}
+    mandatory_sheet = workbook[SHEET_TITLES[3]]
+    mandatory_headers = [
+        _text(cell.value) for cell in next(mandatory_sheet.iter_rows(min_row=1, max_row=1))
+    ]
+    criticality_columns = ("★", "否决性", "强制性类型", "否决依据")
+    criticality_values = {name: [] for name in criticality_columns}
+    if all(name in mandatory_headers for name in criticality_columns):
+        for row in mandatory_sheet.iter_rows(min_row=2, values_only=True):
+            for name in criticality_columns:
+                index = mandatory_headers.index(name)
+                criticality_values[name].append(
+                    _text(row[index]) if len(row) > index else ""
+                )
+    criticality_expected = {
+        "带源标记的复核条目数（★）": sum(
+            1 for value in criticality_values["★"] if value == "★"
+        ),
+        "实质性要求条目数（源依据）": sum(
+            1
+            for value in criticality_values["强制性类型"]
+            if value.startswith("SUBSTANTIVE")
+        ),
+        "明示或可证明否决项数": sum(
+            1 for value in criticality_values["否决性"] if value == "是"
+        ),
+        "其中：明示否决（源文明确示后果）": sum(
+            1 for value in criticality_values["否决依据"] if value.startswith("EXPLICIT")
+        ),
+        "其中：推导否决（源文实质性要求规则）": sum(
+            1 for value in criticality_values["否决依据"] if value.startswith("DERIVED")
+        ),
+    }
+    criticality_observed = {}
+    for row in dashboard.iter_rows(values_only=True):
+        label = _text(row[0]) if row else ""
+        if label in criticality_expected:
+            criticality_observed[label] = row[1]
+    criticality_mismatches = {
+        label: {"expected": criticality_expected[label], "recalculated": criticality_observed.get(label)}
+        for label in criticality_expected
+        if criticality_observed.get(label) != criticality_expected[label]
+    }
+    report["criticality_expected"] = criticality_expected
+    report["criticality_observed"] = criticality_observed
+    report["checks"]["criticality_counters_evaluate"] = {
+        "result": (
+            "PASS"
+            if not criticality_mismatches and len(criticality_observed) == len(criticality_expected)
+            else "FAIL"
+        ),
+        "compared": len(criticality_expected),
+        "mismatches": criticality_mismatches,
+    }
+    # the source-marker label must never read as a count of source occurrences
+    criticality_labels = [
+        _text(row[0]) for row in dashboard.iter_rows(values_only=True) if row and _text(row[0])
+    ]
+    misreadable = [
+        label
+        for label in criticality_labels
+        if "源标记条款数" in label
+        or "源标记出现次数" in label
+        or ("源文件标记" in label and "出现次数" in label)
+    ]
+    report["checks"]["source_marker_label_is_row_count"] = {
+        "result": "PASS" if not misreadable else "FAIL",
+        "misreadable": misreadable,
+    }
     formula_errors = []
     computed = load_workbook(xlsx_path, data_only=True)
     for worksheet in computed.worksheets:

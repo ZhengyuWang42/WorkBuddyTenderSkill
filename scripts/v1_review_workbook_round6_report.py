@@ -37,12 +37,17 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
 from openpyxl import load_workbook  # noqa: E402
+from openpyxl.utils import get_column_letter  # noqa: E402
 
 from tender_basic.source_criticality import (  # noqa: E402
     BASIS_REFERENCE_PROPAGATION,
     BASIS_SOURCE_MARKER,
     COVERAGE_BACKGROUND_ROW,
     COVERAGE_DELIVERED_ROW,
+    COVERAGE_KIND_BACKGROUND,
+    COVERAGE_KIND_DIRECT_DELIVERED,
+    COVERAGE_KIND_REFERENCE_PARENT,
+    COVERAGE_KIND_UNRESOLVED,
     COVERAGE_REFERENCE_CHILD,
     COVERAGE_REFERENCE_PARENT,
     COVERAGE_UNCOVERED,
@@ -119,11 +124,23 @@ class Check:
 
 
 class Round6Report:
-    def __init__(self, case: str, *, case_dir: Path | None = None) -> None:
+    def __init__(
+        self,
+        case: str,
+        *,
+        case_dir: Path | None = None,
+        stage: str = "initial",
+    ) -> None:
         spec = CASES[case]
         self.case = case
+        self.stage = stage
         self.case_dir = case_dir or (ROOT / "acceptance/workspace" / case)
-        self.build = self.case_dir / spec["build"]
+        build_name = spec["build"]
+        if stage == "marker_closure":
+            # the round-6 successor build: the initial build stays on disk as the
+            # preserved FAILED evidence and is never overwritten
+            build_name = f"{build_name}_marker_closure"
+        self.build = self.case_dir / build_name
         self.source_build = self.case_dir / spec["source"]
         self.before = self.case_dir / spec["before"]
         self.r4 = Round4Report(self.build, case)
@@ -135,8 +152,17 @@ class Round6Report:
         self.criticality = self.plan.criticality
         self.checks: list[Check] = []
         self.marker_records: list[dict] = []
+        self.marker_dispositions: dict[str, int] = {}
+        self.marker_ledger_counts: dict[str, int] = {}
+        self.criticality_counts: dict[str, int] = {}
         self.marker_false_positive_count = 0
+        self.marker_unattributed_count = 0
+        self.marker_unresolved_count = 0
+        self.direct_marker_visibility_failures = 0
+        self.reference_parent_coverage_failures = 0
         self.uncovered_substantive_count = 0
+        self.uncovered_actionable_substantive_count = 0
+        self.dashboard_metrics: dict[str, dict] = {}
         self.row_records: list[dict] = []
         self.fixtures: dict[str, dict] = {}
         self.coverage_records: list[dict] = []
@@ -169,96 +195,218 @@ class Round6Report:
     def marker_lost_count(self) -> int:
         """Source markers that never reached a review row.
 
-        "Reached" means: a delivered row shows ``★`` for the atom carrying the
-        marker, or the atom belongs to a non-bidder-facing clause that is kept
-        for coverage only (round-4 background policy) -- in that case the marker
-        is still recorded in this audit, it is deliberately not a delivery row.
+        Round-6 closure: this counts *occurrences* that are neither delivered nor
+        explicitly accounted for -- an occurrence that was discovered but
+        attributed to no atom is a loss, not an invisible record.
         """
 
-        lost_states = {COVERAGE_UNCOVERED, "LOST_DELIVERED_ROW_WITHOUT_STAR"}
+        lost_states = {
+            COVERAGE_KIND_UNRESOLVED,
+            "LOST_DELIVERED_ROW_WITHOUT_STAR",
+            "ATTRIBUTED_WITHOUT_OWNER",
+        }
+
         return sum(1 for record in self.marker_records if record["status"] in lost_states)
 
     # -- marker fidelity -------------------------------------------------- #
 
-    def audit_markers(self) -> None:
-        index = self.criticality
-        # Concerns own atoms; map atom -> row through the plan's review points.
+    def _atom_owners(self) -> dict[str, list[str]]:
         atom_owner: dict[str, list[str]] = {}
         for item in [*self.items, *self.background]:
             for atom_id in getattr(item.review_point, "owned_atom_ids", ()) or ():
                 atom_owner.setdefault(str(atom_id), []).append(item.item_id)
+        return atom_owner
 
-        star_by_item = {
+    def _attribution_routes(self, occurrence, atom_ids: list[str]) -> list[str]:
+        """How each attributed atom carries the occurrence's marker.
+
+        ``CLAUSE``  - the atom's own source clause is the marked clause;
+        ``MARKER_IN_ATOM`` - the marked fragment (marker character included) is
+        visible inside the atom text (mid-text / mid-cell attribution);
+        ``CONTINUATION`` - the atom is the wrapped continuation of the marked
+        line (the extractor broke the clause and kept the marker on line 1);
+        ``ATOM_IN_OCCURRENCE`` - the atom text is quoted inside the marked text.
+        """
+
+        index = self.criticality
+        fragment = occurrence.marked_fragment
+        occurrence_text = occurrence.continuation_text or occurrence.source_text
+        flat_occurrence = re.sub(r"[\s\u3000]+", "", str(occurrence_text or ""))
+        flat_source = re.sub(r"[\s\u3000]+", "", str(occurrence.source_text or ""))
+        routes: list[str] = []
+        for atom_id in atom_ids:
+            flat = re.sub(r"[\s\u3000]+", "", str(index.atom_text.get(atom_id, "") or ""))
+            record = index.criticalities.get(atom_id)
+            if fragment and fragment in flat:
+                routes.append("MARKER_IN_ATOM")
+            elif flat and flat in flat_occurrence:
+                routes.append("CONTINUATION")
+            elif flat and flat in flat_source:
+                routes.append("ATOM_IN_OCCURRENCE")
+            elif record is not None and record.marker_evidence_id == occurrence.evidence_id:
+                routes.append("CLAUSE")
+            else:
+                routes.append("CLAUSE")
+        return list(dict.fromkeys(routes))
+
+    def audit_markers(self) -> None:
+        """Per-occurrence ledger over the complete discovered marker universe.
+
+        The audit starts from *every* de-duplicated discovered occurrence
+        (``index.occurrences``) and gives each one a disposition.  It never
+        iterates the atoms that already claim a marker: a discovered marker that
+        was attributed to nothing used to be invisible to this check, which is
+        exactly the round-6 defect this closure fixes.
+        """
+
+        index = self.criticality
+        atom_owner = self._atom_owners()
+        starred = {
             str(row.get("requirement_id")): str(row.get("★") or "").strip()
             for row in self._sheet_rows(MANDATORY_SHEET)
         }
-        marker_atoms = [
-            atom_id
-            for atom_id, record in index.criticalities.items()
-            if record.marker_present
-        ]
         delivered_ids = {item.item_id for item in self.items}
-        lost: list[dict] = []
+        background_ids = {item.item_id for item in self.background}
+        background_reason = {
+            item.item_id: {
+                "concern_id": getattr(item, "concern_id", ""),
+                "module": getattr(item, "module", ""),
+                "reason": (
+                    f"NON_BIDDER_FACING_CONCERN:"
+                    f"{getattr(item, 'concern_id', '') or 'UNCLASSIFIED'}"
+                ),
+                "policy": "round-4/5 non-bidder-facing concern kept in plan.background_items",
+            }
+            for item in self.background
+        }
+        reference_parents = index.reference_parent_atom_ids()
+
+        counts = {
+            "source_marker_occurrence_count": index.source_marker_occurrence_count,
+            "raw_source_marker_discovery_count": index.raw_source_marker_discovery_count,
+            "duplicate_source_marker_record_count": (
+                index.duplicate_source_marker_record_count
+            ),
+            "source_marker_evidence_count": len(index.markers),
+        }
+        dispositions: dict[str, int] = {}
+        unattributed: list[dict] = []
+        unresolved: list[dict] = []
+        visibility_failures: list[dict] = []
+        reference_failures: list[dict] = []
         false_positive: list[dict] = []
-        for atom_id in marker_atoms:
-            record = index.criticalities[atom_id]
-            owners = atom_owner.get(atom_id, [])
-            delivered_owners = [owner for owner in owners if owner in delivered_ids]
-            background_owners = [owner for owner in owners if owner not in delivered_ids]
-            workbook_star = [
-                star_by_item[owner] for owner in delivered_owners if star_by_item.get(owner) == "★"
-            ]
-            if not owners:
-                status = COVERAGE_UNCOVERED
-            elif delivered_owners and not workbook_star:
-                status = "LOST_DELIVERED_ROW_WITHOUT_STAR"
-            elif delivered_owners:
-                status = COVERAGE_DELIVERED_ROW
-            else:
-                # owned only by a non-bidder-facing (background) clause: kept in
-                # the plan and in this audit, deliberately not a delivery row
-                status = COVERAGE_BACKGROUND_ROW
-            self.marker_records.append(
-                {
-                    "source_atom_id": atom_id,
-                    "atom_text": index.atom_text.get(atom_id, "")[:200],
-                    "raw_source_marker": record.raw_source_marker,
-                    "marker_source_location": record.marker_source_location,
-                    "marker_source_text": record.marker_source_text[:200],
-                    "marker_semantics": record.marker_semantics,
-                    "marker_evidence_id": record.marker_evidence_id,
-                    "owner_items": owners,
-                    "delivered_owner_items": delivered_owners,
-                    "background_owner_items": background_owners,
-                    "workbook_star": workbook_star,
-                    "status": status,
-                }
+
+        for occurrence in index.occurrences:
+            atom_ids = list(index.atoms_for_occurrence(occurrence.occurrence_id))
+            owner_items = sorted(
+                {owner for atom_id in atom_ids for owner in atom_owner.get(atom_id, [])}
             )
-            if status in (COVERAGE_UNCOVERED, "LOST_DELIVERED_ROW_WITHOUT_STAR"):
-                lost.append(
+            delivered_owners = [item_id for item_id in owner_items if item_id in delivered_ids]
+            background_owners = [item_id for item_id in owner_items if item_id in background_ids]
+            visible_rows = [
+                item_id for item_id in delivered_owners if starred.get(item_id) == "★"
+            ]
+            is_reference_parent = any(atom_id in reference_parents for atom_id in atom_ids)
+            routes = self._attribution_routes(occurrence, atom_ids)
+            continuation_only = bool(atom_ids) and "MARKER_IN_ATOM" not in routes and "CLAUSE" not in routes
+
+            if atom_ids and delivered_owners and visible_rows:
+                status = COVERAGE_KIND_DIRECT_DELIVERED
+                reason = "delivered review row visibly carries the source marker"
+            elif atom_ids and delivered_owners:
+                status = "LOST_DELIVERED_ROW_WITHOUT_STAR"
+                reason = "the delivering review row does not show the source marker"
+            elif atom_ids and is_reference_parent:
+                status = COVERAGE_KIND_REFERENCE_PARENT
+                reason = "marked clause is a reference parent; its meaning reaches the children"
+            elif atom_ids and background_owners:
+                status = COVERAGE_KIND_BACKGROUND
+                reason = background_reason.get(background_owners[0], {}).get(
+                    "reason", "NON_BIDDER_FACING_CONCERN"
+                )
+            elif atom_ids:
+                status = "ATTRIBUTED_WITHOUT_OWNER"
+                reason = "no review point owns the marked atom"
+            else:
+                status = COVERAGE_KIND_UNRESOLVED
+                reason = "discovered occurrence was attributed to no source atom"
+
+            record = {
+                "occurrence_id": occurrence.occurrence_id,
+                "marker_evidence_id": occurrence.evidence_id,
+                "raw_source_marker": occurrence.raw_marker,
+                "page": occurrence.page,
+                "locator": occurrence.locator,
+                "clause": occurrence.clause,
+                "scope": occurrence.scope,
+                "source_kind": occurrence.source_kind,
+                "source_text": occurrence.source_text[:200],
+                "continuation_text": occurrence.continuation_text[:200],
+                "extractor_record_count": occurrence.extractor_record_count,
+                "source_atom_ids": atom_ids[:8],
+                "owner_items": owner_items[:8],
+                "delivered_owner_items": delivered_owners[:8],
+                "background_owner_items": background_owners[:8],
+                "starred_rows": visible_rows[:8],
+                "reference_parent": is_reference_parent,
+                "attribution_routes": routes,
+                "continuation_only": continuation_only,
+                "disposition": status,
+                "disposition_reason": reason,
+                "status": status,
+            }
+            self.marker_records.append(record)
+            dispositions[status] = dispositions.get(status, 0) + 1
+
+            if status == COVERAGE_KIND_UNRESOLVED:
+                unresolved.append(
                     {
-                        "source_atom_id": atom_id,
-                        "raw_source_marker": record.raw_source_marker,
-                        "locator": record.marker_source_location,
-                        "owner_items": owners,
-                        "status": status,
+                        "occurrence_id": occurrence.occurrence_id,
+                        "raw_source_marker": occurrence.raw_marker,
+                        "locator": occurrence.locator,
+                        "source_text": occurrence.source_text[:120],
                     }
                 )
+            if status in (COVERAGE_KIND_UNRESOLVED, "ATTRIBUTED_WITHOUT_OWNER"):
+                unattributed.append(
+                    {
+                        "occurrence_id": occurrence.occurrence_id,
+                        "raw_source_marker": occurrence.raw_marker,
+                        "locator": occurrence.locator,
+                        "source_atom_ids": atom_ids[:4],
+                        "disposition": status,
+                    }
+                )
+            if status == "LOST_DELIVERED_ROW_WITHOUT_STAR":
+                visibility_failures.append(
+                    {
+                        "occurrence_id": occurrence.occurrence_id,
+                        "raw_source_marker": occurrence.raw_marker,
+                        "delivered_owner_items": delivered_owners[:4],
+                        "starred_rows": visible_rows[:4],
+                    }
+                )
+            if status == COVERAGE_KIND_REFERENCE_PARENT and not any(
+                link.parent_atom_id in atom_ids for link in index.reference_links
+            ):
+                reference_failures.append(
+                    {"occurrence_id": occurrence.occurrence_id, "source_atom_ids": atom_ids[:4]}
+                )
             # a marker may only exist where the source evidence says so
-            if record.raw_source_marker and record.raw_source_marker not in (
-                record.marker_source_text or ""
-            ) and record.raw_source_marker not in (index.atom_text.get(atom_id) or ""):
+            if occurrence.raw_marker and occurrence.raw_marker not in (
+                occurrence.source_text or ""
+            ):
                 false_positive.append(
                     {
-                        "source_atom_id": atom_id,
-                        "raw_source_marker": record.raw_source_marker,
-                        "marker_source_text": record.marker_source_text[:120],
+                        "occurrence_id": occurrence.occurrence_id,
+                        "raw_source_marker": occurrence.raw_marker,
+                        "source_text": occurrence.source_text[:120],
                     }
                 )
 
-        # every ★ in the sheet must be backed by a marker atom
+        # every ★ in the sheet must be backed by a marked row
         sheet_starred = {
-            row.get("requirement_id")
+            str(row.get("requirement_id"))
             for row in self._sheet_rows(MANDATORY_SHEET)
             if str(row.get("★") or "").strip() == "★"
         }
@@ -267,13 +415,48 @@ class Round6Report:
             for item_id in sheet_starred
             if item_id and not (self._item(item_id) and self._item(item_id).marker_present)
         )
-        false_positive.extend({"item_id": item_id, "reason": "★ without marker atom"} for item_id in unbacked)
+        false_positive.extend(
+            {"item_id": item_id, "reason": "★ without marker atom"} for item_id in unbacked
+        )
+
+        marked_atoms = [
+            atom_id
+            for atom_id, record in index.criticalities.items()
+            if record.marker_present
+        ]
+        self.marker_dispositions = dispositions
+        self.marker_ledger_counts = counts
+        self.marker_false_positive_count = len(false_positive)
+        self.marker_unattributed_count = len(unattributed)
+        self.marker_unresolved_count = len(unresolved)
+        self.direct_marker_visibility_failures = len(visibility_failures)
+        self.reference_parent_coverage_failures = len(reference_failures)
 
         self.check(
-            "marker preserved (no source marker is lost)",
-            not lost,
-            f"marker_lost_count={len(lost)}",
-            {"marker_atom_count": len(marker_atoms), "lost": lost[:10]},
+            "marker occurrences discovered, attributed and resolved",
+            not unattributed and not unresolved,
+            (
+                f"occurrences={counts['source_marker_occurrence_count']} "
+                f"unattributed={len(unattributed)} unresolved={len(unresolved)}"
+            ),
+            {
+                **counts,
+                "dispositions": dispositions,
+                "unattributed": unattributed[:10],
+                "unresolved": unresolved[:10],
+            },
+        )
+        self.check(
+            "direct delivered markers are visible in the workbook",
+            not visibility_failures,
+            f"direct_delivered_marker_visibility_failures={len(visibility_failures)}",
+            {"failures": visibility_failures[:10], "marker_atom_count": len(marked_atoms)},
+        )
+        self.check(
+            "reference parents keep their propagation coverage",
+            not reference_failures,
+            f"reference_parent_coverage_failures={len(reference_failures)}",
+            {"failures": reference_failures[:10], "reference_parent_count": len(reference_parents)},
         )
         self.check(
             "marker false positives",
@@ -281,7 +464,29 @@ class Round6Report:
             f"marker_false_positive_count={len(false_positive)}",
             {"false_positives": false_positive[:10]},
         )
-        self.marker_false_positive_count = len(false_positive)
+        self.check(
+            "marker preserved (no source marker is lost)",
+            self.marker_lost_count() == 0,
+            f"marker_lost_count={self.marker_lost_count()}",
+            {"dispositions": dispositions},
+        )
+        count_atoms = sum(
+            1 for record in index.criticalities.values() if record.marker_present
+        )
+        self.criticality_counts = {
+            **counts,
+            "direct_source_marked_review_row_count": len(
+                {item_id for item_id in sheet_starred if item_id}
+            ),
+            "substantive_review_row_count": len(
+                [
+                    item
+                    for item in self.items
+                    if getattr(item, "substantive_requirement", False)
+                ]
+            ),
+            "marker_carrying_source_atom_count": count_atoms,
+        }
 
     def check_marker_fixtures(self) -> None:
         rows = self._sheet_rows(MANDATORY_SHEET)
@@ -539,6 +744,57 @@ class Round6Report:
 
     # -- workbook columns -------------------------------------------------- #
 
+    def check_sheet_surface(self) -> None:
+        """The reviewer surface must keep its filters, columns and freedom.
+
+        Round-6 closure: the successor workbook is a *new* artifact, so the
+        surface of the mandatory sheet (the human's working sheet) is verified
+        again: the automatic filter covers the printed columns, the sheet is not
+        protected, and the three criticality columns stay plain (no colour fill
+        that would imply a precedence between ★ / 否决性 / 强制性类型).
+        """
+
+        workbook = load_workbook(self.build / "投标项目复核表.xlsx", data_only=False)
+        try:
+            sheet = workbook[MANDATORY_SHEET]
+            headers = [
+                str(cell.value or "").strip()
+                for cell in next(sheet.iter_rows(min_row=1, max_row=1))
+            ]
+            expected_headers = ["★", "否决性", "强制性类型", "源标记", "实质性依据", "否决依据"]
+            missing_headers = [name for name in expected_headers if name not in headers]
+            filter_ref = str(getattr(sheet.auto_filter, "ref", "") or "")
+            fill_columns = []
+            for name in ("★", "否决性", "强制性类型"):
+                if name not in headers:
+                    continue
+                column = headers.index(name) + 1
+                for row in range(2, sheet.max_row + 1):
+                    fill = sheet.cell(row=row, column=column).fill
+                    if fill is not None and fill.fill_type not in (None, "none"):
+                        fill_columns.append(f"{name}{row}")
+                        break
+            last_column = get_column_letter(len(headers))
+            self.check(
+                "the reviewer surface keeps its filters and free columns",
+                not missing_headers
+                and filter_ref == f"A1:{last_column}{sheet.max_row}"
+                and not sheet.protection.sheet
+                and not fill_columns,
+                f"filter={filter_ref or '-'} protection={sheet.protection.sheet} "
+                f"filled={fill_columns}",
+                {
+                    "headers": headers,
+                    "missing_headers": missing_headers,
+                    "auto_filter": filter_ref,
+                    "protected": bool(sheet.protection.sheet),
+                    "filled_criticality_cells": fill_columns[:6],
+                    "row_count": sheet.max_row,
+                },
+            )
+        finally:
+            workbook.close()
+
     def check_sheet_columns(self) -> None:
         rows = self._sheet_rows(MANDATORY_SHEET)
         marked = [
@@ -605,8 +861,32 @@ class Round6Report:
 
     # -- dashboard --------------------------------------------------------- #
 
-    def check_dashboard(self) -> None:
-        workbook = load_workbook(self.build / "投标项目复核表.xlsx", data_only=False, read_only=True)
+    @staticmethod
+    def _sheet_values(rows: list[dict], column: str) -> list[str]:
+        return [str(row.get(column) or "").strip() for row in rows]
+
+    @staticmethod
+    def _countif_evaluate(formula: str, values: list[str], token: str) -> int:
+        """Evaluate a single ``COUNTIF(range, "token")`` exactly as Excel would.
+
+        ``*`` is a trailing wildcard (prefix match); everything else is equality.
+        A formula that is *not* a single COUNTIF over the expected range cannot be
+        evaluated and must fail the gate instead of being silently accepted.
+        """
+
+        if not formula.startswith("=COUNTIF("):
+            return -1
+        if formula.count("COUNTIF") != 1:
+            return -1
+        if token.endswith("*"):
+            prefix = token[:-1]
+            return sum(1 for value in values if value.startswith(prefix))
+        return sum(1 for value in values if value == token)
+
+    def _dashboard_values(self) -> tuple[dict[str, str], dict[str, list[str]], dict[str, dict]]:
+        workbook = load_workbook(
+            self.build / "投标项目复核表.xlsx", data_only=False, read_only=True
+        )
         try:
             sheet = workbook["00_复核总览"]
             labels: dict[str, str] = {}
@@ -615,57 +895,149 @@ class Round6Report:
                     labels[str(row[0])] = str(row[1])
         finally:
             workbook.close()
+        rows = self._sheet_rows(MANDATORY_SHEET)
+        values = {
+            "H": self._sheet_values(rows, "★"),
+            "I": self._sheet_values(rows, "否决性"),
+            "J": self._sheet_values(rows, "强制性类型"),
+            "T": self._sheet_values(rows, "否决依据"),
+        }
+        independent = {
+            "source_marked_review_row_count": sum(1 for value in values["H"] if value == "★"),
+            "substantive_review_row_count": sum(
+                1 for value in values["J"] if value.startswith("SUBSTANTIVE")
+            ),
+            "rejection_row_count": sum(1 for value in values["I"] if value == "是"),
+            "explicit_rejection_row_count": sum(
+                1 for value in values["T"] if value.startswith("EXPLICIT")
+            ),
+            "derived_rejection_row_count": sum(
+                1 for value in values["T"] if value.startswith("DERIVED")
+            ),
+        }
+        return labels, values, independent
+
+    def check_dashboard(self) -> None:
+        labels, values, independent = self._dashboard_values()
         expected = {
-            "源标记条款数（带★）": '"★"',
-            "实质性要求数（源依据）": "SUBSTANTIVE_STARRED",
-            "明示或可证明否决项数": '"是"',
+            "带源标记的复核条目数（★）": ("H", "★", "source_marked_review_row_count"),
+            "实质性要求条目数（源依据）": (
+                "J",
+                "SUBSTANTIVE*",
+                "substantive_review_row_count",
+            ),
+            "明示或可证明否决项数": ("I", "是", "rejection_row_count"),
+            "其中：明示否决（源文明确示后果）": (
+                "T",
+                "EXPLICIT*",
+                "explicit_rejection_row_count",
+            ),
+            "其中：推导否决（源文实质性要求规则）": (
+                "T",
+                "DERIVED*",
+                "derived_rejection_row_count",
+            ),
         }
         missing = [label for label in expected if label not in labels]
-        wrong = [
-            label
-            for label, token in expected.items()
-            if label in labels and token not in labels[label]
-        ]
         conflated = [label for label in labels if "★/一票否决" in label]
+        # the source-marker label must not read as a count of source occurrences
+        misreadable = [
+            label
+            for label in labels
+            if "源标记条款数" in label
+            or ("源文件标记" in label and "出现次数" in label)
+            or "源标记出现次数" in label
+        ]
         self.check(
             "dashboard reports the three dimensions separately",
-            not missing and not wrong and not conflated,
-            f"missing={missing} conflated={conflated}",
+            not missing and not conflated and not misreadable,
+            f"missing={missing} conflated={conflated} misreadable={misreadable}",
             {"labels": {key: labels.get(key, "") for key in expected}},
+        )
+
+        metrics: dict[str, dict] = {}
+        failures: list[str] = []
+        for label, (column, token, key) in expected.items():
+            formula = labels.get(label, "")
+            recalculated = self._countif_evaluate(formula, values[column], token)
+            independent_value = independent[key]
+            ok = (
+                recalculated >= 0
+                and recalculated == independent_value
+                and token in formula
+            )
+            metrics[label] = {
+                "column": column,
+                "formula": formula,
+                "expected_value": independent_value,
+                "formula_token": token,
+                "recalculated_value": recalculated,
+                "independent_value": independent_value,
+                "ok": ok,
+            }
+            if not ok:
+                failures.append(label)
+        self.dashboard_metrics = metrics
+        self.check(
+            "dashboard criticality counters equal the independent recount",
+            not failures and not missing,
+            f"mismatched={failures}",
+            {
+                "metrics": metrics,
+                "independent_recount": independent,
+                "recalculated_scope": MANDATORY_SHEET,
+            },
         )
 
     # -- coverage ---------------------------------------------------------- #
 
     def check_coverage(self) -> None:
         index = self.criticality
-        atom_owner: dict[str, str] = {}
+        atom_owner: dict[str, list[str]] = {}
         for item in [*self.items, *self.background]:
             for atom_id in getattr(item.review_point, "owned_atom_ids", ()) or ():
-                atom_owner.setdefault(str(atom_id), item.item_id)
+                atom_owner.setdefault(str(atom_id), []).append(item.item_id)
+        delivered_ids = {item.item_id for item in self.items}
         reference_parents = {
             link.parent_atom_id for link in index.reference_links if link.target_atom_ids
         }
         reference_children = {
             child for link in index.reference_links for child in link.target_atom_ids
         }
+        # the complete source-criticality universe: every substantive *atom* and
+        # every marker occurrence must be accounted for, not only the ones that
+        # already own a row.
         substantives = [
             (atom_id, record)
             for atom_id, record in index.criticalities.items()
             if record.substantive_requirement
         ]
+        occurrence_uncovered: list[dict] = []
+        for record in self.marker_records:
+            if record["disposition"] in (
+                COVERAGE_KIND_UNRESOLVED,
+                "ATTRIBUTED_WITHOUT_OWNER",
+                "LOST_DELIVERED_ROW_WITHOUT_STAR",
+            ):
+                occurrence_uncovered.append(
+                    {
+                        "occurrence_id": record["occurrence_id"],
+                        "raw_source_marker": record["raw_source_marker"],
+                        "locator": record["locator"],
+                        "disposition": record["disposition"],
+                    }
+                )
         uncovered: list[dict] = []
         for atom_id, record in substantives:
+            owners = atom_owner.get(atom_id, [])
             if atom_id in reference_children:
                 coverage = COVERAGE_REFERENCE_CHILD
             elif atom_id in reference_parents:
                 coverage = COVERAGE_REFERENCE_PARENT
-            elif atom_id in atom_owner:
-                owner = atom_owner[atom_id]
-                coverage = (
-                    COVERAGE_DELIVERED_ROW
-                    if any(item.item_id == owner for item in self.items)
-                    else COVERAGE_BACKGROUND_ROW
-                )
+            elif any(owner in delivered_ids for owner in owners):
+                coverage = COVERAGE_DELIVERED_ROW
+            elif owners:
+                coverage = COVERAGE_BACKGROUND_ROW
             else:
                 coverage = COVERAGE_UNCOVERED
                 uncovered.append(
@@ -673,6 +1045,7 @@ class Round6Report:
                         "source_atom_id": atom_id,
                         "atom_text": index.atom_text.get(atom_id, "")[:160],
                         "basis_kind": record.substantive_basis_kind,
+                        "marker_occurrence_ids": list(record.marker_occurrence_ids),
                     }
                 )
             self.coverage_records.append(
@@ -681,18 +1054,36 @@ class Round6Report:
                     "atom_text": index.atom_text.get(atom_id, "")[:200],
                     "basis_kind": record.substantive_basis_kind,
                     "basis_atom_ids": list(record.substantive_basis_atom_ids),
-                    "owner_item": atom_owner.get(atom_id, ""),
+                    "owner_items": owners,
                     "coverage": coverage,
                     "rejection_kind": record.rejection_kind,
+                    "marker_occurrence_ids": list(record.marker_occurrence_ids),
                 }
             )
+        actionable_uncovered = [
+            item
+            for item in uncovered
+            if any(
+                owner in delivered_ids for owner in atom_owner.get(item["source_atom_id"], [])
+            )
+        ]
         self.check(
             "every source substantive requirement is covered by the review",
             not uncovered,
             f"source_substantive_requirement_without_review_coverage_count={len(uncovered)}",
-            {"uncovered": uncovered[:10]},
+            {"uncovered": uncovered[:10], "substantive_atom_count": len(substantives)},
+        )
+        self.check(
+            "every marker occurrence is accounted for by coverage",
+            not occurrence_uncovered,
+            f"source_marker_occurrence_uncovered_count={len(occurrence_uncovered)}",
+            {
+                "uncovered": occurrence_uncovered[:10],
+                "dispositions": self.marker_dispositions,
+            },
         )
         self.uncovered_substantive_count = len(uncovered)
+        self.uncovered_actionable_substantive_count = len(actionable_uncovered)
 
     # -- contract / word artifacts ---------------------------------------- #
 
@@ -797,6 +1188,7 @@ class Round6Report:
         self.check_sheet_columns()
         self.check_dashboard()
         self.check_coverage()
+        self.check_sheet_surface()
         self.check_word_artifacts()
         self.audit_rows()
         contract = self.check_contract()
@@ -808,6 +1200,7 @@ class Round6Report:
         return {
             "schema": "v1_review_workbook_round6/1",
             "case": self.case,
+            "stage": self.stage,
             "build_id": self.build.name,
             "workbook": str(self.build / "投标项目复核表.xlsx"),
             "verdict": verdict,
@@ -838,6 +1231,15 @@ class Round6Report:
             },
             "criticality_model": {
                 "marker_count": len(self.criticality.markers),
+                "source_marker_occurrence_count": (
+                    self.criticality.source_marker_occurrence_count
+                ),
+                "raw_source_marker_discovery_count": (
+                    self.criticality.raw_source_marker_discovery_count
+                ),
+                "duplicate_source_marker_record_count": (
+                    self.criticality.duplicate_source_marker_record_count
+                ),
                 "marker_vocabulary": sorted(
                     {record.raw_marker for record in self.criticality.markers}
                 ),
@@ -875,22 +1277,120 @@ class Round6Report:
                 ),
                 "marker_lost_count": self.marker_lost_count(),
                 "marker_false_positive_count": self.marker_false_positive_count,
+                "marker_unattributed_count": self.marker_unattributed_count,
+                "marker_unresolved_count": self.marker_unresolved_count,
+                "direct_delivered_marker_visibility_failures": (
+                    self.direct_marker_visibility_failures
+                ),
+                "reference_parent_coverage_failures": (
+                    self.reference_parent_coverage_failures
+                ),
+                "source_marker_occurrence_count": (
+                    self.criticality.source_marker_occurrence_count
+                ),
+                "raw_source_marker_discovery_count": (
+                    self.criticality.raw_source_marker_discovery_count
+                ),
+                "duplicate_source_marker_record_count": (
+                    self.criticality.duplicate_source_marker_record_count
+                ),
+                "source_marker_evidence_count": len(self.criticality.markers),
+                "direct_source_marked_review_row_count": self.criticality_counts.get(
+                    "direct_source_marked_review_row_count", 0
+                ),
+                "substantive_review_row_count": self.criticality_counts.get(
+                    "substantive_review_row_count", 0
+                ),
+                "marker_carrying_source_atom_count": self.criticality_counts.get(
+                    "marker_carrying_source_atom_count", 0
+                ),
                 "source_substantive_requirement_without_review_coverage_count": (
                     self.uncovered_substantive_count
                 ),
+                "source_substantive_actionable_uncovered_count": (
+                    self.uncovered_actionable_substantive_count
+                ),
             },
+            "marker_dispositions": self.marker_dispositions,
+            "dashboard_metrics": self.dashboard_metrics,
             "marker_records": self.marker_records,
             "row_audit": self.row_records,
             "coverage_records": self.coverage_records,
         }
 
 
-def write_case_report(case: str, *, case_dir: Path | None = None) -> dict:
-    report = Round6Report(case, case_dir=case_dir)
+def marker_closure_markdown(data: dict) -> str:
+    """A short, human-readable occurrence ledger for one case."""
+
+    counts = data["counts"]
+    model = data["criticality_model"]
+    lines = [
+        f"# Round-6 marker closure -- {data['case']}",
+        "",
+        f"- build: `{data['build_id']}`",
+        f"- verdict: **{data['verdict']}**",
+        f"- raw marker discovery records: {model['raw_source_marker_discovery_count']}",
+        f"- de-duplicated source marker occurrences: {model['source_marker_occurrence_count']}",
+        f"- duplicate extractor records collapsed: {model['duplicate_source_marker_record_count']}",
+        f"- round-6 text-deduplicated evidence records: {model['marker_count']}",
+        f"- marker-carrying source atoms: {counts['marker_carrying_source_atom_count']}",
+        f"- ★ review rows: {counts['direct_source_marked_review_row_count']}",
+        f"- substantive review rows (source basis): {counts['substantive_review_row_count']}",
+        f"- unattributed occurrences: {counts['marker_unattributed_count']}",
+        f"- unresolved occurrences: {counts['marker_unresolved_count']}",
+        f"- direct-marker visibility failures: "
+        f"{counts['direct_delivered_marker_visibility_failures']}",
+        f"- reference-parent coverage failures: "
+        f"{counts['reference_parent_coverage_failures']}",
+        f"- actionable substantive uncovered: "
+        f"{counts['source_substantive_actionable_uncovered_count']}",
+        "",
+        "## dispositions",
+        "",
+    ]
+    for key, value in sorted(data["marker_dispositions"].items()):
+        lines.append(f"- {key}: {value}")
+    lines += ["", "## occurrence ledger", "", "| occurrence | marker | page | locator | disposition | rows |", "| --- | --- | --- | --- | --- | --- |"]
+    for record in data["marker_records"]:
+        rows = ", ".join(record["starred_rows"] or record["delivered_owner_items"]) or "-"
+        if not record["delivered_owner_items"] and record["background_owner_items"]:
+            rows = "background: " + ", ".join(record["background_owner_items"])
+        lines.append(
+            f"| {record['occurrence_id']} ({record['marker_evidence_id']}) | "
+            f"{record['raw_source_marker']} | {record['page']} | {record['locator']} | "
+            f"{record['disposition']} | {rows} |"
+        )
+    lines += ["", "## dashboard counters", "", "| counter | formula | expected | recalculated | independent | ok |", "| --- | --- | --- | --- | --- | --- |"]
+    for label, metric in data["dashboard_metrics"].items():
+        lines.append(
+            f"| {label} | `{metric['formula']}` | {metric['expected_value']} | "
+            f"{metric['recalculated_value']} | {metric['independent_value']} | "
+            f"{'yes' if metric['ok'] else 'NO'} |"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def write_case_report(
+    case: str,
+    *,
+    case_dir: Path | None = None,
+    stage: str = "initial",
+) -> dict:
+    report = Round6Report(case, case_dir=case_dir, stage=stage)
     data = report.run()
     REPORTS.mkdir(parents=True, exist_ok=True)
-    path = REPORTS / f"review_workbook_round6_criticality_audit_{case}.json"
+    stem = (
+        f"review_workbook_round6_marker_closure_{case}"
+        if stage == "marker_closure"
+        else f"review_workbook_round6_criticality_audit_{case}"
+    )
+    path = REPORTS / f"{stem}.json"
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    if stage == "marker_closure":
+        (REPORTS / f"{stem}.md").write_text(
+            marker_closure_markdown(data), encoding="utf-8"
+        )
     print(f"{case}: {data['verdict']} ({len(data['failed_checks'])} failed check(s)) -> {path.name}")
     for check in data["checks"]:
         if not check["ok"]:
@@ -905,13 +1405,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case", action="append", default=None)
     parser.add_argument("--three-case", action="store_true")
+    parser.add_argument(
+        "--stage",
+        choices=("initial", "marker_closure"),
+        default="initial",
+        help="initial = preserved round-6 audit; marker_closure = round-6 successor",
+    )
     args = parser.parse_args(argv)
     cases = list(CASES) if args.three_case or not args.case else args.case
-    results = {case: write_case_report(case) for case in cases}
+    results = {case: write_case_report(case, stage=args.stage) for case in cases}
     if len(results) > 1:
         REPORTS.mkdir(parents=True, exist_ok=True)
         summary = {
             "schema": "v1_review_workbook_round6_generalization/1",
+            "stage": args.stage,
             "cases": {
                 case: {
                     "verdict": data["verdict"],
@@ -926,7 +1433,12 @@ def main(argv: list[str] | None = None) -> int:
                 "PASS" if all(data["verdict"] == "PASS" for data in results.values()) else "FAIL"
             ),
         }
-        path = REPORTS / "review_workbook_round6_generalization.json"
+        name = (
+            "review_workbook_round6_generalization_marker_closure.json"
+            if args.stage == "marker_closure"
+            else "review_workbook_round6_generalization.json"
+        )
+        path = REPORTS / name
         path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"generalization: {summary['verdict']} -> {path.name}")
     return 0 if all(data["verdict"] == "PASS" for data in results.values()) else 1

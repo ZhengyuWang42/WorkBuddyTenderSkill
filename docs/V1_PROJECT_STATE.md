@@ -595,6 +595,11 @@ CASE002 / CASE003 仍为 `NOT_YET_CONFIRMED`；`V1_PRODUCTION_CANDIDATE = false`
 
 ### 5.8.3 本轮验收对象与门禁结果
 
+> **注（收口后补记）**：本表记录的是**初次**第 6 轮结果。该结果随后被只读一致性审计
+> （`review_workbook_round6_count_consistency_note.json`）判定为**无效**
+> （`D1 DASHBOARD_SUBSTANTIVE_COUNT_FORMULA_BROKEN`、`D2 SOURCE_MARKER_ATTRIBUTION_AUDIT_BLIND_SPOT`），
+> 现由 §5.8.4 的收口结果取代；本表文字按"历史记录不得改写"原则原样保留。
+
 | 门禁 | 结果 |
 | --- | --- |
 | `REVIEW_WORKBOOK_ROUND6` | **PASS**（`review_workbook_round6_final_status.json`） |
@@ -618,6 +623,63 @@ CASE002 / CASE003 仍为 `NOT_YET_CONFIRMED`；`V1_PRODUCTION_CANDIDATE = false`
 **人工确认状态**：`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、
 `CASE002/003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、人工勾选框 **0**、
 `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+
+### 5.8.4 第 6 轮收口（ROUND 6 MARKER CLOSURE）—— 计数一致性与标记归属闭合
+
+**时序（不得删除任一步）**
+
+1. **初次第 6 轮 PASS**（§5.8.3 表；产物 `..._review_workbook6`，现已冻结为**失效证据**）。
+2. **只读一致性审计判定无效**：`review_workbook_round6_count_consistency_note.json`
+   （`ROUND6_COUNT_CONSISTENCY = FAIL`，`actions.product_code_modified = false`）证明两个缺陷：
+   - **D1 `DASHBOARD_SUBSTANTIVE_COUNT_FORMULA_BROKEN`**：`B28` 用四个**精确匹配**
+     `COUNTIF` 求和去统计一列"；"连接的多值单元格（如 `SUBSTANTIVE_STARRED；REJECTION`），
+     CASE001 得到 7（真值 31）、CASE003 得到 3（真值 4），CASE002 只是**碰巧**正确。
+   - **D2 `SOURCE_MARKER_ATTRIBUTION_AUDIT_BLIND_SPOT`**：`marker_lost_count` 只遍历
+     `marker_present = True` 的原子，**被发现但未归属**的标记对审计不可见
+     （CASE001 `MK0017`/`MK0018` 未归属；CASE002 `DR028` 明明拥有 `★` 文本原子却显示空 `★`）。
+3. **收口修复两者**（本小节）：
+   - `B28` 改为**一条通配前缀** `=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,"SUBSTANTIVE*")`；
+     `B27` 标签由「源标记条款数（带★）」改为「**带源标记的复核条目数（★）**」，不再可能被读成
+     源文件标记**出现次数**（出现次数只存在于审计证据中）。仪表盘门禁现在逐条校验
+     **期望值 / 公式 / 重算值 / 独立重算值**四者一致（CASE001 `31`、CASE002 `1`、CASE003 `4`）。
+   - 标记保真审计改为从**完整去重后的源标记出现集合**出发（`discover_marker_occurrences`，
+     一等对象 `MarkerOccurrence`），每个出现必须落入
+     `DIRECT_DELIVERED / REFERENCE_PARENT / BACKGROUND_NON_ACTIONABLE / DUPLICATE_SOURCE_OCCURRENCE`
+     之一；`UNRESOLVED` 被禁止。中段文本归属（`MARKER_IN_ATOM`）、换行续行归属
+     （`CONTINUATION`）与同一语句的跨页重复（前缀等价）都在模型内通用求解。
+
+**收口结果（`review_workbook_round6_final_status_reconciled.json` / `.md`）**
+
+| 指标 | CASE001 | CASE002 | CASE003 |
+| --- | --- | --- | --- |
+| 源标记出现次数（去重后） | 18 | 45 | 6 |
+| 原始发现记录 / 折叠重复 | 18 / 0 | 45 / 0 | 6 / 0 |
+| 未归属出现 / 未解决出现 | 0 / 0 | 0 / 0 | 0 / 0 |
+| `★` 复核行数 | 17 | 3（含 `DR028`） | 4 |
+| 实质性要求行数（源依据） | **31** | **1** | **4** |
+| 否决行数（明示/推导） | 10 / 23 | 3 / 0 | 10 / 0 |
+| 仪表盘公式 = 独立重算 | 5/5 | 5/5 | 5/5 |
+
+- `CASE001`：`MK0017`（`*泵站内部进出水管材质使用304不锈钢…`）与 `MK0018`
+  （`*流量计等相关计量仪器需提供第三方校检证书`）分别归属原子 `SRA0263`/`SRA0264`，
+  对应已交付行 `DR015`/`DR047`（两行本就带 `★`，实质性与行数**未漂移**：31 / 17）。
+- `CASE002`：`DR028` 的 `★` 由空变非空，`强制性类型 = MANDATORY`（`MANDATORY_PROOF`），
+  `否决性`/`实质性依据`/`否决依据` 仍为空 —— **`★` 不蕴含否决**。
+- `CASE003`：6 发现 = 6 归属 = 4 星标行 = 4 实质性行、10 明示否决、0 推导否决，无回归。
+- **长期原则（BANK）**：
+  > **SOURCE MARKER FIDELITY MUST BE CLOSED FROM THE SOURCE-DISCOVERY UNIVERSE,
+  > NOT FROM ALREADY-ATTRIBUTED ATOMS**
+  > （源标记保真必须从"源文发现全集"闭合，而不是从"已经带上标记的原子"闭合）
+- **三个彼此独立的计数（BANK）**：`source_marker_occurrence_count`（源文标记出现次数）、
+  `direct_source_marked_review_row_count`（带源标记的复核行数）、
+  `substantive_review_row_count`（实质性要求行数）—— 任何日志或标签都不得混用。
+
+**收口后的验收状态**：`ROUND6_CRITICALITY_THREE_CASE_GENERALIZATION = PASS`、
+`SOURCE_MARKER_AGGREGATE_AUDIT = PASS`、`ROUND6_FINAL_STATUS_RECONCILED = PASS`、视觉 QA 三案例
+`PASS`（`clipping_bounded` 仍为有界 WARN）、`WORD_ARTIFACTS_UNCHANGED = PASS`、
+`WORKBOOK5_UNTOUCHED = PASS`、全量测试 0 failed / 0 errors；
+`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、人工勾选框 **0**、
+`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`。
 
 ---
 

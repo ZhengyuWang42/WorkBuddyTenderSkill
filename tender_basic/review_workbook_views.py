@@ -1022,21 +1022,19 @@ def _build_overview(workbook, *, project_facts, build_meta, counts: dict) -> Non
     # three different source statements -- conflating them is what hid the
     # starred clauses from the reviewer.
     row = section("源标记 / 实质性要求 / 否决后果（互相独立的三个维度）")
+    # B27 counts reviewed *rows* carrying the visible ★ mark -- it is not the
+    # number of ★ occurrences in the source document (round-6 closure: the
+    # occurrence count lives in the audit evidence, never in this label).
+    # B28 must match the multi-valued J column, which stores several
+    # "；"-joined mandatory types per row (e.g. "SUBSTANTIVE_STARRED；REJECTION"),
+    # so it counts by prefix and never by exact equality.
     criticality_specs = [
-        ("源标记条款数（带★）", "H", "★"),
-        ("实质性要求数（源依据）", "J", "SUBSTANTIVE_"),
+        ("带源标记的复核条目数（★）", "H", "★"),
+        ("实质性要求条目数（源依据）", "J", "SUBSTANTIVE*"),
         ("明示或可证明否决项数", "I", "是"),
     ]
     for label, column, token in criticality_specs:
-        if column == "J":
-            formula = (
-                f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_STARRED")'
-                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_EXPLICIT_WORDING")'
-                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_VIA_REFERENCE*")'
-                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_BY_LAW*")'
-            )
-        else:
-            formula = f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], column)},"{token}")'
+        formula = f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], column)},"{token}")'
         ws.cell(row=row, column=1, value=label)
         ws.cell(row=row, column=2, value=formula)
         row += 1
