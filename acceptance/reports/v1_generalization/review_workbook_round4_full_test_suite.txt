@@ -1,11 +1,11 @@
 # full test suite (Windows ACL compatibility path)
-# command  : .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --basetemp D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\pytest_fullsuite_3dff158db8bf47c8a459243aaa74de4a --junitxml D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_3dff158db8bf47c8a459243aaa74de4a.xml
+# command  : .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --basetemp D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\pytest_fullsuite_4f2aa39bbea2493d9a78cdc6de6ada2c --junitxml D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_4f2aa39bbea2493d9a78cdc6de6ada2c.xml
 # host note: PYTEST_PLUGINS=pytest_fscompat (scripts/dev/pytest_fscompat.py)
 #            Path.mkdir(mode=0o700) is relaxed to the default mode because this
 #            host cannot enumerate a directory created with mode 0o700; the plugin
 #            changes no assertion, no test and no product module.
 # result   : 769 passed, 1 skipped, 0 failed, 0 errors
-# junitxml : tests=770 failures=0 errors=0 skipped=1 time=99.662s
+# junitxml : tests=770 failures=0 errors=0 skipped=1 time=129.302s
 # exit code: 0
 
 ........................................................................ [  9%]
@@ -43,5 +43,5 @@ tests/test_word_safe_builder.py: 12 warnings
     fact = getattr(fields, name)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-- generated xml file: D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_3dff158db8bf47c8a459243aaa74de4a.xml -
+- generated xml file: D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\_scratch_round4_vii\fullsuite_4f2aa39bbea2493d9a78cdc6de6ada2c.xml -
 

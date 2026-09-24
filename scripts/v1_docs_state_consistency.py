@@ -369,7 +369,7 @@ def check_round4_docs(
     cases: dict[str, dict] = {}
     for case in CASES:
         entry: dict[str, object] = {}
-        report_path = general / ROUND4_REPORT.format(case=case)
+        report_path = general / f"{case.replace('_', '')}_review_workbook_round4.json"
         if report_path.is_file():
             report = load(report_path)
             counts = report.get("rendered_mismatch_counts") or {}
@@ -400,13 +400,14 @@ def check_round4_docs(
             entry["provenance"] = {
                 "components": provenance.get("component_count"),
                 "unverified": provenance.get("unverified_count"),
-                "cells": provenance.get("cell_count"),
+                "cells": provenance.get("cell_count")
+                or len({str(item.get("cell")) for item in (provenance.get("entries") or [])}),
             }
             gate.check(
                 f"{case}_round4_provenance_complete",
                 bool(provenance.get("component_count"))
                 and provenance.get("unverified_count") == 0
-                and bool(provenance.get("cells"))
+                and bool(entry["provenance"]["cells"])
                 and bool(provenance.get("workbook_sha256")),
                 **entry["provenance"],
             )
@@ -989,6 +990,7 @@ def main() -> int:
         checklist_text,
     )
     round3 = check_round3_docs(gate, state_text, decisions_text, checklist_text)
+    round4 = check_round4_docs(gate, state_text, decisions_text, checklist_text)
 
     report = {
         "schema": "v1_docs_state_consistency/1",
@@ -997,6 +999,7 @@ def main() -> int:
         "flags": flags,
         "full_suite": counts,
         "round3": round3,
+        "round4": round4,
         "pointers": pointers,
         "docs": docs,
         "checks": gate.checks,

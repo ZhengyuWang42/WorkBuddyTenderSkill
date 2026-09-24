@@ -92,6 +92,90 @@
       "case_003": "0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322"
     }
   },
+  "round4": {
+    "result": "PASS",
+    "cases": {
+      "case_001": {
+        "report": {
+          "verdict": "PASS",
+          "checks": "25/25",
+          "mismatch_total": 0,
+          "unverified": 0,
+          "audit": "138/138"
+        },
+        "provenance": {
+          "components": 338,
+          "unverified": 0,
+          "cells": 103
+        },
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 8,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      },
+      "case_002": {
+        "report": {
+          "verdict": "PASS",
+          "checks": "23/23",
+          "mismatch_total": 0,
+          "unverified": 0,
+          "audit": "138/138"
+        },
+        "provenance": {
+          "components": 333,
+          "unverified": 0,
+          "cells": 103
+        },
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 10,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      },
+      "case_003": {
+        "report": {
+          "verdict": "PASS",
+          "checks": "23/23",
+          "mismatch_total": 0,
+          "unverified": 0,
+          "audit": "147/147"
+        },
+        "provenance": {
+          "components": 351,
+          "unverified": 0,
+          "cells": 107
+        },
+        "gate": {
+          "result": "PASS",
+          "passed": 40,
+          "check_count": 40
+        },
+        "visual_qa": {
+          "result": "PASS",
+          "bounded_clipping_warnings": 25,
+          "no_clipped_dashboard_text": "PASS"
+        }
+      }
+    },
+    "suite": {
+      "collected": 770,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 769
+    }
+  },
   "pointers": {
     "case_001": {
       "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
@@ -111,7 +195,7 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 90047,
+    "state_doc_bytes": 89951,
     "decisions_doc_bytes": 55039
   },
   "checks": [
@@ -402,8 +486,8 @@
       "check": "checklist_current_excel_object_is_round4",
       "status": "PASS",
       "current_marker_at": 4323,
-      "history_marker_at": 4980,
-      "first_round1_reference_at": 22430,
+      "history_marker_at": 5256,
+      "first_round1_reference_at": 22706,
       "note": "the current Excel review object is Round4; round-1/2/3 references sit behind history markers"
     },
     {
@@ -512,6 +596,158 @@
       "status": "PASS",
       "build_id": "v1_round4_closure8_review_workbook3",
       "workbook_sha256": "0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322"
+    },
+    {
+      "check": "round4_final_status_is_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "blockers": []
+    },
+    {
+      "check": "case_001_round4_report_pass",
+      "status": "PASS",
+      "verdict": "PASS",
+      "checks": "25/25",
+      "mismatch_total": 0,
+      "unverified": 0,
+      "audit": "138/138"
+    },
+    {
+      "check": "case_001_round4_provenance_complete",
+      "status": "PASS",
+      "components": 338,
+      "unverified": 0,
+      "cells": 103
+    },
+    {
+      "check": "case_001_round4_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40
+    },
+    {
+      "check": "case_001_round4_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 8,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "case_002_round4_report_pass",
+      "status": "PASS",
+      "verdict": "PASS",
+      "checks": "23/23",
+      "mismatch_total": 0,
+      "unverified": 0,
+      "audit": "138/138"
+    },
+    {
+      "check": "case_002_round4_provenance_complete",
+      "status": "PASS",
+      "components": 333,
+      "unverified": 0,
+      "cells": 103
+    },
+    {
+      "check": "case_002_round4_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40
+    },
+    {
+      "check": "case_002_round4_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 10,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "case_003_round4_report_pass",
+      "status": "PASS",
+      "verdict": "PASS",
+      "checks": "23/23",
+      "mismatch_total": 0,
+      "unverified": 0,
+      "audit": "147/147"
+    },
+    {
+      "check": "case_003_round4_provenance_complete",
+      "status": "PASS",
+      "components": 351,
+      "unverified": 0,
+      "cells": 107
+    },
+    {
+      "check": "case_003_round4_structure_gate_40_of_40",
+      "status": "PASS",
+      "result": "PASS",
+      "passed": 40,
+      "check_count": 40
+    },
+    {
+      "check": "case_003_round4_visual_qa_pass",
+      "status": "PASS",
+      "result": "PASS",
+      "bounded_clipping_warnings": 25,
+      "no_clipped_dashboard_text": "PASS"
+    },
+    {
+      "check": "round4_full_suite_is_green",
+      "status": "PASS",
+      "collected": 770,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 769
+    },
+    {
+      "check": "state_doc_names_the_round4_pipeline",
+      "status": "PASS"
+    },
+    {
+      "check": "docs_name_the_current_round4_builds",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "check": "docs_name_the_current_round4_xlsx_hashes",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "check": "docs_record_the_round4_suite_counts",
+      "status": "PASS",
+      "state_has_counts": true,
+      "counts": {
+        "collected": 770,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 769
+      }
+    },
+    {
+      "check": "state_doc_marks_xlsx_review_state",
+      "status": "PASS",
+      "note": "round 4 may only close the human FAIL as pending-review, never tick a box"
+    },
+    {
+      "check": "human_fail_is_preserved_not_rewritten",
+      "status": "PASS",
+      "record": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review.json",
+      "human_verdict": "FAIL",
+      "fail_reason": "RENDERED_COMPONENT_CONCERN_OWNERSHIP"
+    },
+    {
+      "check": "decisions_record_the_rendering_invariant",
+      "status": "PASS"
+    },
+    {
+      "check": "checklist_current_excel_object_is_round4",
+      "status": "PASS",
+      "note": "the checklist must point the human at the round-4 workbooks"
     }
   ],
   "failed_checks": [],

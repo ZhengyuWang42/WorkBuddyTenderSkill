@@ -91,6 +91,7 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 | CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook4/投标项目复核表.xlsx` |
 | CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook4/投标项目复核表.xlsx` |
 | 机器状态 | `review_workbook_round4_final_status.json`（CASE001 25/25、CASE002 23/23、CASE003 23/23；八类 `RENDERED_*_CONCERN_MISMATCH = 0`；A–S 19/19；最终单元格审计全格一致） |
+| XLSX SHA256 | CASE001 `be084b7aeefd24cd1a81cd3452b92a63389ca256a7fd785d4eed1dc85db52c3c`（70271 B）<br>CASE002 `ea6c4f2d9bc8473c3f2d8bed5bf53bd3e74a0f2a9086adeaad3ed79d22359ea9`（76801 B）<br>CASE003 `3bb048a45ebb3a445f6171c97cf39ec47fd61e7aeb3942e8f6f73be50d160735`（81382 B） |
 | 全套测试 | 770 collected / 769 passed / 1 skipped / 0 failed / 0 errors（`review_workbook_round4_full_test_suite.{txt,xml}`） |
 
 **历史复核对象（HISTORICAL = Round3，人工判 FAIL，未删除、未改写）**：

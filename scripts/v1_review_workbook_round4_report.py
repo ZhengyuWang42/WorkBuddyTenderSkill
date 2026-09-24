@@ -1437,6 +1437,7 @@ class Round4Report:
                 LINKED_FACT: "delivered M",
             },
             "component_count": len(entries),
+            "cell_count": len({str(entry["cell"]) for entry in entries}),
             "unverified_count": sum(1 for entry in entries if not entry["ownership_verified"]),
             "entries": entries,
         }

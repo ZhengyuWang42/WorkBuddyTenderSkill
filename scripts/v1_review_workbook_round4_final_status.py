@@ -133,8 +133,21 @@ def main(argv: list[str] | None = None) -> int:
         build = _load(REPORTS / f"{case}_review_workbook_round4_build.json")
         if not build:
             build_dir = ROOT / "acceptance/workspace" / case / build_id
-            build = _load(build_dir / "build_manifest.json")
-            if not build:
+            manifest = _load(build_dir / "build_manifest.json")
+            generated = manifest.get("generated") or {}
+            # the builder manifest names the workbook fields with a
+            # ``review_workbook`` prefix; expose the report's canonical names
+            build = {
+                "build_dir": str(build_dir),
+                "workbook": generated.get("review_workbook"),
+                "workbook_sha256": generated.get("review_workbook_sha256"),
+                "workbook_bytes": generated.get("review_workbook_bytes"),
+                "requirement_rows": generated.get("review_point_rows"),
+                "views": manifest.get("views") or {},
+                "word_render_repeated": generated.get("word_render_repeated", False),
+                "artifact_identity": manifest.get("artifact_identity") or {},
+            }
+            if not build["workbook"]:
                 build = _load(build_dir / "review_workbook_build.json")
 
         for bucket in MISMATCH_BUCKETS:

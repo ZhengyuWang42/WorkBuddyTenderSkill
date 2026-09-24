@@ -2,7 +2,7 @@
 
 - result: **PASS**
 - invariant: SEMANTIC OWNERSHIP MUST SURVIVE RENDERING
-- generated: 2026-09-24T04:25:03.924598+00:00
+- generated: 2026-09-24T04:57:05.872426+00:00
 
 ## flags
 
@@ -37,8 +37,8 @@
 
 ### case_001
 
-- workbook: `None`
-- sha256: `None`
+- workbook: `D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\case_001\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4\投标项目复核表.xlsx`
+- sha256: `be084b7aeefd24cd1a81cd3452b92a63389ca256a7fd785d4eed1dc85db52c3c`
 - verdict: PASS (25/25)
 - rendered components: 357 (unverified 0)
 - final-cell audit: 138/138 coherent, 30 sampled
@@ -48,8 +48,8 @@
 
 ### case_002
 
-- workbook: `None`
-- sha256: `None`
+- workbook: `D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\case_002\v1_round4_closure8_review_workbook4\投标项目复核表.xlsx`
+- sha256: `ea6c4f2d9bc8473c3f2d8bed5bf53bd3e74a0f2a9086adeaad3ed79d22359ea9`
 - verdict: PASS (23/23)
 - rendered components: 352 (unverified 0)
 - final-cell audit: 138/138 coherent, 30 sampled
@@ -59,8 +59,8 @@
 
 ### case_003
 
-- workbook: `None`
-- sha256: `None`
+- workbook: `D:\PyCharmProjects\WBTenderSkill\acceptance\workspace\case_003\v1_round4_closure8_review_workbook4\投标项目复核表.xlsx`
+- sha256: `3bb048a45ebb3a445f6171c97cf39ec47fd61e7aeb3942e8f6f73be50d160735`
 - verdict: PASS (23/23)
 - rendered components: 378 (unverified 0)
 - final-cell audit: 147/147 coherent, 30 sampled
