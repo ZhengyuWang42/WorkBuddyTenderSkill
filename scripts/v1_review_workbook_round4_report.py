@@ -318,6 +318,12 @@ class Round4Report:
     def _item_texts(self, item) -> list[str]:
         return [str(component["rendered_text"]) for component in item.rendered_components]
 
+    def _find(self, *concern_ids: str):
+        """First delivered item of any of ``concern_ids`` (round-5 renames)."""
+
+        wanted = set(concern_ids)
+        return next((item for item in self.items if item.concern_id in wanted), None)
+
     def _component_texts(self, item, kind: str) -> list[str]:
         return [
             str(component["rendered_text"])
@@ -641,10 +647,16 @@ class Round4Report:
             # no row may render a numeric role that belongs to a different
             # retention/warranty concern.
             cross_role: list[dict[str, str]] = []
+            # Round 5 renamed the warranty/retention roles; the map uses the
+            # canonical names and accepts the legacy spelling of each role so the
+            # check still audits the *separation*, not a role-string spelling.
             owners = {
-                "PROJECT_WARRANTY": {"WARRANTY_MONTHS"},
+                "PROJECT_WARRANTY": {"WARRANTY_MONTHS", "PROJECT_WARRANTY_MONTHS"},
                 "RETENTION_MONEY_RATIO": {"RETENTION_MONEY_RATIO"},
-                "RETENTION_RELEASE_PERIOD": {"RETENTION_RELEASE_PERIOD"},
+                "RETENTION_RELEASE_PERIOD": {
+                    "RETENTION_RELEASE_PERIOD",
+                    "RETENTION_RELEASE_MONTHS",
+                },
             }
             for concern_id, allowed in owners.items():
                 for item_id in by_concern.get(concern_id, []):
@@ -1041,16 +1053,25 @@ class Round4Report:
             "; ".join(item.item_id for item in query_items) or "no query-deadline row",
         )
 
-        # G -- the installation row carries installation content only.
-        item = next(
-            (i for i in self.items if i.concern_id == "TECHNICAL_INSTALLATION"), None
+        # G -- the installation/acceptance row carries installation content only.
+        # Round 5 split this concern: the standards list moved to
+        # TECHNICAL_STANDARD_COMPLIANCE and the delivery milestone to
+        # DELIVERY_ACCEPTANCE_COMPLETION, so the round-5 check is that the
+        # installation content is delivered by *one* of the three concerns and
+        # that whichever row carries it shows no foreign text.
+        item = self._find(
+            "INSTALLATION_ACCEPTANCE",
+            "TECHNICAL_INSTALLATION",
+            "DELIVERY_ACCEPTANCE_COMPLETION",
+            "TECHNICAL_STANDARD_COMPLIANCE",
         )
         row = self._row(item.item_id) if item else None
         text = row.d_text if row else ""
         forbidden_g = ("@", "联系电话", "传真", "14 个", "14个", "3 个工作日", "（12 分）")
         record(
             "G",
-            "installation/acceptance row renders only installation content",
+            "installation/acceptance content renders in its own row (round-5 split concerns) "
+            "with no foreign text",
             bool(item)
             and bool(row)
             and not any(term in text for term in forbidden_g)
@@ -1059,7 +1080,7 @@ class Round4Report:
                 for component in item.rendered_components
                 for value in numeric_tokens(str(component["rendered_text"]))
             },
-            text[:160],
+            f"{item.concern_id if item else ''}: {text[:160]}",
         )
 
         # H -- the response-bond amount row cites the direct amount clause.
@@ -1075,9 +1096,15 @@ class Round4Report:
             (row.e_text if row else "")[:160],
         )
 
-        # I -- agency fee is its own concern; contract payment excludes it.
+        # I -- the agency fee is its own *concern*; the contract payment row
+        # excludes it.  Round 5 fixture T routes a fragmentary fee clause to
+        # NEEDS_REVIEW, so an absent delivery row is the correct outcome when the
+        # source only contains a fragment.
         fee_items = [item for item in self.items if item.concern_id == "AGENCY_SERVICE_FEE"]
-        payment_ok = bool(fee_items)
+        fee_needs_review = any(
+            "代理服务费" in topic for topic in getattr(self.plan, "needs_review_topics", ())
+        )
+        payment_ok = bool(fee_items) or fee_needs_review
         for item in self.items:
             if item.concern_id != "CONTRACT_PAYMENT":
                 continue
@@ -1086,9 +1113,11 @@ class Round4Report:
                 payment_ok = False
         record(
             "I",
-            "agency-service fee renders as its own concern",
+            "agency-service fee is its own concern (or NEEDS_REVIEW when the source is a fragment) "
+            "and never renders inside contract payment",
             payment_ok,
-            "; ".join(item.item_id for item in fee_items) or "no agency-fee row",
+            "; ".join(item.item_id for item in fee_items)
+            or ("agency fee is NEEDS_REVIEW (fragment source)" if fee_needs_review else "no agency-fee row"),
         )
 
         # J -- "reject all responses" is a purchaser procedure, not a bidder veto.
@@ -1112,14 +1141,19 @@ class Round4Report:
         )
 
         # K -- a funding-source clause must not invent project-identity checks.
-        item = next((i for i in self.items if i.concern_id == "PROJECT_BASIC_INFO"), None)
-        text = self._text(item.item_id) if item else ""
+        # Round 5 moves the funding clause to its own PROJECT_FUNDING_SOURCE
+        # concern, so "no PROJECT_BASIC_INFO row" is a pass: the check is that no
+        # row invents project-identity checks out of a funding clause.
+        basic_items = [
+            i for i in self.items if i.concern_id in {"PROJECT_BASIC_INFO", "PROJECT_FUNDING_SOURCE"}
+        ]
+        funding = next((i for i in basic_items if i.concern_id == "PROJECT_FUNDING_SOURCE"), None)
+        funding_text = self._text(funding.item_id) if funding else ""
         record(
             "K",
             "project-basic-info row does not invent project name/number/lot checks",
-            bool(item)
-            and not any(term in text for term in ("项目名称", "项目编号", "标段")),
-            text[:160],
+            not any(term in funding_text for term in ("项目名称", "项目编号", "标段")),
+            funding_text[:160] or "no PROJECT_FUNDING_SOURCE row",
         )
 
         # L -- the chapter-6 format reference invents no binding/page-number rules.
@@ -1155,7 +1189,7 @@ class Round4Report:
         )
 
         # N -- price completeness keeps price-scope evidence and no invented veto.
-        item = next((i for i in self.items if i.concern_id == "PRICE_COMPLETENESS"), None)
+        item = self._find("PRICING_COMPLETENESS", "PRICE_COMPLETENESS")
         row = self._row(item.item_id) if item else None
         text = row.d_text if row else ""
         record(

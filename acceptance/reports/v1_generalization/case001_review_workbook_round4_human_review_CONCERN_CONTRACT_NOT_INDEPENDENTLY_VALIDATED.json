@@ -1,0 +1,48 @@
+{
+  "schema": "v1_review_workbook_human_review/1",
+  "case": "case_001",
+  "round": "review_workbook_round4",
+  "recorded_by": "human manual review (reported to the agent)",
+  "artifact_reviewed": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4/投标项目复核表.xlsx",
+  "human_verdict": "FAIL",
+  "fail_reason": "CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED",
+  "human_note": "Round 4 proved that every rendered phrase has concern-owned provenance, but provenance consistency is not semantic validation. The reviewer found rows that are fully traceable and still wrong: a quality requirement carrying the delivery location, 95% described as the retention ratio, a performance bond citing the response bond, an unsupported 报价无漏项 assertion, and a payment row absorbing the agency fee. None of those could be caught by a mechanism that only checks the row against its own generated metadata.",
+  "required_invariant": "PROVENANCE CONSISTENCY IS NOT SEMANTIC VALIDATION",
+  "must_not_be_rewritten": true,
+  "automation_may_not_mark_pass": true,
+  "review_workbook_round4_machine_verdict": "PASS",
+  "automation_closure": {
+    "closed": true,
+    "closed_in_round": "review_workbook_round5",
+    "closed_by": "independent concern contracts (automation only)",
+    "mechanism": [
+      "ConcernContract: one hand-authored semantic contract per concern, authored from the human fixture brief and never derived from the generated ReviewPoint",
+      "each contract declares its allowed actors, authority scopes, required/forbidden lexical-source signatures, allowed/forbidden numeric roles, allowed linked fact keys, material classes, consequence classes, scoring roles, required evidence properties and kind",
+      "validate_point audits the FINAL rendered cell text (displayed requirement, review checks, pass criteria, materials, consequence, scoring guidance, numeric roles, linked facts, evidence) against that contract",
+      "the segment reader keeps only the contract-owned segments of a mixed clause, so a row cannot inherit a neighbour's facet",
+      "fixtures A..T from the human review are encoded as executable tests with hand-written expected roles"
+    ],
+    "evidence": [
+      "acceptance/reports/v1_generalization/case_001_review_workbook_round5_row_contract_audit.json",
+      "acceptance/reports/v1_generalization/review_workbook_round5_generalization.json",
+      "acceptance/reports/v1_generalization/review_workbook_round5_final_status.json"
+    ],
+    "human_review_state": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "human_checkboxes_ticked": 0
+  },
+  "resolved_findings": [
+    "QUALITY_LOCATION_CONTAMINATION = 0: the quality row no longer displays 周口市郸城县石槽泵站",
+    "PAYMENT_RATIO_95_AS_RETENTION = false: 95% is the payment ratio and 5% the retention money",
+    "PERFORMANCE_BOND_RESPONSE_BOND_EVIDENCE = 0: 履约保证金 evidence is never a response-bond clause",
+    "UNSUPPORTED_PRICE_COMPLETENESS_ASSERTIONS = 0: no 报价无漏项/无重复项 claim without a source clause",
+    "PRICE_ACCEPTANCE_MIXED_CONCERNS = 0 and TECHNICAL_ACCEPTANCE_MIXED_CONCERNS = 0: the split facets stay in their own rows",
+    "CONTRACT_PAYMENT_FOREIGN_CLAUSE = 0: the contract payment row carries neither the agency fee nor an effectivity clause",
+    "FALSE_PLATFORM_CONFLICTS = 0: the platform roles are split without inventing a conflict",
+    "CASE001_FIXTURES_A_TO_T = 20/20 PASS and CASE001_FINAL_WORKBOOK_AUDIT = ALL/ALL coherent"
+  ],
+  "still_open_for_the_human": [
+    "CASE001_XLSX_MANUAL_REVIEW remains unconfirmed; automation never ticks a human box",
+    "CASE002_XLSX_MANUAL_REVIEW and CASE003_XLSX_MANUAL_REVIEW remain NOT_YET_CONFIRMED",
+    "V1_PRODUCTION_CANDIDATE = false, READY_FOR_SUBMISSION = false"
+  ]
+}

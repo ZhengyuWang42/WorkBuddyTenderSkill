@@ -41,6 +41,8 @@ from .dynamic_requirements import (
     topic_patterns,
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
+from .concern_contract import contract_for as concern_contract_for  # noqa: E402
+from .concern_contract import validate_point  # noqa: E402
 from .output_helpers import value_text
 from .review_concern import actionable_concerns, atomize_units, build_concerns, concern_spec
 from .review_point import (
@@ -349,6 +351,15 @@ class DynamicReviewPlan:
     #: rendered as ordinary delivery rows (round-4 fixture: an internal-procedure
     #: row must not appear as a normal row, let alone a HIGH-risk one).
     background_items: tuple[DynamicReviewItem, ...] = ()
+    #: Concerns whose owned source text is an extraction fragment (round-5
+    #: fixture T: "意见》的通知中规定的收费标准的 70%向成交供应商").  They keep
+    #: their evidence but are moved to NEEDS_REVIEW instead of being rendered as
+    #: a fragment row the bidder cannot act on.
+    needs_review_topics: tuple[str, ...] = ()
+    #: Source clauses escalated to NEEDS_REVIEW (fixture T).  They are not
+    #: rendered as rows but they are *not* dropped either: their coverage is
+    #: reported here so a fragmentary clause cannot silently disappear.
+    needs_review_clause_ids: tuple[str, ...] = ()
 
     def rows(self) -> list[DynamicReviewItem]:
         return list(self.items)
@@ -519,11 +530,24 @@ def build_dynamic_review_plan(
 
     items: list[DynamicReviewItem] = []
     background_items: list[DynamicReviewItem] = []
+    needs_review_topics: list[str] = []
+    needs_review_clause_ids: list[str] = []
     filtered_topics: list[str] = [
         f"{concern.label}（{concern.topic}）" for concern in filtered
     ]
     counter = 0
     for concern in kept:
+        needs_review = ""
+        reason_fn = getattr(concern, "needs_review", None)
+        if callable(reason_fn):
+            needs_review = str(reason_fn() or "")
+        if needs_review:
+            # Round 5 fixture T: fragments go to NEEDS_REVIEW, never to a row.
+            needs_review_topics.append(f"{concern.label}（{concern.topic}）：{needs_review}")
+            needs_review_clause_ids.extend(
+                cid for cid in concern.clause_ids if cid in units_by_id
+            )
+            continue
         units = [units_by_id[cid] for cid in concern.clause_ids if cid in units_by_id]
         if not units:
             filtered_topics.append(f"{concern.label}（{concern.topic}）")
@@ -649,6 +673,8 @@ def build_dynamic_review_plan(
         filtered_non_actionable_count=len(filtered_topics),
         filtered_non_actionable_topics=tuple(filtered_topics),
         background_items=tuple(background_items),
+        needs_review_topics=tuple(needs_review_topics),
+        needs_review_clause_ids=tuple(dict.fromkeys(needs_review_clause_ids)),
     )
 
 
@@ -672,6 +698,40 @@ def _primary_source(
 
     atoms = list(getattr(concern, "atoms", ()))
     facet = list(concern.facet_atoms()) if hasattr(concern, "facet_atoms") else atoms
+    # Round 5: the concern's independent contract decides which clause may serve
+    # as the row's evidence.  A performance-bond row may never cite the
+    # response-bond clause, and a validity row may never cite a credit-blacklist
+    # clause (fixtures B and F).
+    contract = None
+    try:
+        from .concern_contract import contract_for as _contract_for
+
+        contract = _contract_for(str(getattr(concern, "concern_id", "") or ""))
+    except Exception:  # pragma: no cover - import guard
+        contract = None
+    if contract is not None:
+        eligible = [
+            atom
+            for atom in atoms
+            if contract.evidence_ok(str(getattr(atom, "source_origin_text", "") or atom.source_text))
+            or contract.owned_segment_ok(str(atom.source_text))
+        ]
+        # Round 5: a clause the contract explicitly forbids as evidence is never
+        # cited, even when the concern owns no preferred clause at all (CASE003:
+        # a bid-bond row cited an advance-payment-guarantee clause).
+        banned = {
+            id(atom)
+            for atom in atoms
+            if contract.evidence_forbidden(
+                str(getattr(atom, "source_origin_text", "") or atom.source_text)
+            )
+        }
+        if banned:
+            atoms = [atom for atom in atoms if id(atom) not in banned]
+            facet = [atom for atom in facet if id(atom) not in banned]
+            eligible = [atom for atom in eligible if id(atom) not in banned]
+        if eligible:
+            facet = [atom for atom in facet if atom in eligible] or eligible
     pattern = None
     if decisive_pattern:
         try:
@@ -684,6 +744,17 @@ def _primary_source(
         index, atom = indexed
         score = 0
         flat_atom = re.sub(r"[\s\u3000]+", "", str(atom.source_text))
+        if contract is not None:
+            # The printed locator (page / section / clause) is displayed too: a
+            # clause whose *section title* belongs to another concern must not
+            # carry this row's evidence (fixture A: a quality row must not cite
+            # the "交货地点" section).
+            unit = units_by_id.get(getattr(atom, "source_clause_id", ""))
+            section_text = f"{getattr(unit, 'section', '')}{getattr(unit, 'clause', '')}"
+            if section_text.strip() and not contract.section_ok(section_text):
+                score -= 120
+            elif section_text.strip():
+                score += 2
         if summary_key:
             first = True
             for sentence in re.split(r"[；;。]", str(requirement_summary or "")):
@@ -940,6 +1011,31 @@ def _shared_grounding(evidence: str, units: Sequence[SourceRequirementUnit]) -> 
     return False
 
 
+def _false_platform_conflict_count(plan: DynamicReviewPlan) -> int:
+    """Rows that claim a conflict between two platform roles that are not in conflict.
+
+    Round 5 fixture S: the transaction / upload / opening / announcement /
+    public-information roles are *different aspects of the same platform*, so a
+    row that reports "不同平台" for them is a false conflict.
+    """
+
+    platform_roles = {
+        "SUBMISSION_PLATFORM",
+        "ELECTRONIC_UPLOAD",
+        "OPENING_DECRYPTION",
+        "ANNOUNCEMENT_CHANNEL",
+        "PUBLIC_INFORMATION",
+    }
+    count = 0
+    for item in list(plan.items) + list(getattr(plan, "background_items", ()) or ()):
+        text = str(getattr(item, "cell_text", "") or "")
+        if "不同平台" not in text:
+            continue
+        if str(getattr(item, "concern_id", "") or "") in platform_roles or "平台" in text:
+            count += 1
+    return count
+
+
 def dynamic_review_qa(
     plan: DynamicReviewPlan,
     document: NormalizedDocument | None = None,
@@ -960,6 +1056,9 @@ def dynamic_review_qa(
     # for traceability but are not rendered as delivery rows.
     for item in getattr(plan, "background_items", ()) or ():
         covered_ids.update(item.source_requirement_ids)
+    # Round 5: a clause escalated to NEEDS_REVIEW is covered by that escalation,
+    # not silently dropped (fixture T).
+    covered_ids.update(getattr(plan, "needs_review_clause_ids", ()) or ())
 
     high_risk_units = [
         unit for unit in plan.index.units if unit.high_risk
@@ -1120,6 +1219,58 @@ def dynamic_review_qa(
         for item in list(plan.items) + list(getattr(plan, "background_items", ()) or ())
     )
     metrics["rendered_component_unverified_count"] = unverified_component_count
+    # Round 5: the independent concern contracts audit the *displayed* text of
+    # every delivered row.  Provenance consistency (round 4) is not semantic
+    # validation: a row can be fully traceable and still display a neighbouring
+    # facet or assign a number the wrong business meaning.  These counters are
+    # the semantic gate.
+    contract_violation_counts: dict[str, int] = {}
+    contract_violation_rows: list[str] = []
+    uncovered_concern_ids: set[str] = set()
+    for item in list(plan.items) + list(getattr(plan, "background_items", ()) or ()):
+        concern_id = str(getattr(item, "concern_id", "") or "")
+        spec = concern_contract_for(concern_id)
+        if spec is None or not spec.explicit:
+            uncovered_concern_ids.add(concern_id)
+        point = getattr(item, "review_point", None)
+        component_kinds: dict[str, list[str]] = {}
+        for row in getattr(item, "rendered_components", ()) or ():
+            component_kinds.setdefault(str(row.get("component_kind", "")), []).append(
+                str(row.get("rendered_text", ""))
+            )
+        violations = validate_point(
+            concern_id,
+            displayed_text=str(getattr(item, "cell_text", "") or ""),
+            review_checks=component_kinds.get(REVIEW_CHECK, []),
+            pass_criteria=component_kinds.get(PASS_CRITERION, []),
+            materials=component_kinds.get(PREPARATION_MATERIAL, []),
+            consequence=" ".join(component_kinds.get(FAILURE_CONSEQUENCE, [])),
+            scoring_guidance=" ".join(component_kinds.get(SCORING_GUIDANCE, [])),
+            numeric_roles=[
+                str(getattr(value, "role", ""))
+                for value in (getattr(point, "numeric_evidence", ()) or ())
+            ],
+            linked_fact_keys=[
+                str(getattr(item, "related_project_fact", "") or "")
+            ]
+            if getattr(item, "related_project_fact", None)
+            else [],
+            evidence_text=str(getattr(item, "source_evidence", "") or ""),
+        )
+        if violations:
+            contract_violation_rows.append(str(getattr(item, "item_id", "")))
+            for violation in violations:
+                contract_violation_counts[violation.code] = (
+                    contract_violation_counts.get(violation.code, 0) + 1
+                )
+    metrics["concern_contract_violation_count"] = sum(contract_violation_counts.values())
+    metrics["concern_contract_violation_codes"] = dict(sorted(contract_violation_counts.items()))
+    metrics["concern_contract_violation_item_ids"] = sorted(set(contract_violation_rows))[:20]
+    metrics["contract_uncovered_concern_count"] = len(uncovered_concern_ids)
+    metrics["contract_uncovered_concern_ids"] = sorted(uncovered_concern_ids)[:20]
+    metrics["needs_review_topic_count"] = len(getattr(plan, "needs_review_topics", ()) or ())
+    metrics["needs_review_topics"] = list(getattr(plan, "needs_review_topics", ()) or ())[:20]
+    metrics["false_platform_conflict_count"] = _false_platform_conflict_count(plan)
     hard_gates = {
         "source_mandatory_requirement_without_review_item_count": metrics[
             "source_mandatory_requirement_without_review_item_count"
@@ -1133,6 +1284,9 @@ def dynamic_review_qa(
             "generic_text_when_specific_source_available_count"
         ],
         "dynamic_review_item_count": metrics["dynamic_review_item_count"],
+        "concern_contract_violation_count": metrics["concern_contract_violation_count"],
+        "contract_uncovered_concern_count": metrics["contract_uncovered_concern_count"],
+        "false_platform_conflict_count": metrics["false_platform_conflict_count"],
     }
     for key, value in rendered_counts.items():
         hard_gates[key] = value

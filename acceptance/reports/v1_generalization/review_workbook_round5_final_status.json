@@ -1,0 +1,1047 @@
+{
+ "schema": "v1_review_workbook_round5_final_status/1",
+ "generated_at": "2026-09-24T06:16:11.129391+00:00",
+ "round": "review_workbook_round5",
+ "commit_subject": "feat: add independent concern contracts to review workbook",
+ "pipeline": "SourceRequirementAtom -> ReviewConcern -> ReviewPoint -> RenderedReviewComponent -> ConcernContract (independent semantic validation) -> workbook views",
+ "invariant": "PROVENANCE CONSISTENCY IS NOT SEMANTIC VALIDATION",
+ "result": "PASS",
+ "blockers": [],
+ "flags": {
+  "REVIEW_WORKBOOK_ROUND5": "PASS",
+  "ALL_CASE001_FINAL_ROWS_CONCERN_CONTRACT": "PASS",
+  "QUALITY_LOCATION_CONTAMINATION": 0,
+  "VALIDITY_BLACKLIST_CONTAMINATION": 0,
+  "CONTRACT_PAYMENT_FOREIGN_CLAUSE": 0,
+  "PERFORMANCE_BOND_RESPONSE_BOND_EVIDENCE": 0,
+  "UNSUPPORTED_PRICE_COMPLETENESS_ASSERTIONS": 0,
+  "PRICE_ACCEPTANCE_MIXED_CONCERNS": 0,
+  "TECHNICAL_ACCEPTANCE_MIXED_CONCERNS": 0,
+  "PAYMENT_RATIO_95_AS_RETENTION": false,
+  "RETENTION_RATIO": "5%",
+  "RETENTION_RELEASE": "12 months",
+  "PROJECT_WARRANTY": "24 months",
+  "BANK_ACCEPTANCE_RATIO_SEPARATE": true,
+  "FALSE_PLATFORM_CONFLICTS": 0,
+  "CASE001_FIXTURES_A_TO_T": "20/20 PASS",
+  "CASE001_FINAL_WORKBOOK_AUDIT": "ALL/ALL coherent",
+  "CASE001": "PASS",
+  "CASE002": "PASS",
+  "CASE003": "PASS",
+  "THREE_CASE_GENERALIZATION": "PASS",
+  "WORD_ARTIFACTS_UNCHANGED": "PASS",
+  "FULL_SUITE": "PASS",
+  "V1_PRODUCTION_CANDIDATE": false,
+  "READY_FOR_SUBMISSION": false,
+  "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+  "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+  "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+  "HUMAN_REVIEW_BOXES_TICKED": 0
+ },
+ "cases": {
+  "case_001": {
+   "build": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5",
+   "workbook_sha256": "2ab34c7547926bb56a8bfc4fb39a226d0f2bbc672ccd10edf1df73b5987046af",
+   "round5_checks": "16/16",
+   "round5_failed_checks": [],
+   "fixtures": "20/20",
+   "fixtures_failed": 0,
+   "row_audit": "49/49",
+   "row_audit_failed": 0,
+   "concern_contract_violations": 0,
+   "needs_review_rows": 2,
+   "round4_gate_verdict": "PASS",
+   "round4_gate_checks": [
+    {
+     "check": "delivered_rows_bound_to_plan_items",
+     "ok": true,
+     "detail": "49/49 delivered review rows bound to plan items",
+     "evidence": {
+      "unbound_item_ids": []
+     }
+    },
+    {
+     "check": "rendered_cell_equals_component_projection",
+     "ok": true,
+     "detail": "49/49 delivered D cells are the exact projection of their verified components",
+     "evidence": {
+      "mismatched": []
+     }
+    },
+    {
+     "check": "rendered_component_ownership_verified",
+     "ok": true,
+     "detail": "390 rendered components verified concern-owned",
+     "evidence": {
+      "unverified_count": 0,
+      "unverified": []
+     }
+    },
+    {
+     "check": "rendered_component_concern_mismatch_total_zero",
+     "ok": true,
+     "detail": "total rendered-component concern mismatch is 0",
+     "evidence": {
+      "counts": {
+       "rendered_source_requirement_concern_mismatch": 0,
+       "rendered_review_check_concern_mismatch": 0,
+       "rendered_pass_criterion_concern_mismatch": 0,
+       "rendered_preparation_material_concern_mismatch": 0,
+       "rendered_failure_consequence_concern_mismatch": 0,
+       "rendered_scoring_guidance_concern_mismatch": 0,
+       "rendered_numeric_statement_concern_mismatch": 0,
+       "rendered_evidence_summary_concern_mismatch": 0,
+       "rendered_linked_fact_concern_mismatch": 0,
+       "rendered_component_concern_mismatch_total": 0
+      }
+     }
+    },
+    {
+     "check": "rendered_source_requirement_concern_mismatch",
+     "ok": true,
+     "detail": "SOURCE_REQUIREMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_review_check_concern_mismatch",
+     "ok": true,
+     "detail": "REVIEW_CHECK mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_pass_criterion_concern_mismatch",
+     "ok": true,
+     "detail": "PASS_CRITERION mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_preparation_material_concern_mismatch",
+     "ok": true,
+     "detail": "PREPARATION_MATERIAL mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_failure_consequence_concern_mismatch",
+     "ok": true,
+     "detail": "FAILURE_CONSEQUENCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_scoring_guidance_concern_mismatch",
+     "ok": true,
+     "detail": "SCORING_GUIDANCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_numeric_statement_concern_mismatch",
+     "ok": true,
+     "detail": "NUMERIC_STATEMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_evidence_summary_concern_mismatch",
+     "ok": true,
+     "detail": "EVIDENCE_SUMMARY mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_linked_fact_concern_mismatch",
+     "ok": true,
+     "detail": "LINKED_FACT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "every_rendered_component_present_in_final_cell",
+     "ok": true,
+     "detail": "372 rendered components of 49 bidder-facing rows are displayed by a final workbook cell",
+     "evidence": {
+      "not_rendered": [],
+      "checked": 372
+     }
+    },
+    {
+     "check": "view_cells_repeat_rendered_components",
+     "ok": true,
+     "detail": "clause/mandatory view cells repeat the concern-owned rendered text",
+     "evidence": {
+      "stale_cells": [],
+      "stale_count": 0
+     }
+    },
+    {
+     "check": "forbidden_retention_wording_absent",
+     "ok": true,
+     "detail": "no cell presents the 12-month release period as the project warranty or the 5% retention money as a payment/scoring ratio",
+     "evidence": {
+      "hits": []
+     }
+    },
+    {
+     "check": "final_cell_text_owned_by_concern",
+     "ok": true,
+     "detail": "49/49 delivered cells name only concepts their concern owns",
+     "evidence": {
+      "leaks": [],
+      "leak_count": 0
+     }
+    },
+    {
+     "check": "project_warranty_is_24_months",
+     "ok": true,
+     "detail": "project warranty renders as 24个月",
+     "evidence": {
+      "case": "case_001",
+      "project_warranty_rows": [
+       "DR004"
+      ],
+      "project_warranty_text": "招标文件要求：1.4.8 质保期 24 个月（自工程完工验收合格之日起算）；六、质保期：完工验收后24 个月\n复核要点：\n① 核对响应文件中的质保期与质保范围\n② 确认起算点与覆盖范围符合要求\n③ 依据第24页逐条比对响应文件对应章节\n④ 核对响应文件已载明：质保期不低于 24个月\n通过标准：\n· 项目/产品质保期与质保范围符合招标文件要求。\n· 质保期不低于 24个月，且响应文件一致。",
+      "retention_money_rows": [
+       "DR051"
+      ],
+      "retention_money_text": "招标文件要求：剩余 %，剩余 5%%，剩余 5%作为质保金\n复核要点：\n① 确认响应文件接受该比例\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金比例为 5%\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金比例为 5%，且响应文件一致。",
+      "retention_release_rows": [
+       "DR045"
+      ],
+      "retention_release_text": "招标文件要求：作为质保金，质保期 12 个月，质保期满后无息付清余款\n复核要点：\n① 确认与合同条款一致\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金释放相关期限为 12个月（合同付款条件）\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金释放相关期限为 12个月",
+      "rendered_roles": {
+       "PROJECT_WARRANTY": [
+        "PROJECT_WARRANTY_MONTHS"
+       ],
+       "RETENTION_MONEY_RATIO": [
+        "RETENTION_MONEY_RATIO"
+       ],
+       "RETENTION_RELEASE_PERIOD": [
+        "RETENTION_RELEASE_MONTHS"
+       ]
+      }
+     }
+    },
+    {
+     "check": "retention_money_ratio_is_5_percent",
+     "ok": true,
+     "detail": "retention money ratio renders as 5%",
+     "evidence": {
+      "case": "case_001",
+      "project_warranty_rows": [
+       "DR004"
+      ],
+      "project_warranty_text": "招标文件要求：1.4.8 质保期 24 个月（自工程完工验收合格之日起算）；六、质保期：完工验收后24 个月\n复核要点：\n① 核对响应文件中的质保期与质保范围\n② 确认起算点与覆盖范围符合要求\n③ 依据第24页逐条比对响应文件对应章节\n④ 核对响应文件已载明：质保期不低于 24个月\n通过标准：\n· 项目/产品质保期与质保范围符合招标文件要求。\n· 质保期不低于 24个月，且响应文件一致。",
+      "retention_money_rows": [
+       "DR051"
+      ],
+      "retention_money_text": "招标文件要求：剩余 %，剩余 5%%，剩余 5%作为质保金\n复核要点：\n① 确认响应文件接受该比例\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金比例为 5%\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金比例为 5%，且响应文件一致。",
+      "retention_release_rows": [
+       "DR045"
+      ],
+      "retention_release_text": "招标文件要求：作为质保金，质保期 12 个月，质保期满后无息付清余款\n复核要点：\n① 确认与合同条款一致\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金释放相关期限为 12个月（合同付款条件）\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金释放相关期限为 12个月",
+      "rendered_roles": {
+       "PROJECT_WARRANTY": [
+        "PROJECT_WARRANTY_MONTHS"
+       ],
+       "RETENTION_MONEY_RATIO": [
+        "RETENTION_MONEY_RATIO"
+       ],
+       "RETENTION_RELEASE_PERIOD": [
+        "RETENTION_RELEASE_MONTHS"
+       ]
+      }
+     }
+    },
+    {
+     "check": "retention_release_period_is_12_months",
+     "ok": true,
+     "detail": "retention release period renders as 12个月",
+     "evidence": {
+      "case": "case_001",
+      "project_warranty_rows": [
+       "DR004"
+      ],
+      "project_warranty_text": "招标文件要求：1.4.8 质保期 24 个月（自工程完工验收合格之日起算）；六、质保期：完工验收后24 个月\n复核要点：\n① 核对响应文件中的质保期与质保范围\n② 确认起算点与覆盖范围符合要求\n③ 依据第24页逐条比对响应文件对应章节\n④ 核对响应文件已载明：质保期不低于 24个月\n通过标准：\n· 项目/产品质保期与质保范围符合招标文件要求。\n· 质保期不低于 24个月，且响应文件一致。",
+      "retention_money_rows": [
+       "DR051"
+      ],
+      "retention_money_text": "招标文件要求：剩余 %，剩余 5%%，剩余 5%作为质保金\n复核要点：\n① 确认响应文件接受该比例\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金比例为 5%\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金比例为 5%，且响应文件一致。",
+      "retention_release_rows": [
+       "DR045"
+      ],
+      "retention_release_text": "招标文件要求：作为质保金，质保期 12 个月，质保期满后无息付清余款\n复核要点：\n① 确认与合同条款一致\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第33页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质保金释放相关期限为 12个月（合同付款条件）\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质保金释放相关期限为 12个月",
+      "rendered_roles": {
+       "PROJECT_WARRANTY": [
+        "PROJECT_WARRANTY_MONTHS"
+       ],
+       "RETENTION_MONEY_RATIO": [
+        "RETENTION_MONEY_RATIO"
+       ],
+       "RETENTION_RELEASE_PERIOD": [
+        "RETENTION_RELEASE_MONTHS"
+       ]
+      }
+     }
+    },
+    {
+     "check": "retention_and_warranty_rows_are_distinct",
+     "ok": true,
+     "detail": "retention money/release and project warranty render in distinct rows",
+     "evidence": {
+      "ratio": [
+       "DR051"
+      ],
+      "release": [
+       "DR045"
+      ],
+      "warranty": [
+       "DR004"
+      ]
+     }
+    },
+    {
+     "check": "final_cell_numeric_ownership",
+     "ok": true,
+     "detail": "every numeric token displayed in a delivered cell is an owned value",
+     "evidence": {
+      "stray": []
+     }
+    },
+    {
+     "check": "stale_linked_facts_absent",
+     "ok": true,
+     "detail": "every rendered linked fact is allowed for its concern",
+     "evidence": {
+      "stale": []
+     }
+    },
+    {
+     "check": "platform_role_distinction",
+     "ok": true,
+     "detail": "1 platform-related facts stay separate semantic roles",
+     "evidence": {
+      "platform_fact_keys": [
+       "electronic_platform"
+      ],
+      "platform_rows": {
+       "electronic_platform": {
+        "cell": "01_项目事实!D24",
+        "value": "",
+        "status": "NEEDS_REVIEW",
+        "candidates": "3"
+       }
+      },
+      "conflict_rows": [
+       {
+        "cell": "06_冲突与缺失!D2",
+        "text": "No credible candidate found.",
+        "key": "tender_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D3",
+        "text": "No credible candidate found.",
+        "key": "lot_name"
+       },
+       {
+        "cell": "06_冲突与缺失!D4",
+        "text": "No credible candidate found.",
+        "key": "lot_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D5",
+        "text": "No credible candidate found.",
+        "key": "budget"
+       },
+       {
+        "cell": "06_冲突与缺失!D6",
+        "text": "No credible candidate found.",
+        "key": "procurement_method"
+       },
+       {
+        "cell": "06_冲突与缺失!D7",
+        "text": "No credible candidate found.",
+        "key": "submission_method"
+       },
+       {
+        "cell": "06_冲突与缺失!D8",
+        "text": "e招投标交易平台；中国招标投标公共服务平台",
+        "key": "electronic_platform"
+       }
+      ]
+     }
+    },
+    {
+     "check": "case_final_cell_audit",
+     "ok": true,
+     "detail": "147/147 final cells coherent; 30 sampled with addresses and displayed text",
+     "evidence": {
+      "audited_cell_count": 147,
+      "coherent_cell_count": 147,
+      "sample_addresses": [
+       "投标项目复核表!D9",
+       "投标项目复核表!E9",
+       "投标项目复核表!M9",
+       "投标项目复核表!D10",
+       "投标项目复核表!E10",
+       "投标项目复核表!M10",
+       "投标项目复核表!D11",
+       "投标项目复核表!E11",
+       "投标项目复核表!M11",
+       "投标项目复核表!D12"
+      ]
+     }
+    }
+   ],
+   "round4_rendered_mismatch_total": null
+  },
+  "case_002": {
+   "build": "v1_round4_closure8_review_workbook5",
+   "workbook_sha256": "a38d00b76bb35febb77be030d8352ee80f48d810f378caea17fd6fe5eaccb859",
+   "round5_checks": "15/15",
+   "round5_failed_checks": [],
+   "fixtures": "0/20",
+   "fixtures_failed": 0,
+   "row_audit": "45/45",
+   "row_audit_failed": 0,
+   "concern_contract_violations": 0,
+   "needs_review_rows": 4,
+   "round4_gate_verdict": "PASS",
+   "round4_gate_checks": [
+    {
+     "check": "delivered_rows_bound_to_plan_items",
+     "ok": true,
+     "detail": "45/45 delivered review rows bound to plan items",
+     "evidence": {
+      "unbound_item_ids": []
+     }
+    },
+    {
+     "check": "rendered_cell_equals_component_projection",
+     "ok": true,
+     "detail": "45/45 delivered D cells are the exact projection of their verified components",
+     "evidence": {
+      "mismatched": []
+     }
+    },
+    {
+     "check": "rendered_component_ownership_verified",
+     "ok": true,
+     "detail": "331 rendered components verified concern-owned",
+     "evidence": {
+      "unverified_count": 0,
+      "unverified": []
+     }
+    },
+    {
+     "check": "rendered_component_concern_mismatch_total_zero",
+     "ok": true,
+     "detail": "total rendered-component concern mismatch is 0",
+     "evidence": {
+      "counts": {
+       "rendered_source_requirement_concern_mismatch": 0,
+       "rendered_review_check_concern_mismatch": 0,
+       "rendered_pass_criterion_concern_mismatch": 0,
+       "rendered_preparation_material_concern_mismatch": 0,
+       "rendered_failure_consequence_concern_mismatch": 0,
+       "rendered_scoring_guidance_concern_mismatch": 0,
+       "rendered_numeric_statement_concern_mismatch": 0,
+       "rendered_evidence_summary_concern_mismatch": 0,
+       "rendered_linked_fact_concern_mismatch": 0,
+       "rendered_component_concern_mismatch_total": 0
+      }
+     }
+    },
+    {
+     "check": "rendered_source_requirement_concern_mismatch",
+     "ok": true,
+     "detail": "SOURCE_REQUIREMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_review_check_concern_mismatch",
+     "ok": true,
+     "detail": "REVIEW_CHECK mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_pass_criterion_concern_mismatch",
+     "ok": true,
+     "detail": "PASS_CRITERION mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_preparation_material_concern_mismatch",
+     "ok": true,
+     "detail": "PREPARATION_MATERIAL mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_failure_consequence_concern_mismatch",
+     "ok": true,
+     "detail": "FAILURE_CONSEQUENCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_scoring_guidance_concern_mismatch",
+     "ok": true,
+     "detail": "SCORING_GUIDANCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_numeric_statement_concern_mismatch",
+     "ok": true,
+     "detail": "NUMERIC_STATEMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_evidence_summary_concern_mismatch",
+     "ok": true,
+     "detail": "EVIDENCE_SUMMARY mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_linked_fact_concern_mismatch",
+     "ok": true,
+     "detail": "LINKED_FACT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "every_rendered_component_present_in_final_cell",
+     "ok": true,
+     "detail": "313 rendered components of 45 bidder-facing rows are displayed by a final workbook cell",
+     "evidence": {
+      "not_rendered": [],
+      "checked": 313
+     }
+    },
+    {
+     "check": "view_cells_repeat_rendered_components",
+     "ok": true,
+     "detail": "clause/mandatory view cells repeat the concern-owned rendered text",
+     "evidence": {
+      "stale_cells": [],
+      "stale_count": 0
+     }
+    },
+    {
+     "check": "forbidden_retention_wording_absent",
+     "ok": true,
+     "detail": "no cell presents the 12-month release period as the project warranty or the 5% retention money as a payment/scoring ratio",
+     "evidence": {
+      "hits": []
+     }
+    },
+    {
+     "check": "final_cell_text_owned_by_concern",
+     "ok": true,
+     "detail": "45/45 delivered cells name only concepts their concern owns",
+     "evidence": {
+      "leaks": [],
+      "leak_count": 0
+     }
+    },
+    {
+     "check": "retention_roles_rendered_from_own_concerns",
+     "ok": true,
+     "detail": "retention/warranty rows render only their own numeric role",
+     "evidence": {
+      "case": "case_002",
+      "project_warranty_rows": [
+       "DR013"
+      ],
+      "project_warranty_text": "招标文件要求：3.5.1 自招标人组织竣工验收合格之日起满一个月后开始计算质保期，硬件 设备部分质保期3 年，软件系统部分质保期2 年；要求和条件 实施周期、供货地点、质保期、付款方式、结算原则不允许负偏离\n复核要点：\n① 核对响应文件中的质保期与质保范围\n② 确认起算点与覆盖范围符合要求\n③ 依据第9页逐条比对响应文件对应章节\n④ 核对响应文件已载明：质保期不低于 3年\n⑤ 核对响应文件已载明：",
+      "retention_money_rows": [],
+      "retention_money_text": "",
+      "retention_release_rows": [
+       "DR045"
+      ],
+      "retention_release_text": "招标文件要求：（4）结算价款的3%作为质保金，硬件部分质保期满后一次性(无息)予以支 付；西安市综改试验区国企招标集采交易平台 （4）结算价款的3%作为质保金，硬件部分质保期满后一次性(无息)予以支 付\n复核要点：\n① 确认与合同条款一致\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第50页第（4）条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+      "rendered_roles": {
+       "PROJECT_WARRANTY": [
+        "PROJECT_WARRANTY_MONTHS"
+       ],
+       "RETENTION_MONEY_RATIO": [],
+       "RETENTION_RELEASE_PERIOD": []
+      },
+      "cross_role": []
+     }
+    },
+    {
+     "check": "retention_and_warranty_rows_are_distinct",
+     "ok": true,
+     "detail": "retention money/release and project warranty render in distinct rows",
+     "evidence": {
+      "ratio": [],
+      "release": [
+       "DR045"
+      ],
+      "warranty": [
+       "DR013"
+      ]
+     }
+    },
+    {
+     "check": "final_cell_numeric_ownership",
+     "ok": true,
+     "detail": "every numeric token displayed in a delivered cell is an owned value",
+     "evidence": {
+      "stray": []
+     }
+    },
+    {
+     "check": "stale_linked_facts_absent",
+     "ok": true,
+     "detail": "every rendered linked fact is allowed for its concern",
+     "evidence": {
+      "stale": []
+     }
+    },
+    {
+     "check": "platform_role_distinction",
+     "ok": true,
+     "detail": "1 platform-related facts stay separate semantic roles",
+     "evidence": {
+      "platform_fact_keys": [
+       "electronic_platform"
+      ],
+      "platform_rows": {
+       "electronic_platform": {
+        "cell": "01_项目事实!D24",
+        "value": "西安市综改试验区国企招标集采交易平台",
+        "status": "RESOLVED",
+        "candidates": "1"
+       }
+      },
+      "conflict_rows": [
+       {
+        "cell": "06_冲突与缺失!D2",
+        "text": "No credible candidate found.",
+        "key": "lot_name"
+       },
+       {
+        "cell": "06_冲突与缺失!D3",
+        "text": "No credible candidate found.",
+        "key": "lot_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D4",
+        "text": "软件功能建设包含水表全生命周期管理系统(表务管理系统),IC卡表对接,缴费一体机功能开发,接入“i西安”APP,接入陕西省政务平台,营销App升级,报表管理平台(报表中心),网上营业厅；西安市自来水公司数据库逻辑分析(含机械表、一代卡、二代卡、三代卡)业务系统数据对原数据库数据表、业务逻辑全面分析,充分",
+        "key": "procurement_scope"
+       },
+       {
+        "cell": "06_冲突与缺失!D5",
+        "text": "No credible candidate found.",
+        "key": "budget"
+       },
+       {
+        "cell": "06_冲突与缺失!D6",
+        "text": "No credible candidate found.",
+        "key": "submission_method"
+       }
+      ]
+     }
+    },
+    {
+     "check": "case_final_cell_audit",
+     "ok": true,
+     "detail": "135/135 final cells coherent; 30 sampled with addresses and displayed text",
+     "evidence": {
+      "audited_cell_count": 135,
+      "coherent_cell_count": 135,
+      "sample_addresses": [
+       "投标项目复核表!D9",
+       "投标项目复核表!E9",
+       "投标项目复核表!M9",
+       "投标项目复核表!D10",
+       "投标项目复核表!E10",
+       "投标项目复核表!M10",
+       "投标项目复核表!D11",
+       "投标项目复核表!E11",
+       "投标项目复核表!M11",
+       "投标项目复核表!D12"
+      ]
+     }
+    }
+   ],
+   "round4_rendered_mismatch_total": null
+  },
+  "case_003": {
+   "build": "v1_round4_closure8_review_workbook5",
+   "workbook_sha256": "85aa576207077d8730e9c78ad7ca373bc8be6fe3dad091b5ef6ab0015c7bb4de",
+   "round5_checks": "15/15",
+   "round5_failed_checks": [],
+   "fixtures": "0/20",
+   "fixtures_failed": 0,
+   "row_audit": "48/48",
+   "row_audit_failed": 0,
+   "concern_contract_violations": 0,
+   "needs_review_rows": 2,
+   "round4_gate_verdict": "PASS",
+   "round4_gate_checks": [
+    {
+     "check": "delivered_rows_bound_to_plan_items",
+     "ok": true,
+     "detail": "48/48 delivered review rows bound to plan items",
+     "evidence": {
+      "unbound_item_ids": []
+     }
+    },
+    {
+     "check": "rendered_cell_equals_component_projection",
+     "ok": true,
+     "detail": "48/48 delivered D cells are the exact projection of their verified components",
+     "evidence": {
+      "mismatched": []
+     }
+    },
+    {
+     "check": "rendered_component_ownership_verified",
+     "ok": true,
+     "detail": "351 rendered components verified concern-owned",
+     "evidence": {
+      "unverified_count": 0,
+      "unverified": []
+     }
+    },
+    {
+     "check": "rendered_component_concern_mismatch_total_zero",
+     "ok": true,
+     "detail": "total rendered-component concern mismatch is 0",
+     "evidence": {
+      "counts": {
+       "rendered_source_requirement_concern_mismatch": 0,
+       "rendered_review_check_concern_mismatch": 0,
+       "rendered_pass_criterion_concern_mismatch": 0,
+       "rendered_preparation_material_concern_mismatch": 0,
+       "rendered_failure_consequence_concern_mismatch": 0,
+       "rendered_scoring_guidance_concern_mismatch": 0,
+       "rendered_numeric_statement_concern_mismatch": 0,
+       "rendered_evidence_summary_concern_mismatch": 0,
+       "rendered_linked_fact_concern_mismatch": 0,
+       "rendered_component_concern_mismatch_total": 0
+      }
+     }
+    },
+    {
+     "check": "rendered_source_requirement_concern_mismatch",
+     "ok": true,
+     "detail": "SOURCE_REQUIREMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_review_check_concern_mismatch",
+     "ok": true,
+     "detail": "REVIEW_CHECK mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_pass_criterion_concern_mismatch",
+     "ok": true,
+     "detail": "PASS_CRITERION mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_preparation_material_concern_mismatch",
+     "ok": true,
+     "detail": "PREPARATION_MATERIAL mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_failure_consequence_concern_mismatch",
+     "ok": true,
+     "detail": "FAILURE_CONSEQUENCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_scoring_guidance_concern_mismatch",
+     "ok": true,
+     "detail": "SCORING_GUIDANCE mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_numeric_statement_concern_mismatch",
+     "ok": true,
+     "detail": "NUMERIC_STATEMENT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_evidence_summary_concern_mismatch",
+     "ok": true,
+     "detail": "EVIDENCE_SUMMARY mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "rendered_linked_fact_concern_mismatch",
+     "ok": true,
+     "detail": "LINKED_FACT mismatch count is 0",
+     "evidence": {
+      "count": 0
+     }
+    },
+    {
+     "check": "every_rendered_component_present_in_final_cell",
+     "ok": true,
+     "detail": "326 rendered components of 48 bidder-facing rows are displayed by a final workbook cell",
+     "evidence": {
+      "not_rendered": [],
+      "checked": 326
+     }
+    },
+    {
+     "check": "view_cells_repeat_rendered_components",
+     "ok": true,
+     "detail": "clause/mandatory view cells repeat the concern-owned rendered text",
+     "evidence": {
+      "stale_cells": [],
+      "stale_count": 0
+     }
+    },
+    {
+     "check": "forbidden_retention_wording_absent",
+     "ok": true,
+     "detail": "no cell presents the 12-month release period as the project warranty or the 5% retention money as a payment/scoring ratio",
+     "evidence": {
+      "hits": []
+     }
+    },
+    {
+     "check": "final_cell_text_owned_by_concern",
+     "ok": true,
+     "detail": "48/48 delivered cells name only concepts their concern owns",
+     "evidence": {
+      "leaks": [],
+      "leak_count": 0
+     }
+    },
+    {
+     "check": "retention_roles_rendered_from_own_concerns",
+     "ok": true,
+     "detail": "retention/warranty rows render only their own numeric role",
+     "evidence": {
+      "case": "case_003",
+      "project_warranty_rows": [
+       "DR038"
+      ],
+      "project_warranty_text": "招标文件要求：15.4.1 保修责任 工程保修期从工程竣工验收合格之日起算，具体分部分项工程的保修期由合同 当事人在专用合同条款中约定，但不得低于法定最低保修年限；在工程保修期内， 承包人应当根据有关法律规定以及合同约定承担保修责任\n复核要点：\n① 确认起算点与覆盖范围符合要求\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第23页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应",
+      "retention_money_rows": [
+       "DR050"
+      ],
+      "retention_money_text": "招标文件要求：发包人累计扣留的质量保证金不得超过工程价款结算总额的3%；15.3.1承包人提供质量保证金的方式 承包人提供质量保证金有以下三种方式： （1）质量保证金保函\n复核要点：\n① 确认响应文件接受该比例\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第159页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+      "retention_release_rows": [
+       "DR040"
+      ],
+      "retention_release_text": "招标文件要求：如承包人在发 包人签发竣工付款证书后28天内提交质量保证金保函，发包人应同时退还扣留的作 为质量保证金的工程价款；付至结算价款的97%，3%作为质保金，缺陷责任期满后无质量问题无息支付 余款\n复核要点：\n① 确认与合同条款一致\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第23页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质量保证金释",
+      "rendered_roles": {
+       "PROJECT_WARRANTY": [],
+       "RETENTION_MONEY_RATIO": [],
+       "RETENTION_RELEASE_PERIOD": [
+        "RETENTION_RELEASE_MONTHS"
+       ]
+      },
+      "cross_role": []
+     }
+    },
+    {
+     "check": "retention_and_warranty_rows_are_distinct",
+     "ok": true,
+     "detail": "retention money/release and project warranty render in distinct rows",
+     "evidence": {
+      "ratio": [
+       "DR050"
+      ],
+      "release": [
+       "DR040"
+      ],
+      "warranty": [
+       "DR038"
+      ]
+     }
+    },
+    {
+     "check": "final_cell_numeric_ownership",
+     "ok": true,
+     "detail": "every numeric token displayed in a delivered cell is an owned value",
+     "evidence": {
+      "stray": []
+     }
+    },
+    {
+     "check": "stale_linked_facts_absent",
+     "ok": true,
+     "detail": "every rendered linked fact is allowed for its concern",
+     "evidence": {
+      "stale": []
+     }
+    },
+    {
+     "check": "platform_role_distinction",
+     "ok": true,
+     "detail": "1 platform-related facts stay separate semantic roles",
+     "evidence": {
+      "platform_fact_keys": [
+       "electronic_platform"
+      ],
+      "platform_rows": {
+       "electronic_platform": {
+        "cell": "01_项目事实!D24",
+        "value": "",
+        "status": "NEEDS_REVIEW",
+        "candidates": "3"
+       }
+      },
+      "conflict_rows": [
+       {
+        "cell": "06_冲突与缺失!D2",
+        "text": "No credible candidate found.",
+        "key": "project_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D3",
+        "text": "No credible candidate found.",
+        "key": "tender_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D4",
+        "text": "No credible candidate found.",
+        "key": "lot_number"
+       },
+       {
+        "cell": "06_冲突与缺失!D5",
+        "text": "No credible candidate found.",
+        "key": "budget"
+       },
+       {
+        "cell": "06_冲突与缺失!D6",
+        "text": "554日历天；554日历天",
+        "key": "duration"
+       },
+       {
+        "cell": "06_冲突与缺失!D7",
+        "text": "符合现行国家、行业及地方工程施工质量验收标准以及相关专业验收规范的合格标准；格标准",
+        "key": "quality_target"
+       },
+       {
+        "cell": "06_冲突与缺失!D8",
+        "text": "同投标截止时间",
+        "key": "bid_deadline"
+       },
+       {
+        "cell": "06_冲突与缺失!D9",
+        "text": "Candidate evidence exists but no candidate passed the field value-type validator.",
+        "key": "bid_open_time"
+       },
+       {
+        "cell": "06_冲突与缺失!D10",
+        "text": "不接受；不接受",
+        "key": "consortium_allowed"
+       },
+       {
+        "cell": "06_冲突与缺失!D11",
+        "text": "No credible candidate found.",
+        "key": "procurement_method"
+       }
+      ]
+     }
+    },
+    {
+     "check": "case_final_cell_audit",
+     "ok": true,
+     "detail": "144/144 final cells coherent; 30 sampled with addresses and displayed text",
+     "evidence": {
+      "audited_cell_count": 144,
+      "coherent_cell_count": 144,
+      "sample_addresses": [
+       "投标项目复核表!D9",
+       "投标项目复核表!E9",
+       "投标项目复核表!M9",
+       "投标项目复核表!D10",
+       "投标项目复核表!E10",
+       "投标项目复核表!M10",
+       "投标项目复核表!D11",
+       "投标项目复核表!E11",
+       "投标项目复核表!M11",
+       "投标项目复核表!D12"
+      ]
+     }
+    }
+   ],
+   "round4_rendered_mismatch_total": null
+  }
+ },
+ "human_review": {
+  "records": [
+   "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review.json",
+   "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json"
+  ],
+  "human_verdict": "FAIL",
+  "fail_reason": "CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED",
+  "must_not_be_rewritten": true,
+  "automation_may_not_mark_pass": true,
+  "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+  "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+  "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+  "human_checkboxes_ticked": 0
+ },
+ "full_test_suite": {
+  "report": "acceptance\\reports\\v1_generalization\\review_workbook_round5_full_test_suite.txt",
+  "xml": "acceptance\\reports\\v1_generalization\\review_workbook_round5_full_test_suite.xml",
+  "tests": 806,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 1,
+  "result": "PASS"
+ },
+ "release": {
+  "V1_PRODUCTION_CANDIDATE": false,
+  "READY_FOR_SUBMISSION": false,
+  "tagged": false,
+  "released": false
+ }
+}

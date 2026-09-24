@@ -70,7 +70,7 @@
 | `CASE001_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | `case001_manual_word_review_final_status.json::case001_manual_word_review`。含义：第 4 轮人工复核曾判 `FAIL` 并给出 A/B/C 三项发现，这些发现已在本轮**自动化关闭**（`AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`），但**人工尚未重新确认**——既不算通过，也不算被阻塞。**不得**因机器门禁全绿而驳回人工结论 |
 | `CASE002_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | 无人工复核记录 |
 | `CASE003_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | 无人工复核记录 |
-| `CASE001_XLSX_MANUAL_REVIEW` | **NOT_YET_CONFIRMED** | 复核工作簿尚未开始人工 Excel 复核（Phase B 交付物） |
+| `CASE001_XLSX_MANUAL_REVIEW` | **AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW** | 第 4 轮工作簿人工判 `FAIL`（`CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED`），第 5 轮以独立关注点契约**自动化关闭**（§5.7）；人工**尚未**重新确认，自动化不勾选任何人工框 |
 | `POINTER_CHECK` | **PASS** | `v1_three_case_regression_final.json`（`THREE_CASE_GENERALIZATION = PASS`，`failed_checks = []`） |
 | `HARD_BREAK_FIDELITY` | **PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION** | `case001_typography_final.json::measurements.hard_break_fidelity` |
 | `CASE001_FINAL_UNEXPECTED_HARDBREAK_CLOSURE` | **PASS** | `case001_p6_unexpected_hardbreak_diagnostic.json`（`verdict = P6_SOURCE_ROW_CONTINUITY_CLOSED`）+ `case001_typography_final.json` |
@@ -514,6 +514,59 @@ CASE001/CASE002/CASE003 的人工 Word 复核仍为 `NOT_YET_CONFIRMED`，
 > 测试报错。全量测试因此通过 `PYTEST_PLUGINS` 从仓库外加载
 > `acceptance/workspace/_scratch_round4_vii/pytest_fscompat.py` 把该 mode 还原为默认值。
 > 这是**测试基础设施**的规避，未修改任何产品代码与测试文件。
+
+---
+
+## 5.7 第 5 轮（ROUND 5）—— 独立关注点契约（CONCERN CONTRACT）
+
+### 5.7.1 人工第 4 轮结论（HISTORICAL，不得改写）
+
+人工复核对象是 `..._review_workbook4`，结论：
+
+| 字段 | 值 |
+| --- | --- |
+| `CASE001 review_workbook4 manual review` | **FAIL** |
+| `FAIL_REASON` | `CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED` |
+| `REVIEW_WORKBOOK_ROUND4_MACHINE` | `PASS`（机器门禁与人工结论**并不矛盾**：机器只证明了出处一致） |
+
+记录文件：`acceptance/reports/v1_generalization/case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json`
+（`must_not_be_rewritten = true`、`automation_may_not_mark_pass = true`）。第 3 轮的人工 `FAIL`
+（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`）记录同样保留。
+
+### 5.7.2 本轮关闭的不变量
+
+> **PROVENANCE CONSISTENCY IS NOT SEMANTIC VALIDATION**
+> （出处一致不等于语义正确；任何关注点不得只用自己的生成元数据自证）
+
+机制见 [V1_DECISIONS.md](V1_DECISIONS.md) D58–D60：每个关注点一份**人工手写**的
+`ConcernContract`（`tender_basic/concern_contract.py`，`CONTRACT_SOURCE = human_round5_fixtures_A_T`，
+**不导入** `review_point` / `review_concern`），校验**最终单元格文本**；混合条款按
+**契约自有片段**读取；抽取残片走 **NEEDS_REVIEW** 而不是静默丢弃或渲染成行。
+
+### 5.7.3 本轮验收对象与门禁结果
+
+| 门禁 | 结果 |
+| --- | --- |
+| CASE001 `..._review_workbook5` 关注点契约报告 | **16/16 检查**，A–T 人工坏例 **20/20 PASS**，交付行审计 **49/49** |
+| CASE002 / CASE003 `..._review_workbook5` | **15/15**（45/45 行）/ **15/15**（48/48 行），A–T 对非 CASE001 记为 `NOT_APPLICABLE` |
+| 第 4 轮溯源门禁在**第 5 轮工作簿**上复跑 | CASE001 **25/25**、CASE002 **23/23**、CASE003 **23/23**，`rendered_mismatch_total = 0`，A–S 19/19 |
+| 动态复核 QA | 三案例 `concern_contract_violation_count = 0`、`contract_uncovered_concern_count = 0`、`false_platform_conflict_count = 0`、`source_mandatory_requirement_without_review_item_count = 0` |
+| 数值角色 | `RETENTION_MONEY_RATIO = 5%`、`RETENTION_RELEASE = 12 months`、`PROJECT_WARRANTY = 24 months`、`PAYMENT_RATIO_95_AS_RETENTION = false`、`BANK_ACCEPTANCE_RATIO_SEPARATE = true` |
+| 污染类 | `QUALITY_LOCATION_CONTAMINATION = 0`、`VALIDITY_BLACKLIST_CONTAMINATION = 0`、`CONTRACT_PAYMENT_FOREIGN_CLAUSE = 0`、`PERFORMANCE_BOND_RESPONSE_BOND_EVIDENCE = 0`、`UNSUPPORTED_PRICE_COMPLETENESS_ASSERTIONS = 0`、`PRICE_ACCEPTANCE_MIXED_CONCERNS = 0`、`TECHNICAL_ACCEPTANCE_MIXED_CONCERNS = 0`、`FALSE_PLATFORM_CONFLICTS = 0` |
+| 泛化 | `THREE_CASE_GENERALIZATION = PASS`、`WORD_ARTIFACTS_UNCHANGED = PASS` |
+| 全量测试 | 见 `review_workbook_round5_full_test_suite.txt` / `.xml`，0 failed / 0 errors |
+
+**本轮不覆盖历史产物**：第 4 轮工作簿原样保留（第 5 轮是 `..._review_workbook5` 新建目录），
+Word 产物**未**重新渲染（`word_render_repeated = false`）。人工确认状态只能推进到
+`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，自动化**不勾选**任何人工框；
+CASE002 / CASE003 仍为 `NOT_YET_CONFIRMED`；`V1_PRODUCTION_CANDIDATE = false`、
+`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+
+**故意保留的接缝（不是缺陷）**：
+`PRICE_INCLUDED_COST_SCOPE` 与 `DELIVERY_ACCEPTANCE_COMPLETION` 共用同一源条款，因此只判定两者的
+**D 列**文本（E 列定位共享）；代理服务费来源条款本身是**真实抽取残片**
+（`SRA0048` / `SRA0049.1` / `SRA0049.2`），因此走 `NEEDS_REVIEW`（坏例 T）是正确结论；
+渲染 QA 的 `clipping_bounded` WARN 不劣于基线，不算失败。
 
 ---
 

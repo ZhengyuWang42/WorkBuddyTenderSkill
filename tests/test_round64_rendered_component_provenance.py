@@ -38,6 +38,10 @@ from tender_basic.review_rendering import (  # noqa: E402
 import v1_review_workbook_round4_report as round4  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
+#: Round 5 successor: the round-4 provenance projection plus the independent
+#: concern contracts.  The round-4 workbook stays frozen as the artifact the
+#: human reviewed and failed.
+BUILD5 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5"
 BUILD4 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4"
 BUILD3 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3"
 WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
@@ -45,8 +49,8 @@ WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 DELIVERED = "投标项目复核表"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD4 / "project_facts.json").is_file(),
-    reason="round-4 CASE001 successor build is not present",
+    not (BUILD5 / "project_facts.json").is_file(),
+    reason="round-5 CASE001 successor build is not present",
 )
 
 FIXTURE_KEYS = tuple("ABCDEFGHIJKLMNOPQRS")
@@ -58,7 +62,7 @@ def _flat(text: object) -> str:
 
 @pytest.fixture(scope="module")
 def analysis() -> round4.Round4Report:
-    return round4.Round4Report(build=BUILD4, case="case_001", before=BUILD3, audit_limit=30)
+    return round4.Round4Report(build=BUILD5, case="case_001", before=BUILD4, audit_limit=30)
 
 
 @pytest.fixture(scope="module")
@@ -68,7 +72,7 @@ def report(analysis: round4.Round4Report) -> dict:
 
 @pytest.fixture(scope="module")
 def cells() -> dict:
-    workbook = load_workbook(BUILD4 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD5 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     try:
         values: dict[str, dict[str, str]] = {}
         for name in workbook.sheetnames:
@@ -203,7 +207,21 @@ def test_fixture_h_bond_amount_row_cites_its_own_clause(analysis: round4.Round4R
 def test_fixture_k_funding_source_row_has_no_identity_checks(
     analysis: round4.Round4Report,
 ) -> None:
-    text = _cell_for(analysis, "PROJECT_BASIC_INFO", "D")
+    """Fixture K: the funding clause is its own concern and carries no identity.
+
+    Round 5 split the funding source out of the generic project-basics concern,
+    so the row under test is PROJECT_FUNDING_SOURCE; when no project-basics row
+    is delivered at all, the split is even cleaner and the check passes.
+    """
+
+    funding = next(
+        (item for item in analysis.items if item.concern_id == "PROJECT_FUNDING_SOURCE"),
+        None,
+    )
+    if funding is None:
+        assert not any(item.concern_id == "PROJECT_BASIC_INFO" for item in analysis.items)
+        return
+    text = _cell_for(analysis, "PROJECT_FUNDING_SOURCE", "D")
     for term in ("项目名称", "项目编号", "标段"):
         assert term not in text
 

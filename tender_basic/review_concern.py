@@ -32,6 +32,15 @@ from tender_basic.review_point import (
     line_is_grounded,
 )
 
+from .concern_contract import (  # noqa: E402  (leaf module: no review imports)
+    contract_for,
+    is_incomplete_fragment,
+    is_scoring_concern,
+    owned_segments,
+    owned_text,
+)
+from .semantic_roles import canonical_role  # noqa: E402
+
 # --------------------------------------------------------------------------- #
 # vocabularies
 # --------------------------------------------------------------------------- #
@@ -138,7 +147,9 @@ def _spec(
         concern_id=concern_id,
         label=label,
         question=question,
-        numeric_roles=frozenset(roles),
+        # round 5: the registry may keep its historical vocabulary, but the
+        # concern's roles are always the canonical taxonomy names
+        numeric_roles=frozenset(canonical_role(role) for role in roles),
         bidder_facing=bidder_facing,
         allows_reuse=allows_reuse,
         fact_fields=frozenset(facts),
@@ -152,21 +163,42 @@ CONCERNS: dict[str, ConcernSpec] = {
     spec.concern_id: spec
     for spec in (
         _spec(
-            "PROJECT_BASIC_INFO",
-            "项目基本信息",
-            "本项目的基本信息是否与招标文件一致？",
+            "PROJECT_FUNDING_SOURCE",
+            "项目资金来源",
+            "本项目的资金来源/资金落实情况是什么？",
             (),
-            review_topic="项目基本信息",
-            decisive=r"(项目名称|项目编号|采购编号|标段|采购范围|资金来源|采购内容)",
+            review_topic="项目资金来源",
+            decisive=r"(资金来源|自筹|财政资金|资金落实)",
         ),
+        _spec("PROJECT_BASIC_INFO", "项目基本信息", "本项目的基本信息是否与招标文件一致？", (), review_topic="项目基本信息", decisive=r"(项目名称|项目编号|采购编号|标段|采购内容)"),
         _spec("BID_VALIDITY", "投标有效期", "投标有效期是否满足并覆盖评审定标全过程？", ("VALIDITY_DAYS",), facts=("bid_validity",), decisive=r"(投标有效期|响应有效期|有效期为)"),
         _spec("AFTER_SALES_SERVICE", "售后服务与运维", "售后服务与运维承诺是否满足要求？", ("RESPONSE_DAYS",), decisive=r"(售后服务|运维|质保期内服务|响应时间|备件)"),
         _spec(
-            "TECHNICAL_INSTALLATION",
+            "INSTALLATION_ACCEPTANCE",
             "安装调试与验收",
             "安装、调试、检测与验收标准是否满足要求？",
             ("QUANTITY", "RESPONSE_DAYS"),
-            decisive=r"(安装调试|设备安装|安装工程|调试|验收|检测报告|检测实验)",
+            decisive=r"(安装调试|设备安装|安装工程|调试|验收|试运行)",
+        ),
+        # Round 5 fixture I: a technical-standard list is not an acceptance
+        # milestone, and a third-party test report is its own proof obligation.
+        _spec(
+            "TECHNICAL_STANDARD_COMPLIANCE",
+            "技术标准与规范",
+            "设备的设计、制造与验收应遵循哪些标准规范？",
+            (),
+            review_type="TECHNICAL",
+            review_topic="技术标准与规范",
+            decisive=r"(CJJ|GB\s*/?T?\s*\d|GBJ|CJ/T|技术规程|设计规范|验收规范)",
+        ),
+        _spec(
+            "TECHNICAL_TEST_REPORT",
+            "第三方检测与证明",
+            "哪些计量/检测仪器需要第三方报告或证书？",
+            (),
+            review_type="PROOF",
+            review_topic="第三方检测与证明",
+            decisive=r"(第三方检测|第三方校检|检测实验报告|检验报告|校检证书)",
         ),
         _spec(
             "SIGNATURE_RED_LINE",
@@ -247,7 +279,7 @@ CONCERNS: dict[str, ConcernSpec] = {
             "BID_BOND_AMOUNT",
             "保证金金额",
             "保证金金额是否与招标文件一致？",
-            ("BOND_AMOUNT",),
+            ("BOND_AMOUNT", "RESPONSE_BOND", "PERFORMANCE_BOND", "BOND_FORM"),
             facts=("bid_bond_amount", "bid_bond_form"),
             decisive=r"(响应保证金|投标保证金).{0,24}(金额|元)|保证金金额",
         ),
@@ -259,15 +291,25 @@ CONCERNS: dict[str, ConcernSpec] = {
             "PERFORMANCE_BOND",
             "履约保证金",
             "履约保证金的形式、金额与提交时点是否清楚？",
-            ("BOND_AMOUNT",),
+            ("PERFORMANCE_BOND", "BOND_AMOUNT", "BOND_FORM"),
             review_type="CONTRACT",
             review_topic="履约保证金",
             decisive=r"履约保证金|履约担保",
         ),
         # price
-        _spec("PRICE_CEILING", "报价与最高限价", "报价是否不超过最高限价？", ("PRICE",), facts=("max_price", "budget"), decisive=r"(最高限价|控制价|预算金额|采购预算)"),
+        _spec("PRICE_CEILING", "报价与最高限价", "报价是否不超过最高限价？", ("PRICE", "PRICE_CEILING"), facts=("max_price", "budget"), decisive=r"(最高(?:投标|响应|采购)?限价|控制价|预算金额|采购预算)"),
         _spec("PRICE_ARITHMETIC", "报价算术与大小写", "大小写、单价×数量、分项合计是否一致？", ("PRICE",), facts=("max_price",), decisive=r"(大写|小写|单价|合计)"),
-        _spec("PRICE_COMPLETENESS", "报价完整性", "是否存在漏项、重复项或未包含费用？", ("PRICE", "QUANTITY"), facts=("max_price",), decisive=r"(报价|费用|漏项|运费|税费)"),
+        _spec("PRICING_COMPLETENESS", "报价完整性", "报价范围与费用是否完整、有无漏项？", ("PRICE", "QUANTITY"), facts=("max_price",), decisive=r"(报价|费用|漏项|运费|税费)"),
+        _spec(
+            "PRICE_INCLUDED_COST_SCOPE",
+            "单价包含的费用范围",
+            "设备单价包含哪些费用、由谁承担？",
+            ("PRICE", "QUANTITY"),
+            review_type="PRICING",
+            review_topic="报价组成与费用范围",
+            facts=("max_price",),
+            decisive=r"(单价中?含|费用范围|包含运输|包含安装|费用均由)",
+        ),
         _spec("PRICE_TAX_BASIS", "报价税务口径", "税率与含税口径是否一致？", ("SCORE",), facts=("max_price",), decisive=r"(税金|税率|含税|不含税)"),
         _spec("PRICE_ITEMIZATION", "分项报价与暂列金额", "分项限价/暂列金额是否与源表一致？", ("PRICE", "QUANTITY"), facts=("max_price",), decisive=r"(分项限价|暂列金额|暂估价|工程量清单|限价表)"),
         # delivery / quality / warranty
@@ -419,6 +461,15 @@ CONCERNS: dict[str, ConcernSpec] = {
             review_topic="评分·价格分计算",
             decisive=r"(价格分|报价得分|基准价|评标价|价格评分|得\s*\d+(?:\.\d+)?\s*分)",
         ),
+        _spec(
+            "SCORING_BANK_ACCEPTANCE",
+            "评分·银行承兑比例",
+            "接受银行承兑汇票的比例如何计分？",
+            ("SCORE", "BANK_ACCEPTANCE_RATIO"),
+            review_type="EVALUATION",
+            review_topic="评分·银行承兑比例",
+            decisive=r"(银行承兑|承兑汇票)",
+        ),
         _spec("EVALUATION_COLLUSION", "评审·串标与弄虚作假", "是否存在串标、弄虚作假情形？", decisive=r"(串标|串通|雷同|弄虚作假|机器码|制作机器)"),
         # contract
         _spec(
@@ -435,11 +486,28 @@ CONCERNS: dict[str, ConcernSpec] = {
             (),
             review_type="CONTRACT",
             review_topic="代理服务费",
-            decisive=r"(代理服务费|招标代理服务费|采购代理服务费|中标服务费)",
+            decisive=r"(代理服务费|招标代理服务费|采购代理服务费|中标服务费|成交服务费)",
         ),
         _spec("CONTRACT_RISK", "合同风险与违约责任", "是否存在采购人不能接受的附加条件或风险？", decisive=r"(违约|赔偿|索赔|争议|仲裁|诉讼|不可抗力|附加条件)"),
         _spec("CONTRACT_DELIVERY", "合同交付义务", "合同交付义务与招标要求是否一致？", ("DURATION_DAYS",), decisive=r"(交货|交付|供货|工期)"),
-        _spec("CONTRACT_ACCEPTANCE", "合同验收", "验收标准与程序是否可执行？", decisive=r"(验收)"),
+        _spec(
+            "CONTRACT_TERMINATION_REFUND",
+            "合同解除与退款责任",
+            "合同解除或退换货时的退款与违约责任是什么？",
+            (),
+            review_type="CONTRACT",
+            review_topic="合同解除与退款责任",
+            decisive=r"(合同解除|退换|应当退还|退款)",
+        ),
+        _spec(
+            "DELIVERY_ACCEPTANCE_COMPLETION",
+            "交付完成与验收",
+            "什么条件下视为交付/验收完成？",
+            (),
+            review_type="CONTRACT",
+            review_topic="交付与验收完成",
+            decisive=r"(验收单|交付完成|安装调试完毕|视为交付)",
+        ),
         # conflict
         _spec("SOURCE_REQUIREMENT_CONFLICT", "条款冲突", "不同来源条款是否真正互相冲突？", allows_reuse=True),
         # internal (never an ordinary bidder row)
@@ -852,11 +920,11 @@ _CONCERN_RULES: tuple[_Rule, ...] = (
         reason="price arithmetic / case consistency",
     ),
     _Rule(
-        "PRICE_COMPLETENESS",
+        "PRICING_COMPLETENESS",
         any_of=("漏项", "重复项", "未包含", "一切费用", "费用包含"),
         reason="price completeness",
     ),
-    _Rule("PRICE_COMPLETENESS", any_of=("报价", "价格"), reason="pricing clause (general)"),
+    _Rule("PRICING_COMPLETENESS", any_of=("报价", "价格"), reason="pricing clause (general)"),
     # ---- delivery / quality ------------------------------------------------ #
     _Rule(
         "DELIVERY_PERIOD",
@@ -934,7 +1002,7 @@ _CONCERN_RULES: tuple[_Rule, ...] = (
         reason="contract payment terms",
     ),
     _Rule(
-        "CONTRACT_ACCEPTANCE",
+        "DELIVERY_ACCEPTANCE_COMPLETION",
         any_of=("验收", "竣工验收"),
         scopes=(SCOPE_CONTRACT_TEMPLATE,),
         reason="contract acceptance",
@@ -973,8 +1041,8 @@ _TOPIC_CONCERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^投标文件格式$"), "FILE_FORMAT"),
     (re.compile(r"^投标文件组成$"), "FILE_COMPOSITION"),
     (re.compile(r"^交付与实施地点$"), "DELIVERY_LOCATION"),
-    (re.compile(r"^费用与付款$"), "PRICE_COMPLETENESS"),
-    (re.compile(r"^报价组成与费用范围$"), "PRICE_COMPLETENESS"),
+    (re.compile(r"^费用与付款$"), "PRICING_COMPLETENESS"),
+    (re.compile(r"^报价组成与费用范围$"), "PRICING_COMPLETENESS"),
     (re.compile(r"^最高限价与控制价$"), "PRICE_CEILING"),
     (re.compile(r"^分项限价与暂列金额$"), "PRICE_ITEMIZATION"),
     (re.compile(r"^证明材料要求$"), "TECHNICAL_PROOF"),
@@ -991,7 +1059,7 @@ _TOPIC_CONCERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"^禁止性情形与失信排除$"), "QUALIFICATION_RELATIONSHIP_RESTRICTION"),
     (re.compile(r"^其他否决情形$"), "REJECTION_GENERAL"),
     (re.compile(r"^递交方式与截止时间$"), "SUBMISSION_DEADLINE"),
-    (re.compile(r"^安装调试与验收$"), "TECHNICAL_INSTALLATION"),
+    (re.compile(r"^安装调试与验收$"), "INSTALLATION_ACCEPTANCE"),
     (re.compile(r"^技术参数与配置$|^接口与集成$"), "TECHNICAL_PARAMETER"),
     (re.compile(r"^技术方案与实施组织$"), "TECHNICAL_PLAN"),
     (re.compile(r"^售后服务与运维$"), "AFTER_SALES_SERVICE"),
@@ -1005,11 +1073,38 @@ _TOPIC_CONCERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 _RETENTION_TEXT = re.compile(r"(质保金|质量保证金|保留金|尾款|余款)")
 _RETENTION_RELEASE_TEXT = re.compile(r"(返还|退还|释放|付清|无息支付|期满后)")
 _SUBMISSION_CUES = re.compile(r"(递交|提交|送达|上传|截止|拒收|逾期)")
-_PRICE_CEILING_CUES = re.compile(r"(最高限价|控制价|预算金额|采购预算|超过限价)")
+_PRICE_CEILING_CUES = re.compile(
+    r"(最高限价|最高投标限价|最高响应限价|控制价|预算金额|采购预算|超过限价)"
+)
 _COLLUSION_CUES = re.compile(r"(串标|串通|雷同|恶意串通|弄虚作假|行贿|机器码|制作机器|制作标识)")
 _FORMAT_CUES = re.compile(r"(装订|目录|页码|编排|字体|密封|封装|格式)")
 _COMPOSITION_CUES = re.compile(r"(组成|包括|应包含|应当包含|附件)")
 _ITEMIZATION_CUES = re.compile(r"(暂列金额|分项限价|已标价工程量清单|限价表)")
+
+# --- round 5: facet signatures --------------------------------------------- #
+
+#: agency service fee wording (rate, payer or collection time)
+_AGENCY_FEE_TEXT = re.compile(
+    r"(代理服务费|招标代理服务费|采购代理服务费|中标服务费|成交服务费"
+    r"|收费标准.{0,12}%|领取《成交通知书》时缴纳)"
+)
+#: a standards list (CJJ140-2018 / GB50013 / GBJ 54-83 ...)
+_STANDARD_LIST = re.compile(r"(CJJ\s*/?T?\s*\d|GB\s*/?T?\s*\d|GBJ\s*\d|CJ/T\s*\d|技术规程|设计规范|验收规范)")
+#: third-party test/inspection/certificate duty
+_THIRD_PARTY_REPORT = re.compile(r"(第三方(检测|校检|检验|试验)|检测实验报告|检测报告|检验报告|校检证书|型式试验|认证证书)")
+#: unit-price cost scope wording
+_COST_SCOPE_TEXT = re.compile(r"(单价中?含|报价中?包含|响应报价包含|费用范围|包含运输|包含安装)")
+#: delivery-completion milestone wording
+_ACCEPTANCE_COMPLETION_TEXT = re.compile(r"(验收单|交付完成|安装调试完毕|视为交付|签收)")
+
+#: An extracted fragment that is not a reviewable requirement: it starts with the
+#: tail of a citation ("意见》的通知中…"), with a stray punctuation mark, or it
+#: contains neither an obligation cue nor a value.
+_INCOMPLETE_FRAGMENT = re.compile(
+    r"^[》〉】）)\]」”’]"
+    r"|^[^，。；;：:]{0,6}》[^，。；;]{0,20}(规定|通知|标准|办法|意见)"
+    r"|^(缴纳账|其中|以及|并且|或者)"
+)
 
 #: High-signal text overrides.  A topic prior picks the family, but a clause
 #: that plainly belongs to another family must not be dragged into it (round-3
@@ -1036,7 +1131,7 @@ _DECISIVE_RULES: tuple[tuple[re.Pattern[str], str, str], ...] = (
     ),
     (
         re.compile(r"(甲方提出异议|乙方在接到甲方通知后|验收完毕后\s*\d+\s*个工作日)"),
-        "CONTRACT_ACCEPTANCE",
+        "DELIVERY_ACCEPTANCE_COMPLETION",
         "contract acceptance/objection handling procedure",
     ),
     (
@@ -1142,6 +1237,7 @@ _OVERRIDABLE_BASES = frozenset(
         "TECHNICAL_PLAN",
         "GENERAL_BIDDER_OBLIGATION",
         "REJECTION_GENERAL",
+        "PROJECT_FUNDING_SOURCE",
         "PROJECT_BASIC_INFO",
     }
 )
@@ -1267,14 +1363,31 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
     if base.startswith("SIGNATURE") and _ELECTRONIC_DOMINANT.search(text) and not _SIGNATURE_DOMINANT.search(text):
         return "ELECTRONIC_UPLOAD", "electronic signing/upload wording dominates the signature keyword"
 
-    # A scoring rule about a payment ratio is a scoring item, not a retention
-    # clause; an explicit score cue therefore wins over retention wording.  The
+    # Round 5 fixture D/T: the agency service fee has its own collection clause.
+    # "3、支付时间：领取《成交通知书》时缴纳" is the *agency fee* payment time,
+    # never a procurement-contract payment term.  A scoring rule about a payment
+    # ratio is a scoring item, not a retention clause, so the score cue below
+    # still wins over retention wording.
+    if _AGENCY_FEE_TEXT.search(text):
+        return "AGENCY_SERVICE_FEE", "agency service fee rate/collection"
+
+    # Round 5 fixture D: a termination-refund liability is its own concern.
+    if re.search(r"(合同解除|退换|应当退还|退还甲方)", text) and re.search(r"(退款|退还|利息|赔偿)", text):
+        return "CONTRACT_TERMINATION_REFUND", "contract termination/refund liability"
+
     # sentence still belongs to the *specific* scoring factor it scores, so the
     # 95%/5% payment-condition rule renders in its own scoring row instead of
     # being flattened into the generic 评分标准与分值构成 row (round-4 fixture O).
-    if re.search(r"(得\s*\d+(?:\.\d+)?\s*分|分值|最高得?\s*\d+(?:\.\d+)?\s*分)", text):
+    if re.search(
+        r"(得\s*\d+(?:\.\d+)?\s*分|分值|最高得?\s*\d+(?:\.\d+)?\s*分|（\s*\d+(?:\.\d+)?\s*分\s*）|\(\s*\d+(?:\.\d+)?\s*分\s*\))",
+        text,
+    ):
         if _COLLUSION_CUES.search(text):
             return "EVALUATION_COLLUSION", "collusion/fraud wording inside a scoring clause"
+        if re.search(r"(银行承兑|承兑汇票)", text):
+            # round-5 fixture L: the accepted-bank-draft ratio is scored on its
+            # own and must never borrow the payment/retention ratio role.
+            return "SCORING_BANK_ACCEPTANCE", "bank-acceptance scoring factor"
         factor = _scoring_factor(text)
         if factor:
             return factor
@@ -1297,10 +1410,18 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
     if base == "CONTRACT_PAYMENT":
         if re.search(r"(违约|赔偿|索赔|争议|仲裁|诉讼|不可抗力)", text):
             return "CONTRACT_RISK", "contract liability/risk wording"
-        if re.search(r"(验收|竣工验收)", text):
-            return "CONTRACT_ACCEPTANCE", "contract acceptance wording"
-        if re.search(r"(质保|保修)", text):
+        if re.search(r"(合同解除|退换|退还甲方)", text):
+            return "CONTRACT_TERMINATION_REFUND", "contract termination/refund wording"
+        if _AGENCY_FEE_TEXT.search(text):
+            return "AGENCY_SERVICE_FEE", "agency service fee collection"
+        if re.search(r"(验收单|交付完成|安装调试完毕)", text):
+            return "DELIVERY_ACCEPTANCE_COMPLETION", "contract delivery/acceptance wording"
+        if re.search(r"(签字盖章后生效|签字日期不一致|订立书面合同|签订合同)", text):
+            return "CONTRACT_RISK", "contract formation/effectivity wording"
+        if re.search(r"(质保|保修)", text) and not re.search(r"(付款|支付|货款|费用|结算)", text):
             return "PROJECT_WARRANTY", "warranty obligation inside the contract clause"
+        if not re.search(r"(付款|支付|货款|费用|结算|价款)", text):
+            return "CONTRACT_RISK", "contract clause without payment content"
         return base, "contract payment terms"
 
     if base.startswith("BID_BOND"):
@@ -1369,16 +1490,20 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
     if base == "PRICE_ITEMIZATION":
         if _ITEMIZATION_CUES.search(text):
             return "PRICE_ITEMIZATION", "itemised limit / provisional sum"
-        return "PRICE_COMPLETENESS", "no itemised-limit source content"
+        return "PRICING_COMPLETENESS", "no itemised-limit source content"
 
     if base == "PRICE_CEILING" and not _PRICE_CEILING_CUES.search(text):
-        return "PRICE_COMPLETENESS", "price topic without a ceiling value"
+        return "PRICING_COMPLETENESS", "price topic without a ceiling value"
 
-    if base == "PRICE_COMPLETENESS":
+    if base == "PRICING_COMPLETENESS":
         if re.search(r"(结算|变更|调价|索赔|图纸|施工环境)", text):
             return "CONTRACT_RISK", "contract settlement/change wording, not a price-completeness item"
         if re.search(r"(甲方|乙方).{0,12}(签字|盖章|验收单|交付完成)", text):
-            return "CONTRACT_ACCEPTANCE", "contract delivery/acceptance wording"
+            return "DELIVERY_ACCEPTANCE_COMPLETION", "contract delivery/acceptance wording"
+        if re.search(r"(单价中?含|费用范围|包含运输|包含安装)", text) and re.search(
+            r"(运输|装卸|安装|损耗|税金|包装|检验试验|售后服务)", text
+        ):
+            return "PRICE_INCLUDED_COST_SCOPE", "unit-price cost scope wording"
         if re.search(r"(税金|税率|含税|不含税)", text):
             return "PRICE_TAX_BASIS", "tax basis wording"
         if re.search(r"(大写|小写|单价|合计|总价)", text):
@@ -1392,10 +1517,29 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
             r"(技术参数|参数|★|技术要求|配置)", text
         ):
             return "TECHNICAL_PROOF", "proof-material note is not a technical parameter"
+        # Round 5 fixture I: a standards list and a third-party test-report duty
+        # are not equipment parameters.
+        if _STANDARD_LIST.search(text) and not re.search(r"(参数|配置|规格|型号|材质|口径)", text):
+            return "TECHNICAL_STANDARD_COMPLIANCE", "standards list, not a parameter"
+        if len(_STANDARD_LIST.findall(text)) >= 2 and not re.search(r"(技术参数|参数表|配置)", text):
+            return "TECHNICAL_STANDARD_COMPLIANCE", "standards list dominates a mixed clause"
+        if _THIRD_PARTY_REPORT.search(text) and not re.search(r"(参数|配置|规格|型号|材质|口径)", text):
+            return "TECHNICAL_TEST_REPORT", "third-party report duty, not a parameter"
         return base, "technical parameter"
 
+    if base == "INSTALLATION_ACCEPTANCE":
+        if _THIRD_PARTY_REPORT.search(text) and not re.search(r"(安装|调试|验收|试运行)", text):
+            return "TECHNICAL_TEST_REPORT", "third-party report duty, not an acceptance milestone"
+        if len(_STANDARD_LIST.findall(text)) >= 2:
+            # round-5 fixture I: a standards list is its own concern even when the
+            # list itself contains the words 施工质量验收规范
+            return "TECHNICAL_STANDARD_COMPLIANCE", "standards list, not an acceptance milestone"
+        if re.search(r"(验收单|视为交付完成)", text):
+            return "DELIVERY_ACCEPTANCE_COMPLETION", "delivery-completion wording"
+        return base, "installation/acceptance process"
+
     if base == "QUALIFICATION_FINANCIAL" and re.search(r"(资金来源|自筹|财政资金|资金来源为)", text):
-        return "PROJECT_BASIC_INFO", "project financing is not a bidder financial duty"
+        return "PROJECT_FUNDING_SOURCE", "project financing is not a bidder financial duty"
 
     if base == "TECHNICAL_PROOF" and not scope:
         return base, "technical proof"
@@ -1454,8 +1598,8 @@ def classify_concern(atom: SourceRequirementAtom) -> tuple[str, str]:
 class _UnitLike:
     """Adaptor so round-2 helpers can be reused on an atom."""
 
-    def __init__(self, atom: SourceRequirementAtom) -> None:
-        self.text = atom.source_text
+    def __init__(self, atom: SourceRequirementAtom, text: str | None = None) -> None:
+        self.text = atom.source_text if text is None else text
         self.topic = atom.topic
         self.requirement_type = atom.requirement_type
         self.requirement_id = atom.source_clause_id or atom.atom_id
@@ -1468,6 +1612,12 @@ class _UnitLike:
 
 def _unit_like(atom: SourceRequirementAtom) -> _UnitLike:
     return _UnitLike(atom)
+
+
+def _unit_like_replace(atom: SourceRequirementAtom, text: str) -> _UnitLike:
+    """The atom as a unit whose text is the contract-owned (filtered) text."""
+
+    return _UnitLike(atom, text)
 
 
 # --------------------------------------------------------------------------- #
@@ -1616,7 +1766,124 @@ def atomize_units(units: Sequence[SourceRequirementUnit]) -> list[SourceRequirem
         atoms.extend(atomize_unit(unit, index=index))
     _apply_clause_context(atoms)
     atoms.extend(_retention_clause_atoms(atoms))
+    atoms.extend(_facet_clause_atoms(atoms))
     return atoms
+
+
+def _split_cost_and_acceptance(text: str) -> tuple[str, str]:
+    """Split a combined unit-price clause into (cost scope, acceptance) parts."""
+
+    match = _ACCEPTANCE_COMPLETION_TEXT.search(text)
+    if not match:
+        return "", ""
+    head = text[: match.start()]
+    cut = max(head.rfind("，"), head.rfind(","))
+    if cut <= 0:
+        return "", text.strip()
+    return head[:cut].strip(" ，,、"), text[cut + 1 :].strip()
+
+
+def _derived(
+    atom: SourceRequirementAtom,
+    suffix: str,
+    text: str,
+    concern_id: str,
+    reason: str,
+) -> SourceRequirementAtom:
+    return replace(
+        atom,
+        atom_id=f"{atom.atom_id}{suffix}",
+        source_text=text,
+        # the derived atom keeps the clause it was cut from, so the rendered
+        # evidence stays literally grounded in the source unit
+        source_origin_text=atom.source_text,
+        owner_concern_id=concern_id,
+        owner_reason=reason,
+        required_materials=[],
+        explicit_consequence="",
+        explicit_score_rule="",
+    )
+
+
+def _facet_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[SourceRequirementAtom]:
+    """Derive the *other* facet of a clause that states two requirements at once.
+
+    Round-5 fixtures H and I: one source clause can state the cost scope of a unit
+    price *and* the acceptance milestone, or list technical standards *and* demand
+    a third-party test report.  Each facet becomes its own atom so each concern
+    renders its own complete sentence instead of sharing a mixed one (or losing
+    the facet entirely).
+    """
+
+    derived: list[SourceRequirementAtom] = []
+    have_standard = any(atom.owner_concern_id == "TECHNICAL_STANDARD_COMPLIANCE" for atom in atoms)
+    have_report = any(atom.owner_concern_id == "TECHNICAL_TEST_REPORT" for atom in atoms)
+    for atom in atoms:
+        text = str(atom.source_text)
+        # ---- cost scope + acceptance completion ---------------------------- #
+        if _COST_SCOPE_TEXT.search(text) and _ACCEPTANCE_COMPLETION_TEXT.search(text):
+            cost, acceptance = _split_cost_and_acceptance(text)
+            if cost and _COST_SCOPE_TEXT.search(cost) and cost != text:
+                derived.append(
+                    _derived(
+                        atom,
+                        ".c",
+                        cost,
+                        "PRICE_INCLUDED_COST_SCOPE",
+                        "round5: cost-scope facet of a combined unit-price clause",
+                    )
+                )
+            if acceptance and _ACCEPTANCE_COMPLETION_TEXT.search(acceptance) and acceptance != text:
+                derived.append(
+                    _derived(
+                        atom,
+                        ".a",
+                        acceptance,
+                        "DELIVERY_ACCEPTANCE_COMPLETION",
+                        "round5: acceptance-completion facet of a combined unit-price clause",
+                    )
+                )
+        # ---- technical standards ------------------------------------------- #
+        codes = _STANDARD_LIST.findall(text)
+        if (
+            len(codes) >= 1
+            and not have_standard
+            and atom.owner_concern_id
+            not in {"TECHNICAL_STANDARD_COMPLIANCE", "QUALIFICATION_FINANCIAL", "QUALIFICATION_LICENSE"}
+        ):
+            segments = [
+                segment
+                for segment in split_source_text(text)
+                if _STANDARD_LIST.search(segment)
+            ]
+            if segments:
+                joined = "；".join(segments)
+                if joined.strip() and joined.strip() != text.strip():
+                    derived.append(
+                        _derived(
+                            atom,
+                            ".s",
+                            joined,
+                            "TECHNICAL_STANDARD_COMPLIANCE",
+                            "round5: standards facet of a mixed technical clause",
+                        )
+                    )
+        # ---- third-party report -------------------------------------------- #
+        if _THIRD_PARTY_REPORT.search(text) and not have_report and atom.owner_concern_id != "TECHNICAL_TEST_REPORT":
+            segments = [segment for segment in split_source_text(text) if _THIRD_PARTY_REPORT.search(segment)]
+            if segments:
+                joined = "；".join(segments)
+                if joined.strip() and joined.strip() != text.strip():
+                    derived.append(
+                        _derived(
+                            atom,
+                            ".t",
+                            joined,
+                            "TECHNICAL_TEST_REPORT",
+                            "round5: third-party report facet of a mixed technical clause",
+                        )
+                    )
+    return derived
 
 
 def _retention_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[SourceRequirementAtom]:
@@ -1726,6 +1993,52 @@ class ReviewConcern:
     def is_bidder_facing(self) -> bool:
         return concern_spec(self.concern_id).bidder_facing
 
+    @property
+    def contract(self) -> Any:
+        """The concern's independent semantic contract (round 5)."""
+
+        return contract_for(self.concern_id)
+
+    def owned_text(self) -> str:
+        """The source text the contract lets this concern display.
+
+        Round 5: ownership is decided per segment.  A source atom that carries a
+        delivery address and a quality obligation at once yields each concern
+        only its own segments, so a rendered row can no longer inherit a
+        neighbouring facet that happens to sit in the same extracted atom.
+        """
+
+        segments: list[str] = []
+        for atom in self.atoms:
+            for segment in owned_segments(self.concern_id, str(atom.source_text)):
+                if segment not in segments:
+                    segments.append(segment)
+        return "；".join(segments)
+
+    def owned_atoms(self) -> list[SourceRequirementAtom]:
+        """Atoms that carry at least one contract-owned segment."""
+
+        return [atom for atom in self.atoms if owned_segments(self.concern_id, str(atom.source_text))]
+
+    def needs_review(self) -> str:
+        """Reason why this concern may not be delivered as an ordinary row.
+
+        Round 5 fixture T: an extracted source fragment ("意见》的通知中规定的收
+        费标准的 70%向成交供应商") is not a reviewable requirement.  Such a
+        concern keeps its evidence but moves to NEEDS_REVIEW instead of rendering
+        a fragment the bidder cannot act on.
+        """
+
+        text = self.owned_text().strip()
+        if not text:
+            raw = " ".join(str(atom.source_text) for atom in self.atoms)
+            if is_incomplete_fragment(raw):
+                return "the owned source text is an extraction fragment, not a complete requirement"
+            return "the contract owns no displayable source text"
+        if is_incomplete_fragment(text):
+            return "the owned source text is an extraction fragment, not a complete requirement"
+        return ""
+
     def facet_atoms(self) -> list[SourceRequirementAtom]:
         """Atoms that actually carry this concern's own facet.
 
@@ -1740,19 +2053,22 @@ class ReviewConcern:
         """
 
         pattern = concern_spec(self.concern_id).decisive_pattern
+        contract = self.contract
+        owned = self.owned_atoms()
+        pool = owned or list(self.atoms)
         if not pattern:
-            return list(self.atoms)
+            return pool
         try:
             compiled = re.compile(pattern)
         except re.error:  # pragma: no cover - registry typo guard
-            return list(self.atoms)
+            return pool
         scoring_concern = self.concern_id.startswith("SCORING_") or self.concern_id == "EVALUATION_SCORING"
         matching: list[SourceRequirementAtom] = []
-        for atom in self.atoms:
+        for atom in pool:
             # The extracted text often carries a space inside a term
             # ("具备有效的营业 执照"), so the facet is matched on a
             # whitespace-free form of the text.
-            text = _nospace(atom.source_text)
+            text = _nospace(owned_text(self.concern_id, str(atom.source_text)) or atom.source_text)
             if not compiled.search(text):
                 continue
             if not scoring_concern and _SCORING_FRAGMENT.search(text):
@@ -1760,17 +2076,22 @@ class ReviewConcern:
                 # never the facet atom of an operational concern
                 continue
             matching.append(atom)
-        return matching or list(self.atoms)
+        _ = contract
+        return matching or pool
 
     def owned_numbers(self) -> list[NumericEvidence]:
         roles = concern_spec(self.concern_id).numeric_roles
+        contract = self.contract
         owned: list[NumericEvidence] = []
         seen: set[tuple[str, str]] = set()
         for atom in self.facet_atoms():
-            for value in extract_numeric_evidence([_unit_like(atom)]):
+            text = owned_text(self.concern_id, str(atom.source_text)) or str(atom.source_text)
+            for value in extract_numeric_evidence([_unit_like_replace(atom, text)]):
                 # ownership is decided by the semantic role, not by the round-2
                 # usability gate (which is keyed on the old requirement_type)
                 if value.role not in roles:
+                    continue
+                if not contract.role_ok(value.role):
                     continue
                 key = (value.value, value.role)
                 if key in seen:
@@ -1780,33 +2101,59 @@ class ReviewConcern:
         return owned
 
     def owned_materials(self) -> list[str]:
+        contract = self.contract
+        text = self.owned_text()
         materials: list[str] = []
         for atom in self.facet_atoms():
             for name in atom.required_materials:
                 if name in materials:
+                    continue
+                if name not in text:
+                    # a material named by a segment the contract rejected is not
+                    # this row's preparation material
                     continue
                 if _material_foreign(str(name), self.concern_id):
                     # A material named by another concern's facet (a bond receipt
                     # listed inside an authorisation clause) is not this row's
                     # preparation material.
                     continue
+                if not contract.material_ok(str(name)):
+                    continue
                 materials.append(name)
         return materials
 
     def owned_consequence(self) -> tuple[str, str]:
+        contract = self.contract
+        text = self.owned_text()
         for atom in self.facet_atoms():
             marker = atom.explicit_consequence
             if not marker:
                 continue
+            if marker not in text:
+                continue
             if marker in _SCORE_ONLY_CONSEQUENCES and self.concern_id not in _SCORING_CONCERNS:
                 continue  # a score loss is not this concern's failure consequence
+            if not contract.consequence_ok(marker):
+                continue  # e.g. a termination-refund clause must not claim 否决
             return marker, atom.atom_id
         return "", ""
 
     def owned_score_rule(self) -> tuple[str, str]:
+        if not is_scoring_concern(self.concern_id):
+            # only a scoring concern may quote a points rule (round-5 fixture N)
+            return "", ""
+        contract = self.contract
         for atom in self.facet_atoms():
-            if atom.explicit_score_rule:
-                return atom.source_text, atom.atom_id
+            if not atom.explicit_score_rule:
+                continue
+            text = owned_text(self.concern_id, str(atom.source_text))
+            if not text:
+                continue
+            if contract.forbidden_signatures and not any(
+                re.search(pattern, _nospace(text)) for pattern in contract.required_signatures or ()
+            ):
+                continue
+            return text, atom.atom_id
         return "", ""
 
     def as_dict(self) -> dict[str, Any]:

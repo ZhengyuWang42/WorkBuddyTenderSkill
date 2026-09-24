@@ -35,7 +35,43 @@ from dataclasses import dataclass
 from typing import Iterable, Mapping, Sequence
 
 from .dynamic_requirements import VALUE_TYPES, SourceRequirementUnit
-from .models import ContractModel
+from .models import ContractModel  # noqa: F401
+from .concern_contract import is_incomplete_fragment, owned_segments  # noqa: F401
+from .semantic_roles import (  # noqa: F401
+    NEVER_USABLE_ROLES,
+    NON_REVIEW_ROLES,
+    ROLES_BY_TYPE,
+    ROLE_AGENCY_SERVICE_FEE,
+    ROLE_BANK_ACCEPTANCE_RATIO,
+    ROLE_BID_VALIDITY_DAYS,
+    ROLE_BOND,
+    ROLE_BOND_AMOUNT,
+    ROLE_BOND_FORM,
+    ROLE_CONTACT,
+    ROLE_CONTACT_INFO,
+    ROLE_DELIVERY_DAYS,
+    ROLE_DURATION_DAYS,
+    ROLE_FAMILY,
+    ROLE_OTHER,
+    ROLE_PAYMENT_RATIO,
+    ROLE_PERFORMANCE_BOND,
+    ROLE_PERSON_COUNT,
+    ROLE_PRICE,
+    ROLE_PRICE_CEILING,
+    ROLE_PROJECT_WARRANTY_MONTHS,
+    ROLE_QUANTITY,
+    ROLE_RESPONSE_BOND,
+    ROLE_RESPONSE_DAYS,
+    ROLE_RETENTION_MONEY_RATIO,
+    ROLE_RETENTION_RELEASE_MONTHS,
+    ROLE_RETENTION_RELEASE_PERIOD,
+    ROLE_SCORE,
+    ROLE_SCORE_POINTS,
+    ROLE_TENDER_DOCUMENT_PRICE,
+    ROLE_TENDER_FEE,
+    ROLE_VALIDITY_DAYS,
+    ROLE_WARRANTY_MONTHS,
+)
 from .review_rendering import foreign_terms
 
 # ---------------------------------------------------------------------------
@@ -48,59 +84,38 @@ INTERNAL_PROCEDURE = "INTERNAL_PROCEDURE"
 READY = "READY"
 NEEDS_REVIEW = "NEEDS_REVIEW"
 
-#: numeric semantic roles
-ROLE_BOND_AMOUNT = "BOND_AMOUNT"
-ROLE_VALIDITY_DAYS = "VALIDITY_DAYS"
-ROLE_DURATION_DAYS = "DURATION_DAYS"
-ROLE_WARRANTY_MONTHS = "WARRANTY_MONTHS"
-ROLE_PRICE = "PRICE"
-ROLE_SCORE = "SCORE"
-ROLE_PAYMENT_RATIO = "PAYMENT_RATIO"
-ROLE_PERSON_COUNT = "PERSON_COUNT"
-ROLE_QUANTITY = "QUANTITY"
-ROLE_RESPONSE_DAYS = "RESPONSE_DAYS"
-ROLE_CONTACT = "CONTACT_INFO"
-ROLE_TENDER_FEE = "TENDER_FEE"
-ROLE_OTHER = "OTHER"
-#: Round 4: a retention clause has two independent numbers -- the money kept
-#: back and the moment it is released.  Neither is a project warranty period and
-#: neither is a payment/scoring ratio, so each gets its own role and wording.
-ROLE_RETENTION_MONEY_RATIO = "RETENTION_MONEY_RATIO"
-ROLE_RETENTION_RELEASE_PERIOD = "RETENTION_RELEASE_PERIOD"
+#: numeric semantic roles (round-5 taxonomy: see tender_basic.semantic_roles)
+ROLE_RESPONSE_BOND = ROLE_RESPONSE_BOND
+ROLE_PERFORMANCE_BOND = ROLE_PERFORMANCE_BOND
+ROLE_BOND_AMOUNT = ROLE_BOND_AMOUNT
+ROLE_BOND_FORM = ROLE_BOND_FORM
+ROLE_PRICE_CEILING = ROLE_PRICE_CEILING
+ROLE_PRICE = ROLE_PRICE
+ROLE_PAYMENT_RATIO = ROLE_PAYMENT_RATIO
+ROLE_BANK_ACCEPTANCE_RATIO = ROLE_BANK_ACCEPTANCE_RATIO
+ROLE_PROJECT_WARRANTY_MONTHS = ROLE_PROJECT_WARRANTY_MONTHS
+ROLE_RETENTION_MONEY_RATIO = ROLE_RETENTION_MONEY_RATIO
+ROLE_RETENTION_RELEASE_MONTHS = ROLE_RETENTION_RELEASE_MONTHS
+ROLE_DELIVERY_DAYS = ROLE_DELIVERY_DAYS
+ROLE_BID_VALIDITY_DAYS = ROLE_BID_VALIDITY_DAYS
+ROLE_RESPONSE_DAYS = ROLE_RESPONSE_DAYS
+ROLE_SCORE_POINTS = ROLE_SCORE_POINTS
+ROLE_QUANTITY = ROLE_QUANTITY
+ROLE_PERSON_COUNT = ROLE_PERSON_COUNT
+ROLE_CONTACT_INFO = ROLE_CONTACT_INFO
+ROLE_TENDER_DOCUMENT_PRICE = ROLE_TENDER_DOCUMENT_PRICE
+ROLE_AGENCY_SERVICE_FEE = ROLE_AGENCY_SERVICE_FEE
+ROLE_OTHER = ROLE_OTHER
 
-#: which roles may appear inside a row of a given requirement type
-ROLES_BY_TYPE: dict[str, frozenset[str]] = {
-    "PRICING": frozenset({ROLE_PRICE, ROLE_PAYMENT_RATIO}),
-    "BOND": frozenset({ROLE_BOND_AMOUNT}),
-    "VALIDITY": frozenset({ROLE_VALIDITY_DAYS}),
-    "DURATION": frozenset({ROLE_DURATION_DAYS}),
-    "WARRANTY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RETENTION_RELEASE_PERIOD, ROLE_RETENTION_MONEY_RATIO}),
-    "QUALITY": frozenset({ROLE_WARRANTY_MONTHS, ROLE_RETENTION_RELEASE_PERIOD, ROLE_RETENTION_MONEY_RATIO}),
-    "EVALUATION": frozenset(
-        {
-            ROLE_SCORE,
-            ROLE_PAYMENT_RATIO,
-            ROLE_PRICE,
-            ROLE_RETENTION_MONEY_RATIO,
-            ROLE_RETENTION_RELEASE_PERIOD,
-        }
-    ),
-    "CONTRACT": frozenset(
-        {
-            ROLE_PAYMENT_RATIO,
-            ROLE_PRICE,
-            ROLE_WARRANTY_MONTHS,
-            ROLE_RETENTION_MONEY_RATIO,
-            ROLE_RETENTION_RELEASE_PERIOD,
-        }
-    ),
-    "TECHNICAL": frozenset({ROLE_QUANTITY, ROLE_RESPONSE_DAYS}),
-    "PERSONNEL": frozenset({ROLE_PERSON_COUNT}),
-    "FINANCIAL": frozenset({ROLE_PRICE}),
-}
-
-#: roles that are never a bidder review value, whatever the row type
-NEVER_USABLE_ROLES = frozenset({ROLE_CONTACT, ROLE_TENDER_FEE, ROLE_OTHER})
+#: legacy constant names (round 2-4 callers)
+ROLE_BOND = ROLE_BOND_AMOUNT
+ROLE_VALIDITY_DAYS = ROLE_BID_VALIDITY_DAYS
+ROLE_DURATION_DAYS = ROLE_DELIVERY_DAYS
+ROLE_WARRANTY_MONTHS = ROLE_PROJECT_WARRANTY_MONTHS
+ROLE_SCORE = ROLE_SCORE_POINTS
+ROLE_RETENTION_RELEASE_PERIOD = ROLE_RETENTION_RELEASE_MONTHS
+ROLE_CONTACT = ROLE_CONTACT_INFO
+ROLE_TENDER_FEE = ROLE_TENDER_DOCUMENT_PRICE
 
 _MONEY_RE = re.compile(r"\d[\d,]*(?:\.\d+)?\s*(?:万元|元)")
 _RATIO_RE = re.compile(r"\d+(?:\.\d+)?\s*%")
@@ -122,7 +137,21 @@ _RETENTION_CTX = ("质保金", "质量保证金", "保留金", "尾款", "余款
 #: retention *release* context (the moment the kept-back money is paid out)
 _RETENTION_RELEASE_CTX = ("期满后", "无息付清", "付清", "返还", "退还", "释放", "结算")
 _PRICE_CTX = ("报价", "限价", "预算", "最高限价", "控制价", "总价", "单价", "合价", "金额", "费用", "暂列金额", "暂估价")
+_PRICE_CEILING_CTX = ("最高限价", "控制价", "采购预算", "预算金额", "限价")
 _SCORE_CTX = ("得分", "评分", "分值", "加分", "扣分", "满分", "基础分")
+#: A points *statement* near a number ("的得 12 分", "最高 4 分"), which is what
+#: makes a bare "12 分" a score value rather than an item number.
+_SCORE_NEAR = re.compile(
+    r"(得|得分|评分|分值|满分|加分|扣分|最高|计)\s*$"
+    r"|(得|最高|满分|计)\s*\d+(?:\.\d+)?\s*分?"
+    r"|（\s*\d+(?:\.\d+)?\s*分\s*）"
+    r"|\(\s*\d+(?:\.\d+)?\s*分\s*\)"
+)
+#: a ratio the bidder accepts to be settled by bank acceptance (100%/50%)
+_BANK_ACCEPTANCE_CTX = ("银行承兑", "承兑汇票", "承兑")
+#: the agency service fee (代理服务费) -- a purchaser-side charge, never a
+#: procurement payment ratio
+_AGENCY_FEE_CTX = ("代理服务费", "招标代理服务费", "采购代理服务费", "中标服务费", "成交服务费")
 _PAYMENT_CTX = (
     "付款", "支付", "预付", "进度款", "质保金", "结算", "款项",
     "价款", "涨幅", "风险范围", "价格调整", "调价",
@@ -393,42 +422,76 @@ def _window(text: str, start: int, end: int, radius: int) -> str:
     return text[max(0, start - radius) : min(len(text), end + radius)]
 
 
+def _retention_ratio_at(text: str, value: str, start: int, end: int) -> bool:
+    """True when a percentage is *the* retention ratio of its own clause.
+
+    "5%质保金" and "剩余5%作为质保金" are retention; "款95%（5%质保金…）" is a
+    payment ratio whose clause merely mentions retention.  The test therefore
+    looks at the words adjacent to the number (stopping at the neighbouring
+    number), never at the whole clause.
+    """
+
+    before = text[max(0, start - 8) : start]
+    after = re.split(r"[\d（(]", text[end : end + 10])[0]
+    return bool(_RETENTION_NEAR.search(before + "\x00" + after))
+
+
+#: retention wording that makes an adjacent ratio the retention money
+_RETENTION_NEAR = re.compile(r"(质保金|质量保证金|保留金|尾款|余款|剩余)")
+
+
 def _role_for(text: str, value: str, start: int, end: int) -> str:
     near = _window(text, start, end, 12)
     wide = _window(text, start, end, 30)
     has_money = "元" in value or "万元" in value
     if any(term in near for term in _CONTACT_CTX):
-        return ROLE_CONTACT
+        return ROLE_CONTACT_INFO
     if not has_money and re.fullmatch(r"\d{7,}", value) and not any(
         term in near for term in _CONTACT_CTX
     ):
         # a long bare digit run is a contact/reference, never a requirement value
-        return ROLE_CONTACT
+        return ROLE_CONTACT_INFO
     if any(term in near for term in _FEE_CTX):
-        return ROLE_TENDER_FEE
+        return ROLE_TENDER_DOCUMENT_PRICE
     if has_money:
+        if any(term in wide for term in _AGENCY_FEE_CTX):
+            return ROLE_AGENCY_SERVICE_FEE
         if any(term in wide for term in _BOND_CTX):
+            # round 5: a known bond keeps its business role
+            if "履约保证金" in wide or "履约担保" in wide:
+                return ROLE_PERFORMANCE_BOND
+            if "响应保证金" in wide or "投标保证金" in wide:
+                return ROLE_RESPONSE_BOND
             return ROLE_BOND_AMOUNT
+        if any(term in wide for term in _PRICE_CEILING_CTX):
+            return ROLE_PRICE_CEILING
         if any(term in wide for term in _PRICE_CTX):
             return ROLE_PRICE
         if any(term in wide for term in _FEE_CTX):
-            return ROLE_TENDER_FEE
+            return ROLE_TENDER_DOCUMENT_PRICE
         return ROLE_OTHER
     if "%" in value:
-        if any(term in wide for term in _RETENTION_CTX):
+        if any(term in wide for term in _AGENCY_FEE_CTX):
+            return ROLE_AGENCY_SERVICE_FEE
+        if any(term in wide for term in _BANK_ACCEPTANCE_CTX):
+            # "100%接受银行承兑的得4分": the ratio is the acceptance ratio
+            return ROLE_BANK_ACCEPTANCE_RATIO
+        if _retention_ratio_at(text, value, start, end):
             return ROLE_RETENTION_MONEY_RATIO
         if any(term in wide for term in _PAYMENT_CTX):
+            # round-5: "款 95%（5%质保金…）" -- the 95% is the payment ratio, the
+            # adjacent 5% is the retention ratio.  They never share a role.
             return ROLE_PAYMENT_RATIO
-        if any(term in wide for term in _SCORE_CTX):
-            return ROLE_SCORE
+        if _SCORE_NEAR.search(wide):
+            return ROLE_SCORE_POINTS
         return ROLE_OTHER
-    if "分" in value and any(term in wide for term in _SCORE_CTX):
-        return ROLE_SCORE
+    if "分" in value and _SCORE_NEAR.search(wide):
+        return ROLE_SCORE_POINTS
     if re.search(r"(工作日|日历天|自然日|日|天|个月|月|年|小时|分钟)", value):
         if any(term in wide for term in _RETENTION_CTX) and any(term in wide for term in _RETENTION_RELEASE_CTX):
             # "作为质保金，质保期 12 个月，质保期满后无息付清余款": the period is a
             # payment-release condition, not a project warranty commitment.
-            return ROLE_RETENTION_RELEASE_PERIOD
+            return ROLE_RETENTION_RELEASE_MONTHS
         if any(term in wide for term in _WARRANTY_CTX):
             if re.search(r"小时|分钟|日|天", value) and not re.search(r"个月|月|年", value):
                 # A day-based warranty clause is a *response* time only when the
@@ -437,11 +500,11 @@ def _role_for(text: str, value: str, start: int, end: int) -> str:
                 if any(term in near for term in _RESPONSE_CTX):
                     return ROLE_RESPONSE_DAYS
                 return ROLE_OTHER
-            return ROLE_WARRANTY_MONTHS
+            return ROLE_PROJECT_WARRANTY_MONTHS
         if any(term in wide for term in _VALIDITY_CTX):
-            return ROLE_VALIDITY_DAYS
+            return ROLE_BID_VALIDITY_DAYS
         if any(term in wide for term in _DURATION_CTX):
-            return ROLE_DURATION_DAYS
+            return ROLE_DELIVERY_DAYS
         return ROLE_OTHER
     if re.search(r"(名|位)", value) or re.fullmatch(r"\d+\s*人", value):
         return ROLE_PERSON_COUNT
@@ -691,32 +754,54 @@ def _anchor(units: Sequence[SourceRequirementUnit]) -> str:
 
 
 def _value_sentence(role: str, value: str, backing: str = "") -> str:
+    if role == ROLE_RESPONSE_BOND:
+        # round-5 fixture F: a response/bid bond never borrows the performance
+        # bond or the generic 保证金 wording
+        term = _source_term(backing, ("响应保证金", "投标保证金"), "响应保证金")
+        return f"{term}金额为 {value}"
+    if role == ROLE_PERFORMANCE_BOND:
+        term = _source_term(backing, ("履约保证金", "履约担保"), "履约保证金")
+        return f"{term}金额为 {value}"
     if role == ROLE_BOND_AMOUNT:
         term = _source_term(backing, ("响应保证金", "投标保证金", "保证金"), "保证金")
         return f"{term}金额为 {value}"
+    if role == ROLE_BOND_FORM:
+        return f"保证金形式为 {value}"
     if role == ROLE_VALIDITY_DAYS:
-        term = _source_term(backing, ("投标有效期", "响应有效期", "报价有效期", "有效期"), "有效期")
+        term = _source_term(backing, ("投标有效期", "响应有效期", "报价有效期", "询比有效期", "有效期"), "有效期")
         return f"{term}不少于 {value}"
-    if role == ROLE_DURATION_DAYS:
+    if role == ROLE_DELIVERY_DAYS:
         term = _source_term(backing, ("供货期", "交货期", "交付期", "服务期", "工期", "履约期限"), "供货期")
         return f"{term}满足 {value}"
-    if role == ROLE_WARRANTY_MONTHS:
+    if role == ROLE_PROJECT_WARRANTY_MONTHS:
         term = _source_term(backing, ("质保期", "保修期", "质量保证期", "免费保修期"), "质保期")
         return f"{term}不低于 {value}"
     if role == ROLE_RESPONSE_DAYS:
         term = _source_term(backing, ("响应时间", "到场时间", "维修时间", "服务时间"), "响应时间")
         return f"{term}不超过 {value}"
-    if role == ROLE_PRICE:
-        term = _source_term(backing, ("最高限价", "采购预算", "预算金额", "控制价", "限价", "金额"), "金额")
+    if role == ROLE_PRICE_CEILING:
+        term = _source_term(backing, ("最高限价", "控制价", "采购预算", "预算金额", "限价"), "最高限价")
         return f"{term}为 {value}"
-    if role == ROLE_SCORE:
-        return f"该评分因素最高 {value}"
+    if role == ROLE_PRICE:
+        term = _source_term(backing, ("报价", "单价", "合价", "总价", "金额", "费用"), "金额")
+        return f"{term}为 {value}"
+    if role == ROLE_AGENCY_SERVICE_FEE:
+        term = _source_term(backing, ("代理服务费", "招标代理服务费", "采购代理服务费", "成交服务费"), "代理服务费")
+        return f"{term}为 {value}"
+    if role == ROLE_SCORE_POINTS:
+        # Round 5: the score wording names no domain concept of its own ("评分"
+        # is a domain term the source clause need not carry), so the row cannot
+        # leak a foreign concept through its own instruction.
+        return f"本项最高 {value}"
+    if role == ROLE_BANK_ACCEPTANCE_RATIO:
+        # round-5 fixtures L/R: never "质保金比例为 100%"
+        return f"接受银行承兑汇票比例为 {value}"
     if role == ROLE_PAYMENT_RATIO:
         term = _source_term(backing, ("付款比例", "计分比例", "付款条件", "得分", "比例"), "比例")
         return f"{term}为 {value}"
     if role == ROLE_RETENTION_MONEY_RATIO:
         return f"{_source_term(backing, _RETENTION_TERMS, '质保金')}比例为 {value}"
-    if role == ROLE_RETENTION_RELEASE_PERIOD:
+    if role == ROLE_RETENTION_RELEASE_MONTHS:
         return f"{_source_term(backing, _RETENTION_TERMS, '质保金')}释放相关期限为 {value}（合同付款条件）"
     if role == ROLE_PERSON_COUNT:
         return f"人员配备数量为 {value}"
@@ -904,7 +989,7 @@ CONCERN_PASS_CRITERIA: dict[str, str] = {
     "PROJECT_BASIC_INFO": "项目名称、编号、标段等基本信息与招标文件一致。",
     "BID_VALIDITY": "投标有效期达到规定天数，且覆盖评审与定标全过程。",
     "AFTER_SALES_SERVICE": "售后服务响应时间与运维方案在响应文件中有明确承诺。",
-    "TECHNICAL_INSTALLATION": "安装、调试、检测与验收节点在响应文件中逐项落实。",
+    "INSTALLATION_ACCEPTANCE": "安装、调试与验收节点在响应文件中逐项落实（不含标准规范清单）。",
     "SIGNATURE_RED_LINE": "签字盖章齐全有效，不存在因签章缺陷被否决的情形。",
     "SIGNATURE_AND_SEAL": "所有指定位置的签字、盖章齐全且形式合规。",
     "SIGNATURE_EXECUTION": "逐处签章已按招标文件要求执行完毕，无遗漏。",
@@ -918,7 +1003,13 @@ CONCERN_PASS_CRITERIA: dict[str, str] = {
     "BID_BOND_EVIDENCE": "保证金凭证放入响应文件，可核验。",
     "PRICE_CEILING": "投标报价不超过最高限价。",
     "PRICE_ARITHMETIC": "大小写金额一致，单价×数量等于合计，分项合计与总价一致。",
-    "PRICE_COMPLETENESS": "报价无漏项、重复项，已包含要求的一切费用。",
+    "PRICING_COMPLETENESS": "报价组成与费用范围按源文件逐项核对，费用范围与承担方以源文件为准。",
+    "PRICE_INCLUDED_COST_SCOPE": "单价/报价所包含的费用范围与源文件一致，费用承担方明确。",
+    "TECHNICAL_STANDARD_COMPLIANCE": "设计、制造与验收所依据的标准规范与源文件一致。",
+    "TECHNICAL_TEST_REPORT": "需第三方检测/校检的设备已明确报告或证书要求。",
+    "PROJECT_FUNDING_SOURCE": "项目资金来源与资金落实情况已在响应文件中知悉。",
+    "SCORING_BANK_ACCEPTANCE": "银行承兑比例的评分条件与分值在响应文件中有对应内容。",
+    "CONTRACT_TERMINATION_REFUND": "合同解除/退换时的退款与违约责任条款已被知悉。",
     "PRICE_TAX_BASIS": "税率与含税口径在响应文件中一致。",
     "PRICE_ITEMIZATION": "分项报价与源表金额逐项一致，暂列金额按源表列示。",
     "DELIVERY_PERIOD": "工期/供货期达到规定期限，且覆盖全部交付节点。",
@@ -953,7 +1044,7 @@ CONCERN_PASS_CRITERIA: dict[str, str] = {
     "CONTRACT_PAYMENT": "付款方式、结算依据与付款条件在响应文件中被接受。",
     "CONTRACT_RISK": "不存在采购人不能接受的附加条件或未响应风险条款。",
     "CONTRACT_DELIVERY": "合同交付义务与招标要求一致。",
-    "CONTRACT_ACCEPTANCE": "验收标准与程序可执行且已被接受。",
+    "DELIVERY_ACCEPTANCE_COMPLETION": "交付/验收完成的判定条件（验收单、签字盖章）可执行且已被接受。",
     "SOURCE_REQUIREMENT_CONFLICT": "冲突双方的理解与适用条件已由人工裁决。",
     "QUERY_DEADLINE": "按招标文件规定的提问/澄清时间与方式执行，并留存记录。",
     "AGENCY_SERVICE_FEE": "代理服务费的金额与缴纳时点已明确并可履约。",
@@ -977,7 +1068,8 @@ CONCERN_CHECKS: dict[str, tuple[str, ...]] = {
     "BID_BOND_EVIDENCE": ("核对保证金凭证", "确认凭证已放入响应文件对应位置"),
     "PRICE_CEILING": ("核对投标总报价", "确认不超过最高限价"),
     "PRICE_ARITHMETIC": ("核对大小写金额", "核对单价×数量与分项合计、总价"),
-    "PRICE_COMPLETENESS": ("核对报价组成", "确认无漏项、重复项与未包含费用"),
+    "PRICING_COMPLETENESS": ("核对报价组成与费用范围", "确认费用范围与承担方与源文件一致"),
+    "PRICE_INCLUDED_COST_SCOPE": ("核对单价/报价包含的费用项", "确认费用范围与承担方与源文件一致"),
     "PRICE_ITEMIZATION": ("核对分项报价表逐行金额", "确认与源表限价/暂列金额一致"),
     "SUBMISSION_DEADLINE": ("核对递交截止时间", "确认完成递交的时间与凭证"),
     "SUBMISSION_PLATFORM": ("核对递交方式与地点/平台", "确认按指定方式递交"),
@@ -1008,20 +1100,26 @@ CONCERN_CHECKS: dict[str, tuple[str, ...]] = {
     "CONTRACT_PAYMENT": ("核对合同付款条款响应", "核对付款方式、结算依据与付款条件"),
     "CONTRACT_RISK": ("核对违约、索赔与争议条款响应", "确认无采购人不能接受的附加条件"),
     "CONTRACT_DELIVERY": ("核对合同交付义务响应", "确认交付时间地点与招标要求一致"),
-    "CONTRACT_ACCEPTANCE": ("核对验收标准与程序响应", "确认验收条件可执行"),
+    "DELIVERY_ACCEPTANCE_COMPLETION": ("核对交付/验收完成的判定条件", "确认验收单签署与交付完成的约定可执行"),
+    "TECHNICAL_STANDARD_COMPLIANCE": ("核对设计、制造与验收依据的标准规范", "确认标准编号与源文件一致且未被漏引"),
+    "TECHNICAL_TEST_REPORT": ("核对需第三方检测/校检的设备清单", "确认报告或证书要求已列入响应文件"),
+    "PROJECT_FUNDING_SOURCE": ("核对项目资金来源条款", "确认已知悉资金来源与落实情况，无需响应财务承诺"),
+    "SCORING_BANK_ACCEPTANCE": ("核对银行承兑比例的评分条件与分值", "确认响应文件接受该比例并附证明"),
+    "CONTRACT_TERMINATION_REFUND": ("核对合同解除/退换的退款与违约责任", "确认响应文件知悉该条款"),
     "CONSORTIUM": ("核对投标主体形式", "确认与联合体规定一致"),
     "SUBCONTRACT": ("核对分包安排", "确认无违规分包、转包"),
     "QUALIFICATION_RELATIONSHIP_RESTRICTION": ("核对不存在关联关系禁止情形", "确认声明或证明材料齐全"),
     "QUALIFICATION_ANTI_BRIBERY": ("核对无行贿犯罪记录承诺", "确认承诺主体与盖章符合要求"),
     "BID_VALIDITY": ("核对投标函中的投标有效期", "确认覆盖评审与定标全过程"),
     "AFTER_SALES_SERVICE": ("核对售后服务响应时间与运维方案", "确认承诺可执行"),
-    "TECHNICAL_INSTALLATION": ("核对安装、调试与验收标准", "确认验收节点与招标文件一致"),
+    "INSTALLATION_ACCEPTANCE": ("核对安装、调试与验收标准", "确认验收节点与招标文件一致"),
     "EVALUATION_FORMAL_REVIEW": ("核对形式审查要点", "确认全部满足"),
     "EVALUATION_QUALIFICATION_REVIEW": ("核对资格审查要点", "确认全部满足"),
     "EVALUATION_RESPONSIVENESS": ("核对实质性响应要求", "确认无重大偏差"),
     "REJECTION_GENERAL": ("核对该否决情形对应的响应内容", "确认不触发该情形"),
     "GENERAL_BIDDER_OBLIGATION": ("核对该条款对应的响应内容", "确认响应完整、可核验"),
-    "PROJECT_BASIC_INFO": ("核对项目基本信息", "确认与招标文件一致"),
+    "PROJECT_BASIC_INFO": ("核对项目名称、编号与标段", "确认与招标文件一致"),
+    "PROJECT_FUNDING_SOURCE": ("核对项目资金来源条款", "确认已知悉资金来源与落实情况"),
     "SOURCE_REQUIREMENT_CONFLICT": ("核对冲突双方条款的适用条件", "提请人工裁决并记录依据"),
     "QUERY_DEADLINE": ("核对提问/澄清的时间与提交方式", "确认澄清或修改文件的接收与留档"),
     "AGENCY_SERVICE_FEE": ("核对代理服务费的金额与缴纳时点", "确认缴纳主体与凭证留存"),
@@ -1041,11 +1139,46 @@ def _concern_atom_text(concern: Any) -> str:
     return " ".join(str(atom.source_text) for atom in getattr(concern, "atoms", ()))
 
 
+def owned_text_of(concern: Any) -> str:
+    """The contract-owned text of a concern (empty when it owns nothing)."""
+
+    owned = getattr(concern, "owned_text", None)
+    if callable(owned):
+        return str(owned())
+    return ""
+
+
+#: concern_id -> ConcernContract (round-5 independent semantic contract)
+_CONTRACTS: dict[str, Any] = {}
+
+
+def _contract_for_concern(concern_id: str) -> Any:
+    """The independent contract of ``concern_id`` (None when unknown)."""
+
+    if concern_id in _CONTRACTS:
+        return _CONTRACTS[concern_id]
+    try:
+        from .concern_contract import contract_for
+    except Exception:  # pragma: no cover - import guard
+        _CONTRACTS[concern_id] = None
+        return None
+    contract = contract_for(concern_id)
+    _CONTRACTS[concern_id] = contract
+    return contract
+
+
 def _owned_backing(concern: Any, owned_numbers: Sequence[NumericEvidence]) -> str:
     """Text a rendered instruction may legitimately quote for this concern."""
 
-    atoms = list(getattr(concern, "atoms", ()))
-    parts = [str(atom.source_text) for atom in atoms]
+    # Round 5: only the text the contract owns may back a rendered instruction,
+    # so a template can never be "grounded" by a neighbouring clause.
+    owned = getattr(concern, "owned_text", None)
+    if callable(owned):
+        text = str(owned())
+        parts = [text] if text else []
+    else:
+        atoms = list(getattr(concern, "atoms", ()))
+        parts = [str(atom.source_text) for atom in atoms]
     parts.extend(value.value for value in owned_numbers)
     materials = getattr(concern, "owned_materials", None)
     if callable(materials):
@@ -1110,6 +1243,9 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
         if facet_atoms:
             atoms = facet_atoms
     owned_values = {value.value for value in concern.owned_numbers()}
+    flat_values = {_nospace(value) for value in owned_values if value}
+    contract = _contract_for_concern(str(getattr(concern, "concern_id", "") or ""))
+    concern_id = str(getattr(concern, "concern_id", "") or "")
     # A short anaphoric fragment ("针对此项…加盖公章") is not evidence of *this*
     # concern: prefer atoms that name their own subject when any exist.
     named = [
@@ -1119,15 +1255,31 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
     ]
     candidates = named or atoms
     ranked: list[tuple[int, int, Any]] = []
+    # Round 5: when the contract owns *some* of this concern's source text, an
+    # atom that carries none of it is another concern's facet (a funding clause
+    # in a price row) and is never rendered.
+    concern_owns_text = bool(contract is not None and str(owned_text_of(concern) or "").strip())
     for order, atom in enumerate(candidates):
         text = str(atom.source_text)
-        if _is_fee_clause(text) and not any(value and value in text for value in owned_values):
+        flat_text = _nospace(text)
+        if concern_owns_text and contract is not None and not owned_segments(concern_id, text, contract=contract):
+            continue
+        if _is_fee_clause(text) and not any(value and value in flat_text for value in flat_values):
             continue  # a tender-file fee is never a bidder review requirement
         score = 0
-        if any(value and value in text for value in owned_values):
-            score -= 3  # prefer the atom that actually carries the owned value
+        if any(value and value in flat_text for value in flat_values):
+            # the atom that actually carries the owned number is the requirement
+            # (the extracted text often spaces a value: "90 日历天")
+            score -= 6
         if _is_fee_clause(text):
             score += 3
+        if contract is not None:
+            # The printed locator shows the clause's section, so a clause whose
+            # *section title* belongs to another concern is a poor primary
+            # requirement (fixture A: no 交货地点 section in a quality row).
+            section = str(getattr(atom, "source_section", "") or "")
+            if section and not contract.section_ok(section):
+                score += 6
         if len(_topic_terms(str(atom.topic))) == 0:
             score += 1
         if re.search(r"(应当|须|必须|不得|禁止|不允许|不接受|要求)", text):
@@ -1184,12 +1336,28 @@ def _facet_sentences(text: str, concern: Any) -> list[str]:
     consequence, _atom = concern.owned_consequence() if hasattr(concern, "owned_consequence") else ("", "")
 
     kept: list[str] = []
+    # Round 5: the concern's independent contract owns the *segments* of a
+    # sentence.  A sentence that no part of the contract owns is at best another
+    # concern's facet and at worst a neighbouring clause, so it is never
+    # rendered here (fixtures A, B, C, D, E, H, I).
+    contract = _contract_for_concern(concern_id)
     for raw in re.split(r"(?<=[。；;])", text):
         sentence = raw.strip("；;，,。 ").lstrip("”’）〕】、、，")
         if not sentence:
             continue
+        contract_owned = False
+        if contract is not None:
+            # Round 5: keep only this concern's own *segments*.  A sentence that
+            # also states a neighbour's facet (a delivery address in a numbered
+            # list with the quality requirement, a unit-price cost scope with the
+            # acceptance milestone) contributes only its owned segments.
+            owned_parts = owned_segments(concern_id, sentence, contract=contract)
+            if not owned_parts:
+                continue
+            contract_owned = True
+            sentence = "；".join(owned_parts)
         flat = _nospace(sentence)
-        if _UNBALANCED_RE.search(sentence):
+        if not contract_owned and _unbalanced_brackets(sentence):
             continue  # an extraction fragment, not a self-contained requirement
         if _SCORE_SENTENCE_RE.search(sentence) and not scoring:
             continue
@@ -1208,9 +1376,32 @@ def _facet_sentences(text: str, concern: Any) -> list[str]:
             continue
         kept.append(sentence)
     if not kept:
+        if contract is not None and is_incomplete_fragment(text):
+            # Round 5: a fragment the contract rejected is never rendered.
+            return []
         cleaned = text.strip()
+        if contract is not None:
+            # The clause's own wording is kept for coverage, but never a phrase
+            # the contract explicitly forbids: a bond-form row may not render the
+            # bond amount or a submission-format list (CASE002 fixture).
+            parts = [
+                part.strip("；;，,。 ")
+                for part in re.split(r"(?<=[。；;])", cleaned)
+                if part.strip("；;，,。 ")
+            ]
+            allowed = [part for part in parts if not _forbidden_segment(contract, part)]
+            cleaned = "；".join(allowed).strip("；;，,。 ")
+            if cleaned and len(_nospace(cleaned)) < 4:
+                cleaned = ""
         return [cleaned] if cleaned else []
     return kept
+
+
+def _forbidden_segment(contract: Any, segment: str) -> bool:
+    """True when the concern contract forbids this segment outright."""
+
+    flat = _nospace(segment)
+    return any(re.search(pattern, flat) for pattern in getattr(contract, "forbidden_signatures", ()))
 
 
 def _nospace(text: object) -> str:
@@ -1221,6 +1412,19 @@ def _nospace(text: object) -> str:
 
 #: A sentence carrying an unmatched closing bracket is an extraction fragment.
 _UNBALANCED_RE = re.compile(r"^[^（]*）|）[^（]*$")
+
+
+def _unbalanced_brackets(text: str) -> bool:
+    """True when a sentence's brackets do not balance.
+
+    The round-4 regex treated any sentence *ending* with a closing bracket as a
+    fragment, which also dropped legitimate clauses such as "最高限价：3100000
+    元（不含税）" (round-5 fixtures C and D).  Balance is the real test.
+    """
+
+    opening = text.count("（") + text.count("(")
+    closing = text.count("）") + text.count(")")
+    return opening != closing
 
 #: concern_id -> compiled decisive facet (lazily built from the registry).
 _CONCERN_FACETS: dict[str, re.Pattern[str]] = {}

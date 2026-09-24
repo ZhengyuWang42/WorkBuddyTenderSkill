@@ -136,8 +136,13 @@ def test_numbers_carry_a_semantic_role() -> None:
         )
     ]
     roles = {evidence.value: evidence.role for evidence in extract_numeric_evidence(units)}
-    assert roles["20000元"] == "BOND_AMOUNT"
-    assert roles["90日历天"] == "VALIDITY_DAYS"
+    # Round 5 separates the response bond from the performance bond and the
+    # amount: a tender/response bond amount is RESPONSE_BOND (BOND_AMOUNT stays
+    # an accepted alias for the generic amount role).
+    assert roles["20000元"] in {"RESPONSE_BOND", "BOND_AMOUNT"}
+    # Round 5 renamed the validity role to BID_VALIDITY_DAYS; the legacy
+    # VALIDITY_DAYS spelling remains an accepted alias.
+    assert roles["90日历天"] in {"BID_VALIDITY_DAYS", "VALIDITY_DAYS"}
 
 
 def test_locator_numbers_are_not_values() -> None:

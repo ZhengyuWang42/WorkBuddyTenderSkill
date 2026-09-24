@@ -726,3 +726,72 @@ CASE003 `lot_name 三标段` 仍 RESOLVED、分项报价 0 行 + 空白表单 4 
 AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（人工第 3 轮判 FAIL）、CASE002/003 仍为
 `NOT_YET_CONFIRMED`，`V1_PRODUCTION_CANDIDATE=false`、`READY_FOR_SUBMISSION=false`，
 未创建任何 tag 或 release。
+
+### D58 语义校验：PROVENANCE CONSISTENCY IS NOT SEMANTIC VALIDATION
+
+第 4 轮把不变量提升到渲染层（D56），机器门禁全绿（25/25、八类 mismatch 0、A–S 19/19），
+但人工复核**第 4 轮工作簿**仍判 `FAIL`，`FAIL_REASON = CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED`：
+一行文本可以**完全可溯源**却仍然是错的——质量要求里带着交货地点、把 95% 写成质保金比例、
+履约保证金引用响应保证金条款、断言"报价无漏项"、付款行吸收代理服务费。
+**出处一致（provenance-consistent）不等于语义正确（semantically-correct）**，且
+**任何关注点都不得只用自己的生成元数据自证**。
+
+第 5 轮因此引入**独立的关注点契约** `tender_basic/concern_contract.py`：
+
+> **每一个关注点都有一份人工手写的语义契约；契约校验的是"渲染出来的那一行"，而不是生成它的对象。**
+
+- `ConcernContract` 逐关注点声明：允许的行为主体（actors）、权威范围（authority scopes）、
+  必需/禁止的**词法来源签名**（required/forbidden lexical-source signatures）、允许/禁止的
+  **数值角色**、允许关联的**事实键**、允许的材料类别、允许的后果类别、评分角色、必需的证据属性、
+  以及 kind（MANDATORY / REJECTION / SCORING / CONTRACT_ONLY / INFORMATIONAL）。
+- **契约不得由被校验的 ReviewPoint 派生**：`CONTRACT_SOURCE = human_round5_fixtures_A_T`
+  （来自人工坏例 A–T），`concern_contract.py` **不导入** `review_point` / `review_concern`，
+  由 `contract_table_is_independent()` 与单元测试共同断言。
+- `validate_point(...)` 校验**最终单元格文本**（要求正文、复核要点、通过标准、准备材料、不满足后果、
+  评分提示、数值角色、关联事实、证据），违规码包括
+  `CONTRACT_FORBIDDEN_SIGNATURE` / `CONTRACT_MISSING_REQUIRED_SIGNATURE` / `CONTRACT_FORBIDDEN_ROLE` /
+  `CONTRACT_ROLE_NOT_ALLOWED` / `CONTRACT_FACT_NOT_ALLOWED` / `CONTRACT_CONSEQUENCE_NOT_ALLOWED` /
+  `CONTRACT_MATERIAL_NOT_ALLOWED` / `CONTRACT_EVIDENCE_SIGNATURE_MISSING` / `CONTRACT_EVIDENCE_FORBIDDEN`。
+- 分段读取：`segment_text` / `owned_segments` 只保留契约自有的**片段**
+  （禁止签名优先于必需签名），所以一行不会"顺带"继承邻近关注点的措辞。
+- 片段而非要求：`is_incomplete_fragment` 把抽取残片
+  （如"意见》的通知中规定的收费标准的 70%向成交供应商"）路由到 **NEEDS_REVIEW**，
+  既不出现在交付行里，也不被静默丢弃（`needs_review_topics` / `needs_review_clause_ids`）。
+
+### D59 五个角色必须分开（BANK the five roles）
+
+第 5 轮把业务含义已知的数字固定到最小充分角色集，并禁止再用 `PERCENTAGE` / `PRICE` / `MONTHS` /
+`QUANTITY` 之类的宽泛角色覆盖已知业务含义：
+
+| 角色（canonical） | CASE001 值 | 语义 |
+| --- | --- | --- |
+| `PAYMENT_RATIO` | 95% | 付款比例 |
+| `RETENTION_MONEY_RATIO` | 5% | 质保金（留存款）比例 |
+| `RETENTION_RELEASE_MONTHS` | 12 个月 | 质保金释放期（**不是**项目质保期） |
+| `PROJECT_WARRANTY_MONTHS` | 24 个月 | 项目/产品质保期 |
+| `BANK_ACCEPTANCE_RATIO` | 100% / 50% | 接受银行承兑汇票比例（计分因素自有） |
+
+同时拆分：`SCORE_POINTS`（"得 12 分"/"（12 分）"只属于该评分因素）、`BID_VALIDITY_DAYS`（90 日历天）、
+`RESPONSE_BOND` / `PERFORMANCE_BOND` / `BOND_AMOUNT` / `BOND_FORM`。
+历史角色名通过 `semantic_roles.canonical_role()` 单点翻译（`VALIDITY_DAYS`→`BID_VALIDITY_DAYS`、
+`WARRANTY_MONTHS`→`PROJECT_WARRANTY_MONTHS`、`RETENTION_RELEASE_PERIOD`→`RETENTION_RELEASE_MONTHS`、
+`SCORE`→`SCORE_POINTS`、`TENDER_FEE`→`TENDER_DOCUMENT_PRICE`、`CONTACT`→`CONTACT_INFO`…），
+调用方可以保留历史词汇，**写出的角色永远是 canonical**。
+
+### D60 第 5 轮证据与冻结事实
+
+- 三案例第 5 轮工作簿 `..._review_workbook5`：CASE001 16/16 检查、A–T 坏例 **20/20 PASS**、
+  **49/49** 交付行通过契约审计；CASE002 15/15（45/45 行）；CASE003 15/15（48/48 行）。
+- 第 4 轮溯源门禁在**同一批第 5 轮工作簿**上复跑：CASE001 25/25、CASE002 23/23、CASE003 23/23，
+  `rendered_mismatch_total = 0`，A–S 19/19。
+- §SUCCESS 全绿：`QUALITY_LOCATION_CONTAMINATION = 0`、`VALIDITY_BLACKLIST_CONTAMINATION = 0`、
+  `CONTRACT_PAYMENT_FOREIGN_CLAUSE = 0`、`PERFORMANCE_BOND_RESPONSE_BOND_EVIDENCE = 0`、
+  `UNSUPPORTED_PRICE_COMPLETENESS_ASSERTIONS = 0`、`PRICE_ACCEPTANCE_MIXED_CONCERNS = 0`、
+  `TECHNICAL_ACCEPTANCE_MIXED_CONCERNS = 0`、`PAYMENT_RATIO_95_AS_RETENTION = false`、
+  `FALSE_PLATFORM_CONFLICTS = 0`、`CASE001_FINAL_WORKBOOK_AUDIT = ALL/ALL coherent`、
+  `THREE_CASE_GENERALIZATION = PASS`、`WORD_ARTIFACTS_UNCHANGED = PASS`。
+- 第 4 轮工作簿**未被覆盖**，Word **未被重新渲染**；人工第 4 轮 `FAIL`
+  （`CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED`）保留在
+  `case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json`，
+  自动化只能把状态推进到 `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`。
+- `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`，未创建 tag 或 release。

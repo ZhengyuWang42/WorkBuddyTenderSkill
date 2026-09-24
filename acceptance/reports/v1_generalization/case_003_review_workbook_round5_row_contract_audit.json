@@ -1,0 +1,2768 @@
+{
+ "schema": "v1_review_workbook_round5_report/1",
+ "case": "case_003",
+ "build_id": "v1_round4_closure8_review_workbook5",
+ "workbook": "acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook5\\投标项目复核表.xlsx",
+ "workbook_sha256": "85aa576207077d8730e9c78ad7ca373bc8be6fe3dad091b5ef6ab0015c7bb4de",
+ "contract_source": "human_round5_fixtures_A_T",
+ "contract_version": "round5.1",
+ "contract_count": 78,
+ "review_row_count": 48,
+ "background_item_count": 4,
+ "delivered_row_audit_count": 48,
+ "delivered_row_audit_failed_count": 0,
+ "coverage": {
+  "concerns": [
+   "AUTHORIZATION",
+   "BID_BOND_AMOUNT",
+   "BID_BOND_EVIDENCE",
+   "BID_BOND_FORM",
+   "BID_BOND_TRANSFER",
+   "BID_VALIDITY",
+   "CONSORTIUM",
+   "CONTRACT_DELIVERY",
+   "CONTRACT_PAYMENT",
+   "CONTRACT_RISK",
+   "CONTRACT_TERMINATION_REFUND",
+   "DELIVERY_ACCEPTANCE_COMPLETION",
+   "DELIVERY_PERIOD",
+   "ELECTRONIC_UPLOAD",
+   "EVALUATION_COLLUSION",
+   "EVALUATION_QUALIFICATION_REVIEW",
+   "EVALUATION_RESPONSIVENESS",
+   "EVALUATION_SCORING",
+   "FILE_COMPOSITION",
+   "FILE_FORMAT",
+   "GENERAL_BIDDER_OBLIGATION",
+   "INSTALLATION_ACCEPTANCE",
+   "OPENING_DECRYPTION",
+   "PERFORMANCE_BOND",
+   "PRICE_ARITHMETIC",
+   "PRICE_CEILING",
+   "PRICE_ITEMIZATION",
+   "PRICING_COMPLETENESS",
+   "PROJECT_WARRANTY",
+   "QUALIFICATION_CREDIT",
+   "QUALIFICATION_LICENSE",
+   "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+   "QUALITY_TARGET",
+   "QUERY_DEADLINE",
+   "REJECTION_GENERAL",
+   "RETENTION_MONEY_RATIO",
+   "RETENTION_RELEASE_PERIOD",
+   "SCORING_PRICE_FORMULA",
+   "SCORING_TECHNICAL",
+   "SIGNATURE_AND_SEAL",
+   "SITE_VISIT",
+   "SUBCONTRACT",
+   "SUBMISSION_COPIES",
+   "SUBMISSION_DEADLINE",
+   "SUBMISSION_PLATFORM",
+   "TECHNICAL_PARAMETER",
+   "TECHNICAL_PLAN",
+   "TECHNICAL_PROOF"
+  ],
+  "uncovered": []
+ },
+ "checks": [
+  {
+   "check": "concern_contracts_are_independent",
+   "ok": true,
+   "detail": "78 contracts authored by hand (source=human_round5_fixtures_A_T, version=round5.1); none derived from a generated ReviewPoint",
+   "evidence": {
+    "superseded": [
+     "CONTRACT_ACCEPTANCE",
+     "PRICE_COMPLETENESS",
+     "PRICE_TAX_BASIS",
+     "PROJECT_BASIC_INFO",
+     "TECHNICAL_INSTALLATION"
+    ],
+    "renamed": [
+     "CONTRACT_ACCEPTANCE",
+     "PRICE_COMPLETENESS",
+     "PROJECT_BASIC_INFO",
+     "TECHNICAL_INSTALLATION"
+    ]
+   }
+  },
+  {
+   "check": "every_delivered_concern_has_a_contract",
+   "ok": true,
+   "detail": "48 delivered concerns covered",
+   "evidence": {
+    "uncovered": []
+   }
+  },
+  {
+   "check": "all_case001_final_rows_concern_contract",
+   "ok": true,
+   "detail": "48/48 delivered CASE001 rows agree with their independent concern contract",
+   "evidence": {
+    "failed_rows": []
+   }
+  },
+  {
+   "check": "delivered_rows_read_from_final_cells",
+   "ok": true,
+   "detail": "48/48 rows audited from the frozen sheet cells",
+   "evidence": {
+    "unbound": []
+   }
+  },
+  {
+   "check": "needs_review_rows_excluded_from_delivery",
+   "ok": true,
+   "detail": "background items=4; filtered=1; needs_review=2",
+   "evidence": {
+    "needs_review_topics": [
+     "资格·无行贿与履约记录（签字盖章要求）：the owned source text is an extraction fragment, not a complete requirement",
+     "资格·财务能力（签字盖章要求）：the owned source text is an extraction fragment, not a complete requirement"
+    ]
+   }
+  },
+  {
+   "check": "numeric_roles_are_canonical",
+   "ok": true,
+   "detail": "3 numeric roles in use are canonical business roles",
+   "evidence": {
+    "non_canonical": [],
+    "roles": [
+     "BID_VALIDITY_DAYS",
+     "DELIVERY_DAYS",
+     "RETENTION_RELEASE_MONTHS"
+    ]
+   }
+  },
+  {
+   "check": "payment_ratio_95_is_not_retention",
+   "ok": true,
+   "detail": "RETENTION_MONEY_RATIO never carries 95%",
+   "evidence": {
+    "retention_values": []
+   }
+  },
+  {
+   "check": "five_money_roles_stay_distinct",
+   "ok": true,
+   "detail": "CASE001 value invariants are scoped to CASE001; case_003 checked for role separation only",
+   "evidence": {
+    "roles": {
+     "DELIVERY_DAYS": [
+      "12月",
+      "15日",
+      "2026年",
+      "2027年",
+      "31日",
+      "6月"
+     ],
+     "BID_VALIDITY_DAYS": [
+      "90日",
+      "90日历天"
+     ],
+     "RETENTION_RELEASE_MONTHS": [
+      "28天"
+     ]
+    }
+   }
+  },
+  {
+   "check": "scoring_points_are_scoring_only",
+   "ok": true,
+   "detail": "CASE001-scoped invariant",
+   "evidence": {
+    "score_points": []
+   }
+  },
+  {
+   "check": "bank_acceptance_ratio_separate",
+   "ok": true,
+   "detail": "CASE001-scoped invariant",
+   "evidence": {
+    "bank": []
+   }
+  },
+  {
+   "check": "sheet_views_are_semantically_coherent",
+   "ok": true,
+   "detail": "02_关键条款 and 03_资格否决与强制项 audited from final cell text",
+   "evidence": {
+    "violations": []
+   }
+  },
+  {
+   "check": "conflict_sheet_has_no_false_platform_conflicts",
+   "ok": true,
+   "detail": "13 conflict rows audited",
+   "evidence": {
+    "platform_mentions": 4
+   }
+  },
+  {
+   "check": "word_artifacts_unchanged",
+   "ok": true,
+   "detail": "3 carried-over artifacts are byte-identical to their source build",
+   "evidence": {
+    "identity": {
+     "基础投标文件.docx": true,
+     "基础投标文件.pdf": true,
+     "generation_report.json": true
+    }
+   }
+  },
+  {
+   "check": "review_workbook5_written",
+   "ok": true,
+   "detail": "投标项目复核表.xlsx sha256=85aa57620707 (80813 bytes)",
+   "evidence": {
+    "workbook": "acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook5\\投标项目复核表.xlsx",
+    "workbook_sha256": "85aa576207077d8730e9c78ad7ca373bc8be6fe3dad091b5ef6ab0015c7bb4de"
+   }
+  },
+  {
+   "check": "rendered_row_provenance_persisted",
+   "ok": true,
+   "detail": "48 rendered rows carry their exact cell address",
+   "evidence": {
+    "cells": 48
+   }
+  }
+ ],
+ "fixtures": {
+  "A": {
+   "expectation": "quality requirement displays no delivery location",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "B": {
+   "expectation": "bid validity shows direct 90-day evidence and no blacklist text",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "C": {
+   "expectation": "funding clause is its own concern and does not leak into price rows",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "D": {
+   "expectation": "contract payment carries no agency-fee clause; the fee is complete or NEEDS_REVIEW",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "E": {
+   "expectation": "contract payment evidence is not a contract-effectivity clause",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "F": {
+   "expectation": "performance bond displays and cites only 履约保证金",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "G": {
+   "expectation": "price-completeness row asserts no unestablished 无漏项/无重复项 claim",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "H": {
+   "expectation": "unit-price cost scope and delivery completion are separate concerns",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "I": {
+   "expectation": "technical standards / third-party proof / acceptance are separate concerns",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "J": {
+   "expectation": "95% is never displayed as a retention ratio",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "K": {
+   "expectation": "retention row shows 5% 质保金 and the warranty row shows 24 months",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "L": {
+   "expectation": "bank-acceptance ratio is scored in its own row",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "M": {
+   "expectation": "each scoring row carries its own factor's points",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "N": {
+   "expectation": "generic evaluation row invents no points value",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "O": {
+   "expectation": "technical scoring row uses real scoring-table content, not a cross-reference",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "P": {
+   "expectation": "general bidder obligation rows do not merge procurement scope with evaluation procedure",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "Q": {
+   "expectation": "authorization row is backed by authorization evidence",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "R": {
+   "expectation": "submission row carries no collusion/delivery-pattern text",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "S": {
+   "expectation": "platform roles are split and produce no false platform conflicts",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  },
+  "T": {
+   "expectation": "agency fee renders completely or moves to NEEDS_REVIEW (no fragment row)",
+   "status": "NOT_APPLICABLE",
+   "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+  }
+ },
+ "fixtures_passed": "0/20",
+ "fixtures_failed": 0,
+ "fixtures_not_applicable": 20,
+ "rows": [
+  {
+   "item_id": "DR017",
+   "concern_id": "REJECTION_GENERAL",
+   "cell": "投标项目复核表!D9",
+   "displayed_source_requirement": "招标文件要求：3.1.2其他要求： （1）投标人拟投入项目管理机构人员要求：按照《黑龙江省房屋建筑和市政 基础设施工程施工现场管理人员配备管理办法》(黑建规〔2023〕2号)文件及招标 文件(项目管理机构人员配置表)规定；3.6.1除投标人须知前附表规定允许外，投标人不得递交备选投标方案，否则其投标将被 否决\n复核要点：\n① 核对该否决情形对应的响应内容\n② 确认不触发该情形\n③ 依据第8页第3.1.2条逐条比对响应文件对应章节\n通过标准：\n· 不存在该情形，或已在响应文件中作出符合要求的响应。\n不满足后果：否决",
+   "evidence_cell": "投标项目复核表!E9",
+   "displayed_evidence": "第8页 / 2.因原项目发包方原因导致工程长期停工、无法组织竣工验收，且该人员已按 / 第3.1.2条 / （pdf_block） 3.1.2其他要求： （1）投标人拟投入项目管理机构人员要求：按照《黑龙江省房屋建筑和市政 基础设施工程施工现场管理人员配备管理办法》(黑建规〔2023〕2号)文件及招标 文件(项目管理机构人员配置表)规定，不得低于招标（源条款 19 条：SR0037）",
+   "note_cell": "投标项目复核表!M9",
+   "displayed_note": "类型：REJECTION/其他否决情形",
+   "requirement_ids": [
+    "SR0037",
+    "SR0051",
+    "SR0103",
+    "SR0127",
+    "SR0176",
+    "SR0207",
+    "SR0285",
+    "SR0310",
+    "SR0360",
+    "SR0361",
+    "SR0391",
+    "SR0407",
+    "SR0424",
+    "SR0425",
+    "SR0426",
+    "SR0427",
+    "SR0436",
+    "SR0451",
+    "SR0541"
+   ],
+   "review_checks": [
+    "核对该否决情形对应的响应内容",
+    "确认不触发该情形",
+    "依据第8页第3.1.2条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "不存在该情形，或已在响应文件中作出符合要求的响应。"
+   ],
+   "materials": [],
+   "consequence": "否决",
+   "scoring_guidance": "",
+   "primary_evidence": "3.1.2其他要求： （1）投标人拟投入项目管理机构人员要求：按照《黑龙江省房屋建筑和市政 基础设施工程施工现场管理人员配备管理办法》(黑建规〔2023〕2号)文件及招标 文件(项目管理机构人员配置表)规定，不得低于招标文件规定的标准数量配备项 目管理机构人员，并填报项目管理机构人员配置表，否则其投标将被否决。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR018",
+   "concern_id": "EVALUATION_COLLUSION",
+   "cell": "投标项目复核表!D10",
+   "displayed_source_requirement": "招标文件要求：9.2对投标人的纪律要求：投标人不得相互串通投标或者与招标人串通投标，不得向招标人 或者评标委员会成员行贿谋取中标，不得以他人名义投标或者以其他方式弄虚作假骗取中 标；（4）承诺函法律责任：投标人提供的承诺函应真实、准确，若存在虚假承诺 ，视为弄虚作假，依据《中华人民共和国招标投标法》相关规定追究责任，中标结 果无效并承担相应赔偿责任\n复核要点：\n① 核对不存在串标、弄虚作假的证据\n② 确认响应文件无雷同与异常一致\n③ 依据第38页第9.2条逐条比对响应文件对应章节\n通过标准：\n· 不存在串标、弄虚作假情形。\n不满足后果：无效",
+   "evidence_cell": "投标项目复核表!E10",
+   "displayed_evidence": "第38页 / 9.2对投标人的纪律要求：投标人不得相互串通投标或者与招标人串通投标，不得向招标人 / 第9.2条 / （pdf_block） 9.2对投标人的纪律要求：投标人不得相互串通投标或者与招标人串通投标，不得向招标人 或者评标委员会成员行贿谋取中标，不得以他人名义投标或者以其他方式弄虚作假骗取中 标；（源条款 15 条：SR0046）",
+   "note_cell": "投标项目复核表!M10",
+   "displayed_note": "类型：REJECTION/评审·串标与弄虚作假",
+   "requirement_ids": [
+    "SR0046",
+    "SR0117",
+    "SR0165",
+    "SR0206",
+    "SR0304",
+    "SR0363",
+    "SR0428",
+    "SR0429",
+    "SR0430",
+    "SR0431",
+    "SR0432",
+    "SR0433",
+    "SR0434",
+    "SR0435",
+    "SR0539"
+   ],
+   "review_checks": [
+    "核对不存在串标、弄虚作假的证据",
+    "确认响应文件无雷同与异常一致",
+    "依据第38页第9.2条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "不存在串标、弄虚作假情形。"
+   ],
+   "materials": [],
+   "consequence": "无效",
+   "scoring_guidance": "",
+   "primary_evidence": "9.2对投标人的纪律要求：投标人不得相互串通投标或者与招标人串通投标，不得向招标人 或者评标委员会成员行贿谋取中标，不得以他人名义投标或者以其他方式弄虚作假骗取中 标；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR026",
+   "concern_id": "EVALUATION_RESPONSIVENESS",
+   "cell": "投标项目复核表!D11",
+   "displayed_source_requirement": "招标文件要求：1.12.2投标文件应对招标文件的实质性要求和条件作出满足性或更有利于招标人的响 应，否则，视为投标文件存在重大偏差，投标人的投标将被否决；偏差包括重大偏差和细微 偏差\n复核要点：\n① 核对实质性响应要求\n② 确认无重大偏差\n③ 依据第49页逐条比对响应文件对应章节\n通过标准：\n· 实质性响应要求全部满足，无重大偏差。\n不满足后果：否决",
+   "evidence_cell": "投标项目复核表!E11",
+   "displayed_evidence": "第29页 / 1.12.2投标文件应对招标文件的实质性要求和条件作出满足性或更有利于招标人的响 / 第1.12.2条 / （pdf_block） 1.12.2投标文件应对招标文件的实质性要求和条件作出满足性或更有利于招标人的响 应，否则，视为投标文件存在重大偏差，投标人的投标将被否决。（源条款 7 条：SR0125）",
+   "note_cell": "投标项目复核表!M11",
+   "displayed_note": "类型：REJECTION/评审·响应性审查",
+   "requirement_ids": [
+    "SR0125",
+    "SR0282",
+    "SR0283",
+    "SR0284",
+    "SR0411",
+    "SR0413",
+    "SR0440"
+   ],
+   "review_checks": [
+    "核对实质性响应要求",
+    "确认无重大偏差",
+    "依据第49页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "实质性响应要求全部满足，无重大偏差。"
+   ],
+   "materials": [],
+   "consequence": "否决",
+   "scoring_guidance": "",
+   "primary_evidence": "1.12.2投标文件应对招标文件的实质性要求和条件作出满足性或更有利于招标人的响 应，否则，视为投标文件存在重大偏差，投标人的投标将被否决。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR042",
+   "concern_id": "EVALUATION_QUALIFICATION_REVIEW",
+   "cell": "投标项目复核表!D12",
+   "displayed_source_requirement": "招标文件要求：1、资格审查委员会及评标委员会依据招标文件规定对投标人资格、形式、响应性及否决投标情形进 行审查，进行独立评审\n复核要点：\n① 核对资格审查要点\n② 确认全部满足\n③ 依据第44页逐条比对响应文件对应章节\n通过标准：\n· 资格审查要点在响应文件中全部满足。\n不满足后果：否决",
+   "evidence_cell": "投标项目复核表!E12",
+   "displayed_evidence": "第44页 / 第一节评标办法 （定性评审法） 评标办法前附表 / （pdf_block） 注：特别说明： 1、资格审查委员会及评标委员会依据招标文件规定对投标人资格、形式、响应性及否决投标情形进 行审查，进行独立评审。（源条款 1 条：SR0392）",
+   "note_cell": "投标项目复核表!M12",
+   "displayed_note": "类型：REJECTION/评审·资格审查",
+   "requirement_ids": [
+    "SR0392"
+   ],
+   "review_checks": [
+    "核对资格审查要点",
+    "确认全部满足",
+    "依据第44页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "资格审查要点在响应文件中全部满足。"
+   ],
+   "materials": [],
+   "consequence": "否决",
+   "scoring_guidance": "",
+   "primary_evidence": "注：特别说明： 1、资格审查委员会及评标委员会依据招标文件规定对投标人资格、形式、响应性及否决投标情形进 行审查，进行独立评审。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR011",
+   "concern_id": "QUALIFICATION_LICENSE",
+   "cell": "投标项目复核表!D13",
+   "displayed_source_requirement": "招标文件要求：3.1.1投标人必须是在中华人民共和国境内注册的具有独立法人资格的法人 或其他组织并具备承担本招标项目的能力，条件如下：；3.1.1投标人必须是在中华人民共和国境内注册的具有独立法人资格的法人 或其他组织并具备承担本招标项目的能力，条件如下： 3.1.1.1投标人资质要求：具备有效的工商营业执照\n复核要点：\n① 核对营业执照与资质证书\n② 核对该条要求对应的营业执照\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第6页第3.1.1条逐条比对响应文件对应章节\n通过标准：\n· 营业执照与资质证书在有效期内且已提供。\n准备材料：营业执照",
+   "evidence_cell": "投标项目复核表!E13",
+   "displayed_evidence": "第6页 / 2.12其他：/ / 第3.1.1条 / （pdf_block） 3.1.1投标人必须是在中华人民共和国境内注册的具有独立法人资格的法人 或其他组织并具备承担本招标项目的能力，条件如下： 3.1.1.1投标人资质要求：具备有效的工商营业执照，同时具备电子与智能化 工程专业承包二级及以上（源条款 14 条：SR0020）",
+   "note_cell": "投标项目复核表!M13",
+   "displayed_note": "类型：QUALIFICATION/资格·营业执照与资质",
+   "requirement_ids": [
+    "SR0020",
+    "SR0021",
+    "SR0022",
+    "SR0045",
+    "SR0062",
+    "SR0064",
+    "SR0065",
+    "SR0067",
+    "SR0115",
+    "SR0196",
+    "SR0380",
+    "SR0381",
+    "SR0534",
+    "SR1002"
+   ],
+   "review_checks": [
+    "核对营业执照与资质证书",
+    "核对该条要求对应的营业执照",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第6页第3.1.1条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "营业执照与资质证书在有效期内且已提供。"
+   ],
+   "materials": [
+    "营业执照"
+   ],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.1.1投标人必须是在中华人民共和国境内注册的具有独立法人资格的法人 或其他组织并具备承担本招标项目的能力，条件如下： 3.1.1.1投标人资质要求：具备有效的工商营业执照，同时具备电子与智能化 工程专业承包二级及以上资质，具有有效的安全生产许可证。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR016",
+   "concern_id": "CONSORTIUM",
+   "cell": "投标项目复核表!D14",
+   "displayed_source_requirement": "招标文件要求：3.1.1.7本招标项目不接受联合体投标；1.1.7本招标项目不接受联合体投标\n复核要点：\n① 核对投标主体形式\n② 确认与联合体规定一致\n③ 依据第8页第3.1.1.7条逐条比对响应文件对应章节\n通过标准：\n· 响应文件的投标主体形式与招标文件关于联合体的规定一致。",
+   "evidence_cell": "投标项目复核表!E14",
+   "displayed_evidence": "第8页 / 2.因原项目发包方原因导致工程长期停工、无法组织竣工验收，且该人员已按 / 第3.1.1.7条 / （pdf_block） 3.1.1.7本招标项目不接受联合体投标。（源条款 14 条：SR0036）",
+   "note_cell": "投标项目复核表!M14",
+   "displayed_note": "类型：CONSORTIUM/联合体",
+   "requirement_ids": [
+    "SR0036",
+    "SR0099",
+    "SR0100",
+    "SR0101",
+    "SR0266",
+    "SR0267",
+    "SR0268",
+    "SR0269",
+    "SR0270",
+    "SR0309",
+    "SR0358",
+    "SR0379",
+    "SR0645",
+    "SR0646"
+   ],
+   "review_checks": [
+    "核对投标主体形式",
+    "确认与联合体规定一致",
+    "依据第8页第3.1.1.7条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "响应文件的投标主体形式与招标文件关于联合体的规定一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.1.1.7本招标项目不接受联合体投标。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR019",
+   "concern_id": "SUBCONTRACT",
+   "cell": "投标项目复核表!D15",
+   "displayed_source_requirement": "招标文件要求：分包必须；规定： (1)分包内容要求：招标人允许分包或不允许分包的专业工程(如有)应在投标人须 知前附表中载明\n复核要点：\n① 核对分包安排\n② 确认无违规分包、转包\n③ 依据第9页第（5）条逐条比对响应文件对应章节\n通过标准：\n· 不存在违规分包、转包情形，或已按允许范围说明。",
+   "evidence_cell": "投标项目复核表!E15",
+   "displayed_evidence": "第25页 / （pdf_table_cell） 人应承担相应的违约责任并向招标人支付合同价款10%的违约金； 分包必须（源条款 24 条：SR0047）",
+   "note_cell": "投标项目复核表!M15",
+   "displayed_note": "类型：SUBCONTRACT/分包与转包",
+   "requirement_ids": [
+    "SR0047",
+    "SR0199",
+    "SR0200",
+    "SR0251",
+    "SR0252",
+    "SR0253",
+    "SR0254",
+    "SR0277",
+    "SR0278",
+    "SR0279",
+    "SR0280",
+    "SR0281",
+    "SR0536",
+    "SR0634",
+    "SR0635",
+    "SR0636",
+    "SR0637",
+    "SR0638",
+    "SR0639",
+    "SR0640",
+    "SR0925",
+    "SR0966",
+    "SR1004",
+    "SR0118"
+   ],
+   "review_checks": [
+    "核对分包安排",
+    "确认无违规分包、转包",
+    "依据第9页第（5）条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "不存在违规分包、转包情形，或已按允许范围说明。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "人应承担相应的违约责任并向招标人支付合同价款10%的违约金； 分包必须",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR047",
+   "concern_id": "CONTRACT_DELIVERY",
+   "cell": "投标项目复核表!D16",
+   "displayed_source_requirement": "招标文件要求：承包人不提交上述文件的，项目经理无权履行职责，发包人 有权要求更换项目经理，由此增加的费用和（或）延误的工期由承包人承担\n复核要点：\n① 按本条要求逐条核对响应文件的对应内容\n② 依据第117页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E16",
+   "displayed_evidence": "第117页 / 3.2项目经理 / （pdf_block） 承包人不提交上述文件的，项目经理无权履行职责，发包人 有权要求更换项目经理，由此增加的费用和（或）延误的工期由承包人承担。（源条款 1 条：SR0609）",
+   "note_cell": "投标项目复核表!M16",
+   "displayed_note": "类型：PERSONNEL/合同交付义务",
+   "requirement_ids": [
+    "SR0609"
+   ],
+   "review_checks": [
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第117页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "承包人不提交上述文件的，项目经理无权履行职责，发包人 有权要求更换项目经理，由此增加的费用和（或）延误的工期由承包人承担。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR021",
+   "concern_id": "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+   "cell": "投标项目复核表!D17",
+   "displayed_source_requirement": "招标文件要求：（7）单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同 一标段投标或者未划分标段的同一招标项目投标；（7）单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一\n复核要点：\n① 确认声明或证明材料齐全\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第9页第（7）条逐条比对响应文件对应章节\n通过标准：\n· 不存在单位负责人同一人或控股、管理关系等禁止情形。\n不满足后果：不得参加",
+   "evidence_cell": "投标项目复核表!E17",
+   "displayed_evidence": "第9页 / 4.招标文件的获取 / 第（7）条 / （pdf_block） （7）单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同 一标段投标或者未划分标段的同一招标项目投标。（源条款 5 条：SR0049）",
+   "note_cell": "投标项目复核表!M17",
+   "displayed_note": "类型：REJECTION/资格·关联关系限制",
+   "requirement_ids": [
+    "SR0049",
+    "SR0081",
+    "SR0120",
+    "SR0198",
+    "SR0271"
+   ],
+   "review_checks": [
+    "确认声明或证明材料齐全",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第9页第（7）条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "不存在单位负责人同一人或控股、管理关系等禁止情形。"
+   ],
+   "materials": [],
+   "consequence": "不得参加",
+   "scoring_guidance": "",
+   "primary_evidence": "（7）单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同 一标段投标或者未划分标段的同一招标项目投标。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR041",
+   "concern_id": "QUERY_DEADLINE",
+   "cell": "投标项目复核表!D18",
+   "displayed_source_requirement": "招标文件要求：1.10.1投标人须知前附表规定召开投标预备会的，招标人按照投标人须知前附表规定的时间 和形式召开投标预备会，澄清投标人提出的问题；1.10.2投标人应按照投标人须知前附表规定的时间和形式将提出的问题送达招标人， 以便招标人在会议期间澄清\n复核要点：\n① 核对提问/澄清的时间与提交方式\n② 确认澄清或修改文件的接收与留档\n③ 依据第31页逐条比对响应文件对应章节\n通过标准：\n· 按招标文件规定的提问/澄清时间与方式执行，并留存记录。",
+   "evidence_cell": "投标项目复核表!E18",
+   "displayed_evidence": "第28页 / 1.10投标预备会 / 第1.10.1条 / （pdf_block） 1.10.1投标人须知前附表规定召开投标预备会的，招标人按照投标人须知前附表规定的时间 和形式召开投标预备会，澄清投标人提出的问题。（源条款 10 条：SR0275）",
+   "note_cell": "投标项目复核表!M18",
+   "displayed_note": "类型：SUBMISSION/提问与澄清截止",
+   "requirement_ids": [
+    "SR0275",
+    "SR0276",
+    "SR0287",
+    "SR0297",
+    "SR0322",
+    "SR0324",
+    "SR0410",
+    "SR0570",
+    "SR0767",
+    "SR0879"
+   ],
+   "review_checks": [
+    "核对提问/澄清的时间与提交方式",
+    "确认澄清或修改文件的接收与留档",
+    "依据第31页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "按招标文件规定的提问/澄清时间与方式执行，并留存记录。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "1.10.1投标人须知前附表规定召开投标预备会的，招标人按照投标人须知前附表规定的时间 和形式召开投标预备会，澄清投标人提出的问题。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR024",
+   "concern_id": "TECHNICAL_PROOF",
+   "cell": "投标项目复核表!D19",
+   "displayed_source_requirement": "招标文件要求：主动配合行政监督部门调查，并在规定的期限内举证，提供有关证明材料；拒绝配合调查，且未在规定期限内举证、提供证明材料的，行政监督部门 将依法处理\n复核要点：\n① 确认材料清晰、可核验且与响应内容对应\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第15页逐条比对响应文件对应章节\n通过标准：\n· 证明材料齐全、清晰、可核验。",
+   "evidence_cell": "投标项目复核表!E19",
+   "displayed_evidence": "第19页 / （pdf_table_cell） 主动配合行政监督部门调查，并在规定的期限内举证，提供有关证明材料；（源条款 9 条：SR0116）",
+   "note_cell": "投标项目复核表!M19",
+   "displayed_note": "类型：PROOF/技术证明材料",
+   "requirement_ids": [
+    "SR0116",
+    "SR0167",
+    "SR0168",
+    "SR0178",
+    "SR0265",
+    "SR0393",
+    "SR0521",
+    "SR0524",
+    "SR0526"
+   ],
+   "review_checks": [
+    "确认材料清晰、可核验且与响应内容对应",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第15页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "证明材料齐全、清晰、可核验。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "主动配合行政监督部门调查，并在规定的期限内举证，提供有关证明材料；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR036",
+   "concern_id": "FILE_FORMAT",
+   "cell": "投标项目复核表!D20",
+   "displayed_source_requirement": "招标文件要求：3.5.1投标人应按照投标人须知前附表要求提供资格审查资料，内容及格式见第八章“ 投标文件格式”要求；3.7.1投标文件应按照第八章“投标文件格式”进行编写，如有必要，可以增加附页，作 要求更有利于招标人的承诺\n复核要点：\n① 确认符合响应文件格式规定\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第20页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E20",
+   "displayed_evidence": "第32页 / 3.5资格审查资料 / 第3.5.1条 / （pdf_block） 3.5.1投标人应按照投标人须知前附表要求提供资格审查资料，内容及格式见第八章“ 投标文件格式”要求。（源条款 3 条：SR0172）",
+   "note_cell": "投标项目复核表!M20",
+   "displayed_note": "类型：FORM/响应文件格式",
+   "requirement_ids": [
+    "SR0172",
+    "SR0308",
+    "SR0312"
+   ],
+   "review_checks": [
+    "确认符合响应文件格式规定",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第20页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.5.1投标人应按照投标人须知前附表要求提供资格审查资料，内容及格式见第八章“ 投标文件格式”要求。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR035",
+   "concern_id": "FILE_COMPOSITION",
+   "cell": "投标项目复核表!D21",
+   "displayed_source_requirement": "招标文件要求：9、临时暂设的搭建（包括临时暂设、路、水、电、讯等设施）必须达到《黑；监督机构 监督机构组成：2人\n复核要点：\n① 按招标文件要求的组成部分逐项清点\n② 确认无缺项、无多余替代件\n③ 依据第21页第10.18条逐条比对响应文件对应章节\n通过标准：\n· 响应文件组成齐全，与招标文件要求的组成部分一致。",
+   "evidence_cell": "投标项目复核表!E21",
+   "displayed_evidence": "第24页 / （pdf_table_cell） 9、临时暂设的搭建（包括临时暂设、路、水、电、讯等设施）必须达到《黑（源条款 4 条：SR0156）",
+   "note_cell": "投标项目复核表!M21",
+   "displayed_note": "类型：OTHER/响应文件组成",
+   "requirement_ids": [
+    "SR0156",
+    "SR0183",
+    "SR0191",
+    "SR0242"
+   ],
+   "review_checks": [
+    "按招标文件要求的组成部分逐项清点",
+    "确认无缺项、无多余替代件",
+    "依据第21页第10.18条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "响应文件组成齐全，与招标文件要求的组成部分一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "9、临时暂设的搭建（包括临时暂设、路、水、电、讯等设施）必须达到《黑",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR023",
+   "concern_id": "PRICING_COMPLETENESS",
+   "cell": "投标项目复核表!D22",
+   "displayed_source_requirement": "招标文件要求：中标单位支付给招标代理机构(投标单位报价时必须考虑并包括此部分费\n复核要点：\n① 核对报价组成与费用范围\n② 确认费用范围与承担方与源文件一致\n③ 依据第22页逐条比对响应文件对应章节\n通过标准：\n· 报价组成与费用范围按源文件逐项核对，费用范围与承担方以源文件为准。",
+   "evidence_cell": "投标项目复核表!E22",
+   "displayed_evidence": "第22页 / （pdf_table_cell） 中标单位支付给招标代理机构(投标单位报价时必须考虑并包括此部分费（源条款 69 条：SR0054）",
+   "note_cell": "投标项目复核表!M22",
+   "displayed_note": "类型：PRICING/报价完整性；关联事实：max_price",
+   "requirement_ids": [
+    "SR0054",
+    "SR0147",
+    "SR0148",
+    "SR0175",
+    "SR0204",
+    "SR0244",
+    "SR0292",
+    "SR0293",
+    "SR0295",
+    "SR0329",
+    "SR0343",
+    "SR0399",
+    "SR0400",
+    "SR0404",
+    "SR0441",
+    "SR0442",
+    "SR0443",
+    "SR0445",
+    "SR0446",
+    "SR0448",
+    "SR0449",
+    "SR0450",
+    "SR0452",
+    "SR0454",
+    "SR0455",
+    "SR0456",
+    "SR0458",
+    "SR0461",
+    "SR0462",
+    "SR0481",
+    "SR0482",
+    "SR0542",
+    "SR0562",
+    "SR0591",
+    "SR0675",
+    "SR0679",
+    "SR0702",
+    "SR0717",
+    "SR0744",
+    "SR0770",
+    "SR0773",
+    "SR0774",
+    "SR0775",
+    "SR0778",
+    "SR0779",
+    "SR0780",
+    "SR0782",
+    "SR0784",
+    "SR0785",
+    "SR0786",
+    "SR0787",
+    "SR0790",
+    "SR0791",
+    "SR0792",
+    "SR0794",
+    "SR0795",
+    "SR0796",
+    "SR0801",
+    "SR0822",
+    "SR0837",
+    "SR0838",
+    "SR0840",
+    "SR0841",
+    "SR0976",
+    "SR0977",
+    "SR0978",
+    "SR0979",
+    "SR0985",
+    "SR0980"
+   ],
+   "review_checks": [
+    "核对报价组成与费用范围",
+    "确认费用范围与承担方与源文件一致",
+    "依据第22页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "报价组成与费用范围按源文件逐项核对，费用范围与承担方以源文件为准。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "中标单位支付给招标代理机构(投标单位报价时必须考虑并包括此部分费",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "max_price"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR025",
+   "concern_id": "PRICE_CEILING",
+   "cell": "投标项目复核表!D23",
+   "displayed_source_requirement": "招标文件要求：3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投 标限价在投标人须知前附表中载明；2.2.6规费、税金为不可竞争费用，应当按照已公示招标控制价中的费率计取，并计 入投标报价\n复核要点：\n① 核对投标总报价\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第31页第3.2.4条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E23",
+   "displayed_evidence": "第31页 / 3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投 / 第3.2.4条 / （pdf_block） 3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投 标限价在投标人须知前附表中载明。（源条款 4 条：SR0124）",
+   "note_cell": "投标项目复核表!M23",
+   "displayed_note": "类型：PRICING/报价与最高限价；关联事实：max_price",
+   "requirement_ids": [
+    "SR0124",
+    "SR0126",
+    "SR0294",
+    "SR0457"
+   ],
+   "review_checks": [
+    "核对投标总报价",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第31页第3.2.4条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投 标限价在投标人须知前附表中载明。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "max_price"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR028",
+   "concern_id": "BID_BOND_FORM",
+   "cell": "投标项目复核表!D24",
+   "displayed_source_requirement": "招标文件要求：☑现金(银行转账、银行电汇) ☑银行保函 ☑担保机构担保 ☑保证保险 (3)其他要求： ①采用银行保函的，应为不可撤销、不可转让的见索即付独立保函；☑现金(银行转账、银行电汇) ☑银行保函 ☑担保机构担保 ☑保证保险 (3)其他要求： ②采用担保机构担保的，应为经黑龙江省地方金融监督管理局审查批准\n复核要点：\n① 核对保证金形式（电汇/转账/保函等）\n② 确认形式符合招标文件规定\n③ 依据第159页逐条比对响应文件对应章节\n通过标准：\n· 保证金形式符合规定，且来源合法。",
+   "evidence_cell": "投标项目复核表!E24",
+   "displayed_evidence": "第18页 / （pdf_table_cell） ☑现金(银行转账、银行电汇) ☑银行保函 ☑担保机构担保 ☑保证保险 (3)其他要求： ①采用银行保函的，应为不可撤销、不可转让的见索即付独立保函。（源条款 27 条：SR0130）",
+   "note_cell": "投标项目复核表!M24",
+   "displayed_note": "类型：BOND/保证金形式；关联事实：bid_bond_amount、bid_bond_form",
+   "requirement_ids": [
+    "SR0130",
+    "SR0131",
+    "SR0132",
+    "SR0133",
+    "SR0134",
+    "SR0135",
+    "SR0136",
+    "SR0137",
+    "SR0139",
+    "SR0141",
+    "SR0152",
+    "SR0153",
+    "SR0154",
+    "SR0155",
+    "SR0298",
+    "SR0299",
+    "SR0601",
+    "SR0807",
+    "SR0895",
+    "SR0958",
+    "SR1007",
+    "SR1008",
+    "SR1011",
+    "SR1017",
+    "SR1018",
+    "SR1019",
+    "SR1012"
+   ],
+   "review_checks": [
+    "核对保证金形式（电汇/转账/保函等）",
+    "确认形式符合招标文件规定",
+    "依据第159页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "保证金形式符合规定，且来源合法。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "☑现金(银行转账、银行电汇) ☑银行保函 ☑担保机构担保 ☑保证保险 (3)其他要求： ①采用银行保函的，应为不可撤销、不可转让的见索即付独立保函。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "bid_bond_amount"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR029",
+   "concern_id": "BID_BOND_TRANSFER",
+   "cell": "投标项目复核表!D25",
+   "displayed_source_requirement": "招标文件要求：现金方式： 易平台对接的银行中(须从投标人基本账户转出)；易平台对接的银行中(须从投标人基本账户转出)\n复核要点：\n① 核对保证金转出账户\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第31页逐条比对响应文件对应章节\n通过标准：\n· 保证金从规定的账户转出。",
+   "evidence_cell": "投标项目复核表!E25",
+   "displayed_evidence": "第16页 / （pdf_table_cell） 现金方式： 易平台对接的银行中(须从投标人基本账户转出)。（源条款 6 条：SR0137）",
+   "note_cell": "投标项目复核表!M25",
+   "displayed_note": "类型：BOND/保证金转出账户；关联事实：bid_bond_amount",
+   "requirement_ids": [
+    "SR0137",
+    "SR0138",
+    "SR0139",
+    "SR0141",
+    "SR0300",
+    "SR0303"
+   ],
+   "review_checks": [
+    "核对保证金转出账户",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第31页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "保证金从规定的账户转出。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "现金方式： 易平台对接的银行中(须从投标人基本账户转出)。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "bid_bond_amount"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR030",
+   "concern_id": "BID_BOND_EVIDENCE",
+   "cell": "投标项目复核表!D26",
+   "displayed_source_requirement": "招标文件要求：3.4.1项要求提交投标保证金的，评标委员会将否决其投标\n复核要点：\n① 按本条要求逐条核对响应文件的对应内容\n② 依据第16页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n不满足后果：否决",
+   "evidence_cell": "投标项目复核表!E26",
+   "displayed_evidence": "第31页 / 3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，投标人在递交投标文件 / 第3.4.1条 / （pdf_block） 3.4.1项要求提交投标保证金的，评标委员会将否决其投标。（源条款 4 条：SR0140）",
+   "note_cell": "投标项目复核表!M26",
+   "displayed_note": "类型：BOND/保证金凭证；关联事实：bid_bond_amount",
+   "requirement_ids": [
+    "SR0140",
+    "SR0142",
+    "SR0302",
+    "SR0495"
+   ],
+   "review_checks": [
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第16页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "否决",
+   "scoring_guidance": "",
+   "primary_evidence": "3.4.1项要求提交投标保证金的，评标委员会将否决其投标。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "bid_bond_amount"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR031",
+   "concern_id": "BID_BOND_AMOUNT",
+   "cell": "投标项目复核表!D27",
+   "displayed_source_requirement": "招标文件要求：发包人在工程款中逐期扣回预付款后，预付款担保额度应相应减少，但剩余的 预付款担保金额不得低于未被扣回的预付款金额\n复核要点：\n① 按本条要求逐条核对响应文件的对应内容\n② 依据第17页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E27",
+   "displayed_evidence": "第31页 / 3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，投标人在递交投标文件 / （pdf_block） 联合体投标的，其投标保证金由牵头人递交，并应符合投标人须知前附表的规定。（源条款 21 条：SR0143）",
+   "note_cell": "投标项目复核表!M27",
+   "displayed_note": "类型：BOND/保证金金额；关联事实：bid_bond_amount、bid_bond_form",
+   "requirement_ids": [
+    "SR0143",
+    "SR0144",
+    "SR0246",
+    "SR0248",
+    "SR0301",
+    "SR0307",
+    "SR0390",
+    "SR0528",
+    "SR0599",
+    "SR0806",
+    "SR0808",
+    "SR0882",
+    "SR0886",
+    "SR0896",
+    "SR0897",
+    "SR0898",
+    "SR0899",
+    "SR0956",
+    "SR0957",
+    "SR0981",
+    "SR1006"
+   ],
+   "review_checks": [
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第17页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "联合体投标的，其投标保证金由牵头人递交，并应符合投标人须知前附表的规定。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "bid_bond_amount"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR043",
+   "concern_id": "PRICE_ARITHMETIC",
+   "cell": "投标项目复核表!D28",
+   "displayed_source_requirement": "招标文件要求：4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 单价等信息；8.1发包人供应材料与工程设备 发包人自行供应材料、工程设备的，应在签订合同时在专用合同条款的附件 《发包人供应材料设备一览表》中明确材料、工程设备的品种、规格、型号、数 量、单价、质量等级和送达地点\n复核要点：\n① 核对单价×数量与分项合计、总价\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第57页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E28",
+   "displayed_evidence": "第57页 / 4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 / （pdf_block） 4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 单价等信息；（源条款 18 条：SR0444）",
+   "note_cell": "投标项目复核表!M28",
+   "displayed_note": "类型：PRICING/报价算术与大小写；关联事实：max_price",
+   "requirement_ids": [
+    "SR0444",
+    "SR0459",
+    "SR0470",
+    "SR0720",
+    "SR0797",
+    "SR0809",
+    "SR0812",
+    "SR0817",
+    "SR0818",
+    "SR0819",
+    "SR0820",
+    "SR0830",
+    "SR0831",
+    "SR0836",
+    "SR0983",
+    "SR0984",
+    "SR0986",
+    "SR0987"
+   ],
+   "review_checks": [
+    "核对单价×数量与分项合计、总价",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第57页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 单价等信息；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "max_price"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR044",
+   "concern_id": "PRICE_ITEMIZATION",
+   "cell": "投标项目复核表!D29",
+   "displayed_source_requirement": "招标文件要求：2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发生的 子目承包人应当充分认识到，合同履行过程中所列暂列金额可能不发生，也可能部分发生 即便发生；项目经理（签字或盖章）： 身份证号： 任命日期： 投标单位（公章或电子印章）： 法定代表人或授权委托人（签字或盖章）： 年月日 四、已标价工程量清单 五\n复核要点：\n① 核对分项报价表逐行金额\n② 确认与源表限价/暂列金额一致\n③ 依据第63页第2.1.3.2条逐条比对响应文件对应章节\n通过标准：\n· 分项报价与源表金额逐项一致，暂列金额按源表列示。",
+   "evidence_cell": "投标项目复核表!E29",
+   "displayed_evidence": "第63页 / 2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发生的 / 第2.1.3.2条 / （pdf_block） 2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发生的 子目承包人应当充分认识到，合同履行过程中所列暂列金额可能不发生，也可能部分发生 即便发生，发包人按照合同约定发出的使用暂列金额的指示也（源条款 7 条：SR0453）",
+   "note_cell": "投标项目复核表!M29",
+   "displayed_note": "类型：PRICING/分项报价与暂列金额；关联事实：max_price",
+   "requirement_ids": [
+    "SR0453",
+    "SR0465",
+    "SR0466",
+    "SR0508",
+    "SR0765",
+    "SR0788",
+    "SR0789"
+   ],
+   "review_checks": [
+    "核对分项报价表逐行金额",
+    "确认与源表限价/暂列金额一致",
+    "依据第63页第2.1.3.2条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "分项报价与源表金额逐项一致，暂列金额按源表列示。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发生的 子目承包人应当充分认识到，合同履行过程中所列暂列金额可能不发生，也可能部分发生 即便发生，发包人按照合同约定发出的使用暂列金额的指示也不限于只能用于表中所列子 目。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [
+    "max_price"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR010",
+   "concern_id": "DELIVERY_PERIOD",
+   "cell": "投标项目复核表!D30",
+   "displayed_source_requirement": "招标文件要求：除专用合同条款另有约定外，监理人不能按时进行检查的，应在检查前24 小时 向承包人提交书面延期要求，但延期不能超过48 小时，由此导致工期延误的，工期 应予以顺延；\n复核要点：\n① 按上述要求的数值逐项核对响应文件\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第64页逐条比对响应文件对应章节\n④ 核对响应文件已载明：工期满足 2026年\n⑤ 核对响应文件已载明：工期满足 6月\n⑥ 核对响应文件已载明：工期满足 15日\n⑦ 核对响应文件已载明：工期满足 2027年\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 工期满足 2026年，且响应文件一致。\n· 工期满足 6月，且响应文件一致。\n· 工期满足 15日，且响应文件一致。",
+   "evidence_cell": "投标项目复核表!E30",
+   "displayed_evidence": "第124页 / 5.5质量争议检测 / （pdf_block） 除专用合同条款另有约定外，监理人不能按时进行检查的，应在检查前24 小时 向承包人提交书面延期要求，但延期不能超过48 小时，由此导致工期延误的，工期 应予以顺延。（源条款 29 条：SR0017）",
+   "note_cell": "投标项目复核表!M30",
+   "displayed_note": "类型：DURATION/工期与供货期",
+   "requirement_ids": [
+    "SR0017",
+    "SR0060",
+    "SR0256",
+    "SR0467",
+    "SR0469",
+    "SR0477",
+    "SR0569",
+    "SR0580",
+    "SR0598",
+    "SR0666",
+    "SR0677",
+    "SR0686",
+    "SR0701",
+    "SR0703",
+    "SR0705",
+    "SR0708",
+    "SR0711",
+    "SR0716",
+    "SR0719",
+    "SR0729",
+    "SR0732",
+    "SR0735",
+    "SR0860",
+    "SR0921",
+    "SR0929",
+    "SR0930",
+    "SR0932",
+    "SR0933",
+    "SR0934"
+   ],
+   "review_checks": [
+    "按上述要求的数值逐项核对响应文件",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第64页逐条比对响应文件对应章节",
+    "核对响应文件已载明：工期满足 2026年",
+    "核对响应文件已载明：工期满足 6月",
+    "核对响应文件已载明：工期满足 15日",
+    "核对响应文件已载明：工期满足 2027年"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。",
+    "工期满足 2026年，且响应文件一致。",
+    "工期满足 6月，且响应文件一致。",
+    "工期满足 15日，且响应文件一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "除专用合同条款另有约定外，监理人不能按时进行检查的，应在检查前24 小时 向承包人提交书面延期要求，但延期不能超过48 小时，由此导致工期延误的，工期 应予以顺延。",
+   "numeric_roles": [
+    "DELIVERY_DAYS",
+    "DELIVERY_DAYS",
+    "DELIVERY_DAYS",
+    "DELIVERY_DAYS",
+    "DELIVERY_DAYS",
+    "DELIVERY_DAYS"
+   ],
+   "numeric_role_values": [
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "2026年"
+    },
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "6月"
+    },
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "15日"
+    },
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "2027年"
+    },
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "12月"
+    },
+    {
+     "role": "DELIVERY_DAYS",
+     "value": "31日"
+    }
+   ],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR022",
+   "concern_id": "QUALITY_TARGET",
+   "cell": "投标项目复核表!D31",
+   "displayed_source_requirement": "招标文件要求：三、质量标准 工程质量符合 标准；承包人进行永久设备、材料的制造和生产 的，应符合相关质量标准，并向监理人提交材料的样本以及有关资料，并应在使用 该材料或工程设备之前获得监理人同意\n复核要点：\n① 确认响应文件承诺达标\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第9页第3.3条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E31",
+   "displayed_evidence": "第102页 / 三、质量标准 / 第三、条 / （pdf_block） 三、质量标准 工程质量符合 标准。（源条款 21 条：SR0050）",
+   "note_cell": "投标项目复核表!M31",
+   "displayed_note": "类型：QUALITY/质量目标",
+   "requirement_ids": [
+    "SR0050",
+    "SR0184",
+    "SR0372",
+    "SR0394",
+    "SR0472",
+    "SR0544",
+    "SR0556",
+    "SR0657",
+    "SR0659",
+    "SR0668",
+    "SR0669",
+    "SR0723",
+    "SR0725",
+    "SR0727",
+    "SR0728",
+    "SR0730",
+    "SR0733",
+    "SR0734",
+    "SR0863",
+    "SR0910",
+    "SR0999"
+   ],
+   "review_checks": [
+    "确认响应文件承诺达标",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第9页第3.3条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "三、质量标准 工程质量符合 标准。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR027",
+   "concern_id": "BID_VALIDITY",
+   "cell": "投标项目复核表!D32",
+   "displayed_source_requirement": "招标文件要求：3.3.1除投标人须知前附表另有规定外，投标有效期为90日；3.3.1 投标有效期 自投标人递交投标文件截止之日起计算90日历天\n复核要点：\n① 核对投标函中的投标有效期\n② 确认覆盖评审与定标全过程\n③ 依据第36页逐条比对响应文件对应章节\n④ 核对响应文件已载明：投标有效期不少于 90日历天\n⑤ 核对响应文件已载明：投标有效期不少于 90日\n通过标准：\n· 投标有效期达到规定天数，且覆盖评审与定标全过程。\n· 投标有效期不少于 90日历天，且响应文件一致。\n· 投标有效期不少于 90日，且响应文件一致。",
+   "evidence_cell": "投标项目复核表!E32",
+   "displayed_evidence": "第31页 / 3.3投标有效期 / 第3.3.1条 / （pdf_block） 3.3.1除投标人须知前附表另有规定外，投标有效期为90日。（源条款 5 条：SR0128）",
+   "note_cell": "投标项目复核表!M32",
+   "displayed_note": "类型：VALIDITY/投标有效期；关联事实：bid_validity",
+   "requirement_ids": [
+    "SR0128",
+    "SR0296",
+    "SR0344",
+    "SR0352",
+    "SR0503"
+   ],
+   "review_checks": [
+    "核对投标函中的投标有效期",
+    "确认覆盖评审与定标全过程",
+    "依据第36页逐条比对响应文件对应章节",
+    "核对响应文件已载明：投标有效期不少于 90日历天",
+    "核对响应文件已载明：投标有效期不少于 90日"
+   ],
+   "pass_criteria": [
+    "投标有效期达到规定天数，且覆盖评审与定标全过程。",
+    "投标有效期不少于 90日历天，且响应文件一致。",
+    "投标有效期不少于 90日，且响应文件一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.3.1除投标人须知前附表另有规定外，投标有效期为90日。",
+   "numeric_roles": [
+    "BID_VALIDITY_DAYS",
+    "BID_VALIDITY_DAYS"
+   ],
+   "numeric_role_values": [
+    {
+     "role": "BID_VALIDITY_DAYS",
+     "value": "90日历天"
+    },
+    {
+     "role": "BID_VALIDITY_DAYS",
+     "value": "90日"
+    }
+   ],
+   "linked_fact_keys": [
+    "bid_validity"
+   ],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR038",
+   "concern_id": "PROJECT_WARRANTY",
+   "cell": "投标项目复核表!D33",
+   "displayed_source_requirement": "招标文件要求：15.4.1 保修责任 工程保修期从工程竣工验收合格之日起算，具体分部分项工程的保修期由合同 当事人在专用合同条款中约定，但不得低于法定最低保修年限；在工程保修期内， 承包人应当根据有关法律规定以及合同约定承担保修责任\n复核要点：\n① 确认起算点与覆盖范围符合要求\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第23页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E33",
+   "displayed_evidence": "第159页 / 15.4保修 / 第15.4.1条 / （pdf_block） 15.4.1 保修责任 工程保修期从工程竣工验收合格之日起算，具体分部分项工程的保修期由合同 当事人在专用合同条款中约定，但不得低于法定最低保修年限。（源条款 28 条：SR0220）",
+   "note_cell": "投标项目复核表!M33",
+   "displayed_note": "类型：WARRANTY/项目/产品质保",
+   "requirement_ids": [
+    "SR0220",
+    "SR0226",
+    "SR0228",
+    "SR0230",
+    "SR0231",
+    "SR0232",
+    "SR0233",
+    "SR0234",
+    "SR0235",
+    "SR0236",
+    "SR0237",
+    "SR0238",
+    "SR0239",
+    "SR0240",
+    "SR0241",
+    "SR0548",
+    "SR0876",
+    "SR0885",
+    "SR0887",
+    "SR0888",
+    "SR0900",
+    "SR0901",
+    "SR0902",
+    "SR0903",
+    "SR0939",
+    "SR0940",
+    "SR1000",
+    "SR1003"
+   ],
+   "review_checks": [
+    "确认起算点与覆盖范围符合要求",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第23页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "15.4.1 保修责任 工程保修期从工程竣工验收合格之日起算，具体分部分项工程的保修期由合同 当事人在专用合同条款中约定，但不得低于法定最低保修年限。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR034",
+   "concern_id": "PERFORMANCE_BOND",
+   "cell": "投标项目复核表!D34",
+   "displayed_source_requirement": "招标文件要求：8.1.1 履约保证金 1.是否要求投标人递交履约保证金： □不要求 ☑要求，具体如下：；8.1.1 履约保证金 1.是否要求投标人递交履约保证金： □不要求 ☑要求，具体如下： （2）履约保证金形式：\n复核要点：\n① 核对履约保证金的形式、金额与提交时点\n② 确认在规定时间前提交\n③ 依据第37页第8.1.1条逐条比对响应文件对应章节\n通过标准：\n· 履约保证金的形式、金额与提交时点符合合同条款。",
+   "evidence_cell": "投标项目复核表!E34",
+   "displayed_evidence": "第18页 / 第8.1.1条 / （pdf_table_cell） 8.1.1 履约保证金 1.是否要求投标人递交履约保证金： □不要求 ☑要求，具体如下：（源条款 29 条：SR0149）",
+   "note_cell": "投标项目复核表!M34",
+   "displayed_note": "类型：CONTRACT/履约保证金",
+   "requirement_ids": [
+    "SR0149",
+    "SR0150",
+    "SR0151",
+    "SR0169",
+    "SR0170",
+    "SR0305",
+    "SR0347",
+    "SR0353",
+    "SR0354",
+    "SR0355",
+    "SR0356",
+    "SR0357",
+    "SR0374",
+    "SR0498",
+    "SR0502",
+    "SR0560",
+    "SR0600",
+    "SR0641",
+    "SR0642",
+    "SR0643",
+    "SR0644",
+    "SR0868",
+    "SR0889",
+    "SR0908",
+    "SR0967",
+    "SR0968",
+    "SR0993",
+    "SR1005",
+    "SR1006"
+   ],
+   "review_checks": [
+    "核对履约保证金的形式、金额与提交时点",
+    "确认在规定时间前提交",
+    "依据第37页第8.1.1条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "履约保证金的形式、金额与提交时点符合合同条款。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "8.1.1 履约保证金 1.是否要求投标人递交履约保证金： □不要求 ☑要求，具体如下：",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR039",
+   "concern_id": "CONTRACT_PAYMENT",
+   "cell": "投标项目复核表!D35",
+   "displayed_source_requirement": "招标文件要求：6.3.1建设单位应当及时、足额支付安全文明施工费；未经发包人 书面同意，承包人不得为监理人提供合同约定以外的通讯设备、交通工具及其他任 何形式的利益，不得向监理人支付报酬\n复核要点：\n① 核对合同付款条款响应\n② 核对付款方式、结算依据与付款条件\n③ 依据第59页逐条比对响应文件对应章节\n通过标准：\n· 付款方式、结算依据与付款条件在响应文件中被接受。",
+   "evidence_cell": "投标项目复核表!E35",
+   "displayed_evidence": "第64页 / 6.3施工现场安全行为管理 / 第6.3.1条 / （pdf_block） 6.3.1建设单位应当及时、足额支付安全文明施工费；（源条款 31 条：SR0221）",
+   "note_cell": "投标项目复核表!M35",
+   "displayed_note": "类型：CONTRACT/合同付款与结算",
+   "requirement_ids": [
+    "SR0221",
+    "SR0224",
+    "SR0460",
+    "SR0475",
+    "SR0579",
+    "SR0602",
+    "SR0648",
+    "SR0681",
+    "SR0683",
+    "SR0803",
+    "SR0805",
+    "SR0815",
+    "SR0827",
+    "SR0829",
+    "SR0833",
+    "SR0834",
+    "SR0835",
+    "SR0866",
+    "SR0869",
+    "SR0870",
+    "SR0871",
+    "SR0873",
+    "SR0878",
+    "SR0880",
+    "SR0909",
+    "SR0961",
+    "SR0969",
+    "SR0974",
+    "SR0990",
+    "SR0992",
+    "SR0997"
+   ],
+   "review_checks": [
+    "核对合同付款条款响应",
+    "核对付款方式、结算依据与付款条件",
+    "依据第59页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "付款方式、结算依据与付款条件在响应文件中被接受。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "6.3.1建设单位应当及时、足额支付安全文明施工费；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR040",
+   "concern_id": "RETENTION_RELEASE_PERIOD",
+   "cell": "投标项目复核表!D36",
+   "displayed_source_requirement": "招标文件要求：如承包人在发 包人签发竣工付款证书后28天内提交质量保证金保函，发包人应同时退还扣留的作 为质量保证金的工程价款；付至结算价款的97%，3%作为质保金，缺陷责任期满后无质量问题无息支付 余款\n复核要点：\n① 确认与合同条款一致\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的对应内容\n④ 依据第23页逐条比对响应文件对应章节\n⑤ 核对响应文件已载明：质量保证金释放相关期限为 28天（合同付款条件）\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n· 质量保证金释放相关期限为 28天（合同付款条件），且响应文件一致。",
+   "evidence_cell": "投标项目复核表!E36",
+   "displayed_evidence": "第159页 / 15.3.2质量保证金的扣留 / （pdf_block） 如承包人在发 包人签发竣工付款证书后28天内提交质量保证金保函，发包人应同时退还扣留的作 为质量保证金的工程价款；（源条款 2 条：SR0225）",
+   "note_cell": "投标项目复核表!M36",
+   "displayed_note": "类型：CONTRACT/质保金释放期限",
+   "requirement_ids": [
+    "SR0225",
+    "SR0894"
+   ],
+   "review_checks": [
+    "确认与合同条款一致",
+    "按上述要求的数值逐项核对响应文件",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第23页逐条比对响应文件对应章节",
+    "核对响应文件已载明：质量保证金释放相关期限为 28天（合同付款条件）"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。",
+    "质量保证金释放相关期限为 28天（合同付款条件），且响应文件一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "如承包人在发 包人签发竣工付款证书后28天内提交质量保证金保函，发包人应同时退还扣留的作 为质量保证金的工程价款；",
+   "numeric_roles": [
+    "RETENTION_RELEASE_MONTHS"
+   ],
+   "numeric_role_values": [
+    {
+     "role": "RETENTION_RELEASE_MONTHS",
+     "value": "28天"
+    }
+   ],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR050",
+   "concern_id": "RETENTION_MONEY_RATIO",
+   "cell": "投标项目复核表!D37",
+   "displayed_source_requirement": "招标文件要求：发包人累计扣留的质量保证金不得超过工程价款结算总额的3%；15.3.1承包人提供质量保证金的方式 承包人提供质量保证金有以下三种方式： （1）质量保证金保函\n复核要点：\n① 确认响应文件接受该比例\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第159页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E37",
+   "displayed_evidence": "第159页 / 15.3.2质量保证金的扣留 / （pdf_block） 发包人累计扣留的质量保证金不得超过工程价款结算总额的3%。（源条款 5 条：SR0890）",
+   "note_cell": "投标项目复核表!M37",
+   "displayed_note": "类型：CONTRACT/质保金比例",
+   "requirement_ids": [
+    "SR0890",
+    "SR0891",
+    "SR0892",
+    "SR0893",
+    "SR0994"
+   ],
+   "review_checks": [
+    "确认响应文件接受该比例",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第159页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "发包人累计扣留的质量保证金不得超过工程价款结算总额的3%。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR051",
+   "concern_id": "CONTRACT_TERMINATION_REFUND",
+   "cell": "投标项目复核表!D38",
+   "displayed_source_requirement": "招标文件要求：（4）合同解除后，承包人应按照发包人要求和监理人的指示完成现场的清理和 撤离；合同解除后，因继 续完成工程的需要，发包人有权使用承包人在施工现场的材料、设备、临时工程、 承包人文件和由承包人或以其名义编制的其他文件，合同当事人应在专用合同条款 约定相应费用的承担方式\n复核要点：\n① 核对合同解除/退换的退款与违约责任\n② 确认响应文件知悉该条款\n③ 依据第162页逐条比对响应文件对应章节\n通过标准：\n· 合同解除/退换时的退款与违约责任条款已被知悉。",
+   "evidence_cell": "投标项目复核表!E38",
+   "displayed_evidence": "第163页 / 17.2不可抗力的通知 / 第（4）条 / （pdf_block） （4）合同解除后，承包人应按照发包人要求和监理人的指示完成现场的清理和 撤离；（源条款 4 条：SR0911）",
+   "note_cell": "投标项目复核表!M38",
+   "displayed_note": "类型：CONTRACT/合同解除与退款责任",
+   "requirement_ids": [
+    "SR0911",
+    "SR0914",
+    "SR0915",
+    "SR0923"
+   ],
+   "review_checks": [
+    "核对合同解除/退换的退款与违约责任",
+    "确认响应文件知悉该条款",
+    "依据第162页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "合同解除/退换时的退款与违约责任条款已被知悉。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "（4）合同解除后，承包人应按照发包人要求和监理人的指示完成现场的清理和 撤离；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR008",
+   "concern_id": "INSTALLATION_ACCEPTANCE",
+   "cell": "投标项目复核表!D39",
+   "displayed_source_requirement": "招标文件要求：1.3.3 质量要求 符合现行国家、行业及地方工程施工质量验收标准以及相关专业验收规范的合 格标准；监理人应当根据发包人授权及法律规定，代表发包人对工程施 工相关事项进行检查、查验、审核、验收，并签发相关指示，但监理人无权修改合 同，且无权减轻或免除合同约定的承包人的任何责任与义务\n复核要点：\n① 核对安装、调试与验收标准\n② 确认验收节点与招标文件一致\n③ 依据第121页逐条比对响应文件对应章节\n通过标准：\n· 安装、调试与验收节点在响应文件中逐项落实（不含标准规范清单）。\n不满足后果：拒绝接收",
+   "evidence_cell": "投标项目复核表!E39",
+   "displayed_evidence": "第12页 / 第二章 投标人须知 / 第1.3.3条 / （pdf_table_cell） 1.3.3 质量要求 符合现行国家、行业及地方工程施工质量验收标准以及相关专业验收规范的合 格标准。（源条款 42 条：SR0013）",
+   "note_cell": "投标项目复核表!M39",
+   "displayed_note": "类型：TECHNICAL/安装调试与验收",
+   "requirement_ids": [
+    "SR0013",
+    "SR0019",
+    "SR0061",
+    "SR0229",
+    "SR0491",
+    "SR0510",
+    "SR0512",
+    "SR0586",
+    "SR0603",
+    "SR0647",
+    "SR0656",
+    "SR0731",
+    "SR0749",
+    "SR0751",
+    "SR0752",
+    "SR0753",
+    "SR0755",
+    "SR0756",
+    "SR0757",
+    "SR0758",
+    "SR0759",
+    "SR0760",
+    "SR0761",
+    "SR0839",
+    "SR0844",
+    "SR0845",
+    "SR0846",
+    "SR0847",
+    "SR0848",
+    "SR0849",
+    "SR0850",
+    "SR0851",
+    "SR0852",
+    "SR0853",
+    "SR0864",
+    "SR0865",
+    "SR0867",
+    "SR0883",
+    "SR0884",
+    "SR0975",
+    "SR0988",
+    "SR1015"
+   ],
+   "review_checks": [
+    "核对安装、调试与验收标准",
+    "确认验收节点与招标文件一致",
+    "依据第121页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "安装、调试与验收节点在响应文件中逐项落实（不含标准规范清单）。"
+   ],
+   "materials": [],
+   "consequence": "拒绝接收",
+   "scoring_guidance": "",
+   "primary_evidence": "1.3.3 质量要求 符合现行国家、行业及地方工程施工质量验收标准以及相关专业验收规范的合 格标准。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR020",
+   "concern_id": "TECHNICAL_PLAN",
+   "cell": "投标项目复核表!D40",
+   "displayed_source_requirement": "招标文件要求：2.施工组织设计除采用文字表述外可附下列图表，图表及格式要求附后；（4）按合同约定的工作内容和施工进度要求，编制施工组织设计和施工措施计 划，并对所有施工作业和施工方法的完备性和安全可靠性负责\n复核要点：\n① 核对技术方案与进度计划\n② 核对人员机具配置、质量措施与应急预案\n③ 依据第9页第（6）条逐条比对响应文件对应章节\n通过标准：\n· 技术方案、进度计划、人员机具、质量与应急措施完整可实施。",
+   "evidence_cell": "投标项目复核表!E40",
+   "displayed_evidence": "第76页 / 五、施工组织设计 / （pdf_block） 2.施工组织设计除采用文字表述外可附下列图表，图表及格式要求附后。（源条款 56 条：SR0048）",
+   "note_cell": "投标项目复核表!M40",
+   "displayed_note": "类型：TECHNICAL/技术方案与实施组织",
+   "requirement_ids": [
+    "SR0048",
+    "SR0197",
+    "SR0223",
+    "SR0243",
+    "SR0255",
+    "SR0274",
+    "SR0342",
+    "SR0396",
+    "SR0397",
+    "SR0471",
+    "SR0474",
+    "SR0480",
+    "SR0483",
+    "SR0509",
+    "SR0514",
+    "SR0515",
+    "SR0535",
+    "SR0567",
+    "SR0605",
+    "SR0658",
+    "SR0671",
+    "SR0673",
+    "SR0674",
+    "SR0680",
+    "SR0687",
+    "SR0688",
+    "SR0689",
+    "SR0690",
+    "SR0691",
+    "SR0692",
+    "SR0693",
+    "SR0694",
+    "SR0695",
+    "SR0697",
+    "SR0722",
+    "SR0748",
+    "SR0777",
+    "SR0804",
+    "SR0816",
+    "SR0821",
+    "SR0823",
+    "SR0824",
+    "SR0825",
+    "SR0826",
+    "SR0828",
+    "SR0832",
+    "SR0856",
+    "SR0857",
+    "SR0861",
+    "SR0952",
+    "SR0953",
+    "SR0954",
+    "SR0955",
+    "SR0972",
+    "SR0982",
+    "SR0119"
+   ],
+   "review_checks": [
+    "核对技术方案与进度计划",
+    "核对人员机具配置、质量措施与应急预案",
+    "依据第9页第（6）条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "技术方案、进度计划、人员机具、质量与应急措施完整可实施。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "2.施工组织设计除采用文字表述外可附下列图表，图表及格式要求附后。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR037",
+   "concern_id": "SITE_VISIT",
+   "cell": "投标项目复核表!D41",
+   "displayed_source_requirement": "招标文件要求：2）招标人不组织现场踏勘，投标人必须自行踏勘现场；1.9.1投标人须知前附表规定组织踏勘现场的，招标人按投标人须知前附表规定的时间、 地点组织投标人踏勘项目现场\n复核要点：\n① 逐条核对本条要求在响应文件中的对应内容\n② 确认响应文件中可核验的对应位置\n③ 依据第21页逐条比对响应文件对应章节\n通过标准：\n· 该条款的响应内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E41",
+   "displayed_evidence": "第21页 / （pdf_table_cell） 2）招标人不组织现场踏勘，投标人必须自行踏勘现场。（源条款 2 条：SR0187）",
+   "note_cell": "投标项目复核表!M41",
+   "displayed_note": "类型：TECHNICAL/现场踏勘",
+   "requirement_ids": [
+    "SR0187",
+    "SR0273"
+   ],
+   "review_checks": [
+    "逐条核对本条要求在响应文件中的对应内容",
+    "确认响应文件中可核验的对应位置",
+    "依据第21页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "该条款的响应内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "2）招标人不组织现场踏勘，投标人必须自行踏勘现场。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR045",
+   "concern_id": "TECHNICAL_PARAMETER",
+   "cell": "投标项目复核表!D42",
+   "displayed_source_requirement": "招标文件要求：1.10.2 场外交通 发包人应提供场外交通设施的技术参数和具体条件，承包人应遵守有关交通法 规，严格按照道路和桥梁的限制荷载行驶，执行有关道路限速、限行、禁止超载的 规定，并配合交通管理部门的监督和检查；8.8.1承包人提供的施工设备和临时设施 承包人应按合同进度计划的要求，及时配置施工设备和修建临时设施\n复核要点：\n① 逐条核对技术参数响应\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第112页第1.10.2条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E42",
+   "displayed_evidence": "第112页 / 1.10.2 场外交通 / 第1.10.2条 / （pdf_block） 1.10.2 场外交通 发包人应提供场外交通设施的技术参数和具体条件，承包人应遵守有关交通法 规，严格按照道路和桥梁的限制荷载行驶，执行有关道路限速、限行、禁止超载的 规定，并配合交通管理部门的监督和检查。（源条款 16 条：SR0464）",
+   "note_cell": "投标项目复核表!M42",
+   "displayed_note": "类型：TECHNICAL/技术参数与配置",
+   "requirement_ids": [
+    "SR0464",
+    "SR0468",
+    "SR0489",
+    "SR0549",
+    "SR0559",
+    "SR0581",
+    "SR0582",
+    "SR0604",
+    "SR0660",
+    "SR0726",
+    "SR0737",
+    "SR0741",
+    "SR0746",
+    "SR0905",
+    "SR0916",
+    "SR0996"
+   ],
+   "review_checks": [
+    "逐条核对技术参数响应",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第112页第1.10.2条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "1.10.2 场外交通 发包人应提供场外交通设施的技术参数和具体条件，承包人应遵守有关交通法 规，严格按照道路和桥梁的限制荷载行驶，执行有关道路限速、限行、禁止超载的 规定，并配合交通管理部门的监督和检查。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR049",
+   "concern_id": "DELIVERY_ACCEPTANCE_COMPLETION",
+   "cell": "投标项目复核表!D43",
+   "displayed_source_requirement": "招标文件要求：13.2.1 竣工验收条件 工程具备以下条件的，承包人可以申请竣工验收： （1）除发包人同意的甩项工作和缺陷修补工作外，合同范围内的全部工程以及 有关工作，包括合同要求的试验、试运行以及检验均已完成，并符合合同要求\n复核要点：\n① 按本条要求逐条核对响应文件的对应内容\n② 依据第151页第13.2.1条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E43",
+   "displayed_evidence": "第151页 / 13.2竣工验收 / 第13.2.1条 / （pdf_block） 13.2.1 竣工验收条件 工程具备以下条件的，承包人可以申请竣工验收： （1）除发包人同意的甩项工作和缺陷修补工作外，合同范围内的全部工程以及 有关工作，包括合同要求的试验、试运行以及检验均已完成，并符合合同要求；（源条款 1 条：SR0842）",
+   "note_cell": "投标项目复核表!M43",
+   "displayed_note": "类型：CONTRACT/交付完成与验收",
+   "requirement_ids": [
+    "SR0842"
+   ],
+   "review_checks": [
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第151页第13.2.1条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "13.2.1 竣工验收条件 工程具备以下条件的，承包人可以申请竣工验收： （1）除发包人同意的甩项工作和缺陷修补工作外，合同范围内的全部工程以及 有关工作，包括合同要求的试验、试运行以及检验均已完成，并符合合同要求；",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR006",
+   "concern_id": "SCORING_TECHNICAL",
+   "cell": "投标项目复核表!D44",
+   "displayed_source_requirement": "招标文件要求：招标人可以根据本示范文本、《建设工程工 程量清单计价规范》、招标项目具体特点和实际需要编制，并与“投 标人须知”、“通用合同条款”、“专用合同条款”、“技术标准 和要求”、“图纸”相衔接；施工组织设计编制的特殊要求见第七章“技术标准和要求”\n复核要点：\n① 确认技术标章节可定位\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第32页第3.7.2条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E44",
+   "displayed_evidence": "第3页 / 七、《房建市政施工评定分离招标示范文本》第五章“工程量 / （pdf_block） 招标人可以根据本示范文本、《建设工程工 程量清单计价规范》、招标项目具体特点和实际需要编制，并与“投 标人须知”、“通用合同条款”、“专用合同条款”、“技术标准 和要求”、“图纸”相衔接。（源条款 10 条：SR0007）",
+   "note_cell": "投标项目复核表!M44",
+   "displayed_note": "类型：EVALUATION/评分·技术方案",
+   "requirement_ids": [
+    "SR0007",
+    "SR0313",
+    "SR0314",
+    "SR0463",
+    "SR0473",
+    "SR0493",
+    "SR0494",
+    "SR0551",
+    "SR0554",
+    "SR0565"
+   ],
+   "review_checks": [
+    "确认技术标章节可定位",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第32页第3.7.2条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "招标人可以根据本示范文本、《建设工程工 程量清单计价规范》、招标项目具体特点和实际需要编制，并与“投 标人须知”、“通用合同条款”、“专用合同条款”、“技术标准 和要求”、“图纸”相衔接。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR048",
+   "concern_id": "SCORING_PRICE_FORMULA",
+   "cell": "投标项目复核表!D45",
+   "displayed_source_requirement": "招标文件要求：前述基准价格是指由发包人在招标文件或专用合同条款中给定的材料、工程设备 的价格，该价格原则上应当按照省级或行业建设主管部门或其授权的工程造价管理机 构发布的信息价编制；（2）材料、工程设备价格变化的价款调整按照发包人提供的基准价格，按以下 风险范围规定执行: ①承包人在已标价工程量清单或预算书中载明材料单价低于基准价格的：除专用 合同条款另有约定外\n复核要点：\n① 按本条要求逐条核对响应文件的对应内容\n② 依据第145页逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E45",
+   "displayed_evidence": "第145页 / 11.2法律变化引起的调整 / （pdf_block） 前述基准价格是指由发包人在招标文件或专用合同条款中给定的材料、工程设备 的价格，该价格原则上应当按照省级或行业建设主管部门或其授权的工程造价管理机 构发布的信息价编制。（源条款 4 条：SR0798）",
+   "note_cell": "投标项目复核表!M45",
+   "displayed_note": "类型：EVALUATION/评分·价格分计算",
+   "requirement_ids": [
+    "SR0798",
+    "SR0799",
+    "SR0800",
+    "SR0802"
+   ],
+   "review_checks": [
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第145页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "前述基准价格是指由发包人在招标文件或专用合同条款中给定的材料、工程设备 的价格，该价格原则上应当按照省级或行业建设主管部门或其授权的工程造价管理机 构发布的信息价编制。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR002",
+   "concern_id": "GENERAL_BIDDER_OBLIGATION",
+   "cell": "投标项目复核表!D46",
+   "displayed_source_requirement": "招标文件要求：四、《房建市政施工评定分离招标示范文本》第二章“投标人 须知”正文和前附表，除以空格标示的由招标人填空的内容、选择 性内容和可补充内容外，原则上应不加修改地直接引用；\n复核要点：\n① 核对该条款对应的响应内容\n② 确认响应完整、可核验\n③ 依据第8页逐条比对响应文件对应章节\n通过标准：\n· 响应文件对该条款作出可核验的对应响应。",
+   "evidence_cell": "投标项目复核表!E46",
+   "displayed_evidence": "第2页 / 四、《房建市政施工评定分离招标示范文本》第二章“投标人 / 第四、条 / （pdf_block） 四、《房建市政施工评定分离招标示范文本》第二章“投标人 须知”正文和前附表，除以空格标示的由招标人填空的内容、选择 性内容和可补充内容外，原则上应不加修改地直接引用。（源条款 105 条：SR0002）",
+   "note_cell": "投标项目复核表!M46",
+   "displayed_note": "类型：EVALUATION/一般投标人义务",
+   "requirement_ids": [
+    "SR0002",
+    "SR0008",
+    "SR0011",
+    "SR0014",
+    "SR0033",
+    "SR0034",
+    "SR0035",
+    "SR0040",
+    "SR0053",
+    "SR0058",
+    "SR0063",
+    "SR0072",
+    "SR0093",
+    "SR0095",
+    "SR0098",
+    "SR0106",
+    "SR0107",
+    "SR0111",
+    "SR0123",
+    "SR0129",
+    "SR0145",
+    "SR0177",
+    "SR0181",
+    "SR0185",
+    "SR0186",
+    "SR0188",
+    "SR0189",
+    "SR0201",
+    "SR0203",
+    "SR0209",
+    "SR0210",
+    "SR0212",
+    "SR0214",
+    "SR0215",
+    "SR0245",
+    "SR0247",
+    "SR0249",
+    "SR0257",
+    "SR0258",
+    "SR0260",
+    "SR0262",
+    "SR0263",
+    "SR0330",
+    "SR0332",
+    "SR0339",
+    "SR0340",
+    "SR0351",
+    "SR0362",
+    "SR0364",
+    "SR0382",
+    "SR0383",
+    "SR0385",
+    "SR0386",
+    "SR0387",
+    "SR0388",
+    "SR0389",
+    "SR0447",
+    "SR0478",
+    "SR0484",
+    "SR0485",
+    "SR0486",
+    "SR0487",
+    "SR0488",
+    "SR0490",
+    "SR0492",
+    "SR0523",
+    "SR0568",
+    "SR0578",
+    "SR0592",
+    "SR0593",
+    "SR0597",
+    "SR0619",
+    "SR0625",
+    "SR0626",
+    "SR0630",
+    "SR0631",
+    "SR0650",
+    "SR0652",
+    "SR0653",
+    "SR0663",
+    "SR0678",
+    "SR0699",
+    "SR0700",
+    "SR0704",
+    "SR0707",
+    "SR0709",
+    "SR0710",
+    "SR0712",
+    "SR0713",
+    "SR0715",
+    "SR0718",
+    "SR0721",
+    "SR0736",
+    "SR0738",
+    "SR0739",
+    "SR0743",
+    "SR0745",
+    "SR0750",
+    "SR0772",
+    "SR0776",
+    "SR0781",
+    "SR0928",
+    "SR0971",
+    "SR1001",
+    "SR0989"
+   ],
+   "review_checks": [
+    "核对该条款对应的响应内容",
+    "确认响应完整、可核验",
+    "依据第8页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "响应文件对该条款作出可核验的对应响应。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "四、《房建市政施工评定分离招标示范文本》第二章“投标人 须知”正文和前附表，除以空格标示的由招标人填空的内容、选择 性内容和可补充内容外，原则上应不加修改地直接引用。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR005",
+   "concern_id": "CONTRACT_RISK",
+   "cell": "投标项目复核表!D47",
+   "displayed_source_requirement": "招标文件要求：发包人无正当理由不接收工程的，发包人自应当接收工程之日起，承担工程照 管、成品保护、保管等与工程有关的各项费用，合同当事人可以在专用合同条款中 另行约定发包人逾期接收工程的违约责任；16.3第三人造成的违约 在履行合同过程中，一方当事人因第三人的原因造成违约的，应当向对方当事 人承担违约责任\n复核要点：\n① 核对违约、索赔与争议条款响应\n② 确认无采购人不能接受的附加条件\n③ 依据第3页逐条比对响应文件对应章节\n通过标准：\n· 不存在采购人不能接受的附加条件或未响应风险条款。",
+   "evidence_cell": "投标项目复核表!E47",
+   "displayed_evidence": "第152页 / 13.2.5移交、接收全部与部分工程 / （pdf_block） 发包人无正当理由不接收工程的，发包人自应当接收工程之日起，承担工程照 管、成品保护、保管等与工程有关的各项费用，合同当事人可以在专用合同条款中 另行约定发包人逾期接收工程的违约责任。（源条款 116 条：SR0005）",
+   "note_cell": "投标项目复核表!M47",
+   "displayed_note": "类型：EVALUATION/合同风险与违约责任",
+   "requirement_ids": [
+    "SR0005",
+    "SR0006",
+    "SR0009",
+    "SR0016",
+    "SR0018",
+    "SR0202",
+    "SR0219",
+    "SR0250",
+    "SR0373",
+    "SR0438",
+    "SR0496",
+    "SR0497",
+    "SR0499",
+    "SR0525",
+    "SR0538",
+    "SR0543",
+    "SR0545",
+    "SR0553",
+    "SR0555",
+    "SR0557",
+    "SR0558",
+    "SR0561",
+    "SR0563",
+    "SR0564",
+    "SR0566",
+    "SR0571",
+    "SR0572",
+    "SR0573",
+    "SR0574",
+    "SR0575",
+    "SR0577",
+    "SR0583",
+    "SR0584",
+    "SR0585",
+    "SR0588",
+    "SR0589",
+    "SR0590",
+    "SR0594",
+    "SR0595",
+    "SR0596",
+    "SR0606",
+    "SR0607",
+    "SR0608",
+    "SR0610",
+    "SR0611",
+    "SR0612",
+    "SR0613",
+    "SR0614",
+    "SR0615",
+    "SR0616",
+    "SR0617",
+    "SR0618",
+    "SR0620",
+    "SR0621",
+    "SR0622",
+    "SR0623",
+    "SR0627",
+    "SR0628",
+    "SR0629",
+    "SR0632",
+    "SR0649",
+    "SR0655",
+    "SR0661",
+    "SR0662",
+    "SR0664",
+    "SR0670",
+    "SR0672",
+    "SR0676",
+    "SR0685",
+    "SR0696",
+    "SR0698",
+    "SR0706",
+    "SR0724",
+    "SR0740",
+    "SR0747",
+    "SR0754",
+    "SR0762",
+    "SR0764",
+    "SR0771",
+    "SR0843",
+    "SR0854",
+    "SR0855",
+    "SR0874",
+    "SR0904",
+    "SR0906",
+    "SR0907",
+    "SR0912",
+    "SR0913",
+    "SR0917",
+    "SR0918",
+    "SR0919",
+    "SR0920",
+    "SR0922",
+    "SR0924",
+    "SR0926",
+    "SR0927",
+    "SR0931",
+    "SR0935",
+    "SR0936",
+    "SR0937",
+    "SR0938",
+    "SR0941",
+    "SR0942",
+    "SR0943",
+    "SR0944",
+    "SR0945",
+    "SR0948",
+    "SR0949",
+    "SR0951",
+    "SR0964",
+    "SR0995",
+    "SR0998",
+    "SR1014",
+    "SR1016",
+    "SR0587",
+    "SR0881"
+   ],
+   "review_checks": [
+    "核对违约、索赔与争议条款响应",
+    "确认无采购人不能接受的附加条件",
+    "依据第3页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "不存在采购人不能接受的附加条件或未响应风险条款。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "发包人无正当理由不接收工程的，发包人自应当接收工程之日起，承担工程照 管、成品保护、保管等与工程有关的各项费用，合同当事人可以在专用合同条款中 另行约定发包人逾期接收工程的违约责任。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR007",
+   "concern_id": "EVALUATION_SCORING",
+   "cell": "投标项目复核表!D48",
+   "displayed_source_requirement": "招标文件要求：标公告、投标人须知前附表、投标人须知（含附件）、评标办法前附表、；6.3.1评标委员会按照第三章“评标及定标办法”规定的方法、评审因素、标准和程序对 投标文件进行评审\n复核要点：\n① 确认每项都有对应响应内容\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第5页第2.3条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E48",
+   "displayed_evidence": "第20页 / （pdf_table_cell） 标公告、投标人须知前附表、投标人须知（含附件）、评标办法前附表、（源条款 7 条：SR0012）",
+   "note_cell": "投标项目复核表!M48",
+   "displayed_note": "类型：OTHER/评分标准与分值构成",
+   "requirement_ids": [
+    "SR0012",
+    "SR0171",
+    "SR0216",
+    "SR0333",
+    "SR0334",
+    "SR0763",
+    "SR0793"
+   ],
+   "review_checks": [
+    "确认每项都有对应响应内容",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第5页第2.3条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "标公告、投标人须知前附表、投标人须知（含附件）、评标办法前附表、",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR012",
+   "concern_id": "AUTHORIZATION",
+   "cell": "投标项目复核表!D49",
+   "displayed_source_requirement": "招标文件要求：(2)在第八章“投标文件格式”中要求盖单位章和(或)签字处，投标人应加 盖投标人单位公章/单位电子印章和(或)法定代表人或委托代理人的个人电子印章/电 子签名章/签字；5.1开标时间和地点 招标人在招标公告规定的投标截止时间(开标时间)，通过电子交易系统公开开标，所有 投标人的法定代表人或其委托代理人应当准时参加\n复核要点：\n① 核对授权委托书\n② 确认授权代表与签署人一致且在有效期内\n③ 依据第6页逐条比对响应文件对应章节\n通过标准：\n· 授权代表签署的授权链条完整，授权书有效。",
+   "evidence_cell": "投标项目复核表!E49",
+   "displayed_evidence": "第33页 / 4.3投标文件的修改与撤回 / 第(2)条 / （pdf_block） (2)在第八章“投标文件格式”中要求盖单位章和(或)签字处，投标人应加 盖投标人单位公章/单位电子印章和(或)法定代表人或委托代理人的个人电子印章/电 子签名章/签字。（源条款 18 条：SR0023）",
+   "note_cell": "投标项目复核表!M49",
+   "displayed_note": "类型：SIGNATURE/授权委托",
+   "requirement_ids": [
+    "SR0023",
+    "SR0024",
+    "SR0069",
+    "SR0070",
+    "SR0291",
+    "SR0316",
+    "SR0317",
+    "SR0327",
+    "SR0378",
+    "SR0501",
+    "SR0506",
+    "SR0507",
+    "SR0540",
+    "SR0550",
+    "SR1009",
+    "SR1010",
+    "SR1013",
+    "SR1020"
+   ],
+   "review_checks": [
+    "核对授权委托书",
+    "确认授权代表与签署人一致且在有效期内",
+    "依据第6页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "授权代表签署的授权链条完整，授权书有效。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "(2)在第八章“投标文件格式”中要求盖单位章和(或)签字处，投标人应加 盖投标人单位公章/单位电子印章和(或)法定代表人或委托代理人的个人电子印章/电 子签名章/签字。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR013",
+   "concern_id": "ELECTRONIC_UPLOAD",
+   "cell": "投标项目复核表!D50",
+   "displayed_source_requirement": "招标文件要求：3.5各标段投标人将资格要求中及招标文件要求其他的需要提供证明材料上 传至招标文件要求的指定位置，未明确指定位置的统一上传至投标文件“其他材料 ”中，要求证明材料不许有涂抹、遮盖，能清晰明确看到内容；1.1.2项目经理要求： 投标人在上传证明材料时需上传电子证书扫描件（黑白或彩色皆可）\n复核要点：\n① 核对电子文件加密与上传记录\n② 确认上传成功且文件完整\n③ 依据第23页逐条比对响应文件对应章节\n通过标准：\n· 电子文件按规定加密并上传成功。\n不满足后果：拒收",
+   "evidence_cell": "投标项目复核表!E50",
+   "displayed_evidence": "第9页 / 3.5各标段投标人将资格要求中及招标文件要求其他的需要提供证明材料上 / 第3.5条 / （pdf_block） 3.5各标段投标人将资格要求中及招标文件要求其他的需要提供证明材料上 传至招标文件要求的指定位置，未明确指定位置的统一上传至投标文件“其他材料 ”中，要求证明材料不许有涂抹、遮盖，能清晰明确看到内容，否则视作该材料无 效（源条款 22 条：SR0026）",
+   "note_cell": "投标项目复核表!M50",
+   "displayed_note": "类型：ELECTRONIC/电子上传与加密",
+   "requirement_ids": [
+    "SR0026",
+    "SR0052",
+    "SR0055",
+    "SR0072",
+    "SR0121",
+    "SR0122",
+    "SR0157",
+    "SR0158",
+    "SR0159",
+    "SR0160",
+    "SR0161",
+    "SR0163",
+    "SR0164",
+    "SR0173",
+    "SR0213",
+    "SR0315",
+    "SR0320",
+    "SR0323",
+    "SR0325",
+    "SR0326",
+    "SR0520",
+    "SR0527"
+   ],
+   "review_checks": [
+    "核对电子文件加密与上传记录",
+    "确认上传成功且文件完整",
+    "依据第23页逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "电子文件按规定加密并上传成功。"
+   ],
+   "materials": [],
+   "consequence": "拒收",
+   "scoring_guidance": "",
+   "primary_evidence": "3.5各标段投标人将资格要求中及招标文件要求其他的需要提供证明材料上 传至招标文件要求的指定位置，未明确指定位置的统一上传至投标文件“其他材料 ”中，要求证明材料不许有涂抹、遮盖，能清晰明确看到内容，否则视作该材料无 效，招标人将拒绝接受该投标人的投标。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR014",
+   "concern_id": "QUALIFICATION_CREDIT",
+   "cell": "投标项目复核表!D51",
+   "displayed_source_requirement": "招标文件要求：： 止日）未被司法机关列入失信被执行人名单；： 税收违法失信主体名单，以投标截止日“信用中国”www.creditchina.gov.cn 公布的结果为准\n复核要点：\n① 核对信用查询截图\n② 确认查询时间与查询结果满足要求\n③ 依据第7页第（4）条逐条比对响应文件对应章节\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。",
+   "evidence_cell": "投标项目复核表!E51",
+   "displayed_evidence": "第13页 / （pdf_table_cell） 】： 止日）未被司法机关列入失信被执行人名单。（源条款 11 条：SR0028）",
+   "note_cell": "投标项目复核表!M51",
+   "displayed_note": "类型：SIGNATURE/资格·信用记录",
+   "requirement_ids": [
+    "SR0028",
+    "SR0030",
+    "SR0074",
+    "SR0081",
+    "SR0086",
+    "SR0194",
+    "SR0261",
+    "SR0384",
+    "SR0530",
+    "SR0531",
+    "SR0087"
+   ],
+   "review_checks": [
+    "核对信用查询截图",
+    "确认查询时间与查询结果满足要求",
+    "依据第7页第（4）条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "本条要求的内容在响应文件中可核验，且与要求一致。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "】： 止日）未被司法机关列入失信被执行人名单。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR015",
+   "concern_id": "SIGNATURE_AND_SEAL",
+   "cell": "投标项目复核表!D52",
+   "displayed_source_requirement": "招标文件要求：（2）投标人所投项目管理机构人员中项目负责人、项目技术负责人、施工员 、质量员、安全员须满足自本工程招标公告发布之日（含当日）起无在建项目的要 求，并按招标文件格式提供承诺书并加盖公章；要求，并按招标文件格式提供承诺书并加盖公章\n复核要点：\n① 按招标文件签章要求逐处核对签字人与印章\n② 确认授权链条完整、印章清晰\n③ 依据第7页第（6）条逐条比对响应文件对应章节\n通过标准：\n· 所有指定位置的签字、盖章齐全且形式合规。",
+   "evidence_cell": "投标项目复核表!E52",
+   "displayed_evidence": "第8页 / 2.因原项目发包方原因导致工程长期停工、无法组织竣工验收，且该人员已按 / 第（2）条 / （pdf_block） （2）投标人所投项目管理机构人员中项目负责人、项目技术负责人、施工员 、质量员、安全员须满足自本工程招标公告发布之日（含当日）起无在建项目的要 求，并按招标文件格式提供承诺书并加盖公章。（源条款 39 条：SR0029）",
+   "note_cell": "投标项目复核表!M52",
+   "displayed_note": "类型：SIGNATURE/签章要求",
+   "requirement_ids": [
+    "SR0029",
+    "SR0043",
+    "SR0074",
+    "SR0075",
+    "SR0076",
+    "SR0077",
+    "SR0078",
+    "SR0079",
+    "SR0080",
+    "SR0082",
+    "SR0083",
+    "SR0084",
+    "SR0085",
+    "SR0086",
+    "SR0088",
+    "SR0089",
+    "SR0090",
+    "SR0113",
+    "SR0174",
+    "SR0190",
+    "SR0222",
+    "SR0371",
+    "SR0375",
+    "SR0418",
+    "SR0420",
+    "SR0439",
+    "SR0504",
+    "SR0505",
+    "SR0546",
+    "SR0552",
+    "SR0651",
+    "SR0665",
+    "SR0667",
+    "SR0858",
+    "SR0859",
+    "SR0862",
+    "SR0946",
+    "SR0947",
+    "SR0950"
+   ],
+   "review_checks": [
+    "按招标文件签章要求逐处核对签字人与印章",
+    "确认授权链条完整、印章清晰",
+    "依据第7页第（6）条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "所有指定位置的签字、盖章齐全且形式合规。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "（2）投标人所投项目管理机构人员中项目负责人、项目技术负责人、施工员 、质量员、安全员须满足自本工程招标公告发布之日（含当日）起无在建项目的要 求，并按招标文件格式提供承诺书并加盖公章。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR033",
+   "concern_id": "OPENING_DECRYPTION",
+   "cell": "投标项目复核表!D53",
+   "displayed_source_requirement": "招标文件要求：程序，开标期间投标人须使用CA锁进行线上解密；时间及方式 电子投标文件编制及报送要求： (2)开标期间投标人须使用CA锁进行线上解密\n复核要点：\n① 核对签到与解密时间\n② 确认在规定时间内完成解密\n③ 依据第33页第3.7.4条逐条比对响应文件对应章节\n通过标准：\n· 在规定时间内完成签到与解密。\n不满足后果：无效投标",
+   "evidence_cell": "投标项目复核表!E53",
+   "displayed_evidence": "第17页 / （pdf_table_cell） 程序，开标期间投标人须使用CA锁进行线上解密。（源条款 5 条：SR0146）",
+   "note_cell": "投标项目复核表!M53",
+   "displayed_note": "类型：ELECTRONIC/开标与解密",
+   "requirement_ids": [
+    "SR0146",
+    "SR0162",
+    "SR0318",
+    "SR0319",
+    "SR0406"
+   ],
+   "review_checks": [
+    "核对签到与解密时间",
+    "确认在规定时间内完成解密",
+    "依据第33页第3.7.4条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "在规定时间内完成签到与解密。"
+   ],
+   "materials": [],
+   "consequence": "无效投标",
+   "scoring_guidance": "",
+   "primary_evidence": "程序，开标期间投标人须使用CA锁进行线上解密。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR032",
+   "concern_id": "SUBMISSION_DEADLINE",
+   "cell": "投标项目复核表!D54",
+   "displayed_source_requirement": "招标文件要求：3.6.1 是否允许递交备选投 标方案 ☑不允许；8.3重新招标 依法必须招标的项目有下列情形之一的，招标人将重新招标： (1)投标截止时间止，投标人少于3个的\n复核要点：\n① 核对递交截止时间\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第17页第3.6.1条逐条比对响应文件对应章节\n通过标准：\n· 在规定的截止时间前完成递交。",
+   "evidence_cell": "投标项目复核表!E54",
+   "displayed_evidence": "第17页 / 第3.6.1条 / （pdf_table_cell） 3.6.1 是否允许递交备选投 标方案 ☑不允许。（源条款 25 条：SR0145）",
+   "note_cell": "投标项目复核表!M54",
+   "displayed_note": "类型：SUBMISSION/递交截止时间",
+   "requirement_ids": [
+    "SR0145",
+    "SR0205",
+    "SR0288",
+    "SR0311",
+    "SR0335",
+    "SR0359",
+    "SR0500",
+    "SR0624",
+    "SR0633",
+    "SR0714",
+    "SR0766",
+    "SR0768",
+    "SR0810",
+    "SR0811",
+    "SR0814",
+    "SR0877",
+    "SR0959",
+    "SR0960",
+    "SR0962",
+    "SR0963",
+    "SR0965",
+    "SR0970",
+    "SR0973",
+    "SR0290",
+    "SR0813"
+   ],
+   "review_checks": [
+    "核对递交截止时间",
+    "按本条要求逐条核对响应文件的对应内容",
+    "依据第17页第3.6.1条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "在规定的截止时间前完成递交。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "3.6.1 是否允许递交备选投 标方案 ☑不允许。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR046",
+   "concern_id": "SUBMISSION_PLATFORM",
+   "cell": "投标项目复核表!D55",
+   "displayed_source_requirement": "招标文件要求：1.7.3发包人和承包人应当及时签收另一方送达至送达地点和指定接收人的来往 信函\n复核要点：\n① 核对递交方式与地点/平台\n② 确认按指定方式递交\n③ 依据第111页第1.7.3条逐条比对响应文件对应章节\n通过标准：\n· 递交方式、地点/平台符合招标文件要求。",
+   "evidence_cell": "投标项目复核表!E55",
+   "displayed_evidence": "第111页 / 1.7.3发包人和承包人应当及时签收另一方送达至送达地点和指定接收人的来往 / 第1.7.3条 / （pdf_block） 1.7.3发包人和承包人应当及时签收另一方送达至送达地点和指定接收人的来往 信函。（源条款 1 条：SR0576）",
+   "note_cell": "投标项目复核表!M55",
+   "displayed_note": "类型：SUBMISSION/递交地点与平台",
+   "requirement_ids": [
+    "SR0576"
+   ],
+   "review_checks": [
+    "核对递交方式与地点/平台",
+    "确认按指定方式递交",
+    "依据第111页第1.7.3条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "递交方式、地点/平台符合招标文件要求。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "1.7.3发包人和承包人应当及时签收另一方送达至送达地点和指定接收人的来往 信函。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  },
+  {
+   "item_id": "DR052",
+   "concern_id": "SUBMISSION_COPIES",
+   "cell": "投标项目复核表!D56",
+   "displayed_source_requirement": "招标文件要求：14.4.1 最终结清申请单 承包人提交最终结清申请单的份数：\n复核要点：\n① 核对正副本份数与电子版\n② 确认份数、介质与格式满足要求\n③ 依据第183页第14.4.1条逐条比对响应文件对应章节\n通过标准：\n· 正副本份数与电子版要求满足。",
+   "evidence_cell": "投标项目复核表!E56",
+   "displayed_evidence": "第183页 / 14.4 最终结清 / 第14.4.1条 / （pdf_block） 14.4.1 最终结清申请单 承包人提交最终结清申请单的份数：。（源条款 1 条：SR0991）",
+   "note_cell": "投标项目复核表!M56",
+   "displayed_note": "类型：SUBMISSION/文件份数与电子版",
+   "requirement_ids": [
+    "SR0991"
+   ],
+   "review_checks": [
+    "核对正副本份数与电子版",
+    "确认份数、介质与格式满足要求",
+    "依据第183页第14.4.1条逐条比对响应文件对应章节"
+   ],
+   "pass_criteria": [
+    "正副本份数与电子版要求满足。"
+   ],
+   "materials": [],
+   "consequence": "",
+   "scoring_guidance": "",
+   "primary_evidence": "14.4.1 最终结清申请单 承包人提交最终结清申请单的份数：。",
+   "numeric_roles": [],
+   "numeric_role_values": [],
+   "linked_fact_keys": [],
+   "concern_contract": "PASS",
+   "violations": []
+  }
+ ],
+ "qa": {
+  "background_review_item_count": 4,
+  "bond_review_item_count": 4,
+  "concern_contract_violation_count": 0,
+  "contract_uncovered_concern_count": 0,
+  "cross_topic_evidence_mismatch_count": 0,
+  "dropped_duplicate_requirement_count": 15,
+  "dropped_heading_fragment_count": 1927,
+  "dropped_navigation_fragment_count": 11,
+  "duplicate_review_item_count": 0,
+  "dynamic_review_item_count": 48,
+  "empty_review_evidence_count": 0,
+  "evaluation_review_item_count": 4,
+  "false_platform_conflict_count": 0,
+  "generic_text_when_specific_source_available_count": 0,
+  "invalid_review_evidence_locator_count": 0,
+  "needs_review_topic_count": 2,
+  "pricing_review_item_count": 4,
+  "project_irrelevant_review_item_count": 0,
+  "qualification_review_item_count": 1,
+  "rejection_review_item_count": 5,
+  "rendered_component_concern_mismatch_total": 0,
+  "rendered_component_count": 351,
+  "rendered_component_unverified_count": 0,
+  "rendered_evidence_summary_concern_mismatch": 0,
+  "rendered_failure_consequence_concern_mismatch": 0,
+  "rendered_linked_fact_concern_mismatch": 0,
+  "rendered_numeric_statement_concern_mismatch": 0,
+  "rendered_pass_criterion_concern_mismatch": 0,
+  "rendered_preparation_material_concern_mismatch": 0,
+  "rendered_review_check_concern_mismatch": 0,
+  "rendered_scoring_guidance_concern_mismatch": 0,
+  "rendered_source_requirement_concern_mismatch": 0,
+  "result": "PASS",
+  "source_fragment_count": 1610,
+  "source_mandatory_requirement_count": 53,
+  "source_mandatory_requirement_without_review_item_count": 0,
+  "source_requirement_count": 1005,
+  "technical_review_item_count": 4,
+  "unclassified_dynamic_requirement_count": 0
+ }
+}

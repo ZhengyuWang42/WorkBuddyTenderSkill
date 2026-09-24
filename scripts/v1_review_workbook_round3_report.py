@@ -30,6 +30,7 @@ from openpyxl import load_workbook  # noqa: E402
 from tender_basic.document_models import NormalizedDocument  # noqa: E402
 from tender_basic.dynamic_requirements import build_requirement_index  # noqa: E402
 from tender_basic.models import ProjectFacts  # noqa: E402
+from tender_basic.semantic_roles import canonical_role  # noqa: E402
 from tender_basic.review_concern import (  # noqa: E402
     CONCERNS,
     ReviewConcern,
@@ -447,12 +448,16 @@ def evaluate_fixtures(points, atoms, filtered) -> dict[str, dict[str, object]]:
         "project financing is not a supplier financial-capability duty",
     )
 
-    install = [row for row in rows if row["concern"] == "TECHNICAL_INSTALLATION"]
+    install = [
+        row
+        for row in rows
+        if row["concern"] in {"TECHNICAL_INSTALLATION", "INSTALLATION_ACCEPTANCE"}
+    ]
     install_rows_ok = True
     foreign: list[str] = []
     for row in install:
         for value, role in row["numbers"]:
-            if role not in {"QUANTITY", "WARRANTY_MONTHS"}:
+            if canonical_role(role) not in {"QUANTITY", "PROJECT_WARRANTY_MONTHS"}:
                 install_rows_ok = False
                 foreign.append(f"{value}({role})")
     record(
@@ -529,7 +534,9 @@ def evaluate_fixtures(points, atoms, filtered) -> dict[str, dict[str, object]]:
         source = " ".join(
             atom.source_text for atom in atoms if atom.atom_id in set(row["atoms"])
         )
-        owned_scores = {value for value, role in row["numbers"] if role == "SCORE"}
+        owned_scores = {
+            value for value, role in row["numbers"] if canonical_role(role) == "SCORE_POINTS"
+        }
         for figure in re.findall(r"最高\s*\d+(?:\.\d+)?\s*分|得\s*\d+(?:\.\d+)?\s*分", row["cell"]):
             digits = re.sub(r"\D", "", figure)
             traced = digits in re.sub(r"\s+", "", source) or any(

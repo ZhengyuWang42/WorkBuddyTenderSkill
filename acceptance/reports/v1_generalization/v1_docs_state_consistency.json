@@ -195,8 +195,8 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 89951,
-    "decisions_doc_bytes": 55039
+    "state_doc_bytes": 93937,
+    "decisions_doc_bytes": 60424
   },
   "checks": [
     {
