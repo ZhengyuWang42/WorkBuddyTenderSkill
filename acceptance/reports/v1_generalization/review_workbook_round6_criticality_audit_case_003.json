@@ -1,0 +1,2105 @@
+{
+  "schema": "v1_review_workbook_round6/1",
+  "case": "case_003",
+  "build_id": "v1_round4_closure8_review_workbook6",
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook6\\投标项目复核表.xlsx",
+  "verdict": "PASS",
+  "check_count": 19,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "marker preserved (no source marker is lost)",
+      "ok": true,
+      "detail": "marker_lost_count=0",
+      "evidence": {
+        "marker_atom_count": 6,
+        "lost": []
+      }
+    },
+    {
+      "check": "marker false positives",
+      "ok": true,
+      "detail": "marker_false_positive_count=0",
+      "evidence": {
+        "false_positives": []
+      }
+    },
+    {
+      "check": "known source-marker fixtures",
+      "ok": true,
+      "detail": "10/10 fixture(s) marked",
+      "evidence": {
+        "failed": []
+      }
+    },
+    {
+      "check": "source marker vocabulary is discovered per document",
+      "ok": true,
+      "detail": "vocabulary=['*']",
+      "evidence": {
+        "rules": [
+          {
+            "rule_id": "GR0001",
+            "kind": "SOURCE_MARKER",
+            "markers": [
+              "*"
+            ],
+            "words": [],
+            "scope": "DOCUMENT",
+            "governing_atom_id": "",
+            "governing_clause": "",
+            "governing_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+            "page": 58,
+            "locator": "第58页 / 块25",
+            "semantics": "SUBSTANTIVE_REQUIREMENT",
+            "semantics_all": [
+              "SUBSTANTIVE_REQUIREMENT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "marker meaning comes from the document's own statement",
+      "ok": true,
+      "detail": "semantics=['SUBSTANTIVE_REQUIREMENT']",
+      "evidence": {
+        "unestablished_rules": []
+      }
+    },
+    {
+      "check": "no marker is promoted to a rejection consequence by itself",
+      "ok": true,
+      "detail": "unclassified_marked_rows=[]",
+      "evidence": {
+        "marked_rows": [
+          [
+            "DR017",
+            "SUBSTANTIVE_REQUIREMENT"
+          ],
+          [
+            "DR023",
+            "SUBSTANTIVE_REQUIREMENT"
+          ],
+          [
+            "DR043",
+            "SUBSTANTIVE_REQUIREMENT"
+          ],
+          [
+            "DR044",
+            "SUBSTANTIVE_REQUIREMENT"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "the tender's own substantive-requirement rule is discovered and linked",
+      "ok": true,
+      "detail": "1/1 marker rule(s) anchored in the source (0 via a governing clause), 0 unclassified marked row(s)",
+      "evidence": {
+        "governing_clauses": [],
+        "semantics": [
+          "SUBSTANTIVE_REQUIREMENT"
+        ],
+        "unanchored": [],
+        "unclassified_rows": [],
+        "rule_kinds": [
+          "SOURCE_MARKER"
+        ]
+      }
+    },
+    {
+      "check": "every rejection claim traces to a source consequence rule",
+      "ok": true,
+      "detail": "10 consequence-backed row(s), 53 source consequence rule(s)",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          "RJ0001",
+          "RJ0002",
+          "RJ0003",
+          "RJ0004",
+          "RJ0005",
+          "RJ0006",
+          "RJ0007",
+          "RJ0008",
+          "RJ0009",
+          "RJ0010"
+        ]
+      }
+    },
+    {
+      "check": "explicit source references propagate the starred parent's meaning",
+      "ok": true,
+      "detail": "0 resolved reference link(s), 0 unresolved, 0 propagated row(s)",
+      "evidence": {
+        "chains": []
+      }
+    },
+    {
+      "check": "reference children are marked as propagated, never as starred",
+      "ok": true,
+      "detail": "propagated_rows=[]",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "rejection consequence is a separate, source-backed dimension",
+      "ok": true,
+      "detail": "explicit=10 derived=0 unbacked=0",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          {
+            "rule_id": "RJ0001",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0004",
+            "governing_clause": "SR0004",
+            "governing_text": "第三章“评标及定标办法”应列明全部评审因素和评审标准，并集 中列示投标人不满足其要求即导致投标被否决的全部条款。",
+            "page": 3,
+            "locator": "第3页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0002",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0030",
+            "governing_clause": "SR0030",
+            "governing_text": "（4）本项目不接受因受到行政处罚、失信惩戒措施仍在限制投标惩戒期内的 投标人投标。",
+            "page": 7,
+            "locator": "第7页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0003",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0031",
+            "governing_clause": "SR0031",
+            "governing_text": "如企业财产处于被接管、全部资金被冻结以及破产状 态，其投标将被否决或取消中标资格。",
+            "page": 7,
+            "locator": "第7页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0004",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0032",
+            "governing_clause": "SR0032",
+            "governing_text": "（6）本项目不接受资质异常企业参与本项目投标（仅限本项目要求的资质类 别）。",
+            "page": 7,
+            "locator": "第7页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0005",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0036",
+            "governing_clause": "SR0036",
+            "governing_text": "3.1.1.7本招标项目不接受联合体投标。",
+            "page": 8,
+            "locator": "第8页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0006",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0037",
+            "governing_clause": "SR0037",
+            "governing_text": "3.1.2其他要求： （1）投标人拟投入项目管理机构人员要求：按照《黑龙江省房屋建筑和市政 基础设施工程施工现场管理人员配备管理办法》(黑建规〔2023〕2号)文件及招标 文件(项目管理机构人员配置表)规定，不得低于招标文件规定的标准数量配备项 目管理机构人员，并填报项目管理机构人员配置表，否则其投标将被否决。",
+            "page": 8,
+            "locator": "第8页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0007",
+            "consequence": "无效",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0046",
+            "governing_clause": "SR0046",
+            "governing_text": "（4）承诺函法律责任：投标人提供的承诺函应真实、准确，若存在虚假承诺 ，视为弄虚作假，依据《中华人民共和国招标投标法》相关规定追究责任，中标结 果无效并承担相应赔偿责任。",
+            "page": 9,
+            "locator": "第9页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0008",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0051",
+            "governing_clause": "SR0051",
+            "governing_text": "3.4各标段否决投标情形：见附件1：否决投标条件。",
+            "page": 9,
+            "locator": "第9页",
+            "target_clauses": []
+          }
+        ]
+      }
+    },
+    {
+      "check": "every source-marked row shows ★",
+      "ok": true,
+      "detail": "4 marked row(s), 0 blank",
+      "evidence": {
+        "blank_marked_rows": []
+      }
+    },
+    {
+      "check": "★, 否决性 and 强制性类型 are independent columns",
+      "ok": true,
+      "detail": "starred=4 vetoed=10 symmetric_difference=12",
+      "evidence": {
+        "starred_only": [
+          "DR023",
+          "DR043",
+          "DR044"
+        ],
+        "vetoed_only": [
+          "DR002",
+          "DR005",
+          "DR015",
+          "DR022",
+          "DR025",
+          "DR028",
+          "DR030",
+          "DR031",
+          "DR035"
+        ],
+        "mandatory_types": [
+          "BOND",
+          "CONSORTIUM",
+          "DURATION",
+          "ELECTRONIC",
+          "FORM",
+          "PERSONNEL",
+          "PROOF",
+          "QUALIFICATION",
+          "REJECTION",
+          "SIGNATURE",
+          "SUBCONTRACT",
+          "SUBMISSION",
+          "SUBSTANTIVE_STARRED",
+          "SUBSTANTIVE_STARRED；REJECTION",
+          "TECHNICAL",
+          "VALIDITY",
+          "WARRANTY"
+        ]
+      }
+    },
+    {
+      "check": "强制性类型 states the source basis instead of the requirement type",
+      "ok": true,
+      "detail": "types=['BOND', 'CONSORTIUM', 'DURATION', 'ELECTRONIC', 'FORM', 'PERSONNEL', 'PROOF', 'QUALIFICATION', 'REJECTION', 'SIGNATURE', 'SUBCONTRACT', 'SUBMISSION', 'SUBSTANTIVE_STARRED', 'SUBSTANTIVE_STARRED；REJECTION', 'TECHNICAL', 'VALIDITY', 'WARRANTY']",
+      "evidence": {
+        "row_types": [
+          [
+            "DR002",
+            "REJECTION"
+          ],
+          [
+            "DR005",
+            "REJECTION"
+          ],
+          [
+            "DR008",
+            "TECHNICAL"
+          ],
+          [
+            "DR010",
+            "DURATION"
+          ],
+          [
+            "DR011",
+            "QUALIFICATION"
+          ],
+          [
+            "DR012",
+            "SIGNATURE"
+          ],
+          [
+            "DR013",
+            "ELECTRONIC"
+          ],
+          [
+            "DR014",
+            "SIGNATURE"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "raw marker and its basis are carried next to the normalised columns",
+      "ok": true,
+      "detail": "源标记/实质性依据/否决依据 columns carry the source basis",
+      "evidence": {
+        "headers": [
+          "序号",
+          "requirement_id",
+          "类别",
+          "子类",
+          "要求正文",
+          "复核动作",
+          "核验标准",
+          "★",
+          "否决性",
+          "强制性类型",
+          "证据页码",
+          "证据定位",
+          "证据摘要",
+          "机器识别状态",
+          "人工满足情况",
+          "人工证据/材料",
+          "人工备注",
+          "源标记",
+          "实质性依据",
+          "否决依据"
+        ],
+        "sample": [
+          {
+            "requirement_id": "DR017",
+            "★": "★",
+            "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+            "强制性类型": "SUBSTANTIVE_STARRED；REJECTION",
+            "实质性依据": "SOURCE_MARKER：SRA0444",
+            "否决依据": "EXPLICIT：SRA0279"
+          },
+          {
+            "requirement_id": "DR023",
+            "★": "★",
+            "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+            "强制性类型": "SUBSTANTIVE_STARRED",
+            "实质性依据": "SOURCE_MARKER：SRA0441、SRA0442、SRA0451",
+            "否决依据": null
+          },
+          {
+            "requirement_id": "DR043",
+            "★": "★",
+            "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+            "强制性类型": "SUBSTANTIVE_STARRED",
+            "实质性依据": "SOURCE_MARKER：SRA1006",
+            "否决依据": null
+          },
+          {
+            "requirement_id": "DR044",
+            "★": "★",
+            "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+            "强制性类型": "SUBSTANTIVE_STARRED",
+            "实质性依据": "SOURCE_MARKER：SRA0446",
+            "否决依据": null
+          }
+        ]
+      }
+    },
+    {
+      "check": "dashboard reports the three dimensions separately",
+      "ok": true,
+      "detail": "missing=[] conflated=[]",
+      "evidence": {
+        "labels": {
+          "源标记条款数（带★）": "=COUNTIF('03_资格否决与强制项'!$H$2:$H$999,\"★\")",
+          "实质性要求数（源依据）": "=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_STARRED\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_EXPLICIT_WORDING\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_VIA_REFERENCE*\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_BY_LAW*\")",
+          "明示或可证明否决项数": "=COUNTIF('03_资格否决与强制项'!$I$2:$I$999,\"是\")"
+        }
+      }
+    },
+    {
+      "check": "every source substantive requirement is covered by the review",
+      "ok": true,
+      "detail": "source_substantive_requirement_without_review_coverage_count=0",
+      "evidence": {
+        "uncovered": []
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) unchanged",
+      "evidence": {
+        "identity": {
+          "基础投标文件.docx": {
+            "source_build_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+            "successor_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+            "byte_identical": true
+          },
+          "基础投标文件.pdf": {
+            "source_build_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+            "successor_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+            "byte_identical": true
+          },
+          "generation_report.json": {
+            "source_build_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+            "successor_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+            "byte_identical": true
+          }
+        }
+      }
+    },
+    {
+      "check": "concern contracts still hold on the round-6 successor",
+      "ok": true,
+      "detail": "concern contract checks failed=0, fixtures=0/20",
+      "evidence": {
+        "failed_checks": [],
+        "fixtures_failed": 0,
+        "contract_count": 78
+      }
+    }
+  ],
+  "fixtures": {
+    "marker:2.1.3": {
+      "expectation": "source marker on 2.1.3 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0001"
+        ],
+        "marker_atoms": [
+          "SRA0441"
+        ],
+        "owner_items": [
+          "DR023"
+        ],
+        "delivered_rows": [
+          "DR023"
+        ],
+        "starred_rows": [
+          "DR023"
+        ]
+      }
+    },
+    "marker:2.1.4": {
+      "expectation": "source marker on 2.1.4 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0002"
+        ],
+        "marker_atoms": [
+          "SRA0442"
+        ],
+        "owner_items": [
+          "DR023"
+        ],
+        "delivered_rows": [
+          "DR023"
+        ],
+        "starred_rows": [
+          "DR023"
+        ]
+      }
+    },
+    "marker:2.1.5": {
+      "expectation": "source marker on 2.1.5 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0003"
+        ],
+        "marker_atoms": [
+          "SRA0444"
+        ],
+        "owner_items": [
+          "DR017"
+        ],
+        "delivered_rows": [
+          "DR017"
+        ],
+        "starred_rows": [
+          "DR017"
+        ]
+      }
+    },
+    "marker:2.2.4": {
+      "expectation": "source marker on 2.2.4 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0004"
+        ],
+        "marker_atoms": [
+          "SRA1006"
+        ],
+        "owner_items": [
+          "DR043"
+        ],
+        "delivered_rows": [
+          "DR043"
+        ],
+        "starred_rows": [
+          "DR043"
+        ]
+      }
+    },
+    "marker:2.2.5": {
+      "expectation": "source marker on 2.2.5 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0005"
+        ],
+        "marker_atoms": [
+          "SRA0446"
+        ],
+        "owner_items": [
+          "DR044"
+        ],
+        "delivered_rows": [
+          "DR044"
+        ],
+        "starred_rows": [
+          "DR044"
+        ]
+      }
+    },
+    "marker:2.2.7": {
+      "expectation": "source marker on 2.2.7 reaches the workbook",
+      "status": "PASS",
+      "evidence": {
+        "marker_evidence_ids": [
+          "MK0006"
+        ],
+        "marker_atoms": [
+          "SRA0451"
+        ],
+        "owner_items": [
+          "DR023"
+        ],
+        "delivered_rows": [
+          "DR023"
+        ],
+        "starred_rows": [
+          "DR023"
+        ]
+      }
+    },
+    "row:DR017": {
+      "expectation": "DR017 keeps its source marker in the workbook",
+      "status": "PASS",
+      "evidence": {
+        "raw_source_markers": [
+          "*"
+        ],
+        "star": "★"
+      }
+    },
+    "row:DR023": {
+      "expectation": "DR023 keeps its source marker in the workbook",
+      "status": "PASS",
+      "evidence": {
+        "raw_source_markers": [
+          "*"
+        ],
+        "star": "★"
+      }
+    },
+    "row:DR043": {
+      "expectation": "DR043 keeps its source marker in the workbook",
+      "status": "PASS",
+      "evidence": {
+        "raw_source_markers": [
+          "*"
+        ],
+        "star": "★"
+      }
+    },
+    "row:DR044": {
+      "expectation": "DR044 keeps its source marker in the workbook",
+      "status": "PASS",
+      "evidence": {
+        "raw_source_markers": [
+          "*"
+        ],
+        "star": "★"
+      }
+    }
+  },
+  "fixture_summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": []
+  },
+  "concern_contract_verdict": "PASS",
+  "concern_contract": {
+    "contract_source": "human_round5_fixtures_A_T",
+    "contract_version": "round5.1",
+    "contract_count": 78,
+    "review_row_count": 48,
+    "fixtures_passed": "0/20",
+    "failed_checks": []
+  },
+  "criticality_model": {
+    "marker_count": 6,
+    "marker_vocabulary": [
+      "*"
+    ],
+    "substantive_rules": [
+      {
+        "rule_id": "GR0001",
+        "kind": "SOURCE_MARKER",
+        "markers": [
+          "*"
+        ],
+        "words": [],
+        "scope": "DOCUMENT",
+        "governing_atom_id": "",
+        "governing_clause": "",
+        "governing_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+        "page": 58,
+        "locator": "第58页 / 块25",
+        "semantics": "SUBSTANTIVE_REQUIREMENT",
+        "semantics_all": [
+          "SUBSTANTIVE_REQUIREMENT"
+        ]
+      }
+    ],
+    "rejection_rule_count": 53,
+    "reference_links": []
+  },
+  "counts": {
+    "source_marker_atom_count": 6,
+    "source_marked_row_count": 4,
+    "substantive_requirement_row_count": 4,
+    "rejection_consequence_row_count": 10,
+    "explicit_rejection_row_count": 10,
+    "derived_rejection_row_count": 0,
+    "marker_lost_count": 0,
+    "marker_false_positive_count": 0,
+    "source_substantive_requirement_without_review_coverage_count": 0
+  },
+  "marker_records": [
+    {
+      "source_atom_id": "SRA0441",
+      "atom_text": "*2.1.3投标报价不得低于工程成本。",
+      "raw_source_marker": "*",
+      "marker_source_location": "第58页 / 块22",
+      "marker_source_text": "*2.1.3投标报价不得低于工程成本。",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0001",
+      "owner_items": [
+        "DR023"
+      ],
+      "delivered_owner_items": [
+        "DR023"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0442",
+      "atom_text": "*2.1.4投标人必须按招标工程量清单填报价格。",
+      "raw_source_marker": "*",
+      "marker_source_location": "第58页 / 块23",
+      "marker_source_text": "*2.1.4投标人必须按招标工程量清单填报价格。项目编码、项目名称、项目特征、计量",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0002",
+      "owner_items": [
+        "DR023"
+      ],
+      "delivered_owner_items": [
+        "DR023"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0444",
+      "atom_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+      "raw_source_marker": "*",
+      "marker_source_location": "第58页 / 块25",
+      "marker_source_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0003",
+      "owner_items": [
+        "DR017"
+      ],
+      "delivered_owner_items": [
+        "DR017"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0446",
+      "atom_text": "* 2.2.5其他项目应按下列规定报价： ①暂列金额应按招标工程量清单中列出的金额填写；",
+      "raw_source_marker": "*",
+      "marker_source_location": "第59页 / 块14",
+      "marker_source_text": "*2.2.5其他项目应按下列规定报价：",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0005",
+      "owner_items": [
+        "DR044"
+      ],
+      "delivered_owner_items": [
+        "DR044"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0451",
+      "atom_text": "*2.2.7招标工程量清单与计价表中列明的所有需要填写单价和合价的项目，投标人均应填 写且只允许有一个报价。",
+      "raw_source_marker": "*",
+      "marker_source_location": "第59页 / 块23",
+      "marker_source_text": "*2.2.7招标工程量清单与计价表中列明的所有需要填写单价和合价的项目，投标人均应填",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0006",
+      "owner_items": [
+        "DR023"
+      ],
+      "delivered_owner_items": [
+        "DR023"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA1006",
+      "atom_text": "*2.2.4措施项目中的总价项目金额应根据招标文件中的措施项目清单及投标时拟定 的施工组织设计或施工方案自主确定。",
+      "raw_source_marker": "*",
+      "marker_source_location": "第59页 / 块10",
+      "marker_source_text": "*2.2.4措施项目中的总价项目金额应根据招标文件中的措施项目清单及投标时拟定",
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "marker_evidence_id": "MK0004",
+      "owner_items": [
+        "DR043"
+      ],
+      "delivered_owner_items": [
+        "DR043"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    }
+  ],
+  "row_audit": [
+    {
+      "item_id": "DR017",
+      "module": "一、废标红线",
+      "concern_id": "REJECTION_GENERAL",
+      "concern_label": "其他否决情形",
+      "source_atom_ids": [
+        "SRA0037",
+        "SRA0051",
+        "SRA0100",
+        "SRA0122",
+        "SRA0171",
+        "SRA0201",
+        "SRA0279",
+        "SRA0303",
+        "SRA0353",
+        "SRA0354",
+        "SRA0384",
+        "SRA0400",
+        "SRA0417",
+        "SRA0418",
+        "SRA0419",
+        "SRA0420",
+        "SRA0429",
+        "SRA0444",
+        "SRA0532"
+      ],
+      "source_locator": "第8页 / 2.因原项目发包方原因导致工程长期停工、无法组织竣工验收，且该人员已按 / 第3.1.2条 / （pdf_block）",
+      "source_page": 8,
+      "raw_source_markers": [
+        "*"
+      ],
+      "marker_present": true,
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "substantive_requirement": true,
+      "substantive_basis_kind": "SOURCE_MARKER",
+      "substantive_basis_atom_ids": [
+        "SRA0444"
+      ],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0279"
+      ],
+      "mandatory_types": [
+        "SUBSTANTIVE_STARRED",
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "源标记 *（第58页 / 块25）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对该否决情形对应的响应内容",
+        "确认不触发该情形",
+        "依据第8页第3.1.2条逐条比对响应文件对应章节"
+      ],
+      "final_row": 11,
+      "cell": {
+        "★": "★",
+        "否决性": "是",
+        "强制性类型": "SUBSTANTIVE_STARRED；REJECTION",
+        "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+        "实质性依据": "SOURCE_MARKER：SRA0444",
+        "否决依据": "EXPLICIT：SRA0279"
+      },
+      "delivered_cell_prefix": "3.1.2其他要求： （1）投标人拟投入项目管理机构人员要求：按照《黑龙江省房屋",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA0444",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第58页 / 块25",
+          "marker_source_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "marker_evidence_id": "MK0003",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0444"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第58页 / 块25）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DR035",
+      "module": "三、投标文件组成与格式",
+      "concern_id": "FILE_COMPOSITION",
+      "concern_label": "响应文件组成",
+      "source_atom_ids": [
+        "SRA0151",
+        "SRA0178",
+        "SRA0186",
+        "SRA0236"
+      ],
+      "source_locator": "第24页 / （pdf_table_cell）",
+      "source_page": 24,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0179"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "按招标文件要求的组成部分逐项清点",
+        "确认无缺项、无多余替代件",
+        "依据第21页第10.18条逐条比对响应文件对应章节"
+      ],
+      "final_row": 28,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0179"
+      },
+      "delivered_cell_prefix": "9、临时暂设的搭建（包括临时暂设、路、水、电、讯等设施）必须达到《黑；监督机构 ",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR023",
+      "module": "四、报价与合同商务",
+      "concern_id": "PRICING_COMPLETENESS",
+      "concern_label": "报价完整性",
+      "source_atom_ids": [
+        "SRA0054",
+        "SRA0142",
+        "SRA0143.1",
+        "SRA0143.2",
+        "SRA0170",
+        "SRA0198",
+        "SRA0238",
+        "SRA0285",
+        "SRA0286.1",
+        "SRA0286.2",
+        "SRA0288",
+        "SRA0322",
+        "SRA0336",
+        "SRA0392",
+        "SRA0393",
+        "SRA0397",
+        "SRA0434",
+        "SRA0435",
+        "SRA0436",
+        "SRA0438",
+        "SRA0439",
+        "SRA0441",
+        "SRA0442",
+        "SRA0443",
+        "SRA0445",
+        "SRA0447",
+        "SRA0448",
+        "SRA0449",
+        "SRA0451",
+        "SRA0454",
+        "SRA0455",
+        "SRA0474",
+        "SRA0475",
+        "SRA0533",
+        "SRA0553",
+        "SRA0581",
+        "SRA0665",
+        "SRA0669",
+        "SRA0692",
+        "SRA0707",
+        "SRA0734",
+        "SRA0760",
+        "SRA0763",
+        "SRA0764.1",
+        "SRA0764.2",
+        "SRA0765",
+        "SRA0768",
+        "SRA0769",
+        "SRA0770",
+        "SRA0772",
+        "SRA0774",
+        "SRA0775",
+        "SRA0776",
+        "SRA0777",
+        "SRA0780",
+        "SRA0781",
+        "SRA0782",
+        "SRA0784",
+        "SRA0785",
+        "SRA0786",
+        "SRA0791",
+        "SRA0811",
+        "SRA0826",
+        "SRA0827",
+        "SRA0829",
+        "SRA0830",
+        "SRA0964",
+        "SRA0965",
+        "SRA0966",
+        "SRA0967",
+        "SRA0972"
+      ],
+      "source_locator": "第22页 / （pdf_table_cell）",
+      "source_page": 22,
+      "raw_source_markers": [
+        "*"
+      ],
+      "marker_present": true,
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "substantive_requirement": true,
+      "substantive_basis_kind": "SOURCE_MARKER",
+      "substantive_basis_atom_ids": [
+        "SRA0441",
+        "SRA0442",
+        "SRA0451"
+      ],
+      "rejection_consequence": false,
+      "rejection_kind": "",
+      "rejection_basis_atom_ids": [],
+      "mandatory_types": [
+        "SUBSTANTIVE_STARRED"
+      ],
+      "criticality_level": "SUBSTANTIVE",
+      "criticality_reason": "源标记 *（第58页 / 块22）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对报价组成与费用范围",
+        "确认费用范围与承担方与源文件一致",
+        "依据第22页逐条比对响应文件对应章节"
+      ],
+      "final_row": 17,
+      "cell": {
+        "★": "★",
+        "否决性": null,
+        "强制性类型": "SUBSTANTIVE_STARRED",
+        "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+        "实质性依据": "SOURCE_MARKER：SRA0441、SRA0442、SRA0451",
+        "否决依据": null
+      },
+      "delivered_cell_prefix": "中标单位支付给招标代理机构(投标单位报价时必须考虑并包括此部分费",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA0441",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第58页 / 块22",
+          "marker_source_text": "*2.1.3投标报价不得低于工程成本。",
+          "marker_evidence_id": "MK0001",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0441"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第58页 / 块22）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        },
+        {
+          "source_atom_id": "SRA0442",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第58页 / 块23",
+          "marker_source_text": "*2.1.4投标人必须按招标工程量清单填报价格。项目编码、项目名称、项目特征、计量",
+          "marker_evidence_id": "MK0002",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0442"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第58页 / 块23）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        },
+        {
+          "source_atom_id": "SRA0451",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第59页 / 块23",
+          "marker_source_text": "*2.2.7招标工程量清单与计价表中列明的所有需要填写单价和合价的项目，投标人均应填",
+          "marker_evidence_id": "MK0006",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0451"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第59页 / 块23）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DR025",
+      "module": "四、报价与合同商务",
+      "concern_id": "PRICE_CEILING",
+      "concern_label": "报价与最高限价",
+      "source_atom_ids": [
+        "SRA0119",
+        "SRA0121",
+        "SRA0287",
+        "SRA0450"
+      ],
+      "source_locator": "第31页 / 3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投 / 第3.2.4条 / （pdf_block）",
+      "source_page": 31,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0279"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对投标总报价",
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第31页第3.2.4条逐条比对响应文件对应章节"
+      ],
+      "final_row": 19,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0279"
+      },
+      "delivered_cell_prefix": "3.2.4招标人设有最高投标限价的，投标人的投标报价不得超过最高投标限价，最高投",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR028",
+      "module": "四、报价与合同商务",
+      "concern_id": "BID_BOND_FORM",
+      "concern_label": "保证金形式",
+      "source_atom_ids": [
+        "SRA0125.1",
+        "SRA0125.2",
+        "SRA0126.1",
+        "SRA0126.2",
+        "SRA0127.1",
+        "SRA0127.2",
+        "SRA0128.1",
+        "SRA0128.2",
+        "SRA0129.1",
+        "SRA0129.2",
+        "SRA0129.3",
+        "SRA0130.1",
+        "SRA0130.2",
+        "SRA0130.3",
+        "SRA0131.1",
+        "SRA0131.2",
+        "SRA0132.1",
+        "SRA0132.3",
+        "SRA0134.2",
+        "SRA0134.3",
+        "SRA0136.2",
+        "SRA0147",
+        "SRA0148",
+        "SRA0149",
+        "SRA0150",
+        "SRA0291",
+        "SRA0292",
+        "SRA0591",
+        "SRA0797",
+        "SRA0883",
+        "SRA0946",
+        "SRA0993",
+        "SRA0994",
+        "SRA0997",
+        "SRA1002",
+        "SRA1003",
+        "SRA1004"
+      ],
+      "source_locator": "第18页 / （pdf_table_cell）",
+      "source_page": 18,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0291"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对保证金形式（电汇/转账/保函等）",
+        "确认形式符合招标文件规定",
+        "依据第159页逐条比对响应文件对应章节"
+      ],
+      "final_row": 22,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0291"
+      },
+      "delivered_cell_prefix": "☑现金(银行转账、银行电汇) ☑银行保函 ☑担保机构担保 ☑保证保险 (3)其他",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR030",
+      "module": "四、报价与合同商务",
+      "concern_id": "BID_BOND_EVIDENCE",
+      "concern_label": "保证金凭证",
+      "source_atom_ids": [
+        "SRA0135",
+        "SRA0137",
+        "SRA0295",
+        "SRA0488"
+      ],
+      "source_locator": "第31页 / 3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，投标人在递交投标文件 / 第3.4.1条 / （pdf_block）",
+      "source_page": 31,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0295"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第16页逐条比对响应文件对应章节"
+      ],
+      "final_row": 24,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0295"
+      },
+      "delivered_cell_prefix": "3.4.1项要求提交投标保证金的，评标委员会将否决其投标",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR031",
+      "module": "四、报价与合同商务",
+      "concern_id": "BID_BOND_AMOUNT",
+      "concern_label": "保证金金额",
+      "source_atom_ids": [
+        "SRA0138",
+        "SRA0139",
+        "SRA0240",
+        "SRA0242",
+        "SRA0294",
+        "SRA0300",
+        "SRA0383",
+        "SRA0519",
+        "SRA0589",
+        "SRA0796",
+        "SRA0798",
+        "SRA0870",
+        "SRA0874",
+        "SRA0884",
+        "SRA0885",
+        "SRA0886",
+        "SRA0887",
+        "SRA0944",
+        "SRA0945",
+        "SRA0968",
+        "SRA0992.2"
+      ],
+      "source_locator": "第31页 / 3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，投标人在递交投标文件 / （pdf_block）",
+      "source_page": 31,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0291"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第17页逐条比对响应文件对应章节"
+      ],
+      "final_row": 25,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0291"
+      },
+      "delivered_cell_prefix": "发包人在工程款中逐期扣回预付款后，预付款担保额度应相应减少，但剩余的 预付款担保",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR043",
+      "module": "四、报价与合同商务",
+      "concern_id": "PRICE_ARITHMETIC",
+      "concern_label": "报价算术与大小写",
+      "source_atom_ids": [
+        "SRA0437",
+        "SRA0452",
+        "SRA0463",
+        "SRA0710",
+        "SRA0787",
+        "SRA0799",
+        "SRA0802",
+        "SRA0806",
+        "SRA0807",
+        "SRA0808",
+        "SRA0809",
+        "SRA0819",
+        "SRA0820",
+        "SRA0825",
+        "SRA0970",
+        "SRA0971",
+        "SRA0973",
+        "SRA0974",
+        "SRA1006"
+      ],
+      "source_locator": "第57页 / 4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 / （pdf_block）",
+      "source_page": 57,
+      "raw_source_markers": [
+        "*"
+      ],
+      "marker_present": true,
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "substantive_requirement": true,
+      "substantive_basis_kind": "SOURCE_MARKER",
+      "substantive_basis_atom_ids": [
+        "SRA1006"
+      ],
+      "rejection_consequence": false,
+      "rejection_kind": "",
+      "rejection_basis_atom_ids": [],
+      "mandatory_types": [
+        "SUBSTANTIVE_STARRED"
+      ],
+      "criticality_level": "SUBSTANTIVE",
+      "criticality_reason": "源标记 *（第59页 / 块10）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对单价×数量与分项合计、总价",
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第57页逐条比对响应文件对应章节"
+      ],
+      "final_row": 34,
+      "cell": {
+        "★": "★",
+        "否决性": null,
+        "强制性类型": "SUBSTANTIVE_STARRED",
+        "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+        "实质性依据": "SOURCE_MARKER：SRA1006",
+        "否决依据": null
+      },
+      "delivered_cell_prefix": "4、投标报价文件中综合单价表中应当包含此清单项目所有的人、材、机及消耗量、 单价",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA1006",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第59页 / 块10",
+          "marker_source_text": "*2.2.4措施项目中的总价项目金额应根据招标文件中的措施项目清单及投标时拟定",
+          "marker_evidence_id": "MK0004",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA1006"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第59页 / 块10）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DR044",
+      "module": "四、报价与合同商务",
+      "concern_id": "PRICE_ITEMIZATION",
+      "concern_label": "分项报价与暂列金额",
+      "source_atom_ids": [
+        "SRA0446",
+        "SRA0458",
+        "SRA0459",
+        "SRA0501",
+        "SRA0755",
+        "SRA0778",
+        "SRA0779"
+      ],
+      "source_locator": "第63页 / 2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发生的 / 第2.1.3.2条 / （pdf_block）",
+      "source_page": 63,
+      "raw_source_markers": [
+        "*"
+      ],
+      "marker_present": true,
+      "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+      "substantive_requirement": true,
+      "substantive_basis_kind": "SOURCE_MARKER",
+      "substantive_basis_atom_ids": [
+        "SRA0446"
+      ],
+      "rejection_consequence": false,
+      "rejection_kind": "",
+      "rejection_basis_atom_ids": [],
+      "mandatory_types": [
+        "SUBSTANTIVE_STARRED"
+      ],
+      "criticality_level": "SUBSTANTIVE",
+      "criticality_reason": "源标记 *（第59页 / 块14）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对分项报价表逐行金额",
+        "确认与源表限价/暂列金额一致",
+        "依据第63页第2.1.3.2条逐条比对响应文件对应章节"
+      ],
+      "final_row": 35,
+      "cell": {
+        "★": "★",
+        "否决性": null,
+        "强制性类型": "SUBSTANTIVE_STARRED",
+        "源标记": "原始标记：*（SUBSTANTIVE_REQUIREMENT）",
+        "实质性依据": "SOURCE_MARKER：SRA0446",
+        "否决依据": null
+      },
+      "delivered_cell_prefix": "2.1.3.2暂列金额明细表中每笔暂列金额所对应的项目，包括计日工，均只是可能发",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA0446",
+          "raw_source_marker": "*",
+          "marker_present": true,
+          "marker_source_location": "第59页 / 块14",
+          "marker_source_text": "*2.2.5其他项目应按下列规定报价：",
+          "marker_evidence_id": "MK0005",
+          "marker_semantics": "SUBSTANTIVE_REQUIREMENT",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0446"
+          ],
+          "substantive_basis_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "SUBSTANTIVE",
+          "criticality_reason": "源标记 *（INLINE_TEXT，第59页 / 块14）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DR022",
+      "module": "四、报价与合同商务",
+      "concern_id": "QUALITY_TARGET",
+      "concern_label": "质量目标",
+      "source_atom_ids": [
+        "SRA0050",
+        "SRA0179",
+        "SRA0365",
+        "SRA0387",
+        "SRA0465",
+        "SRA0535",
+        "SRA0547",
+        "SRA0647",
+        "SRA0649",
+        "SRA0658",
+        "SRA0659",
+        "SRA0713",
+        "SRA0715",
+        "SRA0717",
+        "SRA0718",
+        "SRA0720",
+        "SRA0723",
+        "SRA0724",
+        "SRA0852",
+        "SRA0898",
+        "SRA0985"
+      ],
+      "source_locator": "第102页 / 三、质量标准 / 第三、条 / （pdf_block）",
+      "source_page": 102,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0179"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "确认响应文件承诺达标",
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第9页第3.3条逐条比对响应文件对应章节"
+      ],
+      "final_row": 16,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0179"
+      },
+      "delivered_cell_prefix": "三、质量标准 工程质量符合 标准；承包人进行永",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR002",
+      "module": "六、定性评审与定标材料",
+      "concern_id": "GENERAL_BIDDER_OBLIGATION",
+      "concern_label": "一般投标人义务",
+      "source_atom_ids": [
+        "SRA0002",
+        "SRA0008",
+        "SRA0011",
+        "SRA0014",
+        "SRA0033",
+        "SRA0034",
+        "SRA0035",
+        "SRA0040",
+        "SRA0053",
+        "SRA0058",
+        "SRA0063",
+        "SRA0072.2",
+        "SRA0090",
+        "SRA0092",
+        "SRA0095",
+        "SRA0103",
+        "SRA0104",
+        "SRA0108",
+        "SRA0118",
+        "SRA0124",
+        "SRA0140.2",
+        "SRA0172",
+        "SRA0176",
+        "SRA0180",
+        "SRA0181",
+        "SRA0183",
+        "SRA0184",
+        "SRA0195",
+        "SRA0197.2",
+        "SRA0203",
+        "SRA0204",
+        "SRA0206",
+        "SRA0208",
+        "SRA0209",
+        "SRA0239",
+        "SRA0241",
+        "SRA0243",
+        "SRA0251",
+        "SRA0252",
+        "SRA0254",
+        "SRA0256",
+        "SRA0257",
+        "SRA0323",
+        "SRA0325",
+        "SRA0332",
+        "SRA0333",
+        "SRA0344",
+        "SRA0355",
+        "SRA0357",
+        "SRA0375",
+        "SRA0376",
+        "SRA0378",
+        "SRA0379",
+        "SRA0380",
+        "SRA0381",
+        "SRA0382",
+        "SRA0440",
+        "SRA0471",
+        "SRA0477",
+        "SRA0478",
+        "SRA0479",
+        "SRA0480",
+        "SRA0481",
+        "SRA0483",
+        "SRA0485",
+        "SRA0516",
+        "SRA0559",
+        "SRA0569",
+        "SRA0582",
+        "SRA0583",
+        "SRA0587",
+        "SRA0609",
+        "SRA0615",
+        "SRA0616",
+        "SRA0620",
+        "SRA0621",
+        "SRA0640",
+        "SRA0642",
+        "SRA0643",
+        "SRA0653",
+        "SRA0668",
+        "SRA0689",
+        "SRA0690",
+        "SRA0694",
+        "SRA0697",
+        "SRA0699",
+        "SRA0700",
+        "SRA0702",
+        "SRA0703",
+        "SRA0705",
+        "SRA0708",
+        "SRA0711.1",
+        "SRA0711.2",
+        "SRA0726",
+        "SRA0728",
+        "SRA0729",
+        "SRA0733",
+        "SRA0735",
+        "SRA0740",
+        "SRA0762",
+        "SRA0766",
+        "SRA0771",
+        "SRA0916",
+        "SRA0959",
+        "SRA0987"
+      ],
+      "source_locator": "第2页 / 四、《房建市政施工评定分离招标示范文本》第二章“投标人 / 第四、条 / （pdf_block）",
+      "source_page": 2,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0179"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对该条款对应的响应内容",
+        "确认响应完整、可核验",
+        "依据第8页逐条比对响应文件对应章节"
+      ],
+      "final_row": 1,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0179"
+      },
+      "delivered_cell_prefix": "四、《房建市政施工评定分离招标示范文本》第二章“投标人 须知”正文和前附表，除以",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR005",
+      "module": "六、定性评审与定标材料",
+      "concern_id": "CONTRACT_RISK",
+      "concern_label": "合同风险与违约责任",
+      "source_atom_ids": [
+        "SRA0005",
+        "SRA0006",
+        "SRA0009",
+        "SRA0016",
+        "SRA0018",
+        "SRA0196",
+        "SRA0213",
+        "SRA0244",
+        "SRA0366",
+        "SRA0431",
+        "SRA0489",
+        "SRA0490",
+        "SRA0492",
+        "SRA0517",
+        "SRA0529",
+        "SRA0534",
+        "SRA0536",
+        "SRA0544",
+        "SRA0546",
+        "SRA0548",
+        "SRA0549",
+        "SRA0552",
+        "SRA0554",
+        "SRA0555",
+        "SRA0557",
+        "SRA0562",
+        "SRA0563",
+        "SRA0564",
+        "SRA0565",
+        "SRA0566",
+        "SRA0568",
+        "SRA0574",
+        "SRA0575",
+        "SRA0576",
+        "SRA0578",
+        "SRA0579",
+        "SRA0580",
+        "SRA0584",
+        "SRA0585",
+        "SRA0586",
+        "SRA0596",
+        "SRA0597",
+        "SRA0598",
+        "SRA0600",
+        "SRA0601",
+        "SRA0602",
+        "SRA0603",
+        "SRA0604",
+        "SRA0605",
+        "SRA0606",
+        "SRA0607",
+        "SRA0608",
+        "SRA0610",
+        "SRA0611",
+        "SRA0612",
+        "SRA0613",
+        "SRA0617",
+        "SRA0618",
+        "SRA0619",
+        "SRA0622",
+        "SRA0639",
+        "SRA0645",
+        "SRA0651",
+        "SRA0652",
+        "SRA0654",
+        "SRA0660",
+        "SRA0662",
+        "SRA0666",
+        "SRA0675",
+        "SRA0686",
+        "SRA0688",
+        "SRA0696",
+        "SRA0714",
+        "SRA0730",
+        "SRA0737",
+        "SRA0744",
+        "SRA0752",
+        "SRA0754",
+        "SRA0761",
+        "SRA0832",
+        "SRA0843",
+        "SRA0844",
+        "SRA0863",
+        "SRA0892",
+        "SRA0894",
+        "SRA0895",
+        "SRA0900",
+        "SRA0901",
+        "SRA0905",
+        "SRA0906",
+        "SRA0907",
+        "SRA0908",
+        "SRA0910",
+        "SRA0912",
+        "SRA0914",
+        "SRA0915",
+        "SRA0919",
+        "SRA0923",
+        "SRA0924.1",
+        "SRA0924.2",
+        "SRA0925",
+        "SRA0926",
+        "SRA0929",
+        "SRA0930",
+        "SRA0931",
+        "SRA0932",
+        "SRA0933",
+        "SRA0936",
+        "SRA0937",
+        "SRA0939",
+        "SRA0952",
+        "SRA0981",
+        "SRA0984",
+        "SRA0999",
+        "SRA1001"
+      ],
+      "source_locator": "第152页 / 13.2.5移交、接收全部与部分工程 / （pdf_block）",
+      "source_page": 152,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0279"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对违约、索赔与争议条款响应",
+        "确认无采购人不能接受的附加条件",
+        "依据第3页逐条比对响应文件对应章节"
+      ],
+      "final_row": 2,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0279"
+      },
+      "delivered_cell_prefix": "发包人无正当理由不接收工程的，发包人自应当接收工程之日起，承担工程照 管、成品保",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR015",
+      "module": "七、签章与电子标",
+      "concern_id": "SIGNATURE_AND_SEAL",
+      "concern_label": "签章要求",
+      "source_atom_ids": [
+        "SRA0029",
+        "SRA0043",
+        "SRA0073.2",
+        "SRA0074.1",
+        "SRA0074.2",
+        "SRA0075.1",
+        "SRA0075.2",
+        "SRA0076.1",
+        "SRA0077.1",
+        "SRA0078.1",
+        "SRA0079.1",
+        "SRA0079.2",
+        "SRA0081.1",
+        "SRA0081.2",
+        "SRA0082.1",
+        "SRA0082.2",
+        "SRA0083.1",
+        "SRA0083.2",
+        "SRA0084.1",
+        "SRA0084.2",
+        "SRA0085.1",
+        "SRA0086.1",
+        "SRA0087.1",
+        "SRA0087.2",
+        "SRA0088.1",
+        "SRA0088.2",
+        "SRA0110",
+        "SRA0169",
+        "SRA0185",
+        "SRA0216",
+        "SRA0364",
+        "SRA0368",
+        "SRA0411",
+        "SRA0413",
+        "SRA0432",
+        "SRA0497",
+        "SRA0498",
+        "SRA0537",
+        "SRA0543",
+        "SRA0641",
+        "SRA0655",
+        "SRA0657",
+        "SRA0847.1",
+        "SRA0847.2",
+        "SRA0848",
+        "SRA0851",
+        "SRA0934",
+        "SRA0935",
+        "SRA0938"
+      ],
+      "source_locator": "第8页 / 2.因原项目发包方原因导致工程长期停工、无法组织竣工验收，且该人员已按 / 第（2）条 / （pdf_block）",
+      "source_page": 8,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0179"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "按招标文件签章要求逐处核对签字人与印章",
+        "确认授权链条完整、印章清晰",
+        "依据第7页第（6）条逐条比对响应文件对应章节"
+      ],
+      "final_row": 9,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0179"
+      },
+      "delivered_cell_prefix": "（2）投标人所投项目管理机构人员中项目负责人、项目技术负责人、施工员 、质量员、",
+      "atom_criticalities": []
+    }
+  ],
+  "coverage_records": [
+    {
+      "source_atom_id": "SRA0441",
+      "atom_text": "*2.1.3投标报价不得低于工程成本。",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA0441"
+      ],
+      "owner_item": "DR023",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    },
+    {
+      "source_atom_id": "SRA0442",
+      "atom_text": "*2.1.4投标人必须按招标工程量清单填报价格。",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA0442"
+      ],
+      "owner_item": "DR023",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    },
+    {
+      "source_atom_id": "SRA0444",
+      "atom_text": "*2.1.5投标人的投标报价高于招标控制价的应予废标。",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA0444"
+      ],
+      "owner_item": "DR017",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    },
+    {
+      "source_atom_id": "SRA0446",
+      "atom_text": "* 2.2.5其他项目应按下列规定报价： ①暂列金额应按招标工程量清单中列出的金额填写；",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA0446"
+      ],
+      "owner_item": "DR044",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    },
+    {
+      "source_atom_id": "SRA0451",
+      "atom_text": "*2.2.7招标工程量清单与计价表中列明的所有需要填写单价和合价的项目，投标人均应填 写且只允许有一个报价。",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA0451"
+      ],
+      "owner_item": "DR023",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    },
+    {
+      "source_atom_id": "SRA1006",
+      "atom_text": "*2.2.4措施项目中的总价项目金额应根据招标文件中的措施项目清单及投标时拟定 的施工组织设计或施工方案自主确定。",
+      "basis_kind": "SOURCE_MARKER",
+      "basis_atom_ids": [
+        "SRA1006"
+      ],
+      "owner_item": "DR043",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": ""
+    }
+  ]
+}

@@ -571,6 +571,56 @@ CASE002 / CASE003 仍为 `NOT_YET_CONFIRMED`；`V1_PRODUCTION_CANDIDATE = false`
 
 ---
 
+## 5.8 第 6 轮（ROUND 6）—— 源文可见的关键性（SOURCE-VISIBLE CRITICALITY）
+
+### 5.8.1 人工第 5 轮结论（HISTORICAL，不得改写）
+
+人工复核对象是 `..._review_workbook5`，结论：`FAIL`，`FAIL_REASON = SOURCE_MARKER_CRITICALITY_FIDELITY`：
+源文可见的 `*`/`★` 标记与招标文件自身的"实质性要求和条件"规则没有被可靠地传播进最终工作簿——
+`*1.4.5 供货期`、`*1.4.6 交货地点`、`*1.4.7 质量要求`、`*1.4.8 质保期`、`*1.5.2 不接受联合体`、
+`*3.3.1 询比有效期`、`*流量计第三方检测要求` 等行在工作簿 5 中为空。该记录
+（`case001_review_workbook_round4_human_review.json` 及 `..._CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json`）
+`must_not_be_rewritten = true`、`automation_may_not_mark_pass = true`。
+
+### 5.8.2 本轮关闭的不变量
+
+> **SOURCE-VISIBLE CRITICALITY IS SEMANTIC DATA**
+> （源文可见的关键性是语义数据；标记、标记含义、实质性规则、后果规则、引用关系全部来自源文）
+
+机制见 [V1_DECISIONS.md](V1_DECISIONS.md) D61–D63：新增 `tender_basic/source_criticality.py`
+（`build_criticality_index`，对象 `SourceRequirementCriticality`），按文档独立发现
+**标记词表**、**标记含义**、**实质性要求定义条款**、**后果规则**与**引用链**；三个维度
+（源标记条款数 / 实质性要求数 / 明示或可证明否决项数）分开报告；`★` / `否决性` / `强制性类型`
+三列不是别名；`"*" => 否决` 的全局捷径与案例措辞硬编码均被测试禁止。
+
+### 5.8.3 本轮验收对象与门禁结果
+
+| 门禁 | 结果 |
+| --- | --- |
+| `REVIEW_WORKBOOK_ROUND6` | **PASS**（`review_workbook_round6_final_status.json`） |
+| `SOURCE_MARKER_FIDELITY` | **PASS**，`marker_lost_count = 0`、`marker_false_positive_count = 0` |
+| `SUBSTANTIVE_REQUIREMENT_CLASSIFICATION` | **PASS**（依据种类仅 `SOURCE_MARKER` / `EXPLICIT_WORDING` / `LEGAL_RULE` / `REFERENCE_PROPAGATION`，且逐行给出依据原子 id） |
+| `REJECTION_CONSEQUENCE_CLASSIFICATION` | **PASS**（`EXPLICIT` / `DERIVED` 均有源文依据；无 `一票否决` 字样） |
+| `source_substantive_requirement_without_review_coverage_count` | **0**（三案例） |
+| 人类指定 12 个源标记夹具 | **12/12 PASS**：`*1.4.1`→`第五章采购需求`引用传播、`*1.4.4`、`*1.4.5`→DR002、`*1.4.6`→DR003/DR030、`*1.4.7`→DR003、`*1.4.8`→DR004、`*1.5.1`→`第二款供应商资格要求`引用传播、`*1.5.2`→DR012、`*3.3.1`→DR017、`*3.4.1`→DR018/19/20/DR036、`*10.1`→DR001/DR024、`*流量计`→DR047 |
+| 第 5 轮回归星标行 | `DR001/002/003/004/012/017/018/019/020/030/047` 全部保持 `★`（行号未漂移） |
+| `03_资格否决与强制项` | 保留原 17 列并**追加** `源标记`(R) / `实质性依据`(S) / `否决依据`(T)；`★`(H) / `否决性`(I) / `强制性类型`(J) 相互独立（CASE001：17 行同时有 `★` 与 `否决性`，16 行只有 `否决性`（含引用传播行）；CASE002：`★` 行 `否决性` 为空） |
+| `00_复核总览` | 三条**不同**公式分别统计 `源标记条款数（带★）` / `实质性要求数（源依据）` / `明示或可证明否决项数`，旧合并标签已移除；LibreOffice 重算后 7 条公式全部相符 |
+| 引用传播 | CASE001 两条已解析引用链（`*1.4.1`→`第五章采购需求` 9 个子原子、`*1.5.1`→`第二款供应商资格要求` 22 个子原子）；子行只记 `SUBSTANTIVE_VIA_REFERENCE` + 否决性，**不**显示 `★`，且不复制父行 |
+| `ConcernContract` | **PASS**（第 5 轮 78 份人工契约在第 6 轮工作簿上复跑，`fixtures 20/20`） |
+| CASE001 / CASE002 / CASE003 | **PASS** / **PASS** / **PASS**（`review_workbook_round6_criticality_audit_case_00X.json`） |
+| `THREE_CASE_GENERALIZATION` | **PASS**（标记词表按文档独立发现：CASE001 `*`、CASE002 `★`、CASE003 `*`；CASE002 的 `★` 被源文说明为"须提供证明材料"→`MANDATORY`，无实质性、无否决） |
+| `WORD_ARTIFACTS_UNCHANGED` | **PASS**（三案例 Word 产物逐字节相同，未重新渲染） |
+| 历史产物 | `WORKBOOK5_UNTOUCHED = PASS`（sha 与第 5 轮记录一致）、`WORKBOOK4_UNTOUCHED = PASS`（所有第 1–5 轮工作簿 mtime 早于第 5 轮收口时间） |
+| 视觉 QA | `case_00X_review_workbook_visual_qa_round6.json` 三案例 `PASS`（`clipping_bounded` WARN 仍为有界 WARN，不是失败） |
+| 全量测试 | `review_workbook_round6_full_test_suite.txt` / `.xml`：**0 failed / 0 errors**（含新增 `tests/test_round6_source_criticality.py`） |
+
+**人工确认状态**：`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、
+`CASE002/003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、人工勾选框 **0**、
+`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+
+---
+
 ## 5.7 缺陷与解决总账（PROBLEM / RESOLUTION LEDGER，按类别归并）
 
 本节把 §6（历史缺陷）与 §7（已知偏差）合并成一张**按类别**的总账：每一行给出

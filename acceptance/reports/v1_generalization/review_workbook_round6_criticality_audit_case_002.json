@@ -1,0 +1,1102 @@
+{
+  "schema": "v1_review_workbook_round6/1",
+  "case": "case_002",
+  "build_id": "v1_round4_closure8_review_workbook6",
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook6\\投标项目复核表.xlsx",
+  "verdict": "PASS",
+  "check_count": 19,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "marker preserved (no source marker is lost)",
+      "ok": true,
+      "detail": "marker_lost_count=0",
+      "evidence": {
+        "marker_atom_count": 16,
+        "lost": []
+      }
+    },
+    {
+      "check": "marker false positives",
+      "ok": true,
+      "detail": "marker_false_positive_count=0",
+      "evidence": {
+        "false_positives": []
+      }
+    },
+    {
+      "check": "known source-marker fixtures",
+      "ok": true,
+      "detail": "1/1 fixture(s) marked",
+      "evidence": {
+        "failed": []
+      }
+    },
+    {
+      "check": "source marker vocabulary is discovered per document",
+      "ok": true,
+      "detail": "vocabulary=['★']",
+      "evidence": {
+        "rules": [
+          {
+            "rule_id": "GR0002",
+            "kind": "SOURCE_MARKER",
+            "markers": [
+              "★"
+            ],
+            "words": [],
+            "scope": "DOCUMENT",
+            "governing_atom_id": "",
+            "governing_clause": "",
+            "governing_text": "国国产服务器操作系统，兼容项目中的信创服务\n器、虚拟化、数据库、中间件等设备及软件，支持\n安全加固、自主可控，系统稳定性强（年故障率≤\n0.05%）。\n★提供操作系统原厂授权证明，兼容所有相关设备\n及软件。",
+            "page": 67,
+            "locator": "第67页 / 块4",
+            "semantics": "MANDATORY_PROOF",
+            "semantics_all": [
+              "MANDATORY_PROOF"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "marker meaning comes from the document's own statement",
+      "ok": true,
+      "detail": "semantics=['MANDATORY_PROOF']",
+      "evidence": {
+        "unestablished_rules": []
+      }
+    },
+    {
+      "check": "no marker is promoted to a rejection consequence by itself",
+      "ok": true,
+      "detail": "unclassified_marked_rows=[]",
+      "evidence": {
+        "marked_rows": [
+          [
+            "DR039",
+            "MANDATORY_PROOF"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "the tender's own substantive-requirement rule is discovered and linked",
+      "ok": true,
+      "detail": "1/1 marker rule(s) anchored in the source (0 via a governing clause), 0 unclassified marked row(s)",
+      "evidence": {
+        "governing_clauses": [],
+        "semantics": [
+          "MANDATORY_PROOF"
+        ],
+        "unanchored": [],
+        "unclassified_rows": [],
+        "rule_kinds": [
+          "LEGAL_RULE",
+          "SOURCE_MARKER"
+        ]
+      }
+    },
+    {
+      "check": "every rejection claim traces to a source consequence rule",
+      "ok": true,
+      "detail": "3 consequence-backed row(s), 20 source consequence rule(s)",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          "RJ0001",
+          "RJ0002",
+          "RJ0003",
+          "RJ0004",
+          "RJ0005",
+          "RJ0006",
+          "RJ0007",
+          "RJ0008",
+          "RJ0009",
+          "RJ0010"
+        ]
+      }
+    },
+    {
+      "check": "explicit source references propagate the starred parent's meaning",
+      "ok": true,
+      "detail": "0 resolved reference link(s), 0 unresolved, 0 propagated row(s)",
+      "evidence": {
+        "chains": []
+      }
+    },
+    {
+      "check": "reference children are marked as propagated, never as starred",
+      "ok": true,
+      "detail": "propagated_rows=[]",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "rejection consequence is a separate, source-backed dimension",
+      "ok": true,
+      "detail": "explicit=3 derived=0 unbacked=0",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          {
+            "rule_id": "RJ0001",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0006",
+            "governing_clause": "SR0006",
+            "governing_text": "3.6 本项目不接受联合体投标。",
+            "page": 5,
+            "locator": "第5页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0002",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0028",
+            "governing_clause": "SR0028",
+            "governing_text": "6、本项目不接受联合体投标。",
+            "page": 8,
+            "locator": "第8页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0003",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0090",
+            "governing_clause": "SR0097",
+            "governing_text": "1.4.2 本项目不接受联合体投标。",
+            "page": 16,
+            "locator": "第16页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0004",
+            "consequence": "否决",
+            "trigger": "SPECIFIC_CLAUSE",
+            "governing_atom_id": "SRA0096",
+            "governing_clause": "SR0103",
+            "governing_text": "1.10.1 投标文件应当对招标文件的实质性要求和条件作出满足性或更有利于 招标人的响应，否则，投标人的投标将被否决。",
+            "page": 17,
+            "locator": "第17页",
+            "target_clauses": [
+              "1.1.2",
+              "1.10.1"
+            ]
+          },
+          {
+            "rule_id": "RJ0005",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0110",
+            "governing_clause": "SR0117",
+            "governing_text": "3.1.2 投标人须知前附表规定不接受联合体投标的，或投标人没有组成联合 2026-03-23 16:58:05 体的，投标文件不包括联合体协议书。",
+            "page": 19,
+            "locator": "第19页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0006",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0127",
+            "governing_clause": "SR0134",
+            "governing_text": "3.6.1 除投标人须知前附表规定允许外，投标人不得递交备选投标方案，否则 其投标将被否决。",
+            "page": 20,
+            "locator": "第20页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0007",
+            "consequence": "无效",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0131",
+            "governing_clause": "SR0138",
+            "governing_text": "投标文件签署授权委托书格式、签字、盖章及内容均应符合要求， 否则投标文件签署的授权委托书无效。",
+            "page": 21,
+            "locator": "第21页",
+            "target_clauses": []
+          },
+          {
+            "rule_id": "RJ0008",
+            "consequence": "无效",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0149",
+            "governing_clause": "SR0156",
+            "governing_text": "如澄清、说明或 者更正的内容与投标文件内容有重大相悖或矛盾，将被认定为无效投标文件。",
+            "page": 23,
+            "locator": "第23页",
+            "target_clauses": []
+          }
+        ]
+      }
+    },
+    {
+      "check": "every source-marked row shows ★",
+      "ok": true,
+      "detail": "1 marked row(s), 0 blank",
+      "evidence": {
+        "blank_marked_rows": []
+      }
+    },
+    {
+      "check": "★, 否决性 and 强制性类型 are independent columns",
+      "ok": true,
+      "detail": "starred=1 vetoed=3 symmetric_difference=4",
+      "evidence": {
+        "starred_only": [
+          "DR039"
+        ],
+        "vetoed_only": [
+          "DR031",
+          "DR032",
+          "DR038"
+        ],
+        "mandatory_types": [
+          "BOND",
+          "CONSORTIUM",
+          "ELECTRONIC",
+          "FINANCIAL",
+          "MANDATORY",
+          "PERFORMANCE",
+          "PRICING",
+          "PROOF",
+          "QUALIFICATION",
+          "QUALITY",
+          "REJECTION",
+          "SIGNATURE",
+          "SUBMISSION",
+          "SUBSTANTIVE_BY_LAW；REJECTION",
+          "TECHNICAL",
+          "VALIDITY",
+          "WARRANTY"
+        ]
+      }
+    },
+    {
+      "check": "强制性类型 states the source basis instead of the requirement type",
+      "ok": true,
+      "detail": "types=['BOND', 'CONSORTIUM', 'ELECTRONIC', 'FINANCIAL', 'MANDATORY', 'PERFORMANCE', 'PRICING', 'PROOF', 'QUALIFICATION', 'QUALITY', 'REJECTION', 'SIGNATURE', 'SUBMISSION', 'SUBSTANTIVE_BY_LAW；REJECTION', 'TECHNICAL', 'VALIDITY', 'WARRANTY']",
+      "evidence": {
+        "row_types": [
+          [
+            "DR002",
+            "QUALIFICATION"
+          ],
+          [
+            "DR003",
+            "SIGNATURE"
+          ],
+          [
+            "DR004",
+            "QUALIFICATION"
+          ],
+          [
+            "DR005",
+            "REJECTION"
+          ],
+          [
+            "DR006",
+            "CONSORTIUM"
+          ],
+          [
+            "DR007",
+            "TECHNICAL"
+          ],
+          [
+            "DR008",
+            "ELECTRONIC"
+          ],
+          [
+            "DR009",
+            "SUBMISSION"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "raw marker and its basis are carried next to the normalised columns",
+      "ok": true,
+      "detail": "源标记/实质性依据/否决依据 columns carry the source basis",
+      "evidence": {
+        "headers": [
+          "序号",
+          "requirement_id",
+          "类别",
+          "子类",
+          "要求正文",
+          "复核动作",
+          "核验标准",
+          "★",
+          "否决性",
+          "强制性类型",
+          "证据页码",
+          "证据定位",
+          "证据摘要",
+          "机器识别状态",
+          "人工满足情况",
+          "人工证据/材料",
+          "人工备注",
+          "源标记",
+          "实质性依据",
+          "否决依据"
+        ],
+        "sample": [
+          {
+            "requirement_id": "DR039",
+            "★": "★",
+            "源标记": "原始标记：★（MANDATORY_PROOF）",
+            "强制性类型": "MANDATORY",
+            "实质性依据": null,
+            "否决依据": null
+          }
+        ]
+      }
+    },
+    {
+      "check": "dashboard reports the three dimensions separately",
+      "ok": true,
+      "detail": "missing=[] conflated=[]",
+      "evidence": {
+        "labels": {
+          "源标记条款数（带★）": "=COUNTIF('03_资格否决与强制项'!$H$2:$H$999,\"★\")",
+          "实质性要求数（源依据）": "=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_STARRED\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_EXPLICIT_WORDING\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_VIA_REFERENCE*\")+COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE_BY_LAW*\")",
+          "明示或可证明否决项数": "=COUNTIF('03_资格否决与强制项'!$I$2:$I$999,\"是\")"
+        }
+      }
+    },
+    {
+      "check": "every source substantive requirement is covered by the review",
+      "ok": true,
+      "detail": "source_substantive_requirement_without_review_coverage_count=0",
+      "evidence": {
+        "uncovered": []
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) unchanged",
+      "evidence": {
+        "identity": {
+          "基础投标文件.docx": {
+            "source_build_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+            "successor_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+            "byte_identical": true
+          },
+          "基础投标文件.pdf": {
+            "source_build_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+            "successor_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+            "byte_identical": true
+          },
+          "generation_report.json": {
+            "source_build_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+            "successor_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+            "byte_identical": true
+          }
+        }
+      }
+    },
+    {
+      "check": "concern contracts still hold on the round-6 successor",
+      "ok": true,
+      "detail": "concern contract checks failed=0, fixtures=0/20",
+      "evidence": {
+        "failed_checks": [],
+        "fixtures_failed": 0,
+        "contract_count": 78
+      }
+    }
+  ],
+  "fixtures": {
+    "row:DR039": {
+      "expectation": "DR039 keeps its source marker in the workbook",
+      "status": "PASS",
+      "evidence": {
+        "raw_source_markers": [
+          "★"
+        ],
+        "star": "★"
+      }
+    }
+  },
+  "fixture_summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": []
+  },
+  "concern_contract_verdict": "PASS",
+  "concern_contract": {
+    "contract_source": "human_round5_fixtures_A_T",
+    "contract_version": "round5.1",
+    "contract_count": 78,
+    "review_row_count": 45,
+    "fixtures_passed": "0/20",
+    "failed_checks": []
+  },
+  "criticality_model": {
+    "marker_count": 24,
+    "marker_vocabulary": [
+      "★"
+    ],
+    "substantive_rules": [
+      {
+        "rule_id": "GR0001",
+        "kind": "LEGAL_RULE",
+        "markers": [],
+        "words": [],
+        "scope": "DOCUMENT",
+        "governing_atom_id": "SRA0096",
+        "governing_clause": "SR0103",
+        "governing_text": "A1.21 其他经评委会确认的未能实质性响应招标文件要求的投标。 A1.22 投标文件未按规定的格式填写，或主要内容不全，或关键字迹模糊、 无法辨认造成无法满足评标需要的； A1.23 投标人在投标文件中提出与招标文件相抵触要求或对招标文件有重大 保留，包括重新划定风险范围，改变各方的权利和义务，提出不同的质量标准、 验收方法、计量方法和纠纷处理办法； A1.24 其他一些评标委员会认定事宜； A1.25 法律法规规定的其他无效情形。",
+        "page": 34,
+        "locator": "第34页 / 块11",
+        "semantics": "UNESTABLISHED",
+        "semantics_all": []
+      },
+      {
+        "rule_id": "GR0002",
+        "kind": "SOURCE_MARKER",
+        "markers": [
+          "★"
+        ],
+        "words": [],
+        "scope": "DOCUMENT",
+        "governing_atom_id": "",
+        "governing_clause": "",
+        "governing_text": "国国产服务器操作系统，兼容项目中的信创服务\n器、虚拟化、数据库、中间件等设备及软件，支持\n安全加固、自主可控，系统稳定性强（年故障率≤\n0.05%）。\n★提供操作系统原厂授权证明，兼容所有相关设备\n及软件。",
+        "page": 67,
+        "locator": "第67页 / 块4",
+        "semantics": "MANDATORY_PROOF",
+        "semantics_all": [
+          "MANDATORY_PROOF"
+        ]
+      }
+    ],
+    "rejection_rule_count": 20,
+    "reference_links": []
+  },
+  "counts": {
+    "source_marker_atom_count": 16,
+    "source_marked_row_count": 1,
+    "substantive_requirement_row_count": 1,
+    "rejection_consequence_row_count": 3,
+    "explicit_rejection_row_count": 3,
+    "derived_rejection_row_count": 0,
+    "marker_lost_count": 0,
+    "marker_false_positive_count": 0,
+    "source_substantive_requirement_without_review_coverage_count": 0
+  },
+  "marker_records": [
+    {
+      "source_atom_id": "SRA0416",
+      "atom_text": "★3、内存：满足配置≥8 根内存，单条容量≥32GB，",
+      "raw_source_marker": "★",
+      "marker_source_location": "第64页",
+      "marker_source_text": "★3、内存：满足配置≥8 根内存，单条容量≥32GB，",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★3、内存：满足配置≥8",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0419",
+      "atom_text": "★资质认证：具备工信部入网证。",
+      "raw_source_marker": "★",
+      "marker_source_location": "第67页",
+      "marker_source_text": "★资质认证：具备工信部入网证。",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★资质认证：具备工信部入",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0421",
+      "atom_text": "★提供操作系统原厂授权证明，兼容所有相关设备 及软件。",
+      "raw_source_marker": "★",
+      "marker_source_location": "第67页",
+      "marker_source_text": "★提供操作系统原厂授权证明，兼容所有相关设备 及软件。",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供操作系统原厂授权证",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0422",
+      "atom_text": "★提供中间件原厂授权证明、兼容性认证证书。",
+      "raw_source_marker": "★",
+      "marker_source_location": "第67页",
+      "marker_source_text": "★提供中间件原厂授权证明、兼容性认证证书。",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供中间件原厂授权证明",
+      "owner_items": [
+        "DR039"
+      ],
+      "delivered_owner_items": [
+        "DR039"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0425",
+      "atom_text": "★提供数据库原厂授权证明、兼容性认证证书。",
+      "raw_source_marker": "★",
+      "marker_source_location": "第67页",
+      "marker_source_text": "★提供数据库原厂授权证明、兼容性认证证书。",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供数据库原厂授权证明",
+      "owner_items": [
+        "DR039"
+      ],
+      "delivered_owner_items": [
+        "DR039"
+      ],
+      "background_owner_items": [],
+      "workbook_star": [
+        "★"
+      ],
+      "status": "DELIVERED_REVIEW_ROW"
+    },
+    {
+      "source_atom_id": "SRA0426",
+      "atom_text": "★提供产品功能截图和 CMA、CNAS 标志国家认可检",
+      "raw_source_marker": "★",
+      "marker_source_location": "第68页",
+      "marker_source_text": "★提供产品功能截图和 CMA、CNAS 标志国家认可检",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品功能截图和CM",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0428",
+      "atom_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国",
+      "raw_source_marker": "★",
+      "marker_source_location": "第68页",
+      "marker_source_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品详细功能描述文",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0430",
+      "atom_text": "★提供产品对应功能截图和具有 CMA 和 CNAS 标志",
+      "raw_source_marker": "★",
+      "marker_source_location": "第68页",
+      "marker_source_text": "★提供产品对应功能截图和具有 CMA 和 CNAS 标志",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品对应功能截图和",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0432",
+      "atom_text": "★提供产品对应功能截图和具有 CMA 和 CNAS 标志 套",
+      "raw_source_marker": "★",
+      "marker_source_location": "第68页",
+      "marker_source_text": "★提供产品对应功能截图和具有 CMA 和 CNAS 标志 套",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品对应功能截图和",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0522",
+      "atom_text": "★提供产品功能截图和 CMA、CNAS 标志国家认可检测",
+      "raw_source_marker": "★",
+      "marker_source_location": "第95页",
+      "marker_source_text": "★提供产品功能截图和 CMA、CNAS 标志国家认可检测",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品功能截图和CM",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0524",
+      "atom_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国家",
+      "raw_source_marker": "★",
+      "marker_source_location": "第95页",
+      "marker_source_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国家",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品详细功能描述文",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0526",
+      "atom_text": "★提供产品对应功能截图和具有CMA 和CNAS 标志国家",
+      "raw_source_marker": "★",
+      "marker_source_location": "第95页",
+      "marker_source_text": "★提供产品对应功能截图和具有CMA 和CNAS 标志国家",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品对应功能截图和",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0632",
+      "atom_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国 台",
+      "raw_source_marker": "★",
+      "marker_source_location": "第156页",
+      "marker_source_text": "★提供产品详细功能描述文字和 CMA、CNAS 标志国 台",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★提供产品详细功能描述文",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0650",
+      "atom_text": "★2、CPU：每个节点配置≥2 颗国产 X86 或 C86 处",
+      "raw_source_marker": "★",
+      "marker_source_location": "第64页",
+      "marker_source_text": "★2、CPU：每个节点配置≥2 颗国产 X86 或 C86 处",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★2、CPU：每个节点配",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0651",
+      "atom_text": "★4、硬盘：支持≥12 个前置热插拔",
+      "raw_source_marker": "★",
+      "marker_source_location": "第64页",
+      "marker_source_text": "★4、硬盘：支持≥12 个前置热插拔",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★4、硬盘：支持≥12个",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    },
+    {
+      "source_atom_id": "SRA0652",
+      "atom_text": "★2、CPU：每个节点配置≥2 颗国产 X86 或 C86 处理",
+      "raw_source_marker": "★",
+      "marker_source_location": "第92页",
+      "marker_source_text": "★2、CPU：每个节点配置≥2 颗国产 X86 或 C86 处理",
+      "marker_semantics": "MANDATORY_PROOF",
+      "marker_evidence_id": "MK-INLINE-★2、CPU：每个节点配",
+      "owner_items": [
+        "DR012"
+      ],
+      "delivered_owner_items": [],
+      "background_owner_items": [
+        "DR012"
+      ],
+      "workbook_star": [],
+      "status": "NON_BIDDER_ACTIONABLE_ROW"
+    }
+  ],
+  "row_audit": [
+    {
+      "item_id": "DR032",
+      "module": "一、废标红线",
+      "concern_id": "EVALUATION_RESPONSIVENESS",
+      "concern_label": "评审·响应性审查",
+      "source_atom_ids": [
+        "SRA0096",
+        "SRA0097",
+        "SRA0150",
+        "SRA0235",
+        "SRA0241",
+        "SRA0242",
+        "SRA0253",
+        "SRA0263"
+      ],
+      "source_locator": "第33页 / 第二章“投标人须知”和本章正文部分所规定的否决投标条件的总结和补充，如 / 第1.5条 / （pdf_block）",
+      "source_page": 33,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": true,
+      "substantive_basis_kind": "LEGAL_RULE",
+      "substantive_basis_atom_ids": [
+        "SRA0096"
+      ],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0096"
+      ],
+      "mandatory_types": [
+        "SUBSTANTIVE_BY_LAW",
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "实质性要求依据=LEGAL_RULE；明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对实质性响应要求",
+        "确认无重大偏差",
+        "依据第17页第1.10.1条逐条比对响应文件对应章节"
+      ],
+      "final_row": 27,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "SUBSTANTIVE_BY_LAW；REJECTION",
+        "源标记": null,
+        "实质性依据": "LEGAL_RULE：SRA0096",
+        "否决依据": "EXPLICIT：SRA0096"
+      },
+      "delivered_cell_prefix": "1.5 投标文件未实质性响应招标文件要求的；1.21 其他经评委会确认的未能实质",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA0096",
+          "raw_source_marker": "",
+          "marker_present": false,
+          "marker_source_location": "",
+          "marker_source_text": "",
+          "marker_evidence_id": "",
+          "marker_semantics": "UNESTABLISHED",
+          "substantive_requirement": true,
+          "substantive_basis_kind": "LEGAL_RULE",
+          "substantive_basis_atom_ids": [
+            "SRA0096"
+          ],
+          "substantive_basis_text": "A1.21 其他经评委会确认的未能实质性响应招标文件要求的投标。 A1.22 投标文件未按规定的格式填写，或主要内容不全，或关键字迹模糊、 无法辨认造成无法满足评标需要的； A1.23 投标人在投标文件中提出与招标文件相抵触要求或对招标文件有重大 保留，包括重新划定风险范围，改变各方的权利和义务，提出不同的质量标准、 验收方法、计量方法和纠纷处理办法； A1.24 其他一些评标委员会认定事宜； A1.25 法律法规规定的其他无效情形。",
+          "explicit_rejection_consequence": true,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [
+            "SRA0096"
+          ],
+          "rejection_consequence_text": "1.10.1 投标文件应当对招标文件的实质性要求和条件作出满足性或更有利于 招标人的响应，否则，投标人的投标将被否决。",
+          "criticality_level": "SUBSTANTIVE_REJECTION",
+          "criticality_reason": "实质性要求依据=LEGAL_RULE；明示否决后果",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "SRA0096",
+          "mandatory_types": [
+            "SUBSTANTIVE_BY_LAW",
+            "REJECTION"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DR038",
+      "module": "一、废标红线",
+      "concern_id": "EVALUATION_COLLUSION",
+      "concern_label": "评审·串标与弄虚作假",
+      "source_atom_ids": [
+        "SRA0161",
+        "SRA0162",
+        "SRA0171",
+        "SRA0236",
+        "SRA0256",
+        "SRA0259",
+        "SRA0265",
+        "SRA0266",
+        "SRA0267",
+        "SRA0268",
+        "SRA0269",
+        "SRA0270",
+        "SRA0271",
+        "SRA0272"
+      ],
+      "source_locator": "第25页 / 9.2 对投标人的纪律要求 / 第9.2条 / （pdf_block）",
+      "source_page": 25,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0312"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对不存在串标、弄虚作假的证据",
+        "确认响应文件无雷同与异常一致",
+        "依据第25页第9.2条逐条比对响应文件对应章节"
+      ],
+      "final_row": 31,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0312"
+      },
+      "delivered_cell_prefix": "9.2 对投标人的纪律要求 投标人不得相互串通投标或者与招标人串通投标，不得向招",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR031",
+      "module": "二、资格审查",
+      "concern_id": "SUBCONTRACT",
+      "concern_label": "分包与转包",
+      "source_atom_ids": [
+        "SRA0095",
+        "SRA0312",
+        "SRA0398"
+      ],
+      "source_locator": "第45页 / 二十二、误期赔偿费 / （pdf_block）",
+      "source_page": 45,
+      "raw_source_markers": [],
+      "marker_present": false,
+      "marker_semantics": "UNESTABLISHED",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": true,
+      "rejection_kind": "EXPLICIT",
+      "rejection_basis_atom_ids": [
+        "SRA0312"
+      ],
+      "mandatory_types": [
+        "REJECTION"
+      ],
+      "criticality_level": "SUBSTANTIVE_REJECTION",
+      "criticality_reason": "明示否决后果",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "核对分包安排",
+        "确认无违规分包、转包",
+        "依据第17页第1.9条逐条比对响应文件对应章节"
+      ],
+      "final_row": 26,
+      "cell": {
+        "★": null,
+        "否决性": "是",
+        "强制性类型": "REJECTION",
+        "源标记": null,
+        "实质性依据": null,
+        "否决依据": "EXPLICIT：SRA0312"
+      },
+      "delivered_cell_prefix": "2026-03-23 16:58:05 二十、分包 本合同不接受分包；5.乙方不",
+      "atom_criticalities": []
+    },
+    {
+      "item_id": "DR039",
+      "module": "二、资格审查",
+      "concern_id": "TECHNICAL_PROOF",
+      "concern_label": "技术证明材料",
+      "source_atom_ids": [
+        "SRA0182",
+        "SRA0198",
+        "SRA0223",
+        "SRA0318",
+        "SRA0422",
+        "SRA0425",
+        "SRA0427",
+        "SRA0629",
+        "SRA0630"
+      ],
+      "source_locator": "第27页 / 第三章评标办法（综合评分法） / （pdf_table_cell）",
+      "source_page": 27,
+      "raw_source_markers": [
+        "★"
+      ],
+      "marker_present": true,
+      "marker_semantics": "MANDATORY_PROOF",
+      "substantive_requirement": false,
+      "substantive_basis_kind": "",
+      "substantive_basis_atom_ids": [],
+      "rejection_consequence": false,
+      "rejection_kind": "",
+      "rejection_basis_atom_ids": [],
+      "mandatory_types": [
+        "MANDATORY"
+      ],
+      "criticality_level": "MANDATORY",
+      "criticality_reason": "源标记 ★（第67页）；标记含义=MANDATORY_PROOF",
+      "reference_parent_atom_id": "",
+      "reference_target": "",
+      "review_point_id": "",
+      "review_point_checks": [
+        "确认材料清晰、可核验且与响应内容对应",
+        "核对该条要求对应的技术证明材料",
+        "按本条要求逐条核对响应文件的对应内容",
+        "依据第150页逐条比对响应文件对应章节"
+      ],
+      "final_row": 32,
+      "cell": {
+        "★": "★",
+        "否决性": null,
+        "强制性类型": "MANDATORY",
+        "源标记": "原始标记：★（MANDATORY_PROOF）",
+        "实质性依据": null,
+        "否决依据": null
+      },
+      "delivered_cell_prefix": "格证明材料 投标人须在中华人民共和国境内登记注册，具有独立承；件“第五章技术要求",
+      "atom_criticalities": [
+        {
+          "source_atom_id": "SRA0422",
+          "raw_source_marker": "★",
+          "marker_present": true,
+          "marker_source_location": "第67页",
+          "marker_source_text": "★提供中间件原厂授权证明、兼容性认证证书。",
+          "marker_evidence_id": "MK-INLINE-★提供中间件原厂授权证明",
+          "marker_semantics": "MANDATORY_PROOF",
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "substantive_basis_text": "",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "MANDATORY",
+          "criticality_reason": "源标记 ★（INLINE_TEXT，第67页）；标记含义=MANDATORY_PROOF",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "MANDATORY"
+          ]
+        },
+        {
+          "source_atom_id": "SRA0425",
+          "raw_source_marker": "★",
+          "marker_present": true,
+          "marker_source_location": "第67页",
+          "marker_source_text": "★提供数据库原厂授权证明、兼容性认证证书。",
+          "marker_evidence_id": "MK-INLINE-★提供数据库原厂授权证明",
+          "marker_semantics": "MANDATORY_PROOF",
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "substantive_basis_text": "",
+          "explicit_rejection_consequence": false,
+          "derived_rejection_consequence": false,
+          "rejection_basis_atom_ids": [],
+          "rejection_consequence_text": "",
+          "criticality_level": "MANDATORY",
+          "criticality_reason": "源标记 ★（INLINE_TEXT，第67页）；标记含义=MANDATORY_PROOF",
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "governing_clause_atom_id": "",
+          "mandatory_types": [
+            "MANDATORY"
+          ]
+        }
+      ]
+    }
+  ],
+  "coverage_records": [
+    {
+      "source_atom_id": "SRA0096",
+      "atom_text": "1.10.1 投标文件应当对招标文件的实质性要求和条件作出满足性或更有利于 招标人的响应，否则，投标人的投标将被否决。",
+      "basis_kind": "LEGAL_RULE",
+      "basis_atom_ids": [
+        "SRA0096"
+      ],
+      "owner_item": "DR032",
+      "coverage": "DELIVERED_REVIEW_ROW",
+      "rejection_kind": "EXPLICIT"
+    }
+  ]
+}

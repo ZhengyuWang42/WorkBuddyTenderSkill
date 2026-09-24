@@ -1,0 +1,401 @@
+{
+  "schema": "v1_review_workbook_round6_final_status/1",
+  "generated_at": "2026-09-24T07:47:09.859831+00:00",
+  "round": "review_workbook_round6",
+  "commit_subject": "feat: preserve substantive requirement markers in review workbook",
+  "pipeline": "SOURCE MARKER -> TENDER-SPECIFIC SUBSTANTIVE REQUIREMENT RULE -> CONSEQUENCE RULE -> REVIEW CRITICALITY",
+  "invariant": "SOURCE-VISIBLE CRITICALITY IS SEMANTIC DATA",
+  "dimensions": [
+    "源标记条款数（带★）",
+    "实质性要求数（源依据）",
+    "明示或可证明否决项数"
+  ],
+  "result": "PASS",
+  "blockers": [],
+  "flags": {
+    "REVIEW_WORKBOOK_ROUND6": "PASS",
+    "SOURCE_MARKER_FIDELITY": "PASS",
+    "marker_lost_count": 0,
+    "marker_false_positive_count": 0,
+    "SUBSTANTIVE_REQUIREMENT_CLASSIFICATION": "PASS",
+    "REJECTION_CONSEQUENCE_CLASSIFICATION": "PASS",
+    "source_substantive_requirement_without_review_coverage_count": 0,
+    "CONCERN_CONTRACT": "PASS",
+    "CASE001": "PASS",
+    "CASE002": "PASS",
+    "CASE003": "PASS",
+    "THREE_CASE_GENERALIZATION": "PASS",
+    "WORD_ARTIFACTS_UNCHANGED": "PASS",
+    "WORKBOOK5_UNTOUCHED": "PASS",
+    "WORKBOOK4_UNTOUCHED": "PASS",
+    "FULL_SUITE": "PASS",
+    "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "HUMAN_REVIEW_BOXES_TICKED": 0,
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false
+  },
+  "totals": {
+    "source_marked_row_count": 22,
+    "substantive_requirement_row_count": 36,
+    "rejection_consequence_row_count": 46
+  },
+  "case001_star_fixtures": {
+    "DR001": "PASS",
+    "DR002": "PASS",
+    "DR003": "PASS",
+    "DR004": "PASS",
+    "DR012": "PASS",
+    "DR017": "PASS",
+    "DR018": "PASS",
+    "DR019": "PASS",
+    "DR020": "PASS",
+    "DR030": "PASS",
+    "DR047": "PASS"
+  },
+  "prior_workbooks": {
+    "case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1\\投标项目复核表.xlsx",
+      "mtime": "2026-09-23T09:25:31.744170+00:00",
+      "untouched": true
+    },
+    "case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T01:16:52.907706+00:00",
+      "untouched": true
+    },
+    "case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T02:39:02.008847+00:00",
+      "untouched": true
+    },
+    "case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T04:15:54.926651+00:00",
+      "untouched": true
+    },
+    "case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T06:09:56.755582+00:00",
+      "untouched": true
+    },
+    "case_002/v1_round4_closure8_review_workbook1": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook1\\投标项目复核表.xlsx",
+      "mtime": "2026-09-23T09:26:07.051207+00:00",
+      "untouched": true
+    },
+    "case_002/v1_round4_closure8_review_workbook2": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook2\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T01:17:06.455975+00:00",
+      "untouched": true
+    },
+    "case_002/v1_round4_closure8_review_workbook3": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook3\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T02:39:23.035752+00:00",
+      "untouched": true
+    },
+    "case_002/v1_round4_closure8_review_workbook4": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook4\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T04:16:01.372603+00:00",
+      "untouched": true
+    },
+    "case_002/v1_round4_closure8_review_workbook5": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook5\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T06:10:05.268730+00:00",
+      "untouched": true
+    },
+    "case_003/v1_round4_closure8_review_workbook1": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook1\\投标项目复核表.xlsx",
+      "mtime": "2026-09-23T09:26:44.288621+00:00",
+      "untouched": true
+    },
+    "case_003/v1_round4_closure8_review_workbook2": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook2\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T01:17:41.393028+00:00",
+      "untouched": true
+    },
+    "case_003/v1_round4_closure8_review_workbook3": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook3\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T02:39:59.532849+00:00",
+      "untouched": true
+    },
+    "case_003/v1_round4_closure8_review_workbook4": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook4\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T04:16:07.171065+00:00",
+      "untouched": true
+    },
+    "case_003/v1_round4_closure8_review_workbook5": {
+      "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook5\\投标项目复核表.xlsx",
+      "mtime": "2026-09-24T06:10:12.624312+00:00",
+      "untouched": true
+    }
+  },
+  "cases": {
+    "case_001": {
+      "build": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6",
+      "audit": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round6_criticality_audit_case_001.json",
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "fixture_summary": {
+        "total": 23,
+        "passed": 23,
+        "failed": []
+      },
+      "workbook_sha256": "56d3f14d0a00b891e13374a7db371303c6c3660809c92c93c3106e2728d9dd0e",
+      "row_count": 49,
+      "marker_vocabulary": [
+        "*"
+      ],
+      "marker_rule_count": 1,
+      "governing_clauses": [
+        "SR0054"
+      ],
+      "marker_semantics": [
+        "SUBSTANTIVE_REQUIREMENT"
+      ],
+      "counts": {
+        "source_marker_atom_count": 32,
+        "source_marked_row_count": 17,
+        "substantive_requirement_row_count": 31,
+        "rejection_consequence_row_count": 33,
+        "explicit_rejection_row_count": 10,
+        "derived_rejection_row_count": 23,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "source_substantive_requirement_without_review_coverage_count": 0
+      },
+      "concern_contract": "PASS",
+      "concern_contract_detail": {
+        "contract_source": "human_round5_fixtures_A_T",
+        "contract_version": "round5.1",
+        "contract_count": 78,
+        "review_row_count": 49,
+        "fixtures_passed": "20/20",
+        "failed_checks": []
+      },
+      "visual_qa": "PASS",
+      "visual_qa_checks": {
+        "pdf_renders": "PASS",
+        "no_error_markers_in_render": "PASS",
+        "all_views_render": "PASS",
+        "dashboard_formulas_evaluate": "PASS",
+        "recalculated_workbook_has_no_errors": "PASS",
+        "no_clipped_dashboard_text": "PASS",
+        "clipping_bounded": "WARN"
+      },
+      "visual_qa_failed_checks": [],
+      "word_artifacts": {
+        "count": 3,
+        "all_byte_identical": true,
+        "artifacts": {
+          "基础投标文件.docx": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "基础投标文件.pdf": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "generation_report.json": {
+            "byte_identical": true,
+            "sha256": ""
+          }
+        }
+      },
+      "workbook5_sha256": "2ab34c7547926bb56a8bfc4fb39a226d0f2bbc672ccd10edf1df73b5987046af",
+      "workbook5_expected_sha256": "2ab34c7547926bb56a8bfc4fb39a226d0f2bbc672ccd10edf1df73b5987046af",
+      "workbook5_untouched": true,
+      "workbook4_sha256": "2e9347e648cc4e721757e04afa72ac6b8421ac07fbaf701d7c87f07cbd594f2c",
+      "workbook4_manifest_sha256": "",
+      "workbook4_untouched": false
+    },
+    "case_002": {
+      "build": "v1_round4_closure8_review_workbook6",
+      "audit": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round6_criticality_audit_case_002.json",
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "fixture_summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": []
+      },
+      "workbook_sha256": "f0b9d97cfa3dc0bb3069ad8e6599f457bc3795e24ae397f9a49bec7f468ac186",
+      "row_count": 45,
+      "marker_vocabulary": [
+        "★"
+      ],
+      "marker_rule_count": 1,
+      "governing_clauses": [],
+      "marker_semantics": [
+        "MANDATORY_PROOF"
+      ],
+      "counts": {
+        "source_marker_atom_count": 16,
+        "source_marked_row_count": 1,
+        "substantive_requirement_row_count": 1,
+        "rejection_consequence_row_count": 3,
+        "explicit_rejection_row_count": 3,
+        "derived_rejection_row_count": 0,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "source_substantive_requirement_without_review_coverage_count": 0
+      },
+      "concern_contract": "PASS",
+      "concern_contract_detail": {
+        "contract_source": "human_round5_fixtures_A_T",
+        "contract_version": "round5.1",
+        "contract_count": 78,
+        "review_row_count": 45,
+        "fixtures_passed": "0/20",
+        "failed_checks": []
+      },
+      "visual_qa": "PASS",
+      "visual_qa_checks": {
+        "pdf_renders": "PASS",
+        "no_error_markers_in_render": "PASS",
+        "all_views_render": "PASS",
+        "dashboard_formulas_evaluate": "PASS",
+        "recalculated_workbook_has_no_errors": "PASS",
+        "no_clipped_dashboard_text": "PASS",
+        "clipping_bounded": "WARN"
+      },
+      "visual_qa_failed_checks": [],
+      "word_artifacts": {
+        "count": 3,
+        "all_byte_identical": true,
+        "artifacts": {
+          "基础投标文件.docx": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "基础投标文件.pdf": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "generation_report.json": {
+            "byte_identical": true,
+            "sha256": ""
+          }
+        }
+      },
+      "workbook5_sha256": "a38d00b76bb35febb77be030d8352ee80f48d810f378caea17fd6fe5eaccb859",
+      "workbook5_expected_sha256": "a38d00b76bb35febb77be030d8352ee80f48d810f378caea17fd6fe5eaccb859",
+      "workbook5_untouched": true,
+      "workbook4_sha256": "41e6a0faf406d631d4f84abe1567d379d493837e8d05b814fddce306fa09de59",
+      "workbook4_manifest_sha256": "",
+      "workbook4_untouched": false
+    },
+    "case_003": {
+      "build": "v1_round4_closure8_review_workbook6",
+      "audit": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round6_criticality_audit_case_003.json",
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "fixture_summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": []
+      },
+      "workbook_sha256": "dabaacf3012a6dff362b09812373f59d62c0d9d66e547859fda51f5f86261887",
+      "row_count": 48,
+      "marker_vocabulary": [
+        "*"
+      ],
+      "marker_rule_count": 1,
+      "governing_clauses": [],
+      "marker_semantics": [
+        "SUBSTANTIVE_REQUIREMENT"
+      ],
+      "counts": {
+        "source_marker_atom_count": 6,
+        "source_marked_row_count": 4,
+        "substantive_requirement_row_count": 4,
+        "rejection_consequence_row_count": 10,
+        "explicit_rejection_row_count": 10,
+        "derived_rejection_row_count": 0,
+        "marker_lost_count": 0,
+        "marker_false_positive_count": 0,
+        "source_substantive_requirement_without_review_coverage_count": 0
+      },
+      "concern_contract": "PASS",
+      "concern_contract_detail": {
+        "contract_source": "human_round5_fixtures_A_T",
+        "contract_version": "round5.1",
+        "contract_count": 78,
+        "review_row_count": 48,
+        "fixtures_passed": "0/20",
+        "failed_checks": []
+      },
+      "visual_qa": "PASS",
+      "visual_qa_checks": {
+        "pdf_renders": "PASS",
+        "no_error_markers_in_render": "PASS",
+        "all_views_render": "PASS",
+        "dashboard_formulas_evaluate": "PASS",
+        "recalculated_workbook_has_no_errors": "PASS",
+        "no_clipped_dashboard_text": "PASS",
+        "clipping_bounded": "WARN"
+      },
+      "visual_qa_failed_checks": [],
+      "word_artifacts": {
+        "count": 3,
+        "all_byte_identical": true,
+        "artifacts": {
+          "基础投标文件.docx": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "基础投标文件.pdf": {
+            "byte_identical": true,
+            "sha256": ""
+          },
+          "generation_report.json": {
+            "byte_identical": true,
+            "sha256": ""
+          }
+        }
+      },
+      "workbook5_sha256": "85aa576207077d8730e9c78ad7ca373bc8be6fe3dad091b5ef6ab0015c7bb4de",
+      "workbook5_expected_sha256": "85aa576207077d8730e9c78ad7ca373bc8be6fe3dad091b5ef6ab0015c7bb4de",
+      "workbook5_untouched": true,
+      "workbook4_sha256": "0a117ab146cb3030a75f0c8d5e5491fc6bf86e27258fbd822cf2cccad93d46ed",
+      "workbook4_manifest_sha256": "",
+      "workbook4_untouched": false
+    }
+  },
+  "full_test_suite": {
+    "suite_txt": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round6_full_test_suite.txt",
+    "suite_xml": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\review_workbook_round6_full_test_suite.xml",
+    "tests": 831,
+    "passed": 830,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "result": "PASS",
+    "duration_seconds": 89.3
+  },
+  "git_head": "c11c8ffd213d16111c1aecae82222f81df59c5aa",
+  "human_review": {
+    "records": [
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review.json",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json"
+    ],
+    "human_verdict": "FAIL",
+    "fail_reason": "SOURCE_MARKER_CRITICALITY_FIDELITY",
+    "must_not_be_rewritten": true,
+    "automation_may_not_mark_pass": true,
+    "CASE001_XLSX_MANUAL_REVIEW": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "CASE002_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "CASE003_XLSX_MANUAL_REVIEW": "NOT_YET_CONFIRMED",
+    "human_checkboxes_ticked": 0
+  },
+  "release": {
+    "V1_PRODUCTION_CANDIDATE": false,
+    "READY_FOR_SUBMISSION": false,
+    "tagged": false,
+    "released": false
+  }
+}

@@ -23,6 +23,7 @@ from .document_models import NormalizedDocument
 from .document_parser import normalize_text
 from .models import ContractModel, Locator
 from .review_evidence import iter_source_fragments
+from .source_criticality import MARKER_CLASS
 
 # --------------------------------------------------------------------------
 # taxonomy
@@ -487,6 +488,18 @@ _CLAUSE_BREAK = re.compile(r"[。；;\n]")
 _INLINE_CLAUSE = re.compile(
     r"(?=(?:A\d{1,2}\.\d{1,2})|(?<![\d.])\d{1,2}(?:\.\d{1,2}){1,3}\s*[\u4e00-\u9fff（(])"
 )
+#: Round 6: source-visible emphasis markers are format semantics, not noise.
+#: The vocabulary lives in :mod:`tender_basic.source_criticality` so the review
+#: side and the requirement index can never disagree about what a marker is.
+_LEADING_MARKER = re.compile(rf"^\s*([{MARKER_CLASS}])\s*")
+_MARKER_ONLY = re.compile(rf"^[{MARKER_CLASS}]$")
+_TRAILING_MARKER = re.compile(rf"([{MARKER_CLASS}])\s*$")
+#: Markers that carry the tender's own clause emphasis.  Only these may keep a
+#: clause in the index that the ordinary predicate would drop: a leading list
+#: bullet is not a tender-specific emphasis marker, and a trailing ``*`` is
+#: usually a redaction/footnote artefact.
+_RESCUE_MARKERS = ("*", "★")
+_RESCUE_CLAUSE = re.compile(r"^\s*[*★]\s*(?:\d+(?:\.\d+)*|[\u4e00-\u9fff])")
 
 #: Subjects that only bind the purchaser/evaluator.  A clause that binds them
 #: and never the bidder is procedural context, not a bidder review requirement.
@@ -519,8 +532,22 @@ def split_source_clauses(text: str) -> list[str]:
     requirement classification becomes a clause instead of a whole block.  This
     is what keeps topics, values, and evidence from mixing across unrelated
     clauses of one large PDF block or table cell.
+
+    Round 6: a source-visible emphasis marker (``*`` / ``★`` …) is *source
+    format semantics* and must survive the split.  The clause splitter is a
+    zero-width lookahead, so a marker written in front of a clause number used
+    to end up in the discarded empty first piece (``*1.4.5 供货期`` became
+    ``1.4.5 供货期``); a marker between two clauses used to stick to the *end*
+    of the previous clause.  Both cases are repaired here, so every downstream
+    step (atomization, concern grouping, review rows) still sees the marker with
+    the requirement it marks.
     """
 
+    leading_marker = ""
+    marker_match = _LEADING_MARKER.match(text)
+    if marker_match:
+        leading_marker = marker_match.group(1)
+        text = text[marker_match.end() :]
     pieces: list[str] = []
     start = 0
     for match in _CLAUSE_BREAK.finditer(text):
@@ -545,7 +572,50 @@ def split_source_clauses(text: str) -> list[str]:
             merged[-1] = f"{merged[-1]} {chunk}"
         else:
             merged.append(chunk)
+    merged = _reattach_source_markers(merged)
+    if leading_marker:
+        if merged:
+            if not merged[0].lstrip().startswith(leading_marker):
+                merged[0] = f"{leading_marker}{merged[0]}"
+        else:
+            merged = [leading_marker]
     return [chunk for chunk in merged if compact_text(chunk)]
+
+
+def _reattach_source_markers(chunks: list[str]) -> list[str]:
+    """Keep a marker with the clause it marks, never with the previous one.
+
+    A marker emitted as its own piece (the clause splitter breaks *before* a
+    marker) or left dangling at the end of a piece belongs to the requirement
+    that follows it -- never to the clause before it and never dropped.
+    """
+
+    out: list[str] = []
+    pending = ""
+    for chunk in chunks:
+        text = f"{pending} {chunk}".strip() if pending else chunk
+        pending = ""
+        stripped = text.strip()
+        if not stripped:
+            continue
+        if _MARKER_ONLY.match(stripped):
+            pending = stripped
+            continue
+        trailing = _TRAILING_MARKER.search(stripped)
+        if trailing and _compact_len(stripped) > len(trailing.group(1)) + 1:
+            head = stripped[: trailing.start()].rstrip()
+            pending = trailing.group(1)
+            if head:
+                out.append(head)
+            continue
+        out.append(text)
+    if pending:
+        out.append(pending)
+    return out
+
+
+def _compact_len(value: str) -> int:
+    return len(compact_text(value))
 
 
 def _binds_only_purchaser(text: str) -> bool:
@@ -650,6 +720,11 @@ def _is_governing_clause(text: str) -> bool:
 
 
 def detect_clause(text: str) -> str:
+    # Round 6: a leading emphasis marker is source format, not part of the
+    # clause number, so "*1.4.5 供货期 …" still detects clause 1.4.5.
+    marker = _LEADING_MARKER.match(text)
+    if marker:
+        text = text[marker.end() :]
     for pattern in _CLAUSE_PATTERNS:
         match = pattern.search(text)
         if match:
@@ -796,6 +871,8 @@ def build_requirement_index(document: NormalizedDocument) -> RequirementIndex:
     """Scan the real source document and index its reviewable requirements."""
 
     units: list[SourceRequirementUnit] = []
+    rescued: list[tuple[Any, str, int]] = []
+    indexed_clauses: set[str] = set()
     scanned = 0
     dropped_navigation = 0
     dropped_heading = 0
@@ -834,6 +911,26 @@ def build_requirement_index(document: NormalizedDocument) -> RequirementIndex:
                 _governing_clause = ""
             if criteria:
                 mandatory = [*mandatory, "评审标准"]
+            # Round 6: a clause the *source* marks with an emphasis marker is a
+            # requirement the tender itself singled out.  Keeping it as a unit is
+            # not a rejection claim and not a substantive claim -- dropping it is
+            # what used to make the marker disappear before criticality was even
+            # considered.
+            source_marked = bool(_RESCUE_CLAUSE.match(clause_text))
+            if source_marked and not (
+                strong
+                or mandatory
+                or values
+                or (_matches_topic(text) and _has_instruction_verb(text))
+            ):
+                # Kept for review, but appended *after* the ordinary units so no
+                # existing requirement id (and therefore no existing review row)
+                # changes: round-5 row identities stay stable.  A clause that is
+                # already indexed is not rescued again, so a marked table row
+                # cannot duplicate the requirement it restates.
+                if len(text) >= 6:
+                    rescued.append((fragment, text, sentence_index))
+                continue
             if not (
                 strong
                 or mandatory
@@ -845,7 +942,12 @@ def build_requirement_index(document: NormalizedDocument) -> RequirementIndex:
             if len(text) < 6:
                 dropped_short += 1
                 continue
-            if not strong and not values and not criteria and _is_heading_like(text):
+            if (
+                not strong
+                and not values
+                and not criteria
+                and _is_heading_like(text)
+            ):
                 dropped_heading += 1
                 continue
             requirement_type = _type_for(text, strong, mandatory, values)
@@ -881,6 +983,47 @@ def build_requirement_index(document: NormalizedDocument) -> RequirementIndex:
                     values=values[:12],
                 )
             )
+            clause_id = detect_clause(text)
+            if clause_id:
+                indexed_clauses.add(clause_id)
+    # source-marked clauses that the ordinary predicate would drop are appended
+    # after the ordinary units (see `rescued` above).  A clause that the index
+    # already carries is not appended again, so a marked table row cannot
+    # duplicate the requirement it restates.
+    rescued = [
+        candidate
+        for candidate in rescued
+        if not (detect_clause(candidate[1]) and detect_clause(candidate[1]) in indexed_clauses)
+    ]
+    for fragment, text, sentence_index in rescued:
+        counter += 1
+        strong, mandatory = detect_markers(text)
+        values = extract_values(text)
+        criteria = _has_criteria_marker(text)
+        requirement_type = _type_for(text, strong, mandatory, values)
+        topic = _topic_for(requirement_type, text)
+        evidence = text if len(text) <= 400 else text[:397].rstrip() + "..."
+        units.append(
+            SourceRequirementUnit(
+                requirement_id=f"SR{counter:04d}",
+                requirement_type=requirement_type,
+                topic=topic,
+                risk_level=RISK_BY_TYPE.get(requirement_type, "中"),
+                module=TYPE_MODULE.get(requirement_type, MODULE_DOCUMENT),
+                mandatory=bool(mandatory),
+                high_risk=bool(strong),
+                markers=[*strong, *mandatory][:12],
+                clause=detect_clause(text),
+                page=fragment.page,
+                section=compact_text(fragment.section)[:80],
+                text=text if len(text) <= 600 else text[:597].rstrip() + "...",
+                evidence_text=evidence,
+                locator=fragment.locator,
+                source_kind=fragment.source_kind,
+                order=[*fragment.order, sentence_index],
+                values=values[:12],
+            )
+        )
     deduped, merged = _dedupe(units)
     return RequirementIndex(
         units=tuple(deduped),

@@ -430,11 +430,31 @@ def test_dashboard_counts_are_formulas_over_the_views(tmp_path: Path) -> None:
         workbook.close()
 
 
-def test_star_marks_only_veto_rows(tmp_path: Path) -> None:
+def test_star_and_veto_are_independent_source_dimensions(tmp_path: Path) -> None:
+    """★ is the source's own marker; 否决性 is the source's own consequence.
+
+    Round 6 split the two: neither may be derived from the generator's risk
+    table.  This fixture plan carries no source marker and no proven consequence
+    rule, so an honest sheet shows neither -- the old behaviour (★ on the one
+    ``REJECTION``-typed row) was the generator's opinion, not the source's.
+    """
+
     rows = rows_of(build_workbook(tmp_path), SHEET_TITLES[3])
     starred = {row[1] for row in rows if str(row[7]).strip() == "★"}
     vetoed = {row[1] for row in rows if str(row[8]).strip() == "是"}
-    assert starred == vetoed == {"DR001"}
+    assert starred == set()
+    assert vetoed == set()
+    # and the three source columns are written from three different plan fields
+    # (强制性类型 J=9, 源标记 Q=16, 实质性依据 R=17, 否决依据 S=18)
+    types = {str(row[9] or "").strip() for row in rows}
+    markers = {str(row[16] or "").strip() for row in rows}
+    bases = {str(row[18] or "").strip() for row in rows}
+    assert all(marker == "" for marker in markers)
+    assert all(basis == "" for basis in bases)
+    # 强制性类型 keeps the source basis and, with no source-backed basis, falls
+    # back to the requirement's own type rather than to a marker
+    assert all(token in {"", "REJECTION", "PRICING"} for token in types)
+    assert "SUBSTANTIVE_STARRED" not in types
 
 
 def test_requirement_text_action_and_criteria_are_separate_columns(tmp_path: Path) -> None:

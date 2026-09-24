@@ -56,6 +56,7 @@ from .review_point import (
     value_sentence,
 )
 from .review_rendering import (
+    CRITICALITY_NOTE,
     EVIDENCE_SUMMARY,
     FAILURE_CONSEQUENCE,
     LINKED_FACT,
@@ -69,6 +70,19 @@ from .review_rendering import (
     RenderedReviewComponent,
     mismatch_counts,
     verify_component,
+)
+from .source_criticality import (
+    BASIS_REFERENCE_PROPAGATION,
+    BASIS_SOURCE_MARKER,
+    CRITICALITY_ORDINARY,
+    REJECTION_EXPLICIT,
+    SEMANTICS_PROOF,
+    SEMANTICS_SCORING,
+    SEMANTICS_UNESTABLISHED,
+    VISIBLE_MARKER,
+    CriticalityIndex,
+    SourceRequirementCriticality,
+    build_criticality_index,
 )
 
 _STATUS_PENDING = "待核对"
@@ -337,6 +351,22 @@ class DynamicReviewItem(ContractModel):
     # round 4: every material phrase rendered from this row, with the concern-owned
     # inputs it came from (see tender_basic.review_rendering)
     rendered_components: list[dict[str, Any]] = Field(default_factory=list)
+    # round 6: source-visible criticality, derived from the source markers, the
+    # document's own substantive-requirement definition and its consequence rules
+    raw_source_markers: list[str] = Field(default_factory=list)
+    marker_present: bool = False
+    marker_semantics: str = ""
+    substantive_requirement: bool = False
+    substantive_basis_kind: str = ""
+    substantive_basis_atom_ids: list[str] = Field(default_factory=list)
+    rejection_consequence: bool = False
+    rejection_kind: str = ""
+    rejection_basis_atom_ids: list[str] = Field(default_factory=list)
+    criticality_level: str = ""
+    criticality_reason: str = ""
+    mandatory_types: list[str] = Field(default_factory=list)
+    reference_parent_atom_id: str = ""
+    reference_target: str = ""
 
 
 @dataclass(frozen=True)
@@ -360,6 +390,10 @@ class DynamicReviewPlan:
     #: rendered as rows but they are *not* dropped either: their coverage is
     #: reported here so a fragmentary clause cannot silently disappear.
     needs_review_clause_ids: tuple[str, ...] = ()
+    #: Round 6: the document's own criticality model (source markers, governing
+    #: substantive clause, consequence rules and the references between them).
+    #: It is the source authority the rendered rows are audited against.
+    criticality: CriticalityIndex | None = None
 
     def rows(self) -> list[DynamicReviewItem]:
         return list(self.items)
@@ -524,6 +558,11 @@ def build_dynamic_review_plan(
     # not the old (requirement_type, topic) bucket -- owns the rendered
     # requirement, numbers, materials, consequence and evidence.
     atoms = atomize_units(source_index.units)
+    # Round 6: the source's own criticality semantics (raw emphasis markers, the
+    # governing substantive-requirement clause, the consequence rules and the
+    # explicit references those clauses use).  Derived from the document, never
+    # from the generated rows.
+    criticality = build_criticality_index(document, atoms)
     concerns = build_concerns(atoms)
     kept, filtered = actionable_concerns(concerns)
     units_by_id = {unit.requirement_id: unit for unit in source_index.units}
@@ -615,6 +654,7 @@ def build_dynamic_review_plan(
             # a derived atom keeps its clause as the rendered evidence, so the
             # evidence stays literally present in the source
             evidence_text = str(getattr(primary, "text", "") or evidence_text)
+        row_criticality = criticality.for_atoms(list(getattr(concern, "atoms", ())))
         components = _render_components(
             item_id=item_id,
             concern=concern,
@@ -626,6 +666,7 @@ def build_dynamic_review_plan(
             units=units,
             fact_hints=fact_hints,
             evidence_text=evidence_text,
+            criticality=row_criticality,
         )
         item = DynamicReviewItem(
             item_id=item_id,
@@ -659,6 +700,22 @@ def build_dynamic_review_plan(
             concern_id=point.concern_id,
             concern_label=point.concern_label,
             rendered_components=[component.as_dict() for component in components],
+            raw_source_markers=(
+                [row_criticality.raw_source_marker] if row_criticality.marker_present else []
+            ),
+            marker_present=bool(row_criticality.marker_present),
+            marker_semantics=row_criticality.marker_semantics,
+            substantive_requirement=bool(row_criticality.substantive_requirement),
+            substantive_basis_kind=row_criticality.substantive_basis_kind,
+            substantive_basis_atom_ids=list(row_criticality.substantive_basis_atom_ids),
+            rejection_consequence=bool(row_criticality.rejection_consequence),
+            rejection_kind=row_criticality.rejection_kind,
+            rejection_basis_atom_ids=list(row_criticality.rejection_basis_atom_ids),
+            criticality_level=row_criticality.criticality_level,
+            criticality_reason=row_criticality.criticality_reason,
+            mandatory_types=list(row_criticality.mandatory_types),
+            reference_parent_atom_id=row_criticality.reference_parent_atom_id,
+            reference_target=row_criticality.reference_target,
         )
         if spec.bidder_facing:
             items.append(item)
@@ -675,6 +732,7 @@ def build_dynamic_review_plan(
         background_items=tuple(background_items),
         needs_review_topics=tuple(needs_review_topics),
         needs_review_clause_ids=tuple(dict.fromkeys(needs_review_clause_ids)),
+        criticality=criticality,
     )
 
 
@@ -827,6 +885,11 @@ def cell_from_components(components: Sequence[RenderedReviewComponent]) -> str:
         return [c.rendered_text for c in components if c.component_kind == kind]
 
     blocks: list[str] = []
+    notes = texts(CRITICALITY_NOTE)
+    if notes:
+        # the source-visible criticality leads the cell, so the reviewer cannot
+        # miss a critical row even without reading the marker column
+        blocks.append(notes[0])
     requirements = texts(SOURCE_REQUIREMENT)
     if requirements:
         blocks.append(f"招标文件要求：{requirements[0]}")
@@ -861,6 +924,31 @@ def _shorten(text: str, limit: int) -> str:
 _OBLIGATION_CUE = re.compile(r"(应当|须|必须|不得|禁止|不允许|不接受|要求|应)")
 
 
+def criticality_note_text(criticality: SourceRequirementCriticality) -> str:
+    """The visible, source-backed criticality note of a review row.
+
+    The wording carries the *source* marker (``★`` is the reviewer-facing
+    normalisation of whatever emphasis character the source used) and only
+    claims what the document's own statements support -- a rejection consequence
+    needs a consequence clause, a starred proof list is not a starred
+    substantive requirement, and ``一票否决`` is never written.
+    """
+
+    if not criticality.marker_present and not criticality.substantive_requirement:
+        return ""
+    star = VISIBLE_MARKER if criticality.marker_present else ""
+    if not criticality.substantive_requirement:
+        label = {
+            SEMANTICS_PROOF: "必备证明材料",
+            SEMANTICS_SCORING: "评分相关条款",
+        }.get(criticality.marker_semantics, "源文标记条款")
+        return f"【{star}{label}】"
+    parts = [f"{star}实质性要求"]
+    if criticality.rejection_consequence:
+        parts.append("不满足可能导致否决")
+    return "【" + "｜".join(parts) + "】"
+
+
 def _render_components(
     *,
     item_id: str,
@@ -873,6 +961,7 @@ def _render_components(
     units: Sequence[Any] = (),
     fact_hints: Mapping[str, str],
     evidence_text: str = "",
+    criticality: SourceRequirementCriticality | None = None,
 ) -> list[RenderedReviewComponent]:
     """Build and verify the rendered components of one review row."""
 
@@ -925,6 +1014,24 @@ def _render_components(
         components.append(verify_component(component, ownership))
 
     add(SOURCE_REQUIREMENT, point.requirement_summary, rule="CONCERN_SUMMARY_OWNED_ATOMS")
+    if criticality is not None:
+        note = criticality_note_text(criticality)
+        if note:
+            # Round 6: the note is rendered first so the reviewer sees the
+            # source-visible criticality before the requirement itself.
+            add(
+                CRITICALITY_NOTE,
+                note,
+                rule=(
+                    "SOURCE_MARKER_AND_GOVERNING_CLAUSE"
+                    if criticality.marker_present
+                    else "GOVERNING_SUBSTANTIVE_CLAUSE"
+                ),
+                evidence_ids=[
+                    *criticality.substantive_basis_atom_ids,
+                    *criticality.rejection_basis_atom_ids,
+                ],
+            )
     templates = set(CONCERN_CHECKS.get(concern_id, ()))
     for check in point.review_checks:
         add(
@@ -1131,6 +1238,37 @@ def dynamic_review_qa(
         if unit.requirement_type == "OTHER"
     ]
 
+    # Round 6: source-visible criticality counters.  A row may only show a
+    # marker it can back with a source marker, and a rejection status may only
+    # exist with a source consequence rule behind it.
+    marker_rows = [item for item in plan.items if item.marker_present]
+    substantive_rows = [item for item in plan.items if item.substantive_requirement]
+    rejection_rows = [item for item in plan.items if item.rejection_consequence]
+    explicit_rejection_rows = [
+        item for item in rejection_rows if item.rejection_kind == REJECTION_EXPLICIT
+    ]
+    unbacked_marker_rows = [
+        item.item_id
+        for item in marker_rows
+        if not item.substantive_basis_atom_ids
+        and item.substantive_basis_kind != BASIS_SOURCE_MARKER
+        and not item.raw_source_markers
+    ]
+    unbacked_rejection_rows = [
+        item.item_id for item in rejection_rows if not item.rejection_basis_atom_ids
+    ]
+    unbacked_substantive_rows = [
+        item.item_id
+        for item in substantive_rows
+        if not item.substantive_basis_atom_ids
+        and item.substantive_basis_kind != BASIS_SOURCE_MARKER
+        and item.substantive_basis_kind != BASIS_REFERENCE_PROPAGATION
+    ]
+    basis_kind_counts: dict[str, int] = {}
+    for item in substantive_rows:
+        kind = item.substantive_basis_kind or "UNKNOWN"
+        basis_kind_counts[kind] = basis_kind_counts.get(kind, 0) + 1
+
     workbook_row_count = None
     workbook_rows_match = None
     workbook_mismatch_rows: list[int] = []
@@ -1175,6 +1313,16 @@ def dynamic_review_qa(
         "empty_review_evidence_ids": sorted(set(empty_evidence))[:20],
         "cross_topic_evidence_mismatch_count": len(set(cross_topic)),
         "cross_topic_evidence_mismatch_ids": sorted(set(cross_topic))[:20],
+        # ---- round 6: source-visible criticality ------------------------- #
+        "source_marker_review_item_count": len(marker_rows),
+        "source_marker_review_item_ids": [item.item_id for item in marker_rows],
+        "substantive_requirement_review_item_count": len(substantive_rows),
+        "rejection_consequence_review_item_count": len(rejection_rows),
+        "explicit_rejection_consequence_review_item_count": len(explicit_rejection_rows),
+        "substantive_basis_kind_counts": basis_kind_counts,
+        "unbacked_marker_review_item_count": len(set(unbacked_marker_rows)),
+        "unbacked_rejection_review_item_count": len(set(unbacked_rejection_rows)),
+        "unbacked_substantive_review_item_count": len(set(unbacked_substantive_rows)),
         "duplicate_review_item_count": len(duplicates),
         "duplicate_review_item_ids": duplicates[:20],
         "unclassified_dynamic_requirement_count": len(unclassified_high_risk),

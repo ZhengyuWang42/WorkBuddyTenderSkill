@@ -1188,17 +1188,26 @@ class Round4Report:
             "; ".join(f"{i.item_id}:{i.concern_id}" for i in composition_items),
         )
 
-        # N -- price completeness keeps price-scope evidence and no invented veto.
+        # N -- price completeness keeps price-scope evidence, and a 否决 claim is
+        # allowed only when the plan carries the source consequence behind it.
+        # Round 6 renders the source-visible criticality note into the cell, so a
+        # row may say 否决 only with ``rejection_basis_atom_ids`` to show for it;
+        # the generator's risk table no longer decides this.
         item = self._find("PRICING_COMPLETENESS", "PRICE_COMPLETENESS")
         row = self._row(item.item_id) if item else None
         text = row.d_text if row else ""
+        veto_claimed = "否决" in text
+        source_backed_veto = bool(
+            getattr(item, "rejection_consequence", False)
+            and getattr(item, "rejection_basis_atom_ids", ())
+        )
         record(
             "N",
-            "price-completeness row uses price-scope evidence without an unsupported veto",
+            "price-completeness row uses price-scope evidence and only a source-backed veto",
             bool(item)
             and bool(row)
             and "报价" in (row.e_text if row else "")
-            and "否决" not in text.split("不满足后果")[-1]
+            and (not veto_claimed or source_backed_veto)
             and ("评审小组" not in text or "报价" in text),
             text[:160],
         )

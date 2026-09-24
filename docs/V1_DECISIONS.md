@@ -800,3 +800,72 @@ AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（人工第 3 轮判 FAIL）、CASE002/0
   `case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json`，
   自动化只能把状态推进到 `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`。
 - `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`，未创建 tag 或 release。
+
+### D61 源文可见的关键性是语义数据（长期规则，BANK）
+
+> **SOURCE-VISIBLE CRITICALITY IS SEMANTIC DATA.**
+> （源文自己印出的关键性是语义数据，不是渲染期的模型意见）
+
+源文件自己印出的强调标记（`*`、`★`、`▲`、`◆`、`●`）、它对**标记含义**的说明、它对
+"实质性要求和条件"的**定义条款**、它写明的**否决后果**、以及条款之间的**引用关系**，
+都是源文数据，必须在解析 → 归一化 → 事实提取 → 原子化 → 关注点归并 → 复核要点 → 最终
+单元格的整条链路上**原样保留**。任何一环丢失标记即为缺陷，不得由渲染层"按重要性"补回、
+更不得由模型意见重新分类。唯一权威对象是 `tender_basic/source_criticality.py` 的
+`SourceRequirementCriticality`；唯一可接受的实质化依据是：源标记本身 + 源文定义条款 +
+源文明确措辞 + 源文引用的带标记条款 + 法律法规规定。通用业务重要性只能影响**复核优先级**，
+不得影响实质性/否决判定。
+
+### D62 三个维度必须分开报告（长期规则，BANK）
+
+复核工作簿必须**分别**报告三个互相独立、不得互相替代的维度：
+
+1. **源标记条款数（带★）**——源文带强调标记的条款数量。`★` 只是面向复核人的**归一化字形**，
+   原始字符（如 `*`）逐行保存在 `源标记` 列（`原始标记：*（语义）`）。
+2. **实质性要求数（源依据）**——依据种类逐行记录，取值只能是
+   `SOURCE_MARKER`（源文定义条款把带标记条款定义为实质性要求）、
+   `EXPLICIT_WORDING`（源文用"拒绝/不（予）接受/不得/不允许/否决/无效"等文字规定）、
+   `LEGAL_RULE`（源文写明依据法律法规规章）、
+   `REFERENCE_PROPAGATION`（源文条款引用带标记条款，如"见第五章采购需求"/"符合第 1.4.4 款规定"）。
+   引用传播**不复制行**：子行只在 `强制性类型` 记为 `SUBSTANTIVE_VIA_REFERENCE` 并显示依据链
+   （`引用自 SRA00xx→目标`），**不**显示 `★`。
+3. **明示或可证明否决项数**——`EXPLICIT`（条款专属后果条款，如"…的，评审小组将否决其响应"）
+   或 `DERIVED`（已证明的通用实质性要求后果规则 + 该条款确为实质性要求）。`一票否决` 永不书写。
+
+`03_资格否决与强制项` 的 `★` / `否决性` / `强制性类型` **不是别名**：`★` 来自该行自己的
+源标记证据，`否决性` 来自后果链，`强制性类型` 说明源依据种类（并含非实质性类别
+`MANDATORY`（必备证明材料）、`SCORED_MARKER`（评分相关）、`MARKER_UNCLASSIFIED`
+（源文未说明标记含义））。每个源标记行必须有非空 `★`；每个 `★` 必须能回溯到
+来源原子 → 标记证据（页/表/行/原文）→ 依据条款 → 关注点 → 复核要点 → 最终单元格。
+`00_复核总览` 用三条**不同**公式分别报告上述三个数量，不得再用
+`★/一票否决强制项` 这类合并标签。
+
+### D63 两条禁止规则（长期规则，BANK）
+
+1. **禁止 `"*" => 否决` 的全局捷径。** 标记本身永不产生否决后果，也永不自动成为实质性
+   要求：标记含义必须来自源文自己的说明（CASE002 的 `★` 被源文说明为"须提供证明材料"，
+   因此判为 `MANDATORY`（必备证明材料），既不是实质性要求、也没有否决后果）。
+   没有源文后果条款时不得声称否决，`failure_consequence` 与 `否决依据` 必须给出依据原子 id。
+2. **禁止把案例措辞写进通用生产逻辑。** 标记词表、定义条款、后果规则与引用链必须由**文档
+   自身**独立发现（`discover_marker_evidence` / `discover_substantive_rules` /
+   `discover_rejection_rules` / `discover_reference_links`）；CASE001/002/003 的具体措辞只
+   用于夹具与验收。条款号只在**同一章节**内唯一（`前附表` 的 `3.4.1` 不得标记 `评审办法`
+   章节自己的 `3.4.1`）；带标记的条款永不因可行动性过滤而被丢弃（必要时**追加**在普通
+   requirement 之后，以保持既有行号稳定）。
+
+### D64 第 6 轮证据与冻结事实
+
+- 三案例第 6 轮工作簿 `..._review_workbook6`：CASE001 `REVIEW_WORKBOOK_ROUND6 = PASS`
+  （17 源标记行 / 31 实质性要求行 / 33 否决行，其中 10 明示）；CASE002（1 源标记行 `★` =
+  `MANDATORY` 必备证明材料）；CASE003（4 源标记行，含恢复的 `*2.2.4`）。
+- 文档级标记审计：`marker_lost_count = 0`、`marker_false_positive_count = 0`、
+  `source_substantive_requirement_without_review_coverage_count = 0`（三案例均为 0）。
+- 人类指定的 12 个源标记夹具全部 PASS：`*1.4.1`、`*1.4.4`、`*1.4.5`、`*1.4.6`、`*1.4.7`、
+  `*1.4.8`、`*1.5.1`、`*1.5.2`、`*3.3.1`、`*3.4.1`、`*10.1`、`*流量计第三方检测`；
+  第 5 轮回归行 `DR001/002/003/004/012/017/018/019/020/030/047` 保持 `★`。
+- `ConcernContract = PASS`（第 5 轮 78 份人工契约在第 6 轮工作簿上复跑）、
+  `THREE_CASE_GENERALIZATION = PASS`、`WORD_ARTIFACTS_UNCHANGED = PASS`、
+  `WORKBOOK5_UNTOUCHED = PASS`、`FULL_SUITE = PASS`（见
+  `review_workbook_round6_full_test_suite.txt` / `.xml`）。
+- 第 5 轮人工结论 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）保留且不得改写；
+  自动化只能把状态推进到 `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`；
+  `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。

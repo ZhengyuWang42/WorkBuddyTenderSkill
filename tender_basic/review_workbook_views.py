@@ -335,6 +335,104 @@ def _machine_status_format(worksheet, column: str, first: int, last: int) -> Non
     )
 
 
+def _criticality_format(worksheet, first: int, last: int) -> None:
+    """Keep the three criticality columns readable without relying on fill.
+
+    A reviewer must be able to filter and sort by source marker, substantive
+    basis and consequence, so the cells carry text first and colour only as a
+    secondary cue.
+    """
+
+    star = f"H{first}:H{last}"
+    worksheet.conditional_formatting.add(
+        star,
+        CellIsRule(
+            operator="equal",
+            formula=['"★"'],
+            fill=PatternFill("solid", fgColor="FFC7CE"),
+            font=MANDATORY_FONT,
+        ),
+    )
+    veto = f"I{first}:I{last}"
+    worksheet.conditional_formatting.add(
+        veto,
+        CellIsRule(
+            operator="equal",
+            formula=['"是"'],
+            fill=PatternFill("solid", fgColor="FCE4D6"),
+            font=MANDATORY_FONT,
+        ),
+    )
+    basis = f"J{first}:J{last}"
+    for token, colour in (
+        ("SUBSTANTIVE_STARRED", "FFC7CE"),
+        ("SUBSTANTIVE_EXPLICIT_WORDING", "FCE4D6"),
+        ("SUBSTANTIVE_VIA_REFERENCE", "FFF2CC"),
+        ("SUBSTANTIVE_BY_LAW", "FFF2CC"),
+        ("REJECTION", "F8CBAD"),
+    ):
+        worksheet.conditional_formatting.add(
+            basis,
+            FormulaRule(
+                formula=[f'ISNUMBER(SEARCH("{token}",{basis.split(":")[0]}))'],
+                fill=PatternFill("solid", fgColor=colour),
+            ),
+        )
+    marker = f"Q{first}:Q{last}"
+    worksheet.conditional_formatting.add(
+        marker,
+        FormulaRule(
+            formula=[f'ISNUMBER(SEARCH("原始标记",{marker.split(":")[0]}))'],
+            fill=PatternFill("solid", fgColor="FFF2CC"),
+        ),
+    )
+
+
+def _wrap_format(worksheet, column: str, first: int, last: int) -> None:
+    index = worksheet[column + "1"].column
+    for row in worksheet.iter_rows(min_row=first, max_row=last, min_col=index, max_col=index):
+        for cell in row:
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+
+
+def _mandatory_type_text(row: dict) -> str:
+    """The source basis that makes the requirement binding (never an alias of ★)."""
+
+    types = list(row.get("mandatory_types") or ())
+    if not types:
+        return row.get("type") or ""
+    return "；".join(dict.fromkeys(types))
+
+
+def _raw_marker_text(row: dict) -> str:
+    """The emphasis character the source itself printed, kept unnormalised."""
+
+    markers = [marker for marker in (row.get("raw_markers") or ()) if marker]
+    if not markers:
+        return ""
+    semantics = row.get("marker_semantics") or ""
+    return "原始标记：" + "".join(markers) + (f"（{semantics}）" if semantics else "")
+
+
+def _basis_text(row: dict, dimension: str) -> str:
+    if dimension == "rejection":
+        if not row.get("rejection"):
+            return ""
+        kind = row.get("rejection_kind") or ""
+        basis = "、".join(row.get("rejection_basis_atom_ids") or ())
+        return f"{kind}：{basis}" if basis else kind
+    if not row.get("substantive"):
+        return ""
+    kind = row.get("substantive_basis_kind") or ""
+    basis = "、".join(row.get("substantive_basis_atom_ids") or ())
+    parent = row.get("reference_parent_atom_id") or ""
+    target = row.get("reference_target") or ""
+    text = f"{kind}：{basis}" if basis else kind
+    if parent or target:
+        text = f"{text}（引用自 {parent}{('→' + target) if target else ''}）"
+    return text
+
+
 def _setup_page(worksheet, *, fit_width: int = 1, landscape: bool = True) -> None:
     worksheet.page_setup.orientation = "landscape" if landscape else "portrait"
     worksheet.page_setup.fitToWidth = fit_width
@@ -448,12 +546,38 @@ def _requirement_rows(dynamic_plan) -> list[dict]:
                 "status": item.status,
                 "applicable": item.applicable,
                 "values": list(item.values),
+                # round 6: source-visible criticality (three independent
+                # dimensions: source marker / substantive basis / consequence)
+                "raw_markers": list(getattr(item, "raw_source_markers", ()) or ()),
+                "marker_present": bool(getattr(item, "marker_present", False)),
+                "substantive": bool(getattr(item, "substantive_requirement", False)),
+                "substantive_basis_kind": getattr(item, "substantive_basis_kind", ""),
+                "substantive_basis_atom_ids": list(
+                    getattr(item, "substantive_basis_atom_ids", ()) or ()
+                ),
+                "rejection": bool(getattr(item, "rejection_consequence", False)),
+                "rejection_kind": getattr(item, "rejection_kind", ""),
+                "rejection_basis_atom_ids": list(
+                    getattr(item, "rejection_basis_atom_ids", ()) or ()
+                ),
+                "criticality_level": getattr(item, "criticality_level", ""),
+                "criticality_reason": getattr(item, "criticality_reason", ""),
+                "marker_semantics": getattr(item, "marker_semantics", ""),
+                "mandatory_types": list(getattr(item, "mandatory_types", ()) or ()),
+                "reference_parent_atom_id": getattr(item, "reference_parent_atom_id", ""),
+                "reference_target": getattr(item, "reference_target", ""),
+                "concern_id": getattr(item, "concern_id", ""),
             }
         )
     return rows
 
 
 def _is_mandatory(row: dict) -> bool:
+    if row.get("marker_present") or row.get("substantive") or row.get("rejection"):
+        # Round 6: a row belongs on the mandatory sheet when the *source* marks
+        # it, makes it substantive, or attaches a consequence to it -- not
+        # because the generator's own risk table called it high risk.
+        return True
     return row["type"] in MANDATORY_TYPES or row["risk"] in MANDATORY_RISK_LEVELS
 
 
@@ -881,20 +1005,47 @@ def _build_overview(workbook, *, project_facts, build_meta, counts: dict) -> Non
     domain_specs = [
         ("关键条款", SHEET_TITLES[2], "B"),
         ("资格否决与强制项", SHEET_TITLES[3], "B"),
-        ("★/一票否决强制项", SHEET_TITLES[3], "H"),
         ("报价/限价行", SHEET_TITLES[4], "C"),
         ("文件结构与签章", SHEET_TITLES[5], "C"),
         ("冲突与缺失", SHEET_TITLES[6], "B"),
         ("证据条目", SHEET_TITLES[7], "A"),
     ]
     for label, sheet, column in domain_specs:
-        if column == "H":
-            formula = f'=COUNTIF({_sheet_ref(sheet, "H")},"★")'
-        else:
-            formula = f'=COUNTA({_sheet_ref(sheet, column)})'
+        formula = f'=COUNTA({_sheet_ref(sheet, column)})'
         ws.cell(row=row, column=1, value=label)
         ws.cell(row=row, column=2, value=formula)
         row += 1
+    row += 1
+
+    # Round 6: the three criticality dimensions are reported separately, because
+    # a source marker, a substantive requirement and a rejection consequence are
+    # three different source statements -- conflating them is what hid the
+    # starred clauses from the reviewer.
+    row = section("源标记 / 实质性要求 / 否决后果（互相独立的三个维度）")
+    criticality_specs = [
+        ("源标记条款数（带★）", "H", "★"),
+        ("实质性要求数（源依据）", "J", "SUBSTANTIVE_"),
+        ("明示或可证明否决项数", "I", "是"),
+    ]
+    for label, column, token in criticality_specs:
+        if column == "J":
+            formula = (
+                f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_STARRED")'
+                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_EXPLICIT_WORDING")'
+                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_VIA_REFERENCE*")'
+                f'+COUNTIF({_sheet_ref(SHEET_TITLES[3], "J")},"SUBSTANTIVE_BY_LAW*")'
+            )
+        else:
+            formula = f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], column)},"{token}")'
+        ws.cell(row=row, column=1, value=label)
+        ws.cell(row=row, column=2, value=formula)
+        row += 1
+    ws.cell(row=row, column=1, value="其中：明示否决（源文明确示后果）")
+    ws.cell(row=row, column=2, value=f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], "T")},"EXPLICIT*")')
+    row += 1
+    ws.cell(row=row, column=1, value="其中：推导否决（源文实质性要求规则）")
+    ws.cell(row=row, column=2, value=f'=COUNTIF({_sheet_ref(SHEET_TITLES[3], "T")},"DERIVED*")')
+    row += 1
     row += 1
 
     row = section("人工复核（公式引用人工结论列）")
@@ -1099,17 +1250,33 @@ def _build_mandatory(workbook, requirement_rows: Sequence[dict]) -> dict:
         "人工满足情况",
         "人工证据/材料",
         "人工备注",
+        # Round 6: appended so the source-visible basis travels with the row and
+        # the reviewer can filter/sort on it without reading colour.
+        "源标记",
+        "实质性依据",
+        "否决依据",
     ]
     table = _Table(
         ws,
         1,
         headers,
-        widths=(6, 13, 18, 12, 46, 30, 26, 6, 9, 15, 9, 20, 36, 12, 13, 20, 20),
+        widths=(
+            6, 13, 18, 12, 46, 30, 26, 6, 9, 30,
+            9, 20, 36, 12, 13, 20, 20,
+            22, 22, 24,
+        ),
         manual_from=15,
     )
     rows = [row for row in requirement_rows if _is_mandatory(row)]
     for position, row in enumerate(rows, start=1):
-        veto = "是" if (row["type"] == "REJECTION" or row["risk"] == "一票否决") else ""
+        # Round 6: the columns are *different* source questions --
+        # ★ is the marker the source itself printed on this requirement,
+        # 否决性 is whether the document's own consequence rule reaches it, and
+        # 强制性类型 says *which* source basis makes it binding.  They are not
+        # aliases of each other, so a propagated requirement shows 否决性 without
+        # ★, and a starred requirement shows ★ even where no consequence clause
+        # targets it directly.
+        veto = "是" if row.get("rejection") else ""
         table.add(
             position,
             row["id"],
@@ -1118,9 +1285,9 @@ def _build_mandatory(workbook, requirement_rows: Sequence[dict]) -> dict:
             _clip(row["requirement"], 500),
             _clip(row["action"], 260),
             _clip(row["criteria"], 220),
-            "★" if veto else "",
+            "★" if row.get("marker_present") else "",
             veto,
-            row["type"],
+            _mandatory_type_text(row),
             row["page"] if row["page"] is not None else "",
             row["locator"],
             row["evidence"],
@@ -1128,6 +1295,9 @@ def _build_mandatory(workbook, requirement_rows: Sequence[dict]) -> dict:
             DEFAULT_MANUAL,
             "",
             "",
+            _clip(_raw_marker_text(row), 80),
+            _clip(_basis_text(row, "substantive"), 160),
+            _clip(_basis_text(row, "rejection"), 160),
             height=44,
         )
     table.finish(freeze="E2")
@@ -1135,6 +1305,10 @@ def _build_mandatory(workbook, requirement_rows: Sequence[dict]) -> dict:
     _manual_validation(ws, "P", table.first_data_row, table.last_data_row)
     _machine_status_format(ws, "H", table.first_data_row, table.last_data_row)
     _machine_status_format(ws, "I", table.first_data_row, table.last_data_row)
+    _machine_status_format(ws, "N", table.first_data_row, table.last_data_row)
+    for column in ("H", "I", "J", "Q", "R", "S"):
+        _wrap_format(ws, column, table.first_data_row, table.last_data_row)
+    _criticality_format(ws, table.first_data_row, table.last_data_row)
     _setup_page(ws)
     return {"rows": len(rows)}
 
@@ -1541,6 +1715,41 @@ def build_review_views(
         ("05_文件结构与签章", "M"),
         ("06_冲突与缺失", "H"),
     ]
+    summary["criticality"] = {
+        "source_marker_row_count": sum(
+            1 for row in requirement_rows if row.get("marker_present")
+        ),
+        "substantive_requirement_row_count": sum(
+            1 for row in requirement_rows if row.get("substantive")
+        ),
+        "rejection_consequence_row_count": sum(
+            1 for row in requirement_rows if row.get("rejection")
+        ),
+        "explicit_rejection_consequence_row_count": sum(
+            1 for row in requirement_rows if row.get("rejection_kind") == "EXPLICIT"
+        ),
+        "mandatory_sheet_row_count": summary["mandatory_rows"],
+        "rows": [
+            {
+                "item_id": row["id"],
+                "concern_id": row.get("concern_id", ""),
+                "raw_source_markers": row.get("raw_markers") or [],
+                "marker_present": bool(row.get("marker_present")),
+                "substantive_requirement": bool(row.get("substantive")),
+                "substantive_basis_kind": row.get("substantive_basis_kind", ""),
+                "substantive_basis_atom_ids": row.get("substantive_basis_atom_ids") or [],
+                "rejection_consequence": bool(row.get("rejection")),
+                "rejection_kind": row.get("rejection_kind", ""),
+                "rejection_basis_atom_ids": row.get("rejection_basis_atom_ids") or [],
+                "mandatory_types": row.get("mandatory_types") or [],
+                "reference_parent_atom_id": row.get("reference_parent_atom_id", ""),
+                "reference_target": row.get("reference_target", ""),
+                "criticality_reason": row.get("criticality_reason", ""),
+            }
+            for row in requirement_rows
+            if row.get("marker_present") or row.get("substantive") or row.get("rejection")
+        ],
+    }
     return summary
 
 

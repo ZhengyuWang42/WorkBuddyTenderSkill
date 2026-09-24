@@ -44,6 +44,11 @@ SCORING_GUIDANCE = "SCORING_GUIDANCE"
 NUMERIC_STATEMENT = "NUMERIC_STATEMENT"
 EVIDENCE_SUMMARY = "EVIDENCE_SUMMARY"
 LINKED_FACT = "LINKED_FACT"
+#: Round 6: the source-visible criticality note.  It is *not* source wording --
+#: it is rendered from the source marker and the document's own substantive /
+#: consequence clauses, so it is verified against those atoms rather than
+#: against the concern's own requirement text.
+CRITICALITY_NOTE = "CRITICALITY_NOTE"
 
 COMPONENT_KINDS: tuple[str, ...] = (
     SOURCE_REQUIREMENT,
@@ -55,6 +60,7 @@ COMPONENT_KINDS: tuple[str, ...] = (
     NUMERIC_STATEMENT,
     EVIDENCE_SUMMARY,
     LINKED_FACT,
+    CRITICALITY_NOTE,
 )
 
 #: Component kinds whose rendered text is prose and therefore term-guarded.
@@ -176,6 +182,11 @@ META_TERMS: tuple[str, ...] = (
     "数值指标",
     "关联事实",
     "证据摘要",
+    # round-6 criticality note (rendered from the source marker + the document's
+    # own substantive/consequence clauses, so it is a review label, not a claim)
+    "源标记",
+    "实质性要求",
+    "不满足可能导致否决",
 )
 
 #: Domain vocabulary.  A rendered phrase may name one of these concepts only
@@ -506,7 +517,14 @@ def verify_component(component: RenderedReviewComponent, ownership: ComponentOwn
 
     kind = component.component_kind
     foreign: list[str] = []
-    if kind == LINKED_FACT:
+    if kind == CRITICALITY_NOTE:
+        # the note is produced from source atoms (the marker row, the governing
+        # substantive clause, the consequence clause); it may not be rendered
+        # without that basis, and it may only use the criticality vocabulary.
+        missing = [] if component.source_atom_ids else ["criticality_basis_atom_ids"]
+        foreign = missing
+        ok = not missing
+    elif kind == LINKED_FACT:
         foreign = [key for key in component.linked_fact_keys if key not in ownership.allowed_fact_keys]
         ok = not foreign
     elif kind == PREPARATION_MATERIAL:
@@ -633,6 +651,7 @@ def provenance_map(
 __all__ = [
     "COMPONENT_KINDS",
     "ComponentOwnership",
+    "CRITICALITY_NOTE",
     "DOMAIN_TERMS",
     "FAILURE_CONSEQUENCE",
     "EVIDENCE_SUMMARY",

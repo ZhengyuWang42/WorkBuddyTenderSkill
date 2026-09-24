@@ -48,6 +48,7 @@ from tender_basic.review_point import (  # noqa: E402
 import v1_review_workbook_round3_report as report  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
+BUILD6 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6"
 BUILD5 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5"
 BUILD4 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4"
 BUILD3 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3"
@@ -341,8 +342,9 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
 
     Round 4 renders the delivered cell from the verified review components, so
     the invariant is asserted against the *current* successor.  Round 5 adds the
-    independent concern contracts on top of that projection, so the successor
-    under test is ``..._review_workbook5``; the human-reviewed round-4/round-3
+    independent concern contracts on top of that projection and round 6 adds the
+    source-visible criticality note, so the successor under test is
+    ``..._review_workbook6``; the human-reviewed round-5/round-4/round-3
     workbooks stay frozen as the artifacts the human reviewed and failed.
     """
 
@@ -350,7 +352,7 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     qa = dynamic_review_qa(plan, ctx["document"], ctx["facts"])
     assert qa["result"] == "PASS", qa["hard_gate_failures"]
 
-    workbook = load_workbook(BUILD5 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD6 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     assert workbook.sheetnames[0] == "投标项目复核表"
     sheet = workbook["投标项目复核表"]
     written = [
@@ -364,7 +366,7 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     assert written == expected
 
     identities = json.loads(
-        (BUILD5 / "build_manifest.json").read_text(encoding="utf-8")
+        (BUILD6 / "build_manifest.json").read_text(encoding="utf-8")
     )["artifact_identity"]
     assert all(entry["byte_identical"] for entry in identities.values())
     # the frozen round-3 workbook is preserved untouched next to its successor

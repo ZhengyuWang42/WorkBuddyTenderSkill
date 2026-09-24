@@ -38,9 +38,10 @@ from tender_basic.review_rendering import (  # noqa: E402
 import v1_review_workbook_round4_report as round4  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
-#: Round 5 successor: the round-4 provenance projection plus the independent
-#: concern contracts.  The round-4 workbook stays frozen as the artifact the
-#: human reviewed and failed.
+#: Round 6 successor: the round-5 contract projection plus the source-visible
+#: criticality dimension.  The round-5/round-4/round-3 workbooks stay frozen as
+#: the artifacts the human reviewed and failed.
+BUILD6 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6"
 BUILD5 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5"
 BUILD4 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4"
 BUILD3 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3"
@@ -49,8 +50,8 @@ WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 DELIVERED = "投标项目复核表"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD5 / "project_facts.json").is_file(),
-    reason="round-5 CASE001 successor build is not present",
+    not (BUILD6 / "project_facts.json").is_file(),
+    reason="round-6 CASE001 successor build is not present",
 )
 
 FIXTURE_KEYS = tuple("ABCDEFGHIJKLMNOPQRS")
@@ -62,7 +63,7 @@ def _flat(text: object) -> str:
 
 @pytest.fixture(scope="module")
 def analysis() -> round4.Round4Report:
-    return round4.Round4Report(build=BUILD5, case="case_001", before=BUILD4, audit_limit=30)
+    return round4.Round4Report(build=BUILD6, case="case_001", before=BUILD5, audit_limit=30)
 
 
 @pytest.fixture(scope="module")
@@ -72,7 +73,7 @@ def report(analysis: round4.Round4Report) -> dict:
 
 @pytest.fixture(scope="module")
 def cells() -> dict:
-    workbook = load_workbook(BUILD5 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD6 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     try:
         values: dict[str, dict[str, str]] = {}
         for name in workbook.sheetnames:
