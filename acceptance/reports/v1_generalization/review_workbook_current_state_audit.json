@@ -1,0 +1,26 @@
+{
+  "schema": "v1_review_workbook_current_state_audit/1",
+  "generated_at": "2026-09-24T01:20:04.612037+00:00",
+  "case": "case_001",
+  "note": "audit of the round-2 review-workbook state: this file did not exist before round 2 and is created here from the delivered artifacts",
+  "review_point_plan": {
+    "rows": 46,
+    "filtered_non_actionable": 1,
+    "filtered_topics": [
+      "售后服务与运维"
+    ]
+  },
+  "delivered_sheet": {
+    "rows": 46,
+    "matches_review_points": "PASS"
+  },
+  "structured_views": {
+    "02_关键条款": 21,
+    "03_资格否决与强制项": null
+  },
+  "workbook_sha256": "feb7369de33c44ec0f07715ffcbbcc472e30bd48d4163f6da156b0fc47eab1ab",
+  "result": "PASS",
+  "manual_review": "NOT_YET_CONFIRMED",
+  "ready_for_submission": false,
+  "v1_production_candidate": false
+}

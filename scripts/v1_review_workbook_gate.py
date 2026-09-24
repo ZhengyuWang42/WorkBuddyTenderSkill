@@ -68,6 +68,12 @@ from tender_basic.review_workbook_views import (  # noqa: E402
 
 DELIVERED_SHEET = "投标项目复核表"
 
+#: First data row of the delivered sheet's dynamic review rows.
+CHECKLIST_START_ROW = 9
+
+#: Columns of the delivered sheet whose text is re-synthesized each review round.
+LEGACY_REVIEW_TEXT_COLUMNS = (4,)
+
 EXPECTED_HEADERS = {
     SHEET_TITLES[1]: ["分类", "fact_key", "复核项", "机器抽取值", "事实状态", "源文件页码",
                       "源章节/表格", "证据定位", "证据摘要", "来源类型", "置信度", "候选数",
@@ -112,10 +118,18 @@ def _rows_of(worksheet, header_row: int = 1) -> list[list[object]]:
 
 
 class Gate:
-    def __init__(self, build: Path, source_build: Path | None, case: str) -> None:
+    def __init__(
+        self,
+        build: Path,
+        source_build: Path | None,
+        case: str,
+        legacy_text_refresh: bool = False,
+    ) -> None:
         self.build = build
         self.source_build = source_build
         self.case = case
+        self.legacy_text_refresh = legacy_text_refresh
+        self._legacy_plan_items = None
         self.checks: list[dict] = []
         self.facts = ProjectFacts.model_validate(
             json.loads((build / "project_facts.json").read_text(encoding="utf-8"))
@@ -273,6 +287,32 @@ class Gate:
             "every RESOLVED fact shows its value" if not resolved_blank else str(resolved_blank),
         )
 
+    def requirement_expectations(self) -> list[dict]:
+        """Expected 02_关键条款 rows.
+
+        The copied ``qa_report.json`` describes the Word build of the *accepted*
+        round, so a refreshed round derives the expectation from its own
+        review-point plan instead: the structured views must render the same
+        semantic object as the delivered sheet.
+        """
+
+        if not self.legacy_text_refresh:
+            return self.requirements
+        if getattr(self, "_requirement_expectations", None) is None:
+            self._requirement_expectations = [
+                {
+                    "id": item.item_id,
+                    "requirement": item.source_requirement,
+                    "page": item.source_page,
+                    "locator": item.source_locator,
+                    "type": item.requirement_type,
+                    "risk": item.risk_level,
+                    "module": item.module,
+                }
+                for item in self.legacy_plan_items()
+            ]
+        return self._requirement_expectations
+
     def check_evidence_locators(self) -> None:
         # every locator shown must exist either in ProjectFacts candidates or in
         # the review evidence packet.
@@ -313,7 +353,7 @@ class Gate:
             {"unmatched": problems[:12]},
         )
         requirement_problems = []
-        plan = {row["id"]: row for row in self.requirements}
+        plan = {row["id"]: row for row in self.requirement_expectations()}
         pages = {page.page_number for page in getattr(self.document, "pages", ()) or ()}
         for row in self.sheet_rows(SHEET_TITLES[3]):
             requirement_id = _cell_text(row[1])
@@ -532,7 +572,7 @@ class Gate:
                 "veto_not_starred": sorted(set(veto_rows) - set(star_rows))[:8],
             },
         )
-        expected = [row for row in self.requirements if _is_mandatory(row)]
+        expected = [row for row in self.requirement_expectations() if _is_mandatory(row)]
         self.check(
             "mandatory_star_coverage.row_count",
             len(rows) == len(expected),
@@ -698,6 +738,16 @@ class Gate:
         try:
             left = self.workbook[DELIVERED_SHEET]
             right = other[DELIVERED_SHEET]
+            refreshed = bool(self.legacy_text_refresh)
+            if refreshed:
+                self.check_refreshed_legacy_sheet(left, right)
+                self.check_legacy_review_text_matches_plan()
+                self.check(
+                    "legacy_sheet_untouched.accepted_workbook_still_on_disk",
+                    origin.is_file(),
+                    "the accepted build's workbook was not modified",
+                )
+                return
             differences = []
             for row in range(1, max(left.max_row, right.max_row) + 1):
                 for column in range(1, max(left.max_column, right.max_column) + 1):
@@ -721,6 +771,133 @@ class Gate:
             )
         finally:
             other.close()
+
+    @staticmethod
+    def _sheet_rows_plain(sheet) -> list[tuple[str, ...]]:
+        rows: list[tuple[str, ...]] = []
+        for row in sheet.iter_rows():
+            rows.append(tuple(_cell_text(cell.value) for cell in row))
+        return rows
+
+    @staticmethod
+    def _dynamic_zone(sheet) -> tuple[int, int]:
+        """(first, last) row of the dynamic review zone, detected by its type cell."""
+
+        last = CHECKLIST_START_ROW - 1
+        for row in range(CHECKLIST_START_ROW, sheet.max_row + 1):
+            if _cell_text(sheet.cell(row=row, column=13).value).startswith("类型："):
+                last = row
+            elif last >= CHECKLIST_START_ROW:
+                break
+        return CHECKLIST_START_ROW, last
+
+    def check_refreshed_legacy_sheet(self, left, right) -> None:
+        """Compare the refreshed delivered sheet with the accepted one.
+
+        The review rounds may change the number of dynamic rows, so the sheet is
+        compared as three zones: the template header, the dynamic review zone
+        (which must match this round's plan) and the untouched tail (signature
+        block and static summary), which must be identical once the row shift is
+        removed.
+        """
+
+        head_differences = []
+        for row in range(1, CHECKLIST_START_ROW):
+            for column in range(1, max(left.max_column, right.max_column) + 1):
+                a = left.cell(row=row, column=column).value
+                b = right.cell(row=row, column=column).value
+                if _cell_text(a) != _cell_text(b):
+                    head_differences.append(
+                        {"cell": left.cell(row=row, column=column).coordinate,
+                         "successor": _cell_text(a)[:60], "accepted": _cell_text(b)[:60]}
+                    )
+        self.check(
+            "legacy_sheet_refreshed.template_header_identical",
+            not head_differences,
+            f"rows 1..{CHECKLIST_START_ROW - 1} compared with {self.source_build.name}",
+            {"differences": head_differences[:10]},
+        )
+
+        left_first, left_last = self._dynamic_zone(left)
+        right_first, right_last = self._dynamic_zone(right)
+        items = self.legacy_plan_items()
+        self.check(
+            "legacy_sheet_refreshed.dynamic_zone_rows",
+            (left_last - left_first + 1) == len(items) and left_first == CHECKLIST_START_ROW,
+            f"delivered sheet has {left_last - left_first + 1} dynamic rows, plan has {len(items)}",
+            {"accepted_zone": [right_first, right_last]},
+        )
+
+        left_tail = self._sheet_rows_plain(left)[left_last:]
+        right_tail = self._sheet_rows_plain(right)[right_last:]
+
+        def strip_empty(rows: list[tuple[str, ...]]) -> list[tuple[str, ...]]:
+            end = len(rows)
+            while end and not any(value for value in rows[end - 1]):
+                end -= 1
+            return rows[:end]
+
+        left_tail = strip_empty(left_tail)
+        right_tail = strip_empty(right_tail)
+        tail_differences = []
+        for index in range(max(len(left_tail), len(right_tail))):
+            left_row = left_tail[index] if index < len(left_tail) else ()
+            right_row = right_tail[index] if index < len(right_tail) else ()
+            if left_row == right_row:
+                continue
+            tail_differences.append(
+                {"row": index + left_last + 1,
+                 "successor": " | ".join(left_row)[:80],
+                 "accepted": " | ".join(right_row)[:80]}
+            )
+        self.check(
+            "legacy_sheet_refreshed.tail_identical_after_shift",
+            not tail_differences,
+            "rows after the dynamic zone (signature block and static summary) match",
+            {"differences": tail_differences[:6]},
+        )
+
+    def legacy_plan_items(self):
+        """The successor build's own review-point plan, in delivered row order."""
+
+        from tender_basic.document_models import NormalizedDocument
+        from tender_basic.dynamic_review import build_dynamic_review_plan, order_review_items
+        from tender_basic.models import ProjectFacts
+
+        if getattr(self, "_legacy_plan_items", None) is None:
+            document = NormalizedDocument.model_validate_json(
+                (self.build / "normalized_document.json").read_text(encoding="utf-8")
+            )
+            facts = ProjectFacts.model_validate_json(
+                (self.build / "project_facts.json").read_text(encoding="utf-8")
+            )
+            plan = build_dynamic_review_plan(document, facts)
+            self._legacy_plan_items = order_review_items(plan.items)
+        return self._legacy_plan_items
+
+    def check_legacy_review_text_matches_plan(self) -> None:
+        """Legacy column D must be the rendering of the row's review point."""
+
+        from tender_basic.review_point import render_review_cell
+
+        sheet = self.workbook[DELIVERED_SHEET]
+        items = self.legacy_plan_items()
+        mismatches: list[dict] = []
+        for offset, item in enumerate(items):
+            row = CHECKLIST_START_ROW + offset
+            expected = render_review_cell(item.review_point) if item.review_point else ""
+            actual = _cell_text(sheet.cell(row=row, column=4).value)
+            if expected != actual:
+                mismatches.append(
+                    {"row": row, "item": item.item_id,
+                     "expected": expected[:60], "actual": actual[:60]}
+                )
+        self.check(
+            "legacy_sheet_refreshed.review_text_matches_review_points",
+            not mismatches,
+            f"{len(items)} rows compared against the synthesized review points",
+            {"mismatches": mismatches[:5]},
+        )
 
     def run(self) -> dict:
         self.check_structure()
@@ -787,6 +964,11 @@ def main() -> int:
     parser.add_argument("--build", required=True)
     parser.add_argument("--case", required=True)
     parser.add_argument("--source-build")
+    parser.add_argument(
+        "--legacy-text-refresh",
+        action="store_true",
+        help="the delivered sheet's review-text columns were re-synthesized",
+    )
     parser.add_argument("--out")
     args = parser.parse_args()
 
@@ -797,7 +979,7 @@ def main() -> int:
     if source_build is not None and not source_build.is_absolute():
         source_build = REPO / source_build
 
-    gate = Gate(build, source_build, args.case)
+    gate = Gate(build, source_build, args.case, legacy_text_refresh=args.legacy_text_refresh)
     report = gate.run()
     if args.out:
         out = Path(args.out)

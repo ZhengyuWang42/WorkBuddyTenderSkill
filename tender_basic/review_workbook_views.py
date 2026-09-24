@@ -40,6 +40,8 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
+from .review_builder import TEMPLATE_SHEET_NAME
+
 # --------------------------------------------------------------------------- #
 # vocabulary
 # --------------------------------------------------------------------------- #
@@ -1551,13 +1553,20 @@ def augment_review_workbook(
     format_template=None,
     review_evidence=(),
     build_meta: dict | None = None,
+    refresh_legacy_rows: bool = False,
 ) -> dict:
     """Append the review views to an existing workbook file, in place.
 
-    Used when the workbook is being regenerated over an *accepted* build: the
-    delivered sheet keeps its exact values and layout, and only the reviewer
-    views are added.  No machine value of the existing sheet is read, rewritten
-    or re-derived.
+    Used when the workbook is being regenerated over an *accepted* build.  By
+    default the delivered sheet keeps its exact values and layout and only the
+    reviewer views are added.  With ``refresh_legacy_rows`` the delivered
+    sheet's dynamic review rows are re-synthesized from ``dynamic_plan``: the
+    row template, merges, widths and signature block are preserved, while the
+    review text of each row is regenerated from the same review-point semantic
+    object that feeds the structured views.
+
+    No other machine value of the existing sheet is read, rewritten or
+    re-derived.
     """
 
     from openpyxl import load_workbook
@@ -1565,6 +1574,10 @@ def augment_review_workbook(
     workbook_path = Path(path)
     workbook = load_workbook(workbook_path, data_only=False, read_only=False)
     try:
+        if refresh_legacy_rows and dynamic_plan is not None:
+            from .review_builder import _build_dynamic_review_rows
+
+            _build_dynamic_review_rows(workbook[TEMPLATE_SHEET_NAME], dynamic_plan)
         summary = build_review_views(
             workbook,
             project_facts=project_facts,

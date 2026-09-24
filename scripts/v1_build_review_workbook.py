@@ -77,6 +77,11 @@ def main() -> int:
     parser.add_argument("--build", required=True, help="source (accepted) build directory")
     parser.add_argument("--build-id", required=True, help="successor build id")
     parser.add_argument("--case-dir", help="parent directory for the successor build")
+    parser.add_argument(
+        "--refresh-legacy-rows",
+        action="store_true",
+        help="re-synthesize the delivered sheet's dynamic review rows from the plan",
+    )
     parser.add_argument("--out", help="report path")
     args = parser.parse_args()
 
@@ -129,7 +134,9 @@ def main() -> int:
     workbook_path = target / "投标项目复核表.xlsx"
     delivered_before = copied["投标项目复核表.xlsx"]["sha256"]
     # The delivered sheet is carried over exactly as accepted; the reviewer
-    # views are appended on top of it.
+    # views are appended on top of it.  With --refresh-legacy-rows the delivered
+    # sheet's dynamic review rows are re-synthesized from the new review-point
+    # plan (round 2), while its template, merges and signature block stay.
     views = augment_review_workbook(
         workbook_path,
         project_facts=facts,
@@ -137,12 +144,14 @@ def main() -> int:
         normalized_document=document,
         format_template=format_template,
         review_evidence=packet,
+        refresh_legacy_rows=bool(args.refresh_legacy_rows),
         build_meta={
             "build_id": args.build_id,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "source_file": Path(str(source.get("path") or "")).name,
             "source_pdf_sha256": source.get("sha256") or "",
             "workbook_name": workbook_path.name,
+            "legacy_rows_refreshed": bool(args.refresh_legacy_rows),
         },
     )
 
@@ -153,9 +162,10 @@ def main() -> int:
         "successor_of": source_manifest.get("build_id"),
         "successor_reason": (
             "review workbook round: the DOCX, PDF and generation report are copied "
-            "byte-identically from the accepted build; the delivered sheet of "
-            "投标项目复核表.xlsx is carried over unchanged and the reviewer views are "
-            "appended, so no Word rendering is repeated"
+            "byte-identically from the accepted build; the delivered sheet keeps its "
+            "template and layout (its dynamic review rows are re-synthesized from the "
+            "review-point plan when --refresh-legacy-rows is given) and the reviewer "
+            "views are appended, so no Word rendering is repeated"
         ),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source": source,
@@ -174,6 +184,10 @@ def main() -> int:
             "review_workbook_sha256": sha256(workbook_path),
             "review_workbook_bytes": workbook_path.stat().st_size,
             "review_workbook_carried_sheet_sha256": delivered_before,
+            "legacy_rows_refreshed": bool(args.refresh_legacy_rows),
+            "review_point_rows": len(plan.items),
+            "filtered_non_actionable_rows": plan.filtered_non_actionable_count,
+            "filtered_non_actionable_topics": list(plan.filtered_non_actionable_topics),
         },
         "pipeline": {
             "argv": [

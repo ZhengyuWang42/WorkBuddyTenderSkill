@@ -847,7 +847,7 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 工作流 | 状态 |
 | --- | --- |
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4），三项人工发现已自动化关闭；**人工桌面 Word 复核尚未确认** |
-| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现，三案例工作簿门禁 37/37 PASS、LibreOffice 渲染 QA PASS、Word 产物逐字节未变；**人工 Excel 复核尚未开始** |
+| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；第 2 轮把复核行从"要求抽取"改为**复核要点合成（ReviewPoint）**，三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例）、LibreOffice 渲染 QA PASS（WARN 10/17/26，非失败项）、Word 产物逐字节未变；**人工 Excel 复核尚未开始** |
 | **人工 Excel 复核** | 尚未开始（`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
 | **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；工作簿轮次检查点见 §12.3 |
@@ -856,13 +856,16 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 
 | 项目 | 值 |
 | --- | --- |
-| 工作簿构建器 | `tender_basic/review_workbook_views.py`（`build_review_views` / `augment_review_workbook`），由 `review_builder.build_review_workbook` 调用 |
-| 后继构建工具 | `scripts/v1_build_review_workbook.py`（复制 Word 产物，不重新渲染） |
-| 工作簿门禁 | `scripts/v1_review_workbook_gate.py`（37 项） |
+| 工作簿构建器 | `tender_basic/review_workbook_views.py`（`build_review_views` / `augment_review_workbook(..., refresh_legacy_rows=)`），由 `review_builder.build_review_workbook` 调用 |
+| 复核要点引擎 | `tender_basic/review_point.py`（`synthesize_review_point` / `render_review_cell` / `scan_review_points`），由 `dynamic_review.build_dynamic_review_plan` 调用 |
+| 后继构建工具 | `scripts/v1_build_review_workbook.py`（复制 Word 产物，不重新渲染；`--refresh-legacy-rows` 重算交付表动态复核行） |
+| 工作簿门禁 | `scripts/v1_review_workbook_gate.py`（第 1 轮 37 项；第 2 轮 `--legacy-text-refresh` 40 项） |
 | 渲染 QA | `scripts/v1_review_workbook_visual_qa.py`（LibreOffice PDF + 重算副本） |
-| 最终状态 | `acceptance/reports/v1_generalization/review_workbook_v1_final_status.json` / `.md` |
-| CASE001 后继构建 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1` |
-| CASE002 / CASE003 后继构建 | `acceptance/workspace/case_00{2,3}/v1_round4_closure8_review_workbook1` |
+| 内容质量报告 | `scripts/v1_review_workbook_round2_report.py` → `review_workbook_round2_content_quality.json` / `.md`、`review_workbook_current_state_audit.json` |
+| 最终状态（第 1 轮） | `acceptance/reports/v1_generalization/review_workbook_v1_final_status.json` / `.md` |
+| CASE001 后继构建 | 第 1 轮 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1`；第 2 轮 `..._review_workbook2` |
+| CASE002 / CASE003 后继构建 | 第 1 轮 `acceptance/workspace/case_00{2,3}/v1_round4_closure8_review_workbook1`；第 2 轮 `..._review_workbook2` |
+| 第 2 轮复核行数 | CASE001 47 → 46（过滤 1 条非行动项：平台服务费条款归入"售后服务与运维"）；CASE002 49；CASE003 53 |
 | Word 产物 | closure8 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated=false`） |
 | 指针 | 不迁移：`*_current_build.json` 描述 Word 构建，继续指向 closure8 |
 | 人工复核 | 未开始，自动化未勾选任何结论（`已通过 = 0`） |
@@ -872,6 +875,7 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 顺序 | 任务 | 完成判据 |
 | --- | --- | --- |
 | **A** | 改进 `投标项目复核表.xlsx`（复核视图：总览、事实、关键条款、强制/★项、报价与限价、文件结构与签章、冲突与缺失、证据索引） | ✅ 已完成：三案例工作簿门禁 37/37 PASS + 渲染 QA PASS（`REVIEW_WORKBOOK_THREE_CASE_GENERALIZATION = PASS`） |
+| **A2** | 复核工作簿第 2 轮：把复核行改写为**人工复核要点合成**（要求/复核要点/通过标准/不满足后果/准备材料/评分提示），删除样板文字与无关数字 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例、8 组 BEFORE→AFTER）、全套测试 665 收集 / 664 passed / 1 skipped / 0 failed |
 | **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认 |
 | **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |

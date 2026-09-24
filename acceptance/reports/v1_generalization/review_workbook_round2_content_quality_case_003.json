@@ -1,0 +1,1195 @@
+{
+  "schema": "v1_review_workbook_round2_content_quality/1",
+  "generated_at": "2026-09-24T01:20:01.489111+00:00",
+  "case": "case_003",
+  "build": "acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook2",
+  "before_build": "acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook1",
+  "workbook_sha256": "14730d14889588fe63780f5052cb911077ac122682859893686ff25c9d973a68",
+  "before_workbook_sha256": "7d2ed915a573e5d39ddf28ff5bd2a19c5559173313f765db5aec519816c883ee",
+  "after": {
+    "rows": 53,
+    "actionable_rows": 53,
+    "non_actionable_rows": 0,
+    "generic_boilerplate_rows": 0,
+    "semantic_contamination_rows": 0,
+    "numeric_contamination_rows": 0,
+    "source_backed_consequence_rows": 8,
+    "unsupported_consequence_rows": 0,
+    "checks_without_observable_noun": 0,
+    "rows_with_numbers_in_synthesized_text": 9,
+    "filtered_non_actionable_count": 0,
+    "filtered_non_actionable_topics": [],
+    "delivered_rows": 53
+  },
+  "before": {
+    "rows": 53,
+    "rows_with_numbers_in_synthesized_text": 29,
+    "numeric_contamination_rows": 7,
+    "generic_boilerplate_rows": 27,
+    "delivered_rows": 53
+  },
+  "numeric_semantics": {
+    "roles_seen": {
+      "CONTACT_INFO": 6,
+      "DURATION_DAYS": 11,
+      "OTHER": 321,
+      "PAYMENT_RATIO": 12,
+      "PERSON_COUNT": 7,
+      "QUANTITY": 38,
+      "RESPONSE_DAYS": 3,
+      "VALIDITY_DAYS": 2
+    },
+    "usable_values": 29,
+    "blocked_values": 371,
+    "never_usable_roles": [
+      "CONTACT_INFO",
+      "OTHER",
+      "TENDER_FEE"
+    ]
+  },
+  "fixtures": [
+    {
+      "fixture": "A_signature_duration_and_phone",
+      "result": "PASS",
+      "detail": "1 SIGNATURE rows; hits=[]"
+    },
+    {
+      "fixture": "B_submission_fee_as_value",
+      "result": "PASS",
+      "detail": "1 SUBMISSION rows; hits=[]"
+    },
+    {
+      "fixture": "C_platform_fee_not_a_review_value",
+      "result": "PASS",
+      "detail": "fee-value rows=[]; fee-only after-sales rows=[]"
+    },
+    {
+      "fixture": "D_evaluation_member_count",
+      "result": "PASS",
+      "detail": "rows quoting purchaser-side member counts as values=[]"
+    },
+    {
+      "fixture": "E_unrelated_numeric_mix",
+      "result": "PASS",
+      "detail": "rows whose values span more than two semantic roles=[]"
+    },
+    {
+      "fixture": "F_contract_unrelated_consequence",
+      "result": "PASS",
+      "detail": "CONTRACT rows with an unrelated consequence=[]"
+    },
+    {
+      "fixture": "G_values_owned_by_the_row",
+      "result": "PASS",
+      "detail": "values shown without an owning clause in the row=[]"
+    }
+  ],
+  "case_checks": [
+    {
+      "check": "case_003.lot_name_resolved",
+      "result": "PASS",
+      "detail": "lot_name='三标段' status=RESOLVED"
+    },
+    {
+      "check": "case_003.no_case_001_leakage",
+      "result": "PASS",
+      "detail": "rows carrying CASE001 material=[]"
+    },
+    {
+      "check": "case_003.lot_name_resolved",
+      "result": "PASS",
+      "detail": "lot_name='三标段' status=RESOLVED"
+    },
+    {
+      "check": "case_003.no_case_001_leakage",
+      "result": "PASS",
+      "detail": "rows carrying CASE001 material=[]"
+    }
+  ],
+  "delivered_sheet_matches_review_points": {
+    "rows_compared": 53,
+    "mismatches": [],
+    "result": "PASS"
+  },
+  "dynamic_review_qa": {
+    "result": "PASS",
+    "hard_gate_values": {
+      "source_mandatory_requirement_without_review_item_count": 0,
+      "project_irrelevant_review_item_count": 0,
+      "invalid_review_evidence_locator_count": 0,
+      "empty_review_evidence_count": 0,
+      "cross_topic_evidence_mismatch_count": 0,
+      "unclassified_dynamic_requirement_count": 0,
+      "generic_text_when_specific_source_available_count": 0,
+      "dynamic_review_item_count": 53
+    }
+  },
+  "before_dynamic_review_qa_result": "PASS",
+  "examples": [
+    {
+      "item_id": "DR013",
+      "before_item_id": "49",
+      "paired_by": "类型：SIGNATURE/签字盖章要求",
+      "requirement_type": "SIGNATURE",
+      "topic": "签字盖章要求",
+      "before": "招标文件要求：审标准 投标函签字盖章 有法定代表人或其委托代理人签字并加盖单位章。；发包人：(公章)承包人：(公章) 法定代表人或其委托代理人：法定代表人或其委托代理人： （签字）（签字） 组织机构代码：；(2)在第八章“投标文件格式”中要求盖单位章和(或)签字处，投标人应加 盖投标人单位公章/单位电子印章和(或)法定代表人或委托代理人的个人电子印章/电 子签名章/签字。（另见45处同类条款）\n复核动作：按招标文件签章要求逐页核对签字人、盖章种类与位置，确认授权链条完整。（须核对的具体值：12个月、48小时、24小时）\n核验标准：所有指定位置签字/盖章齐全有效，授权链条一致。 具体指标：12个月、48小时、24小时。",
+      "after": "招标文件要求：（十一）本项目缺陷责任期不少于12个月 （十二）付款方式： 单位代表签字确认的工程量报告为准）后，分两次扣完预付款。；（6）条款需提供截图并加盖公章；\n复核要点：\n① 按招标文件签章要求逐页核对签字人、盖章种类与位置\n② 确认授权链条完整、印章清晰\n③ 依据第7页第（6）条逐条比对响应文件对应章节\n通过标准：\n· 所有指定位置签字/盖章齐全有效，授权链条一致。\n准备材料：经审计的财务报告或财务状况承诺书、类似项目合同及验收证明、指定平台查询结果截图、承诺函（按招标文件格式）",
+      "before_synthesized": "按招标文件签章要求逐页核对签字人、盖章种类与位置，确认授权链条完整。（须核对的具体值：12个月、48小时、24小时）\n所有指定位置签字/盖章齐全有效，授权链条一致。 具体指标：12个月、48小时、24小时。",
+      "after_synthesized": "① 按招标文件签章要求逐页核对签字人、盖章种类与位置\n② 确认授权链条完整、印章清晰\n③ 依据第7页第（6）条逐条比对响应文件对应章节\n· 所有指定位置签字/盖章齐全有效，授权链条一致。\n\n经审计的财务报告或财务状况承诺书、类似项目合同及验收证明、指定平台查询结果截图、承诺函（按招标文件格式）\n"
+    },
+    {
+      "item_id": "DR036",
+      "before_item_id": "52",
+      "paired_by": "类型：SUBMISSION/递交方式与截止时间",
+      "requirement_type": "SUBMISSION",
+      "topic": "递交方式与截止时间",
+      "before": "招标文件要求：4.2.1项规定的投标截止时间前，投标人可以修改或撤回已递交的投标文件。；4.2.3投标人应当在投标截止时间前完成投标文件的传输递交(以接收到电子签收凭证 为准)，并可以补充、修改或者撤回投标文件。；（2）监理人应在收到承包人提交的工程量报告后7 天内完成对承包人提交的工 程量报表的审核并报送发包人，以确定当月实际完成的工程量。（另见30处同类条款）\n复核动作：核对递交方式、递交地点/平台、截止时间要求，预留足够提前量。（须核对的具体值：28天、14天、7天、15天）\n核验标准：在规定时间前按要求完成递交/上传与解密。 具体指标：28天、14天、7天、15天。",
+      "after": "招标文件要求：3.6.1 是否允许递交备选投 标方案 ☑不允许。 □允许，具体要求：；4.2.3投标人应当在投标截止时间前完成投标文件的传输递交(以接收到电子签收凭证 为准)，并可以补充、修改或者撤回投标文件。\n复核要点：\n① 核对递交方式、递交地点/平台与截止时间\n② 确认预留足够提前量并完成签到/解密准备\n③ 依据第17页第3.6.1条逐条比对响应文件对应章节\n通过标准：\n· 在规定时间前按要求完成递交/上传与解密。",
+      "before_synthesized": "核对递交方式、递交地点/平台、截止时间要求，预留足够提前量。（须核对的具体值：28天、14天、7天、15天）\n在规定时间前按要求完成递交/上传与解密。 具体指标：28天、14天、7天、15天。",
+      "after_synthesized": "① 核对递交方式、递交地点/平台与截止时间\n② 确认预留足够提前量并完成签到/解密准备\n③ 依据第17页第3.6.1条逐条比对响应文件对应章节\n· 在规定时间前按要求完成递交/上传与解密。\n\n\n"
+    },
+    {
+      "item_id": "DR004",
+      "before_item_id": "38",
+      "paired_by": "类型：TECHNICAL/★条款与强制参数",
+      "requirement_type": "TECHNICAL",
+      "topic": "★条款与强制参数",
+      "before": "招标文件要求：禁止其提出不符合建设工程安全 生产法律法规和强制性标准规定的要求；；同时，补充、细化或约定的内容，不得违反法律、行 政法规的强制性规定和平等、自愿、公平和诚实信用原则。\n复核动作：按上述招标文件条款逐项核对响应文件对应内容，确认完全响应。\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。",
+      "after": "招标文件要求：同时，补充、细化或约定的内容，不得违反法律、行 政法规的强制性规定和平等、自愿、公平和诚实信用原则。；禁止其提出不符合建设工程安全 生产法律法规和强制性标准规定的要求；\n复核要点：\n① 确认无空白、无模糊表述，并附证明材料\n② 依据第3页逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。",
+      "before_synthesized": "按上述招标文件条款逐项核对响应文件对应内容，确认完全响应。\n技术要求逐条响应，证明材料可核验，无负偏离。",
+      "after_synthesized": "① 确认无空白、无模糊表述，并附证明材料\n② 依据第3页逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n\n\n"
+    },
+    {
+      "item_id": "DR008",
+      "before_item_id": "39",
+      "paired_by": "类型：TECHNICAL/安装调试与验收",
+      "requirement_type": "TECHNICAL",
+      "topic": "安装调试与验收",
+      "before": "招标文件要求：9.1.3 承包人应向监理人提交试验人员的名单及其岗位、资格等证明资料，试验 人员必须能够熟练进行相应的检测试验，承包人对试验人员的试验程序和试验结果 的正确性负责。；附表二：拟配备本标段的试验和检测仪器设备表；附表一 拟投入本标段的主要施工设备表 附表二 拟配备本标段的试验和检测仪器设备 表 附表三 劳动力计划表 附表四 计划开、竣工日期和施工进度网络图 附表五 施工总平面图 附表六（另见39处同类条款）\n复核动作：核对安装、调试、检测、验收标准与节点，确认与招标文件验收要求一致。（须核对的具体值：108套、13套、50套、28天、24小时、48小时）\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：108套、13套、50套、28天、24小时、48小时。",
+      "after": "招标文件要求：13.2.2 竣工验收程序 除专用合同条款另有约定外，承包人申请竣工验收的，应当按照以下程序进 行： （1）承包人向监理人报送竣工验收申请报告，监理人应在收到竣工验收申请报 告后14 天内完成审查并报送发包人。；15.2.1缺陷责任期从工程通过竣工验收之日起计算，合同当事人应在专用合同 条款约定缺陷责任期的具体期限，但该期限最长不超过24个月。\n复核要点：\n① 核对安装、调试、检测与验收标准\n② 确认验收节点与招标文件要求一致\n③ 依据第121页逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n· 数量要求为 108套，且响应文件一致。\n· 数量要求为 13套，且响应文件一致。\n准备材料：类似项目合同及验收证明、法定代表人授权委托书、进度计划或供货计划表",
+      "before_synthesized": "核对安装、调试、检测、验收标准与节点，确认与招标文件验收要求一致。（须核对的具体值：108套、13套、50套、28天、24小时、48小时）\n技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：108套、13套、50套、28天、24小时、48小时。",
+      "after_synthesized": "① 核对安装、调试、检测与验收标准\n② 确认验收节点与招标文件要求一致\n③ 依据第121页逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n· 数量要求为 108套，且响应文件一致。\n· 数量要求为 13套，且响应文件一致。\n\n类似项目合同及验收证明、法定代表人授权委托书、进度计划或供货计划表\n"
+    },
+    {
+      "item_id": "DR025",
+      "before_item_id": "40",
+      "paired_by": "类型：TECHNICAL/技术方案与实施组织",
+      "requirement_type": "TECHNICAL",
+      "topic": "技术方案与实施组织",
+      "before": "招标文件要求：7.1款〔施工组织设计〕约定提交详细的施工进度计划，施工进 度计划的编制应当符合国家法律规定和一般工程实践惯例，施工进度计划经发包人 批准后实施。；（4）按合同约定的工作内容和施工进度要求，编制施工组织设计和施工措施计 划，并对所有施工作业和施工方法的完备性和安全可靠性负责；；7.1款〔施工组织设计〕约定向发包人和监理人提交工程质量保证 体系及措施文件，建立完善的质量检查制度，并提交相应的工程质量文件。（另见54处同类条款）\n复核动作：核对技术方案、进度计划、人员机具配置、质量保证与应急措施的完整性。（须核对的具体值：80%、7天、50%、28天、14天、48小时）\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：80%、7天、50%、28天、14天、48小时。\n不满足后果：（6）与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人 ，不得参加投标。",
+      "after": "招标文件要求：（2）承包人应当根据施工进度计划，提前14 天将招标文件通过监理人报送发 包人审批，发包人应当在收到承包人报送的相关文件后7 天内完成审批或提出修改 意见；；7.1.2施工组织设计的提交和修改 除专用合同条款另有约定外，承包人应在合同签订后14天内，但至迟不得晚于 第\n复核要点：\n① 核对技术方案、进度计划与人员机具配置\n② 核对质量保证措施与应急预案\n③ 依据第9页第（6）条逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n· 数量要求为 2项，且响应文件一致。\n准备材料：类似项目合同及验收证明、法定代表人授权委托书、进度计划或供货计划表",
+      "before_synthesized": "核对技术方案、进度计划、人员机具配置、质量保证与应急措施的完整性。（须核对的具体值：80%、7天、50%、28天、14天、48小时）\n技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：80%、7天、50%、28天、14天、48小时。",
+      "after_synthesized": "① 核对技术方案、进度计划与人员机具配置\n② 核对质量保证措施与应急预案\n③ 依据第9页第（6）条逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n· 数量要求为 2项，且响应文件一致。\n\n类似项目合同及验收证明、法定代表人授权委托书、进度计划或供货计划表\n"
+    },
+    {
+      "item_id": "DR049",
+      "before_item_id": "41",
+      "paired_by": "类型：TECHNICAL/接口与集成",
+      "requirement_type": "TECHNICAL",
+      "topic": "接口与集成",
+      "before": "招标文件要求：16.2.5 采购合同权益转让 因承包人违约解除合同的，发包人有权要求承包人将其为实施合同而签订的材 料和设备的采购合同的权益转让给发包人，承包人应在收到解除合同通知后14 天 内，协助发包人与采购合同的供应商达成相关的转让协议。；1.1.3.4 单位工程：是指在合同协议书中指明的，具备独立施工条件并能形成独 立使用功能的永久工程。；3.发包人和承包人通过招投标形式签订合同的，双方理解并承诺不再就同一工程 另行签订与合同实质性内容相背离的协议。（另见4处同类条款）\n复核动作：核对接口、协议、平台对接要求的技术方案与承诺，确认可实施。（须核对的具体值：14天）\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：14天。",
+      "after": "招标文件要求：如果封存的样品修改或改变了合同约定，合同当事人应当以书面协议予以确 认。；16.2.5 采购合同权益转让 因承包人违约解除合同的，发包人有权要求承包人将其为实施合同而签订的材 料和设备的采购合同的权益转让给发包人，承包人应在收到解除合同通知后14 天 内，协助发包人与采购合同的供应商达成相关…\n复核要点：\n① 核对接口、协议与平台对接的技术方案\n② 确认方案可实施并附承诺\n③ 依据第136页逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n准备材料：类似项目合同及验收证明、进度计划或供货计划表、样品或样册",
+      "before_synthesized": "核对接口、协议、平台对接要求的技术方案与承诺，确认可实施。（须核对的具体值：14天）\n技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：14天。",
+      "after_synthesized": "① 核对接口、协议与平台对接的技术方案\n② 确认方案可实施并附承诺\n③ 依据第136页逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n\n类似项目合同及验收证明、进度计划或供货计划表、样品或样册\n"
+    },
+    {
+      "item_id": "DR050",
+      "before_item_id": "42",
+      "paired_by": "类型：TECHNICAL/技术参数与配置",
+      "requirement_type": "TECHNICAL",
+      "topic": "技术参数与配置",
+      "before": "招标文件要求：样品的报送程序如下： （1）承包人应在计划采购前28天向监理人报送样品。 承包人报送的样品均应来 自供应材料的实际生产地，且提供的样品的规格、数量足以表明材料或工程设备的 质量、型号、颜色、表面处理、质地、误差和其他要求的特征。；1.10.3 场内交通 发包人应提供场内交通设施的技术参数和具体条件，并应按照专用合同条款的 约定向承包人免费提供满足工程施工所需的场内道路和交通设施。；1.10.2 场外交通 发包人应提供场外交通设施的技术参数和具体条件，承包人应遵守有关交通法 规，严格按照道路和桥梁的限制荷载行驶，执行有关道路限速、限行、禁止超载的 规定，并配合交通管理部门的监督和检查。（另见6处同类条款）\n复核动作：按技术参数表逐项填写响应值，确认与报价表、技术资料一致。（须核对的具体值：28天）\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：28天。",
+      "after": "招标文件要求：1.10.2 场外交通 发包人应提供场外交通设施的技术参数和具体条件，承包人应遵守有关交通法 规，严格按照道路和桥梁的限制荷载行驶，执行有关道路限速、限行、禁止超载的 规定，并配合交通管理部门的监督和检查。；1.10.3 场内交通 发包人应提供场内交通设施的技术参数和具体条件，并应按照专用合同条款的 约定向承包人免费提供满足工程施工所需的场内道路和交通设施。\n复核要点：\n① 按技术参数表逐项填写响应值\n② 确认响应值与报价表、技术资料一致\n③ 依据第112页第1.10.2条逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n准备材料：类似项目合同及验收证明、技术参数响应对照表、进度计划或供货计划表、样品或样册",
+      "before_synthesized": "按技术参数表逐项填写响应值，确认与报价表、技术资料一致。（须核对的具体值：28天）\n技术要求逐条响应，证明材料可核验，无负偏离。 具体指标：28天。",
+      "after_synthesized": "① 按技术参数表逐项填写响应值\n② 确认响应值与报价表、技术资料一致\n③ 依据第112页第1.10.2条逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n\n类似项目合同及验收证明、技术参数响应对照表、进度计划或供货计划表、样品或样册\n"
+    },
+    {
+      "item_id": "DR051",
+      "before_item_id": "43",
+      "paired_by": "类型：TECHNICAL/培训与售后服务",
+      "requirement_type": "TECHNICAL",
+      "topic": "培训与售后服务",
+      "before": "招标文件要求：6.1.2 安全生产保证措施 承包人应当按照有关规定编制安全技术措施或者专项施工方案，建立安全生产 责任制度、治安保卫制度及安全生产教育培训制度，并按安全生产法律规定及合同 约定履行安全职责，如实编制工程安全生产的有关记录，接受发包人、监理人及政 府安全监督部门的检查与监督。\n复核动作：核对培训安排与售后服务响应时间、备件、服务网点承诺，确认可量化、可履约。\n核验标准：技术要求逐条响应，证明材料可核验，无负偏离。",
+      "after": "招标文件要求：6.1.2 安全生产保证措施 承包人应当按照有关规定编制安全技术措施或者专项施工方案，建立安全生产 责任制度、治安保卫制度及安全生产教育培训制度，并按安全生产法律规定及合同 约定履行安全职责，如实编制工程安全生产的有关…\n复核要点：\n① 核对培训安排与售后服务响应时间承诺\n② 确认备件、服务网点等承诺可量化、可履约\n③ 依据第125页第6.1.2条逐条比对响应文件对应章节\n通过标准：\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n准备材料：类似项目合同及验收证明、培训方案",
+      "before_synthesized": "核对培训安排与售后服务响应时间、备件、服务网点承诺，确认可量化、可履约。\n技术要求逐条响应，证明材料可核验，无负偏离。",
+      "after_synthesized": "① 核对培训安排与售后服务响应时间承诺\n② 确认备件、服务网点等承诺可量化、可履约\n③ 依据第125页第6.1.2条逐条比对响应文件对应章节\n· 技术要求逐条响应，证明材料可核验，无负偏离。\n\n类似项目合同及验收证明、培训方案\n"
+    }
+  ],
+  "review_points": [
+    {
+      "item_id": "DR003",
+      "requirement_type": "REJECTION",
+      "topic": "其他否决情形",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "第三章“评标及定标办法”应列明全部评审因素和评审标准，并集 中列示投标人不满足其要求即导致投标被否决的全部条款。",
+      "evidence_ids": [
+        "SR0004",
+        "SR0037",
+        "SR0051",
+        "SR0103"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR018",
+      "requirement_type": "REJECTION",
+      "topic": "资格条件不符合",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "如企业财产处于被接管、全部资金被冻结以及破产状 态，其投标将被否决或取消中标资格。",
+      "evidence_ids": [
+        "SR0031",
+        "SR0091",
+        "SR0195",
+        "SR0272"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR023",
+      "requirement_type": "REJECTION",
+      "topic": "串通投标或弄虚作假",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "其他： 我方保证上述信息的真实和准确，若我公司违反承诺内容，隐瞒、提供虚假资料，被贵 方发现或被他人举报查实，无条件接受相关行政主管部门做出的取消投标资格、中标资格、 不良行为记录的处罚，对造成的损失，任何法律和经济责任完全由我方负责。",
+      "evidence_ids": [
+        "SR0046",
+        "SR0117",
+        "SR0165",
+        "SR0206"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR028",
+      "requirement_type": "REJECTION",
+      "topic": "禁止性情形与失信排除",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0081",
+        "SR0120",
+        "SR0271"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR031",
+      "requirement_type": "REJECTION",
+      "topic": "未实质性响应",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "件视为未响应招标文件，其投标将被否决。",
+      "evidence_ids": [
+        "SR0125",
+        "SR0282",
+        "SR0283",
+        "SR0284"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR046",
+      "requirement_type": "REJECTION",
+      "topic": "保证金不符合要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "3.4.1项要求提交投标保证金的，评标委员会将否决其投标。",
+      "evidence_ids": [
+        "SR0302"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR047",
+      "requirement_type": "REJECTION",
+      "topic": "解密失败或未按时递交",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "3.7.4因投标人自身原因而导致投标文件(指解密后的投标文件)无法导入电子交易系 统电子开标、评标系统，该投标视为无效投标，投标人自行承担由此导致的全部责任。",
+      "evidence_ids": [
+        "SR0319"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR012",
+      "requirement_type": "QUALIFICATION",
+      "topic": "营业执照与独立法人",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0020",
+        "SR0021",
+        "SR0022",
+        "SR0062"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR014",
+      "requirement_type": "PERSONNEL",
+      "topic": "项目负责人资格",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0024",
+        "SR0025",
+        "SR0038",
+        "SR0039"
+      ],
+      "values": [
+        "1名",
+        "2人"
+      ]
+    },
+    {
+      "item_id": "DR016",
+      "requirement_type": "PERSONNEL",
+      "topic": "安全与管理人员",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0027",
+        "SR0112",
+        "SR0189",
+        "SR0479"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR017",
+      "requirement_type": "QUALIFICATION",
+      "topic": "信用与失信查询",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0030",
+        "SR0194",
+        "SR0531"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR019",
+      "requirement_type": "QUALIFICATION",
+      "topic": "资质等级与许可",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0032",
+        "SR0033",
+        "SR0034",
+        "SR0035"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR020",
+      "requirement_type": "CONSORTIUM",
+      "topic": "联合体",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0036",
+        "SR0099",
+        "SR0100",
+        "SR0101"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR021",
+      "requirement_type": "PERSONNEL",
+      "topic": "人员配置要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 2,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0042",
+        "SR0102",
+        "SR0106",
+        "SR0109"
+      ],
+      "values": [
+        "2人"
+      ]
+    },
+    {
+      "item_id": "DR022",
+      "requirement_type": "QUALIFICATION",
+      "topic": "特定资格条件",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0044",
+        "SR0063",
+        "SR0114",
+        "SR0227"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR024",
+      "requirement_type": "SUBCONTRACT",
+      "topic": "分包与转包",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0047",
+        "SR0199",
+        "SR0200",
+        "SR0252"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR040",
+      "requirement_type": "PERSONNEL",
+      "topic": "人员社保与劳动关系",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0185",
+        "SR0186",
+        "SR0211",
+        "SR0217"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR043",
+      "requirement_type": "FINANCIAL",
+      "topic": "财务承诺函",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0259",
+        "SR0547",
+        "SR0682"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR044",
+      "requirement_type": "PERFORMANCE",
+      "topic": "类似项目业绩",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0260"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR048",
+      "requirement_type": "FINANCIAL",
+      "topic": "财务与审计报告",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0417",
+        "SR0522",
+        "SR0532"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR002",
+      "requirement_type": "FORM",
+      "topic": "投标文件格式",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0003",
+        "SR0059",
+        "SR0172",
+        "SR0179"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR029",
+      "requirement_type": "PROOF",
+      "topic": "证明材料要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0116",
+        "SR0167",
+        "SR0168",
+        "SR0178"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR006",
+      "requirement_type": "OTHER",
+      "topic": "其他要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0011",
+        "SR0014",
+        "SR0107",
+        "SR0111"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR038",
+      "requirement_type": "OTHER",
+      "topic": "文件组成与格式",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0156",
+        "SR0183",
+        "SR0191",
+        "SR0242"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR027",
+      "requirement_type": "PRICING",
+      "topic": "报价组成与费用范围",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 4,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0054",
+        "SR0147",
+        "SR0150",
+        "SR0175"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR030",
+      "requirement_type": "PRICING",
+      "topic": "最高限价与控制价",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 4,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0124",
+        "SR0126",
+        "SR0294",
+        "SR0457"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR033",
+      "requirement_type": "BOND",
+      "topic": "保证金形式",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 5,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0130",
+        "SR0131",
+        "SR0132",
+        "SR0133"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR034",
+      "requirement_type": "BOND",
+      "topic": "保证金递交与凭证",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 4,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0140",
+        "SR0142",
+        "SR0299",
+        "SR0357"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR035",
+      "requirement_type": "BOND",
+      "topic": "保证金金额",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0143",
+        "SR0144",
+        "SR0149",
+        "SR0151"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR039",
+      "requirement_type": "BOND",
+      "topic": "投标保证金",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0169",
+        "SR0170",
+        "SR0246",
+        "SR0248"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR045",
+      "requirement_type": "PRICING",
+      "topic": "分项限价与暂列金额",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 4,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0291",
+        "SR0293",
+        "SR0400",
+        "SR0441"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR011",
+      "requirement_type": "DURATION",
+      "topic": "工期与供货期",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 6,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0017",
+        "SR0060",
+        "SR0256",
+        "SR0467"
+      ],
+      "values": [
+        "2026年",
+        "6月",
+        "15日",
+        "2027年",
+        "12月",
+        "31日",
+        "554日历天",
+        "48小时",
+        "7天",
+        "84天",
+        "28天"
+      ]
+    },
+    {
+      "item_id": "DR026",
+      "requirement_type": "QUALITY",
+      "topic": "质量要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0050",
+        "SR0184",
+        "SR0372",
+        "SR0394"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR032",
+      "requirement_type": "VALIDITY",
+      "topic": "投标有效期",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 5,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0128",
+        "SR0296",
+        "SR0344",
+        "SR0352"
+      ],
+      "values": [
+        "90日历天",
+        "90日"
+      ]
+    },
+    {
+      "item_id": "DR041",
+      "requirement_type": "WARRANTY",
+      "topic": "质保与保修",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 5,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0220",
+        "SR0225",
+        "SR0226",
+        "SR0228"
+      ],
+      "values": [
+        "7天",
+        "14天"
+      ]
+    },
+    {
+      "item_id": "DR010",
+      "requirement_type": "CONTRACT",
+      "topic": "合同条款与付款",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 6,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0016",
+        "SR0018",
+        "SR0166",
+        "SR0202"
+      ],
+      "values": [
+        "30%",
+        "50%",
+        "80%",
+        "10%"
+      ]
+    },
+    {
+      "item_id": "DR042",
+      "requirement_type": "OTHER",
+      "topic": "费用与付款",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0244",
+        "SR0679"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR004",
+      "requirement_type": "TECHNICAL",
+      "topic": "★条款与强制参数",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0006",
+        "SR0476"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR008",
+      "requirement_type": "TECHNICAL",
+      "topic": "安装调试与验收",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 3,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0013",
+        "SR0019",
+        "SR0061",
+        "SR0229"
+      ],
+      "values": [
+        "108套",
+        "13套",
+        "50套",
+        "24个",
+        "90天"
+      ]
+    },
+    {
+      "item_id": "DR025",
+      "requirement_type": "TECHNICAL",
+      "topic": "技术方案与实施组织",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 2,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0048",
+        "SR0187",
+        "SR0197",
+        "SR0223"
+      ],
+      "values": [
+        "2项"
+      ]
+    },
+    {
+      "item_id": "DR049",
+      "requirement_type": "TECHNICAL",
+      "topic": "接口与集成",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0464",
+        "SR0468",
+        "SR0549",
+        "SR0559"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR050",
+      "requirement_type": "TECHNICAL",
+      "topic": "技术参数与配置",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0489",
+        "SR0581",
+        "SR0582",
+        "SR0660"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR051",
+      "requirement_type": "TECHNICAL",
+      "topic": "培训与售后服务",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0672"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR053",
+      "requirement_type": "TECHNICAL",
+      "topic": "数据迁移与上线",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0842"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR007",
+      "requirement_type": "OTHER",
+      "topic": "评审计分",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0012",
+        "SR0049",
+        "SR0216",
+        "SR0763"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR052",
+      "requirement_type": "EVALUATION",
+      "topic": "价格评分与基准价",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 4,
+      "pass_criteria": 2,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0798",
+        "SR0799",
+        "SR0800",
+        "SR0802"
+      ],
+      "values": [
+        "5%"
+      ]
+    },
+    {
+      "item_id": "DR001",
+      "requirement_type": "EVALUATION",
+      "topic": "定性评审与定标",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0001",
+        "SR0002",
+        "SR0005",
+        "SR0008"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR005",
+      "requirement_type": "EVALUATION",
+      "topic": "评分标准与分值构成",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": true,
+      "consequence": "（十四）工程未经招标人同意不得分包，中标人如违反上述规定，招标人",
+      "evidence_ids": [
+        "SR0007",
+        "SR0171",
+        "SR0251",
+        "SR0313"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR013",
+      "requirement_type": "SIGNATURE",
+      "topic": "签字盖章要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0023",
+        "SR0028",
+        "SR0029",
+        "SR0043"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR015",
+      "requirement_type": "ELECTRONIC",
+      "topic": "加密上传与解密",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 0,
+      "source_backed_consequence": true,
+      "consequence": "未按照规定加密或投标截止时间后送达的投标文件，电子交易系统应当拒收。",
+      "evidence_ids": [
+        "SR0026",
+        "SR0052",
+        "SR0053",
+        "SR0055"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR037",
+      "requirement_type": "ELECTRONIC",
+      "topic": "CA与电子签章",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0146",
+        "SR0162",
+        "SR0318"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR036",
+      "requirement_type": "SUBMISSION",
+      "topic": "递交方式与截止时间",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 3,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0145",
+        "SR0205",
+        "SR0288",
+        "SR0311"
+      ],
+      "values": []
+    },
+    {
+      "item_id": "DR009",
+      "requirement_type": "OTHER",
+      "topic": "程序性要求",
+      "actionability": "ACTIONABLE",
+      "status": "READY",
+      "checks": 2,
+      "pass_criteria": 1,
+      "source_backed_consequence": false,
+      "consequence": "",
+      "evidence_ids": [
+        "SR0015",
+        "SR0056",
+        "SR0058",
+        "SR0193"
+      ],
+      "values": []
+    }
+  ],
+  "result": "PASS",
+  "blocking": {
+    "hard_gates": {},
+    "fixture_failures": [],
+    "sheet_mismatches": 0,
+    "case_checks": []
+  }
+}

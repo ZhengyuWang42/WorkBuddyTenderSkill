@@ -377,3 +377,28 @@ DOCX sha256 = `e013b1f24f8a05ee9dd5d6b88518306aec2c1ebb9694d127e65150d9cf3e2365`
 > 复核纪律：`ProjectFacts` 是事实 SSOT。人工在工作簿里填写的复核值与结论**不会**写回
 > `project_facts.json`；若人工发现事实错误，须走 `scripts/apply_resolution.py` 的受控流程
 > （仅 `NEEDS_REVIEW` 可被人工裁决），并留下审计记录。
+
+### 第 2 轮（复核要点合成）新增复核点（全部未勾选）
+
+第 2 轮把每一行改写为**合成的人工复核要点**：招标文件要求 / 复核要点（①②③）/ 通过标准 /
+不满足后果 / 准备材料 / 评分提示。人工复核时请额外确认：
+
+- [ ] 每一行的「复核要点」是否与「招标文件要求」（源条款引文）指向同一件事
+- [ ] 「通过标准」是否描述可观察状态（而不是重复要求原文）
+- [ ] 「不满足后果」是否确有源条款依据（无依据的行应没有此块）
+- [ ] 行内出现的数字是否属于该行：金额只出现在报价/保证金行，天数只出现在工期/有效期/
+      质保/响应时间行；费用（标书费/平台服务费）与电话号码不得出现在复核要点中
+- [ ] `02_关键条款` / `03_资格否决与强制项` 的正文、复核动作、核验标准是否与交付表 D 列同源
+- [ ] 第 2 轮被过滤的非行动项（CASE001：1 条"售后服务与运维"平台服务费条款）是否确无投标
+      人义务，过滤是否正确
+- [ ] 渲染 QA 剩余的 `clipping_bounded` WARN（CASE001 10 / CASE002 17 / CASE003 26）中，
+      `02_关键条款` 与 `03_资格否决与强制项` 的 E/F 列小幅截断是否影响阅读
+- [ ] 结论：可接受 / 需修改
+- [ ] 复核人：____________  日期：____________
+
+> 证据：`review_workbook_round2_content_quality.json` / `.md`（含 8 组 BEFORE→AFTER 与
+> 7 项已知坏例结果）、`case_00{1,2,3}_review_workbook_{build,gate,visual_qa}_round2.json`、
+> `review_workbook_round2_full_test_suite.txt` / `.xml`。
+> 自动化结论：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
+> `CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、
+> `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`。以上复选框全部保持未勾选。

@@ -42,6 +42,12 @@ from .dynamic_requirements import (
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
 from .output_helpers import value_text
+from .review_point import (
+    ReviewPoint,
+    render_checks,
+    render_review_cell,
+    synthesize_review_point,
+)
 
 _STATUS_PENDING = "待核对"
 _MONEY_RE = re.compile(r"\d[\d,]*(?:\.\d+)?\s*(?:万元|元)")
@@ -302,6 +308,7 @@ class DynamicReviewItem(ContractModel):
     values: list[str] = Field(default_factory=list)
     notes: str = ""
     cell_text: str = ""
+    review_point: "ReviewPoint | None" = None
 
 
 @dataclass(frozen=True)
@@ -310,6 +317,8 @@ class DynamicReviewPlan:
     index: RequirementIndex
     source_requirement_count: int
     dropped_duplicate_count: int
+    filtered_non_actionable_count: int = 0
+    filtered_non_actionable_topics: tuple[str, ...] = ()
 
     def rows(self) -> list[DynamicReviewItem]:
         return list(self.items)
@@ -479,37 +488,45 @@ def build_dynamic_review_plan(
         groups[key].append(unit)
 
     items: list[DynamicReviewItem] = []
+    filtered_topics: list[str] = []
     counter = 0
     for key in order:
         units = groups[key]
         requirement_type, topic = key
         module = _module_for(units, requirement_type, topic)
         fact_fields = FACT_FOR_TYPE.get(requirement_type, ())
+        fact_hints: dict[str, str] = {}
         related_field = ""
         related_value = ""
-        fact_hint = ""
         for field in fact_fields:
             resolved = _fact_value(project_facts, field)
             if not resolved:
                 continue
-            related_field = field
-            related_value = resolved
             locator = _fact_locator(project_facts, field)
             label = FACT_LABELS.get(field, field)
-            fact_hint = f"{label} {resolved}" + (f"（{locator}）" if locator else "")
-            break
+            fact_hints[field] = f"{label} {resolved}" + (f"（{locator}）" if locator else "")
+            if not related_field:
+                related_field = field
+                related_value = resolved
+        point = synthesize_review_point(
+            units=units,
+            requirement_type=requirement_type,
+            topic=topic,
+            fact_hints=fact_hints,
+            linked_fields=tuple(field for field in fact_fields if field in fact_hints),
+        )
+        if point is None:
+            # Non-actionable purchaser-internal procedure: not a bidder review row.
+            filtered_topics.append(topic)
+            continue
+        source_requirement = point.requirement_summary
+        if related_value and related_value not in source_requirement:
+            source_requirement = f"{source_requirement}（{fact_hints[related_field]}）"
         values = [value for value in _concrete_values(units) if value not in related_value]
-        source_requirement = _compose_source_requirement(units, topic)
-        if fact_hint and related_value not in source_requirement:
-            source_requirement = f"{source_requirement}（{fact_hint}）"
         backing = " ".join(unit.text for unit in units)
-        verification_action = _guard_concepts(
-            _compose_action(topic, values, fact_hint), backing
-        ) or _NEUTRAL_ACTION
-        pass_criteria = _guard_concepts(
-            _compose_pass_criteria(requirement_type, values, fact_hint), backing
-        ) or _NEUTRAL_PASS
-        consequence = _consequence(units, topic)
+        verification_action = render_checks(point)
+        pass_criteria = " ".join(point.pass_criteria)
+        consequence = point.failure_consequence
         primary = sorted(units, key=_unit_priority(topic), reverse=True)[0]
         locator_parts = []
         if primary.page:
@@ -549,12 +566,9 @@ def build_dynamic_review_plan(
                     3,
                 ),
                 values=values[:12],
-                cell_text=_compose_cell_text(
-                    source_requirement,
-                    verification_action,
-                    pass_criteria,
-                    consequence,
-                ),
+                notes=point.notes,
+                cell_text=render_review_cell(point),
+                review_point=point,
             )
         )
     return DynamicReviewPlan(
@@ -562,6 +576,8 @@ def build_dynamic_review_plan(
         index=source_index,
         source_requirement_count=len(source_index.units),
         dropped_duplicate_count=source_index.merged_duplicates,
+        filtered_non_actionable_count=len(filtered_topics),
+        filtered_non_actionable_topics=tuple(filtered_topics),
     )
 
 
