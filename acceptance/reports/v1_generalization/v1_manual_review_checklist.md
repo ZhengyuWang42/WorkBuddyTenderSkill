@@ -449,34 +449,66 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-**当前复核对象（CURRENT = Round3）**：第 3 轮后继构建，Word 产物与 closure8 逐字节相同
-（`word_render_repeated=false`）。路径与 sha256 取自 `review_workbook_round3_final_status.json`。
+**当前复核对象（CURRENT = Round7）**：第 7 轮后继构建，Word 产物与 closure8 逐字节相同
+（`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
 
 | 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
 | --- | --- | --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3/投标项目复核表.xlsx` | 43 | `746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook3/投标项目复核表.xlsx` | 44 | `e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook3/投标项目复核表.xlsx` | 47 | `0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322` |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7/投标项目复核表.xlsx` | 49 | `d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook7/投标项目复核表.xlsx` | 45 | `6e6bb959527b7cf70a0abe1ba1b7a7d860be9d14ccc9829ceb3746727dc50411` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook7/投标项目复核表.xlsx` | 48 | `cc4d4e137aa676481f759ba2bb259fd7f2b5a4ca67a1c6df8fdb5a118b0f6dcb` |
 
 机器闭环证据（**已通过，不代替人工复核**）：
 
-- 结构门禁 **40/40 PASS**，三案例各自（`scripts/v1_review_workbook_gate.py --legacy-text-refresh`；
-  `case_00{1,2,3}_review_workbook_gate_round3.json`，`check_count = passed = 40`、`failed = 0`）
-- 内容质量报告 PASS：`review_workbook_round3_content_quality_case_00{1,2,3}.json` / `.md`
-  （CASE001 `14/14` A–N 已知坏例、`20/20 coherent` 人工风格审计、16 组 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）
-- 渲染 QA PASS（`case_00{1,2,3}_review_workbook_visual_qa_round3.json`；
-  `clipping_bounded` WARN：CASE001 **8** / CASE002 **10** / CASE003 **26**，基线 10/17/26）
-- 最终状态：`review_workbook_round3_final_status_reconciled.json` = `PASS`、`blockers = []`、
-  三案例门禁 `40/40`（取代 `review_workbook_round3_final_status.json`；后者保留未改，见第 5 节）
-- 全套测试：`review_workbook_round3_full_test_suite.txt` / `.xml` = 716 collected / 715 passed /
-  1 skipped / 0 failed / 0 errors
-- Word 产物未重新渲染：DOCX `8dedddb7…`、PDF `3fe5b5b9…`、报告 `1274c205…` 与已验收构建逐字节相同
-- 状态：`CASE001_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`
+- 第 7 轮三案例审计 PASS：`review_workbook_round7_case_00{1,2,3}.json` / `.md`（`0 failed check`）、
+  泛化 `review_workbook_round7_generalization.json` = PASS
+- 渲染 QA PASS：`case00{1,2,3}_review_workbook7_visual_qa.json`（`failed_checks = 0`；
+  `clipping_bounded` 有界 WARN：CASE001 **9** / CASE002 **10** / CASE003 **28**，非失败）
+- 第 6 轮标记账目与第 5 轮契约在**第 7 轮构建上**复跑通过：`25/25` 检查、夹具 23 / 3 / 10、
+  标记丢失 0 / 未归属 0 / 未解析 0 / 直接失败 0
+- 第 7 轮定向测试 27/27（`tests/test_round7_applicable_source.py`），与第 4 轮出处测试合计 114 项通过
+- 全套测试：`review_workbook_round7_full_test_suite.txt` / `.xml` =
+  **892 collected / 0 failed / 0 errors / 1 skipped**
+- Word 产物未重新渲染：DOCX / PDF / 报告与已验收 closure8 构建逐字节相同（三案例）
+- 状态：`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（**人工尚未置为已确认**）、
+  `CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`
 
-> **历史复核对象（HISTORICAL，已被上一表取代）**：第 1 轮后继构建
+> **历史复核对象（HISTORICAL，已被上表取代）**：第 1 轮后继构建
 > `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook1/投标项目复核表.xlsx`
 > （CASE002 `case_002/v1_round4_closure8_review_workbook1`、CASE003 `case_003/v1_round4_closure8_review_workbook1`），
-> 当时门禁 37/37 PASS、渲染 QA PASS。第 2 轮后继构建 `..._review_workbook2` 同样为历史。两者均**未删除**。
+> 当时门禁 37/37 PASS、渲染 QA PASS。第 2 / 3 / 4 / 5 / 6 轮后继构建
+> （`..._review_workbook2` … `..._review_workbook6_marker_closure`）同样为历史。全部**未删除**。
+
+### 第 7 轮（适用源解析 / 否决作用域 / 证据定位保真）人工复核点（全部未勾选）
+
+本轮链条为 `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT →
+EXACT MATCHING EVIDENCE LOCATOR`。人工复核时请逐项确认：
+
+- [ ] 个案化前附表/日程值（如 `1.10.1 采购预备会 不召开`、`1.11.1 踏勘现场 不组织`、
+      `*1.12 分包 不允许`、`*1.4.5 供货期`、`*1.4.6 交货地点`、`7.3 履约保证金`）显示的是
+      **前附表的值**，而不是"见供应商须知前附表"的通用正文
+- [ ] 适用源的页码/条款号指向**前附表页**（CASE001 为第 9 / 10 / 11 页），不是通用正文页（第 16 页）
+- [ ] `SPECIALIZES` 情形（`7.3.1 履约保证金`）父条款措辞保留，同时以"项目专用值："附加个案值
+- [ ] 否决/实质性语义只出现在真正会被否决的行；仅影响得分、仅中标后取消、合同责任、
+      逾期不予接受等**不得**显示为响应性否决
+- [ ] 每行的显示要求、证据摘录、页码、章节、条款号指向**同一个**源语义单元
+- [ ] 证据摘录不跨越相邻源单元的**另一个**要求（例如有效期行不应同时引用响应保证金行）
+- [ ] 多条款要求（CASE002 `DR026`）显式链接全部证据单元（PRIMARY + LINKED），没有丢弃任一来源
+- [ ] 同一平台的不同角色（采购服务平台 / 交易 / 上传 / 开标 / 公告）没有被折叠成一个事实
+- [ ] 最终源片段完整且不重复（无 `%%`、无重复编号项、无半句话）
+- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
+
+### 第 6 轮（标记收口）人工复核点（全部未勾选，HISTORICAL）
+
+第 6 轮把源文标记账目闭合到"出现次数"层级（`MarkerOccurrence`、
+`DISCOVERED = ATTRIBUTED + EXPLICITLY_ACCOUNTED_NON_DELIVERED`）。人工复核时请逐项确认：
+
+- [ ] 仪表盘 `B27` 标签为**行数**语义（带源标记的复核条目数），不是标记出现次数
+- [ ] 三个计数彼此独立且不得互相替代（出现次数 / 带标记行数 / 实质性行数）
+- [ ] 每个源文标记出现都有归属或明确的非交付处置（无 `UNRESOLVED`）
+- [ ] `★` 未被自动等同于否决
+- [ ] 背景非行动项的处置理由成立，且没有掩盖已交付要求
+
 
 ### 第 3 轮（复核关注点归属）人工复核点（全部未勾选）
 

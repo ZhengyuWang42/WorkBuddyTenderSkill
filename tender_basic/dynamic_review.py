@@ -26,6 +26,29 @@ from typing import Any, Iterable, Mapping, Sequence
 from pydantic import Field
 
 from .document_models import NormalizedDocument
+from .evidence_unit import (  # noqa: E402
+    EvidenceUnitIndex,
+    NEW_ELEMENT_RE,
+    _up_to_sentence_end,
+    atom_clause_number,
+    complete_fragment_backwards,
+    dedupe_segments,
+    extend_fragment,
+    finish_from_unit,
+    locator_for_atom,
+    normalize_numeric_fragment,
+    sentence_window,
+    split_numbered_items,
+    strip_leading_overlap,
+)
+from .source_applicability import (  # noqa: E402
+    action_for_resolution,
+    apply_applicable_resolutions,
+    discover_schedule_rows,
+    resolve_applicable_sources,
+    resolution_for_concern,
+    risk_is_informational,
+)
 from .dynamic_requirements import (
     MODULE_EVALUATION,
     MODULE_EVALUATION_QUALITATIVE,
@@ -42,7 +65,7 @@ from .dynamic_requirements import (
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
 from .concern_contract import contract_for as concern_contract_for  # noqa: E402
-from .concern_contract import validate_point  # noqa: E402
+from .concern_contract import owned_text, validate_point  # noqa: E402
 from .output_helpers import value_text
 from .review_concern import actionable_concerns, atomize_units, build_concerns, concern_spec
 from .review_point import (
@@ -367,6 +390,11 @@ class DynamicReviewItem(ContractModel):
     mandatory_types: list[str] = Field(default_factory=list)
     reference_parent_atom_id: str = ""
     reference_target: str = ""
+    #: Round 7: every source semantic unit the displayed requirement is composed
+    #: from, explicitly linked.  A broad concern (contract risk) legitimately
+    #: quotes several clauses, and the reviewer must be able to reach each of
+    #: them; the row's primary locator is the first entry.
+    evidence_units: list[dict[str, Any]] = Field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -558,11 +586,24 @@ def build_dynamic_review_plan(
     # not the old (requirement_type, topic) bucket -- owns the rendered
     # requirement, numbers, materials, consequence and evidence.
     atoms = atomize_units(source_index.units)
+    # Round 7: resolve the generic clauses that a project-specific schedule /
+    # front table actually decides ("见供应商须知前附表" -> the schedule's own
+    # value).  The generic clause is kept but marked superseded for display.
+    schedule_rows = discover_schedule_rows(document)
+    applicable_resolutions, atoms = apply_applicable_resolutions(
+        atoms, resolve_applicable_sources(atoms, schedule_rows, document)
+    )
+    #: every source atom of the plan, so a row can reach the project-specific
+    #: source it resolves to even when a sibling concern owns the generic clause
+    stream_atoms = list(atoms)
     # Round 6: the source's own criticality semantics (raw emphasis markers, the
     # governing substantive-requirement clause, the consequence rules and the
     # explicit references those clauses use).  Derived from the document, never
     # from the generated rows.
     criticality = build_criticality_index(document, atoms)
+    # Round 7: the evidence unit each atom is displayed from (page / heading /
+    # clause / span), so the printed locator cannot describe another section.
+    evidence_units = EvidenceUnitIndex.build(document, atoms)
     concerns = build_concerns(atoms)
     kept, filtered = actionable_concerns(concerns)
     units_by_id = {unit.requirement_id: unit for unit in source_index.units}
@@ -634,27 +675,125 @@ def build_dynamic_review_plan(
         verification_action = render_checks(point)
         pass_criteria = " ".join(point.pass_criteria)
         consequence = point.failure_consequence
-        primary_atom, primary = _primary_source(
-            concern, units_by_id, units, spec.decisive_pattern, owned_values, point.requirement_summary
+        resolution = resolution_for_concern(
+            concern, applicable_resolutions, point.requirement_summary
         )
-        locator_parts = []
-        if primary.page:
-            locator_parts.append(f"第{primary.page}页")
-        if primary.section:
-            locator_parts.append(primary.section)
-        if primary.clause:
-            locator_parts.append(f"第{primary.clause}条")
-        locator_parts.append(
-            f"（{primary.source_kind}）"
+        display_atoms: list[Any] = []
+        if resolution is not None:
+            # the resolution's own source atom is the row's evidence, even when the
+            # concern reaches it through a generic clause it shares with another
+            # concern: the displayed requirement comes from that atom, so the page,
+            # section, clause and excerpt must come from it too
+            specific = next(
+                (
+                    atom
+                    for atom in getattr(concern, "atoms", ())
+                    if str(getattr(atom, "atom_id", "")) == resolution.specific_atom_id
+                ),
+                None,
+            )
+            if specific is None:
+                # the applicable atom may belong to a sibling concern that shares
+                # the generic clause: it is still the row's own source
+                specific = next(
+                    (
+                        atom
+                        for atom in stream_atoms
+                        if str(getattr(atom, "atom_id", "")) == resolution.specific_atom_id
+                    ),
+                    None,
+                )
+            primary_atom, primary = _primary_source(
+                concern,
+                units_by_id,
+                units,
+                spec.decisive_pattern,
+                owned_values,
+                point.requirement_summary,
+                preferred_atom=specific,
+            )
+        else:
+            primary_atom, primary = _primary_source(
+                concern,
+                units_by_id,
+                units,
+                spec.decisive_pattern,
+                owned_values,
+                point.requirement_summary,
+            )
+        locator, page, section, clause = locator_for_atom(
+            primary_atom,
+            evidence_units,
+            fallback_page=getattr(primary, "page", None),
+            fallback_section=str(getattr(primary, "section", "") or ""),
+            fallback_clause=str(getattr(primary, "clause", "") or ""),
+            fallback_kind=str(getattr(primary, "source_kind", "") or ""),
         )
         counter += 1
         item_id = f"DR{counter:03d}"
-        evidence_text = str(getattr(primary_atom, "source_origin_text", "") or primary_atom.source_text)
-        if not _shared_grounding(evidence_text, units):
-            # a derived atom keeps its clause as the rendered evidence, so the
-            # evidence stays literally present in the source
-            evidence_text = str(getattr(primary, "text", "") or evidence_text)
-        row_criticality = criticality.for_atoms(list(getattr(concern, "atoms", ())))
+        if resolution is not None and resolution.specific_text:
+            display_atoms = _display_atoms(concern, resolution, "", primary_atom)
+            primary_atom, primary, _realigned = _realign_primary(
+                primary_atom,
+                primary,
+                "",
+                display_atoms,
+                units_by_id,
+                units,
+            )
+            locator, page, section, clause = locator_for_atom(
+                primary_atom,
+                evidence_units,
+                fallback_page=getattr(primary, "page", None),
+                fallback_section=str(getattr(primary, "section", "") or ""),
+                fallback_clause=str(getattr(primary, "clause", "") or ""),
+                fallback_kind=str(getattr(primary, "source_kind", "") or ""),
+            )
+        evidence_text = _evidence_excerpt(concern, primary_atom, evidence_units)
+        if resolution is not None and resolution.specific_text:
+            source_requirement = normalize_numeric_fragment(
+                _applicable_requirement(point.requirement_summary, resolution)
+            )
+        else:
+            repaired = _complete_source_text(concern, point.requirement_summary, evidence_units)
+            source_requirement = normalize_numeric_fragment(
+                _displayed_requirement(concern, repaired)
+            )
+        # Round 7 (§20): the row's evidence must be an atom the displayed
+        # requirement actually comes from.  A concern can reach a clause through a
+        # sibling concern's generic atom, which would otherwise print one clause's
+        # text while citing another's page.  Re-point the row at the clause whose
+        # own text the requirement quotes.
+        display_atoms = _display_atoms(concern, resolution, source_requirement, primary_atom)
+        primary_atom, primary, realigned = _realign_primary(
+            primary_atom,
+            primary,
+            source_requirement,
+            _facet_atoms(concern),
+            units_by_id,
+            units,
+            str(getattr(concern, "concern_id", "") or ""),
+        )
+        if realigned:
+            locator, page, section, clause = locator_for_atom(
+                primary_atom,
+                evidence_units,
+                fallback_page=getattr(primary, "page", None),
+                fallback_section=str(getattr(primary, "section", "") or ""),
+                fallback_clause=str(getattr(primary, "clause", "") or ""),
+                fallback_kind=str(getattr(primary, "source_kind", "") or ""),
+            )
+            evidence_text = _evidence_excerpt(concern, primary_atom, evidence_units)
+        if resolution is not None:
+            operational = action_for_resolution(resolution, concern.label or topic)
+            if operational:
+                verification_action = _operational_action(verification_action, operational)
+        display_atoms = _display_atoms(
+            concern, resolution, source_requirement, primary_atom
+        )
+        row_criticality = criticality.for_atoms(
+            list(getattr(concern, "atoms", ())), scope_atoms=display_atoms
+        )
         components = _render_components(
             item_id=item_id,
             concern=concern,
@@ -667,21 +806,26 @@ def build_dynamic_review_plan(
             fact_hints=fact_hints,
             evidence_text=evidence_text,
             criticality=row_criticality,
+            displayed_requirement=source_requirement,
         )
         item = DynamicReviewItem(
             item_id=item_id,
             module=module,
             submodule=concern.label or topic,
-            risk_level=RISK_BY_TYPE.get(requirement_type, "中"),
+            risk_level=(
+                "低"
+                if resolution is not None and risk_is_informational(resolution)
+                else RISK_BY_TYPE.get(requirement_type, "中")
+            ),
             requirement_type=requirement_type,
             topic=topic,
             source_requirement=source_requirement,
             verification_action=verification_action,
             pass_criteria=pass_criteria,
             consequence_if_failed=consequence,
-            source_locator=" / ".join(locator_parts),
-            source_page=primary.page,
-            source_section=primary.section,
+            source_locator=locator,
+            source_page=page,
+            source_section=section,
             source_evidence=evidence_text,
             source_requirement_ids=[
                 unit.requirement_id for unit in units
@@ -716,6 +860,17 @@ def build_dynamic_review_plan(
             mandatory_types=list(row_criticality.mandatory_types),
             reference_parent_atom_id=row_criticality.reference_parent_atom_id,
             reference_target=row_criticality.reference_target,
+            evidence_units=_linked_evidence_units(
+                source_requirement,
+                primary_atom,
+                evidence_units,
+                display_atoms,
+                locator=locator,
+                page=page,
+                section=section,
+                clause=clause,
+                excerpt=evidence_text,
+            ),
         )
         if spec.bidder_facing:
             items.append(item)
@@ -736,6 +891,875 @@ def build_dynamic_review_plan(
     )
 
 
+def _flatten(text: Any) -> str:
+    return re.sub(r"[\s\u3000]+", "", str(text or ""))
+
+
+def _facet_atoms(concern: Any) -> list[Any]:
+    """The owned atoms that carry the concern's own facet (never empty)."""
+
+    facet = list(getattr(concern, "facet_atoms", lambda: [])() or [])
+    return facet or list(getattr(concern, "atoms", ()))
+
+
+#: the source's own emphasis characters (round 6 vocabulary, discovered per case)
+_SOURCE_MARKER_RE = re.compile(r"^\s*[\*★☆▲△●]")
+
+
+def source_marked(atom: Any) -> bool:
+    """Does the atom's own source text visibly carry an emphasis marker?"""
+
+    return bool(_SOURCE_MARKER_RE.match(str(getattr(atom, "source_text", "") or "")))
+
+
+def _display_atoms(
+    concern: Any,
+    resolution: Any = None,
+    summary: str = "",
+    primary_atom: Any = None,
+) -> list[Any]:
+    """The atoms this row actually displays, and therefore the atoms whose
+    source criticality it may show.
+
+    A concern groups every atom that answers one human question, including atoms
+    that are only *related* to it; a marker or a rejection consequence carried by
+    such a neighbour must not appear on this row (round-7 fixtures A/B/E).  The
+    set is the atoms whose source text the row's displayed requirement literally
+    quotes, plus the row's primary atom and the project-specific source that
+    resolves the clause.
+    """
+
+    atoms = list(getattr(concern, "atoms", ()))
+    if not atoms:
+        return []
+    if resolution is not None:
+        specific = next(
+            (
+                atom
+                for atom in atoms
+                if str(getattr(atom, "atom_id", "")) == str(
+                    getattr(resolution, "specific_atom_id", "") or ""
+                )
+            ),
+            None,
+        )
+        if specific is not None:
+            return [specific]
+    quoted = [
+        atom
+        for atom in atoms
+        if not getattr(atom, "superseded_for_display", False)
+        and _grounded_in(str(summary or ""), [str(getattr(atom, "source_text", "") or "")])
+    ]
+    if primary_atom is not None and primary_atom not in quoted:
+        quoted.append(primary_atom)
+    # the same requirement clause may be stated twice (body clause + front-table
+    # row): a marker on either copy belongs to the displayed requirement
+    clauses = {
+        atom_clause_number(atom) for atom in quoted if atom_clause_number(atom)
+    }
+    for atom in atoms:
+        if atom in quoted or getattr(atom, "superseded_for_display", False):
+            continue
+        if atom_clause_number(atom) and atom_clause_number(atom) in clauses:
+            quoted.append(atom)
+        elif getattr(atom, "applicable_of_atom_id", ""):
+            quoted.append(atom)
+    # A directly source-marked clause of this concern is part of what the row
+    # displays even when the summary quotes a sibling clause of the same
+    # requirement (round-7: the electronic-upload row shows 3.7.4's ★ while its
+    # wording comes from 4.2.4).
+    facet_ids = {str(getattr(atom, "atom_id", "")) for atom in _facet_atoms(concern)}
+    for atom in atoms:
+        if atom in quoted or getattr(atom, "superseded_for_display", False):
+            continue
+        if str(getattr(atom, "atom_id", "")) in facet_ids and source_marked(atom):
+            quoted.append(atom)
+    if quoted:
+        return quoted
+    facet = list(getattr(concern, "facet_atoms", lambda: [])() or [])
+    pool = facet or atoms
+    visible = [atom for atom in pool if not getattr(atom, "superseded_for_display", False)]
+    return visible or pool
+
+
+def _applicable_requirement(summary: str, resolution: Any) -> str:
+    """The displayed requirement: the project-specific value that now governs.
+
+    Round 7: the schedule's own value *replaces* the generic template for
+    display.  The generic clause is not part of the displayed requirement -- it
+    is kept in the atom stream and in the resolution record for coverage,
+    provenance and audit, and a marker or consequence that belonged to it is
+    resolved through ``source_hierarchy_evidence``.  Repeating it inside the
+    requirement cell would put a superseded clause back in front of the reviewer
+    (and re-introduce its foreign facet text: "1.5.1 供应商资格能力和条件" inside
+    the warranty row).
+    """
+
+    specific = str(getattr(resolution, "specific_text", "") or "").strip()
+    generic = str(summary or "").strip()
+    if not specific:
+        return generic
+    value = str(getattr(resolution, "specific_value_text", "") or "").strip()
+    if str(getattr(resolution, "relationship", "")) == "SPECIALIZES":
+        # the clause states its own obligation and the schedule supplies one of
+        # its parameters ("按供应商须知前附表规定的形式、金额…提交履约保证金"):
+        # the project value joins the clause instead of replacing it
+        if not value or _flatten(value) in _flatten(generic):
+            return generic or value or specific
+        return f"{generic}；项目专用值：{value}" if generic else value
+    return specific
+
+
+def _operational_action(checks: str, operational: str) -> str:
+    """Put the project-value action first, keeping the owned checks after it."""
+
+    lines = [line.strip() for line in str(checks or "").splitlines() if line.strip()]
+    if not lines:
+        return operational
+    if operational in lines:
+        return checks
+    if operational.startswith(lines[0].lstrip("①②③④⑤⑥⑦⑧⑨ ")):
+        return checks
+    remainder = [_reletter(line, index) for index, line in enumerate(lines, start=2)]
+    return "\n".join([f"① {operational}", *remainder])
+
+
+_CHECK_MARKS = "①②③④⑤⑥⑦⑧⑨"
+
+
+def _reletter(line: str, index: int) -> str:
+    body = line.lstrip(_CHECK_MARKS + " ")
+    if index <= len(_CHECK_MARKS):
+        return f"{_CHECK_MARKS[index - 1]} {body}"
+    return f"{index}. {body}"
+
+
+def _evidence_excerpt(
+    concern: Any,
+    primary_atom: Any,
+    evidence_units: EvidenceUnitIndex,
+    fallback_text: str = "",
+) -> str:
+    """The row's source excerpt: the concern's own part of its primary atom.
+
+    Round 7: the excerpt is trimmed to the code items / sentences the concern
+    actually owns (an adjacent "资金来源：企业自筹" sentence is another concern's
+    item, and must not sit inside this row's evidence), it is taken from the
+    atom's own evidence unit so page, section and excerpt agree, it is aligned to
+    sentence boundaries inside that unit, it is completed forwards/backwards when
+    the extraction cut the sentence, and duplicated / placeholder numeric text is
+    repaired.
+    """
+
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    atom_text = str(
+        getattr(primary_atom, "source_origin_text", "") or getattr(primary_atom, "source_text", "")
+    )
+    evidence = evidence_units.for_atom(primary_atom)
+    span = evidence.span if evidence is not None else ""
+    owned = owned_text(concern_id, atom_text)
+    excerpt = owned or atom_text or str(fallback_text or "")
+    if not excerpt:
+        return ""
+    if evidence is not None:
+        window = sentence_window(evidence.unit.text_span, excerpt)
+        # a unit window may only *grow* the excerpt: the atom's own head is never
+        # replaced by a neighbouring unit's sentence
+        if window and _flatten(excerpt) in _flatten(window):
+            excerpt = window
+        if not excerpt.rstrip().endswith(tuple("。；;！？!?")):
+            excerpt = finish_from_unit(excerpt, evidence.unit.text_span)
+        if not excerpt.rstrip().endswith(tuple("。；;！？!?")):
+            excerpt = extend_fragment(excerpt, evidence.unit, evidence_units.units)
+        if not excerpt.rstrip().endswith(tuple("。；;！？!?")):
+            # the sentence continued into the *next* block, but the atom's own
+            # text already covered part of that block: finish from its remainder
+            excerpt = _finish_from_following(excerpt, evidence, evidence_units.units)
+        # Round 7 (excerpt scope): the excerpt may complete the concern's own
+        # sentence but must not grow into the next source unit's requirement
+        base_text = owned or atom_text
+        backing = _concern_evidence_backing(concern, evidence_units)
+        if not _extension_stays_in_sentence(base_text, excerpt) or not _repair_stays_owned(
+            base_text, excerpt, backing
+        ):
+            excerpt = base_text
+        excerpt = _trim_to_facet(concern_id, excerpt, base=owned or atom_text)
+        # the concern's own contract decides where its text stops: completing a
+        # cut sentence must not import the *next* requirement of the clause
+        # ("…损耗和税金等费用，设备安装调试完毕，…视为交付完成。").  A completion
+        # that the contract keeps is a real continuation and is kept.
+        trimmed = owned_text(concern_id, excerpt)
+        if trimmed and len(_flatten(trimmed)) >= len(_flatten(owned or atom_text)):
+            excerpt = trimmed
+        elif _continuation_ok(atom_text, excerpt, concern_id):
+            excerpt = trimmed or excerpt
+        else:
+            excerpt = owned or atom_text
+        if len(split_numbered_items(excerpt)) > 1:
+            # a multi-item block: keep only the items this concern owns, so an
+            # adjacent item of another concern cannot sit in this row's evidence
+            trimmed = owned_text(concern_id, excerpt)
+            if trimmed:
+                excerpt = trimmed
+    excerpt = dedupe_segments(normalize_numeric_fragment(excerpt))
+    excerpt = _trim_stray_leading_bracket(excerpt)
+    if not excerpt:
+        excerpt = str(atom_text or "")
+    if not _grounded_in(excerpt, [atom_text, span]) and span:
+        excerpt = normalize_numeric_fragment(span)
+    # Round 7 (§20): the excerpt and the row's locator must describe one source
+    # semantic unit.  A concern that owns a broad span of the document (a
+    # contract-risk concern) can otherwise print a sentence while citing another
+    # clause's row, so the excerpt is kept on the atom it actually came from.
+    return _shorten(_clean_excerpt(_align_excerpt_to_atom(excerpt, atom_text)), 300)
+
+
+def _align_excerpt_to_atom(excerpt: str, atom_text: str) -> str:
+    """Keep the excerpt on the atom it came from.
+
+    A broad concern (contract risk) owns clauses across the whole document; its
+    rendered excerpt must still be a sentence its own evidence atom carries,
+    otherwise the row's page and locator describe a different clause than the
+    text the reviewer reads.
+    """
+
+    text = str(excerpt or "").strip()
+    atom = _flatten(atom_text)
+    if not text or not atom:
+        return text
+    if _grounded_in(text, [atom_text]):
+        return text
+    sentences = [piece for piece in re.split(r"(?<=[。；;])", text) if piece.strip()]
+    if len(sentences) <= 1:
+        return text
+    for index, sentence in enumerate(sentences):
+        if _grounded_in(sentence, [atom_text]):
+            return "".join(sentences[index:]).strip()
+    return text
+
+
+def _displayed_requirement(concern: Any, summary: str) -> str:
+    """The row's displayed requirement, trimmed to this concern's own facet.
+
+    One source sentence frequently states two different requirements ("5.2 设备
+    单价中含运输费…，设备安装调试完毕后，甲方负责人在验收单上签字…视为交付
+    完成。").  The concern's contract decides where its requirement stops; the
+    trimmed text is only used when it still carries the concern's own content, so
+    a row never silently loses its requirement and never displays its neighbour's.
+    """
+
+    text = str(summary or "").strip()
+    if not text:
+        return text
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    owned = owned_text(concern_id, text)
+    if not owned:
+        return text
+    if _flatten(owned) == _flatten(text):
+        return text
+    # keep the trim only when the concern's own requirement survives intact
+    if _grounded_in(owned, [text]) and len(_flatten(owned)) >= 12:
+        return owned
+    return text
+
+
+def _realign_primary(
+    primary_atom: Any,
+    primary: Any,
+    requirement: str,
+    display_atoms: Sequence[Any],
+    units_by_id: Mapping[str, Any],
+    units: Sequence[Any],
+    concern_id: str = "",
+) -> tuple[Any, Any, bool]:
+    """Re-point a row's evidence at the clause its displayed requirement quotes.
+
+    A concern can reach a project-specific source through a *sibling* concern's
+    generic atom, which would print one clause's text while citing another's page,
+    section and clause.  The row's evidence is therefore re-pointed at the owned
+    atom whose own text the requirement carries -- but only when that atom's
+    evidence *satisfies the concern's own contract*.  Re-pointing a row at a clause
+    its contract forbids (a bid-bond row at an advance-payment guarantee) would
+    trade a locator defect for a semantic one, so the renderer keeps its own clause
+    in that case and the concern-grouping defect is reported instead.
+    """
+
+    from .concern_contract import contract_for
+
+    text = str(requirement or "").strip()
+    if not text or primary_atom is None:
+        return primary_atom, primary, False
+    atom_text = str(
+        getattr(primary_atom, "source_origin_text", "") or getattr(primary_atom, "source_text", "")
+    )
+    if _grounded_in(text, [atom_text]):
+        return primary_atom, primary, False
+    spec = contract_for(str(concern_id or "")) if concern_id else None
+    for atom in display_atoms:
+        candidate_text = str(
+            getattr(atom, "source_origin_text", "") or getattr(atom, "source_text", "")
+        )
+        if not candidate_text or not _grounded_in(text, [candidate_text]):
+            continue
+        if spec is not None:
+            flat = _flatten(candidate_text)
+            if spec.forbidden_evidence and any(
+                re.search(pattern, flat) for pattern in spec.forbidden_evidence
+            ):
+                continue
+            if spec.required_evidence and not any(
+                re.search(pattern, flat) for pattern in spec.required_evidence
+            ):
+                continue
+        unit = units_by_id.get(str(getattr(atom, "source_clause_id", "")))
+        return atom, unit if unit is not None else primary, True
+    return primary_atom, primary, False
+
+
+def _span_coverage(text: str, spans: Sequence[str]) -> float:
+    """What fraction of ``text`` is literally carried by ``spans``?
+
+    A requirement may legitimately be stitched from a clause's own sentences, but
+    when most of it comes from *another* clause the row's locator no longer
+    describes what the reviewer reads.  Coverage is measured over overlapping
+    windows so a single shared phrase cannot pass the check.
+    """
+
+    flat = _flatten(text)
+    if not flat:
+        return 1.0
+    haystack = " ".join(_flatten(span) for span in spans if span)
+    if not haystack:
+        return 0.0
+    windows = [flat[start : start + 12] for start in range(0, max(len(flat) - 11, 1), 6)]
+    if not windows:
+        return 1.0 if flat in haystack else 0.0
+    hits = sum(1 for window in windows if len(window) >= 8 and window in haystack)
+    return hits / len(windows)
+
+
+def _exclude_foreign_requirement(
+    requirement: str,
+    concern: Any,
+    primary_atom: Any,
+    units_index: Any = None,
+    evidence: Any = None,
+) -> str:
+    """Drop a displayed requirement the concern's own contract calls foreign.
+
+    A concern's contract names the evidence it may not own ("预付款担保" is not a
+    bid-bond-amount clause).  When the synthesized requirement is *itself* that
+    foreign clause, the row must display the clause its own locator names instead;
+    the foreign clause is not discarded -- it keeps its atom, its own row and its
+    provenance.
+    """
+
+    text = str(requirement or "").strip()
+    if not text or primary_atom is None:
+        return text
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    if not concern_id:
+        return text
+    from .concern_contract import contract_for
+
+    spec = contract_for(concern_id)
+    flat = _flatten(text)
+    if not spec.forbidden_evidence or not any(
+        re.search(pattern, flat) for pattern in spec.forbidden_evidence
+    ):
+        return text
+    # the whole requirement is the foreign clause: rebuild it from the atom the
+    # row's own locator and excerpt describe
+    atom_text = str(
+        getattr(primary_atom, "source_origin_text", "") or getattr(primary_atom, "source_text", "")
+    )
+    unit_text = ""
+    if evidence is not None:
+        unit_text = str(getattr(getattr(evidence, "unit", None), "text_span", "") or "")
+    for candidate in (owned_text(concern_id, atom_text), unit_text, atom_text):
+        candidate = str(candidate or "").strip()
+        if not candidate:
+            continue
+        flat_candidate = _flatten(candidate)
+        if any(re.search(pattern, flat_candidate) for pattern in spec.forbidden_evidence):
+            continue
+        window = sentence_window(unit_text, candidate) if unit_text else ""
+        if window and _grounded_in(window, [unit_text]):
+            return window
+        return candidate
+    return text
+
+
+def _linked_evidence_units(
+    requirement: str,
+    primary_atom: Any,
+    units_index: EvidenceUnitIndex,
+    display_atoms: Sequence[Any],
+    *,
+    locator: str,
+    page: int | None,
+    section: str,
+    clause: str,
+    excerpt: str,
+) -> list[dict[str, Any]]:
+    """Every source unit the displayed requirement is composed from (§20).
+
+    A broad concern (contract risk) legitimately quotes several clauses: the row
+    then carries an explicit, source-backed link for each one, so the reviewer can
+    verify every sentence.  The primary unit comes first and is the one the row's
+    page/section/clause/excerpt describe; further units are linked only when they
+    actually add text the requirement needs.
+    """
+
+    out: list[dict[str, Any]] = [
+        {
+            "role": "PRIMARY",
+            "atom_id": str(getattr(primary_atom, "atom_id", "") or ""),
+            "unit_id": (
+                units_index.for_atom(primary_atom).unit.unit_id
+                if units_index.for_atom(primary_atom) is not None
+                else ""
+            ),
+            "page": page,
+            "section": section,
+            "clause": clause,
+            "locator": locator,
+            "span": excerpt,
+        }
+    ]
+    text = str(requirement or "")
+    if not text:
+        return out
+    covered = str(excerpt or "")
+    seen = {str(getattr(primary_atom, "atom_id", "") or "")}
+    # link the units that carry the parts of the requirement the primary does not
+    while _span_coverage(text, [covered]) < 1.0:
+        best: tuple[float, Any, Any] | None = None
+        for atom in display_atoms:
+            atom_id = str(getattr(atom, "atom_id", "") or "")
+            if not atom_id or atom_id in seen:
+                continue
+            evidence = units_index.for_atom(atom)
+            if evidence is None:
+                continue
+            gain = _span_coverage(text, [covered, evidence.unit.text_span]) - _span_coverage(
+                text, [covered]
+            )
+            if gain <= 0:
+                continue
+            if best is None or gain > best[0]:
+                best = (gain, atom, evidence)
+        if best is None:
+            break
+        _gain, atom, evidence = best
+        seen.add(str(getattr(atom, "atom_id", "") or ""))
+        covered = f"{covered} {evidence.unit.text_span}"
+        out.append(
+            {
+                "role": "LINKED",
+                "atom_id": str(getattr(atom, "atom_id", "") or ""),
+                "unit_id": evidence.unit.unit_id,
+                "page": evidence.unit.page,
+                "section": evidence.unit.heading or evidence.unit.semantic_heading,
+                "clause": evidence.unit.clause_number,
+                "locator": evidence.locator,
+                "span": evidence.span,
+            }
+        )
+    return out
+
+
+def _confine_requirement_to_unit(
+    requirement: str,
+    atom: Any,
+    evidence: Any,
+    units_index: Any = None,
+    concern_id: str = "",
+) -> str:
+    """Confine a displayed requirement to the unit its locator names (§20).
+
+    A concern such as contract risk owns clauses across the whole document, and
+    its synthesized summary can splice one clause's sentence together with a
+    *different* clause's sentence.  The row then prints text its located
+    page/section/clause does not carry, so the reviewer cannot verify what they
+    read: the requirement is rebuilt from the atom that the row's locator and
+    excerpt describe.
+
+    Nothing is discarded silently: the other clauses remain in the atom stream, in
+    the row's source requirement ids and in the concern's provenance.
+    """
+
+    text = str(requirement or "").strip()
+    if not text or evidence is None or atom is None:
+        return text
+    unit = getattr(evidence, "unit", None)
+    unit_text = str(getattr(unit, "text_span", "") or "")
+    if not unit_text:
+        return text
+    if _span_coverage(text, [unit_text]) >= 0.6:
+        return text
+    # the requirement may legitimately continue into the neighbour block
+    neighbours: list[str] = []
+    if units_index is not None and unit is not None:
+        for candidate in getattr(units_index, "units", ()) or ():
+            if candidate.order in {unit.order - 1, unit.order + 1} and candidate.page == unit.page:
+                neighbours.append(str(candidate.text_span))
+    if neighbours and _span_coverage(text, [unit_text, *neighbours]) >= 0.6:
+        return text
+    # rebuild from the atom the locator names
+    atom_text = str(
+        getattr(atom, "source_origin_text", "") or getattr(atom, "source_text", "")
+    )
+    owned = owned_text(concern_id, atom_text) if concern_id else atom_text
+    candidate = owned or atom_text
+    if not candidate:
+        return text
+    window = sentence_window(unit_text, candidate)
+    if window and _grounded_in(window, [unit_text]):
+        return window
+    if _grounded_in(candidate, [unit_text]):
+        return candidate
+    # the atom's own text is a wrapped sentence: use the unit's own sentence that
+    # carries the row's excerpt
+    excerpt = str(getattr(evidence, "span", "") or "")
+    window = sentence_window(unit_text, excerpt)
+    return window or text
+
+
+def _align_requirement_to_evidence(
+    requirement: str, excerpt: str, atoms: Sequence[Any]
+) -> str:
+    """Keep the displayed requirement on the clause its evidence came from.
+
+    A concern that owns a broad span of the document renders the sentences of one
+    clause while citing another; the requirement must then be the sentences of the
+    evidenced clause, so page, section, clause, requirement and excerpt agree.
+    """
+
+    text = str(requirement or "").strip()
+    evidence = str(excerpt or "").strip()
+    if not text or not evidence:
+        return text
+    if _grounded_in(text, [evidence]) or _grounded_in(evidence, [text]):
+        return text
+    sentences = [piece for piece in re.split(r"(?<=[。；;])", text) if piece.strip()]
+    if len(sentences) <= 1:
+        return text
+    kept = [sentence for sentence in sentences if _grounded_in(sentence, [evidence])]
+    if kept and len("".join(kept)) >= 12:
+        return "".join(kept).strip()
+    return text
+
+def _trim_to_facet(concern_id: str, excerpt: str, *, base: str) -> str:
+    """Keep only the part of an extended excerpt that this concern owns.
+
+    Completing a cut sentence can pull the *next* requirement of the same source
+    clause into the row ("…损耗和税金等费用，设备安装调试完毕，…视为交付完成。").
+    The clause genuinely carries both, but only the first is this concern's
+    requirement: the extension stops where the concern's own contract says the
+    text stops belonging to it.  The concern's original text is never trimmed
+    away.
+    """
+
+    text = str(excerpt or "").strip()
+    original = str(base or "").strip()
+    if not text or not original:
+        return text
+    segments = [piece.strip() for piece in re.split(r"[。；;]", text) if piece.strip()]
+    if len(segments) <= 1:
+        return text
+    kept: list[str] = []
+    for index, segment in enumerate(segments):
+        if index == 0:
+            kept.append(segment)
+            continue
+        if _grounded_in(original, [segment]) or _grounded_in(segment, [original]):
+            kept.append(segment)
+            continue
+        owned = owned_text(concern_id, segment)
+        if owned and _flatten(owned) == _flatten(segment):
+            kept.append(segment)
+    if not kept:
+        return text
+    joined = "。".join(kept)
+    if text.rstrip().endswith(tuple("。；;！？!?")):
+        joined += "。"
+    # never return less than the concern's own requirement
+    if len(_flatten(joined)) < len(_flatten(original)):
+        return text
+    return joined
+
+
+def _continuation_ok(original: str, completed: str, concern_id: str = "") -> bool:
+    """Does the completed text stay inside the original requirement's facet?
+
+    Completing a cut sentence is only correct while the added text continues the
+    *same* requirement.  The owning concern's own contract is the judge: if the
+    addition belongs to another concern (the acceptance-completion sentence of
+    the same clause), the row keeps its own requirement instead.
+    """
+
+    before = str(original or "").strip()
+    after = str(completed or "").strip()
+    if not before or not after:
+        return True
+    before_flat = _flatten(before)
+    after_flat = _flatten(after)
+    if len(after_flat) <= len(before_flat):
+        return True
+    added = after_flat[len(before_flat) :]
+    if not added:
+        return True
+    if concern_id:
+        # the continuation must belong to this concern's own sentence.  The added
+        # text starts where the atom stopped, so the concern's contract is asked
+        # about the *overlap* it shares with the text already shown plus the
+        # addition: a neighbouring requirement ("…设备安装调试完毕，甲方负责人
+        # 在验收单上签字…视为交付完成。") is not this concern's continuation.
+        joined = before_flat + added
+        owned = owned_text(concern_id, joined)
+        if not owned:
+            return False
+        if not _flatten(owned).startswith(before_flat):
+            return False
+        # the addition itself must be this concern's own text: a clause that only
+        # contributes its *head* to this concern while the addition starts another
+        # requirement is not a continuation
+        if not _grounded_in(added, [owned]) and not _grounded_in(owned, [joined]):
+            return False
+    return not _FORBIDDEN_FACET_RE.search(added)
+
+
+#: text that signals the addition belongs to another requirement of the clause
+_FORBIDDEN_FACET_RE = re.compile(
+    r"(验收单|交付完成|签字或加盖|视为交付|违约|赔偿|索赔|合同解除|退还甲方|签字盖章后生效)"
+)
+
+
+def _finish_from_following(excerpt: str, evidence: Any, units: Sequence[Any]) -> str:
+    """Finish a cut sentence from the block that continues it.
+
+    The extraction split one sentence across two blocks and the atom holds only
+    the first ("…承诺从最后一笔款项应付之日" + "起给甲方 的支付宽限期，宽限期内
+    不追究甲方的违约责任或要求利息。").  The continuation is appended up to the
+    first sentence end; the remainder of that block's next sentence is not pulled
+    in.
+    """
+
+    text = str(excerpt or "").strip()
+    if not text:
+        return text
+    unit = evidence.unit
+    following = [
+        candidate
+        for candidate in units
+        if candidate.order > unit.order
+        and (
+            candidate.page is None
+            or unit.page is None
+            or int(candidate.page) <= int(unit.page) + 1
+        )
+    ]
+    following.sort(key=lambda candidate: candidate.order)
+    for candidate in following[:2]:
+        addition = strip_leading_overlap(text, str(candidate.text_span))
+        if not addition:
+            continue
+        if NEW_ELEMENT_RE.match(addition):
+            break
+        text = f"{text}{_up_to_sentence_end(addition, text)}".strip()
+        if text.endswith(tuple("。；;！？!?")):
+            break
+    return text
+
+
+def _trim_stray_leading_bracket(text: str) -> str:
+    """Drop an extraction-stray closing bracket that opens a fragment.
+
+    A wrapped line that ends a parenthetical leaves its closing bracket at the
+    start of the next extracted fragment ("） （若为代理商，须提供生产商的相关
+    证明材料"), which is not a reviewable requirement fragment.
+    """
+
+    value = str(text or "").strip()
+    if not value:
+        return value
+    stripped = value.lstrip()
+    if stripped[:1] in "）)】」" and len(stripped) > 1:
+        stripped = stripped[1:].lstrip()
+        if len(_flatten(stripped)) >= 6:
+            return stripped
+    return value
+
+
+def _complete_source_text(
+    concern: Any,
+    summary: str,
+    evidence_units: EvidenceUnitIndex,
+) -> str:
+    """Repair a displayed requirement whose quoted clause was cut in half.
+
+    The requirement summary quotes source sentences; when the extraction cut a
+    sentence at a line boundary the row would display half a rule.  Each summary
+    segment that matches one of the concern's atoms is replaced by that atom's
+    own, unit-aligned source text (never by invented content), and repeated
+    segments are collapsed.
+
+    Round 7: the repair may only *complete* the segment.  It must not pull a
+    neighbouring concern's sentences into the row -- a requirement that suddenly
+    names scoring terms ("得分", "评分", "成交候选人") on a responsiveness row is a
+    foreign-facet leak, and the round-4 ownership rule forbids it.
+    """
+
+    text = str(summary or "").strip()
+    if not text:
+        return text
+    concern_id = str(getattr(concern, "concern_id", "") or "")
+    atoms = list(getattr(concern, "atoms", ()))
+    backing = _concern_evidence_backing(concern, evidence_units)
+    segments = [piece.strip() for piece in re.split(r"[；;]", text) if piece.strip()]
+    repaired: list[str] = []
+    for segment in segments:
+        needle = _flatten(segment)
+        match = None
+        for atom in atoms:
+            atom_flat = _flatten(getattr(atom, "source_text", ""))
+            if not atom_flat or not needle:
+                continue
+            if needle in atom_flat or atom_flat in needle:
+                match = atom
+                break
+        if match is None:
+            repaired.append(segment)
+            continue
+        complete = _evidence_excerpt(concern, match, evidence_units, fallback_text=segment)
+        if (
+            complete
+            and _flatten(complete).startswith(needle)
+            and _repair_stays_owned(segment, complete, backing)
+        ):
+            repaired.append(complete)
+        else:
+            repaired.append(segment)
+    return dedupe_segments("；".join(repaired))
+
+
+def _concern_backing_text(concern: Any) -> str:
+    """The text a concern may name: its owned atoms, materials and fact values."""
+
+    parts: list[str] = []
+    for atom in getattr(concern, "atoms", ()) or ():
+        parts.append(str(getattr(atom, "source_text", "") or ""))
+        origin = getattr(atom, "source_origin_text", "")
+        if origin:
+            parts.append(str(origin))
+    materials = getattr(concern, "owned_materials", None)
+    if callable(materials):
+        parts.extend(str(name) for name in materials())
+    return _flatten(" ".join(parts))
+
+
+#: an addition that opens a *new* source element instead of continuing the
+#: concern's own sentence: a clause / numbered label ("*3.4.1 响应保证金"), or a
+#: project-value label ("供货期 合同签订后30 天", "1.12 分包 不允许")
+_NEW_SOURCE_ELEMENT_HEAD_RE = re.compile(
+    r"^[\s*]*(?:\d+(?:\.\d+)+|\d+[、.]|[（(]\d+[)）]|[①-⑳]|[一二三四五六七八九十]+[、.]"
+    r"|[\u4e00-\u9fa5]{2,8}[ \u3000]+[^\s])"
+)
+
+
+def _extension_stays_in_sentence(original: str, extended: str) -> bool:
+    """May ``extended`` keep the text it adds beyond the concern's own atom?
+
+    Round 7 (excerpt scope): completing a cut sentence is legitimate
+    ("…从最后一笔款项应付之日" + "的支付宽限期，…"), growing the excerpt into the
+    *next* source unit's requirement is not ("*3.3.1 询比有效期…90 日历天" +
+    "*3.4.1 响应保证金 的金额：…").  The addition is rejected when it opens a new
+    source element: a clause number, a numbered item, or a project-value label.
+    """
+
+    before = _flatten(original)
+    after = _flatten(extended)
+    if not before or not after or after == before:
+        return True
+    index = extended.find(original)
+    if index >= 0:
+        added = extended[index + len(original) :]
+    elif after.startswith(before):
+        added = after[len(before) :]
+    else:
+        return True
+    if not added.strip():
+        return True
+    return _NEW_SOURCE_ELEMENT_HEAD_RE.match(added) is None
+
+
+def _concern_evidence_backing(concern: Any, evidence_units: EvidenceUnitIndex) -> str:
+    """The text a concern may legitimately quote when completing a cut sentence.
+
+    Round 7: the concern's own atoms plus the source units they are displayed
+    from, and the unit that *continues* each of them.  A contract sentence is
+    split across two blocks ("…从最后一笔款项应付之日" | "起给甲方 的支付宽限期，
+    宽限期内不追究甲方的违约责任或要求利息。"), so the continuation is the
+    concern's own text -- bounded to the immediately following unit, never a
+    distant clause of the document.
+    """
+
+    parts = [_concern_backing_text(concern)]
+    for atom in getattr(concern, "atoms", ()) or ():
+        evidence = evidence_units.for_atom(atom)
+        if evidence is None:
+            continue
+        parts.append(str(evidence.unit.text_span))
+        following = [
+            candidate
+            for candidate in evidence_units.units
+            if candidate.order > evidence.unit.order
+            and (
+                candidate.page is None
+                or evidence.unit.page is None
+                or int(candidate.page) <= int(evidence.unit.page) + 1
+            )
+        ]
+        following.sort(key=lambda candidate: candidate.order)
+        if following:
+            parts.append(str(following[0].text_span))
+    return _flatten(" ".join(parts))
+
+
+def _repair_stays_owned(segment: str, complete: str, backing: str) -> bool:
+    """Does the repair add only text the concern already owns?
+
+    The added text is what the segment did not carry; it must appear in the
+    concern's own backing (its atoms, materials and linked fact values).
+    """
+
+    if not backing:
+        return True
+    before = _flatten(segment)
+    after = _flatten(complete)
+    if not after.startswith(before):
+        return False
+    added = after[len(before) :]
+    if not added:
+        return True
+    # every 6-character window of the addition must be owned by the concern
+    windows = [added[start : start + 6] for start in range(0, max(len(added) - 5, 1), 3)]
+    if not windows:
+        return True
+    return all(window in backing for window in windows)
+
+
+def _clean_excerpt(text: str) -> str:
+    parts = split_numbered_items(text)
+    if len(parts) > 1:
+        # keep every numbered item: the caller has already restricted the text to
+        # the items this concern owns
+        return " ".join(parts)
+    return str(text or "").strip()
+
+
 def _primary_source(
     concern: Any,
     units_by_id: dict[str, Any],
@@ -743,6 +1767,7 @@ def _primary_source(
     decisive_pattern: str,
     owned_values: set[str],
     requirement_summary: str = "",
+    preferred_atom: Any = None,
 ) -> tuple[Any, Any]:
     """Pick the clause that actually carries this concern's facet.
 
@@ -845,6 +1870,13 @@ def _primary_source(
     pool = facet or atoms
     if not pool:
         return (None, units[0])
+    if preferred_atom is not None:
+        # round 7: the applicable (project-specific) source is the row's evidence
+        # whenever the row displays it, even when a sibling concern owns the
+        # generic clause it resolves -- the value the reviewer reads is that atom's
+        # text, so the page, section, clause and excerpt must be its own
+        preferred = units_by_id.get(str(getattr(preferred_atom, "source_clause_id", "")))
+        return (preferred_atom, preferred if preferred is not None else units[0])
     primary_atom = max(enumerate(pool), key=rank)[1]
     primary = units_by_id.get(primary_atom.source_clause_id)
     if primary is None:
@@ -946,6 +1978,19 @@ def criticality_note_text(criticality: SourceRequirementCriticality) -> str:
     parts = [f"{star}实质性要求"]
     if criticality.rejection_consequence:
         parts.append("不满足可能导致否决")
+    elif criticality.consequence_scopes:
+        # round 7: the source states a consequence, but at another stage -- say
+        # which one, so a scoring deduction is never read as a rejection
+        scoped = {
+            "SCORING_ONLY": "评分规则，非否决情形",
+            "POST_AWARD_CANCELLATION": "中标后取消资格情形，非响应否决",
+            "CONTRACT_LIABILITY": "合同违约责任，非响应否决",
+            "NON_ACCEPTANCE_OF_LATE_SUBMISSION": "逾期提交不予受理情形",
+            "INFORMATIONAL_PROCEDURAL": "程序性说明，非否决情形",
+        }
+        for scope in criticality.consequence_scopes:
+            if scope in scoped and scoped[scope] not in parts:
+                parts.append(scoped[scope])
     return "【" + "｜".join(parts) + "】"
 
 
@@ -962,6 +2007,7 @@ def _render_components(
     fact_hints: Mapping[str, str],
     evidence_text: str = "",
     criticality: SourceRequirementCriticality | None = None,
+    displayed_requirement: str = "",
 ) -> list[RenderedReviewComponent]:
     """Build and verify the rendered components of one review row."""
 
@@ -1013,7 +2059,11 @@ def _render_components(
         )
         components.append(verify_component(component, ownership))
 
-    add(SOURCE_REQUIREMENT, point.requirement_summary, rule="CONCERN_SUMMARY_OWNED_ATOMS")
+    add(
+        SOURCE_REQUIREMENT,
+        displayed_requirement or point.requirement_summary,
+        rule="CONCERN_SUMMARY_OWNED_ATOMS",
+    )
     if criticality is not None:
         note = criticality_note_text(criticality)
         if note:
@@ -1104,11 +2154,109 @@ def _lexicon_hits(text: str) -> list[str]:
 def _shared_grounding(evidence: str, units: Sequence[SourceRequirementUnit]) -> bool:
     """Require the item evidence to be literally present in its source units."""
 
+    return _grounded_in(evidence, [str(getattr(unit, "text", "") or "") for unit in units])
+
+
+def _applicable_source_texts(document: Any) -> list[str]:
+    """The project-specific values a generic clause resolves to (front table rows)."""
+
+    if document is None:
+        return []
+    return [str(getattr(row, "text", "") or "") for row in discover_schedule_rows(document)]
+
+
+def _page_source_texts(document: Any) -> dict[int, list[str]]:
+    """The document's own physical source text, by page.
+
+    Round 7: the extraction index is not the source.  A contract sentence is
+    routinely split across two *blocks* (``"…剩余5%"`` + ``"作为质保金，质保期12
+    个月…"``), so the page's own reading order is offered as well: each unit, and
+    every short run of adjacent units inside one clause.  The allowance stays
+    page-bounded and clause-bounded, so a row cannot ground itself in a distant
+    section.
+    """
+
+    if document is None:
+        return {}
+    from .evidence_unit import build_evidence_units
+
+    by_page: dict[int, list[tuple[int, str, str]]] = {}
+    for unit in build_evidence_units(document):
+        page = getattr(unit, "page", None)
+        if page is None:
+            continue
+        by_page.setdefault(int(page), []).append(
+            (
+                int(getattr(unit, "order", 0) or 0),
+                str(getattr(unit, "clause_number", "") or ""),
+                str(getattr(unit, "text_span", "") or ""),
+            )
+        )
+    pages: dict[int, list[str]] = {}
+    for page, entries in by_page.items():
+        entries.sort()
+        texts = [text for _, _, text in entries]
+        pages[page] = list(texts)
+        for start in range(len(entries)):
+            clause = entries[start][1]
+            run = [entries[start][2]]
+            for order, next_clause, text in entries[start + 1 : start + 3]:
+                if next_clause and clause and next_clause != clause:
+                    break
+                run.append(text)
+                clause = clause or next_clause
+            if len(run) > 1:
+                pages[page].append(" ".join(run))
+    return pages
+
+
+def _shared_applicable_grounding(item: Any, sources: Sequence[str]) -> bool:
+    """Is the row's evidence drawn from the applicable source it resolves to?
+
+    The generic clause the concern was extracted from says ``"见供应商须知前附表"``;
+    the row displays the front table's own value, so its evidence is grounded in
+    that applicable source -- but only when the row's *requirement* quotes the same
+    source (this is the applicable-source resolution, not a licence to quote any
+    front-table row).
+    """
+
+    if not sources:
+        return False
+    evidence = str(getattr(item, "source_evidence", "") or "")
+    requirement = str(getattr(item, "source_requirement", "") or "")
+    if not evidence or not requirement:
+        return False
+    return any(
+        _grounded_in(evidence, [source]) and _grounded_in(requirement, [source]) for source in sources
+    )
+
+
+def _physical_grounding(item: Any, page_sources: Mapping[int, Sequence[str]]) -> bool:
+    """Are requirement and evidence both literally present on the row's own page?"""
+
+    page = getattr(item, "source_page", None)
+    if page is None:
+        return False
+    sources = page_sources.get(int(page))
+    if not sources:
+        return False
+    evidence = str(getattr(item, "source_evidence", "") or "")
+    requirement = str(getattr(item, "source_requirement", "") or "")
+    if not evidence or not requirement:
+        return False
+    return _grounded_in(evidence, sources) and _grounded_in(requirement, sources)
+
+
+def _grounded_in(evidence: str, sources: Sequence[str]) -> bool:
+    """Is ``evidence`` literally present in any of ``sources``?"""
+
     compact = re.sub(r"\s+", "", evidence)
     if len(compact) < 6:
         return False
-    for unit in units:
-        haystack = re.sub(r"\s+", "", unit.text)
+    for source in sources:
+        haystack = re.sub(r"\s+", "", source or "")
+        if not haystack:
+            continue
         for start in range(0, max(len(compact) - 11, 1), 6):
             window = compact[start : start + 12]
             if len(window) >= 8 and window in haystack:
@@ -1179,6 +2327,11 @@ def dynamic_review_qa(
     empty_evidence: list[str] = []
     invalid_locator: list[str] = []
     generic_text: list[str] = []
+    # Round 7: the row's evidence is grounded in its extraction units, in the
+    # applicable source its requirement resolves to, or in the document's own
+    # physical text on the page it cites.
+    applicable_sources = _applicable_source_texts(document)
+    page_sources = _page_source_texts(document)
     for item in plan.items:
         units = [units_by_id[rid] for rid in item.source_requirement_ids if rid in units_by_id]
         backing = " ".join(unit.text for unit in units)
@@ -1186,7 +2339,11 @@ def dynamic_review_qa(
             empty_evidence.append(item.item_id)
         if item.source_page is None or item.source_page < 1 or not units:
             invalid_locator.append(item.item_id)
-        elif not _shared_grounding(item.source_evidence, units):
+        elif (
+            not _shared_grounding(item.source_evidence, units)
+            and not _shared_applicable_grounding(item, applicable_sources)
+            and not _physical_grounding(item, page_sources)
+        ):
             invalid_locator.append(item.item_id)
         for term in _lexicon_hits(item.cell_text):
             if term not in backing and term not in item.source_evidence:

@@ -766,10 +766,22 @@ class Round4Report:
             return self._backing_cache
         from tender_basic.dynamic_requirements import build_requirement_index
         from tender_basic.review_concern import atomize_units, build_concerns, concern_spec
+        from tender_basic.source_applicability import (
+            apply_applicable_resolutions,
+            discover_schedule_rows,
+            resolve_applicable_sources,
+        )
 
         index = build_requirement_index(self.document)
         units_by_id = {unit.requirement_id: unit for unit in index.units}
         atoms = atomize_units(index.units)
+        # Round 7: the concern owns the *project-specific* value its clause
+        # resolves to as well as the generic clause, so the value is part of what
+        # the rendered cell may name.
+        _applied, atoms = apply_applicable_resolutions(
+            atoms,
+            resolve_applicable_sources(atoms, discover_schedule_rows(self.document), self.document),
+        )
         backings: dict[str, str] = {}
         for concern in build_concerns(atoms):
             parts: list[str] = []

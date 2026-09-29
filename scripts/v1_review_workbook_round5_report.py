@@ -304,6 +304,69 @@ class Round5Report:
             {"unbound": unbound[:10]},
         )
 
+    def _source_template_text(self, item_id: str) -> str:
+        """The generic template a row's project value replaced, if any (round 7).
+
+        A row that displays the schedule's own project value ("1.3.2 实施周期及
+        供货地点 实施周期：…") still answers the same concern question as the
+        generic clause it replaced ("1.3.2 实施周期、供货地点：见投标人须知前
+        附表。"); the contract's required signatures may be satisfied by either.
+        """
+
+        item = self._item_by_id(item_id)
+        if item is None:
+            return ""
+        requirement = _flat(str(getattr(item, "source_requirement", "") or ""))
+        point = getattr(item, "review_point", None)
+        owned = {
+            str(atom_id) for atom_id in getattr(point, "owned_atom_ids", ()) or ()
+        }
+        if not owned:
+            return ""
+        for concern in self._plan_concerns():
+            if str(getattr(concern, "concern_id", "")) != str(
+                getattr(item, "concern_id", "")
+            ):
+                continue
+            for atom in getattr(concern, "atoms", ()) or ():
+                if str(getattr(atom, "atom_id", "")) not in owned:
+                    continue
+                text = str(getattr(atom, "source_text", "") or "")
+                if not text or "前附表" not in text:
+                    continue
+                if _flat(text) in requirement:
+                    continue
+                clause = str(getattr(atom, "source_structure_id", "") or "").replace("*", "")
+                if clause and clause in requirement:
+                    return text
+        return ""
+
+    def _plan_concerns(self) -> list:
+        cache = getattr(self, "_concerns_cache", None)
+        if cache is not None:
+            return cache
+        from tender_basic.dynamic_requirements import build_requirement_index
+        from tender_basic.review_concern import atomize_units, build_concerns
+        from tender_basic.source_applicability import (
+            apply_applicable_resolutions,
+            discover_schedule_rows,
+            resolve_applicable_sources,
+        )
+
+        document = self.r4.document
+        atoms = atomize_units(build_requirement_index(document).units)
+        _applied, stream = apply_applicable_resolutions(
+            atoms, resolve_applicable_sources(atoms, discover_schedule_rows(document), document)
+        )
+        self._concerns_cache = list(build_concerns(stream))
+        return self._concerns_cache
+
+    def _item_by_id(self, item_id: str):
+        return next(
+            (item for item in [*self.items, *self.background] if str(item.item_id) == item_id),
+            None,
+        )
+
     def check_contract_table(self) -> None:
         self.check(
             "concern_contracts_are_independent",
@@ -763,6 +826,7 @@ class Round5Report:
                     displayed_text=requirement,
                     pass_criteria=[criteria] if criteria else [],
                     evidence_text=evidence,
+                    source_clause=self._source_template_text(item_id),
                 ):
                     contract_violations.append(
                         {

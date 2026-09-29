@@ -526,6 +526,10 @@ _register(
             r"(\d{4}-\d{2}-\d{2}|\d{2}:\d{2}:\d{2})",
             r"(交易平台|营收系统|集采)",
             r"(保证金金额|金额为|金额：)",
+            # Round 7: the *payment* of the contract price is a different
+            # requirement (CONTRACT_PAYMENT); a bond-form row must not display it
+            # even though the sentence also says "银行转账".
+            r"(支付方式|付款方式|承兑汇票|保函保理|保理|资金紧张|货款|预付)",
         ),
         allowed_roles=frozenset({ROLE_BOND_FORM, ROLE_PRICE}),
         forbidden_roles=frozenset({ROLE_RETENTION_MONEY_RATIO, ROLE_PAYMENT_RATIO}),
@@ -1307,6 +1311,7 @@ def validate_displayed_text(
     displayed: str,
     *,
     contract: ConcernContract | None = None,
+    source_clause: str = "",
 ) -> list[Violation]:
     """Validate the *displayed* requirement text against the contract.
 
@@ -1317,16 +1322,36 @@ def validate_displayed_text(
     requirement and must not be judged as one -- while a *forbidden* signature
     is enforced everywhere, because it marks text that belongs to another
     concern wherever it appears.
+
+    Round 7: when a clause's project-specific value is displayed instead of the
+    generic template (``source_clause`` carries that value), the required
+    signatures are satisfied by *either* the displayed text or the generic clause
+    it resolved -- the concern still asks the same question, and the project's own
+    wording need not repeat the template's vocabulary.
     """
 
     spec = contract if contract is not None else contract_for(concern_id)
     out: list[Violation] = []
     source_text, instruction_text = _split_display_blocks(displayed)
-    for segment in segment_text(source_text):
+    segments = segment_text(source_text)
+    template = _nospace(source_clause) if source_clause else ""
+    # a required signature is a property of the *requirement*, not of each
+    # sentence: a multi-sentence clause satisfies it when any sentence carries it
+    whole = _nospace(source_text)
+    for segment in segments:
         flat = _nospace(segment)
         if spec.required_signatures and not any(
             re.search(pattern, flat) for pattern in spec.required_signatures
         ):
+            if any(re.search(pattern, whole) for pattern in spec.required_signatures):
+                continue
+            # the generic clause the value resolved is the same requirement: a
+            # project value that carries none of the concern's own vocabulary is
+            # only a violation when the source template lacks it too
+            if template and any(
+                re.search(pattern, template) for pattern in spec.required_signatures
+            ):
+                continue
             # only a violation when the concern declares its own signatures: a
             # neutral segment without any of them is a foreign facet.
             out.append(
@@ -1383,6 +1408,7 @@ def validate_point(
     linked_fact_keys: Iterable[str] = (),
     evidence_text: str = "",
     contract: ConcernContract | None = None,
+    source_clause: str = "",
 ) -> list[Violation]:
     """Validate one *rendered* row against its concern contract.
 
@@ -1391,7 +1417,9 @@ def validate_point(
     """
 
     spec = contract if contract is not None else contract_for(concern_id)
-    out = validate_displayed_text(concern_id, displayed_text, contract=spec)
+    out = validate_displayed_text(
+        concern_id, displayed_text, contract=spec, source_clause=source_clause
+    )
     out.extend(validate_roles(concern_id, numeric_roles, contract=spec))
     for key in linked_fact_keys:
         if not spec.fact_ok(str(key)):

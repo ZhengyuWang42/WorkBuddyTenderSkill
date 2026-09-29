@@ -1,0 +1,177 @@
+{
+  "schema": "v1_review_workbook_round7/1",
+  "case": "case_002",
+  "build_id": "v1_round4_closure8_review_workbook7",
+  "workbook": "acceptance/workspace/case_002/v1_round4_closure8_review_workbook7/投标项目复核表.xlsx",
+  "workbook_sha256": "6e6bb959527b7cf70a0abe1ba1b7a7d860be9d14ccc9829ceb3746727dc50411",
+  "verdict": "PASS",
+  "check_count": 10,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "every generic schedule reference resolves to the project value",
+      "ok": true,
+      "detail": "94 resolved, 0 unresolved, 4 source-unreadable",
+      "evidence": {
+        "unresolved": [],
+        "source_unreadable": [
+          {
+            "item_id": "DR027",
+            "requirement": "1.2.1本招标项目的资金来源：见投标人须知前附表"
+          },
+          {
+            "item_id": "DR027",
+            "requirement": "1.2.1本招标项目的资金来源：见投标人须知前附表"
+          },
+          {
+            "item_id": "DR027",
+            "requirement": "1.2.1本招标项目的资金来源：见投标人须知前附表"
+          },
+          {
+            "item_id": "DR040",
+            "requirement": "（3）以算术平均值下浮3%为评标基准价，2.2.2评标基准价计算2026-03-2316:58:05评标基准价计算方法：见评标办法前附表"
+          }
+        ]
+      }
+    },
+    {
+      "check": "no delivered row displays a superseded generic clause",
+      "ok": true,
+      "detail": "0 row(s) still display the generic template",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "no scoring / post-award / contract / procedural consequence is shown as 否决性",
+      "ok": true,
+      "detail": "0 false rejection classification(s) across 1 vetoed row(s)",
+      "evidence": {
+        "false": []
+      }
+    },
+    {
+      "check": "displayed requirement, page, section, clause and excerpt describe one unit",
+      "ok": true,
+      "detail": "98 row(s) checked, 0 mismatch(es)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "no rendered source fragment is incomplete",
+      "ok": true,
+      "detail": "0 incomplete fragment(s) of 98 row(s)",
+      "evidence": {
+        "incomplete": []
+      }
+    },
+    {
+      "check": "no rendered numeric text is duplicated or corrupted",
+      "ok": true,
+      "detail": "0 corrupted numeric fragment(s)",
+      "evidence": {
+        "corrupted": []
+      }
+    },
+    {
+      "check": "different platform roles are not collapsed into one conflict",
+      "ok": true,
+      "detail": "0 false platform conflict(s); roles=1",
+      "evidence": {
+        "false_conflicts": [],
+        "roles": {
+          "TRANSACTION_SYSTEM": "西安市综改试验区国企招标集采交易平台"
+        },
+        "platform_status": "RESOLVED"
+      }
+    },
+    {
+      "check": "round-5/round-6 fact invariants still hold",
+      "ok": true,
+      "detail": "1 invariant(s) checked, 0 failure(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the banked round-6 marker accounting still holds",
+      "ok": true,
+      "detail": "round-6 accounting verdict=PASS (failed=none)",
+      "evidence": {
+        "failed_checks": [],
+        "failed_fixtures": [],
+        "counts": {
+          "direct_delivered_marker_visibility_failures": 0,
+          "duplicate_source_marker_record_count": 0,
+          "marker_carrying_source_atom_count": 32,
+          "marker_false_positive_count": 0,
+          "marker_lost_count": 0,
+          "marker_unattributed_count": 0,
+          "marker_unresolved_count": 0,
+          "raw_source_marker_discovery_count": 45,
+          "source_marker_atom_count": 32,
+          "source_marker_evidence_count": 24,
+          "source_marker_occurrence_count": 45
+        },
+        "concern_contract_verdict": "PASS"
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) compared against the accepted source build",
+      "evidence": {
+        "基础投标文件.docx": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+        "基础投标文件.pdf": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+        "generation_report.json": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859"
+      }
+    }
+  ],
+  "fixtures": {
+    "APPLICABLE_SOURCE_GENERIC_KEPT": {
+      "status": "PASS",
+      "detail": "3 generic clause(s) kept in the atom stream for coverage/audit",
+      "evidence": ""
+    },
+    "REJECTION_SCOPE_SCORING_NOT_VETO": {
+      "status": "PASS",
+      "detail": "3 scoring row(s) audited; none is a rejection",
+      "evidence": "DR041:-; DR040:-; DR047:-"
+    },
+    "REJECTION_SCOPE_STAGE_NAMED": {
+      "status": "PASS",
+      "detail": "36 non-vetoed mandatory row(s) name their own basis",
+      "evidence": "BOND; CONSORTIUM; ELECTRONIC; FINANCIAL; INFORMATIONAL_PROCEDURAL; MANDATORY"
+    },
+    "PLATFORM_ROLE_DISTINCT": {
+      "status": "PASS",
+      "detail": "1 platform role(s) distinguished: 交易系统：西安市综改试验区国企招标集采交易平台",
+      "evidence": "{\"TRANSACTION_SYSTEM\": \"西安市综改试验区国企招标集采交易平台\"}"
+    },
+    "PLATFORM_ROLE_NOT_A_CONFLICT": {
+      "status": "PASS",
+      "detail": "the platform field is not reported as a value conflict",
+      "evidence": "status=RESOLVED; conflicts=0"
+    }
+  },
+  "fixture_summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": []
+  },
+  "counts": {
+    "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+    "SOURCE_UNREADABLE_REFERENCE_COUNT": 4,
+    "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+    "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+    "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+    "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+    "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+    "VALUE_INVARIANT_FAILURE_COUNT": 0,
+    "ROUND6_MARKER_OCCURRENCE_COUNT": 45,
+    "ROUND6_MARKER_LOST_COUNT": 0,
+    "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+  },
+  "delivered_row_count": 98
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "v1_review_workbook_round7_generalization/1",
+  "cases": {
+    "case_001": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "counts": {
+        "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+        "SOURCE_UNREADABLE_REFERENCE_COUNT": 1,
+        "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+        "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+        "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+        "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+        "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+        "VALUE_INVARIANT_FAILURE_COUNT": 0,
+        "ROUND6_MARKER_OCCURRENCE_COUNT": 18,
+        "ROUND6_MARKER_LOST_COUNT": 0,
+        "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+      }
+    },
+    "case_002": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "counts": {
+        "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+        "SOURCE_UNREADABLE_REFERENCE_COUNT": 4,
+        "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+        "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+        "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+        "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+        "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+        "VALUE_INVARIANT_FAILURE_COUNT": 0,
+        "ROUND6_MARKER_OCCURRENCE_COUNT": 45,
+        "ROUND6_MARKER_LOST_COUNT": 0,
+        "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+      }
+    },
+    "case_003": {
+      "verdict": "PASS",
+      "failed_checks": [],
+      "failed_fixtures": [],
+      "counts": {
+        "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+        "SOURCE_UNREADABLE_REFERENCE_COUNT": 0,
+        "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+        "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+        "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+        "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+        "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+        "VALUE_INVARIANT_FAILURE_COUNT": 0,
+        "ROUND6_MARKER_OCCURRENCE_COUNT": 6,
+        "ROUND6_MARKER_LOST_COUNT": 0,
+        "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+      }
+    }
+  },
+  "verdict": "PASS"
+}

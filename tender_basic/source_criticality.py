@@ -205,6 +205,97 @@ REJECTION_CUES: tuple[str, ...] = (
 )
 _REJECTION_CUE_RE = re.compile("|".join(re.escape(cue) for cue in REJECTION_CUES))
 
+# --------------------------------------------------------------------------- #
+# consequence scope
+# --------------------------------------------------------------------------- #
+#: A consequence has a *stage*: what the document does, and when.  Only a
+#: response-stage rejection may be shown as 否决性; a scoring deduction, a
+#: post-award cancellation, a contract liability or a procedural statement is
+#: not a rejection of the response.
+SCOPE_RESPONSE_REJECTION = "RESPONSE_REJECTION"
+SCOPE_SCORING_ONLY = "SCORING_ONLY"
+SCOPE_POST_AWARD_CANCELLATION = "POST_AWARD_CANCELLATION"
+SCOPE_CONTRACT_LIABILITY = "CONTRACT_LIABILITY"
+SCOPE_LATE_SUBMISSION = "NON_ACCEPTANCE_OF_LATE_SUBMISSION"
+SCOPE_INFORMATIONAL = "INFORMATIONAL_PROCEDURAL"
+SCOPE_UNKNOWN = ""
+
+CONSEQUENCE_SCOPES: tuple[str, ...] = (
+    SCOPE_RESPONSE_REJECTION,
+    SCOPE_SCORING_ONLY,
+    SCOPE_POST_AWARD_CANCELLATION,
+    SCOPE_CONTRACT_LIABILITY,
+    SCOPE_LATE_SUBMISSION,
+    SCOPE_INFORMATIONAL,
+)
+
+#: the response itself is rejected / voided.  Tender documents phrase this in a
+#: small family of ways: 否决其响应 / 其投标将被否决 / 投标人的投标将被否决 /
+#: 作无效投标处理 / 按无效响应处理 / 视为无效投标 / 拒绝其响应 / 不予受理其响应.
+_RESPONSE_REJECTION_RE = re.compile(
+    r"(否决其(响应|投标|报价)|其(响应|投标|报价)[^。；;]{0,8}(将被|被)?否决|"
+    r"(响应|投标|报价)(文件)?[^。；;]{0,8}(将被|被|视为|按)[^。；;]{0,6}"
+    r"(否决|无效|废标|不予受理)|"
+    r"否决[^。；;]{0,6}(其|该|上述)?(响应|投标|报价)|"
+    r"作无效(响应|投标|报价)|按无效(响应|投标|报价)|视为无效(响应|投标|报价)|"
+    r"拒绝其(响应|投标|报价)|不予受理其(响应|投标|报价)|"
+    r"(响应|投标)[^。；;]{0,6}(无效|废标))"
+)
+#: a submission that arrives late is not accepted (a submission-stage rule)
+_LATE_SUBMISSION_RE = re.compile(
+    r"(逾期(送达|上传|递交|提交|解密)|超过[^。；;]{0,10}(截止时间|递交时间)[^。；;]{0,10}(送达|上传|递交)|"
+    r"截止时间后[^。；;]{0,8}(送达|上传|递交|提交))"
+)
+#: the row is scored, not rejected
+_SCORING_ONLY_RE = re.compile(
+    r"(得分|评分|分值|加分|扣分|基本分|满分|不计分|不得分|基准价|评审价|价格分|技术分|商务分)"
+)
+#: a consequence that bites after the award
+_POST_AWARD_RE = re.compile(
+    r"(取消[^。；;]{0,8}(中标|成交|投标|响应|供应商)资格|解除合同|终止合同|"
+    r"没收[^。；;]{0,8}保证金|履约保证金[^。；;]{0,6}(不予退还|不予返还)|"
+    r"列入[^。；;]{0,8}(黑名单|不良行为记录))"
+)
+#: money / liability consequences that belong to the contract stage
+_CONTRACT_LIABILITY_RE = re.compile(
+    r"(违约金|赔偿责任|违约责任|支付[^。；;]{0,8}(利息|滞纳金)|"
+    r"承担[^。；;]{0,8}(责任|损失|费用)|赔偿[^。；;]{0,6}损失)"
+)
+
+
+def classify_consequence_scope(text: str, *, section: str = "") -> str:
+    """Which stage a consequence belongs to (round 7).
+
+    The tender document uses the same wording ("否决", "无效", "不接受") at every
+    stage; the stage decides whether a reviewer may read it as a rejection of the
+    response.  Scoring deductions, post-award cancellations, contract liabilities
+    and procedural statements are *not* response rejections.
+    """
+
+    probe = f"{section} {text or ''}"
+    # a consequence exists when the source states one of the stages' own cues --
+    # not only when it uses the rejection vocabulary ("取消中标资格" and "扣1分"
+    # are consequences too, they just are not rejections of the response)
+    if not (
+        _REJECTION_CUE_RE.search(probe)
+        or _LATE_SUBMISSION_RE.search(probe)
+        or _POST_AWARD_RE.search(probe)
+        or _SCORING_ONLY_RE.search(probe)
+        or _CONTRACT_LIABILITY_RE.search(probe)
+    ):
+        return SCOPE_UNKNOWN
+    if _RESPONSE_REJECTION_RE.search(probe):
+        return SCOPE_RESPONSE_REJECTION
+    if _POST_AWARD_RE.search(probe):
+        return SCOPE_POST_AWARD_CANCELLATION
+    if _LATE_SUBMISSION_RE.search(probe) and re.search(r"(不予受理|拒绝|无效)", probe):
+        return SCOPE_LATE_SUBMISSION
+    if _SCORING_ONLY_RE.search(probe):
+        return SCOPE_SCORING_ONLY
+    if _CONTRACT_LIABILITY_RE.search(probe):
+        return SCOPE_CONTRACT_LIABILITY
+    return SCOPE_INFORMATIONAL
+
 #: General "failure of a substantive requirement" ground.
 _SUBSTANTIVE_FAIL_RE = re.compile(
     r"(不符合|不满足|未响应|未实质性响应|不响应|背离)[^。；;]{0,24}"
@@ -419,6 +510,12 @@ class RejectionRule:
     page: int | None
     locator: str
     target_clauses: tuple[str, ...] = ()
+    #: round 7: the stage this consequence belongs to (SCOPE_*)
+    consequence_scope: str = SCOPE_UNKNOWN
+
+    @property
+    def is_response_rejection(self) -> bool:
+        return self.consequence_scope == SCOPE_RESPONSE_REJECTION
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -431,6 +528,7 @@ class RejectionRule:
             "page": self.page,
             "locator": self.locator,
             "target_clauses": list(self.target_clauses),
+            "consequence_scope": self.consequence_scope,
         }
 
 
@@ -456,6 +554,10 @@ class SourceRequirementCriticality:
     derived_rejection_consequence: bool = False
     rejection_basis_atom_ids: tuple[str, ...] = ()
     rejection_consequence_text: str = ""
+    #: round 7: the stage(s) of the consequences the source states for this atom
+    #: (SCOPE_*).  ``rejection_consequence`` is only ever true for a
+    #: RESPONSE_REJECTION; the other scopes are reported as their own class.
+    consequence_scopes: tuple[str, ...] = ()
     criticality_level: str = CRITICALITY_ORDINARY
     criticality_reason: str = ""
     reference_parent_atom_id: str = ""
@@ -501,6 +603,19 @@ class SourceRequirementCriticality:
             )
         if self.rejection_consequence:
             out.append(MANDATORY_TYPE_REJECTION)
+        elif self.consequence_scopes:
+            # the source does state a consequence, but not a response-stage
+            # rejection: name the stage instead of implying 否决
+            for scope in self.consequence_scopes:
+                mapped = {
+                    SCOPE_SCORING_ONLY: "SCORED_ONLY",
+                    SCOPE_POST_AWARD_CANCELLATION: "POST_AWARD_CANCELLATION",
+                    SCOPE_CONTRACT_LIABILITY: "CONTRACT_LIABILITY",
+                    SCOPE_LATE_SUBMISSION: "NON_ACCEPTANCE_OF_LATE_SUBMISSION",
+                    SCOPE_INFORMATIONAL: "INFORMATIONAL_PROCEDURAL",
+                }.get(scope)
+                if mapped and mapped not in out:
+                    out.append(mapped)
         return out
 
     @property
@@ -526,6 +641,7 @@ class SourceRequirementCriticality:
             "derived_rejection_consequence": self.derived_rejection_consequence,
             "rejection_basis_atom_ids": list(self.rejection_basis_atom_ids),
             "rejection_consequence_text": self.rejection_consequence_text,
+            "consequence_scopes": list(self.consequence_scopes),
             "criticality_level": self.criticality_level,
             "criticality_reason": self.criticality_reason,
             "reference_parent_atom_id": self.reference_parent_atom_id,
@@ -1353,6 +1469,10 @@ def discover_rejection_rules(
                     getattr(atom, "source_page", None),
                 ),
                 target_clauses=tuple(dict.fromkeys(targets)),
+                consequence_scope=classify_consequence_scope(
+                    str(getattr(atom, "source_text", "") or ""),
+                    section=str(getattr(atom, "source_section", "") or ""),
+                ),
             )
         )
 
@@ -1592,6 +1712,12 @@ def _section_range_children(
     section only, so a name match alone would propagate to a single atom.  The
     section therefore extends forward while the source keeps producing clauses
     of the same section, and stops at the next 中文-numbered heading.
+
+    Round 7: the extension is also bounded by the section itself -- a chapter
+    heading, a change of ``source_section``, or a page break ends it.  Without
+    that bound a reference such as "第二款 供应商资格要求" propagated to every
+    later atom of the document (round-7 fixtures A/B: a platform-registration
+    clause and a site-visit clause became "实质性要求" and "否决").
     """
 
     position = next(
@@ -1604,13 +1730,27 @@ def _section_range_children(
     )
     if position < 0:
         return []
+    hit = atoms[position]
+    hit_section = _normalize(getattr(hit, "source_section", "") or "")
+    hit_page = getattr(hit, "source_page", None)
     children: list[str] = []
     for atom in atoms[position + 1 :]:
         text = str(getattr(atom, "source_text", "") or "").strip()
         if _SECTION_HEADING_RE.match(text) or re.match(r"^\s*第\s*\d+\s*章", text):
             break
+        if CHAPTER_RE_LOCAL.match(text):
+            break
+        section = _normalize(getattr(atom, "source_section", "") or "")
+        if hit_section and section and section != hit_section:
+            break
+        page = getattr(atom, "source_page", None)
+        if hit_page is not None and page is not None and abs(int(page) - int(hit_page)) > 1:
+            break
         children.append(str(getattr(atom, "atom_id", "") or ""))
     return children
+
+
+CHAPTER_RE_LOCAL = re.compile(r"^\s*第\s*[一二三四五六七八九十百]+\s*章")
 
 
 def discover_reference_links(
@@ -1682,14 +1822,34 @@ def discover_reference_links(
             children: list[str] = []
             target_kind = "UNRESOLVED_REFERENCE"
             hits: list[str] = []
-            for atom in atoms:
-                other_id = str(getattr(atom, "atom_id", "") or "")
-                if other_id == parent_atom_id:
-                    continue
-                section = _normalize(getattr(atom, "source_section", "") or "")
-                body = _normalize(getattr(atom, "source_text", "") or "")
-                if any(token and (token in section or token in body) for token in tokens):
-                    hits.append(other_id)
+            chapter_reference = bool(
+                re.match(r"^\s*第\s*[一二三四五六七八九十百]+\s*章", target)
+            )
+            if chapter_reference:
+                # "第五章 采购需求" names a chapter: the chapter's own clauses are
+                # the scope, not the atoms whose text happens to quote the name
+                chapter_children, _locator = _chapter_children(
+                    target,
+                    chapters,
+                    atoms,
+                    parent_atom_id=parent_atom_id,
+                )
+                if chapter_children:
+                    children = chapter_children
+                    target_kind = "CHAPTER_MATCH"
+            if not children:
+                for atom in atoms:
+                    other_id = str(getattr(atom, "atom_id", "") or "")
+                    if other_id == parent_atom_id:
+                        continue
+                    if getattr(atom, "applicable_of_atom_id", ""):
+                        # an applicable-source atom is a display source for a
+                        # schedule row, never a clause of the referenced section
+                        continue
+                    section = _normalize(getattr(atom, "source_section", "") or "")
+                    body = _normalize(getattr(atom, "source_text", "") or "")
+                    if any(token and (token in section or token in body) for token in tokens):
+                        hits.append(other_id)
             if hits:
                 children = list(hits)
                 target_kind = "SECTION_MATCH"
@@ -1697,7 +1857,7 @@ def discover_reference_links(
                     for child in _section_range_children(hit, atoms):
                         if child and child != parent_atom_id and child not in children:
                             children.append(child)
-            else:
+            elif not children and not chapter_reference:
                 chapter_children, _locator = _chapter_children(
                     target,
                     chapters,
@@ -1805,13 +1965,50 @@ class CriticalityIndex:
             source_atom_id=atom_id
         )
 
-    def for_atoms(self, atoms: Sequence[Any]) -> SourceRequirementCriticality:
-        """Aggregate owned atoms: keep the strongest source-backed status."""
+    def for_atoms(
+        self,
+        atoms: Sequence[Any],
+        *,
+        scope_atoms: Sequence[Any] | None = None,
+    ) -> SourceRequirementCriticality:
+        """Aggregate owned atoms: keep the strongest source-backed status.
+
+        Round 7: the row shows the source marker of every clause the concern owns
+        (the marker is ownership-scoped), but its *consequence* classification
+        (substantive requirement / rejection stage) is display-scoped: only the
+        clauses the row actually displays may label it as substantive or vetoed.
+        A foreign clause owned by a catch-all concern therefore cannot turn this
+        row into a rejection (round-7 fixtures A/B/E), while a genuine ``★`` on
+        the requirement itself is never lost.
+        """
 
         records = [self.for_atom(atom) for atom in atoms]
         records = [record for record in records if record.source_atom_id]
         if not records:
             return SourceRequirementCriticality(source_atom_id="")
+        scope_ids = (
+            {str(getattr(atom, "atom_id", "")) for atom in scope_atoms}
+            if scope_atoms is not None
+            else None
+        )
+        if scope_ids is not None:
+            # An *explicit* response-stage consequence the concern owns is a
+            # direct statement about its own requirement ("…否则，投标人的投标
+            # 将被否决"), so it governs the row even when the row quotes a sibling
+            # atom of the same requirement.  A *derived* consequence (substantive
+            # requirement + a general rejection clause) stays display-scoped: that
+            # is what let a foreign clause's substantiveness veto an unrelated row
+            # (round-7 fixtures A/B/E).
+            scope_ids |= {
+                record.source_atom_id
+                for record in self.criticalities.values()
+                if record.explicit_rejection_consequence
+            } & {str(getattr(atom, "atom_id", "")) for atom in atoms}
+        scoped = (
+            [record for record in records if record.source_atom_id in scope_ids]
+            if scope_ids is not None
+            else records
+        ) or []
         strength = {
             BASIS_SOURCE_MARKER: 0,
             BASIS_EXPLICIT_WORDING: 1,
@@ -1828,9 +2025,12 @@ class CriticalityIndex:
             ),
         )
         marked = [record for record in ordered if record.marker_present]
-        substantive = [record for record in ordered if record.substantive_requirement]
-        explicit = [record for record in ordered if record.explicit_rejection_consequence]
-        derived = [record for record in ordered if record.derived_rejection_consequence]
+        # round 7: substantiveness / rejection scope come from the displayed
+        # clauses only; markers come from every owned clause
+        scope_ordered = [record for record in ordered if record in scoped] or ordered
+        substantive = [record for record in scope_ordered if record.substantive_requirement]
+        explicit = [record for record in scope_ordered if record.explicit_rejection_consequence]
+        derived = [record for record in scope_ordered if record.derived_rejection_consequence]
         basis_atoms: list[str] = []
         basis_texts: list[str] = []
         basis_kinds: list[str] = []
@@ -1854,6 +2054,11 @@ class CriticalityIndex:
         )
         reference_target = next(
             (record.reference_target for record in records if record.reference_target), ""
+        )
+        consequence_scopes = tuple(
+            dict.fromkeys(
+                scope for record in scope_ordered for scope in record.consequence_scopes if scope
+            )
         )
         governing = next(
             (record.governing_clause_atom_id for record in records if record.governing_clause_atom_id),
@@ -1912,6 +2117,7 @@ class CriticalityIndex:
             derived_rejection_consequence=bool(derived) and not explicit,
             rejection_basis_atom_ids=tuple(dict.fromkeys(rejection_atoms)),
             rejection_consequence_text=" ".join(dict.fromkeys(rejection_texts))[:400],
+            consequence_scopes=consequence_scopes,
             criticality_level=level,
             criticality_reason="；".join(reason_parts),
             reference_parent_atom_id=parent,
@@ -2242,11 +2448,25 @@ def build_criticality_index(
         for child in link.target_atom_ids:
             propagated.setdefault(child, link)
 
+    # Round 7: only a *response-stage* consequence may be shown as 否决性.  A
+    # scoring deduction, a post-award cancellation, a contract liability, a
+    # late-submission rule or a procedural statement stays in the ledger with its
+    # own scope but never marks the row as rejected.
     general_rules = tuple(
-        rule for rule in rejection_rules if rule.trigger == REJECTION_TRIGGER_SUBSTANTIVE
+        rule
+        for rule in rejection_rules
+        if rule.trigger == REJECTION_TRIGGER_SUBSTANTIVE and rule.is_response_rejection
     )
     specific_rules = tuple(
-        rule for rule in rejection_rules if rule.trigger == REJECTION_TRIGGER_SPECIFIC_CLAUSE
+        rule
+        for rule in rejection_rules
+        if rule.trigger == REJECTION_TRIGGER_SPECIFIC_CLAUSE and rule.is_response_rejection
+    )
+    non_rejection_rules = tuple(
+        rule
+        for rule in rejection_rules
+        if rule.trigger in (REJECTION_TRIGGER_SUBSTANTIVE, REJECTION_TRIGGER_SPECIFIC_CLAUSE)
+        and not rule.is_response_rejection
     )
 
     criticalities: dict[str, SourceRequirementCriticality] = {}
@@ -2375,6 +2595,18 @@ def build_criticality_index(
             derived = True
             rejection_atoms.append(rule.governing_atom_id)
             rejection_text = rule.governing_text
+        # the scopes of the non-response consequences that govern this atom, so
+        # the row can say *why* it is not a rejection ("评分规则，非否决情形")
+        consequence_scopes = tuple(
+            dict.fromkeys(
+                rule.consequence_scope
+                for rule in non_rejection_rules
+                if rule.governing_atom_id == atom_id
+                or bool(rule.target_clauses and clause_tokens & set(rule.target_clauses))
+            )
+        )
+        if not consequence_scopes and substantive:
+            consequence_scopes = (SCOPE_SCORING_ONLY,) if _SCORING_ONLY_RE.search(flat) else ()
 
         if explicit:
             level = CRITICALITY_SUBSTANTIVE_REJECTION
@@ -2419,6 +2651,7 @@ def build_criticality_index(
             derived_rejection_consequence=derived,
             rejection_basis_atom_ids=tuple(dict.fromkeys(rejection_atoms)),
             rejection_consequence_text=rejection_text,
+            consequence_scopes=consequence_scopes,
             criticality_level=level,
             criticality_reason="；".join(reason_parts),
             reference_parent_atom_id=reference_parent,

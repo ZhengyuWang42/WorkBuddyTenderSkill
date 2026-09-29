@@ -1,0 +1,76 @@
+{
+  "schema": "v1_review_workbook_human_review/1",
+  "case": "case_001",
+  "round": "review_workbook_round6_marker_closure",
+  "recorded_by": "human manual review (reported to the agent)",
+  "artifact_reviewed": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6_marker_closure/投标项目复核表.xlsx",
+  "human_verdict": "FAIL",
+  "fail_reason": "SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY",
+  "human_note": "The round-6 marker accounting is accepted (banked). The failure is about which source the row is displayed from and whether the printed locator/excerpt matches it: general source text is rendered even when a case-specific schedule/preamble value resolves the clause; substantive/rejection semantics leak into scoring or ordinary procedural concerns; the displayed requirement and its evidence locator/section/excerpt refer to different source semantics; different platform roles collapse into one fact; final source fragments are incomplete or duplicated.",
+  "required_invariant": "APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATCHING EVIDENCE LOCATOR",
+  "must_not_be_rewritten": true,
+  "automation_may_not_mark_pass": true,
+  "banked_architecture_must_not_be_reopened": [
+    "SourceRequirementAtom",
+    "ReviewConcern",
+    "ReviewPoint",
+    "RenderedReviewComponent",
+    "ConcernContract",
+    "SourceRequirementCriticality",
+    "MarkerOccurrence",
+    "ProjectFacts SSOT",
+    "ReviewEvidence",
+    "workbook sheet architecture",
+    "Round6 dashboard logic",
+    "Round6 marker accounting"
+  ],
+  "failure_classes": {
+    "A": "general source text rendered even when a case-specific schedule/preamble value resolves it",
+    "B": "substantive/rejection semantics leak into scoring or ordinary procedural concerns",
+    "C": "displayed requirement vs evidence locator/section/excerpt refer to different source semantics",
+    "D": "different platform roles collapsed into one fact",
+    "E": "final source fragments incomplete or duplicated"
+  },
+  "automation_closure": {
+    "closed": true,
+    "closed_in_round": "review_workbook_round7",
+    "closed_by": "applicable-source resolution, consequence-scope model and evidence-locator fidelity (automation only)",
+    "mechanism": [
+      "ApplicableSourceResolution: a case-specific schedule/preamble value overrides, specializes, resolves or complements the generic clause, and the generic atom is superseded for display while its provenance is kept",
+      "consequence scopes (SCOPE_RESPONSE_REJECTION / SCOPE_SCORING_ONLY / SCOPE_POST_AWARD_CANCELLATION / SCOPE_CONTRACT_LIABILITY / SCOPE_LATE_SUBMISSION / SCOPE_INFORMATIONAL) separate marker ownership from displayed consequence",
+      "EvidenceUnit + EvidenceUnitIndex give every row one semantic source unit (page / section / clause / span / locator), and the excerpt may only complete the concern's own sentence",
+      "platform roles are resolved separately (procurement service / transaction / upload / opening / announcement)",
+      "fragments are completed backwards/forwards inside the concern's own backing and de-duplicated",
+      "applicability_invariants checks the applicable source, rejection scope, locator, fragment completeness and platform roles on the delivered workbooks"
+    ],
+    "evidence": [
+      "acceptance/reports/v1_generalization/review_workbook_round7_case_001.json",
+      "acceptance/reports/v1_generalization/review_workbook_round7_case_002.json",
+      "acceptance/reports/v1_generalization/review_workbook_round7_case_003.json",
+      "acceptance/reports/v1_generalization/review_workbook_round7_generalization.json",
+      "acceptance/reports/v1_generalization/case001_review_workbook7_visual_qa.json",
+      "acceptance/reports/v1_generalization/case002_review_workbook7_visual_qa.json",
+      "acceptance/reports/v1_generalization/case003_review_workbook7_visual_qa.json",
+      "acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.txt",
+      "acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml"
+    ],
+    "human_review_state": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "human_checkboxes_ticked": 0
+  },
+  "resolved_findings": [
+    "CASE001 rows now display the case-specific preamble values (1.10.1 采购预备会 不召开, 1.11.1 踏勘现场 不组织, *1.12 分包 不允许, *1.4.5 供货期, *1.4.6 交货地点, 7.3 履约保证金) from pages 9-11 instead of the generic clauses on page 16",
+    "a SPECIALIZES resolution keeps the parent clause wording and appends the project value (7.3.1 履约保证金: 拾万元整 / 银行转账或银行保函)",
+    "evidence excerpts no longer span the neighbouring source unit's requirement (validity no longer quotes the bid-bond row; the tax row no longer quotes the delivery-period cell)",
+    "the QA locator gate grounds a row's evidence in its extraction units, in the applicable source its own requirement quotes, or in the document's own text on the page it cites",
+    "CASE002 DR026 (CONTRACT_RISK) links every contributing unit explicitly (PRIMARY EU-P13-T0-R4 plus LINKED EU-P57-B2 and EU-P105-B4) instead of dropping one"
+  ],
+  "interruptions": [
+    "round-7 execution was interrupted more than once by external quota / rate-limit events (not a repository defect); the dirty worktree was preserved and never reset, cleaned or reverted, and the interrupted build acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7_interrupted_credit_quota was kept on disk as evidence"
+  ],
+  "still_open_for_the_human": [
+    "CASE001_XLSX_MANUAL_REVIEW remains unconfirmed (AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW); the round-3 (RENDERED_COMPONENT_CONCERN_OWNERSHIP), round-5 (SOURCE_MARKER_CRITICALITY_FIDELITY) and round-6 (SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY) human FAIL verdicts are preserved and must not be rewritten",
+    "CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED, CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED",
+    "automation never ticks a human box",
+    "V1_PRODUCTION_CANDIDATE = false, READY_FOR_SUBMISSION = false, no tag and no release"
+  ]
+}

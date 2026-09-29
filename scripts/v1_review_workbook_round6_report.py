@@ -123,6 +123,18 @@ class Check:
         }
 
 
+def contract_violations(data: dict) -> list[dict]:
+    """The concrete contract violations behind a failed round-5 check."""
+
+    out: list[dict] = []
+    for check in data.get("checks", ()):
+        if check.get("ok"):
+            continue
+        for violation in (check.get("evidence") or {}).get("violations", ()) or ():
+            out.append(violation)
+    return out
+
+
 class Round6Report:
     def __init__(
         self,
@@ -130,16 +142,22 @@ class Round6Report:
         *,
         case_dir: Path | None = None,
         stage: str = "initial",
+        build_name: str | None = None,
     ) -> None:
         spec = CASES[case]
         self.case = case
         self.stage = stage
         self.case_dir = case_dir or (ROOT / "acceptance/workspace" / case)
-        build_name = spec["build"]
-        if stage == "marker_closure":
-            # the round-6 successor build: the initial build stays on disk as the
-            # preserved FAILED evidence and is never overwritten
-            build_name = f"{build_name}_marker_closure"
+        if build_name:
+            # round 7: the same banked round-6 accounting gates run against the
+            # round-7 successor workbook, which must not regress them
+            build_name = str(build_name)
+        else:
+            build_name = spec["build"]
+            if stage == "marker_closure":
+                # the round-6 successor build: the initial build stays on disk as
+                # the preserved FAILED evidence and is never overwritten
+                build_name = f"{build_name}_marker_closure"
         self.build = self.case_dir / build_name
         self.source_build = self.case_dir / spec["source"]
         self.before = self.case_dir / spec["before"]
@@ -1093,7 +1111,9 @@ class Round6Report:
         failed = [check["check"] for check in data["checks"] if not check["ok"]]
         contract_failed = failed
         self.check(
-            "concern contracts still hold on the round-6 successor",
+            "concern contracts still hold on the round-6 successor"
+            if self.stage != "round7"
+            else "concern contracts still hold on the round-7 successor",
             not contract_failed and not data.get("fixtures_failed"),
             f"concern contract checks failed={len(contract_failed)}, "
             f"fixtures={data.get('fixtures_passed')}",
@@ -1101,6 +1121,7 @@ class Round6Report:
                 "failed_checks": contract_failed[:6],
                 "fixtures_failed": data.get("fixtures_failed"),
                 "contract_count": data.get("contract_count"),
+                "violations": contract_violations(data)[:12],
             },
         )
         return data

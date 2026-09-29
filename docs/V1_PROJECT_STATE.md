@@ -1034,6 +1034,14 @@ acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_followup/bui
 acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_followup/project_facts.json
 acceptance/workspace/case_002/v1_round3_p3semantics/project_facts.json
 acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
+acceptance/reports/v1_generalization/review_workbook_round7_case_001.json
+acceptance/reports/v1_generalization/review_workbook_round7_case_002.json
+acceptance/reports/v1_generalization/review_workbook_round7_case_003.json
+acceptance/reports/v1_generalization/review_workbook_round7_generalization.json
+acceptance/reports/v1_generalization/case00{1,2,3}_review_workbook7_visual_qa.json
+acceptance/reports/v1_generalization/case001_review_workbook_round7_human_review.json
+acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.txt
+acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 ```
 
 ---
@@ -1045,13 +1053,17 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | 工作流 | 状态 |
 | --- | --- |
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4）；三项历史人工发现（A / B / C）已自动化关闭；**人工桌面 Word 复核尚未确认**（当前 `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`，历史 `FAIL` 见 §1.2） |
-| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 4 轮（当前机器状态）**把不变量推进到渲染层——**SEMANTIC OWNERSHIP MUST SURVIVE RENDERING**：交付单元格由 `RenderedReviewComponent` 投影生成（`cell_from_components`），每个渲染短语都必须有*关注点自有*的出处；三案例第 4 轮报告 **PASS**（CASE001 `25/25`、CASE002 `23/23`、CASE003 `23/23`）、八类 `RENDERED_*_CONCERN_MISMATCH = 0`、三案例门禁 **40/40 PASS（各自，复用第 3 轮门禁）**、渲染 QA **PASS**（`clipping_bounded` WARN：CASE001 **8** / CASE002 **10** / CASE003 **25**，均不劣于基线）、Word 产物逐字节未变；**人工 Excel 复核尚未确认**（第 3 轮人工复核结论为 **FAIL**，原因 `RENDERED_COMPONENT_CONCERN_OWNERSHIP`，第 4 轮已由自动化关闭并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
-| **人工 Excel 复核** | 未确认：第 3 轮工作簿经人工复核判 **FAIL**（`FAIL_REASON = RENDERED_COMPONENT_CONCERN_OWNERSHIP`，模型里有归属、渲染文本仍会继承过期/过宽来源组），第 4 轮已自动化关闭该缺陷，人工结论列**仍未勾选**（`已通过 = 0`；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`）；当前复核对象见 §12.3 与 `v1_manual_review_checklist.md` 第 4 节 |
-| **全量测试（复核工作簿第 4 轮）** | 见 §12.3「Round4 全套测试」（`review_workbook_round4_full_test_suite.txt` / `.xml`，JUnit XML 计数） |
+| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 7 轮（当前机器状态）**修正人工判定的五个失效类（适用源、否决作用域、证据定位、平台角色、片段完整），端到端链条为 `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT → EXACT MATCHING EVIDENCE LOCATOR`（`docs/V1_DECISIONS.md` §D66–D70）；三案例第 7 轮审计 **PASS** + 泛化 **PASS**、渲染 QA **PASS**（`clipping_bounded` 为有界 WARN）、第 6 轮账目在第 7 轮构建上复跑 **25/25**、Word 产物逐字节未变、全套 **892 收集 / 0 failed / 0 errors / 1 skipped**；**人工 Excel 复核尚未确认**（第 6 轮人工复核结论为 **FAIL**，原因 `SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`，第 7 轮已由自动化关闭并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
+| **人工 Excel 复核** | 未确认：第 3 轮人工判 **FAIL**（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`）、第 5 轮人工判 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）、第 6 轮收口后人工判 **FAIL**（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`）——三次人工结论**保留且不得改写**；第 4/5/6 轮的缺陷分别由第 4/6/7 轮自动化关闭，人工结论列**仍未勾选**（`已通过 = 0`；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`）；当前复核对象见 §12.3 与 `v1_manual_review_checklist.md` 第 4 节 |
+| **全量测试（复核工作簿第 7 轮）** | 见 §12.3「Round7 全套测试」（`review_workbook_round7_full_test_suite.txt` / `.xml`，JUnit XML 计数 `892 / 0 / 0 / 1`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
-| **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；工作簿轮次细节见 §12.3 |
+| **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；第 6 轮收口检查点 = commit `4df27bc`（第 7 轮的基线 HEAD，已推送）；工作簿轮次细节见 §12.3 |
 
-> 第 4 轮（当前）的机器状态以
+> 第 7 轮（当前）的机器状态以
+> `acceptance/reports/v1_generalization/review_workbook_round7_generalization.json`
+> 与 `review_workbook_round7_case_00{1,2,3}.json` 为准（均为 `result = PASS`）；
+> 第 6 轮的标记账目**已入账**且继续作为硬门禁在第 7 轮构建上复跑（25/25）。
+> 第 4 轮的机器状态以
 > `acceptance/reports/v1_generalization/review_workbook_round4_final_status.json`
 > 为准（`result = PASS`、`blockers = []`、三案例第 4 轮报告 PASS、门禁 `40/40`）；
 > 第 3 轮的状态**只是历史**，不得再当作当前机器状态。
@@ -1065,27 +1077,26 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 
 ### 12.3 复核工作簿轮次（REVIEW WORKBOOK ROUND，已完成机器闭环）
 
-**当前轮次 = 第 4 轮（Round4）**；第 1 / 第 2 / 第 3 轮行保留为历史，已明确标注。
+**当前轮次 = 第 7 轮（Round7）**；第 1–6 轮行保留为历史，已明确标注。
 
 | 项目 | 值 |
 | --- | --- |
-| **当前轮次** | **Round4**（渲染组件出处闭环：`RenderedReviewComponent` + 最终单元格审计） |
-| **本轮不变量（当前）** | **SEMANTIC OWNERSHIP MUST SURVIVE RENDERING**——*每一个渲染进 XLSX 的实质短语，都必须有"关注点自有"的出处*；模型对象里有归属**不够**，交付单元格的文本本身必须可追溯到同关注点的来源原子/数值/材料/证据 |
-| **语义管线（当前）** | `SourceRequirementAtom → ReviewConcern → ReviewPoint → RenderedReviewComponent → 工作簿视图` |
-| **渲染组件模型** | `tender_basic/review_rendering.py`（`RenderedReviewComponent` 九类组件、`ComponentOwnership`、`verify_component`、`foreign_terms`、`provenance_map`） |
-| **关注点引擎（当前）** | `tender_basic/review_concern.py`（原子化、`ReviewConcern` 注册表与分类、句级仲裁、归属违规检查器、可执行性过滤） |
-| **复核要点引擎（当前）** | `tender_basic/review_point.py`（`synthesize_concern_point` / `synthesize_review_point` / `value_sentence` / `render_review_cell` / `scan_review_points`），由 `dynamic_review.build_dynamic_review_plan` 按关注点建行 |
-| 工作簿构建器 | `tender_basic/review_workbook_views.py`（`build_review_views` / `augment_review_workbook(..., refresh_legacy_rows=)`），由 `review_builder.build_review_workbook` 调用 |
-| 后继构建工具 | `scripts/v1_build_review_workbook.py`（复制 Word 产物，不重新渲染；`--refresh-legacy-rows` 重算交付表动态复核行；**目标目录已存在时拒绝覆盖**，重跑前须先删除） |
-| 工作簿门禁 | `scripts/v1_review_workbook_gate.py`（第 1 轮 37 项；第 2/3/4 轮 `--legacy-text-refresh` **40 项**；第 4 轮三案例各 **40/40 PASS**） |
-| 渲染 QA | `scripts/v1_review_workbook_visual_qa.py`（LibreOffice PDF + 重算副本） |
-| **单元格投影** | `tender_basic/dynamic_review.py::cell_from_components`——交付表 D 列文本由已校验组件投影生成，不再由模板直接拼接 |
-| **Round4 报告** | `scripts/v1_review_workbook_round4_report.py`（重新读取**最终** xlsx 单元格校验渲染输出、A–S 人工坏例、30 格最终单元格审计、出处映射）→ `case00{1,2,3}_review_workbook_round4.{json,md}` + `review_workbook_round4_rendered_component_provenance_case_00{1,2,3}.json` |
-| **Round4 最终状态** | `scripts/v1_review_workbook_round4_final_status.py` → `review_workbook_round4_final_status.{json,md}` |
-| **Round4 人工复核输入记录** | `acceptance/reports/v1_generalization/case001_review_workbook_round4_human_review.json`（人工 = `FAIL` / `RENDERED_COMPONENT_CONCERN_OWNERSHIP`，自动化**只能**关闭为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
-| **Round4 后继构建（当前复核对象）** | CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4`（45 行，`投标项目复核表.xlsx` sha256 `be084b7aeefd24cd1a81cd3452b92a63389ca256a7fd785d4eed1dc85db52c3c`，70271 B）<br>CASE002 `acceptance/workspace/case_002/v1_round4_closure8_review_workbook4`（46 行，sha256 `ea6c4f2d9bc8473c3f2d8bed5bf53bd3e74a0f2a9086adeaad3ed79d22359ea9`，76801 B）<br>CASE003 `acceptance/workspace/case_003/v1_round4_closure8_review_workbook4`（49 行，sha256 `3bb048a45ebb3a445f6171c97cf39ec47fd61e7aeb3942e8f6f73be50d160735`，81382 B） |
-| **Round4 测试模块** | `tests/test_round64_rendered_component_provenance.py`（A–S 人工坏例 + 渲染出处 / 旧组泄漏 / 过期关联事实 / 最终单元格证据归属 / 质保金措辞 / 评分拆分 / 平台角色区分） |
-| **Round4 全套测试** | **770 collected / 769 passed / 1 skipped / 0 failed / 0 errors**（`review_workbook_round4_full_test_suite.txt` / `.xml`，JUnit XML 计数） |
+| **当前轮次** | **Round7**（适用源解析 + 否决作用域 + 证据定位保真，人工第 6 轮 FAIL 的自动化关闭） |
+| **本轮不变量（当前）** | `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT → EXACT MATCHING EVIDENCE LOCATOR`：个案化前附表/日程值**取代**通用模板正文的显示；否决语义只在 `SCOPE_RESPONSE_REJECTION` 显示；行内要求/摘录/页码/章节/条款号必须同属**一个证据单元** |
+| **适用源引擎（Round7 新增）** | `tender_basic/source_applicability.py`（`ApplicableSourceResolution`、`discover_schedule_rows`、`resolve_applicable_sources`、`apply_applicable_resolutions`、`resolution_for_concern`、`action_for_resolution`） |
+| **证据单元引擎（Round7 新增）** | `tender_basic/evidence_unit.py`（`EvidenceUnit`、`EvidenceUnitIndex`、`locate_atom`、`locator_for_atom`、`sentence_window`、`extend_fragment`、`finish_from_unit`） |
+| **平台角色引擎（Round7 新增）** | `tender_basic/platform_roles.py`（`classify_platform_role`、`resolve_platform_roles`、`role_breakdown_text`；公告角色永不被选为提交平台） |
+| **Round7 不变量检查器** | `tender_basic/applicability_invariants.py`（`check_applicable_source` / `check_rejection_scope` / `check_evidence_locator` / `check_fragment_completeness` / `check_platform_roles`） |
+| **作用域分类** | `tender_basic/source_criticality.py`（`classify_consequence_scope`、`SCOPE_RESPONSE_REJECTION` / `SCOPE_SCORING_ONLY` / `SCOPE_POST_AWARD_CANCELLATION` / `SCOPE_CONTRACT_LIABILITY` / `SCOPE_LATE_SUBMISSION` / `SCOPE_INFORMATIONAL` / `SCOPE_UNKNOWN`；标记归属与后果显示分离，第 6 轮冻结 `★` 行不变） |
+| **Round7 报告** | `scripts/v1_review_workbook_round7_report.py`（`--case` / `--three-case`）→ `review_workbook_round7_case_00{1,2,3}.{json,md}` + `review_workbook_round7_generalization.json` |
+| **Round7 后继构建（当前复核对象）** | CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7`（`投标项目复核表.xlsx` sha256 `d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717`，71394 B）<br>CASE002 `acceptance/workspace/case_002/v1_round4_closure8_review_workbook7`（sha256 `6e6bb959527b7cf70a0abe1ba1b7a7d860be9d14ccc9829ceb3746727dc50411`，77275 B）<br>CASE003 `acceptance/workspace/case_003/v1_round4_closure8_review_workbook7`（sha256 `cc4d4e137aa676481f759ba2bb259fd7f2b5a4ca67a1c6df8fdb5a118b0f6dcb`，83858 B）<br>（均由第 6 轮收口构建以 `--refresh-legacy-rows --refresh-facts` 派生；被中断的 `..._review_workbook7_interrupted_credit_quota` 保留为外部配额中断证据） |
+| **Round7 测试模块** | `tests/test_round7_applicable_source.py`（27 项：零计数门禁、CASE001 决定值、日程页定位、SPECIALIZES 保留父条款措辞、作用域分类、定位保真、多条款链接 DR026、片段完整、平台角色、第 5/6 轮回归、人工状态不得置 PASS） |
+| **Round7 三案例审计** | `review_workbook_round7_case_001/002/003.json` = **PASS（0 failed check）**；`review_workbook_round7_generalization.json` = **PASS** |
+| **Round7 渲染 QA** | `case00{1,2,3}_review_workbook7_visual_qa.json` = **PASS**（`failed_checks = 0`；`clipping_bounded` 有界 WARN：CASE001 9 / CASE002 10 / CASE003 28） |
+| **第 6 轮账目复跑（Round7 构建上）** | 三案例 `25/25` 检查通过、夹具 23 / 3 / 10、标记丢失 0 / 未归属 0 / 未解析 0 / 直接失败 0；第 5 轮 `ConcernContract` 通过 |
+| **Round7 全套测试** | **892 collected / 0 failed / 0 errors / 1 skipped**（`review_workbook_round7_full_test_suite.txt` / `.xml`，JUnit XML 计数） |
+| **Round7 Word 产物** | closure8 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated = false`） |
+| Round4（HISTORICAL） | 渲染组件出处闭环：`scripts/v1_review_workbook_round4_report.py` → `case00{1,2,3}_review_workbook_round4.{json,md}` + `review_workbook_round4_rendered_component_provenance_case_00{1,2,3}.json`；后继构建 `..._review_workbook4`；三案例报告 PASS、门禁 40/40；全套测试 770 collected / 769 passed / 1 skipped / 0 failed |
 | Round3（HISTORICAL） | 复核关注点归属：`scripts/v1_review_workbook_round3_report.py` → `review_workbook_round3_content_quality_case_00{1,2,3}.{json,md}`；后继构建 `..._review_workbook3`（CASE001 `v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3`、CASE002/003 `v1_round4_closure8_review_workbook3`，XLSX SHA256 见 `review_workbook_round3_final_status_reconciled.json`）；三案例门禁 40/40；`review_workbook_round3_final_status_reconciled.json` = PASS；全套测试 716 collected / 715 passed / 1 skipped / 0 failed（`review_workbook_round3_full_test_suite.{txt,xml}`） |
 | Round3 测试模块（HISTORICAL） | `tests/test_round64_review_concern_ownership.py`（32 项覆盖） |
 | Round3 关键语义事实 | CASE001：`PROJECT_WARRANTY 24个月` / `RETENTION_MONEY_RATIO 5%` / `RETENTION_RELEASE_PERIOD 12个月` 为三个关注点，同一「质保」关键词**不构成**源冲突（`FALSE_CONFLICT_COUNT = 0`）；CASE002 `budget NOT_FOUND`、`max_price 7507785.65` RESOLVED、分项报价 36 行；CASE003 `lot_name 三标段` RESOLVED |
@@ -1104,7 +1115,8 @@ acceptance/workspace/case_003/v1_round3_p3semantics/project_facts.json
 | **A2** | 复核工作簿第 2 轮：把复核行改写为**人工复核要点合成**（要求/复核要点/通过标准/不满足后果/准备材料/评分提示），删除样板文字与无关数字 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（7/7 已知坏例、8 组 BEFORE→AFTER、19 种复核类型覆盖测试）、全套测试 684 收集 / 683 passed / 1 skipped / 0 failed |
 | **A3** | 复核工作簿第 3 轮：**复核关注点归属**（`SourceRequirementAtom -> ReviewConcern -> ReviewPoint`），每个渲染组件必须同源且同关注点；修正质保期/质保金/释放期语义 | ✅ 已完成：三案例门禁 40/40 PASS、内容质量报告 PASS（14/14 A–N、20/20 审计、≥15 BEFORE→AFTER、`FALSE_CONFLICT_COUNT = 0`）、32 项归属测试、全套测试 716 收集 / 715 passed / 1 skipped / **0 failed / 0 errors**（`review_workbook_round3_final_status_reconciled.json` = PASS） |
 | **A4** | 复核工作簿第 4 轮：**渲染组件出处闭环**——人工判第 3 轮 `FAIL`（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`），交付单元格必须由已校验组件投影，且每个渲染短语都有同关注点出处（**SEMANTIC OWNERSHIP MUST SURVIVE RENDERING**） | ✅ 已完成（机器闭环）：三案例第 4 轮报告 PASS（25/25、23/23、23/23）、八类 `RENDERED_*_CONCERN_MISMATCH = 0`、A–S 人工坏例 19/19、CASE001 最终单元格审计全格一致、门禁 40/40、渲染 QA PASS、Word 产物逐字节未变、全套测试 0 failed / 0 errors；人工结论列仍为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` |
-| **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认（当前为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，第 3 轮人工判 `FAIL` / `RENDERED_COMPONENT_CONCERN_OWNERSHIP`，第 4 轮已自动化关闭） |
+| **A5** | 复核工作簿第 7 轮：**适用源解析 + 否决作用域 + 证据定位保真**——人工判第 6 轮 `FAIL`（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`），交付行必须沿 `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT → EXACT MATCHING EVIDENCE LOCATOR` 闭合（**PROJECT-SPECIFIC SOURCE RESOLVES GENERIC TEMPLATE** / **CRITICALITY HAS STAGE/SCOPE** / **EVIDENCE LOCATOR IS PART OF SEMANTIC FIDELITY**） | ✅ 已完成（机器闭环）：三案例第 7 轮审计 **PASS**、泛化 **PASS**、渲染 QA **PASS**、第 6 轮账目在第 7 轮构建上复跑 **25/25**（标记丢失/未归属/未解析/直接失败均为 0）、第 5 轮 `ConcernContract` 通过、第 7 轮定向测试 27/27、Word 产物逐字节未变、全套 **892 收集 / 0 failed / 0 errors / 1 skipped**；人工结论列仍为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` |
+| **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认（当前为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`；历史人工判据：第 3 轮 `FAIL` / `RENDERED_COMPONENT_CONCERN_OWNERSHIP`、第 5 轮 `FAIL` / `SOURCE_MARKER_CRITICALITY_FIDELITY`、第 6 轮 `FAIL` / `SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`，分别由第 4 / 6 / 7 轮自动化关闭） |
 | **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |
 | **E** | 最终 release-candidate 检查点 | 三案例人工复核均完成后的独立决策 |

@@ -82,6 +82,15 @@ def main() -> int:
         action="store_true",
         help="re-synthesize the delivered sheet's dynamic review rows from the plan",
     )
+    parser.add_argument(
+        "--refresh-facts",
+        action="store_true",
+        help=(
+            "re-resolve ProjectFacts in the successor build from its normalized "
+            "document (round 7: platform-role resolution changes a fact, and the "
+            "accepted source build must stay byte-identical)"
+        ),
+    )
     parser.add_argument("--out", help="report path")
     args = parser.parse_args()
 
@@ -120,6 +129,34 @@ def main() -> int:
 
     source_manifest = json.loads((source_build / "build_manifest.json").read_text(encoding="utf-8"))
     source = dict(source_manifest.get("source") or {})
+
+    if args.refresh_facts:
+        # Round 7: ProjectFacts is re-resolved from this build's own normalized
+        # document, because a fact's *resolution* changed (platform roles) while
+        # the accepted source build must stay untouched.
+        from tender_basic.fact_extractor import extract_candidates
+        from tender_basic.fact_normalizer import normalize_candidates
+        from tender_basic.fact_resolver import build_review_packet, resolve_project_facts
+
+        raw_candidates = extract_candidates(
+            document := NormalizedDocument.model_validate(
+                json.loads((target / "normalized_document.json").read_text(encoding="utf-8"))
+            ),
+            aliases_path=REPO / "rules" / "field_aliases.yaml",
+        )
+        refreshed = resolve_project_facts(
+            document,
+            normalize_candidates(raw_candidates),
+            source_priority_path=REPO / "rules" / "source_priority.yaml",
+        )
+        (target / "project_facts.json").write_text(
+            json.dumps(refreshed.model_dump(mode="json"), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        (target / "facts_review_packet.json").write_text(
+            json.dumps(build_review_packet(refreshed), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
     facts = ProjectFacts.model_validate(
         json.loads((target / "project_facts.json").read_text(encoding="utf-8"))

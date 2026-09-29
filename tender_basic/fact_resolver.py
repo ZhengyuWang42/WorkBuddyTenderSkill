@@ -11,6 +11,7 @@ import yaml
 
 from .document_models import NormalizedDocument
 from .fact_extractor import load_field_aliases
+from .platform_roles import resolve_platform_roles, role_breakdown_text
 from .fact_normalizer import (
     COMPACT_TEXT_FIELDS,
     DATE_FIELDS,
@@ -337,6 +338,50 @@ def resolve_field(
         groups.setdefault(_normalized_key(candidate.normalized_value), []).append(candidate)
 
     if len(groups) > 1:
+        if field_enum == FieldName.ELECTRONIC_PLATFORM:
+            # Round 7: several platform names are not a conflict, they are
+            # different roles (service platform / transaction system / opening
+            # venue / announcement platform).  Resolve the role that governs
+            # electronic submission and keep the others as roles.
+            resolved, by_role, _value_roles = resolve_platform_roles(
+                (
+                    str(candidate.value),
+                    " ".join(
+                        part
+                        for part in (
+                            str(getattr(candidate, "excerpt", "") or ""),
+                            str(getattr(candidate, "context", "") or ""),
+                        )
+                        if part
+                    ),
+                )
+                for candidate in valid_candidates
+            )
+            if resolved and len(by_role) > 1:
+                chosen = [
+                    candidate
+                    for candidate in valid_candidates
+                    if str(candidate.value).strip() == resolved
+                ]
+                return ResolvedFact(
+                    field=field_enum,
+                    resolved_value=resolved,
+                    status=FactStatus.RESOLVED,
+                    confidence=max(
+                        candidate.confidence for candidate in (chosen or valid_candidates)
+                    ),
+                    # the chosen platform leads the candidate list, so the row's
+                    # evidence is the evidence of the value it displays
+                    candidates=[
+                        *(chosen or []),
+                        *[candidate for candidate in usable if candidate not in (chosen or [])],
+                    ],
+                    resolution_reason=(
+                        "平台角色区分：" + role_breakdown_text(by_role)
+                        if by_role
+                        else "平台角色区分"
+                    ),
+                )
         return ResolvedFact(
             field=field_enum,
             resolved_value=None,

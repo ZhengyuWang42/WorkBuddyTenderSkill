@@ -1,0 +1,101 @@
+{
+  "schema": "v1_review_workbook_round7_regression_recheck/1",
+  "round": "review_workbook_round7",
+  "banked_round6_marker_accounting": {
+    "case_001": {
+      "build": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7",
+      "checks_passed": 25,
+      "check_count": 25,
+      "failed_checks": [],
+      "result": "PASS",
+      "fixture_count": 23,
+      "marker_false_positive_count": 0,
+      "marker_unattributed_count": 0,
+      "marker_unresolved_count": 0,
+      "direct_marker_visibility_failures": 0
+    },
+    "case_002": {
+      "build": "v1_round4_closure8_review_workbook7",
+      "checks_passed": 25,
+      "check_count": 25,
+      "failed_checks": [],
+      "result": "PASS",
+      "fixture_count": 3,
+      "marker_false_positive_count": 0,
+      "marker_unattributed_count": 0,
+      "marker_unresolved_count": 0,
+      "direct_marker_visibility_failures": 0
+    },
+    "case_003": {
+      "build": "v1_round4_closure8_review_workbook7",
+      "checks_passed": 25,
+      "check_count": 25,
+      "failed_checks": [],
+      "result": "PASS",
+      "fixture_count": 10,
+      "marker_false_positive_count": 0,
+      "marker_unattributed_count": 0,
+      "marker_unresolved_count": 0,
+      "direct_marker_visibility_failures": 0
+    }
+  },
+  "round5_concern_contract": {
+    "case_001": {
+      "result": "PASS",
+      "contract_check_present": true
+    },
+    "case_002": {
+      "result": "PASS",
+      "contract_check_present": true
+    },
+    "case_003": {
+      "result": "PASS",
+      "contract_check_present": true
+    }
+  },
+  "dr026_multi_clause_evidence_links": {
+    "case": "case_002",
+    "item_id": "DR026",
+    "concern_id": "CONTRACT_RISK",
+    "requirement": "投标人须承担全部赔偿责任，3.乙方交付的软件和硬件质量不符合合同规定的，或存在安全漏洞、其他缺 陷，甲方有权拒收，甲方有权要求乙方退还所有已付乙方的款项，同时追究乙方 因违约而造成的全部损失",
+    "evidence": "的，投标人须承担全部赔偿责任",
+    "links": [
+      {
+        "role": "PRIMARY",
+        "atom_id": "SRA0074",
+        "unit_id": "EU-P13-T0-R4",
+        "page": 13,
+        "section": "投标人须知前附表",
+        "clause": "11.5",
+        "locator": "第13页 / 投标人须知前附表 / 第11.5条 / （pdf_table_cell）",
+        "span": "的，投标人须承担全部赔偿责任"
+      },
+      {
+        "role": "LINKED",
+        "atom_id": "SRA0379",
+        "unit_id": "EU-P57-B2",
+        "page": 57,
+        "section": "十七、违约责任",
+        "clause": "",
+        "locator": "第57页 / 十七、违约责任 / （pdf_block）",
+        "span": "3.乙方交付的软件和硬件质量不符合合同规定的，或存在安全漏洞、其他缺 陷，甲方有权拒收，甲方有权要求乙方退还所有已付乙方的款项，同时追究乙方 因违约而造成的全部损失。"
+      },
+      {
+        "role": "LINKED",
+        "atom_id": "SRA0588",
+        "unit_id": "EU-P105-B4",
+        "page": 105,
+        "section": "3.7 违约",
+        "clause": "3.7.3",
+        "locator": "第105页 / 3.7 违约 / 第3.7.3条 / （pdf_block）",
+        "span": "3.7.3 中标人交付的软件和硬件质量不符合合同规定的，或存在安全漏洞、"
+      }
+    ]
+  },
+  "dr026_focused_check": {
+    "command": "python -X utf8 -m pytest tests/test_round7_applicable_source.py::test_multi_clause_requirement_links_every_unit -v",
+    "passed": 1,
+    "failed": false,
+    "raw_evidence": "acceptance/workspace/_r7/dr026_focused.txt"
+  }
+}

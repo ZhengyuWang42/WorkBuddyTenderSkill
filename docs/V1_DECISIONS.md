@@ -899,3 +899,116 @@ D64 记录的是**初次**第 6 轮结果，已被只读一致性审计判定为
    `review_workbook_round6_marker_closure_case_00X.json` /
    `review_workbook_round6_final_status_reconciled.json`；历史审计笔记
    （`review_workbook_round6_count_consistency_note.json`）作为历史证据提交且**修复后不得改写**。
+
+### D66 第 7 轮目标链与人工判据（长期规则，BANK）
+
+第 6 轮收口产物提交并推送后（HEAD `4df27bc`），人工对 CASE001 第 6 轮工作簿给出
+**FAIL**，`FAIL_REASON = SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`；该人工结论
+**保留且不得改写**。第 6 轮的标记账目（`MarkerOccurrence`、三计数、归属闭合）被判定为
+**已入账（BANKED）**，第 7 轮**不得重开该架构**，也不得削弱第 6 轮标记测试、
+第 5 轮 `ConcernContract` 或第 7 轮验收门禁。
+
+第 7 轮只修正五个失效类，并要求端到端链条为：
+
+```
+APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATCHING EVIDENCE LOCATOR
+```
+
+| 失效类 | 含义 | 第 7 轮规则 |
+| --- | --- | --- |
+| A | 个案化的前附表/日程值已经决定该条款，行内仍显示通用正文 | 通用正文保留出处但在**显示层被取代** |
+| B | 实质性/否决语义泄漏进评分或普通程序性关注点 | 关键性按**阶段/作用域**分类，不再一律显示 |
+| C | 显示的要求与证据定位/章节/摘录指向不同源语义 | 摘录、页码、章节、条款号必须描述**同一证据单元** |
+| D | 同一平台的不同角色被折叠成一个事实 | 平台角色必须分开（承接 D59） |
+| E | 最终源片段不完整或重复 | 片段必须可定位且不重复 |
+
+### D67 PROJECT-SPECIFIC SOURCE RESOLVES GENERIC TEMPLATE（长期规则，BANK）
+
+1. 通用条款写"见供应商须知前附表"时，**前附表/日程表的个案值就是适用源**；
+   行内必须显示个案值，而不是通用模板正文。通用原子保留出处
+   （`applicable_of_atom_id` / `superseded_for_display`），只是**在显示层被取代**。
+2. 解析结果是一等对象 `ApplicableSourceResolution`
+   （`generic_atom_id` / `specific_row_id` / `specific_atom_id` / `relationship` ∈
+   `OVERRIDES` / `SPECIALIZES` / `RESOLVES_REFERENCE` / `COMPLEMENTS` / `NO_RELATION` /
+   `applicable_atom_ids` / `superseded_for_display_atom_ids` / `resolution_basis` /
+   `source_hierarchy_evidence` / `outcome` / `specific_value_text`），
+   **不是**行内字符串替换。
+3. `SPECIALIZES` 不替换父条款：父条款保留自己的措辞，个案值以
+   `；项目专用值：…` 附加显示（CASE001 `7.3.1 履约保证金` 同时保留"履约保证金"
+   与"拾万元整 / 银行保函"）。
+4. 前附表单元格的采纳必须有**佐证闸门**：值的首/尾必须出现在该页的阅读顺序中
+   （`_row_is_corroborated`），并满足关切面与契约签名
+   （`_facet_answers_concern` / `_resolution_answers_concern`）。采纳被污染的
+   日程单元格（CASE002/003 的错行值）是禁止的。
+5. 适用源自身也必须是**源可读**的：解析到不可读源时报告
+   `SOURCE_UNREADABLE_REFERENCE_COUNT`，不得计入
+   `GENERIC_REFERENCE_UNRESOLVED_COUNT`。
+
+### D68 CRITICALITY HAS STAGE / SCOPE（长期规则，BANK）
+
+同一句"否则否决/不予接受"在不同阶段有不同作用域，必须分开建模，不得互相替代：
+
+| 作用域 | 含义 |
+| --- | --- |
+| `SCOPE_RESPONSE_REJECTION` | 响应文件被否决（本流程的失败后果） |
+| `SCOPE_SCORING_ONLY` | 只影响得分 |
+| `SCOPE_POST_AWARD_CANCELLATION` | 仅中标后取消（不是响应性否决） |
+| `SCOPE_CONTRACT_LIABILITY` | 合同责任/赔偿 |
+| `SCOPE_LATE_SUBMISSION` | 逾期提交不予接受（`NON_ACCEPTANCE_OF_LATE_SUBMISSION`） |
+| `SCOPE_INFORMATIONAL` / `SCOPE_UNKNOWN` | 无失败后果 / 未定 |
+
+`classify_consequence_scope(text, section)` 决定作用域；`for_atoms(atoms, *, scope_atoms=...)`
+把**标记归属**（按"拥有该原子的关切"统计）与**后果显示**（按作用域统计）分开：
+标记计数必须对每个冻结的第 6 轮 `★` 行保持不变（第 6 轮门禁），而后果文本只在
+`SCOPE_RESPONSE_REJECTION`（含原子自身明示的响应否决）时显示。
+
+### D69 EVIDENCE LOCATOR IS PART OF SEMANTIC FIDELITY（长期规则，BANK）
+
+1. 证据单元是一等对象 `EvidenceUnit`（`unit_id` / `kind` ∈ `pdf_block` / `pdf_table_cell` /
+   `page` / `source_structure_id` / `clause_number` / `heading` / `table_row_id` /
+   `text_span` / `row_label` / `order` / `semantic_heading` / `locator`），由
+   `EvidenceUnitIndex.build(document, atoms)` 建立；行的页码、章节、条款号、摘录
+   必须全部来自**同一个**证据单元。
+2. **摘录只能停留在关切自己的句子内。** 补全被截断的句子是合法的
+   （"…从最后一笔款项应付之日" + "的支付宽限期，…"）；把摘录推进**下一个源单元的要求**
+   是非法的（"…90 日历天" + "*3.4.1 响应保证金 的金额：…"）。判据是"新增文本是否
+   开启新的源元素"（条款号、编号项 `（1）`/`①`、或"标签 + 值"形式的个案值标签）；
+   开启即回退到关切自己的原子文本。
+3. 关切可引用的文本 = 自己的原子 + 自己被显示所用的证据单元 + **紧随其后的那一个**
+   单元（跨块断句的续写），由 `_concern_evidence_backing` 计算；不得跨节、跨页扩张。
+4. 多条款要求必须**显式链接**全部证据单元，而不是丢弃其中之一：CASE002 `DR026`
+   （`CONTRACT_RISK`）以 `PRIMARY` + `LINKED` 形式链接
+   `EU-P13-T0-R4` / `EU-P57-B2` / `EU-P105-B4`，每条都有 `atom_id` / `unit_id` /
+   页码 / 章节 / 条款 / 定位 / 片段（§20）。`links[0]` 永远是 `PRIMARY`。
+5. QA 定位门禁（`invalid_review_evidence_locator_count`）必须按**适用源**判定：
+   行证据可在下列任一来源中得到字面佐证——(a) 抽取单元、
+   (b) 该行要求自身也引用的适用源（前附表/日程行）、(c) 该行所引页码的**源文自身文本**
+   （同一页内相邻单元的组合，因为抽取会把一句合同文本切成两个块）。
+   放宽的是"抽取索引即源文"这一错误前提，收紧的是"要求与摘录必须同源"。第 7 轮不变量
+   `check_evidence_locator` 另行强制"要求、摘录、定位、页码、章节同属一个证据单元"。
+6. 摘录裁剪**不得**用"禁止词表"充当唯一手段：词的归属由证据单元与关切契约决定
+   （第 4 轮 `rendered_component_ownership_verified` 仍是权威门禁）。
+
+### D70 第 7 轮证据与冻结事实
+
+- 后继构建：CASE001 `..._review_workbook7`；CASE002/003 `v1_round4_closure8_review_workbook7`
+  （均由第 6 轮收口构建以 `--refresh-legacy-rows --refresh-facts` 派生；被中断的
+  `..._review_workbook7_interrupted_credit_quota` 保留为外部配额中断证据，未删除）。
+- 三案例第 7 轮审计 `review_workbook_round7_case_00X.json` / `.md` = **PASS**；
+  `review_workbook_round7_generalization.json` = **PASS**；渲染 QA
+  `case00X_review_workbook7_visual_qa.json` = **PASS**（`clipping_bounded` 仍为
+  有界 WARN，非失败，见 D45/第 4 轮seam）。
+- 第 6 轮账目在三个第 7 轮构建上复跑：25/25 检查通过、夹具 23/3/10、
+  标记丢失 0 / 未归属 0 / 未解析 0 / 直接失败 0；第 5 轮 `ConcernContract` 通过。
+- 第 7 轮定向测试 `tests/test_round7_applicable_source.py` 27 项通过；
+  第 4 轮出处测试与第 7 轮测试合计 114 项通过；全套
+  `892 收集 / 0 failed / 0 errors / 1 skipped`（`review_workbook_round7_full_test_suite.{txt,xml}`）。
+- Word 产物逐字节未变（三案例 `.docx` / `.pdf` / `generation_report.json` 的
+  `source_build_sha256 == successor_sha256`）。
+- 中断记录：第 7 轮执行期间发生若干次**外部配额/速率限制**中断（非本仓库缺陷）；
+  工作树是唯一真源，恢复时**不** reset / clean / revert / 覆盖任何历史构建。
+- 人工状态：`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`
+  （第 6 轮人工 FAIL 保留）；`CASE002_XLSX_MANUAL_REVIEW` /
+  `CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；人工勾选框 0 个；
+  `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+

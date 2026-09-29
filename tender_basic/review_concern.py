@@ -582,6 +582,12 @@ class SourceRequirementAtom:
     mandatory: bool = False
     high_risk: bool = False
     internal: bool = False
+    # round 7: applicable-source resolution.  ``applicability_relation`` is set on
+    # both the generic clause and the project-specific source that resolves it;
+    # the generic clause keeps its text but is never displayed again.
+    applicability_relation: str = ""
+    superseded_for_display: bool = False
+    applicable_of_atom_id: str = ""
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -612,6 +618,9 @@ class SourceRequirementAtom:
             "mandatory": self.mandatory,
             "high_risk": self.high_risk,
             "internal": self.internal,
+            "applicability_relation": self.applicability_relation,
+            "superseded_for_display": self.superseded_for_display,
+            "applicable_of_atom_id": self.applicable_of_atom_id,
         }
 
 
