@@ -47,6 +47,7 @@ from .source_applicability import (  # noqa: E402
     discover_schedule_rows,
     resolve_applicable_sources,
     resolution_for_concern,
+    resolution_is_project_decision,
     risk_is_informational,
 )
 from .dynamic_requirements import (
@@ -72,6 +73,7 @@ from .review_point import (
     CONCERN_CHECKS,
     CONCERN_PASS_CRITERIA,
     ReviewPoint,
+    _dedupe_repeated_phrases,
     render_checks,
     render_review_cell,
     synthesize_concern_point,
@@ -94,6 +96,7 @@ from .review_rendering import (
     mismatch_counts,
     verify_component,
 )
+from .semantic_roles import ROLE_TIER_SCORE
 from .source_criticality import (
     BASIS_REFERENCE_PROPAGATION,
     BASIS_SOURCE_MARKER,
@@ -395,6 +398,11 @@ class DynamicReviewItem(ContractModel):
     #: quotes several clauses, and the reviewer must be able to reach each of
     #: them; the row's primary locator is the first entry.
     evidence_units: list[dict[str, Any]] = Field(default_factory=list)
+    #: Round 8: the row is a source-resolved project decision ("采购预备会 不召开",
+    #: "分包 不允许").  It sorts last, which is what keeps a *displayed* risk
+    #: correction from renumbering the rows the human's findings are addressed
+    #: by.  It is not a risk claim: see ``risk_is_informational``.
+    project_decision: bool = False
 
 
 @dataclass(frozen=True)
@@ -673,6 +681,7 @@ def build_dynamic_review_plan(
         # neighbouring clause's quantity, contact or score into this row.
         values = [value.value for value in owned_numbers]
         verification_action = render_checks(point)
+        operational_lead = ""
         pass_criteria = " ".join(point.pass_criteria)
         consequence = point.failure_consequence
         resolution = resolution_for_concern(
@@ -759,6 +768,13 @@ def build_dynamic_review_plan(
             source_requirement = normalize_numeric_fragment(
                 _displayed_requirement(concern, repaired)
             )
+        # Round 8: the extraction repeats a word it wrapped on ("…具备有效的营业
+        # 执照 执照，准 供应商名称 供应商名称 与营业执照一致"), which delivers
+        # duplicated wording.  The delivered requirement is therefore reduced to
+        # the source's own single reading before it is rendered.
+        source_requirement = dedupe_segments(
+            _dedupe_repeated_phrases(source_requirement)
+        )
         # Round 7 (§20): the row's evidence must be an atom the displayed
         # requirement actually comes from.  A concern can reach a clause through a
         # sibling concern's generic atom, which would otherwise print one clause's
@@ -787,7 +803,12 @@ def build_dynamic_review_plan(
         if resolution is not None:
             operational = action_for_resolution(resolution, concern.label or topic)
             if operational:
-                verification_action = _operational_action(verification_action, operational)
+                merged_action = _operational_action(verification_action, operational)
+                if merged_action != verification_action:
+                    # the operational action is *new* text for this row, so the
+                    # cell renderer has to own it as a review check of its own
+                    operational_lead = operational
+                verification_action = merged_action
         display_atoms = _display_atoms(
             concern, resolution, source_requirement, primary_atom
         )
@@ -807,15 +828,18 @@ def build_dynamic_review_plan(
             evidence_text=evidence_text,
             criticality=row_criticality,
             displayed_requirement=source_requirement,
+            operational_action=operational_lead,
         )
         item = DynamicReviewItem(
             item_id=item_id,
             module=module,
             submodule=concern.label or topic,
-            risk_level=(
-                "低"
-                if resolution is not None and risk_is_informational(resolution)
-                else RISK_BY_TYPE.get(requirement_type, "中")
+            risk_level=_risk_level_for(
+                requirement_type,
+                row_criticality,
+                informational=bool(
+                    resolution is not None and risk_is_informational(resolution)
+                ),
             ),
             requirement_type=requirement_type,
             topic=topic,
@@ -870,6 +894,9 @@ def build_dynamic_review_plan(
                 section=section,
                 clause=clause,
                 excerpt=evidence_text,
+            ),
+            project_decision=bool(
+                resolution is not None and resolution_is_project_decision(resolution)
             ),
         )
         if spec.bidder_facing:
@@ -2008,6 +2035,7 @@ def _render_components(
     evidence_text: str = "",
     criticality: SourceRequirementCriticality | None = None,
     displayed_requirement: str = "",
+    operational_action: str = "",
 ) -> list[RenderedReviewComponent]:
     """Build and verify the rendered components of one review row."""
 
@@ -2083,6 +2111,19 @@ def _render_components(
                 ],
             )
     templates = set(CONCERN_CHECKS.get(concern_id, ()))
+    if operational_action:
+        # Round 8: the project value's own operational action is the *first*
+        # review check.  It was previously written only onto the item's action
+        # field, so the delivered cell (which is rendered from these components)
+        # showed the concern's generic checks and lost the decision the row is
+        # actually about (fixture D56: "采购预备会 不召开" was delivered with an
+        # action about the clarification deadline).  Rendering it here keeps the
+        # cell and the action field projecting the same owned text.
+        add(
+            REVIEW_CHECK,
+            operational_action,
+            rule="RESOLUTION_OPERATIONAL_ACTION",
+        )
     for check in point.review_checks:
         add(
             REVIEW_CHECK,
@@ -2106,6 +2147,11 @@ def _render_components(
     for value in owned_numbers[:4]:
         # only the numbers the row actually renders (its checks/criteria carry the
         # first four) become rendered components; further owned values stay data
+        if value.role == ROLE_TIER_SCORE:
+            # a tier is not one value claim: the row renders one 逐档核对 check per
+            # tier ("逐档核对：4分 对应的响应内容在响应文件中可核验"), so a second
+            # "该档计 4分" statement would be a claim no delivered cell displays
+            continue
         add(
             NUMERIC_STATEMENT,
             value_sentence(value.role, value.value, numeric_backing),
@@ -2126,16 +2172,95 @@ def _render_components(
     return components
 
 
-def order_review_items(items: Sequence[DynamicReviewItem]) -> list[DynamicReviewItem]:
-    """Sort rows by business module, then risk, then source order."""
+#: The risk a row shows in the delivered template's 风险级别 column.  It is
+#: derived from the *source* criticality, never from the requirement-type table
+#: alone: a row whose type ("ELECTRONIC", "SIGNATURE") has a default of 一票否决
+#: but whose source states no rejection consequence must not be shown as a
+#: rejection on one sheet while the substantive/否决 columns say otherwise
+#: (round-8 fixtures DR013/DR038/DR039).
+RISK_VETO = "一票否决"
+RISK_HIGH = "高"
+RISK_MEDIUM = "中"
+RISK_LOW = "低"
 
-    risk_order = {"一票否决": 0, "高": 1, "中": 2}
+#: Risk shown when the row's own requirement type implies a consequence even
+#: where the source states none (a submission deadline that lapses).
+RISK_BY_CRITICALITY: dict[str, str] = {
+    "SUBSTANTIVE_REJECTION": RISK_VETO,
+    "SUBSTANTIVE": RISK_HIGH,
+    "MANDATORY": RISK_HIGH,
+    "ORDINARY": RISK_MEDIUM,
+}
+
+
+def _risk_level_for(
+    requirement_type: str,
+    criticality: SourceRequirementCriticality | None,
+    *,
+    informational: bool = False,
+) -> str:
+    """The row's risk level, made consistent with its own source basis.
+
+    Three independent dimensions must agree across the delivered sheets: the
+    source marker (★), the substantive basis (实质性依据) and the rejection
+    consequence (否决依据).  The 风险级别 column may therefore not claim 一票否决
+    for a row whose source states no rejection consequence at all -- that is the
+    "legacy 一票否决" contradiction the human review found.  A type default is
+    still used where the source says nothing, but it can only *raise* the level
+    to the type's own risk, never to 一票否决.
+    """
+
+    if informational:
+        return RISK_LOW
+    default = RISK_BY_TYPE.get(requirement_type, RISK_MEDIUM)
+    if criticality is None:
+        return default
+    if criticality.rejection_consequence:
+        return RISK_VETO
+    level = RISK_BY_CRITICALITY.get(criticality.criticality_level, RISK_MEDIUM)
+    if default == RISK_VETO:
+        # the type is veto-class, but *this* row's source states no rejection
+        # consequence: the strongest honest level is 高
+        return RISK_HIGH if level == RISK_MEDIUM else level
+    order = {RISK_LOW: 0, RISK_MEDIUM: 1, RISK_HIGH: 2, RISK_VETO: 3}
+    return max([default, level], key=lambda value: order.get(value, 1))
+
+
+#: The row's ordering vocabulary must know every level the risk function emits.
+RISK_ORDER: dict[str, int] = {
+    RISK_VETO: 0,
+    RISK_HIGH: 1,
+    RISK_MEDIUM: 2,
+    RISK_LOW: 3,
+}
+
+
+#: The rank a row is *ordered* by.  This reproduces the historical order exactly:
+#: a source-resolved project decision sorts last, and every other row sorts by
+#: its requirement type's own risk -- never by the risk the row displays, so
+#: correcting a displayed 风险级别 does not renumber the rows the human's
+#: findings are addressed by.
+def _ordering_rank(item: DynamicReviewItem) -> int:
+    if getattr(item, "project_decision", False):
+        return 3
+    return RISK_ORDER.get(RISK_BY_TYPE.get(item.requirement_type, RISK_MEDIUM), 2)
+
+
+def order_review_items(items: Sequence[DynamicReviewItem]) -> list[DynamicReviewItem]:
+    """Sort rows by business module, then risk, then source order.
+
+    The sort key is the row's *type* risk (see :func:`_ordering_rank`), so the
+    displayed 风险级别 can be corrected for cross-sheet consistency without
+    changing any row id: the human's findings are addressed by row address.
+    """
+
     module_rank = {module: index for index, module in enumerate(MODULE_ORDER)}
+    ranks = {item.item_id: _ordering_rank(item) for item in items}
 
     def key(item: DynamicReviewItem) -> tuple[int, int, str]:
         return (
             module_rank.get(item.module, len(MODULE_ORDER)),
-            risk_order.get(item.risk_level, 3),
+            ranks.get(item.item_id, 2),
             item.item_id,
         )
 

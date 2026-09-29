@@ -1,0 +1,284 @@
+{
+  "schema": "v1_review_workbook_build/1",
+  "source_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook7",
+  "build_id": "v1_round4_closure8_review_workbook8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook8",
+  "word_render_repeated": false,
+  "artifact_identity": {
+    "基础投标文件.docx": {
+      "source_build_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+      "successor_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+      "byte_identical": true
+    },
+    "基础投标文件.pdf": {
+      "source_build_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+      "successor_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+      "byte_identical": true
+    },
+    "generation_report.json": {
+      "source_build_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+      "successor_sha256": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d",
+      "byte_identical": true
+    }
+  },
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8_review_workbook8\\投标项目复核表.xlsx",
+  "workbook_sha256": "e2b65b8c4875dcd98c0870d14878dad1aa96c05cee1191257ee3bf85be2de87a",
+  "workbook_bytes": 84082,
+  "views": {
+    "sheets": [
+      {
+        "title": "00_复核总览",
+        "kind": "dashboard"
+      },
+      {
+        "title": "01_项目事实",
+        "rows": 23
+      },
+      {
+        "title": "02_关键条款",
+        "rows": 20
+      },
+      {
+        "title": "03_资格否决与强制项",
+        "rows": 37
+      },
+      {
+        "title": "04_报价与限价",
+        "limits": 3,
+        "items": 0,
+        "blank_forms": 4
+      },
+      {
+        "title": "05_文件结构与签章",
+        "rows": 55
+      },
+      {
+        "title": "06_冲突与缺失",
+        "rows": 11
+      },
+      {
+        "title": "07_证据索引",
+        "rows": 52
+      }
+    ],
+    "fact_status_counts": {
+      "facts_total": 23,
+      "resolved": 12,
+      "needs_review": 5,
+      "not_found": 6
+    },
+    "requirement_rows": 48,
+    "mandatory_rows": 37,
+    "clause_rows": 20,
+    "evidence_rows": 52,
+    "exception_rows": 11,
+    "manual_columns": [
+      [
+        "01_项目事实",
+        "M"
+      ],
+      [
+        "02_关键条款",
+        "M"
+      ],
+      [
+        "03_资格否决与强制项",
+        "O"
+      ],
+      [
+        "04_报价与限价",
+        "I"
+      ],
+      [
+        "04_报价与限价",
+        "L"
+      ],
+      [
+        "05_文件结构与签章",
+        "M"
+      ],
+      [
+        "06_冲突与缺失",
+        "H"
+      ]
+    ],
+    "criticality": {
+      "source_marker_row_count": 4,
+      "substantive_requirement_row_count": 1,
+      "rejection_consequence_row_count": 6,
+      "explicit_rejection_consequence_row_count": 6,
+      "mandatory_sheet_row_count": 37,
+      "rows": [
+        {
+          "item_id": "DR005",
+          "concern_id": "CONTRACT_RISK",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0278",
+            "APL0018"
+          ],
+          "mandatory_types": [
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "明示否决后果"
+        },
+        {
+          "item_id": "DR017",
+          "concern_id": "REJECTION_GENERAL",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0278"
+          ],
+          "mandatory_types": [
+            "MARKER_UNCLASSIFIED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第58页 / 块25）；标记含义=SUBSTANTIVE_REQUIREMENT；明示否决后果"
+        },
+        {
+          "item_id": "DR023",
+          "concern_id": "PRICING_COMPLETENESS",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "APL0018"
+          ],
+          "mandatory_types": [
+            "MARKER_UNCLASSIFIED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第58页 / 块22）；标记含义=SUBSTANTIVE_REQUIREMENT；明示否决后果"
+        },
+        {
+          "item_id": "DR025",
+          "concern_id": "PRICE_CEILING",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0278"
+          ],
+          "mandatory_types": [
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "明示否决后果"
+        },
+        {
+          "item_id": "DR030",
+          "concern_id": "BID_BOND_EVIDENCE",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0293"
+          ],
+          "mandatory_types": [
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "明示否决后果"
+        },
+        {
+          "item_id": "DR031",
+          "concern_id": "BID_BOND_AMOUNT",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0293"
+          ],
+          "mandatory_types": [
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "明示否决后果"
+        },
+        {
+          "item_id": "DR043",
+          "concern_id": "PRICE_ARITHMETIC",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MARKER_UNCLASSIFIED"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第59页 / 块10）；标记含义=SUBSTANTIVE_REQUIREMENT"
+        },
+        {
+          "item_id": "DR044",
+          "concern_id": "PRICE_ITEMIZATION",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0443"
+          ],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第59页 / 块14）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER"
+        }
+      ]
+    }
+  }
+}

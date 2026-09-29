@@ -1,0 +1,184 @@
+{
+  "schema": "v1_review_workbook_round8_banked/1",
+  "round": 5,
+  "case": "case_002",
+  "build_id": "v1_round4_closure8_review_workbook8",
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook8\\投标项目复核表.xlsx",
+  "workbook_sha256": "af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa",
+  "verdict": "PASS",
+  "failed_checks": [],
+  "fixtures": "0/20",
+  "fixtures_failed": 0,
+  "checks": [
+    {
+      "check": "concern_contracts_are_independent",
+      "ok": true,
+      "detail": "78 contracts authored by hand (source=human_round5_fixtures_A_T, version=round5.1); none derived from a generated ReviewPoint",
+      "evidence": {
+        "superseded": [
+          "CONTRACT_ACCEPTANCE",
+          "PRICE_COMPLETENESS",
+          "PRICE_TAX_BASIS",
+          "PROJECT_BASIC_INFO",
+          "TECHNICAL_INSTALLATION"
+        ],
+        "renamed": [
+          "CONTRACT_ACCEPTANCE",
+          "PRICE_COMPLETENESS",
+          "PROJECT_BASIC_INFO",
+          "TECHNICAL_INSTALLATION"
+        ]
+      }
+    },
+    {
+      "check": "every_delivered_concern_has_a_contract",
+      "ok": true,
+      "detail": "45 delivered concerns covered",
+      "evidence": {
+        "uncovered": []
+      }
+    },
+    {
+      "check": "all_case001_final_rows_concern_contract",
+      "ok": true,
+      "detail": "45/45 delivered CASE001 rows agree with their independent concern contract",
+      "evidence": {
+        "failed_rows": []
+      }
+    },
+    {
+      "check": "delivered_rows_read_from_final_cells",
+      "ok": true,
+      "detail": "45/45 rows audited from the frozen sheet cells",
+      "evidence": {
+        "unbound": []
+      }
+    },
+    {
+      "check": "needs_review_rows_excluded_from_delivery",
+      "ok": true,
+      "detail": "background items=3; filtered=1; needs_review=4",
+      "evidence": {
+        "needs_review_topics": [
+          "代理服务费（其他要求）：the contract owns no displayable source text",
+          "资格·财务能力（财务承诺函）：the contract owns no displayable source text",
+          "报价完整性（分项限价与暂列金额）：the contract owns no displayable source text",
+          "响应文件组成（文件组成与格式）：the contract owns no displayable source text"
+        ]
+      }
+    },
+    {
+      "check": "numeric_roles_are_canonical",
+      "ok": true,
+      "detail": "5 numeric roles in use are canonical business roles",
+      "evidence": {
+        "non_canonical": [],
+        "roles": [
+          "BID_VALIDITY_DAYS",
+          "DELIVERY_DAYS",
+          "MAX_SCORE",
+          "PERSON_COUNT",
+          "PROJECT_WARRANTY_MONTHS"
+        ]
+      }
+    },
+    {
+      "check": "payment_ratio_95_is_not_retention",
+      "ok": true,
+      "detail": "RETENTION_MONEY_RATIO never carries 95%",
+      "evidence": {
+        "retention_values": []
+      }
+    },
+    {
+      "check": "five_money_roles_stay_distinct",
+      "ok": true,
+      "detail": "CASE001 value invariants are scoped to CASE001; case_002 checked for role separation only",
+      "evidence": {
+        "roles": {
+          "PROJECT_WARRANTY_MONTHS": [
+            "2年",
+            "3年"
+          ],
+          "BID_VALIDITY_DAYS": [
+            "90个日历天",
+            "90天"
+          ],
+          "DELIVERY_DAYS": [
+            "6个月"
+          ],
+          "MAX_SCORE": [
+            "4分"
+          ],
+          "PERSON_COUNT": [
+            "3名"
+          ]
+        }
+      }
+    },
+    {
+      "check": "scoring_points_are_scoring_only",
+      "ok": true,
+      "detail": "CASE001-scoped invariant",
+      "evidence": {
+        "score_points": []
+      }
+    },
+    {
+      "check": "bank_acceptance_ratio_separate",
+      "ok": true,
+      "detail": "CASE001-scoped invariant",
+      "evidence": {
+        "bank": []
+      }
+    },
+    {
+      "check": "sheet_views_are_semantically_coherent",
+      "ok": true,
+      "detail": "02_关键条款 and 03_资格否决与强制项: 54 view rows validated against their concern contracts",
+      "evidence": {
+        "rows_audited": 54,
+        "violations": [],
+        "unbound_rows": []
+      }
+    },
+    {
+      "check": "conflict_sheet_has_no_false_platform_conflicts",
+      "ok": true,
+      "detail": "5 conflict rows audited against the ProjectFacts SSOT",
+      "evidence": {
+        "platform_mentions": 2,
+        "contradictions": []
+      }
+    },
+    {
+      "check": "word_artifacts_unchanged",
+      "ok": true,
+      "detail": "3 carried-over artifacts are byte-identical to their source build",
+      "evidence": {
+        "identity": {
+          "基础投标文件.docx": true,
+          "基础投标文件.pdf": true,
+          "generation_report.json": true
+        }
+      }
+    },
+    {
+      "check": "review_workbook5_written",
+      "ok": true,
+      "detail": "投标项目复核表.xlsx sha256=af70029182a7 (77537 bytes)",
+      "evidence": {
+        "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook8\\投标项目复核表.xlsx",
+        "workbook_sha256": "af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa"
+      }
+    },
+    {
+      "check": "rendered_row_provenance_persisted",
+      "ok": true,
+      "detail": "45 rendered rows carry their exact cell address",
+      "evidence": {
+        "cells": 45
+      }
+    }
+  ]
+}

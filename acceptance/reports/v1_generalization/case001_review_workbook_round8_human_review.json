@@ -1,0 +1,114 @@
+{
+  "schema": "v1_review_workbook_human_review/1",
+  "case": "case_001",
+  "round": "review_workbook_round8",
+  "recorded_by": "human manual review (reported to the agent)",
+  "artifact_reviewed": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7/投标项目复核表.xlsx",
+  "artifact_reviewed_sha256": "d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717",
+  "human_verdict": "FAIL",
+  "fail_scope": [
+    "FINAL_RENDERED_TEXT_FIDELITY",
+    "SCORING_TIER_SEMANTICS",
+    "CROSS_SHEET_RISK_CONSISTENCY",
+    "SOURCE_FORM_CLASSIFICATION"
+  ],
+  "human_note": "The round-7 machine gates all passed, but the delivered text itself is wrong: a negated operative clause loses its negation; scoring tiers are presented as simultaneous obligations and a base score is presented as a second maximum; a source blank is rendered as an incomplete sentence; an enumeration is visibly truncated; a starred duty absorbs the next chapter heading; wording is duplicated; a project decision's own action is replaced by another question's action; a locator holds a foreign chapter heading; the legacy 风险级别 claims a veto the 03 sheet says the row does not have; and a similar-project-history form is classified as a blank quotation form. A provenance id and a locator can both be right while the delivered sentence says the wrong thing.",
+  "required_invariant": "FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING",
+  "repair_rules": [
+    "preserve polarity words and the complete operative clause; route to NEEDS_REVIEW rather than fabricating text",
+    "scoring tiers are conditional alternatives -- never require every tier; distinguish a BASIC_SCORE from a MAX_SCORE",
+    "preserve a source blank placeholder as a blank",
+    "validate the full business meaning, not just token provenance",
+    "cross-sheet risk semantics stay consistent: source marker / substantive status / response-stage rejection / late-submission nonacceptance are separate dimensions that may not contradict each other",
+    "classify a form by its source heading, column schema and structure"
+  ],
+  "named_findings": [
+    {"key": "D14", "item_id": "DR036", "cell": "投标项目复核表!D14", "finding": "投标保证金否决条款的否定条件被交叉引用截断"},
+    {"key": "D37", "item_id": "DR037", "cell": "投标项目复核表!D37", "finding": "履约保证金没收条款的否定条件被交叉引用截断"},
+    {"key": "D23", "item_id": "DR041", "cell": "投标项目复核表!D23", "finding": "银行承兑 100%/50% 两档被写成须同时满足"},
+    {"key": "D50", "item_id": "DR040", "cell": "投标项目复核表!D50", "finding": "报价公式的基本分 30 被写成第二个最高分"},
+    {"key": "D39", "item_id": "DR044", "cell": "投标项目复核表!D39", "finding": "合同付款宽限期的源空白被渲染成不完整句子"},
+    {"key": "D45", "item_id": "DR046", "cell": "投标项目复核表!D45", "finding": "技术标准清单在第 3 项后可见截断"},
+    {"key": "D46", "item_id": "DR047", "cell": "投标项目复核表!D46", "finding": "带星号第三方检测要求吸收了下一章标题「第四条」"},
+    {"key": "D16", "item_id": "DR005", "cell": "投标项目复核表!D16", "finding": "营业执照要求重复渲染"},
+    {"key": "D56", "item_id": "DR016", "cell": "投标项目复核表!D56", "finding": "「不召开采购预备会」的动作写成另一个问题的动作"},
+    {"key": "D34", "item_id": "DR017", "cell": "投标项目复核表!D34", "finding": "询比有效期行的定位指向了分包章节标题"},
+    {"key": "DR013", "item_id": "DR013", "cell": "投标项目复核表!D53", "finding": "旧表 一票否决 与 03 表空白否决依据矛盾"},
+    {"key": "DR038", "item_id": "DR038", "cell": "投标项目复核表!D54", "finding": "旧表 一票否决 与 03 表空白否决依据矛盾"},
+    {"key": "FORM_P53", "item_id": "", "cell": "04_报价与限价", "finding": "第 53 页类似项目情况表被误分类为空白报价表单"}
+  ],
+  "must_not_be_rewritten": true,
+  "automation_may_not_mark_pass": true,
+  "banked_architecture_must_not_be_reopened": [
+    "SourceRequirementAtom",
+    "ReviewConcern",
+    "ReviewPoint",
+    "RenderedReviewComponent",
+    "ConcernContract",
+    "SourceRequirementCriticality",
+    "MarkerOccurrence",
+    "ApplicableSourceResolution",
+    "EvidenceUnit",
+    "ProjectFacts SSOT",
+    "SourceFormat source-form structure",
+    "ReviewEvidence",
+    "workbook sheet architecture",
+    "Round6 marker accounting"
+  ],
+  "root_cause_classification": {
+    "DR016_plan_vs_delivered_discrepancy": {
+      "classification": "PLAN_TO_XLSX_DELIVERY_DEFECT",
+      "measurement": "read from the saved and re-opened successor XLSX: the delivered cell's 复核要点 differs from the plan's verification_action; the plan already carries the project decision's operational action while the cell only carries the concern's own generic checks",
+      "why_not_stale_build_evidence": "the frozen build misses the same action and the difference survives a fresh successor build, because the cell is rendered from the verified components (cell_from_components) while the operational action was written only onto the item's verification_action field -- so it could never reach the delivered text",
+      "fix": "the operational action is rendered as the row's own first REVIEW_CHECK component (RESOLUTION_OPERATIONAL_ACTION); all 49 rows now satisfy 复核要点 == verification_action with 0 differences"
+    }
+  },
+  "automation_closure": {
+    "closed": true,
+    "closed_in_round": "review_workbook_round8",
+    "closed_by": "delivered-text fidelity invariants, conditional scoring semantics, cross-sheet risk agreement and source-form classification (automation only)",
+    "mechanism": [
+      "fidelity_invariants: polarity, conditional scoring, blank placeholders, complete fragments, locator headings, absorbed headings, duplicated wording, cross-sheet risk and form classification are checked on the FINAL cells of the delivered workbook",
+      "the resolution's operational action is projected into the delivered cell as an owned REVIEW_CHECK component, so the cell and the item's action field are the same text",
+      "scoring roles MAX_SCORE / BASE_SCORE / TIER_SCORE separate a ceiling from a base score and render tiers as 逐档核对 checks that only require one tier",
+      "the legacy 风险级别 is derived from the row's own source criticality, and the invariant binds it to the 03 sheet's 否决性 in both directions (一票否决 ⟺ 否决性=是)",
+      "a front-table row is never delivered as a carried heading, and a chapter heading is split off the statement it followed",
+      "blank source forms are classified by source heading and column schema, so a similar-project-history table is not reported as a blank quotation form"
+    ],
+    "evidence": [
+      "acceptance/reports/v1_generalization/review_workbook_round8_case_001.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_case_002.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_case_003.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_generalization.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_case_001_before_after.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_case_001_before_after.md",
+      "acceptance/reports/v1_generalization/review_workbook_round8_banked_regressions.json",
+      "acceptance/reports/v1_generalization/case001_review_workbook8_gate.json",
+      "acceptance/reports/v1_generalization/case001_review_workbook8_visual_qa.json",
+      "acceptance/reports/v1_generalization/review_workbook_round8_full_test_suite.txt",
+      "acceptance/reports/v1_generalization/review_workbook_round8_full_test_suite.xml"
+    ],
+    "human_review_state": "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW",
+    "human_checkboxes_ticked": 0
+  },
+  "resolved_findings": [
+    "D14/DR036: the delivered clause is the whole sentence 3.4.2 供应商不按本章第3.4.1项要求提交响应保证金的，评审小组将否决其响应 -- the negation, the cross-reference and the consequence verb are all present",
+    "D37/DR037: 7.3.2 成交供应商不能按本章第7.3.1 项要求提交履约保证金的，视为放弃成交 is intact and the duplicated 履约保证金 履约保证金的金额 is removed",
+    "D23/DR041: the two bank-acceptance tiers are rendered as 逐档核对 checks with the criterion 响应文件明确接受其中一个分档即可，不得要求同时满足全部分档",
+    "D50/DR040: 基本分 30 is rendered as a base score, never as 本项最高 30分",
+    "D39/DR044: the contract's blank grace period is delivered as ＿＿＿＿ inside a complete sentence",
+    "D45/DR046: the technical-standard list is delivered complete through item (11)",
+    "D46/DR047: *流量计等相关计量仪器需提供第三方检测实验报告 no longer absorbs the following chapter heading 第四条",
+    "D16/DR005 and DR034: duplicated source wording (执照 执照 / 供应商名称 供应商名称 / 响应文件格式 响应文件格式) is removed without losing meaning",
+    "D56/DR016: the row's own action ① 确认本项目采购预备会：1.10.1 采购预备会不召开；不应在响应文件中作出与此矛盾的陈述。 is delivered in the cell",
+    "D34/DR017: the validity row's locator is 第10页 / 供应商须知前附表 / 第3.3.1条 / （pdf_table_cell）, no longer the 1.12 分包 heading",
+    "DR013/DR038 and 15 further rows: the legacy 风险级别 now agrees with the 03 sheet's 否决性 in both directions (17 rows aligned, 35 rows compared, 0 contradictions)",
+    "FORM_P53: the page-53 similar-project-history form is classified 源空白业绩/资格表单（源文件要求填写、当前空白）, not a blank quotation form"
+  ],
+  "still_open_for_the_human": [
+    "CASE001_XLSX_MANUAL_REVIEW remains unconfirmed (AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW); the round-3 (RENDERED_COMPONENT_CONCERN_OWNERSHIP), round-5 (SOURCE_MARKER_CRITICALITY_FIDELITY), round-6 (SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY) and round-7 (FINAL_RENDERED_TEXT_FIDELITY) human FAIL verdicts are preserved and must not be rewritten",
+    "CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED, CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED",
+    "automation never ticks a human box",
+    "V1_PRODUCTION_CANDIDATE = false, READY_FOR_SUBMISSION = false, no tag and no release"
+  ]
+}

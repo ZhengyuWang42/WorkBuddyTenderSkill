@@ -449,26 +449,76 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-**当前复核对象（CURRENT = Round7）**：第 7 轮后继构建，Word 产物与 closure8 逐字节相同
+**当前复核对象（CURRENT = Round8）**：第 8 轮后继构建，Word 产物与 closure8 逐字节相同
 （`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
 
 | 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
 | --- | --- | --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7/投标项目复核表.xlsx` | 49 | `d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook7/投标项目复核表.xlsx` | 45 | `6e6bb959527b7cf70a0abe1ba1b7a7d860be9d14ccc9829ceb3746727dc50411` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook7/投标项目复核表.xlsx` | 48 | `cc4d4e137aa676481f759ba2bb259fd7f2b5a4ca67a1c6df8fdb5a118b0f6dcb` |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8/投标项目复核表.xlsx` | 49 | `130c7638e14b96e7d4e2af79c0f6dffaf88c2d83ae9f5f8d5626ee43a2df5c8d` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 45 | `af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 48 | `0911b930fe14ed0d5d0a3ac988a1335588bab22f96b84f089aeff667bf193e2d` |
+
+### 4.1 第 7 轮人工 Excel 复核结论（保留，不得改写）
+
+**人工结论：`CASE001_XLSX_MANUAL_REVIEW = FAIL`（人工复核未通过）。**
+复核对象：`acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7/投标项目复核表.xlsx`
+（sha256 `d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717`，71394 B）。
+
+失败范围（`fail_scope`）：`FINAL_RENDERED_TEXT_FIDELITY`、`SCORING_TIER_SEMANTICS`、
+`CROSS_SHEET_RISK_CONSISTENCY`、`SOURCE_FORM_CLASSIFICATION`。人工点名 13 项，
+逐项地址与修复前后对照见 `review_workbook_round8_case_001_before_after.md`：
+
+| 人工发现 | 行 | 地址 | 人工观察 |
+| --- | --- | --- | --- |
+| D14 | `DR036` | `投标项目复核表!D14` | 投标保证金否决条款的否定条件被交叉引用截断 |
+| D37 | `DR037` | `投标项目复核表!D37` | 履约保证金没收条款的否定条件被交叉引用截断 |
+| D23 | `DR041` | `投标项目复核表!D23` | 银行承兑 100%/50% 两档被写成须同时满足 |
+| D50 | `DR040` | `投标项目复核表!D50` | 报价公式的基本分 30 被写成第二个最高分 |
+| D39 | `DR044` | `投标项目复核表!D39` | 合同付款宽限期的源空白被渲染成不完整句子 |
+| D45 | `DR046` | `投标项目复核表!D45` | 技术标准清单在第 3 项后可见截断 |
+| D46 | `DR047` | `投标项目复核表!D46` | 带星号第三方检测要求吸收了下一章标题「第四条」 |
+| D16 | `DR005` | `投标项目复核表!D16` | 营业执照要求重复渲染 |
+| D56 | `DR016` | `投标项目复核表!D56` | 「不召开采购预备会」的动作写成另一个问题的动作 |
+| D34 | `DR017` | `投标项目复核表!D34` | 询比有效期行的定位指向了分包章节标题 |
+| DR013 | `DR013` | `投标项目复核表!D53` | 旧表 一票否决 与 03 表空白否决依据矛盾 |
+| DR038 | `DR038` | `投标项目复核表!D54` | 旧表 一票否决 与 03 表空白否决依据矛盾 |
+| 04 表 | — | `04_报价与限价` | 第 53 页类似项目情况表被误分类为空白报价表单 |
+
+必需不变量：`FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING`。
+
+### 4.2 第 8 轮（送达文本保真）人工复核点（全部未勾选）
+
+本轮修复规则：保留极性词与完整有效子句；分档是**条件式备选**（不得要求同时满足）；
+源空白保持空白；按业务含义而非字面出处校验；跨表风险语义一致
+（源标记 / 实质性状态 / 响应阶段否决 / 逾期不予受理 四者相互独立）；
+按源标题与列结构判定表单类型。
+
+- [ ] 第 7 轮点名的 13 项发现确已修复（逐项对照 `review_workbook_round8_case_001_before_after.md`）
+- [ ] 否定条件与后果动词同时出现在同一句内（D14「不按…3.4.1…否决」、D37「不能按…7.3.1…放弃成交」）
+- [ ] 100%/50% 银行承兑只要求满足**其中一档**；基本分 30 与最高分 40 是两件事
+- [ ] 源空白（如合同付款宽限期 `＿＿＿＿`）在交付文本中仍是空白，且句子完整
+- [ ] 技术标准清单没有被可见截断；带星号要求没有吸收下一章标题
+- [ ] 要求正文没有重复渲染的短语
+- [ ] 项目决定（不召开 / 不组织 / 不允许）的运行性动作出现在该行自己的「复核要点」里
+- [ ] 旧表 `风险级别` 与 03 表 `否决性` 双向一致（`一票否决` ⟺ `否决性 = 是`）
+- [ ] 询比有效期行的证据定位指向本行自身的前附表行，不是分包章节标题
+- [ ] 类似项目情况表按源标题/列结构分类为**业绩/资格表单**，不是空白报价表单
+- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
 
 机器闭环证据（**已通过，不代替人工复核**）：
 
-- 第 7 轮三案例审计 PASS：`review_workbook_round7_case_00{1,2,3}.json` / `.md`（`0 failed check`）、
-  泛化 `review_workbook_round7_generalization.json` = PASS
-- 渲染 QA PASS：`case00{1,2,3}_review_workbook7_visual_qa.json`（`failed_checks = 0`；
-  `clipping_bounded` 有界 WARN：CASE001 **9** / CASE002 **10** / CASE003 **28**，非失败）
-- 第 6 轮标记账目与第 5 轮契约在**第 7 轮构建上**复跑通过：`25/25` 检查、夹具 23 / 3 / 10、
-  标记丢失 0 / 未归属 0 / 未解析 0 / 直接失败 0
-- 第 7 轮定向测试 27/27（`tests/test_round7_applicable_source.py`），与第 4 轮出处测试合计 114 项通过
-- 全套测试：`review_workbook_round7_full_test_suite.txt` / `.xml` =
-  **892 collected / 0 failed / 0 errors / 1 skipped**
+- 第 8 轮三案例审计 PASS：`review_workbook_round8_case_00{1,2,3}.json` / `.md`
+  （`0 failed check`；CASE001 另含 13/13 人工夹具）、泛化 `review_workbook_round8_generalization.json` = PASS
+- 第 8 轮送达文本前后对照：`review_workbook_round8_case_001_before_after.json` / `.md`
+  （49 行逐行、按地址比较；36 行变化，13 行未变化）
+- 渲染 QA PASS：`case00{1,2,3}_review_workbook8_visual_qa.json`（`failed_checks = 0`；
+  `clipping_bounded` 有界 WARN：CASE001 **9** / CASE002 **10** / CASE003 **27**，非失败）
+- 第 5 / 6 / 7 轮门禁在**第 8 轮构建上**复跑通过：`review_workbook_round8_banked_regressions.json`
+- 复核工作簿门禁 `case00{1,2,3}_review_workbook8_gate.json` = PASS（42/42，含修正后的
+  ★/否决性分离、前附表证据定位与交付文本=计划投影三项）
+- 三案例泛化回归 `three_case_regression.json` = PASS（`failed_checks = []`）
+- 全套测试：`review_workbook_round8_full_test_suite.txt` / `.xml` =
+  **893 collected / 0 failed / 0 errors / 1 skipped**
 - Word 产物未重新渲染：DOCX / PDF / 报告与已验收 closure8 构建逐字节相同（三案例）
 - 状态：`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（**人工尚未置为已确认**）、
   `CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`
@@ -478,8 +528,10 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 > （CASE002 `case_002/v1_round4_closure8_review_workbook1`、CASE003 `case_003/v1_round4_closure8_review_workbook1`），
 > 当时门禁 37/37 PASS、渲染 QA PASS。第 2 / 3 / 4 / 5 / 6 轮后继构建
 > （`..._review_workbook2` … `..._review_workbook6_marker_closure`）同样为历史。全部**未删除**。
+> 第 7 轮后继构建（`..._review_workbook7`，CASE002/003 为 `v1_round4_closure8_review_workbook7`）
+> 是**人工判 FAIL 的那一版**，作为失败证据保留，未删除、未改写。
 
-### 第 7 轮（适用源解析 / 否决作用域 / 证据定位保真）人工复核点（全部未勾选）
+### 第 7 轮（适用源解析 / 否决作用域 / 证据定位保真）人工复核点（HISTORICAL，全部未勾选）
 
 本轮链条为 `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT →
 EXACT MATCHING EVIDENCE LOCATOR`。人工复核时请逐项确认：

@@ -616,6 +616,7 @@ def resolve_applicable_sources(
                         "page": specific.page,
                         "heading": specific.heading,
                         "clause": specific.clause,
+                        "item": specific.item,
                         "value": specific.value,
                     },
                     "generic_source": {
@@ -937,29 +938,105 @@ def _atom_marked(atom: Any) -> bool:
     return bool(re.match(r"^\s*[\*★☆]", str(getattr(atom, "source_text", "") or "")))
 
 
-def action_for_resolution(resolution: ApplicableSourceResolution, subject: str) -> str:
+def resolution_subject(resolution: ApplicableSourceResolution) -> str:
+    """The source's own name for what this project decision is about.
+
+    The *schedule row's* own item ("采购预备会", "踏勘现场", "分包") names the
+    decision; the review concern's label ("提问与澄清截止") is the reviewer's
+    question and must never be spliced into the decision's wording.  Doing so
+    produced actions such as "确认本项目提问与澄清截止采购预备会 不召开", which
+    attaches one question's subject to another row's decision (round-8 fixture
+    D56).
+    """
+
+    evidence = resolution.source_hierarchy_evidence or {}
+    specific = evidence.get("specific_source") or {}
+    item = _clean_cell(specific.get("item") or "")
+    if not item:
+        # the schedule row's own value is "<item> <decision>"; the item is its head
+        value = _clean_cell(resolution.specific_value_text)
+        clause = _clean_cell(resolution.applicable_clause)
+        if clause and value.startswith(clause):
+            value = value[len(clause) :].strip()
+        item = value
+    for decision in ("不召开", "不组织", "不允许", "不接受", "不进行", "不安排", "无需", "无须"):
+        if item.endswith(decision):
+            item = item[: -len(decision)].strip(" ：:，,；;　")
+            break
+    return item.strip(" ：:，,；;　")
+
+
+def _cited_decision(resolution: ApplicableSourceResolution, decision: str) -> str:
+    """The schedule row's own decision, cited once with its clause label.
+
+    A front-table row is printed as "*1.12 分包 不允许": the row's own clause
+    label (and its source marker) are already inside the value, so prefixing the
+    applicable clause again produced the delivered sentence
+    "确认本项目分包：1.12 *1.12分包不允许" -- the clause was named twice and the
+    row's emphasis marker was spliced into an instruction (round-8 fixture
+    DR033).  The clause is cited exactly once and the marker stays where it
+    belongs, on the source row.
+    """
+
+    clause = _clean_cell(resolution.applicable_clause)
+    body = _clean_cell(decision).lstrip("*★☆")
+    if clause and body.startswith(clause):
+        body = body[len(clause) :].lstrip("*★☆ 、.．:：")
+    body = body.strip(" 、；;，,。")
+    if clause and body:
+        return f"{clause} {body}"
+    return body or clause
+
+
+def action_for_resolution(resolution: ApplicableSourceResolution, subject: str = "") -> str:
     """The operational review action the *project value* implies.
 
     The value drives the action: a project that does not hold the event is not a
     preparation duty, and a project that forbids subcontracting must be checked
     for the absence of a subcontract, not for a "conforming arrangement".
+
+    The action names the *decision's own* subject.  ``subject`` is only a
+    fallback for a resolution whose schedule row carries no item of its own.
     """
 
-    subject = (subject or "").strip()
+    decision = _clean_cell(resolution.specific_value_text)
+    own_subject = resolution_subject(resolution)
+    label = own_subject or (subject or "").strip()
+    cited = _cited_decision(resolution, decision)
     if resolution.outcome == OUTCOME_EVENT_NOT_HELD:
-        return f"确认本项目{subject}{resolution.specific_value_text}，不应在响应文件中作出与此矛盾的陈述。"
+        head = f"确认本项目{label}" if label else "确认本项目"
+        return f"{head}：{cited}；不应在响应文件中作出与此矛盾的陈述。"
     if resolution.outcome == OUTCOME_NOT_PERMITTED:
-        return (
-            f"确认本项目{subject}{resolution.specific_value_text}："
-            "响应文件中不得出现与之相矛盾的安排或陈述。"
-        )
+        head = f"确认本项目{label}" if label else "确认本项目"
+        return f"{head}：{cited}；响应文件中不得出现与之相矛盾的安排或陈述。"
     return ""
 
 
-def risk_is_informational(resolution: ApplicableSourceResolution) -> bool:
-    """A project decision that switches a duty off leaves no positive bidder work."""
+def resolution_is_project_decision(resolution: ApplicableSourceResolution) -> bool:
+    """Is this row a project decision the schedule took for the bidder?
+
+    The schedule row decides the project ("采购预备会 不召开", "踏勘现场 不组织",
+    "分包 不允许").  Such a row sorts last, which is what keeps its *displayed*
+    risk from renumbering the rows the human's findings are addressed by.  The
+    flag is about the row's origin, never about its risk: the two decisions have
+    opposite risk semantics (see :func:`risk_is_informational`).
+    """
 
     return resolution.outcome in {OUTCOME_EVENT_NOT_HELD, OUTCOME_NOT_PERMITTED}
+
+
+def risk_is_informational(resolution: ApplicableSourceResolution) -> bool:
+    """Does this decision switch a bidder duty off, leaving no positive work?
+
+    Only an event the project does not hold ("采购预备会 不召开", "踏勘现场 不
+    组织") removes work: there is nothing to prepare and nothing to check, so the
+    row is 低 risk.  An arrangement the project does *not permit* ("分包 不允许")
+    is the opposite: it places an obligation on the bidder and carries the
+    clause's own rejection consequence, so it may not be shown as 低 while the
+    03 sheet records a 否决依据 for it (round-8 cross-sheet fixture DR033).
+    """
+
+    return resolution.outcome == OUTCOME_EVENT_NOT_HELD
 
 
 __all__ = [
@@ -979,7 +1056,9 @@ __all__ = [
     "resolve_applicable_sources",
     "apply_applicable_resolutions",
     "resolution_for_concern",
+    "resolution_subject",
     "schedule_atom_id",
     "action_for_resolution",
+    "resolution_is_project_decision",
     "risk_is_informational",
 ]

@@ -485,8 +485,30 @@ def extract_values(text: str) -> list[str]:
 
 
 _CLAUSE_BREAK = re.compile(r"[。；;\n]")
+#: A *cross-reference* to another clause ("第3.4.1项要求", "本章第7.3.1 项") is a
+#: citation inside a sentence, never a clause boundary.  Splitting there used to
+#: cut the negated condition off the requirement it belongs to, so
+#: "3.4.2 供应商不按本章第3.4.1项要求提交响应保证金的，评审小组将否决其响应"
+#: was indexed as "3.4.1项要求提交响应保证金的…" -- the polarity word "不按"
+#: stayed behind in the discarded head and the delivered requirement lost its
+#: meaning.  The lookbehind therefore also rejects a number introduced by "第".
+_CLAUSE_REFERENCE_HEAD = re.compile(r"第\s*$")
 _INLINE_CLAUSE = re.compile(
-    r"(?=(?:A\d{1,2}\.\d{1,2})|(?<![\d.])\d{1,2}(?:\.\d{1,2}){1,3}\s*[\u4e00-\u9fff（(])"
+    r"(?=(?:A\d{1,2}\.\d{1,2})|(?<![\d.])\d{1,2}(?:\.\d{1,2}){1,3}\s*(?=[\u4e00-\u9fff（(]))"
+)
+#: A standalone chapter/section title ("第四条", "第三章", "五、…") on its own line.
+_CHAPTER_HEADING_RE = re.compile(
+    r"^第[\u4e00-\u9fa5\d]{1,3}[章节篇部分条]$|^[一二三四五六七八九十]+[、.]\s*\S{0,30}$"
+)
+#: A chapter/section title token.  "第四条" is a *contract article* heading, so a
+#: statement that ends with one must not absorb it: the heading titles the next
+#: source element, never the requirement in front of it.
+_TRAILING_CHAPTER_HEADING_RE = re.compile(
+    r"(?<=\s)(第[\u4e00-\u9fa5\d]{1,3}[章节篇部分条])\s*$"
+)
+#: A statement that *opens* with the same heading is that heading's own text.
+_LEADING_CHAPTER_HEADING_RE = re.compile(
+    r"^第[\u4e00-\u9fa5\d]{1,3}[章节篇部分条]\s*$"
 )
 #: Round 6: source-visible emphasis markers are format semantics, not noise.
 #: The vocabulary lives in :mod:`tender_basic.source_criticality` so the review
@@ -525,6 +547,28 @@ _BIDDER_SUBJECTS: tuple[str, ...] = (
 )
 
 
+def _split_embedded_chapter_headings(chunk: str) -> list[str]:
+    """Split a standalone chapter/section heading off the statement before it.
+
+    The fragment assembler joins a block that does not end in a full stop with
+    the next block.  Where the *next* block is a chapter title ("第四条" +
+    "设备的数量和计量单位、计量方法") the heading used to be glued onto the
+    requirement in front of it, so the delivered row read
+    "*流量计等相关计量仪器需提供第三方检测实验报告 第四条" -- the row absorbed the
+    next chapter's heading.  A standalone heading token preceded by whitespace is
+    therefore emitted as its own chunk, and the requirement keeps its own sentence.
+    """
+
+    found = _TRAILING_CHAPTER_HEADING_RE.search(chunk)
+    if not found or found.start() <= 0:
+        return [chunk]
+    head = chunk[: found.start()].strip()
+    tail = chunk[found.start() :].strip()
+    if not head:
+        return [chunk]
+    return [head, tail]
+
+
 def split_source_clauses(text: str) -> list[str]:
     """Split one source fragment into clause-level requirement statements.
 
@@ -541,6 +585,9 @@ def split_source_clauses(text: str) -> list[str]:
     of the previous clause.  Both cases are repaired here, so every downstream
     step (atomization, concern grouping, review rows) still sees the marker with
     the requirement it marks.
+
+    Round 8: a cross-reference ("本章第3.4.1项") is not a clause boundary, and a
+    standalone chapter heading is not part of the statement before it.
     """
 
     leading_marker = ""
@@ -561,14 +608,21 @@ def split_source_clauses(text: str) -> list[str]:
 
     expanded: list[str] = []
     for piece in pieces:
-        for chunk in _INLINE_CLAUSE.split(piece):
+        for chunk in _split_inline_clauses(piece):
             chunk = chunk.strip()
             if chunk:
                 expanded.append(chunk)
 
     merged: list[str] = []
     for chunk in expanded:
-        if merged and len(compact_text(chunk)) < 10:
+        if (
+            merged
+            and len(compact_text(chunk)) < 10
+            and not _CHAPTER_HEADING_RE.match(chunk.strip())
+        ):
+            # A short tail continues the previous statement -- unless it is a
+            # standalone chapter/article heading, which titles the element that
+            # *follows* it ("…实验报告" | "第四条" | "设备的数量和计量单位…").
             merged[-1] = f"{merged[-1]} {chunk}"
         else:
             merged.append(chunk)
@@ -580,6 +634,30 @@ def split_source_clauses(text: str) -> list[str]:
         else:
             merged = [leading_marker]
     return [chunk for chunk in merged if compact_text(chunk)]
+
+
+def _split_inline_clauses(piece: str) -> list[str]:
+    """Cut a piece at inline clause numbers, never at a cross-reference.
+
+    A number introduced by "第" ("本章第3.4.1项要求…") cites another clause from
+    inside a sentence; breaking there separates a negated condition from the
+    consequence it governs (round-8 fixture: the bid-bond rejection lost its
+    "不按").  Only a clause number that starts a *new* statement is a boundary.
+    """
+
+    chunks: list[str] = []
+    cursor = 0
+    for match in _INLINE_CLAUSE.finditer(piece):
+        if _CLAUSE_REFERENCE_HEAD.search(piece[: match.start()]):
+            continue
+        head = piece[cursor : match.start()]
+        cursor = match.start()
+        if head.strip():
+            chunks.extend(_split_embedded_chapter_headings(head.strip()))
+    tail = piece[cursor:]
+    if tail.strip():
+        chunks.extend(_split_embedded_chapter_headings(tail.strip()))
+    return chunks or _split_embedded_chapter_headings(piece.strip())
 
 
 def _reattach_source_markers(chunks: list[str]) -> list[str]:
@@ -747,6 +825,21 @@ def _is_heading_like(text: str) -> bool:
     if text.endswith(("。", "；", ";", "！")):
         return False
     return bool(_HEADING_ONLY.match(text))
+
+
+#: A front-table row: a clause label alone on its line, then the item and the
+#: project's decision ("*1.12 / 分包 / 不允许").  Such a row reaches the plan
+#: through its own applicable-source resolution, so indexing it a second time
+#: would deliver the same concern twice.
+_FRONT_TABLE_ROW_RE = re.compile(
+    r"^\s*[*★]?\s*(\d+(?:\.\d+)+)\s*[\s\u3000]+\s*(\S{1,12})[\s\u3000]+\s*(\S{1,12})\s*$"
+)
+
+
+def _is_front_table_row(text: str) -> bool:
+    """True when the clause text is one row of a schedule-style front table."""
+
+    return bool(_FRONT_TABLE_ROW_RE.match(str(text or "")))
 
 
 _OTHER_BUCKETS: tuple[tuple[str, tuple[str, ...]], ...] = (
@@ -947,7 +1040,15 @@ def build_requirement_index(document: NormalizedDocument) -> RequirementIndex:
                 and not values
                 and not criteria
                 and _is_heading_like(text)
+                and not (source_marked and not _is_front_table_row(clause_text))
             ):
+                # A clause the source itself emphasised is a requirement, never a
+                # heading: "*流量计等相关计量仪器需提供第三方检测实验报告" is short
+                # enough to look like a title, and dropping it would silently lose
+                # a starred substantive requirement.  A starred *front-table row*
+                # ("*1.12 分包 不允许") is the exception -- it is already delivered
+                # through its own applicable-source resolution, and indexing it
+                # here would duplicate the concern.
                 dropped_heading += 1
                 continue
             requirement_type = _type_for(text, strong, mandatory, values)

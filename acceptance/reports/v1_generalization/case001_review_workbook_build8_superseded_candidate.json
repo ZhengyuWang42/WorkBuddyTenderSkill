@@ -1,0 +1,675 @@
+{
+  "schema": "v1_review_workbook_build/1",
+  "source_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7",
+  "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8",
+  "word_render_repeated": false,
+  "artifact_identity": {
+    "基础投标文件.docx": {
+      "source_build_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "successor_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+      "byte_identical": true
+    },
+    "基础投标文件.pdf": {
+      "source_build_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+      "successor_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+      "byte_identical": true
+    },
+    "generation_report.json": {
+      "source_build_sha256": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace",
+      "successor_sha256": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace",
+      "byte_identical": true
+    }
+  },
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8\\投标项目复核表.xlsx",
+  "workbook_sha256": "8d86b615ce44cd78457b915cddc7c449ea26d77d68340157a268ada416e4c43a",
+  "workbook_bytes": 72384,
+  "views": {
+    "sheets": [
+      {
+        "title": "00_复核总览",
+        "kind": "dashboard"
+      },
+      {
+        "title": "01_项目事实",
+        "rows": 23
+      },
+      {
+        "title": "02_关键条款",
+        "rows": 23
+      },
+      {
+        "title": "03_资格否决与强制项",
+        "rows": 35
+      },
+      {
+        "title": "04_报价与限价",
+        "limits": 3,
+        "items": 9,
+        "blank_forms": 2
+      },
+      {
+        "title": "05_文件结构与签章",
+        "rows": 45
+      },
+      {
+        "title": "06_冲突与缺失",
+        "rows": 6
+      },
+      {
+        "title": "07_证据索引",
+        "rows": 44
+      }
+    ],
+    "fact_status_counts": {
+      "facts_total": 23,
+      "resolved": 17,
+      "needs_review": 0,
+      "not_found": 6
+    },
+    "requirement_rows": 49,
+    "mandatory_rows": 35,
+    "clause_rows": 23,
+    "evidence_rows": 44,
+    "exception_rows": 6,
+    "manual_columns": [
+      [
+        "01_项目事实",
+        "M"
+      ],
+      [
+        "02_关键条款",
+        "M"
+      ],
+      [
+        "03_资格否决与强制项",
+        "O"
+      ],
+      [
+        "04_报价与限价",
+        "I"
+      ],
+      [
+        "04_报价与限价",
+        "L"
+      ],
+      [
+        "05_文件结构与签章",
+        "M"
+      ],
+      [
+        "06_冲突与缺失",
+        "H"
+      ]
+    ],
+    "criticality": {
+      "source_marker_row_count": 17,
+      "substantive_requirement_row_count": 22,
+      "rejection_consequence_row_count": 22,
+      "explicit_rejection_consequence_row_count": 4,
+      "mandatory_sheet_row_count": 35,
+      "rows": [
+        {
+          "item_id": "DR001",
+          "concern_id": "PRICE_CEILING",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0214",
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第12页 / 表0 第2行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；明示否决后果"
+        },
+        {
+          "item_id": "DR002",
+          "concern_id": "DELIVERY_PERIOD",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "APL0004",
+          "reference_target": "第五章采购需求",
+          "criticality_reason": "源标记 *（第9页 / 表0 第8行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR003",
+          "concern_id": "QUALITY_TARGET",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第9页 / 表0 第9行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR004",
+          "concern_id": "PROJECT_WARRANTY",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "APL0004",
+          "reference_target": "第五章采购需求",
+          "criticality_reason": "源标记 *（第9页 / 表0 第11行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR005",
+          "concern_id": "QUALIFICATION_LICENSE",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "REFERENCE_PROPAGATION",
+          "substantive_basis_atom_ids": [
+            "SRA0073"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_VIA_REFERENCE",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "SRA0073",
+          "reference_target": "第二款供应商资格要求",
+          "criticality_reason": "实质性要求依据=REFERENCE_PROPAGATION；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR007",
+          "concern_id": "SIGNATURE_AND_SEAL",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第11页 / 表0 第1行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR010",
+          "concern_id": "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "EXPLICIT_WORDING",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_EXPLICIT_WORDING",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "实质性要求依据=EXPLICIT_WORDING；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR012",
+          "concern_id": "CONSORTIUM",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第9页 / 表0 第13行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR013",
+          "concern_id": "GENERAL_BIDDER_OBLIGATION",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MARKER_UNCLASSIFIED"
+          ],
+          "reference_parent_atom_id": "APL0004",
+          "reference_target": "第五章采购需求",
+          "criticality_reason": "源标记 *（第39页）；标记含义=SUBSTANTIVE_REQUIREMENT"
+        },
+        {
+          "item_id": "DR015",
+          "concern_id": "ELECTRONIC_UPLOAD",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第11页 / 表0 第2行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR017",
+          "concern_id": "SUBCONTRACT",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第3行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR018",
+          "concern_id": "BID_VALIDITY",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第10行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR019",
+          "concern_id": "BID_BOND_AMOUNT",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0100"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第11行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；明示否决后果"
+        },
+        {
+          "item_id": "DR020",
+          "concern_id": "BID_BOND_FORM",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0100",
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第11行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；明示否决后果"
+        },
+        {
+          "item_id": "DR021",
+          "concern_id": "BID_BOND_TRANSFER",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第11行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR025",
+          "concern_id": "PRICE_TAX_BASIS",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第12页 / 表0 第2行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR028",
+          "concern_id": "EVALUATION_COLLUSION",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "EXPLICIT_WORDING",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_EXPLICIT_WORDING",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "实质性要求依据=EXPLICIT_WORDING；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR029",
+          "concern_id": "EVALUATION_RESPONSIVENESS",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "LEGAL_RULE",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_BY_LAW",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "实质性要求依据=LEGAL_RULE；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR030",
+          "concern_id": "REJECTION_GENERAL",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "EXPLICIT_WORDING",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_EXPLICIT_WORDING",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "实质性要求依据=EXPLICIT_WORDING；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR031",
+          "concern_id": "DELIVERY_LOCATION",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第9页 / 表0 第9行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR036",
+          "concern_id": "BID_BOND_EVIDENCE",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0100"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第10页 / 表0 第11行）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；明示否决后果"
+        },
+        {
+          "item_id": "DR047",
+          "concern_id": "TECHNICAL_TEST_REPORT",
+          "raw_source_markers": [
+            "*"
+          ],
+          "marker_present": true,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "SOURCE_MARKER",
+          "substantive_basis_atom_ids": [
+            "SRA0056"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_STARRED",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 *（第34页）；标记含义=SUBSTANTIVE_REQUIREMENT；实质性要求依据=SOURCE_MARKER；推导否决后果（实质性要求不满足）"
+        },
+        {
+          "item_id": "DR050",
+          "concern_id": "TECHNICAL_PARAMETER",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "REFERENCE_PROPAGATION",
+          "substantive_basis_atom_ids": [
+            "APL0004"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "DERIVED",
+          "rejection_basis_atom_ids": [
+            "SRA0205"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_VIA_REFERENCE",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "APL0004",
+          "reference_target": "第五章采购需求",
+          "criticality_reason": "实质性要求依据=REFERENCE_PROPAGATION；推导否决后果（实质性要求不满足）"
+        }
+      ]
+    }
+  }
+}

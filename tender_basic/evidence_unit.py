@@ -142,6 +142,11 @@ def _is_heading(text: str) -> bool:
     flat = _clean(text)
     if not flat or len(flat) > 40:
         return False
+    if _schedule_row_block(text):
+        # A front-table row ("*1.12 | 分包 | 不允许") is a *project value*, not a
+        # section title: letting it become a heading makes every following row of
+        # the same table cite "分包 不允许" as its section (round-8 fixture D34).
+        return False
     if CHAPTER_RE.match(flat):
         return True
     if CN_SECTION_RE.match(flat):
@@ -156,6 +161,27 @@ def _is_heading(text: str) -> bool:
             return False
         return len(match.group(1).split(".")) <= 2 and not body.endswith("。")
     return False
+
+
+def _schedule_row_block(text: str) -> bool:
+    """Is this block one row of a schedule-style front table?
+
+    The front table is frequently extracted as *blocks* rather than table cells,
+    one block per row, with the row's own fields on separate lines::
+
+        *3.3.1
+        询比有效期
+        提交响应文件截止之日起90 日历天
+
+    The first token is a bare clause label and at least two further tokens carry
+    the project's own item/value.  Such a block is a row of the schedule, so it is
+    never a section heading for the rows that follow it.
+    """
+
+    tokens = [token for token in re.split(r"[\s\u3000]+", str(text or "")) if token]
+    if len(tokens) < 3:
+        return False
+    return bool(CLAUSE_LABEL_RE.match(tokens[0]))
 
 
 def _clause_of(text: str) -> str:
@@ -195,9 +221,12 @@ def _carries_forward(heading: str) -> bool:
     clause heading does too: a clause that continues onto the next page ("4.2.4
     供应商应确保…" whose head block sits on page 19) belongs to the heading that
     opened it.  A numbered list item ("2、乙方送到甲方现场后，…") is not a
-    heading and ends with its own page.
+    heading and ends with its own page, and neither does a front-table row (whose
+    value is a project decision, not a section title).
     """
 
+    if _schedule_row_block(heading):
+        return False
     flat = _clean(heading)
     if re.match(r"^第[\u4e00-\u9fa5]{1,3}[章部分]", flat):
         return True
@@ -211,6 +240,74 @@ def _carries_forward(heading: str) -> bool:
         # a clause *title* ("4.2 响应文件的递交"), not a sentence
         return "，" not in body and "。" not in body and len(match.group(1)) <= 6
     return False
+
+
+#: A gap inside one visual line, wider than this, is the source's own *blank*:
+#: the contract template prints a rule/gap where a value ("__ 日的支付宽限期")
+#: has to be written in.  Collapsing it to a space turns a fillable blank into a
+#: sentence that merely reads oddly ("…从最后一笔款项应付之日起给甲方 的支付宽限期"),
+#: so the blank is preserved as an explicit placeholder.
+INLINE_BLANK_GAP_PT = 24.0
+#: The placeholder an intrinsic source blank is rendered as.
+INLINE_BLANK_PLACEHOLDER = "＿＿＿＿"
+
+
+def _line_gap_spans(block: Any) -> list[int]:
+    """Character offsets in ``block.text`` where the source printed a blank.
+
+    The line/span geometry of the block is read directly, so the placeholder
+    marks the *source's* own gap and never an invented value.  A wide horizontal
+    gap either appears between two spans of one line or makes the extractor split
+    the line in two at the same vertical position; both shapes are the same
+    source blank.
+    """
+
+    lines = list(getattr(block, "lines", ()) or ())
+    if not lines:
+        return []
+    text = str(getattr(block, "text", "") or "")
+    if not text:
+        return []
+    offsets: list[int] = []
+    cursor = 0
+    for index, line in enumerate(lines):
+        raw = str(getattr(line, "text", "") or "")
+        if not raw:
+            continue
+        spans = list(getattr(line, "spans", ()) or ())
+        gaps: list[float] = []
+        for previous, following in zip(spans, spans[1:]):
+            gaps.append(float(following.bbox[0]) - float(previous.bbox[2]))
+        # the extractor's own line break is sometimes the blank: the next line
+        # starts where this one ended but far to the right of it
+        if index + 1 < len(lines):
+            following_line = lines[index + 1]
+            same_row = abs(float(following_line.bbox[1]) - float(line.bbox[1])) <= 2.0
+            if same_row:
+                gaps.append(float(following_line.bbox[0]) - float(line.bbox[2]))
+        found = text.find(raw, cursor)
+        if found < 0:
+            continue
+        cursor = found + len(raw)
+        for gap in gaps:
+            if gap >= INLINE_BLANK_GAP_PT:
+                offsets.append(cursor)
+                break
+    return offsets
+
+
+def _text_with_inline_blanks(block: Any) -> str:
+    """The block's text with its own intrinsic blank gaps marked."""
+
+    text = _clean(getattr(block, "text", ""))
+    offsets = _line_gap_spans(block)
+    if not text or not offsets:
+        return text
+    out = text
+    for offset in sorted(set(offsets), reverse=True):
+        if 0 < offset < len(out):
+            out = f"{out[:offset]} {INLINE_BLANK_PLACEHOLDER} {out[offset:]}"
+    return _clean(out)
 
 
 def build_evidence_units(document: Any) -> list[EvidenceUnit]:
@@ -257,7 +354,7 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
                     clause_number=clause,
                     heading=heading,
                     table_row_id="",
-                    text_span=text,
+                    text_span=_text_with_inline_blanks(block),
                     block_index=block_index,
                     order=len(units),
                 )

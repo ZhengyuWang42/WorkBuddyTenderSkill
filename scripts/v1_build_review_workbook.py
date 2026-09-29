@@ -233,6 +233,8 @@ def main() -> int:
                 str(source_build),
                 "--build-id",
                 args.build_id,
+                *(["--refresh-legacy-rows"] if args.refresh_legacy_rows else []),
+                *(["--refresh-facts"] if args.refresh_facts else []),
             ],
             "returncode": 0,
             "word_render_repeated": False,

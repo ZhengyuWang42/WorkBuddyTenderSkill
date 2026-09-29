@@ -1012,3 +1012,76 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
   `CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；人工勾选框 0 个；
   `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
 
+### D71 第 8 轮送达文本保真（FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING）
+
+- 人工复核对象：CASE001 `..._review_workbook7`
+  （`投标项目复核表.xlsx` sha256 `d2381158cc390f6ca871b452252638d3f6aff1470b366b463965ac4cb56f9717`）。
+  人工判 **FAIL**，范围 `FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` /
+  `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`，点名 13 项
+  （D14 / D37 / D23 / D50 / D39 / D45 / D46 / D16 / D56 / D34 / DR013 / DR038 / 04 表第 53 页表单）。
+  结论一句话：**出处正确不等于文本正确**——provenance id 与 locator 都可以是对的，
+  而交付出去的那句话仍然是错的。
+- 本轮不变量：`FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING`。
+- 修复规则（逐条落地）：(1) 保留极性词与完整有效子句，宁可转 `NEEDS_REVIEW` 也不编造；
+  (2) 分档是**条件式备选**，不得要求同时满足，并区分 `BASIC_SCORE` 与 `MAX_SCORE`；
+  (3) 源空白保持空白；(4) 校验完整业务含义而非字面出处；
+  (5) 跨表风险语义一致——源标记 / 实质性状态 / 响应阶段否决 / 逾期不予受理**四个维度相互独立但不得互相矛盾**；
+  (6) 表单按**源标题 + 列结构**判定类型。
+- 新增引擎：`tender_basic/fidelity_invariants.py`（极性、条件式分档、空白占位、片段完整、
+  定位标题、吸收标题、重复措辞、跨表风险、表单分类、关键性词表）；
+  评分角色 `ROLE_MAX_SCORE` / `ROLE_BASE_SCORE` / `ROLE_TIER_SCORE`（`semantic_roles.py`，
+  由 `review_point.py` 渲染为 `本项最高` / `基本分` / `该档计`）；
+  `check_cross_sheet_risk` 收紧为**双向**绑定 `一票否决 ⟺ 03 表否决性 = 是`。
+- **根因分类（先测量、后判定）——`DR016` 计划 vs 交付差异 = `PLAN_TO_XLSX_DELIVERY_DEFECT`**：
+  从**已保存并重新打开**的后继 XLSX 读取该行后确认，计划里的 `verification_action` 已含本条
+  项目决定的运行性动作，而交付单元格只有关切自己的通用复核要点。它不是 `STALE_BUILD_EVIDENCE`：
+  冻结构建同样缺该动作，且重建后继后差异仍在，因为单元格由 `cell_from_components()` 从
+  **已核对组件**渲染，而运行性动作此前只写在 item 字段上、从未成为组件，**结构上不可能进入交付文本**。
+  修复：运行性动作作为该行自己的第一条 `REVIEW_CHECK` 组件渲染
+  （`RESOLUTION_OPERATIONAL_ACTION`），并验证 49/49 行「单元格复核要点 == `verification_action`」。
+- 人工点名的 `DR013`/`DR038` 只是同类的一例：冻结构建里旧表 `风险级别` 与 03 表 `否决性`
+  共 **17 行**不一致（双向都有）。第 8 轮逐行对齐，35 行比较 0 矛盾。
+- 两处**自有断言修正**（避免假绿/假红）：D14 原 `must_not` 断言「提交响应保证金的」不出现——该短语
+  本是正确句子的组成部分，既抓不到截断又会把正确渲染判红，已改为要求整句同时具备否定条件与后果动词
+  （D14：不按 / 3.4.1 / 否决；D37：不能按 / 7.3.1 / 放弃成交）；D34 的行号曾指向 `DR018`
+  （保证金金额），人工指的是**询比有效期**行 `DR017`（`投标项目复核表!D34`），已按测量改正并纳入定位断言。
+  夹具现在都带稳定 `item_id` + 当前构建 / 工作表 / 单元格地址 + 最终文本，且**从磁盘重新打开的 XLSX** 读取。
+- 后继构建：CASE001 `..._review_workbook8`；CASE002/003 `v1_round4_closure8_review_workbook8`
+  （均由第 7 轮后继构建以 `--refresh-legacy-rows` 派生；第 7 轮构建作为人工 FAIL 证据保留、未删除）。
+  冻结的 workbook1–7 全部未改写。
+- 门禁与证据：三案例第 8 轮审计 `review_workbook_round8_case_00X.json` / `.md` = **PASS**
+  （CASE001 12/12 检查 + 13/13 人工夹具）、`review_workbook_round8_generalization.json` = **PASS**；
+  逐行前后对照 `review_workbook_round8_case_001_before_after.{json,md}`（49 行按地址比较，
+  36 行变化 / 13 行未变化）；第 5/6/7 轮门禁在第 8 轮构建上复跑
+  （`review_workbook_round8_banked_regressions.json`）= **PASS**；
+  工作簿门禁 `case00X_review_workbook8_gate.json` = **PASS（42/42）**；
+  渲染 QA `case00X_review_workbook8_visual_qa.json` = **PASS**（`clipping_bounded` 有界 WARN：
+  9 / 10 / 27）；三案例泛化回归 `three_case_regression.json` = **PASS**；
+  全套 `893 collected / 0 failed / 0 errors / 1 skipped`
+  （`review_workbook_round8_full_test_suite.{txt,xml}`）；Word 产物逐字节未变。
+- 门禁修正（此处记录，避免把过时断言当成回归）：工作簿门禁的三项旧断言在第 6/7 轮语义下已失效
+  （`★ == 否决` 把两个独立维度当别名；03 表 `类型` 列被拿去与要求类型比较；交付文本被拿去与
+  前第 6 轮的 `render_review_cell` 比较）。它们**在冻结的第 7 轮构建上就已经失败**（37/41），
+  已按当前语义改写为：`★` = 源标记、`否决性` = 否决依据、带列结构的前附表证据定位、交付文本 = 计划投影。
+  `scripts/v1_docs_state_consistency.py`（第 4 轮遗留门禁）自第 7 轮起即与 checklist 不同步而失败，
+  其结论文件保持提交时的内容、未用本轮数据改写；本轮的当前状态以 §12.3 与第 8 轮报告为准。
+- 后继指针推进（测试侧）：`tests/test_round64_rendered_component_provenance.py`、
+  `tests/test_round64_review_concern_ownership.py` 与 `tests/test_round7_applicable_source.py`
+  的「被测后继」由 workbook7 推进到 workbook8（`Round7Report(..., build_name=...)` 为新增的可选参数，
+  默认仍复现第 7 轮记录）；冻结工作簿的断言不再用当前代码去审旧交付物。
+- 人工状态：第 7 轮人工 **FAIL** 记录写入
+  `acceptance/reports/v1_generalization/case001_review_workbook_round8_human_review.json`
+  并保留在 `v1_manual_review_checklist.md` §4.1；`CASE001_XLSX_MANUAL_REVIEW =
+  AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（**人工未确认**）；
+  `CASE002_XLSX_MANUAL_REVIEW` / `CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；
+  人工勾选框 0 个；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；
+  未创建 tag 或 release。
+- 构建报告命名（避免把旧一次运行当成当前构建）：规范名为 `case_00X_review_workbook_build8.json`
+  （由 `--out` 写出，记录当前后继的 `workbook_sha256`）。同一轮里更早的一次运行另存为
+  `case00X_review_workbook_build8_first_attempt.json`；CASE001 的更早一次
+  （`..._build8_superseded_candidate.json`）记录的是一个此后被废弃的候选工作簿
+  （sha256 `8d86b615ce44cd78457b915cddc7c449ea26d77d68340157a268ada416e4c43a`），
+  **不是**当前构建，两份都保留、未覆盖。
+- 纪律：本轮全程**未** reset / clean / revert / rebase / stash / amend、未强推、未重新克隆、
+  未切换分支、未覆盖任何历史验收构建；工作树是唯一真源。
+

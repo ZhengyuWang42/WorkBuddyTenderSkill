@@ -308,6 +308,12 @@ class Gate:
                     "type": item.requirement_type,
                     "risk": item.risk_level,
                     "module": item.module,
+                    "submodule": item.submodule,
+                    # round 6: the three source dimensions the 03 sheet reports
+                    # separately (source marker / mandatory basis / consequence)
+                    "marker_present": bool(getattr(item, "marker_present", False)),
+                    "rejection": bool(getattr(item, "rejection_consequence", False)),
+                    "mandatory_types": list(getattr(item, "mandatory_types", ()) or ()),
                 }
                 for item in self.legacy_plan_items()
             ]
@@ -374,16 +380,30 @@ class Gate:
                 requirement_problems.append(
                     {"id": requirement_id, "locator": _cell_text(row[11])[:60]}
                 )
+            if _cell_text(row[2]) != _cell_text(item["module"]):
+                requirement_problems.append(
+                    {"id": requirement_id, "module": [_cell_text(row[2]), item["module"]]}
+                )
+            if _cell_text(row[3]) != _cell_text(item["submodule"]):
+                requirement_problems.append(
+                    {"id": requirement_id, "submodule": [_cell_text(row[3]), item["submodule"]]}
+                )
             if _norm(row[4])[:60] != _norm(item["requirement"])[:60]:
                 requirement_problems.append({"id": requirement_id, "text": "requirement text differs"})
-            if _cell_text(row[9]) != _cell_text(item["type"]):
+            # 强制性类型 is the *source basis* that makes the row binding, not the
+            # requirement type: the plan's type is a topic family and the sheet
+            # reports the criticality model's own vocabulary (round 6).
+            expected_type = "；".join(
+                dict.fromkeys(str(value) for value in item["mandatory_types"])
+            ) or item["type"]
+            if _cell_text(row[9]) != _cell_text(expected_type):
                 requirement_problems.append(
-                    {"id": requirement_id, "type": [_cell_text(row[9]), item["type"]]}
+                    {"id": requirement_id, "type": [_cell_text(row[9]), expected_type]}
                 )
         self.check(
             "evidence_locator_fidelity.requirement_rows_equal_plan",
             not requirement_problems,
-            "every mandatory row equals its dynamic review item (page, locator, text, type)",
+            "every mandatory row equals its dynamic review item (page, locator, text, module, type)",
             {"mismatches": requirement_problems[:12]},
         )
         index_rows = self.sheet_rows(SHEET_TITLES[7])
@@ -554,23 +574,41 @@ class Gate:
 
     def check_mandatory(self) -> None:
         rows = self.sheet_rows(SHEET_TITLES[3])
-        by_id = {row[1]: row for row in rows}
-        star_rows = [_cell_text(row[1]) for row in rows if _cell_text(row[7]) == "★"]
-        veto_rows = [
-            _cell_text(row[1])
-            for row in rows
-            if _cell_text(row[8]) == "是"
-            or _cell_text(row[9]) == "REJECTION"
-            or _cell_text(row[7]) == "★"
-        ]
+        expectations = {row["id"]: row for row in self.requirement_expectations()}
+        # Round 6/8: ★ (the emphasis the source itself printed), 否决性 (whether
+        # the document's own consequence rule reaches the row) and 强制性类型
+        # (which source basis makes it binding) are three *separate* source
+        # questions.  They may not be aliases of each other -- a propagated
+        # requirement carries 否决性 without ★, and a starred requirement shows ★
+        # even where no consequence clause targets it directly -- so each column
+        # is compared with its own plan dimension instead of with the others.
+        star_mismatch = []
+        veto_mismatch = []
+        for row in rows:
+            item = expectations.get(_cell_text(row[1]))
+            if item is None:
+                continue
+            starred = _cell_text(row[7]) == "★"
+            if starred != bool(item["marker_present"]):
+                star_mismatch.append(
+                    {"id": _cell_text(row[1]), "sheet": starred, "plan": item["marker_present"]}
+                )
+            veto = _cell_text(row[8]) == "是"
+            if veto != bool(item["rejection"]):
+                veto_mismatch.append(
+                    {"id": _cell_text(row[1]), "sheet": veto, "plan": item["rejection"]}
+                )
         self.check(
-            "mandatory_star_coverage.star_equals_veto",
-            sorted(star_rows) == sorted(veto_rows),
-            f"{len(star_rows)} starred rows, {len(veto_rows)} veto rows",
-            {
-                "starred_not_veto": sorted(set(star_rows) - set(veto_rows))[:8],
-                "veto_not_starred": sorted(set(veto_rows) - set(star_rows))[:8],
-            },
+            "mandatory_star_coverage.star_column_equals_source_marker",
+            not star_mismatch,
+            "★ is printed exactly where the source printed an emphasis marker",
+            {"mismatches": star_mismatch[:8]},
+        )
+        self.check(
+            "mandatory_star_coverage.veto_column_equals_rejection_basis",
+            not veto_mismatch,
+            "否决性 is 是 exactly where the document's own consequence rule reaches the row",
+            {"mismatches": veto_mismatch[:8]},
         )
         expected = [row for row in self.requirement_expectations() if _is_mandatory(row)]
         self.check(
@@ -670,6 +708,21 @@ class Gate:
             len(blank_rows) == len(price_result["blank_forms"]),
             f"sheet reports {len(blank_rows)} blank source forms, detector found "
             f"{len(price_result['blank_forms'])}",
+        )
+        # A blank form's *class* comes from its own source heading and column
+        # schema: a similar-project-history table must not be reported as a blank
+        # quotation form merely because it has a contract-amount column.
+        misclassified = []
+        expected_classes = {str(form.get("form_class", "")) for form in price_result["blank_forms"]}
+        for row in blank_rows:
+            rendered = _cell_text(row[4])
+            if rendered and rendered not in expected_classes:
+                misclassified.append(rendered)
+        self.check(
+            "price_source_fidelity.blank_forms_classified_by_source_form",
+            not misclassified,
+            "every blank form carries its source-derived class",
+            {"misclassified": misclassified[:6], "classes": sorted(expected_classes)},
         )
 
     def check_structure_view(self) -> None:
@@ -876,16 +929,21 @@ class Gate:
         return self._legacy_plan_items
 
     def check_legacy_review_text_matches_plan(self) -> None:
-        """Legacy column D must be the rendering of the row's review point."""
+        """Legacy column D must be the projection of the row's own components.
 
-        from tender_basic.review_point import render_review_cell
+        The delivered cell is ``item.cell_text`` -- the rendering of the verified
+        review components, which leads with the source-visible criticality note
+        (round 6) and carries the project decision's operational action (round 8).
+        Comparing it with the older ``render_review_cell`` would demand the
+        pre-round-6 shape, so the expectation is the item's own cell text.
+        """
 
         sheet = self.workbook[DELIVERED_SHEET]
         items = self.legacy_plan_items()
         mismatches: list[dict] = []
         for offset, item in enumerate(items):
             row = CHECKLIST_START_ROW + offset
-            expected = render_review_cell(item.review_point) if item.review_point else ""
+            expected = str(getattr(item, "cell_text", "") or "")
             actual = _cell_text(sheet.cell(row=row, column=4).value)
             if expected != actual:
                 mismatches.append(
@@ -895,7 +953,7 @@ class Gate:
         self.check(
             "legacy_sheet_refreshed.review_text_matches_review_points",
             not mismatches,
-            f"{len(items)} rows compared against the synthesized review points",
+            f"{len(items)} rows compared against the plan's rendered cells",
             {"mismatches": mismatches[:5]},
         )
 

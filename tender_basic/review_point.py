@@ -43,6 +43,7 @@ from .semantic_roles import (  # noqa: F401
     ROLES_BY_TYPE,
     ROLE_AGENCY_SERVICE_FEE,
     ROLE_BANK_ACCEPTANCE_RATIO,
+    ROLE_BASE_SCORE,
     ROLE_BID_VALIDITY_DAYS,
     ROLE_BOND,
     ROLE_BOND_AMOUNT,
@@ -52,6 +53,7 @@ from .semantic_roles import (  # noqa: F401
     ROLE_DELIVERY_DAYS,
     ROLE_DURATION_DAYS,
     ROLE_FAMILY,
+    ROLE_MAX_SCORE,
     ROLE_OTHER,
     ROLE_PAYMENT_RATIO,
     ROLE_PERFORMANCE_BOND,
@@ -69,6 +71,7 @@ from .semantic_roles import (  # noqa: F401
     ROLE_SCORE_POINTS,
     ROLE_TENDER_DOCUMENT_PRICE,
     ROLE_TENDER_FEE,
+    ROLE_TIER_SCORE,
     ROLE_VALIDITY_DAYS,
     ROLE_WARRANTY_MONTHS,
 )
@@ -100,6 +103,9 @@ ROLE_DELIVERY_DAYS = ROLE_DELIVERY_DAYS
 ROLE_BID_VALIDITY_DAYS = ROLE_BID_VALIDITY_DAYS
 ROLE_RESPONSE_DAYS = ROLE_RESPONSE_DAYS
 ROLE_SCORE_POINTS = ROLE_SCORE_POINTS
+ROLE_MAX_SCORE = ROLE_MAX_SCORE
+ROLE_BASE_SCORE = ROLE_BASE_SCORE
+ROLE_TIER_SCORE = ROLE_TIER_SCORE
 ROLE_QUANTITY = ROLE_QUANTITY
 ROLE_PERSON_COUNT = ROLE_PERSON_COUNT
 ROLE_CONTACT_INFO = ROLE_CONTACT_INFO
@@ -147,6 +153,20 @@ _SCORE_NEAR = re.compile(
     r"|（\s*\d+(?:\.\d+)?\s*分\s*）"
     r"|\(\s*\d+(?:\.\d+)?\s*分\s*\)"
 )
+#: The *base* score of a scoring formula: "得基本分 30 分" is what a bidder starts
+#: from, so it is not a ceiling ("响应报价（40 分）" is the maximum).
+_BASE_SCORE_NEAR = re.compile(r"(基本分|基础分|基准分|起始分)\s*$|(基本分|基础分|基准分|起始分)")
+#: A factor's maximum, either as a table caption ("响应报价（40 分）") or as a
+#: "最高 N 分" statement.  Such a points value is the factor's ceiling.
+_MAX_SCORE_NEAR = re.compile(r"(最高|满分|上限|共计|共)\s*$")
+#: The bracket caption a scoring table prints its factor's ceiling in:
+#: "响应报价（40 分）" / "(40 分)".
+_MAX_SCORE_BRACKET_RE = re.compile(r"[（(]\s*\d+(?:\.\d+)?\s*分\s*[)）]")
+#: A *conditional* tier: a numbered alternative ("1、100%接受银行承兑的得4 分") or a
+#: threshold phrasing ("50%以下…的得1 分").  Points awarded per tier are earned by
+#: choosing one alternative, never all of them.
+_TIER_HEAD_RE = re.compile(r"^\s*[（(]?\s*\d{1,2}\s*[、.．)）]")
+_TIER_THRESHOLD_RE = re.compile(r"(以下|以上|低于|高于|不超过|不少于|不低于|不高于|等于)")
 #: a ratio the bidder accepts to be settled by bank acceptance (100%/50%)
 _BANK_ACCEPTANCE_CTX = ("银行承兑", "承兑汇票", "承兑")
 #: the agency service fee (代理服务费) -- a purchaser-side charge, never a
@@ -440,6 +460,46 @@ def _retention_ratio_at(text: str, value: str, start: int, end: int) -> bool:
 _RETENTION_NEAR = re.compile(r"(质保金|质量保证金|保留金|尾款|余款|剩余)")
 
 
+def _score_role(text: str, value: str, start: int, end: int) -> str:
+    """Which *kind* of points this "N 分" is.
+
+    A scoring table states three different things with the same unit, and the
+    human review found them rendered as one another:
+
+    * the factor's maximum -- "响应报价（40 分）", "本项最高 4 分";
+    * the formula's base score -- "得基本分 30 分", the floor a bidder starts
+      from, which must never be required *as well as* the maximum;
+    * one conditional tier -- "1、100%接受银行承兑的得4 分；2、50%…得2 分", where
+      the bidder earns exactly one of the alternatives.
+
+    The classification reads the sentence the number sits in (plus the sentence
+    before it, where a factor's caption states the ceiling), so it stays
+    document-independent.
+    """
+
+    sentence = _sentence_containing(text, start)
+    previous = ""
+    lead = max(text.rfind("；", 0, start), text.rfind("。", 0, start))
+    if lead > 0:
+        previous = _sentence_containing(text, lead - 1)
+    before = text[max(0, start - 10) : start]
+    after = text[end : end + 10]
+    if _BASE_SCORE_NEAR.search(before):
+        # "得基本分 30 分": the base score *precedes* its number
+        return ROLE_BASE_SCORE
+    # One *alternative* among several: the sentence is a numbered tier, or its own
+    # wording is a threshold.  A tier never states the factor's ceiling.
+    if _TIER_HEAD_RE.match(sentence) or _TIER_THRESHOLD_RE.search(sentence):
+        return ROLE_TIER_SCORE
+    if (
+        _MAX_SCORE_BRACKET_RE.search(before + value + after)
+        or _MAX_SCORE_NEAR.search(before)
+        or _MAX_SCORE_BRACKET_RE.search(previous)
+    ):
+        return ROLE_MAX_SCORE
+    return ROLE_SCORE_POINTS
+
+
 def _role_for(text: str, value: str, start: int, end: int) -> str:
     near = _window(text, start, end, 12)
     wide = _window(text, start, end, 30)
@@ -483,10 +543,10 @@ def _role_for(text: str, value: str, start: int, end: int) -> str:
             # adjacent 5% is the retention ratio.  They never share a role.
             return ROLE_PAYMENT_RATIO
         if _SCORE_NEAR.search(wide):
-            return ROLE_SCORE_POINTS
+            return _score_role(text, value, start, end)
         return ROLE_OTHER
     if "分" in value and _SCORE_NEAR.search(wide):
-        return ROLE_SCORE_POINTS
+        return _score_role(text, value, start, end)
     if re.search(r"(工作日|日历天|自然日|日|天|个月|月|年|小时|分钟)", value):
         if any(term in wide for term in _RETENTION_CTX) and any(term in wide for term in _RETENTION_RELEASE_CTX):
             # "作为质保金，质保期 12 个月，质保期满后无息付清余款": the period is a
@@ -793,6 +853,15 @@ def _value_sentence(role: str, value: str, backing: str = "") -> str:
         # is a domain term the source clause need not carry), so the row cannot
         # leak a foreign concept through its own instruction.
         return f"本项最高 {value}"
+    if role == ROLE_MAX_SCORE:
+        # the factor's ceiling: "响应报价（40 分）" is the most this factor awards
+        return f"本项最高 {value}"
+    if role == ROLE_BASE_SCORE:
+        # the formula's floor, never a second maximum
+        return f"基本分 {value}"
+    if role == ROLE_TIER_SCORE:
+        # one alternative among several: the bidder earns this tier by choosing it
+        return f"该档计 {value}"
     if role == ROLE_BANK_ACCEPTANCE_RATIO:
         # round-5 fixtures L/R: never "质保金比例为 100%"
         return f"接受银行承兑汇票比例为 {value}"
@@ -1296,13 +1365,64 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
         for sentence in _facet_sentences(cleaned, concern):
             if sentence in excerpts:
                 continue
+            # Round 8: two source atoms can state the same clause with different
+            # extraction fidelity (a whole enumeration and a corrupted copy of
+            # its head).  Rendering both repeats the clause in one cell and puts
+            # a truncated list in front of the reviewer, so the less complete
+            # reading is dropped and the fuller one wins.
+            if any(_same_clause_run(sentence, existing) for existing in excerpts):
+                continue
             excerpts.append(_sentence_bounded(sentence, 110))
             if len(excerpts) >= 2:
                 break
         if len(excerpts) >= 2:
             break
-    summary = "；".join(part for part in excerpts if part)
+    summary = "；".join(_dedupe_repeated_phrases(part) for part in excerpts if part)
     return _sentence_bounded(summary, limit)
+
+
+#: How long a shared opening two chunks need before they are the same clause.
+_SAME_CLAUSE_PREFIX = 40
+
+#: A short token repeated back-to-back is an extraction artifact ("营业 执照 执照"),
+#: never two source statements.  The phrase is kept once.
+_REPEATED_PHRASE_RE = re.compile(r"([\u4e00-\u9fa5]{2,8})(?:[\s\u3000]+\1)+")
+
+
+def _dedupe_repeated_phrases(text: str) -> str:
+    """Collapse a phrase the extraction emitted twice in a row.
+
+    The PDF extractor repeats a wrapped word at the boundary it was split on
+    ("具备有效的营业 执照 执照，准 供应商名称 供应商名称 与营业执照一致"), which
+    reads as duplicated source wording.  The repeated phrase is emitted once.
+    """
+
+    value = str(text or "")
+    previous = None
+    while previous != value:
+        previous = value
+        value = _REPEATED_PHRASE_RE.sub(r"\1", value)
+    return value
+
+
+def _same_clause_run(left: str, right: str) -> bool:
+    """Do two rendered chunks state the same source clause?
+
+    One source clause is frequently extracted twice: once whole and once cut by
+    the page break.  Both share a long opening; only one of them may be rendered.
+    """
+
+    a, b = _nospace(left), _nospace(right)
+    if not a or not b:
+        return False
+    if a in b or b in a:
+        return True
+    shared = 0
+    for left_char, right_char in zip(a, b):
+        if left_char != right_char:
+            break
+        shared += 1
+    return shared >= _SAME_CLAUSE_PREFIX
 
 
 #: Sentences that carry a score/points rule (only a scoring concern may quote them).
@@ -1479,21 +1599,75 @@ def _decisive_pattern(concern: Any) -> str:
 #: Sentence terminators used to cut a rendered excerpt without breaking a word.
 _SENTENCE_END = "。；;！？!?"
 
+#: An enumerated source list ("（1）…（2）…", "1、…2、…").  A list is one
+#: requirement stated as a set: cutting it mid-enumeration loses standards,
+#: items or conditions the bidder must satisfy, so the rendered requirement has
+#: to keep the enumeration whole (or say explicitly that it continues).
+_ENUMERATION_RE = re.compile(r"(?:^|[\s；;，,])(?:[（(]\s*\d{1,2}\s*[)）]|\d{1,2}\s*[、.．])")
+#: How far a rendered requirement may grow to keep an enumeration whole.  The
+#: source's own clause is the bound: beyond this the cell would be unreadable, and
+#: the enumeration is marked as continuing instead of being silently cut.
+MAX_ENUMERATION_CHARS = 700
+
+
+def _enumeration_complete(text: str) -> bool:
+    """True when ``text`` states no *open* enumeration.
+
+    The rendering may keep a long list whole; what it must never do is display
+    items 1..3 of a 11-item list and stop, which reads as if the list ended
+    there.  A trailing ellipsis on an enumeration is therefore not acceptable
+    unless the text explicitly marks the list as continuing.
+    """
+
+    matches = list(_ENUMERATION_RE.finditer(text))
+    if len(matches) < 2:
+        return True
+    return text.rstrip().endswith(("。", "；", ";", "！", "！", "?", "？"))
+
 
 def _sentence_bounded(text: str, limit: int) -> str:
-    """Truncate ``text`` at a sentence boundary, never inside a phrase."""
+    """Truncate ``text`` at a sentence boundary, never inside a phrase.
+
+    Round 8: an enumerated requirement is extended to its own end when the
+    sentence-bounded cut would drop trailing list items, because a partially
+    rendered enumeration misstates what the source requires.
+    """
 
     text = text.strip()
     if len(text) <= limit:
         return text
     window = text[:limit]
     cut = max(window.rfind(mark) for mark in _SENTENCE_END)
+    bounded = ""
     if cut >= max(8, limit // 3):
-        return window[: cut + 1].strip()
-    comma = max(window.rfind(mark) for mark in "，,、")
-    if comma >= max(8, limit // 2):
-        return window[:comma].strip()
+        bounded = window[: cut + 1].strip()
+    else:
+        comma = max(window.rfind(mark) for mark in "，,、")
+        if comma >= max(8, limit // 2):
+            bounded = window[:comma].strip()
+    if bounded and not _enumeration_complete(bounded):
+        # the cut would drop list items: keep the enumeration whole instead
+        return _whole_enumeration(text)
+    if bounded:
+        return bounded
+    if not _enumeration_complete(window):
+        # no sentence/comma boundary is available inside the limit, and an
+        # enumeration is still open there: cutting would present items 1..3 as
+        # the whole list, so the enumeration is kept whole.
+        return _whole_enumeration(text)
     return window.rstrip() + "…"
+
+
+def _whole_enumeration(text: str) -> str:
+    """The source's enumeration, whole, or marked as continuing when oversized."""
+
+    if len(text) <= MAX_ENUMERATION_CHARS:
+        return text
+    window = text[:MAX_ENUMERATION_CHARS]
+    cut = max(window.rfind(mark) for mark in _SENTENCE_END)
+    if cut >= MAX_ENUMERATION_CHARS // 2:
+        return window[: cut + 1].strip()
+    return window.rstrip() + "…（源文件清单未完，详见该条款原文）"
 
 
 def synthesize_concern_point(
@@ -1558,8 +1732,19 @@ def synthesize_concern_point(
     anchor = _anchor([_unit_like_atom(atom) for atom in atoms]) if atoms else ""
     if anchor:
         checks.append(f"依据{anchor}逐条比对响应文件对应章节")
-    for value in owned_numbers[:4]:
+    # Round 8: a scoring factor that awards different points per alternative must
+    # be presented as *conditional* tiers.  Requiring the bidder to "载明" every
+    # tier would ask it to claim all the mutually exclusive alternatives at once.
+    tier_values = [value for value in owned_numbers if value.role == ROLE_TIER_SCORE]
+    scored_values = [value for value in owned_numbers if value.role != ROLE_TIER_SCORE]
+    for value in scored_values[:4]:
         checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value, owned_backing)}")
+    if tier_values:
+        checks.append("按分档分别核对：本条仅需满足其中一档，响应文件选择哪一档就按该档计")
+        for value in tier_values[:4]:
+            checks.append(
+                f"逐档核对：{value.value} 对应的响应内容在响应文件中可核验"
+            )
 
     criteria: list[str] = []
     base_criterion = CONCERN_PASS_CRITERIA.get(concern_id, "")
@@ -1568,8 +1753,10 @@ def synthesize_concern_point(
     if foreign_terms(base_criterion, owned_backing):
         base_criterion = _derived_criterion(concern, owned_backing)
     criteria.append(base_criterion)
-    for value in owned_numbers[:3]:
+    for value in scored_values[:3]:
         criteria.append(f"{_value_sentence(value.role, value.value, owned_backing)}，且响应文件一致。")
+    if tier_values:
+        criteria.append("响应文件明确接受其中一个分档即可，不得要求同时满足全部分档。")
 
     consequence, consequence_atom = concern.owned_consequence()
     score_text, score_atom = concern.owned_score_rule()

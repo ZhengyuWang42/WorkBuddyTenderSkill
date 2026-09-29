@@ -120,11 +120,21 @@ class Check:
 class Round7Report:
     """Audit one case's round-7 successor workbook from its final cells."""
 
-    def __init__(self, case: str, *, case_dir: Path | None = None) -> None:
+    def __init__(
+        self,
+        case: str,
+        *,
+        case_dir: Path | None = None,
+        build_name: str | None = None,
+    ) -> None:
         self.case = case
         spec = CASES[case]
         self.case_dir = case_dir or (ROOT / "acceptance/workspace" / case)
-        self.build = self.case_dir / BUILDS[case]
+        #: The frozen round-7 successor is the default, so this module keeps
+        #: reproducing the round-7 record.  A later round passes its own
+        #: successor name to re-run the same gates against the newer build
+        #: without rewriting the round-7 evidence on disk.
+        self.build = self.case_dir / (build_name or BUILDS[case])
         self.workbook = self.build / "投标项目复核表.xlsx"
         self.r4 = Round4Report(self.build, case)
         self.plan = self.r4.plan
@@ -552,11 +562,17 @@ def markdown(data: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_case_report(case: str, *, case_dir: Path | None = None) -> dict[str, Any]:
-    report = Round7Report(case, case_dir=case_dir)
+def write_case_report(
+    case: str,
+    *,
+    case_dir: Path | None = None,
+    build_name: str | None = None,
+    stem: str | None = None,
+) -> dict[str, Any]:
+    report = Round7Report(case, case_dir=case_dir, build_name=build_name)
     data = report.audit()
     REPORTS.mkdir(parents=True, exist_ok=True)
-    stem = f"review_workbook_round7_{case}"
+    stem = stem or f"review_workbook_round7_{case}"
     (REPORTS / f"{stem}.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

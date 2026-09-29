@@ -34,11 +34,13 @@ from .semantic_roles import (
     NON_REVIEW_ROLES,
     ROLE_AGENCY_SERVICE_FEE,
     ROLE_BANK_ACCEPTANCE_RATIO,
+    ROLE_BASE_SCORE,
     ROLE_BID_VALIDITY_DAYS,
     ROLE_BOND_AMOUNT,
     ROLE_BOND_FORM,
     ROLE_CONTACT_INFO,
     ROLE_DELIVERY_DAYS,
+    ROLE_MAX_SCORE,
     ROLE_OTHER,
     ROLE_PAYMENT_RATIO,
     ROLE_PERFORMANCE_BOND,
@@ -53,6 +55,7 @@ from .semantic_roles import (
     ROLE_RETENTION_RELEASE_MONTHS,
     ROLE_SCORE_POINTS,
     ROLE_TENDER_DOCUMENT_PRICE,
+    ROLE_TIER_SCORE,
 )
 
 SCHEMA = "v1_concern_contract/1"
@@ -936,7 +939,16 @@ _register(
             r"(最高\s*\d+(?:\.\d+)?\s*分|满分\s*\d+(?:\.\d+)?\s*分|(?<![\d.])\d+(?:\.\d+)?\s*分)",
         ),
         allowed_roles=frozenset(),
-        forbidden_roles=frozenset({ROLE_SCORE_POINTS, ROLE_PAYMENT_RATIO, ROLE_BANK_ACCEPTANCE_RATIO}),
+        forbidden_roles=frozenset(
+            {
+                ROLE_SCORE_POINTS,
+                ROLE_MAX_SCORE,
+                ROLE_BASE_SCORE,
+                ROLE_TIER_SCORE,
+                ROLE_PAYMENT_RATIO,
+                ROLE_BANK_ACCEPTANCE_RATIO,
+            }
+        ),
         fixtures=("N",),
         rationale=(
             "generic evaluation-method text establishes the method only; it can never "
@@ -950,7 +962,16 @@ _register(
         KIND_SCORING,
         required_signatures=(r"(付款|支付|货款)",),
         forbidden_signatures=(r"(银行承兑|承兑汇票)",),
-        allowed_roles=frozenset({ROLE_PAYMENT_RATIO, ROLE_RETENTION_MONEY_RATIO, ROLE_SCORE_POINTS}),
+        allowed_roles=frozenset(
+            {
+                ROLE_PAYMENT_RATIO,
+                ROLE_RETENTION_MONEY_RATIO,
+                ROLE_SCORE_POINTS,
+                ROLE_MAX_SCORE,
+                ROLE_BASE_SCORE,
+                ROLE_TIER_SCORE,
+            }
+        ),
         scoring_roles=frozenset({"PAYMENT_CONDITION"}),
         fixtures=("J", "K", "M"),
         rationale="the payment-condition scoring factor: 95% payment ratio, 5% retention, 12/8 points",
@@ -961,7 +982,9 @@ _register(
         "SCORING_BANK_ACCEPTANCE",
         KIND_SCORING,
         required_signatures=(r"(银行承兑|承兑汇票)",),
-        allowed_roles=frozenset({ROLE_BANK_ACCEPTANCE_RATIO, ROLE_SCORE_POINTS}),
+        allowed_roles=frozenset(
+            {ROLE_BANK_ACCEPTANCE_RATIO, ROLE_SCORE_POINTS, ROLE_MAX_SCORE, ROLE_TIER_SCORE}
+        ),
         scoring_roles=frozenset({"BANK_ACCEPTANCE"}),
         fixtures=("L",),
         rationale="the accepted-bank-draft ratio is scored on its own; it is not a retention ratio",
@@ -972,7 +995,16 @@ _register(
         "SCORING_PRICE_FORMULA",
         KIND_SCORING,
         required_signatures=(r"(价格|报价|基准价|偏差率|经济标)",),
-        allowed_roles=frozenset({ROLE_SCORE_POINTS, ROLE_PRICE, ROLE_PRICE_CEILING}),
+        allowed_roles=frozenset(
+            {
+                ROLE_SCORE_POINTS,
+                ROLE_MAX_SCORE,
+                ROLE_BASE_SCORE,
+                ROLE_TIER_SCORE,
+                ROLE_PRICE,
+                ROLE_PRICE_CEILING,
+            }
+        ),
         scoring_roles=frozenset({"PRICE_FORMULA"}),
     )
 )
@@ -1002,7 +1034,9 @@ for _factor, _signature, _name in (
             KIND_SCORING,
             required_signatures=(_signature,),
             forbidden_signatures=(r"(见评审办法前附表|见前附表)",),
-            allowed_roles=frozenset({ROLE_SCORE_POINTS, ROLE_PERSON_COUNT}),
+            allowed_roles=frozenset(
+                {ROLE_SCORE_POINTS, ROLE_MAX_SCORE, ROLE_TIER_SCORE, ROLE_PERSON_COUNT}
+            ),
             scoring_roles=frozenset({_name.upper().replace(" ", "_")}),
         )
     )

@@ -389,6 +389,34 @@ def bare_numbers(text: object) -> set[str]:
     return {normalize(match.group(0)) for match in _BARE_NUMBER_RE.finditer(str(text or ""))}
 
 
+_CLAUSE_NUMBER_RE = re.compile(r"\d+(?:\.\d+)+")
+_CJK_RE = re.compile(r"[\u4e00-\u9fa5]")
+
+
+def clause_reference_token(token: str, rendered_text: object, backing_text: object) -> bool:
+    """Is this unit-suffixed token really a clause reference glued to a word?
+
+    A front-table row is printed as "*1.12 分包 不允许"; rendered as a sentence the
+    whitespace is gone ("1.12分包不允许"), so ``numeric_tokens`` reads "1.12分" as a
+    score claim -- "分" is also the first character of "分包".  A dotted number
+    that is a clause reference the row's own backing text contains, whose "unit"
+    runs straight into another Chinese character, is a reference and not a value
+    the row is claiming (round-8 fixture DR033).
+    """
+
+    match = _CLAUSE_NUMBER_RE.match(str(token or ""))
+    if match is None:
+        return False
+    if normalize(match.group(0)) not in normalize(backing_text):
+        return False
+    text = normalize(rendered_text)
+    position = text.find(normalize(token))
+    if position < 0:
+        return False
+    after = text[position + len(normalize(token)) :]
+    return bool(after) and bool(_CJK_RE.match(after[0]))
+
+
 def domain_terms(text: object) -> set[str]:
     """Domain concepts named by ``text``."""
 
@@ -551,7 +579,14 @@ def verify_component(component: RenderedReviewComponent, ownership: ComponentOwn
         ok = not foreign
         if ok and kind in (REVIEW_CHECK, PASS_CRITERION):
             owned_values = {normalize(value) for value in ownership.numeric_values}
-            extra = sorted(token for token in numeric_tokens(component.rendered_text) if token not in owned_values)
+            extra = sorted(
+                token
+                for token in numeric_tokens(component.rendered_text)
+                if token not in owned_values
+                and not clause_reference_token(
+                    token, component.rendered_text, ownership.backing_text
+                )
+            )
             if extra:
                 foreign = extra
                 ok = False
@@ -670,6 +705,7 @@ __all__ = [
     "component_mismatches",
     "components_of",
     "content_terms",
+    "clause_reference_token",
     "domain_terms",
     "foreign_terms",
     "mismatch_counts",

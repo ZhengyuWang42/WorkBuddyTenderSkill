@@ -38,10 +38,12 @@ from tender_basic.review_rendering import (  # noqa: E402
 import v1_review_workbook_round4_report as round4  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
-#: Round 7 successor: the round-6 projection plus the applicable-source
-#: resolution, the rejection-scope model and the evidence-unit locator.  The
-#: round-6/round-5/round-4/round-3 workbooks stay frozen as the artifacts the
-#: human reviewed and failed.
+#: Round 8 successor: the round-7 projection plus the delivered-text fidelity
+#: repairs (the project decision's operational action is rendered into the cell,
+#: the resolved clause is cited once, and the delivered risk agrees with the
+#: reviewer sheet).  The round-7/6/5/4/3 workbooks stay frozen as the artifacts
+#: the human reviewed and failed.
+BUILD8 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8"
 BUILD7 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook7"
 BUILD6 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook6"
 BUILD5 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook5"
@@ -52,8 +54,8 @@ WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 DELIVERED = "投标项目复核表"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD7 / "project_facts.json").is_file(),
-    reason="round-7 CASE001 successor build is not present",
+    not (BUILD8 / "project_facts.json").is_file(),
+    reason="round-8 CASE001 successor build is not present",
 )
 
 FIXTURE_KEYS = tuple("ABCDEFGHIJKLMNOPQRS")
@@ -65,7 +67,7 @@ def _flat(text: object) -> str:
 
 @pytest.fixture(scope="module")
 def analysis() -> round4.Round4Report:
-    return round4.Round4Report(build=BUILD7, case="case_001", before=BUILD6, audit_limit=30)
+    return round4.Round4Report(build=BUILD8, case="case_001", before=BUILD6, audit_limit=30)
 
 
 @pytest.fixture(scope="module")
@@ -75,7 +77,7 @@ def report(analysis: round4.Round4Report) -> dict:
 
 @pytest.fixture(scope="module")
 def cells() -> dict:
-    workbook = load_workbook(BUILD7 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD8 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     try:
         values: dict[str, dict[str, str]] = {}
         for name in workbook.sheetnames:

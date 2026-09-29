@@ -1,0 +1,193 @@
+{
+  "schema": "v1_review_workbook_round8/1",
+  "case": "case_001",
+  "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8",
+  "workbook": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8/投标项目复核表.xlsx",
+  "workbook_sha256": "130c7638e14b96e7d4e2af79c0f6dffaf88c2d83ae9f5f8d5626ee43a2df5c8d",
+  "verdict": "PASS",
+  "check_count": 12,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "no negated operative clause loses its negation",
+      "ok": true,
+      "detail": "6 negated clause(s) checked, 0 polarity loss(es)",
+      "evidence": {
+        "losses": []
+      }
+    },
+    {
+      "check": "scoring tiers are conditional alternatives and base/ceiling stay distinct",
+      "ok": true,
+      "detail": "2 tier row(s), 1 base-score row(s), 0 problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "a source blank is delivered as a blank",
+      "ok": true,
+      "detail": "2 row(s) carry an explicit blank, 0 problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no enumeration is truncated and no clause is rendered twice",
+      "ok": true,
+      "detail": "0 fragment problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no requirement absorbed the next source heading",
+      "ok": true,
+      "detail": "0 absorbed heading(s)",
+      "evidence": {
+        "absorbed": []
+      }
+    },
+    {
+      "check": "no locator names a heading that governs a different clause",
+      "ok": true,
+      "detail": "0 locator(s) checked, 0 foreign heading(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no delivered requirement repeats a source phrase",
+      "ok": true,
+      "detail": "0 duplicated phrase(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the legacy 风险级别 agrees with the reviewer sheet's 否决依据",
+      "ok": true,
+      "detail": "35 row(s) compared, 0 contradiction(s)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "blank source forms are classified by heading and column schema",
+      "ok": true,
+      "detail": "2 blank form(s) checked, 0 misclassified",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the criticality vocabulary matches the checks",
+      "ok": true,
+      "detail": "risk / criticality vocabularies are the ones the engine emits",
+      "evidence": {}
+    },
+    {
+      "check": "the banked round-6 marker accounting still holds",
+      "ok": true,
+      "detail": "round-6 accounting verdict=PASS (failed=none)",
+      "evidence": {
+        "failed_checks": [],
+        "failed_fixtures": []
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) compared against the accepted source build",
+      "evidence": {
+        "基础投标文件.docx": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+        "基础投标文件.pdf": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+        "generation_report.json": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace"
+      }
+    }
+  ],
+  "fixtures": {
+    "D14": {
+      "status": "PASS",
+      "detail": "the bid-bond rejection keeps its negated condition",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR036 | sheet=03_资格否决与强制项 | cell=03_资格否决与强制项!E30 | requirement=3.4.2 供应商不按本章第3.4.1项要求提交响应保证金的，评审小组将否决其响应 | locator=第18页 / 第六章“响应文件格式”规定的响应保证金格式递交响应保证金，并作为其响应文件的 / 第3.4.2条 / （pdf_block）"
+    },
+    "D37": {
+      "status": "PASS",
+      "detail": "the performance-bond forfeiture keeps its negated condition",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR037 | sheet=02_关键条款 | cell=02_关键条款!D18 | requirement=7.3.1 在签订合同前，成交供应商应按供应商须知前附表规定的形式、金额和询比 文件第四章“合同条款及格式”规定的或者事先经过采购人书面认可的履约保证金形式 向采购人提交履约保证金，7.3.2 成交供应商不能按本章第7.3.1 项要求提交履约保证金的，视为放弃成交，项目专用值：履约保证金的金额：拾万 | locator=第11页 / 供应商须知前附表 / 第7.3条 / （pdf_table_cell）"
+    },
+    "D23": {
+      "status": "PASS",
+      "detail": "bank-acceptance tiers are conditional alternatives",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR041 | sheet=投标项目复核表 | cell=投标项目复核表!D23 | requirement=1、100%接受银行承兑的得 4 分，2、50%接受银行承兑的得2 分 | locator=第26页 / 评审办法前附表 / （pdf_table_cell）"
+    },
+    "D50": {
+      "status": "PASS",
+      "detail": "the formula's base score is not a second maximum",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR040 | sheet=投标项目复核表 | cell=投标项目复核表!D50 | requirement=（40 分） 当响应报价与评审基准价相等时，得基本分 30 分，评审基准价时，每低 1%在基本分 30 分的基础上加 1 分，最多加 10 分 | locator=第25页 / 评审办法前附表 / 第2.2.4条 / （pdf_table_cell）"
+    },
+    "D39": {
+      "status": "PASS",
+      "detail": "the contract's blank grace period stays a blank",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR044 | sheet=02_关键条款 | cell=02_关键条款!D19 | requirement=如果甲方未按期向乙方支付货款的，乙方予以理解并承诺从最后一笔款项应付之日 起给甲方 ＿＿＿＿ 的支付宽限期 | locator=第33页 / 2.5 支付方式：银行转账，甲方资金紧张时，乙方同意接受并积极配合甲方提供的 / 第2.5条 / （pdf_block）"
+    },
+    "D45": {
+      "status": "PASS",
+      "detail": "the technical-standard list is not visibly truncated",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR046 | sheet=03_资格否决与强制项 | cell=03_资格否决与强制项!E33 | requirement=3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： （1）《二次供水工程技术规程》CJJ140-2018 （2）《室外给水设计规范》GB50013-2018 （3）《建筑给水排水设计规范》GB50015-2019 （4）《城镇供水管网加压泵站无负压供水设备》CJ/T 415-2013  | locator=第33页 / 3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： / 第3.1条 / （pdf_block）"
+    },
+    "D46": {
+      "status": "PASS",
+      "detail": "the starred test duty does not absorb the next heading",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR047 | sheet=03_资格否决与强制项 | cell=03_资格否决与强制项!E34 | requirement=*流量计等相关计量仪器需提供第三方检测实验报告 | locator=第34页 / 3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： / 第3.1条 / （pdf_block）"
+    },
+    "D16": {
+      "status": "PASS",
+      "detail": "the licence wording is not duplicated",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR005 | sheet=03_资格否决与强制项 | cell=03_资格否决与强制项!E6 | requirement=2.1 供应商须具有独立承担民事责任的能力，为法人或其他组织，具备有效的营业 执照，准 供应商名称 与营业执照一致 | locator=第5页 / 2.1 供应商须具有独立承担民事责任的能力，为法人或其他组织，具备有效的营业 / 第2.1条 / （pdf_block）"
+    },
+    "D34": {
+      "status": "PASS",
+      "detail": "the validity row's locator names its own clause",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR017 | sheet=02_关键条款 | cell=02_关键条款!D8 | requirement=*3.3.1 询比有效期 提交响应文件截止之日起 90 日历天，3.3.1 在供应商须知前附表规定的询比有效期内，供应商不得要求撤销或修改其响 应文件 | locator=第10页 / 供应商须知前附表 / 第3.3.1条 / （pdf_table_cell）"
+    },
+    "D56": {
+      "status": "PASS",
+      "detail": "the no-pre-bid-meeting row's action names its own decision",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR016 | sheet=投标项目复核表 | cell=投标项目复核表!D56 | action=① 确认本项目采购预备会：1.10.1 采购预备会不召开；不应在响应文件中作出与此矛盾的陈述。\n② 核对提问/澄清的时间与提交方式\n③ 确认澄清或修改文件的接收与留档\n④ 依据第18页逐条比对响应文件对应章节 | requirement=1.10.1 采购预备会 不召开"
+    },
+    "DR013": {
+      "status": "PASS",
+      "detail": "the legacy 一票否决 does not contradict the row's own 否决依据",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR013 | risk_cell=投标项目复核表!C53 | risk='高' | 否决性='' | 强制性类型='MARKER_UNCLASSIFIED'"
+    },
+    "DR038": {
+      "status": "PASS",
+      "detail": "the legacy 一票否决 does not contradict the row's own 否决依据",
+      "evidence": "build=v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8 | row=DR038 | risk_cell=投标项目复核表!C54 | risk='高' | 否决性='' | 强制性类型='SIGNATURE'"
+    },
+    "FORM_P53": {
+      "status": "PASS",
+      "detail": "the similar-project-history form is not classified as a blank quotation form",
+      "evidence": "p53: 源空白业绩/资格表单（源文件要求填写、当前空白）"
+    }
+  },
+  "fixture_summary": {
+    "total": 13,
+    "passed": 13,
+    "failed": []
+  },
+  "counts": {
+    "POLARITY_LOSS_COUNT": 0,
+    "CONDITIONAL_SCORING_PROBLEM_COUNT": 0,
+    "BLANK_PLACEHOLDER_PROBLEM_COUNT": 0,
+    "FRAGMENT_PROBLEM_COUNT": 0,
+    "ABSORBED_HEADING_COUNT": 0,
+    "FOREIGN_LOCATOR_HEADING_COUNT": 0,
+    "DUPLICATED_WORDING_COUNT": 0,
+    "CROSS_SHEET_RISK_MISMATCH_COUNT": 0,
+    "FORM_CLASSIFICATION_PROBLEM_COUNT": 0
+  },
+  "delivered_row_count": 49
+}

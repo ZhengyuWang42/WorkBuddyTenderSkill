@@ -1,0 +1,127 @@
+{
+  "schema": "v1_review_workbook_round8/1",
+  "case": "case_002",
+  "build_id": "v1_round4_closure8_review_workbook8",
+  "workbook": "acceptance/workspace/case_002/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx",
+  "workbook_sha256": "af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa",
+  "verdict": "PASS",
+  "check_count": 12,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "no negated operative clause loses its negation",
+      "ok": true,
+      "detail": "0 negated clause(s) checked, 0 polarity loss(es)",
+      "evidence": {
+        "losses": []
+      }
+    },
+    {
+      "check": "scoring tiers are conditional alternatives and base/ceiling stay distinct",
+      "ok": true,
+      "detail": "0 tier row(s), 0 base-score row(s), 0 problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "a source blank is delivered as a blank",
+      "ok": true,
+      "detail": "0 row(s) carry an explicit blank, 0 problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no enumeration is truncated and no clause is rendered twice",
+      "ok": true,
+      "detail": "0 fragment problem(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no requirement absorbed the next source heading",
+      "ok": true,
+      "detail": "0 absorbed heading(s)",
+      "evidence": {
+        "absorbed": []
+      }
+    },
+    {
+      "check": "no locator names a heading that governs a different clause",
+      "ok": true,
+      "detail": "0 locator(s) checked, 0 foreign heading(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "no delivered requirement repeats a source phrase",
+      "ok": true,
+      "detail": "0 duplicated phrase(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the legacy 风险级别 agrees with the reviewer sheet's 否决依据",
+      "ok": true,
+      "detail": "38 row(s) compared, 0 contradiction(s)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "blank source forms are classified by heading and column schema",
+      "ok": true,
+      "detail": "0 blank form(s) checked, 0 misclassified",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the criticality vocabulary matches the checks",
+      "ok": true,
+      "detail": "risk / criticality vocabularies are the ones the engine emits",
+      "evidence": {}
+    },
+    {
+      "check": "the banked round-6 marker accounting still holds",
+      "ok": true,
+      "detail": "round-6 accounting verdict=PASS (failed=none)",
+      "evidence": {
+        "failed_checks": [],
+        "failed_fixtures": []
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) compared against the accepted source build",
+      "evidence": {
+        "基础投标文件.docx": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+        "基础投标文件.pdf": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+        "generation_report.json": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859"
+      }
+    }
+  ],
+  "fixtures": {},
+  "fixture_summary": {
+    "total": 0,
+    "passed": 0,
+    "failed": []
+  },
+  "counts": {
+    "POLARITY_LOSS_COUNT": 0,
+    "CONDITIONAL_SCORING_PROBLEM_COUNT": 0,
+    "BLANK_PLACEHOLDER_PROBLEM_COUNT": 0,
+    "FRAGMENT_PROBLEM_COUNT": 0,
+    "ABSORBED_HEADING_COUNT": 0,
+    "FOREIGN_LOCATOR_HEADING_COUNT": 0,
+    "DUPLICATED_WORDING_COUNT": 0,
+    "CROSS_SHEET_RISK_MISMATCH_COUNT": 0,
+    "FORM_CLASSIFICATION_PROBLEM_COUNT": 0
+  },
+  "delivered_row_count": 45
+}

@@ -6,18 +6,18 @@
     "case_003"
   ],
   "acceptance_reports": {
-    "case_001": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_001_round3_acceptance.json",
-    "case_002": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_002_round3_acceptance.json",
-    "case_003": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_003_round3_acceptance.json"
+    "case_001": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_001_acceptance_recheck.json",
+    "case_002": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_002_acceptance_recheck.json",
+    "case_003": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_003_acceptance_recheck.json"
   },
   "cases": [
     {
       "case": "case_001",
-      "build_id": "v1_manual_fidelity_round3_source_typography",
-      "build_dir": "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8",
       "automated_result": "PASS",
       "source_sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
-      "generated_docx_sha256": "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
+      "generated_docx_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
       "checks": [
         {
           "check": "automated_result",
@@ -241,11 +241,11 @@
     },
     {
       "case": "case_002",
-      "build_id": "v1_round3_source_typography",
-      "build_dir": "acceptance\\workspace\\case_002\\v1_round3_source_typography",
+      "build_id": "v1_round4_closure8",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8",
       "automated_result": "PASS",
       "source_sha256": "2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449",
-      "generated_docx_sha256": "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd",
+      "generated_docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
       "checks": [
         {
           "check": "automated_result",
@@ -469,11 +469,11 @@
     },
     {
       "case": "case_003",
-      "build_id": "v1_round3_source_typography",
-      "build_dir": "acceptance\\workspace\\case_003\\v1_round3_source_typography",
+      "build_id": "v1_round4_closure8",
+      "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8",
       "automated_result": "PASS",
       "source_sha256": "aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a",
-      "generated_docx_sha256": "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c",
+      "generated_docx_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
       "checks": [
         {
           "check": "automated_result",
@@ -729,9 +729,9 @@
         "field": "document_structure.paragraph_count",
         "label": "paragraph_count",
         "values": {
-          "case_001": 139,
-          "case_002": 131,
-          "case_003": 194
+          "case_001": 140,
+          "case_002": 134,
+          "case_003": 196
         }
       },
       {
@@ -788,9 +788,9 @@
         "check": "build_directories_distinct",
         "ok": true,
         "observed": [
-          "acceptance\\workspace\\case_001\\v1_manual_fidelity_round3_source_typography",
-          "acceptance\\workspace\\case_002\\v1_round3_source_typography",
-          "acceptance\\workspace\\case_003\\v1_round3_source_typography"
+          "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure8",
+          "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8",
+          "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure8"
         ]
       },
       {
@@ -806,18 +806,18 @@
         "check": "generated_documents_distinct",
         "ok": true,
         "observed": [
-          "3658bfcb6a4c9eae3d93398c6352113ba4db15f11fee2e899014df31d2643ec2",
-          "387489d119c8c54d088c0a94119547e89ecf7b585290f09fb88d008808fa0ddd",
-          "7ee3e6bfe95b7ad590d394c23486a6d429e2963d78714df671a823cf61ccd38c"
+          "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+          "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+          "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54"
         ]
       },
       {
         "check": "pointers_resolve_to_the_acceptance_build",
         "ok": true,
         "observed": {
-          "case_001": "v1_manual_fidelity_round3_source_typography",
-          "case_002": "v1_round3_source_typography",
-          "case_003": "v1_round3_source_typography"
+          "case_001": "v1_manual_fidelity_round4_date_rhythm_closure8",
+          "case_002": "v1_round4_closure8",
+          "case_003": "v1_round4_closure8"
         }
       },
       {

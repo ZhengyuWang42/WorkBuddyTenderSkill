@@ -595,6 +595,58 @@ _PRICE_HEADER_TOKENS = {
     "amount": ("小计", "合价", "金额", "分项限价", "限价"),
 }
 
+#: A column schema that identifies a *quotation* table rather than any table that
+#: happens to carry an amount column.  A similar-project-history form has a
+#: contract-amount column too, so the amount column alone classifies nothing.
+_QUOTATION_SCHEMA_TOKENS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("unit", ("单位",)),
+    ("quantity", ("数量",)),
+    ("unit_price", ("单价",)),
+    ("amount", ("合价", "小计", "合计", "金额", "总价", "限价")),
+)
+#: A heading that names a non-quotation form.  The source's own title decides the
+#: form's class before any column is read.
+_HISTORY_FORM_TITLE_RE = re.compile(
+    r"(类似项目|类似业绩|同类项目|业绩情况|业绩表|类似工程|近年.*项目情况|合同业绩)"
+)
+_QUOTATION_FORM_TITLE_RE = re.compile(r"(报价|价格|分项|清单|限价)")
+
+
+def _quotation_schema_ok(columns: str) -> bool:
+    """Does this blank form's column schema describe a quotation table?
+
+    A blank source form is a *quotation* form only when its columns price an
+    item: a unit, a quantity, a unit price and an amount.  A similar-project-
+    history table ("项目名称 | 采购人名称 | 合同金额 | 签订合同时间 | 备注")
+    carries an amount column but no unit/quantity/unit-price, so it is a
+    qualification *history* form, never a blank quotation form.
+    """
+
+    flat = _norm(columns)
+    if not flat:
+        return False
+    has = {key: any(token in flat for token in tokens) for key, tokens in _QUOTATION_SCHEMA_TOKENS}
+    return bool(has["amount"] and has["unit_price"] and (has["unit"] or has["quantity"]))
+
+
+def _form_class(title: str, columns: str) -> str:
+    """The business class of a blank source form, from its heading and schema.
+
+    The heading is authoritative when it names a form the document itself
+    introduces ("七、近年（2023年1月1日以来）类似项目情况表"); otherwise the column
+    schema decides.  The class travels into the sheet, so a reviewer is never
+    told a业绩 history table is a blank quotation form.
+    """
+
+    flat = _norm(title)
+    if flat and _HISTORY_FORM_TITLE_RE.search(flat):
+        return "源空白业绩/资格表单（源文件要求填写、当前空白）"
+    if flat and _QUOTATION_FORM_TITLE_RE.search(flat) and _quotation_schema_ok(columns):
+        return "源空白报价表单（源文件要求填写、当前空白，需供应商报价）"
+    if _quotation_schema_ok(columns):
+        return "源空白报价表单（源文件要求填写、当前空白，需供应商报价）"
+    return "源其他空白表单（源文件给出固定格式、当前空白）"
+
 
 def _row_values(row: object) -> list[str]:
     """Cell texts of one table row, for dict or model shaped rows alike."""
@@ -653,6 +705,32 @@ def _columns_of(header: Sequence[str]) -> dict[str, int]:
                 columns.setdefault(key, position)
                 break
     return columns
+
+
+def _table_heading(document, page: int | None) -> str:
+    """The source's own heading for a table's page.
+
+    A blank form's class is decided by the title the document printed for it, so
+    the nearest section heading above the table is read from the page's blocks.
+    """
+
+    if page is None:
+        return ""
+    for candidate in getattr(document, "pages", ()) or ():
+        if getattr(candidate, "page_number", None) != page:
+            continue
+        best = ""
+        for block in getattr(candidate, "blocks", ()) or ():
+            text = _text(getattr(block, "text", ""))
+            flat = _norm(text)
+            if not flat or len(flat) > 60:
+                continue
+            if _HISTORY_FORM_TITLE_RE.search(flat) or (
+                _QUOTATION_FORM_TITLE_RE.search(flat) and flat.endswith(("表", "单", "清单"))
+            ):
+                best = text
+        return best
+    return ""
 
 
 def _price_table_rows(document) -> dict:
@@ -735,12 +813,19 @@ def _price_table_rows(document) -> dict:
                 }
             )
         if not named:
+            # A blank source form is classified from its own heading and column
+            # schema: a similar-project-history table must not be reported as a
+            # blank quotation form merely because it has a contract-amount column.
+            columns_text = " | ".join(_text(value) for value in header if _norm(value))
+            title = _table_heading(document, page) or str(getattr(table, "_heading", "") or "")
             blank_forms.append(
                 {
                     "page": page,
                     "table_index": table_index,
-                    "columns": " | ".join(_text(value) for value in header if _norm(value)),
+                    "columns": columns_text,
                     "capacity": len(data_rows),
+                    "heading": title,
+                    "form_class": _form_class(title, columns_text),
                 }
             )
             continue
@@ -1448,21 +1533,33 @@ def _build_pricing(workbook, *, project_facts, document, build_meta) -> dict:
             value="三、源空白报价表单（源文件要求填写、当前空白，需供应商报价）",
         ).font = SECTION_FONT
         row += 1
-        form_headers = ["源页码", "源表序号", "源表列名", "空白行数", "说明", MANUAL_CONCLUSION, MANUAL_NOTE]
+        form_headers = [
+            "源页码",
+            "源表序号",
+            "源表标题/列名",
+            "空白行数",
+            "表单类型（按源标题与列结构判定）",
+            "说明",
+            MANUAL_CONCLUSION,
+            MANUAL_NOTE,
+        ]
         form_table = _Table(
             ws,
             row,
             form_headers,
-            widths=(8, 10, 60, 9, 34, 13, 20),
-            manual_from=6,
+            widths=(8, 10, 54, 9, 34, 34, 13, 20),
+            manual_from=7,
         )
         for form in blank_forms:
+            title = _text(form.get("heading"))
+            columns = _clip(form["columns"], 300)
             form_table.add(
                 form["page"] if form["page"] is not None else "",
                 form["table_index"] if form["table_index"] is not None else "",
-                _clip(form["columns"], 300),
+                f"{title}｜{columns}" if title else columns,
                 form["capacity"],
-                "源文件给出空白报价表，无任何单价/合价数据；工作簿不填写、不推测",
+                form.get("form_class", ""),
+                "源文件给出空白表单，无任何填写数据；工作簿不填写、不推测",
                 DEFAULT_MANUAL,
                 "",
                 height=26,

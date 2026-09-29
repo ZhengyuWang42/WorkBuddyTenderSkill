@@ -19,7 +19,8 @@ from pathlib import Path
 import pytest
 
 from scripts.v1_review_workbook_round6_report import Round6Report
-from scripts.v1_review_workbook_round7_report import BUILDS, Round7Report
+from scripts.v1_review_workbook_round7_report import Round7Report
+from scripts.v1_review_workbook_round8_report import BUILDS as SUCCESSOR_BUILDS
 from tender_basic.applicability_invariants import (
     _text_in_span,
     classify_consequence_scope,
@@ -46,7 +47,15 @@ CASES = ("case_001", "case_002", "case_003")
 
 
 def _report_path(case: str) -> Path:
+    """The frozen round-7 audit: this module's own record of round 7."""
+
     return REPORTS / f"review_workbook_round7_{case}.json"
+
+
+def _successor_report_path(case: str) -> Path:
+    """The current successor's audit of the same invariants (round 8)."""
+
+    return REPORTS / f"review_workbook_round8_{case}.json"
 
 
 pytestmark = pytest.mark.skipif(
@@ -61,8 +70,16 @@ def audits() -> dict[str, dict]:
 
 
 @pytest.fixture(scope="module")
+def successor_audits() -> dict[str, dict]:
+    return {
+        case: json.loads(_successor_report_path(case).read_text(encoding="utf-8"))
+        for case in CASES
+    }
+
+
+@pytest.fixture(scope="module")
 def case001() -> Round7Report:
-    return Round7Report("case_001")
+    return Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
 
 
 def _rows(report: Round7Report) -> list[dict]:
@@ -104,13 +121,32 @@ def test_generalization_summary_is_pass() -> None:
     assert summary["cases"]["case_001"]["verdict"] == "PASS"
 
 
+def test_successor_audit_closes_the_delivered_text_gates(
+    successor_audits: dict[str, dict],
+) -> None:
+    """Round 8 carries every round-7 zero-count gate onto the current successor.
+
+    Each successor audit must be PASS, must have no failed fixture, and every
+    delivered-text counter it reports must be zero -- the round-7 checks are a
+    floor, not a substitute for auditing the text that is actually delivered.
+    """
+
+    for case, data in successor_audits.items():
+        assert data["verdict"] == "PASS", (case, data["failed_checks"])
+        assert data["fixture_summary"]["failed"] == [], case
+        assert data["workbook_sha256"], case
+        for name, value in data["counts"].items():
+            if name.endswith("_COUNT"):
+                assert value == 0, (case, name, value)
+
+
 # -- A: applicable source resolution ---------------------------------------- #
 
 
 def test_project_specific_schedule_supersedes_the_generic_template() -> None:
     """CASE001: 采购预备会=不召开, 踏勘现场=不组织, 分包=不允许 are displayed."""
 
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     expected = {
         "DR016": "不召开",
         "DR032": "不组织",
@@ -126,7 +162,7 @@ def test_project_specific_schedule_supersedes_the_generic_template() -> None:
 def test_generic_clause_is_kept_but_superseded() -> None:
     """A generic clause is never deleted: it stays marked superseded for display."""
 
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     superseded = [
         atom for atom in report.atoms if getattr(atom, "superseded_for_display", False)
     ]
@@ -142,7 +178,7 @@ def test_applicable_row_cites_the_schedule_row_it_resolves_to() -> None:
     page, not the page of the generic clause the value superseded.
     """
 
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     #: the schedule page of each decision, read from the source document
     expected_page = {"DR016": 9, "DR032": 10, "DR033": 10}
     for item_id, page in expected_page.items():
@@ -161,7 +197,7 @@ def test_applicable_row_cites_the_schedule_row_it_resolves_to() -> None:
 def test_specializes_clause_keeps_its_own_wording() -> None:
     """A clause that defers only a parameter keeps the clause and gains the value."""
 
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     row = _row(report, "DR037")
     requirement = row["requirement"]
     # the clause's own obligation survives
@@ -254,7 +290,7 @@ def test_case001_historical_locator_findings_are_closed(case001: Round7Report) -
 def test_multi_clause_requirement_links_every_unit() -> None:
     """A concern quoting several clauses links each unit explicitly (§20)."""
 
-    report = Round7Report("case_002")
+    report = Round7Report("case_002", build_name=SUCCESSOR_BUILDS["case_002"])
     row = _row(report, "DR026")
     links = row["item"].evidence_units or []
     assert links and links[0]["role"] == "PRIMARY"
@@ -332,7 +368,7 @@ def test_platform_roles_do_not_become_a_conflict() -> None:
 
 
 def test_electronic_platform_fact_resolves_for_case001() -> None:
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     payload = json.loads((report.build / "project_facts.json").read_text(encoding="utf-8"))
     field = payload["fields"]["electronic_platform"]
     assert field["status"] != "NEEDS_REVIEW", field
@@ -341,7 +377,7 @@ def test_electronic_platform_fact_resolves_for_case001() -> None:
 
 
 def test_no_exception_row_reports_a_platform_conflict() -> None:
-    report = Round7Report("case_001")
+    report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     rows = report._rows("06_冲突与缺失")
     conflicts = [
         row
@@ -357,7 +393,7 @@ def test_no_exception_row_reports_a_platform_conflict() -> None:
 
 def test_banked_round6_marker_accounting_still_holds() -> None:
     for case in CASES:
-        data = Round6Report(case, build_name=BUILDS[case]).run()
+        data = Round6Report(case, build_name=SUCCESSOR_BUILDS[case]).run()
         assert data["verdict"] == "PASS", (case, data["failed_checks"])
         assert data["counts"]["marker_lost_count"] == 0, case
         assert data["counts"]["marker_unattributed_count"] == 0, case
@@ -367,7 +403,7 @@ def test_banked_round6_marker_accounting_still_holds() -> None:
 
 def test_round5_concern_contract_still_holds() -> None:
     for case in CASES:
-        data = Round6Report(case, build_name=BUILDS[case]).run()
+        data = Round6Report(case, build_name=SUCCESSOR_BUILDS[case]).run()
         assert data["concern_contract_verdict"] == "PASS", (
             case,
             data["concern_contract"]["failed_checks"],

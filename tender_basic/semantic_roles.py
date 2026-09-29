@@ -55,6 +55,12 @@ ROLE_RESPONSE_DAYS = "RESPONSE_DAYS"
 
 #: points awarded by a scoring factor (12 分 / 8 分 / 40 分)
 ROLE_SCORE_POINTS = "SCORE_POINTS"
+#: the *maximum* a scoring factor can award ("响应报价（40 分）", "最高 4 分")
+ROLE_MAX_SCORE = "MAX_SCORE"
+#: the *base* score of a formula ("得基本分 30 分"), never a maximum
+ROLE_BASE_SCORE = "BASE_SCORE"
+#: the points of one conditional tier ("100%接受银行承兑的得 4 分")
+ROLE_TIER_SCORE = "TIER_SCORE"
 #: quantity of goods/services
 ROLE_QUANTITY = "QUANTITY"
 #: number of people
@@ -139,6 +145,9 @@ ROLE_FAMILY: dict[str, str] = {
     ROLE_BID_VALIDITY_DAYS: FAMILY_DAYS,
     ROLE_RESPONSE_DAYS: FAMILY_DAYS,
     ROLE_SCORE_POINTS: FAMILY_POINTS,
+    ROLE_MAX_SCORE: FAMILY_POINTS,
+    ROLE_BASE_SCORE: FAMILY_POINTS,
+    ROLE_TIER_SCORE: FAMILY_POINTS,
     ROLE_QUANTITY: FAMILY_COUNT,
     ROLE_PERSON_COUNT: FAMILY_COUNT,
     ROLE_CONTACT_INFO: FAMILY_TEXT,
@@ -146,6 +155,20 @@ ROLE_FAMILY: dict[str, str] = {
     ROLE_AGENCY_SERVICE_FEE: FAMILY_MONEY,
     ROLE_OTHER: FAMILY_TEXT,
 }
+
+#: The points roles, most specific first.  A scoring tier's points are a
+#: *conditional* award, a formula's base score is not a maximum, and a factor's
+#: ceiling is neither: they must never be rendered as one another.
+SCORE_ROLES: tuple[str, ...] = (
+    ROLE_MAX_SCORE,
+    ROLE_BASE_SCORE,
+    ROLE_TIER_SCORE,
+    ROLE_SCORE_POINTS,
+)
+
+#: A points role that states an award the bidder earns by *choosing one* of
+#: several alternatives, rather than a ceiling it must reach.
+CONDITIONAL_SCORE_ROLES: frozenset[str] = frozenset({ROLE_TIER_SCORE})
 
 #: The generic buckets round 5 replaces.  A number whose business meaning is
 #: known must never be filed under one of these names; the taxonomy exists so
@@ -192,6 +215,9 @@ ROLES_BY_TYPE: dict[str, frozenset[str]] = {
     "EVALUATION": frozenset(
         {
             ROLE_SCORE_POINTS,
+            ROLE_MAX_SCORE,
+            ROLE_BASE_SCORE,
+            ROLE_TIER_SCORE,
             ROLE_PAYMENT_RATIO,
             ROLE_BANK_ACCEPTANCE_RATIO,
             ROLE_RETENTION_MONEY_RATIO,
@@ -224,6 +250,7 @@ ROLES_BY_TYPE: dict[str, frozenset[str]] = {
 NEVER_USABLE_ROLES: frozenset[str] = NON_REVIEW_ROLES
 
 __all__ = [
+    "CONDITIONAL_SCORE_ROLES",
     "DISTINCT_MONEY_ROLES",
     "FAMILY_COUNT",
     "FAMILY_DAYS",
@@ -240,6 +267,7 @@ __all__ = [
     "ROLES_BY_TYPE",
     "ROLE_AGENCY_SERVICE_FEE",
     "ROLE_BANK_ACCEPTANCE_RATIO",
+    "ROLE_BASE_SCORE",
     "ROLE_BID_VALIDITY_DAYS",
     "ROLE_BOND_AMOUNT",
     "ROLE_BOND_FORM",
@@ -248,6 +276,7 @@ __all__ = [
     "ROLE_DELIVERY_DAYS",
     "ROLE_DURATION_DAYS",
     "ROLE_FAMILY",
+    "ROLE_MAX_SCORE",
     "ROLE_OTHER",
     "ROLE_PAYMENT_RATIO",
     "ROLE_PERFORMANCE_BOND",
@@ -265,8 +294,10 @@ __all__ = [
     "ROLE_SCORE_POINTS",
     "ROLE_TENDER_DOCUMENT_PRICE",
     "ROLE_TENDER_FEE",
+    "ROLE_TIER_SCORE",
     "ROLE_VALIDITY_DAYS",
     "ROLE_WARRANTY_MONTHS",
+    "SCORE_ROLES",
     "canonical_role",
     "is_canonical_role",
 ]

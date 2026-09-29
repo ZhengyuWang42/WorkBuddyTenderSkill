@@ -1,0 +1,218 @@
+{
+  "schema": "v1_review_workbook_build/1",
+  "source_build": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook7",
+  "build_id": "v1_round4_closure8_review_workbook8",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook8",
+  "word_render_repeated": false,
+  "artifact_identity": {
+    "基础投标文件.docx": {
+      "source_build_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "successor_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+      "byte_identical": true
+    },
+    "基础投标文件.pdf": {
+      "source_build_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+      "successor_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+      "byte_identical": true
+    },
+    "generation_report.json": {
+      "source_build_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+      "successor_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+      "byte_identical": true
+    }
+  },
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure8_review_workbook8\\投标项目复核表.xlsx",
+  "workbook_sha256": "f105da9859c47f0de73b6a6b4ae0f4a85bde8d3d197f25418b0b9714b097c71e",
+  "workbook_bytes": 77594,
+  "views": {
+    "sheets": [
+      {
+        "title": "00_复核总览",
+        "kind": "dashboard"
+      },
+      {
+        "title": "01_项目事实",
+        "rows": 23
+      },
+      {
+        "title": "02_关键条款",
+        "rows": 16
+      },
+      {
+        "title": "03_资格否决与强制项",
+        "rows": 38
+      },
+      {
+        "title": "04_报价与限价",
+        "limits": 3,
+        "items": 36,
+        "blank_forms": 0
+      },
+      {
+        "title": "05_文件结构与签章",
+        "rows": 50
+      },
+      {
+        "title": "06_冲突与缺失",
+        "rows": 5
+      },
+      {
+        "title": "07_证据索引",
+        "rows": 45
+      }
+    ],
+    "fact_status_counts": {
+      "facts_total": 23,
+      "resolved": 18,
+      "needs_review": 1,
+      "not_found": 4
+    },
+    "requirement_rows": 45,
+    "mandatory_rows": 38,
+    "clause_rows": 16,
+    "evidence_rows": 45,
+    "exception_rows": 5,
+    "manual_columns": [
+      [
+        "01_项目事实",
+        "M"
+      ],
+      [
+        "02_关键条款",
+        "M"
+      ],
+      [
+        "03_资格否决与强制项",
+        "O"
+      ],
+      [
+        "04_报价与限价",
+        "I"
+      ],
+      [
+        "04_报价与限价",
+        "L"
+      ],
+      [
+        "05_文件结构与签章",
+        "M"
+      ],
+      [
+        "06_冲突与缺失",
+        "H"
+      ]
+    ],
+    "criticality": {
+      "source_marker_row_count": 4,
+      "substantive_requirement_row_count": 1,
+      "rejection_consequence_row_count": 1,
+      "explicit_rejection_consequence_row_count": 1,
+      "mandatory_sheet_row_count": 38,
+      "rows": [
+        {
+          "item_id": "DR001",
+          "concern_id": "GENERAL_BIDDER_OBLIGATION",
+          "raw_source_markers": [
+            "★"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MANDATORY"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 ★（第72页）；标记含义=MANDATORY_PROOF"
+        },
+        {
+          "item_id": "DR014",
+          "concern_id": "SIGNATURE_AND_SEAL",
+          "raw_source_markers": [
+            "★"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MANDATORY"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 ★（第68页 / 块3）；标记含义=MANDATORY_PROOF"
+        },
+        {
+          "item_id": "DR028",
+          "concern_id": "QUALITY_TARGET",
+          "raw_source_markers": [
+            "★"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MANDATORY"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 ★（第72页 / 块1）；标记含义=MANDATORY_PROOF"
+        },
+        {
+          "item_id": "DR032",
+          "concern_id": "EVALUATION_RESPONSIVENESS",
+          "raw_source_markers": [],
+          "marker_present": false,
+          "substantive_requirement": true,
+          "substantive_basis_kind": "LEGAL_RULE",
+          "substantive_basis_atom_ids": [
+            "SRA0096"
+          ],
+          "rejection_consequence": true,
+          "rejection_kind": "EXPLICIT",
+          "rejection_basis_atom_ids": [
+            "SRA0096"
+          ],
+          "mandatory_types": [
+            "SUBSTANTIVE_BY_LAW",
+            "REJECTION"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "实质性要求依据=LEGAL_RULE；明示否决后果"
+        },
+        {
+          "item_id": "DR039",
+          "concern_id": "TECHNICAL_PROOF",
+          "raw_source_markers": [
+            "★"
+          ],
+          "marker_present": true,
+          "substantive_requirement": false,
+          "substantive_basis_kind": "",
+          "substantive_basis_atom_ids": [],
+          "rejection_consequence": false,
+          "rejection_kind": "",
+          "rejection_basis_atom_ids": [],
+          "mandatory_types": [
+            "MANDATORY"
+          ],
+          "reference_parent_atom_id": "",
+          "reference_target": "",
+          "criticality_reason": "源标记 ★（第67页）；标记含义=MANDATORY_PROOF"
+        }
+      ]
+    }
+  }
+}
