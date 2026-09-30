@@ -17,7 +17,7 @@ group.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any, Iterable, Sequence
 
 KIND_BLOCK = "pdf_block"
@@ -142,6 +142,13 @@ def _is_heading(text: str) -> bool:
     flat = _clean(text)
     if not flat or len(flat) > 40:
         return False
+    if re.search(r"[，。；;！？!?]", flat):
+        # A heading is a title, never a sentence: the extraction frequently emits
+        # the truncated *body* of the previous clause as its own block, and
+        # carrying it as the heading made every following row cite that sentence
+        # as its section (round-9 fixture: CASE003's bid-bond row cited
+        # "3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，").
+        return False
     if _schedule_row_block(text):
         # A front-table row ("*1.12 | 分包 | 不允许") is a *project value*, not a
         # section title: letting it become a heading makes every following row of
@@ -161,6 +168,25 @@ def _is_heading(text: str) -> bool:
             return False
         return len(match.group(1).split(".")) <= 2 and not body.endswith("。")
     return False
+
+
+def _heading_titles(heading: str, clause: str) -> bool:
+    """Does the carried heading belong to the same clause family as ``clause``?
+
+    A heading that names clause 3.1 does not title a unit whose own clause is 5.2;
+    the unit belongs to another section, and the heading must not travel with it
+    (round-9 fixtures D40/D43's class, extended to all rows).
+    """
+
+    head_clause = _clause_of(str(heading or ""))
+    own_clause = str(clause or "")
+    if not head_clause or not own_clause:
+        return True
+    return (
+        own_clause == head_clause
+        or own_clause.startswith(f"{head_clause}.")
+        or head_clause.startswith(f"{own_clause}.")
+    )
 
 
 def _schedule_row_block(text: str) -> bool:
@@ -352,7 +378,14 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
                     page=page_number,
                     source_structure_id=f"block:{block_index}",
                     clause_number=clause,
-                    heading=heading,
+                    # A carried heading titles this unit only while the unit stays in
+                    # the same clause family.  A block that states its own clause
+                    # ("5.2 设备单价中含…") under a heading of an unrelated clause
+                    # ("3.1 供应商提供设备应遵照…") is not in that section, and
+                    # showing the foreign heading sends the reviewer to another
+                    # chapter (round-9 fixtures D40/D43's class, extended to all
+                    # rows).
+                    heading=heading if _heading_titles(heading, clause) else "",
                     table_row_id="",
                     text_span=_text_with_inline_blanks(block),
                     block_index=block_index,
@@ -362,11 +395,16 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
     captions = _document_captions(document)
     for table in getattr(document, "tables", ()) or ():
         page_number = getattr(table, "page", None)
+        # A table's heading is the heading that governs *its own position*: the
+        # carried heading of the block loop has already reached the end of the
+        # document by the time the tables are visited, so it must never title a
+        # table (round-9 fixture D40/D43: a page-33 contract table was titled
+        # "十五、其他资料", a section of the response-format chapter).
         caption = captions.get(page_number, "") or _page_heading_for_table(
             document, page_number, getattr(table, "bbox", None)
         )
-        if not caption:
-            caption = carried_heading
+        previous_clause = ""
+        previous_span = ""
         for row in getattr(table, "rows", ()) or ():
             cells = sorted(getattr(row, "cells", ()) or (), key=lambda cell: cell.column_index)
             texts = [_clean(cell.text) for cell in cells if _clean(cell.text)]
@@ -374,6 +412,15 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
                 continue
             label = texts[0]
             clause = _clause_of(label)
+            span = " ".join(texts)
+            if not clause and previous_clause and _continues_sentence(previous_span, span):
+                # the row is the tail of the previous row's sentence (a clause
+                # split across table rows): it belongs to the same clause, which
+                # is what makes its locator coherent ("第2.3条", not a bare page).
+                clause = previous_clause
+            elif clause:
+                previous_clause = clause
+            previous_span = span
             # a row whose label is not a clause number still needs a locator: its
             # own label is the tightest handle the source offers
             units.append(
@@ -391,7 +438,7 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
                     clause_number=clause,
                     heading=caption,
                     table_row_id=f"T{getattr(table, 'table_index', 0)}R{getattr(row, 'row_index', 0)}",
-                    text_span=" ".join(texts),
+                    text_span=span,
                     table_index=int(getattr(table, "table_index", 0)),
                     row_index=int(getattr(row, "row_index", 0)),
                     order=len(units),
@@ -399,6 +446,21 @@ def build_evidence_units(document: Any) -> list[EvidenceUnit]:
                 )
             )
     return units
+
+
+def _continues_sentence(previous: str, current: str) -> bool:
+    """Does ``current`` continue the sentence ``previous`` left unfinished?"""
+
+    before = _clean(previous).rstrip()
+    after = _clean(current).lstrip()
+    if not before or not after:
+        return False
+    # a finished sentence is not continued, and a new clause label starts a new one
+    if before.endswith(("。", "！", "？", "；", ";", ":")):
+        return False
+    if _clause_of(after) or re.match(r"^[（(]?\d", after):
+        return False
+    return True
 
 
 def _document_captions(document: Any) -> dict[int | None, str]:
@@ -449,7 +511,6 @@ def _page_heading_for_table(
     document: Any, page: int | None, bbox: tuple[float, ...] | None
 ) -> str:
     """The running heading of the page at the table's position (caption fallback)."""
-
     if page is None:
         return ""
     page_model = None
@@ -468,13 +529,28 @@ def _page_heading_for_table(
         if not text:
             continue
         block_box = getattr(block, "bbox", None)
+        # Only blocks *above* the table may title it.  The scan must not break on
+        # the first out-of-order block: a page footer (the printed page number)
+        # sits at the bottom and used to end the scan before the real heading was
+        # reached, leaving the table with no heading at all (round-9 D40/D43).
         if top is not None and block_box and block_box[1] > top:
-            break
+            continue
         if _is_heading(text):
             heading = text
-        elif CHAPTER_RE.match(text) or CN_SECTION_RE.match(text):
+        elif CHAPTER_RE.match(text) or CN_SECTION_RE.match(text) or _article_heading(text):
             heading = text
     return heading
+
+
+#: A contract *article* title ("第二条 合同价款及结算").  It is a section for the
+#: table caption fallback: the contract's own clauses are numbered below it, and a
+#: table holding clause 2.3 belongs to article 2 (round-9 D40/D43).
+_ARTICLE_HEADING_RE = re.compile(r"^第[一二三四五六七八九十百]+条\s*\S")
+
+
+def _article_heading(text: str) -> bool:
+    flat = _clean(text)
+    return bool(_ARTICLE_HEADING_RE.match(flat)) and len(flat) <= 30
 
 
 @dataclass
@@ -504,6 +580,24 @@ class EvidenceUnitIndex:
                 unmatched.append(atom_id)
             else:
                 by_atom[atom_id] = evidence
+        # A derived *facet* atom ("SRA0234.r", ".c", ".a", ".s", ".t") is cut out
+        # of its base atom's clause, so it belongs to the base atom's unit even
+        # when its own text is a sub-slice that spans two units (round-9 fixture
+        # D43).  The facet keeps its own span; only the unit is shared.
+        for atom in atoms:
+            atom_id = str(getattr(atom, "atom_id", ""))
+            base, _, suffix = atom_id.rpartition(".")
+            if not base or f".{suffix}" not in DERIVED_FACET_SUFFIXES:
+                continue
+            base_evidence = by_atom.get(base)
+            evidence = by_atom.get(atom_id)
+            if base_evidence is None:
+                continue
+            if evidence is None:
+                by_atom[atom_id] = base_evidence
+                unmatched = [value for value in unmatched if value != atom_id]
+            else:
+                by_atom[atom_id] = replace(evidence, unit=base_evidence.unit)
         return cls(
             units=units,
             by_atom=by_atom,
@@ -566,9 +660,16 @@ def _match_score(atom_flat: str, unit_flat: str) -> int:
 #: a unit must carry at least this much of the atom to be its unit
 MIN_UNIT_MATCH = 10
 
+#: Suffixes of atoms that are *facets* cut out of a base atom's clause.  A facet
+#: resolves to the base atom's evidence unit so its page/section/clause stay
+#: coherent with the clause it quotes.
+DERIVED_FACET_SUFFIXES = frozenset({".r", ".c", ".a", ".s", ".t"})
 
-def _candidate_units(atom: Any, units: Sequence[EvidenceUnit]) -> list[tuple[int, EvidenceUnit]]:
-    atom_flat = _flatten(getattr(atom, "source_text", ""))
+
+def _candidate_units(
+    atom: Any, units: Sequence[EvidenceUnit], text: str | None = None
+) -> list[tuple[int, EvidenceUnit]]:
+    atom_flat = _flatten(text if text is not None else getattr(atom, "source_text", ""))
     if not atom_flat:
         return []
     threshold = min(MIN_UNIT_MATCH, max(4, len(atom_flat)))
@@ -611,12 +712,17 @@ def _candidate_units(atom: Any, units: Sequence[EvidenceUnit]) -> list[tuple[int
     ]
     if starters:
         best = max(score for score, _unit in starters)
-        earliest = min(
-            (unit.page or 0, unit.order)
-            for score, unit in starters
-            if score >= best - 2
-        )
-        for score, unit in starters:
+        pool = [unit for score, unit in starters if score >= best - 2]
+        # A front-table page emits the same row twice: as a page block and as the
+        # table's own row.  The table row is the unit the reviewer can be sent to
+        # (it carries the schedule caption and the row's clause), so it wins over
+        # its block copy (round-9 fixture: the pre-bid row cited "（pdf_block）"
+        # while every sibling schedule row cited "（pdf_table_cell）").
+        tables = [unit for unit in pool if unit.kind == KIND_TABLE_CELL]
+        if tables:
+            pool = tables
+        earliest = min((unit.page or 0, unit.order) for unit in pool)
+        for unit in pool:
             if (unit.page or 0, unit.order) == earliest:
                 return [(best, unit)]
     return scored
@@ -690,8 +796,17 @@ def locate_atom(atom: Any, units: Sequence[EvidenceUnit]) -> AtomEvidence | None
     atom_flat = _flatten(getattr(atom, "source_text", ""))
     scored = _candidate_units(atom, units)
     if not scored:
-        return None
-    unit, span = _anchor_and_span(atom_flat, scored)
+        # A derived *facet* atom ("剩余 5%作为质保金") is cut out of a clause and
+        # may span two source units, so its own text locates nothing.  The clause
+        # it was cut from is handed to the atom as ``source_origin_text``: the
+        # facet belongs to the unit that carries that clause, and using it keeps
+        # the row's page/section/clause coherent (round-9 fixture D43).
+        origin = _flatten(getattr(atom, "source_origin_text", ""))
+        if origin and origin != atom_flat:
+            scored = _candidate_units(atom, units, origin)
+        if not scored:
+            return None
+    unit, span = _anchor_and_span(atom_flat or _flatten(getattr(atom, "source_origin_text", "")), scored)
     clause = _clause_of(str(getattr(atom, "source_text", ""))) or unit.clause_number
     if clause and clause != unit.clause_number:
         unit = EvidenceUnit(
@@ -715,6 +830,22 @@ def locate_atom(atom: Any, units: Sequence[EvidenceUnit]) -> AtomEvidence | None
     )
 
 
+#: A locator prints a clause *number*; a Chinese item label is not one.
+CLAUSE_NUMBER_RE = re.compile(r"^\d+(?:\.\d+)*$")
+
+
+def printable_clause_label(clause: str) -> str:
+    """The clause as a locator may print it.
+
+    The extraction keys some blocks by a Chinese item label ("五、质量要求",
+    "（4）"); printing those as ``第（4）条`` invents a clause number the source does
+    not carry.  A locator therefore prints a clause only when it is one.
+    """
+
+    flat = str(clause or "").strip()
+    return flat if CLAUSE_NUMBER_RE.match(flat) else ""
+
+
 def locator_for_atom(
     atom: Any,
     index: EvidenceUnitIndex,
@@ -734,20 +865,17 @@ def locator_for_atom(
     evidence = index.for_atom(atom)
     if evidence is not None:
         unit = evidence.unit
-        section = unit.heading or unit.semantic_heading or fallback_section
-        clause = unit.clause_number or fallback_clause
-        if not unit.clause_number and not unit.heading and not unit.semantic_heading:
-            # a list item inside a broad section: the item is the tightest
-            # heading the source offers ("5、最高限价：3100000 元（不含税）")
-            item = _numbered_item_label(evidence.span)
-            if item:
-                section, clause = item, ""
-            else:
-                # the unit's own opening words are the only handle the source
-                # offers; a page-only locator would not send the reviewer to the
-                # clause the row quotes
-                section = _opening_handle(evidence.span)
-        locator = _locator_text(unit.page or fallback_page, section, clause, unit.kind or fallback_kind)
+        # ONE derivation decides the visible section (see
+        # ``locator_section_for_unit``): the locator, the audit and the delivered
+        # cell all read the same value.
+        locator, section, clause, _source, _clip = expected_locator_for_unit(
+            unit,
+            evidence.span,
+            fallback_page=fallback_page,
+            fallback_section=fallback_section,
+            fallback_clause=fallback_clause,
+            fallback_kind=fallback_kind,
+        )
         return locator, unit.page or fallback_page, section, clause
     locator = _locator_text(fallback_page, fallback_section, fallback_clause, fallback_kind)
     return locator, fallback_page, fallback_section, fallback_clause
@@ -785,6 +913,102 @@ def _numbered_item_label(span: str) -> str:
     return f"{match.group(1)}、{label}"
 
 
+def format_locator_section_for_display(section: str) -> str:
+    """The section exactly as the delivered locator prints it.
+
+    This is the one deterministic formatter between a unit's canonical section and
+    the ``证据定位`` text in the workbook: ``_locator_text`` prints the value this
+    function returns, so an audit must compare the visible section against *this*
+    output rather than against the raw heading it was derived from, and never
+    against a prefix, substring or fuzzy variant of it.
+    """
+
+    return str(section or "").strip()
+
+
+def locator_section_for_unit(
+    unit: Any, span: str, fallback_section: str = ""
+) -> tuple[str, str, int | None]:
+    """The visible locator section, where it came from, and its clip limit.
+
+    ``(visible_section, source, clip_limit)``: ``source`` names the derivation
+    (``unit.heading`` / ``unit.semantic_heading`` / ``atom.section`` /
+    ``numbered_item`` / ``opening_handle``) and ``clip_limit`` is the production
+    limit when a derivation clipped the source text, so a clipped locator is
+    explicit and auditable instead of silently accepted.
+    """
+
+    heading = str(getattr(unit, "heading", "") or "")
+    semantic = str(getattr(unit, "semantic_heading", "") or "")
+    clause = str(getattr(unit, "clause_number", "") or "")
+    if heading or semantic:
+        value = heading or semantic
+        return (
+            format_locator_section_for_display(value),
+            "unit.heading" if heading else "unit.semantic_heading",
+            None,
+        )
+    if not clause:
+        item = _numbered_item_label(span)
+        if item:
+            return format_locator_section_for_display(item), "numbered_item", 40
+        return (
+            format_locator_section_for_display(_opening_handle(span)),
+            "opening_handle",
+            48,
+        )
+    return format_locator_section_for_display(fallback_section), "atom.section", None
+
+
+def expected_locator_for_unit(
+    unit: Any,
+    span: str,
+    *,
+    fallback_page: int | None = None,
+    fallback_section: str = "",
+    fallback_clause: str = "",
+    fallback_kind: str = "",
+) -> tuple[str, str, str, str, int | None]:
+    """The production locator for a **canonical** evidence unit.
+
+    ``(locator, section, clause, section_source, clip_limit)``, computed by the
+    same derivation the delivered cell is rendered from (``locator_section_for_unit``
+    -> ``printable_clause_label`` -> ``_locator_text``).  This is the only place a
+    locator is put together, so the acceptance audit's *expected* value is the
+    production formatter's own output for the unit, never a second implementation
+    and never a prefix or fuzzy variant of it (round-9 gate).
+    """
+
+    section, source, clip = locator_section_for_unit(unit, span, fallback_section)
+    clause = printable_clause_label(getattr(unit, "clause_number", "") or fallback_clause)
+    if source in ("numbered_item", "opening_handle"):
+        clause = ""
+    kind = str(getattr(unit, "kind", "") or fallback_kind)
+    page = getattr(unit, "page", None) or fallback_page
+    return _locator_text(page, section, clause, kind), section, clause, source, clip
+
+
+def locators_match_exactly(expected: str, actual: str) -> bool:
+    """Whether a visible locator equals the formatter's output **exactly**.
+
+    The round-9 gate invariant is
+
+        canonical EvidenceUnit
+        -> deterministic production locator formatter
+        -> expected visible locator
+        -> SAVED/REOPENED XLSX
+        -> EXACT equality
+
+    so the comparison is equality and nothing else: a delivered section that is a
+    prefix (``startswith``), a substring (``in``) or an arbitrary prefix-overlap of
+    the expected value is a *different* locator and is rejected.  The audit imports
+    this function instead of writing its own comparison, so no second, weaker
+    matcher can appear beside it.
+    """
+
+    return str(expected or "") == str(actual or "")
+
+
 def _locator_text(
     page: int | None, section: str, clause: str, kind: str
 ) -> str:
@@ -792,7 +1016,7 @@ def _locator_text(
     if page:
         parts.append(f"第{page}页")
     if section:
-        parts.append(str(section))
+        parts.append(format_locator_section_for_display(section))
     if clause:
         parts.append(f"第{clause}条")
     if kind:
@@ -1089,6 +1313,11 @@ __all__ = [
     "build_evidence_units",
     "locate_atom",
     "locator_for_atom",
+    "expected_locator_for_unit",
+    "locators_match_exactly",
+    "format_locator_section_for_display",
+    "locator_section_for_unit",
+    "printable_clause_label",
     "atom_clause_number",
     "split_numbered_items",
     "sentence_window",

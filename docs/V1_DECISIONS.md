@@ -1085,3 +1085,57 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
 - 纪律：本轮全程**未** reset / clean / revert / rebase / stash / amend、未强推、未重新克隆、
   未切换分支、未覆盖任何历史验收构建；工作树是唯一真源。
 
+### D72 第 9 轮：送达内容语义 + 定位精确格式化（长期规则，BANK）
+
+- 本轮不变量（两条同时成立）：
+  1. `FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING`（承接 D71）；
+  2. `LOCATOR MUST EQUAL THE PRODUCTION FORMATTER OUTPUT FOR THE ROW'S OWN EVIDENCE UNIT`
+     —— 证据定位必须由**本行自己的规范 EvidenceUnit**经**唯一生产格式化函数**得到，
+     并与**已保存/重新打开的 XLSX** **精确相等**。
+- **定位必须单源且精确**（BANK）：期望值只由
+  `tender_basic.evidence_unit.expected_locator_for_unit`
+  （`locator_section_for_unit` → `printable_clause_label` → `_locator_text`）现算；
+  比较只由唯一比较器 `locators_match_exactly`（就是 `==`）完成。
+  验收契约是
+  `canonical EvidenceUnit → production formatter → expected visible locator → SAVED XLSX → EXACT equality`。
+  **禁止** `startswith`、`in`、长度容差、前后缀重叠等任何容忍被截断 locator 的写法——
+  这条曾被短暂写成 `unit_heading.startswith(section)` 以容忍截断，属**门禁弱化**，已否决并
+  以负向对照测试钉住（`tests/test_round9_evidence_unit_locator.py`）。
+- **结构 token 必须取自本地结构位置**（BANK）：单元的 clause/section 只从该单元**自身开头**的
+  结构 token 解析（数字条款 `3.4.2`、中文节标签 `五、` / `十五、`、合同条标题 `第三条`），
+  绝不从随后正文里**第一个** `第…条` 短语取用；正文句子（含 `，`/`。` 的行）不得成为
+  承载标题；当一个单元自己的条款不属于所携带标题的条款族时，标题必须丢弃
+  （`_heading_titles`）。
+- 定位审计读取的是**已保存并重新打开**的工作簿单元格，期望值读取的是**从交付文档重建的**
+  证据单元；两个输入（单元 + 该单元交给格式化函数的那段 span，以及 atom 自身的前导条款）
+  逐行记录在报告的 `locator_records` 中，便于人工复算。
+- 门禁：`scripts/v1_review_workbook_round9_gate_integrity.py` →
+  `round9_gate_integrity.json`，要求
+  `ROUND9_GATE_INTEGRITY = PASS`、`locator comparison = EXACT_FORMATTER_OUTPUT`、
+  `prefix/fuzzy matching = 0`、`actual saved XLSX locator semantic mismatches = 0`，
+  且命名夹具（D34 / BID_VALIDITY、D40 / 质保期释放、D43 / 质保金比例、D57 / 提交截止、
+  DR002 / 供货期、DR047 / 授权、CASE003 投标保证金回归）全部 PASS。
+  命名夹具按**关切**绑定；若某案例的关切契约把同一源概念并入兄弟关切
+  （CASE002 把 `3%` 质保金写在释放期条款内），夹具改按**内容**锚定到真正承载该内容的交付行；
+  若**源文**载有该内容而没有任何交付行承载它，夹具**判红**（既不静默消失，也不放宽匹配）。
+- 单源格式化函数由 `_locator_text` 与 `expected_locator_for_unit` 共享；
+  交付单元格、审计期望值与门禁读的是同一个函数，不存在第二套"审计专用"格式化器。
+- 文档状态门禁（`scripts/v1_docs_state_consistency.py`）修正：**当前**复核工作簿轮次由
+  产物自行发现（最新同时具备三案例工作簿 + 结构门禁 + 交付内容审计的轮次），
+  **不再把第 3/4 轮硬编码为"当前"**；第 3/4 轮（以及更早）作为**历史/被取代**身份继续校验：
+  构建与工作簿逐字节保留、sha256 与机器状态一致、构建号与哈希仍被文档记录。
+  规则：`DOCS_STATE_CONSISTENCY = PASS`、`failed_checks = []`。
+- 证据（第 9 轮）：三案例审计 `review_workbook_round9_case_00{1,2,3}.{json,md}` =
+  PASS（0 failed check / 0 failed fixture）、泛化 `review_workbook_round9_generalization.json` = PASS、
+  定位门禁 `round9_gate_integrity.json` = PASS（三案例 50/45/49 = 144 行逐行精确比较）、
+  第 5/6/7 轮门禁在第 9 轮构建上复跑 PASS、工作簿门禁 42/42、渲染 QA PASS、
+  Word 产物逐字节未变（`word_render_repeated = false`）。
+- 人工状态：第 8 轮人工 **FAIL** 记录保留在 `case001_review_workbook_round8_human_review.json`
+  与 `v1_manual_review_checklist.md` §4.1，**不得改写**；
+  `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`；
+  `CASE002/003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；人工勾选框 0 个；
+  `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；未创建 tag 或 release。
+- 纪律：本轮全程**未** reset / clean / revert / rebase / stash / amend、未强推、未重新克隆、
+  未切换分支、未覆盖任何历史验收构建（workbook3/4/5/6/7/8 全部逐字节保留）；
+  工作树是唯一真源。
+

@@ -24,7 +24,7 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field, replace
 from typing import Any
 
-from tender_basic.dynamic_requirements import SourceRequirementUnit
+from tender_basic.dynamic_requirements import MODULE_SUBMISSION, SourceRequirementUnit
 from tender_basic.review_point import (
     NumericEvidence,
     extract_numeric_evidence,
@@ -113,6 +113,12 @@ class ConcernSpec:
     #: presented as a signature row).  Empty means "inherit from the source".
     review_type: str = ""
     review_topic: str = ""
+    #: Presentation slot for the row's *module*.  A decision that belongs to the
+    #: submission stage (the pre-bid meeting) is presented with the submission
+    #: rows even when the clause it quotes sits in another chapter, so a new row
+    #: appends after the rows the human review already addresses instead of
+    #: renumbering them.
+    review_module: str = ""
     #: Regex naming the facet that must carry the row's evidence locator, so the
     #: printed locator/source is the concern's own decisive clause.
     decisive_pattern: str = ""
@@ -127,6 +133,7 @@ class ConcernSpec:
             "fact_fields": sorted(self.fact_fields),
             "review_type": self.review_type,
             "review_topic": self.review_topic,
+            "review_module": self.review_module,
         }
 
 
@@ -141,6 +148,7 @@ def _spec(
     facts: Iterable[str] = (),
     review_type: str = "",
     review_topic: str = "",
+    review_module: str = "",
     decisive: str = "",
 ) -> ConcernSpec:
     return ConcernSpec(
@@ -155,6 +163,7 @@ def _spec(
         fact_fields=frozenset(facts),
         review_type=review_type,
         review_topic=review_topic,
+        review_module=review_module,
         decisive_pattern=decisive,
     )
 
@@ -329,6 +338,15 @@ CONCERNS: dict[str, ConcernSpec] = {
             decisive=r"(交付地点|交货地点|实施地点|供货地点)",
         ),
         _spec("SITE_VISIT", "现场踏勘", "是否按须知规定参加/安排了现场踏勘，记录是否留档？", decisive=r"(踏勘|现场考察)"),
+        _spec(
+            "PRE_BID_MEETING",
+            "采购预备会",
+            "本项目是否召开采购预备会？响应文件是否与该项目决定一致？",
+            review_type="SUBMISSION",
+            review_topic="采购预备会",
+            review_module=MODULE_SUBMISSION,
+            decisive=r"(采购预备会|预备会)",
+        ),
         _spec(
             "TERM_DEFINITION",
             "术语与主体定义",
@@ -1184,6 +1202,11 @@ _DECISIVE_RULES: tuple[tuple[re.Pattern[str], str, str], ...] = (
         "authorisation/attorney chain wording",
     ),
     (
+        re.compile(r"(采购预备会|预备会)"),
+        "PRE_BID_MEETING",
+        "pre-bid meeting decision (held or not), not the question/clarification deadline",
+    ),
+    (
         re.compile(r"(提出问题的时间|提出问题的截止|供应商提问|答疑澄清|澄清截止|修改询比文件|修改招标文件|延长响应文件递交截止)"),
         "QUERY_DEADLINE",
         "question/clarification/amendment deadline",
@@ -1447,6 +1470,8 @@ def _sub_split(atom: SourceRequirementAtom, base: str) -> tuple[str, str]:
         return base, "bond clause"
 
     if base == "SUBMISSION_DEADLINE":
+        if re.search(r"(采购预备会|预备会)", text):
+            return "PRE_BID_MEETING", "pre-bid meeting decision"
         if re.search(r"(提出问题|提问|澄清|修改|质疑|延长)", text):
             return "QUERY_DEADLINE", "question/clarification/amendment deadline"
         if re.search(r"(地点|方式|平台|送达|递交至)", text):
@@ -1895,6 +1920,52 @@ def _facet_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[SourceRe
     return derived
 
 
+def _joined_clause_text(group: Sequence[SourceRequirementAtom]) -> str:
+    """The group's retention-relevant atoms, in source order, without overlaps."""
+
+    def flat(text: str) -> str:
+        return re.sub(r"[\s\u3000]+", "", text)
+
+    kept: list[str] = []
+    for atom in group:
+        text = str(atom.source_text or "").strip()
+        if not text or not re.search(r"质保金|质量保证金|尾款|余款|质保期|剩余|付款", text):
+            continue
+        if not flat(text):
+            continue
+        if any(flat(text) in flat(other) for other in kept):
+            continue
+        kept = [other for other in kept if flat(other) not in flat(text)]
+        kept.append(text)
+    return "".join(kept)
+
+
+def _clause_segment_around(text: str, start: int, end: int) -> str:
+    """The comma-scoped clause segment that holds ``text[start:end]``.
+
+    A retention-ratio facet used to be cut with a fixed character window, which
+    produced fragments such as "， 剩余 %，剩余 5%%，剩余 5%作为质保金" (round-9
+    fixture D43).  The facet is the *source's own* segment between the delimiters
+    that surround the ratio, so the delivered wording is a quote and never an
+    invented or half-cut statement.
+    """
+
+    left = max(
+        (text.rfind(mark, 0, start) for mark in ("。", "；", ";", "，", ",")),
+        default=-1,
+    )
+    right_candidates = [
+        position
+        for position in (text.find(mark, end) for mark in ("。", "；", ";", "，", ","))
+        if position >= 0
+    ]
+    right = min(right_candidates) if right_candidates else len(text)
+    segment = text[left + 1 : right].strip(" \u3000，,；;。")
+    if len(re.sub(r"[\s\u3000]+", "", segment)) < 4:
+        return ""
+    return segment
+
+
 def _retention_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[SourceRequirementAtom]:
     """Ensure a clause that withholds money *and* fixes a period owns both facets.
 
@@ -1913,7 +1984,11 @@ def _retention_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[Sour
     for group in by_clause.values():
         if any(atom.owner_concern_id == "RETENTION_MONEY_RATIO" for atom in group):
             continue
-        joined = "".join(atom.source_text for atom in group)
+        # A clause's atoms overlap each other ("% ， 剩余 %，剩余 5%" and "%，剩余
+        # 5%" are the same cell read twice), so the joined text must drop the
+        # contained duplicates before anything is cut out of it: cutting a window
+        # out of overlapping fragments is what produced "剩余 5%%" (round-9 D43).
+        joined = _joined_clause_text(group)
         if not _RETENTION_PERIOD_RE.search(joined):
             continue
         if not re.search(r"质保金|质量保证金|尾款|余款", joined):
@@ -1922,7 +1997,7 @@ def _retention_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[Sour
         if ratio is None:
             continue
         start, end = ratio.span()
-        fragment = joined[max(0, start - 10) : min(len(joined), end + 12)].strip()
+        fragment = _clause_segment_around(joined, start, end)
         if not fragment:
             continue
         template = next(
@@ -1934,6 +2009,9 @@ def _retention_clause_atoms(atoms: Sequence[SourceRequirementAtom]) -> list[Sour
                 template,
                 atom_id=f"{template.atom_id}.r",
                 source_text=fragment,
+                # the clause the facet was cut from, so the evidence unit can be
+                # resolved for a fragment that spans two source units
+                source_origin_text=joined,
                 owner_concern_id="RETENTION_MONEY_RATIO",
                 owner_reason="decisive: retention-money ratio facet (clause level)",
                 required_materials=[],

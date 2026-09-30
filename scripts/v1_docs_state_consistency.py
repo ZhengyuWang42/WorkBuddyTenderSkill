@@ -87,6 +87,21 @@ ROUND4_MISMATCH_BUCKETS = (
 #: introduced by a history marker rather than presented as current.
 HISTORY_LOOKBACK = 10
 
+#: The review-workbook rounds whose *identity* the docs must still record, and
+#: which are history by definition: round 3 and round 4 were each superseded by a
+#: later round, so their identities are verified as frozen artifacts and required
+#: to be recorded somewhere in the docs -- never as the current review object.
+HISTORICAL_IDENTITY_ROUNDS = (3, 4)
+
+#: The current review workbook round is *discovered* from the artifacts (see
+#: ``current_review_round``) instead of being hardcoded, so a later round never
+#: requires a gate edit: the docs must follow the newest round that actually has a
+#: complete delivered workbook, a structure gate and a delivered-content audit.
+CURRENT_ROUND_MIN = 5
+
+#: ``当前轮次 = 第 N 轮`` -- the state doc's own statement of which round it presents.
+CURRENT_ROUND_MARKER = re.compile(r"当前轮次\s*=\s*第\s*(\d+)\s*轮")
+
 #: A deviation may not be described as both uncoordinated and coordinated.
 UNCOORDINATED_PATTERNS = (r"尚未[^\n。]{0,24}协调", r"未(?:完全)?协调进")
 COORDINATED_PATTERNS = (r"已完全协调进", r"已(?:完全)?协调进门禁")
@@ -141,6 +156,87 @@ def sha256(path: Path) -> str:
 
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def round_workbook_identity(round_no: int) -> dict[str, dict[str, str]]:
+    """``{case: {build_id, workbook, workbook_sha256}}`` for one round.
+
+    The identity is read from the round's own machine artifacts (its build
+    manifest, or the round-4 final status for the round that predates the
+    manifest naming), never from the docs: the docs are checked against the
+    artifacts.
+    """
+
+    general = REPO / GENERALIZATION
+    out: dict[str, dict[str, str]] = {}
+    if round_no == 3:
+        for case in CASES:
+            path = general / f"{case}_review_workbook_build_round3.json"
+            if not path.is_file():
+                continue
+            data = load(path)
+            out[case] = {
+                "build_id": str(data.get("build_id") or ""),
+                "workbook": str(data.get("workbook") or ""),
+                "workbook_sha256": str(data.get("workbook_sha256") or ""),
+            }
+        return out
+    if round_no == 4:
+        path = general / ROUND4_FINAL_STATUS
+        if not path.is_file():
+            return out
+        for case, data in (load(path).get("cases") or {}).items():
+            build_dir = str(data.get("build_dir") or "")
+            out[case] = {
+                "build_id": Path(build_dir).name if build_dir else "",
+                "workbook": (
+                    str(Path(build_dir) / "投标项目复核表.xlsx") if build_dir else ""
+                ),
+                "workbook_sha256": str(data.get("workbook_sha256") or ""),
+            }
+        return out
+    for case in CASES:
+        path = general / f"{case}_review_workbook_build{round_no}.json"
+        if not path.is_file():
+            continue
+        data = load(path)
+        out[case] = {
+            "build_id": str(data.get("build_id") or ""),
+            "workbook": str(data.get("workbook") or ""),
+            "workbook_sha256": str(data.get("workbook_sha256") or ""),
+        }
+    return out
+
+
+def current_review_round() -> int:
+    """The newest review-workbook round with a complete delivered object.
+
+    "Complete" means all three cases have a build manifest naming their workbook
+    and sha256, plus a structure gate and a delivered-content audit.  The newest
+    such round is the current review object; every earlier round is history.
+    """
+
+    found: list[int] = []
+    for round_no in range(CURRENT_ROUND_MIN, CURRENT_ROUND_MIN + 40):
+        identity = round_workbook_identity(round_no)
+        if len(identity) != len(CASES):
+            continue
+        if not all(identity[case]["workbook_sha256"] for case in CASES):
+            continue
+        if not all(
+            (REPO / GENERALIZATION / f"review_workbook_round{round_no}_{case}.json").is_file()
+            for case in CASES
+        ):
+            continue
+        found.append(round_no)
+    return max(found) if found else 0
+
+
+def documented_current_round(state_text: str) -> int:
+    """The round the state doc itself presents as current (0 when unstated)."""
+
+    matches = [int(match.group(1)) for match in CURRENT_ROUND_MARKER.finditer(state_text)]
+    return max(matches) if matches else 0
 
 
 class Gate:
@@ -343,6 +439,125 @@ def check_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text:
     }
 
 
+def check_current_round_docs(
+    gate: Gate, state_text: str, decisions_text: str, checklist_text: str
+) -> dict:
+    """The current review-workbook round: artifacts first, then the docs.
+
+    The round is discovered from the artifacts, so this gate never hardcodes a
+    round as current.  The artifacts must still verify on disk (workbook sha256,
+    structure gate, delivered-content audit), and the docs must present *that*
+    round as the current review object -- naming its build ids and workbook
+    hashes in the authority doc and in the human checklist.  A superseded round
+    stays documented as history.
+    """
+
+    round_no = current_review_round()
+    gate.check(
+        "current_review_round_discovered",
+        round_no >= CURRENT_ROUND_MIN,
+        round=round_no,
+        note="newest round with three complete delivered workbooks + gates + audits",
+    )
+    entry: dict[str, object] = {"round": round_no, "cases": {}}
+    if round_no < CURRENT_ROUND_MIN:
+        return entry
+    identity = round_workbook_identity(round_no)
+    gate_paths: dict[str, dict] = {}
+    audit_paths: dict[str, dict] = {}
+    for case in CASES:
+        item = identity.get(case) or {}
+        workbook = REPO / str(item.get("workbook") or "")
+        digest = str(item.get("workbook_sha256") or "")
+        preserved = bool(workbook.is_file()) and bool(digest) and sha256(workbook) == digest
+        gate.check(
+            f"{case}_round{round_no}_workbook_preserved",
+            preserved,
+            build_id=item.get("build_id"),
+            workbook=item.get("workbook"),
+            workbook_sha256=digest,
+        )
+        gate_path = general_path(f"{case.replace('_', '')}_review_workbook{round_no}_gate.json")
+        structure = load(gate_path) if gate_path.is_file() else {}
+        gate_paths[case] = structure
+        gate.check(
+            f"{case}_round{round_no}_structure_gate_pass",
+            structure.get("result") == "PASS"
+            and structure.get("failed") == 0
+            and structure.get("passed") == structure.get("check_count") == 42,
+            result=structure.get("result"),
+            passed=structure.get("passed"),
+            check_count=structure.get("check_count"),
+            failed=structure.get("failed"),
+        )
+        audit_path = general_path(f"review_workbook_round{round_no}_{case}.json")
+        audit = load(audit_path) if audit_path.is_file() else {}
+        audit_paths[case] = audit
+        failed_fixtures = (audit.get("fixture_summary") or {}).get("failed")
+        gate.check(
+            f"{case}_round{round_no}_delivered_audit_pass",
+            audit.get("verdict") == "PASS"
+            and not audit.get("failed_checks")
+            and not failed_fixtures,
+            verdict=audit.get("verdict"),
+            failed_checks=audit.get("failed_checks"),
+            failed_fixtures=failed_fixtures,
+        )
+        entry["cases"][case] = {
+            "build_id": item.get("build_id"),
+            "workbook_sha256": digest,
+            "workbook_preserved": preserved,
+            "structure_gate": structure.get("result"),
+            "audit": audit.get("verdict"),
+        }
+
+    documented = documented_current_round(state_text)
+    gate.check(
+        f"state_doc_names_the_round{round_no}_pipeline",
+        f"Round{round_no}" in state_text and documented >= round_no,
+        documented_current_round=documented,
+        note="the authority doc must present this round, not a superseded one",
+    )
+    missing_builds = [
+        item["build_id"]
+        for item in identity.values()
+        if not item["build_id"]
+        or item["build_id"] not in state_text
+        or item["build_id"] not in checklist_text
+    ]
+    gate.check(
+        f"docs_name_the_current_round{round_no}_builds",
+        not missing_builds,
+        missing=missing_builds,
+    )
+    missing_hashes = [
+        case
+        for case, item in identity.items()
+        if not item["workbook_sha256"]
+        or item["workbook_sha256"] not in state_text
+        or item["workbook_sha256"] not in checklist_text
+    ]
+    gate.check(
+        f"docs_name_the_current_round{round_no}_xlsx_hashes",
+        not missing_hashes,
+        missing=missing_hashes,
+    )
+    previous = round_no - 1
+    gate.check(
+        f"docs_keep_round{previous}_as_history",
+        f"Round{previous}" in state_text
+        and documented > previous
+        and any(marker in state_text for marker in ("HISTORICAL", "历史")),
+        documented_current_round=documented,
+        note="a superseded round stays recorded, but never as the current object",
+    )
+    return entry
+
+
+def general_path(name: str) -> Path:
+    return REPO / GENERALIZATION / name
+
+
 def check_round4_docs(
     gate: Gate, state_text: str, decisions_text: str, checklist_text: str
 ) -> dict:
@@ -476,21 +691,32 @@ def check_round4_docs(
     else:
         gate.check("round4_full_suite_is_green", False, path=str(suite_path))
 
-    # --- documentation agreement ------------------------------------------- #
+    # --- documentation agreement: round 4 is HISTORY ------------------------ #
+    # Round 4 was the current review object when this gate was written; it has
+    # since been superseded (``check_current_round_docs`` owns the current round's
+    # identity).  What is required here is that the *historical* pipeline and its
+    # frozen identities stay recorded -- in the authority doc or the decisions
+    # doc, and under a history marker -- never that they are still current.
     gate.check(
-        "state_doc_names_the_round4_pipeline",
+        "state_doc_names_the_round4_pipeline_as_history",
         "Round4" in state_text
         and ROUND4_INVARIANT in state_text
-        and "RenderedReviewComponent" in state_text
-        and "review_rendering.py" in state_text
-        and "当前轮次" in state_text,
+        and "RenderedReviewComponent" in (state_text + decisions_text)
+        and "review_rendering.py" in (state_text + decisions_text),
+        invariant=ROUND4_INVARIANT,
+        history_marker=any(marker in state_text for marker in ("HISTORICAL", "历史")),
     )
     missing_paths = [
         build_id
         for build_id in ROUND4_BUILD_ID.values()
-        if build_id not in state_text or build_id not in checklist_text
+        if build_id not in state_text and build_id not in checklist_text
     ]
-    gate.check("docs_name_the_current_round4_builds", not missing_paths, missing=missing_paths)
+    gate.check(
+        "docs_name_the_round4_builds_as_history",
+        not missing_paths,
+        missing=missing_paths,
+        note="round 4 is history; its build ids must still be recorded somewhere in the docs",
+    )
 
     hashes = {
         case: (data.get("workbook_sha256") or "")
@@ -499,9 +725,13 @@ def check_round4_docs(
     missing_hashes = [
         case
         for case, digest in hashes.items()
-        if not digest or digest not in state_text or digest not in checklist_text
+        if not digest or (digest not in state_text and digest not in checklist_text)
     ]
-    gate.check("docs_name_the_current_round4_xlsx_hashes", not missing_hashes, missing=missing_hashes)
+    gate.check(
+        "docs_record_the_round4_xlsx_hashes_as_history",
+        not missing_hashes,
+        missing=missing_hashes,
+    )
 
     gate.check(
         "docs_record_the_round4_suite_counts",
@@ -541,10 +771,10 @@ def check_round4_docs(
         and "AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW" in decisions_text,
     )
     gate.check(
-        "checklist_current_excel_object_is_round4",
+        "checklist_records_the_round4_workbooks_as_history",
         "Round4" in checklist_text
         and all(build_id in checklist_text for build_id in ROUND4_BUILD_ID.values()),
-        note="the checklist must point the human at the round-4 workbooks",
+        note="the checklist keeps the round-4 workbooks as history; the CURRENT round is owned by check_current_round_docs",
     )
 
     return {"result": "PASS" if not gate.problems else "FAIL", "cases": cases, "suite": suite_counts}
@@ -686,14 +916,14 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
     else:
         gate.check("round3_full_suite_is_green", False, path=str(suite_path))
 
-    # --- documentation agreement ------------------------------------------- #
+    # --- documentation agreement: round 3 is HISTORY ------------------------ #
     gate.check(
-        "state_doc_names_the_round3_pipeline",
+        "state_doc_names_the_round3_pipeline_as_history",
         "Round3" in state_text
-        and "SourceRequirementAtom" in state_text
-        and "ReviewConcern" in state_text
-        and "review_concern.py" in state_text
-        and "当前轮次" in state_text,
+        and "SourceRequirementAtom" in (state_text + decisions_text)
+        and "ReviewConcern" in (state_text + decisions_text)
+        and "review_concern.py" in (state_text + decisions_text),
+        history_marker=any(marker in state_text for marker in ("HISTORICAL", "历史")),
     )
     missing_paths = [
         build_id
@@ -946,13 +1176,24 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
         actual_sha256=sha256(superseded_path) if superseded_path.is_file() else None,
     )
 
-    # G: the checklist's round-3 workbooks must be the final-status authority.
+    # G: the checklist's round-3 workbooks must agree with the round-3 final
+    #    status.  Round 3 is history, so the record may live in the authority doc
+    #    or in the checklist -- what matters is that the frozen identity is
+    #    recorded and matches the artifact the machine state names.
     for case, data in (final.get("cases") or {}).items():
         build_id = Path(str(data.get("build_dir") or "")).name
         digest = data.get("workbook_sha256")
+        recorded = (
+            bool(build_id)
+            and bool(digest)
+            and (
+                (build_id in checklist_text and digest in checklist_text)
+                or (build_id in state_text and digest in state_text)
+            )
+        )
         gate.check(
-            f"{case}_round3_workbook_in_checklist_matches_final_status",
-            bool(build_id) and build_id in checklist_text and bool(digest) and digest in checklist_text,
+            f"{case}_round3_workbook_identity_recorded_as_history",
+            recorded,
             build_id=build_id,
             workbook_sha256=digest,
         )
@@ -991,6 +1232,7 @@ def main() -> int:
     )
     round3 = check_round3_docs(gate, state_text, decisions_text, checklist_text)
     round4 = check_round4_docs(gate, state_text, decisions_text, checklist_text)
+    current = check_current_round_docs(gate, state_text, decisions_text, checklist_text)
 
     report = {
         "schema": "v1_docs_state_consistency/1",
@@ -998,6 +1240,7 @@ def main() -> int:
         "documented_build": build,
         "flags": flags,
         "full_suite": counts,
+        "current_round": current,
         "round3": round3,
         "round4": round4,
         "pointers": pointers,
@@ -1006,7 +1249,9 @@ def main() -> int:
         "failed_checks": gate.problems,
         "note": (
             "read-only: the gate compares the durable docs with the artifacts they "
-            "describe and never changes a verdict or an artifact"
+            "describe and never changes a verdict or an artifact.  The current "
+            "review-workbook round is discovered from the artifacts; rounds 3 and 4 "
+            "are verified as frozen history."
         ),
     }
     out = Path(args.out)

@@ -9,6 +9,10 @@ EXACT MATCHING EVIDENCE LOCATOR``
 
 Every assertion is about a *delivered workbook cell* or about a source-driven
 rule; the CASE001 fixture rows are the human's own review findings.
+
+The audited successor is the **current** one (round 9): the round-5/6/7 rules are
+re-checked on the newest delivered workbook, while the round-7/8 workbooks stay on
+disk as the artifacts the human reviewed and failed.
 """
 
 from __future__ import annotations
@@ -20,7 +24,7 @@ import pytest
 
 from scripts.v1_review_workbook_round6_report import Round6Report
 from scripts.v1_review_workbook_round7_report import Round7Report
-from scripts.v1_review_workbook_round8_report import BUILDS as SUCCESSOR_BUILDS
+from scripts.v1_review_workbook_round9_report import BUILDS as SUCCESSOR_BUILDS
 from tender_basic.applicability_invariants import (
     _text_in_span,
     classify_consequence_scope,
@@ -144,19 +148,37 @@ def test_successor_audit_closes_the_delivered_text_gates(
 
 
 def test_project_specific_schedule_supersedes_the_generic_template() -> None:
-    """CASE001: 采购预备会=不召开, 踏勘现场=不组织, 分包=不允许 are displayed."""
+    """CASE001: 采购预备会=不召开, 踏勘现场=不组织, 分包=不允许 are displayed.
+
+    The decision is bound to its **concern**, not to a row address: round 9 split
+    the pre-bid meeting decision from the question/clarification deadline (the two
+    had been delivered as one row, the round-8 human finding D56), so the row the
+    project decision lives on is not the round-8 row id any more.
+    """
 
     report = Round7Report("case_001", build_name=SUCCESSOR_BUILDS["case_001"])
     expected = {
-        "DR016": "不召开",
-        "DR032": "不组织",
-        "DR033": "不允许",
+        "PRE_BID_MEETING": "不召开",
+        "SITE_VISIT": "不组织",
+        "SUBCONTRACT": "不允许",
     }
-    for item_id, decision in expected.items():
-        row = _row(report, item_id)
-        assert decision in row["requirement"], (item_id, row["requirement"][:160])
+    for concern_id, decision in expected.items():
+        item = next((entry for entry in report.items if entry.concern_id == concern_id), None)
+        assert item is not None, concern_id
+        row = _row(report, item.item_id)
+        assert decision in row["requirement"], (concern_id, item.item_id, row["requirement"][:160])
         # the generic template must not be what the reviewer reads
-        assert "前附表规定" not in row["requirement"], item_id
+        assert "前附表规定" not in row["requirement"], (concern_id, item.item_id)
+
+    # the row that used to carry the pre-bid decision now carries its own source:
+    # the question/clarification deadline, never the pre-bid meeting decision
+    query = next(
+        (entry for entry in report.items if entry.concern_id == "QUERY_DEADLINE"), None
+    )
+    assert query is not None, "the question/clarification deadline must be its own row"
+    query_requirement = _row(report, query.item_id)["requirement"]
+    assert "采购预备会" not in query_requirement, query_requirement[:160]
+    assert "提出问题的时间" in query_requirement, query_requirement[:160]
 
 
 def test_generic_clause_is_kept_but_superseded() -> None:
@@ -288,14 +310,33 @@ def test_case001_historical_locator_findings_are_closed(case001: Round7Report) -
 
 
 def test_multi_clause_requirement_links_every_unit() -> None:
-    """A concern quoting several clauses links each unit explicitly (§20)."""
+    """A concern quoting several clauses links each unit explicitly (§20).
 
-    report = Round7Report("case_002", build_name=SUCCESSOR_BUILDS["case_002"])
-    row = _row(report, "DR026")
-    links = row["item"].evidence_units or []
-    assert links and links[0]["role"] == "PRIMARY"
-    linked = [link for link in links if link["role"] == "LINKED"]
-    assert linked, "a multi-clause requirement must link its other units"
+    The link set is decided by the row's own covered span, so the invariant is
+    asserted over the *corpus* rather than on one hardcoded row: whenever a row's
+    delivered requirement is not fully carried by its PRIMARY unit, the further
+    units are linked, and every link names a unit and the span it contributes.  A
+    row whose primary unit already carries the whole requirement needs no link
+    (round 9's CASE002 EVALUATION_RESPONSIVENESS row quotes one clause), so at
+    least one row must still exercise the link path or this test would be vacuous.
+    """
+
+    linked_rows = 0
+    for case in CASES:
+        report = Round7Report(case, build_name=SUCCESSOR_BUILDS[case])
+        for item in report.items:
+            links = list(item.evidence_units or ())
+            if not links:
+                continue
+            assert links[0]["role"] == "PRIMARY", (case, item.item_id)
+            linked = [link for link in links if link["role"] == "LINKED"]
+            if not linked:
+                continue
+            linked_rows += 1
+            for link in linked:
+                assert str(link.get("unit_id")), (case, item.item_id)
+                assert str(link.get("span")), (case, item.item_id)
+    assert linked_rows >= 3, "a multi-clause requirement must link its other units"
     assert all(link.get("unit_id") for link in linked)
     assert all(link.get("locator") for link in linked)
 

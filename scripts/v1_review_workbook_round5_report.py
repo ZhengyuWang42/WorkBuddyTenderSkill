@@ -581,7 +581,12 @@ class Round5Report:
 
         # L -- bank-acceptance ratios are their own scoring row.
         bank = self._item("SCORING_BANK_ACCEPTANCE")
-        bank_text = " ".join(self._components(bank, "NUMERIC_STATEMENT")) if bank else ""
+        # The ratio is read from the row's *delivered cell*, not from a declared
+        # NUMERIC_STATEMENT component: round 9 stopped declaring a numeric claim
+        # the cell does not display (the round-4 provenance gate requires every
+        # component to be present in the final cell), while the bank row still
+        # delivers its own ratios inside its tier checks ("100%接受银行承兑 得 4分").
+        bank_text = self._cell_text(bank) if bank else ""
         retention_rows = self._items("RETENTION_MONEY_RATIO", "SCORING_PAYMENT_CONDITION")
         self.record(
             "L",
@@ -595,7 +600,7 @@ class Round5Report:
 
         # M -- points belong to the exact scoring factor.
         payment_condition = self._item("SCORING_PAYMENT_CONDITION")
-        pc_points = " ".join(self._components(payment_condition, "NUMERIC_STATEMENT")) if payment_condition else ""
+        pc_points = self._cell_text(payment_condition) if payment_condition else ""
         self.record(
             "M",
             "each scoring row carries its own factor's points",

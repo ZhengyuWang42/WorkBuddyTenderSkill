@@ -138,10 +138,14 @@ class Check:
 class Round8Report:
     """Audit one case's round-8 successor workbook from its final cells."""
 
-    def __init__(self, case: str, *, case_dir: Path | None = None) -> None:
+    def __init__(
+        self, case: str, *, case_dir: Path | None = None, build_name: str | None = None
+    ) -> None:
         self.case = case
         self.case_dir = case_dir or (ROOT / "acceptance/workspace" / case)
-        self.build = self.case_dir / BUILDS[case]
+        # a later round passes its own successor so the same audit runs against the
+        # newer build without rewriting the round-8 evidence
+        self.build = self.case_dir / (build_name or BUILDS[case])
         self.workbook = self.build / "投标项目复核表.xlsx"
         # the round-7 report reads the *frozen* round-7 build for its plan; the
         # round-8 audit must read the delivered round-8 cells, so its own round-4

@@ -104,6 +104,7 @@ TYPE_MODULE: dict[str, str] = {
     "ELECTRONIC": MODULE_SIGNATURE,
     "SUBMISSION": MODULE_SUBMISSION,
     "PACKAGING": MODULE_SUBMISSION,
+    "SUBMISSION_DEADLINE": MODULE_SUBMISSION,
     "OTHER": MODULE_DOCUMENT,
 }
 
@@ -307,8 +308,7 @@ VALUE_TYPES: frozenset[str] = frozenset(
 )
 
 RISK_BY_TYPE: dict[str, str] = {
-    "REJECTION": "一票否决",
-    "QUALIFICATION": "高",
+    "REJECTION": "一票否决",    "QUALIFICATION": "高",
     "PERSONNEL": "高",
     "PERFORMANCE": "高",
     "FINANCIAL": "高",
@@ -328,7 +328,7 @@ RISK_BY_TYPE: dict[str, str] = {
     "EVALUATION": "中",
     "PROOF": "高",
     "FORM": "高",
-    "SUBMISSION": "一票否决",
+    "SUBMISSION": "高",
     "PACKAGING": "高",
     "CONTRACT": "中",
     "OTHER": "中",

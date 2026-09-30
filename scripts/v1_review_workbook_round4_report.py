@@ -783,6 +783,9 @@ class Round4Report:
             resolve_applicable_sources(atoms, discover_schedule_rows(self.document), self.document),
         )
         backings: dict[str, str] = {}
+        unit_positions = {
+            str(unit.requirement_id): index for index, unit in enumerate(index.units)
+        }
         for concern in build_concerns(atoms):
             parts: list[str] = []
             for atom in getattr(concern, "atoms", ()):
@@ -794,6 +797,14 @@ class Round4Report:
                 if unit is not None:
                     parts.append(str(unit.text))
                     parts.append(str(getattr(unit, "section", "") or ""))
+                    # Round 7 lets a row quote the unit that continues its own cut
+                    # sentence ("…从最后一笔款项应付之日" | "起给甲方 的支付宽限期…"),
+                    # bounded to the immediately following unit; the rendered-text
+                    # ownership check must use the same backing, or a completion the
+                    # repair guard allows is reported as a foreign concept.
+                    position = unit_positions.get(str(unit.requirement_id))
+                    if position is not None and position + 1 < len(index.units):
+                        parts.append(str(index.units[position + 1].text))
             parts.extend(str(name) for name in concern.owned_materials())
             spec = concern_spec(concern.concern_id)
             for field in getattr(spec, "fact_fields", ()) or ():
@@ -1299,8 +1310,13 @@ class Round4Report:
         ratio_items = [
             item for item in self.items if item.concern_id == "RETENTION_MONEY_RATIO"
         ]
+        # The percentage must be *5%*, not a 5 that ends a larger figure: round 9
+        # delivers a scoring tier's own condition verbatim ("预付款比例小于等于
+        # 15%"), and matching the trailing "5%" of "15%" would report a payment
+        # ratio the row never claims.
         payment_ratio_wording = re.compile(
-            r"(付款|支付|计分|得分)\s*比例[^。；\n]{0,8}5\s*%|5\s*%[^。；\n]{0,4}(付款|支付|计分)\s*比例"
+            r"(付款|支付|计分|得分)\s*比例[^。；\n]{0,8}(?<![\d.])5\s*%"
+            r"|(?<![\d.])5\s*%[^。；\n]{0,4}(付款|支付|计分)\s*比例"
         )
         r_ok = bool(ratio_items)
         for item in self.items:

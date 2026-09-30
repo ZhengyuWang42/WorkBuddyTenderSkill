@@ -449,14 +449,68 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-**当前复核对象（CURRENT = Round8）**：第 8 轮后继构建，Word 产物与 closure8 逐字节相同
+**当前复核对象（CURRENT = Round9）**：第 9 轮后继构建，Word 产物与 closure8/closure9 逐字节相同
 （`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
 
 | 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
 | --- | --- | --- | --- |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2/投标项目复核表.xlsx` | 50 | `e97c7072471fdf2d81d232dee03ab0acfe75139facd082fe545e5772078217f2` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook9r2/投标项目复核表.xlsx` | 45 | `d836f8dd38a96f4638858596528599840fc4f171db76ff778865936ec85a6d23` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure9_review_workbook9r2/投标项目复核表.xlsx` | 49 | `c675c9a223d9cfe97356b13b1c97e7e59cb72c8424e93a858e1a781f94fdd57a` |
+
+**首次第 9 轮后继构建（HISTORICAL，缺陷证据，逐字节保留）**：`..._closure9_review_workbook9`
+（CASE001 sha256 `38a90a0877e253167b70cbda08379e673244b1da39ec7fd1d583e07816fe4878`、CASE002
+`178166c989cd54623efb7a253ae4ae366f0c1522d6f31a41362e763ded69d360`、CASE003
+`849a2fcd7645ef6872b11ea65f3069fd44653e36cecc2066a5abfb1284eb5f53`）；它暴露了评分行的
+`得分`/`评分` 外来概念与未显示数值组件两处缺陷，修复后新建 `...9r2`。
+
+**历史复核对象（HISTORICAL / SUPERSEDED = Round8）**：第 8 轮后继构建（人工第 8 轮 FAIL 的对象，
+逐字节保留、未覆盖）：
+
+| 案例 | 工作簿（历史，Round8） | 行数 | XLSX sha256 |
+| --- | --- | --- | --- |
 | CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8/投标项目复核表.xlsx` | 49 | `130c7638e14b96e7d4e2af79c0f6dffaf88c2d83ae9f5f8d5626ee43a2df5c8d` |
 | CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 45 | `af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa` |
 | CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 48 | `0911b930fe14ed0d5d0a3ac988a1335588bab22f96b84f089aeff667bf193e2d` |
+
+更早的复核对象（Round4 / Round3，HISTORICAL / SUPERSEDED）：Round4 构建
+`v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4` / `v1_round4_closure8_review_workbook4`
+（XLSX sha256 `be084b7a…52c3c` / `ea6c4f2d…59ea9` / `3bb048a4…60735`）与 Round3 构建
+`v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3` / `v1_round4_closure8_review_workbook3`
+（XLSX sha256 `746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5` /
+`e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05` /
+`0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322`）同样逐字节保留；
+Round3 的机器状态以 `review_workbook_round3_final_status_reconciled.json` 为准。
+
+### 4.3 第 9 轮（送达内容语义 + 定位精确格式化）人工复核点（全部未勾选）
+
+本轮修复规则：分档只在**其中一档**成立；项目决定与提问/澄清截止是两个关切；复核动作只引用
+**本行自己的**页码/条款；源文拼接与外来标题必须清理；基本分与最高分是两件事；
+质保金/质保期行必须引用**本合同条款**；证据定位必须等于**本行规范证据单元经唯一生产格式化函数**
+的输出，并与已保存 XLSX **精确相等**（禁止前缀/包含/模糊匹配）。
+
+- [ ] 银行承兑分档（D23）与付款条件分档（D38）各自保留条件与分值，且只要求满足其中一档
+- [ ] 报价公式（D50）：基本分 30 与本项最高 40 是两件事；评分规则为**核验**而非要求投标人重述
+- [ ] 采购预备会（D56）与提问/澄清截止是两个独立关切，各自的动作只讲自己的事
+- [ ] 提交截止行（D57）的动作只引用本行自己的页码/条款
+- [ ] 营业执照（D16）与响应文件格式（D22）没有重复/损坏的源文拼接
+- [ ] 质保期释放（D40）与质保金比例（D43）行引用**本合同条款**，不出现外来章节标题
+- [ ] 有效期行（D34）的定位指向本行自己的前附表条款
+- [ ] 证据定位等于 `expected_locator_for_unit` 的输出（精确比较，无前缀/模糊匹配）
+- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
+
+机器闭环证据（**已通过，不代替人工复核**）：
+
+- 定位门禁 `round9_gate_integrity.json` = **PASS**（`ROUND9_GATE_INTEGRITY = PASS`；
+  `locator comparison = EXACT_FORMATTER_OUTPUT`；`prefix/fuzzy matching = 0`；
+  `actual saved XLSX locator semantic mismatches = 0`；三案例 50/45/49 = 144 行逐行比较）
+- 第 9 轮三案例审计 PASS：`review_workbook_round9_case_00{1,2,3}.json` / `.md`
+  （`0 failed check` / `0 failed fixture`）、泛化 `review_workbook_round9_generalization.json` = PASS
+- 第 9 轮送达文本前后对照：`review_workbook_round9_case_001_before_after.json` / `.md`
+  （第 8→9 轮逐行、按地址比较，含定位门禁表）
+- 第 5 / 6 / 7 轮门禁在**第 9 轮构建上**复跑通过：`review_workbook_round9_banked_regressions.json`
+- 复核工作簿门禁 `case00{1,2,3}_review_workbook9_gate.json` = PASS（42/42）
+- Word 产物逐字节未变（`word_render_repeated = false`）
 
 ### 4.1 第 7 轮人工 Excel 复核结论（保留，不得改写）
 

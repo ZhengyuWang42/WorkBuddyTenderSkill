@@ -742,6 +742,100 @@ def _is_fee_clause(text: str) -> bool:
     return any(term in text for term in _FEE_CTX)
 
 
+#: A numbered alternative of a scoring standard ("1、100%接受银行承兑的得4 分").
+#: The source often drops the punctuation at a wrapped line ("…得2 分；3\n50%以下
+#: …得1 分。"), so a number that *ends a line* is a tier marker as well; a number
+#: that merely starts a ratio ("；50%以下") is not.
+_TIER_MARK_BOUNDARY_RE = re.compile(r"(?:^|[；;。：:)）])(\s*)[（(]?(\d{1,2})(\s*)([、.．)）]?)")
+#: The same marker after whitespace, but only when it is punctuated ("分） 1、…").
+_TIER_MARK_SPACED_RE = re.compile(r"(?<=\s)(\d{1,2})\s*([、.．)）])")
+#: The score a tier awards ("…的得12 分", "…的得 4分").
+_SCORE_TAIL_RE = re.compile(r"的?\s*得\s*(\d+(?:\.\d+)?)\s*分")
+
+
+def _tier_marks(text: str) -> list[tuple[int, int]]:
+    """``(start, end)`` of every match that really opens a scoring tier."""
+
+    spans: dict[int, tuple[int, int]] = {}
+    for match in _TIER_MARK_BOUNDARY_RE.finditer(text):
+        lead, _number, trail, punctuation = match.groups()
+        if punctuation or trail or (lead and "\n" in lead):
+            spans[match.start()] = (match.start(), match.end())
+    for match in _TIER_MARK_SPACED_RE.finditer(text):
+        spans.setdefault(match.start(), (match.start(), match.end()))
+    return [spans[start] for start in sorted(spans)]
+
+
+def scoring_tiers(text: str) -> list[tuple[str, str]]:
+    """``(condition, score)`` for every numbered alternative of a scoring standard.
+
+    The source awards different points per alternative ("1、免预付款…的得12 分；
+    2、预付款比例小于等于15%…的得8 分；3、预付款比例大于15%…的得4 分。").  A tier
+    is rendered from its *own* condition and score, so the reviewer can see which
+    ratio earns which score, and the tiers stay conditional alternatives instead
+    of simultaneous obligations (round-9 fixtures D23/D38).
+    """
+
+    value = str(text or "")
+    marks = _tier_marks(value)
+    if len(marks) < 2:
+        return []
+    tiers: list[tuple[str, str]] = []
+    for index, (_start, end) in enumerate(marks):
+        next_start = marks[index + 1][0] if index + 1 < len(marks) else len(value)
+        segment = value[end:next_start]
+        score = _SCORE_TAIL_RE.search(segment)
+        if score is None:
+            continue
+        condition = segment[: score.start()].strip(" \u3000，,；;：:。的")
+        condition = re.sub(r"[\s\u3000]+", " ", condition)
+        if not condition:
+            continue
+        tiers.append((condition, f"{score.group(1)}分"))
+    return tiers
+
+
+def _scoring_enumeration(texts: Sequence[str]) -> str:
+    """The given text that carries the most complete scoring enumeration."""
+
+    best = ""
+    best_tiers: list[tuple[str, str]] = []
+    for text in texts:
+        candidate = str(text or "")
+        tiers = scoring_tiers(candidate)
+        if len(tiers) < 2:
+            continue
+        if len(tiers) > len(best_tiers) or (
+            len(tiers) == len(best_tiers) and len(candidate) > len(best)
+        ):
+            best, best_tiers = candidate, tiers
+    return best
+
+
+def scoring_enumeration_span(text: str) -> str:
+    """The *enumeration* part of a scoring standard: first tier through last.
+
+    The source cell holding a scoring standard also carries its factor caption
+    and the tail of the previous cell ("分） 1、100%接受银行承兑的得 4 分；…"), so a
+    requirement derived from the unit must be cut to the enumeration itself.
+    """
+
+    value = str(text or "")
+    marks = _tier_marks(value)
+    if len(marks) < 2:
+        return ""
+    last_start, last_end = marks[-1]
+    score = _SCORE_TAIL_RE.search(value[last_end:])
+    if score is None:
+        return ""
+    start = marks[0][0]
+    end = last_end + score.end()
+    if value[end : end + 1] in "。；;":
+        end += 1
+    span = re.sub(r"[\s\u3000]+", " ", value[start:end]).strip(" \u3000；;")
+    return span if len(scoring_tiers(span)) >= 2 else ""
+
+
 def _summarize_requirement(
     units: Sequence[SourceRequirementUnit],
     limit: int = 180,
@@ -1294,6 +1388,50 @@ _FEE_FRAGMENT_RE = re.compile(r"(?:\d+[、.)]?\s*)?[^。；\n]*(?:售价|工本�
 _ANAPHORIC_ONLY_RE = re.compile(r"(此项|本项|该事项|上述|本条|该表)")
 
 
+#: A schedule-style front table ("供应商须知前附表", "评审办法前附表").  A clause
+#: title that merely *mentions* the schedule ("7.3.1 在签订合同前，成交供应商应按
+#: 供应商须知前附表规定的形式…") is not a schedule section.
+_SCHEDULE_SECTION_RE = re.compile(r"^[\u4e00-\u9fa5A-Za-z]{0,10}(?:前附表|附表)$")
+#: A stray head token ("准 供应商名称…"): the tail of a table cell, not a statement.
+#: A real clause may start with a short word and a space ("剩余 5%作为质保金"), so
+#: the stray head must run into another *word*, never into a value.
+_STRAY_HEAD_RE = re.compile(r"^[\u4e00-\u9fa5][\s\u3000]+[\u4e00-\u9fa5]")
+
+
+def _schedule_section(section: str) -> bool:
+    """Is this section a schedule-style front table?"""
+
+    text = re.sub(r"^[\*★☆\s]*\d+(?:\.\d+)*\s*", "", str(section or "")).strip()
+    return bool(_SCHEDULE_SECTION_RE.match(text))
+
+
+#: A clause label at the head of an atom's text ("2.1 供应商须…", "*3.3.1 询比有效期").
+_ATOM_CLAUSE_RE = re.compile(r"^[\*★☆\s]*(\d+(?:\.\d+)*)")
+#: A numbered list item that continues an enumeration ("（1）《…》", "(2) 按本章…").
+_LIST_ITEM_RE = re.compile(r"^[\s\u3000]*[（(]\d{1,2}[)）]|^[\s\u3000]*\d{1,2}\s*[、.．]")
+
+
+def _atom_clause(text: str) -> str:
+    match = _ATOM_CLAUSE_RE.match(str(text or ""))
+    return match.group(1) if match else ""
+
+
+def _clause_family(clause: str) -> str:
+    """``7.3.1`` -> ``7.3``: the clause's own family, not its sub-paragraph."""
+
+    parts = [part for part in str(clause or "").split(".") if part]
+    return ".".join(parts[:-1]) if len(parts) >= 3 else ".".join(parts)
+
+
+def _is_list_continuation(text: str) -> bool:
+    """A numbered list item that continues an enumeration (never a new clause)."""
+
+    value = str(text or "")
+    if _atom_clause(value):
+        return False  # "3.7.1 响应文件应参照…" is its own clause, not a list item
+    return bool(_LIST_ITEM_RE.match(value))
+
+
 def _concern_summary(concern: Any, limit: int = 180) -> str:
     """Requirement text built ONLY from atoms owned by this concern.
 
@@ -1356,6 +1494,54 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
         ranked.append((score, order, atom))
     ranked.sort(key=lambda row: (row[0], row[1]))
 
+    # Round 9: the evaluation schedule's cells restate other chapters' clauses
+    # ("准 供应商名称 供应商名称 与营业执照一致" / "准 响应文件格式 响应文件格式
+    # 符合…").  They are evidence for the *evaluation* row, not text for the clause
+    # they restate, so they are never rendered into a clause row's requirement
+    # (round-9 fixtures D16/D22).  A stray head fragment is excluded for the same
+    # reason: it is the tail of a cell, not a statement.
+    primary_section = str(getattr(ranked[0][2], "source_section", "") or "") if ranked else ""
+    if primary_section and not _schedule_section(primary_section):
+        ranked = [
+            row
+            for row in ranked
+            if not _schedule_section(str(getattr(row[2], "source_section", "") or ""))
+        ]
+    ranked = [
+        row
+        for row in ranked
+        if not (
+            _STRAY_HEAD_RE.match(str(getattr(row[2], "source_text", "") or ""))
+            and len(str(getattr(row[2], "source_text", "") or "")) < 60
+        )
+    ]
+    # Only atoms from the row's *own* clause family, and the list items that
+    # continue its enumeration on the same page or the next, are the requirement.
+    # A neighbouring clause's fragment ("(6) 响应文件格式。" from the
+    # response-composition list, or a note on page 49) is related evidence, not
+    # this clause's wording (round-9 fixtures D16/D22).
+    if ranked:
+        primary_text = str(getattr(ranked[0][2], "source_text", "") or "")
+        primary_clause = _atom_clause(primary_text)
+        primary_page = getattr(ranked[0][2], "source_page", None)
+        kept: list[tuple[int, int, Any]] = []
+        for row in ranked:
+            text = str(getattr(row[2], "source_text", "") or "")
+            clause = _atom_clause(text)
+            page = getattr(row[2], "source_page", None)
+            same_family = bool(
+                primary_clause
+                and clause
+                and _clause_family(clause) == _clause_family(primary_clause)
+            )
+            nearby = bool(
+                primary_page and page and abs(int(page) - int(primary_page)) <= 1
+            )
+            if same_family or (nearby and _is_list_continuation(text)):
+                kept.append(row)
+        if kept:
+            ranked = kept
+
     excerpts: list[str] = []
     for _score, _order, atom in ranked[:3]:
         cleaned = _clean(_FEE_FRAGMENT_RE.sub("", str(atom.source_text)))
@@ -1378,7 +1564,18 @@ def _concern_summary(concern: Any, limit: int = 180) -> str:
         if len(excerpts) >= 2:
             break
     summary = "；".join(_dedupe_repeated_phrases(part) for part in excerpts if part)
-    return _sentence_bounded(summary, limit)
+    summary = _sentence_bounded(summary, limit)
+    # Round 9: a scoring factor's standard is an *enumeration of alternatives*.
+    # The excerpt ranking may keep only the first alternatives (or a corrupted
+    # copy of one of them), which both truncates the delivered standard and hides
+    # the tier a bidder would be scored on.  When one of the concern's own atoms
+    # states the enumeration more completely, that reading is the requirement.
+    complete = _scoring_enumeration(
+        [str(getattr(atom, "source_text", "") or "") for atom in atoms] + [summary]
+    )
+    if complete and len(scoring_tiers(complete)) > len(scoring_tiers(summary)):
+        summary = _sentence_bounded(complete, max(limit, len(complete)))
+    return summary
 
 
 #: How long a shared opening two chunks need before they are the same clause.
@@ -1677,6 +1874,7 @@ def synthesize_concern_point(
     linked_fields: Sequence[str] = (),
     requirement_type: str | None = None,
     topic: str | None = None,
+    requirement_override: str = "",
 ) -> ReviewPoint | None:
     """Build a ReviewPoint whose every component is owned by ``concern``.
 
@@ -1684,6 +1882,11 @@ def synthesize_concern_point(
     this module, so the reverse import is avoided); only its ownership surface is
     used: ``concern_id``/``label``/``question``/``atoms``/``owned_numbers``/
     ``owned_materials``/``owned_consequence``/``owned_score_rule``.
+
+    ``requirement_override`` is the concern's own evidence-unit text when the
+    concern's atoms only carry *fragments* of a scoring standard: the delivered
+    requirement and its tiers must come from the complete source enumeration, not
+    from an extraction fragment (round-9 fixture D38).
     """
 
     concern_id = str(getattr(concern, "concern_id", "") or "")
@@ -1693,6 +1896,10 @@ def synthesize_concern_point(
 
     owned_numbers = list(concern.owned_numbers())
     summary = _concern_summary(concern)
+    if requirement_override and len(scoring_tiers(requirement_override)) > len(
+        scoring_tiers(summary)
+    ):
+        summary = requirement_override
     if not summary:
         return None
 
@@ -1732,19 +1939,41 @@ def synthesize_concern_point(
     anchor = _anchor([_unit_like_atom(atom) for atom in atoms]) if atoms else ""
     if anchor:
         checks.append(f"依据{anchor}逐条比对响应文件对应章节")
-    # Round 8: a scoring factor that awards different points per alternative must
-    # be presented as *conditional* tiers.  Requiring the bidder to "载明" every
-    # tier would ask it to claim all the mutually exclusive alternatives at once.
+    # Round 8/9: a scoring factor that awards different points per alternative
+    # must be presented as *conditional* tiers.  Requiring the bidder to "载明"
+    # every tier would ask it to claim all the mutually exclusive alternatives at
+    # once, and a pass criterion that lists each tier independently reads as a
+    # simultaneous obligation (round-9 fixtures D23/D38).  Each tier is therefore
+    # rendered from its own source condition and score, and an award parameter
+    # (a base score / a ceiling) is verified by the reviewer from the response
+    # quotation instead of being demanded as a bidder declaration (fixture D50).
+    tiers = scoring_tiers(summary)
     tier_values = [value for value in owned_numbers if value.role == ROLE_TIER_SCORE]
-    scored_values = [value for value in owned_numbers if value.role != ROLE_TIER_SCORE]
-    for value in scored_values[:4]:
-        checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value, owned_backing)}")
-    if tier_values:
+    rule_values = [
+        value for value in owned_numbers if value.role in (ROLE_MAX_SCORE, ROLE_BASE_SCORE)
+    ]
+    scored_values = [
+        value
+        for value in owned_numbers
+        if value.role not in (ROLE_TIER_SCORE, ROLE_MAX_SCORE, ROLE_BASE_SCORE)
+    ]
+    if tiers:
         checks.append("按分档分别核对：本条仅需满足其中一档，响应文件选择哪一档就按该档计")
-        for value in tier_values[:4]:
-            checks.append(
-                f"逐档核对：{value.value} 对应的响应内容在响应文件中可核验"
-            )
+        for condition, score in tiers[:4]:
+            checks.append(f"逐档核对：{condition} 得 {score}；仅当该档为响应文件所选档位时计分")
+    else:
+        for value in scored_values[:4]:
+            checks.append(f"核对响应文件已载明：{_value_sentence(value.role, value.value, owned_backing)}")
+    if rule_values:
+        rule_text = "，".join(
+            _value_sentence(value.role, value.value, owned_backing) for value in rule_values[:3]
+        )
+        # Round 9: the award parameter is verified by the reviewer from the response
+        # quotation (never demanded as a bidder declaration, fixture D50).  The
+        # instruction therefore reuses the row's own review wording: "得分"/"评分"
+        # are domain concepts the source clause need not carry, and naming them
+        # would leak a foreign concept into the delivered cell.
+        checks.append(f"按上述要求的数值逐项核对响应报价（{rule_text}）")
 
     criteria: list[str] = []
     base_criterion = CONCERN_PASS_CRITERIA.get(concern_id, "")
@@ -1753,10 +1982,16 @@ def synthesize_concern_point(
     if foreign_terms(base_criterion, owned_backing):
         base_criterion = _derived_criterion(concern, owned_backing)
     criteria.append(base_criterion)
-    for value in scored_values[:3]:
-        criteria.append(f"{_value_sentence(value.role, value.value, owned_backing)}，且响应文件一致。")
-    if tier_values:
+    if tiers:
         criteria.append("响应文件明确接受其中一个分档即可，不得要求同时满足全部分档。")
+    else:
+        for value in scored_values[:3]:
+            criteria.append(f"{_value_sentence(value.role, value.value, owned_backing)}，且响应文件一致。")
+    if rule_values:
+        rule_text = "，".join(
+            _value_sentence(value.role, value.value, owned_backing) for value in rule_values[:3]
+        )
+        criteria.append(f"复核人按上述要求的数值逐项核对该响应报价（{rule_text}）。")
 
     consequence, consequence_atom = concern.owned_consequence()
     score_text, score_atom = concern.owned_score_rule()

@@ -284,8 +284,12 @@ def _looks_like_heading(text: str) -> bool:
     )
     if structural:
         # A numbered clause containing a complete sentence is not a section
-        # heading merely because it contains a review keyword.
-        if value.endswith(("。", "；", ";", "，", ",", "：", ":")):
+        # heading merely because it contains a review keyword.  A *title* never
+        # carries sentence punctuation at all: the extraction emits the truncated
+        # body of a clause as its own fragment, and accepting it as a heading made
+        # every following row cite that sentence as its section (round-9 fixture
+        # D31: "3.4.1招标人在投标人须知前附表中要求投标人提交投标保证金的，").
+        if re.search(r"[，。；;：:,]", value):
             return False
         return len(value) <= 42 or value.endswith(("办法", "标准", "格式", "组成", "要求", "须知", "审查", "条款", "准备"))
     marker = (
@@ -294,6 +298,31 @@ def _looks_like_heading(text: str) -> bool:
         "开标", "合同条款", "电子投标", "投标文件组成", "响应文件组成",
     )
     return value in marker or (len(value) <= 32 and any(value.endswith(term) for term in marker))
+
+
+_CLAUSE_LABEL_RE = re.compile(r"^\s*[*★☆]?\s*(\d+(?:\.\d+)*)")
+
+
+def _section_for_fragment(section: str, text: str) -> str:
+    """The section, only while it belongs to the fragment's own clause family.
+
+    One page commonly lists several numbered items ("3.2 法定代表人授权书…",
+    "3.4 投标保证金…").  A fragment whose own clause is 3.4 may not cite the 3.2
+    item as its section: that is a different obligation of the same page.
+    """
+
+    own = _CLAUSE_LABEL_RE.match(str(text or ""))
+    head = _CLAUSE_LABEL_RE.match(str(section or ""))
+    if not own or not head:
+        return section
+    own_clause, head_clause = own.group(1), head.group(1)
+    if (
+        own_clause == head_clause
+        or own_clause.startswith(f"{head_clause}.")
+        or head_clause.startswith(f"{own_clause}.")
+    ):
+        return section
+    return ""
 
 
 def _iter_fragments(document: NormalizedDocument) -> list[_Fragment]:
@@ -350,6 +379,11 @@ def _iter_fragments(document: NormalizedDocument) -> list[_Fragment]:
             if _looks_like_heading(text):
                 current_section_by_page[page] = _compact(text)[:120]
                 section = current_section_by_page[page]
+            # A section that names a *different* clause than the fragment's own
+            # ("3.2 法定代表人授权书…" over a 3.4 item) is another item of the same
+            # page, not this fragment's section: the reviewer must not be sent to it
+            # (round-9 fixtures D40/D43's class, extended to all rows).
+            section = _section_for_fragment(section, text)
             key = _locator_key(locator)
             if key not in seen:
                 fragments.append(

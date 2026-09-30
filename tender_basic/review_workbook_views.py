@@ -1409,6 +1409,45 @@ def _number(value: str):
     return value
 
 
+#: The class of a blank form that asks the bidder for a price.
+_QUOTATION_FORM_CLASS_RE = re.compile(r"空白报价表单")
+
+
+def _blank_form_groups(blank_forms: Sequence[dict]) -> list[tuple[str, list[dict]]]:
+    """The presentation sections the blank source forms are listed under.
+
+    A blank form that asks for a price is a *quotation* form; a form that asks for
+    experience or qualification evidence is not, and the two may not share a
+    section or a total (round-9 page-53 finding).
+    """
+
+    quotation: list[dict] = []
+    other: list[dict] = []
+    for form in blank_forms:
+        form_class = str(form.get("form_class") or "")
+        if _QUOTATION_FORM_CLASS_RE.search(form_class):
+            quotation.append(form)
+        else:
+            other.append(form)
+    groups: list[tuple[str, list[dict]]] = []
+    if quotation:
+        groups.append(
+            ("源空白报价表单（源文件要求填写、当前空白，需供应商报价）", quotation)
+        )
+    if other:
+        groups.append(
+            (
+                "源空白业绩/资格等非报价表单（源文件要求填写、当前空白；不计入报价）",
+                other,
+            )
+        )
+    return groups
+
+
+#: Chinese section numbers the 04 sheet's presentation sections use.
+_CN_SECTION_NUMBERS = ("一", "二", "三", "四", "五", "六", "七", "八", "九", "十")
+
+
 def _build_pricing(workbook, *, project_facts, document, build_meta) -> dict:
     title = SHEET_TITLES[4]
     if title in workbook.sheetnames:
@@ -1527,45 +1566,54 @@ def _build_pricing(workbook, *, project_facts, document, build_meta) -> dict:
     row = price_table.row + 1
 
     if blank_forms:
-        ws.cell(
-            row=row,
-            column=1,
-            value="三、源空白报价表单（源文件要求填写、当前空白，需供应商报价）",
-        ).font = SECTION_FONT
-        row += 1
-        form_headers = [
-            "源页码",
-            "源表序号",
-            "源表标题/列名",
-            "空白行数",
-            "表单类型（按源标题与列结构判定）",
-            "说明",
-            MANUAL_CONCLUSION,
-            MANUAL_NOTE,
-        ]
-        form_table = _Table(
-            ws,
-            row,
-            form_headers,
-            widths=(8, 10, 54, 9, 34, 34, 13, 20),
-            manual_from=7,
-        )
-        for form in blank_forms:
-            title = _text(form.get("heading"))
-            columns = _clip(form["columns"], 300)
-            form_table.add(
-                form["page"] if form["page"] is not None else "",
-                form["table_index"] if form["table_index"] is not None else "",
-                f"{title}｜{columns}" if title else columns,
-                form["capacity"],
-                form.get("form_class", ""),
-                "源文件给出空白表单，无任何填写数据；工作簿不填写、不推测",
-                DEFAULT_MANUAL,
-                "",
-                height=26,
+        # Round 9: a blank *price* form and a blank experience/qualification form
+        # are presented in their own sections.  Classifying the form was not
+        # enough: listing the similar-project-history table under
+        # "三、源空白报价表单" still grouped a non-price form with the quotation
+        # forms and left the section's totals claiming it (round-9 page-53
+        # finding).  Both groups keep the source evidence and the blank state.
+        section_number = 3
+        for group_label, group_forms in _blank_form_groups(blank_forms):
+            ws.cell(
+                row=row,
+                column=1,
+                value=f"{_CN_SECTION_NUMBERS[section_number]}、{group_label}",
+            ).font = SECTION_FONT
+            row += 1
+            form_headers = [
+                "源页码",
+                "源表序号",
+                "源表标题/列名",
+                "空白行数",
+                "表单类型（按源标题与列结构判定）",
+                "说明",
+                MANUAL_CONCLUSION,
+                MANUAL_NOTE,
+            ]
+            form_table = _Table(
+                ws,
+                row,
+                form_headers,
+                widths=(8, 10, 54, 9, 34, 34, 13, 20),
+                manual_from=7,
             )
-        _manual_validation(ws, "F", form_table.first_data_row, form_table.last_data_row)
-        row = form_table.row + 1
+            for form in group_forms:
+                title = _text(form.get("heading"))
+                columns = _clip(form["columns"], 300)
+                form_table.add(
+                    form["page"] if form["page"] is not None else "",
+                    form["table_index"] if form["table_index"] is not None else "",
+                    f"{title}｜{columns}" if title else columns,
+                    form["capacity"],
+                    form.get("form_class", ""),
+                    "源文件给出空白表单，无任何填写数据；工作簿不填写、不推测",
+                    DEFAULT_MANUAL,
+                    "",
+                    height=26,
+                )
+            _manual_validation(ws, "F", form_table.first_data_row, form_table.last_data_row)
+            row = form_table.row + 1
+            section_number += 1
 
     ws.cell(row=row, column=1, value=(
         "说明：单价、小计、限价均为源文件自身的单元格内容，工作簿不计算、不换算、不合并任何价格；"

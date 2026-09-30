@@ -501,6 +501,19 @@ _register(
         rationale="a conditional site-visit rule keeps its condition; it is not unconditional bidder work",
     )
 )
+_register(
+    _c(
+        "PRE_BID_MEETING",
+        KIND_INFORMATIONAL,
+        required_signatures=(r"(采购预备会|预备会)",),
+        # the row is the *project decision* about the pre-bid meeting; the
+        # question/clarification deadline is a different concern with its own
+        # source (round-9 fixture D56)
+        forbidden_signatures=(r"(提出问题的时间|提出问题的截止|供应商提问|澄清的时间)",),
+        allowed_consequences=frozenset({CONSEQUENCE_NONE}),
+        rationale="the pre-bid meeting decision is informational and never the question deadline",
+    )
+)
 
 # --- bonds ------------------------------------------------------------------ #
 

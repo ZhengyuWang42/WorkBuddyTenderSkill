@@ -46,15 +46,20 @@ def _write(stem: str, data: dict[str, Any]) -> None:
     )
 
 
-def run_case(case: str) -> dict[str, Any]:
-    build_name = BUILDS[case]
+def run_case(
+    case: str,
+    *,
+    build_name: str | None = None,
+    stem: str = "review_workbook_round8",
+) -> dict[str, Any]:
+    build_name = build_name or BUILDS[case]
     build = _case_dir(case) / build_name
     workbook = build / "投标项目复核表.xlsx"
 
     r5 = Round5Report(build=build, case=case).run()
     r5_failed = [check["check"] for check in r5["checks"] if not check["ok"]]
     _write(
-        f"review_workbook_round8_{case}_round5",
+        f"{stem}_{case}_round5",
         {
             "schema": "v1_review_workbook_round8_banked/1",
             "round": 5,
@@ -72,7 +77,7 @@ def run_case(case: str) -> dict[str, Any]:
 
     r6 = Round6Report(case, case_dir=_case_dir(case), build_name=build_name).run()
     _write(
-        f"review_workbook_round8_{case}_round6",
+        f"{stem}_{case}_round6",
         {
             "schema": "v1_review_workbook_round8_banked/1",
             "round": 6,
@@ -90,10 +95,8 @@ def run_case(case: str) -> dict[str, Any]:
 
     report7 = Round7Report(case, case_dir=_case_dir(case), build_name=build_name)
     r7 = report7.audit()
-    _write(f"review_workbook_round8_{case}_round7", r7)
-    (REPORTS / f"review_workbook_round8_{case}_round7.md").write_text(
-        markdown(r7), encoding="utf-8"
-    )
+    _write(f"{stem}_{case}_round7", r7)
+    (REPORTS / f"{stem}_{case}_round7.md").write_text(markdown(r7), encoding="utf-8")
 
     return {
         "build_id": build_name,

@@ -29,6 +29,7 @@ from .document_models import NormalizedDocument
 from .evidence_unit import (  # noqa: E402
     EvidenceUnitIndex,
     NEW_ELEMENT_RE,
+    _clause_of,
     _up_to_sentence_end,
     atom_clause_number,
     complete_fragment_backwards,
@@ -36,6 +37,7 @@ from .evidence_unit import (  # noqa: E402
     extend_fragment,
     finish_from_unit,
     locator_for_atom,
+    locator_section_for_unit,
     normalize_numeric_fragment,
     sentence_window,
     split_numbered_items,
@@ -74,8 +76,10 @@ from .review_point import (
     CONCERN_PASS_CRITERIA,
     ReviewPoint,
     _dedupe_repeated_phrases,
+    _scoring_enumeration,
     render_checks,
     render_review_cell,
+    scoring_enumeration_span,
     synthesize_concern_point,
     synthesize_review_point,
     value_sentence,
@@ -94,6 +98,7 @@ from .review_rendering import (
     ComponentOwnership,
     RenderedReviewComponent,
     mismatch_counts,
+    numeric_tokens,
     verify_component,
 )
 from .semantic_roles import ROLE_TIER_SCORE
@@ -614,6 +619,8 @@ def build_dynamic_review_plan(
     evidence_units = EvidenceUnitIndex.build(document, atoms)
     concerns = build_concerns(atoms)
     kept, filtered = actionable_concerns(concerns)
+    # a new concern takes the next ids; the concerns already delivered keep theirs
+    kept = _stable_concern_order(kept)
     units_by_id = {unit.requirement_id: unit for unit in source_index.units}
 
     items: list[DynamicReviewItem] = []
@@ -647,7 +654,12 @@ def build_dynamic_review_plan(
         # signature row, and a retention clause must not link the quality target).
         requirement_type = spec.review_type or units[0].requirement_type
         topic = spec.review_topic or units[0].topic
-        module = _module_for(units, requirement_type, topic)
+        # a concern may declare the module it is *presented* in (the pre-bid
+        # meeting decision belongs to the submission stage even though the clause
+        # quoting it sits in the supplier-instructions chapter)
+        module = str(getattr(spec, "review_module", "") or "") or _module_for(
+            units, requirement_type, topic
+        )
         fact_fields = tuple(field for field in FACT_FOR_TYPE.get(requirement_type, ()) if field in spec.fact_fields)
         fact_hints: dict[str, str] = {}
         related_field = ""
@@ -668,6 +680,7 @@ def build_dynamic_review_plan(
             linked_fields=tuple(field for field in fact_fields if field in fact_hints),
             requirement_type=requirement_type,
             topic=topic,
+            requirement_override=_scoring_enumeration_of(concern, evidence_units),
         )
         if point is None:
             # Non-actionable or source-less concern: not a bidder review row.
@@ -759,14 +772,26 @@ def build_dynamic_review_plan(
                 fallback_kind=str(getattr(primary, "source_kind", "") or ""),
             )
         evidence_text = _evidence_excerpt(concern, primary_atom, evidence_units)
+        # Round 9: the completion pass runs on every row, not only on rows without
+        # an applicable source.  A schedule row's cell is split across a page
+        # ("1.10.2 供应商提出问题的时间 提交响应文件截止时间 2 日前在“河南国企阳光招"
+        # ends on page 9, the rest is on page 10), so a resolved row used to
+        # deliver a requirement cut mid-parenthesis (round-9 fixture D56).
+        repaired_summary = _complete_source_text(concern, point.requirement_summary, evidence_units)
         if resolution is not None and resolution.specific_text:
             source_requirement = normalize_numeric_fragment(
-                _applicable_requirement(point.requirement_summary, resolution)
+                _applicable_requirement(
+                    repaired_summary,
+                    resolution,
+                    value_override=_complete_quote(
+                        str(getattr(resolution, "specific_value_text", "") or ""),
+                        evidence_text,
+                    ),
+                )
             )
         else:
-            repaired = _complete_source_text(concern, point.requirement_summary, evidence_units)
             source_requirement = normalize_numeric_fragment(
-                _displayed_requirement(concern, repaired)
+                _displayed_requirement(concern, repaired_summary)
             )
         # Round 8: the extraction repeats a word it wrapped on ("…具备有效的营业
         # 执照 执照，准 供应商名称 供应商名称 与营业执照一致"), which delivers
@@ -800,6 +825,13 @@ def build_dynamic_review_plan(
                 fallback_kind=str(getattr(primary, "source_kind", "") or ""),
             )
             evidence_text = _evidence_excerpt(concern, primary_atom, evidence_units)
+        # Round 9: the anchor a delivered row cites must be the row's *own*
+        # evidence unit.  The concern's atom list may reach a sibling clause
+        # ("2.2.2 评审基准价" for a pricing-formula row whose own clause is
+        # "2.2.4"), and the check text then sent the reviewer to a page/clause the
+        # row does not quote (round-9 fixture D57).
+        _retarget_anchor_checks(point, page, section, clause)
+        verification_action = render_checks(point)
         if resolution is not None:
             operational = action_for_resolution(resolution, concern.label or topic)
             if operational:
@@ -829,6 +861,13 @@ def build_dynamic_review_plan(
             criticality=row_criticality,
             displayed_requirement=source_requirement,
             operational_action=operational_lead,
+            # The ownership backing must be the same text the round-7 completion rule
+            # already lets this row quote: the concern's atoms, the source units they
+            # are displayed from, and the unit that continues each of them (a
+            # contract sentence split across two blocks).  Otherwise a completion the
+            # repair guard allows is rejected by the component check -- one row, two
+            # different notions of what it owns.
+            evidence_unit_text=_concern_evidence_backing(concern, evidence_units),
         )
         item = DynamicReviewItem(
             item_id=item_id,
@@ -939,6 +978,63 @@ def source_marked(atom: Any) -> bool:
     return bool(_SOURCE_MARKER_RE.match(str(getattr(atom, "source_text", "") or "")))
 
 
+def _scoring_enumeration_of(concern: Any, evidence_units: EvidenceUnitIndex) -> str:
+    """The complete scoring enumeration of a concern's own evidence units.
+
+    A scoring standard that awards points per alternative is extracted as several
+    fragments ("分） 1、100%接受银行承兑的得 4 分；" / "2、50%…得 2 分；" /
+    "50%以下…得 1 分。"), while the *unit* they were read from still carries the
+    whole standard.  The delivered requirement and its tiers must come from that
+    complete enumeration (round-9 fixtures D23/D38), so the unit texts of the
+    concern's own atoms are searched for the reading with the most tiers.
+    """
+
+    texts: list[str] = []
+    for atom in list(getattr(concern, "atoms", ())):
+        evidence = evidence_units.for_atom(atom)
+        if evidence is None:
+            continue
+        texts.append(str(evidence.unit.text_span or ""))
+    complete = _scoring_enumeration(texts)
+    if not complete:
+        return ""
+    return scoring_enumeration_span(complete)
+
+
+#: The review check that names the page/clause the reviewer compares against.
+_ANCHOR_CHECK_RE = re.compile(r"^依据.+?逐条比对响应文件对应章节$")
+
+
+def _anchor_text(page: int | None, section: str, clause: str) -> str:
+    """The row's own reference, in the form the check text uses."""
+
+    if page and clause:
+        return f"第{page}页第{clause}条"
+    if page:
+        return f"第{page}页"
+    if section and not re.search(r"\d", section):
+        return section[:12]
+    return ""
+
+
+def _retarget_anchor_checks(
+    point: ReviewPoint, page: int | None, section: str, clause: str
+) -> None:
+    """Re-point every delivered anchor check at the row's own evidence unit."""
+
+    target = _anchor_text(page, section, clause)
+    if not target:
+        return
+    pattern = re.compile(r"^依据.+?逐条比对响应文件对应章节$")
+    checks = list(point.review_checks)
+    updated = [
+        f"依据{target}逐条比对响应文件对应章节" if pattern.match(str(check)) else check
+        for check in checks
+    ]
+    if updated != checks:
+        point.review_checks = updated
+
+
 def _display_atoms(
     concern: Any,
     resolution: Any = None,
@@ -1010,7 +1106,7 @@ def _display_atoms(
     return visible or pool
 
 
-def _applicable_requirement(summary: str, resolution: Any) -> str:
+def _applicable_requirement(summary: str, resolution: Any, value_override: str = "") -> str:
     """The displayed requirement: the project-specific value that now governs.
 
     Round 7: the schedule's own value *replaces* the generic template for
@@ -1021,13 +1117,17 @@ def _applicable_requirement(summary: str, resolution: Any) -> str:
     requirement cell would put a superseded clause back in front of the reviewer
     (and re-introduce its foreign facet text: "1.5.1 供应商资格能力和条件" inside
     the warranty row).
+
+    ``value_override`` is the source's own complete wording of the value (a front
+    table cell is split across a page, so the extracted value is frequently cut
+    mid-sentence: "…同时将问题的电子版（附加", round-9 fixture D56).
     """
 
     specific = str(getattr(resolution, "specific_text", "") or "").strip()
     generic = str(summary or "").strip()
     if not specific:
         return generic
-    value = str(getattr(resolution, "specific_value_text", "") or "").strip()
+    value = value_override or str(getattr(resolution, "specific_value_text", "") or "").strip()
     if str(getattr(resolution, "relationship", "")) == "SPECIALIZES":
         # the clause states its own obligation and the schedule supplies one of
         # its parameters ("按供应商须知前附表规定的形式、金额…提交履约保证金"):
@@ -1036,6 +1136,25 @@ def _applicable_requirement(summary: str, resolution: Any) -> str:
             return generic or value or specific
         return f"{generic}；项目专用值：{value}" if generic else value
     return specific
+
+
+def _complete_quote(value: str, source_text: str) -> str:
+    """The source's own complete wording of a quoted value.
+
+    A front-table cell that continues on the next page is extracted in two
+    pieces, so the schedule row's value can stop mid-sentence.  The row's own
+    evidence carries the whole cell, and that wording is what may be displayed.
+    """
+
+    flat_value = _flatten(value)
+    if not flat_value or not source_text:
+        return value
+    for sentence in re.split(r"(?<=[。；;！？!?])", str(source_text)):
+        if flat_value in _flatten(sentence):
+            complete = re.sub(r"[\s\u3000]+", " ", sentence).strip()
+            if len(_flatten(complete)) >= len(flat_value):
+                return complete
+    return value
 
 
 def _operational_action(checks: str, operational: str) -> str:
@@ -1339,17 +1458,36 @@ def _linked_evidence_units(
     actually add text the requirement needs.
     """
 
+    primary_evidence = units_index.for_atom(primary_atom)
+    # the delivered locator's section, where production derived it from, and the
+    # clip limit that derivation applied -- recorded so an audit compares the
+    # visible section against this exact value instead of a prefix of the heading
+    section_source, section_clip_limit = "none", None
+    if primary_evidence is not None:
+        _visible, section_source, section_clip_limit = locator_section_for_unit(
+            primary_evidence.unit, primary_evidence.span
+        )
     out: list[dict[str, Any]] = [
         {
             "role": "PRIMARY",
             "atom_id": str(getattr(primary_atom, "atom_id", "") or ""),
-            "unit_id": (
-                units_index.for_atom(primary_atom).unit.unit_id
-                if units_index.for_atom(primary_atom) is not None
-                else ""
-            ),
+            "unit_id": primary_evidence.unit.unit_id if primary_evidence is not None else "",
+            # the exact span handover the locator derivation was given, recorded so
+            # the round-9 acceptance audit can re-run the *production* formatter
+            # over the canonical unit (rebuilt from the document) and compare its
+            # own output with the saved cell -- the span is the only input the
+            # formatter takes besides the unit itself
+            "unit_span": primary_evidence.span if primary_evidence is not None else "",
+            # ``locate_atom`` keys the unit by the *atom's* own leading clause when
+            # the atom states one ("15.4.1 保修责任 …" anchored in a body block),
+            # which is what decides whether the section falls back to the review
+            # point's own section.  The override is recorded so the audit can
+            # rebuild the same effective unit instead of guessing it.
+            "atom_clause": _clause_of(str(getattr(primary_atom, "source_text", "") or "")),
             "page": page,
             "section": section,
+            "section_source": section_source,
+            "section_clip_limit": section_clip_limit,
             "clause": clause,
             "locator": locator,
             "span": excerpt,
@@ -2036,20 +2174,32 @@ def _render_components(
     criticality: SourceRequirementCriticality | None = None,
     displayed_requirement: str = "",
     operational_action: str = "",
+    evidence_unit_text: str = "",
 ) -> list[RenderedReviewComponent]:
     """Build and verify the rendered components of one review row."""
 
     concern_id = point.concern_id
     atoms = list(getattr(concern, "atoms", ()))
     materials = list(getattr(concern, "owned_materials", lambda: [])())
+    # The row's own delivered requirement is source-backed text (the
+    # SOURCE_REQUIREMENT component is verified against this same ownership), so a
+    # number it states is a value this row owns.  Round 9 renders one 逐档核对 check
+    # per source tier; a tier whose score the round-5 segment split left out of
+    # ``owned_numbers()`` would otherwise be an unowned claim inside a check the row
+    # itself displays.
+    requirement_numbers = numeric_tokens(displayed_requirement or point.requirement_summary)
     ownership = ComponentOwnership(
         concern_id=concern_id,
         atom_ids=tuple(str(atom.atom_id) for atom in atoms),
         atom_text=" ".join(
             f"{atom.source_text} {getattr(atom, 'source_origin_text', '') or ''}" for atom in atoms
         ),
-        clause_text=" ".join(str(unit.text) for unit in units),
-        numeric_values=tuple(str(value.value) for value in owned_numbers),
+        clause_text=" ".join(
+            [str(unit.text) for unit in units]
+            + ([evidence_unit_text] if evidence_unit_text else [])
+        ),
+        numeric_values=tuple(str(value.value) for value in owned_numbers)
+        + tuple(sorted(requirement_numbers)),
         materials=tuple(str(name) for name in materials),
         evidence_ids=tuple(point.owned_clause_ids),
         allowed_fact_keys=frozenset(spec.fact_fields),
@@ -2144,6 +2294,10 @@ def _render_components(
     if point.scoring_guidance:
         add(SCORING_GUIDANCE, point.scoring_guidance, rule="CONCERN_OWNED_SCORE_RULE")
     numeric_backing = str(getattr(point, "owned_backing", "") or "") or ownership.backing_text
+    # The row's own delivered text (requirement, checks, criteria, guidance) is what
+    # the cell will project: a numeric *claim* is a rendered component only while
+    # that text actually states it.
+    rendered_so_far = " ".join(_flatten(component.rendered_text) for component in components)
     for value in owned_numbers[:4]:
         # only the numbers the row actually renders (its checks/criteria carry the
         # first four) become rendered components; further owned values stay data
@@ -2152,9 +2306,17 @@ def _render_components(
             # tier ("逐档核对：4分 对应的响应内容在响应文件中可核验"), so a second
             # "该档计 4分" statement would be a claim no delivered cell displays
             continue
+        sentence = value_sentence(value.role, value.value, numeric_backing)
+        if _flatten(sentence) not in rendered_so_far:
+            # Round 9 stopped rendering an evaluation-rule parameter as a bidder
+            # declaration on a scoring row (fixture D50: the rule is verified by the
+            # reviewer, never restated by the bidder), so a claim the cell no longer
+            # displays may not be declared as a component: the round-4 provenance
+            # gate requires every component to be present in the final cell
+            continue
         add(
             NUMERIC_STATEMENT,
-            value_sentence(value.role, value.value, numeric_backing),
+            sentence,
             rule=f"CONCERN_OWNED_NUMERIC:{value.role}",
             numeric_ids=[str(getattr(value, "unit_id", "") or value.value)],
         )
@@ -2191,6 +2353,78 @@ RISK_BY_CRITICALITY: dict[str, str] = {
     "MANDATORY": RISK_HIGH,
     "ORDINARY": RISK_MEDIUM,
 }
+
+
+#: The concern order the delivered row ids were allocated in.  A row id is part of
+#: the address the human review cites, and the banked gates name rows by id, so a
+#: *new* concern may never renumber an existing one: the concerns below keep the
+#: ids they were delivered with, and any concern that is not listed takes the next
+#: ids after them.  The list is concern vocabulary, not case data, and it only
+#: ever appends -- another case's order is untouched.
+DELIVERED_CONCERN_ORDER: tuple[str, ...] = (
+    "PRICE_CEILING",
+    "DELIVERY_PERIOD",
+    "QUALITY_TARGET",
+    "PROJECT_WARRANTY",
+    "QUALIFICATION_LICENSE",
+    "QUALIFICATION_FINANCIAL",
+    "SIGNATURE_AND_SEAL",
+    "QUALIFICATION_CREDIT",
+    "TECHNICAL_PROOF",
+    "QUALIFICATION_RELATIONSHIP_RESTRICTION",
+    "QUALIFICATION_ANTI_BRIBERY",
+    "CONSORTIUM",
+    "GENERAL_BIDDER_OBLIGATION",
+    "SUBMISSION_DEADLINE",
+    "ELECTRONIC_UPLOAD",
+    "QUERY_DEADLINE",
+    "BID_VALIDITY",
+    "BID_BOND_AMOUNT",
+    "BID_BOND_FORM",
+    "BID_BOND_TRANSFER",
+    "INTERNAL_PROCEDURE",
+    "PURCHASER_PROCEDURE",
+    "UNSUPPORTED_FORMAT_CLAIM",
+    "PRICE_TAX_BASIS",
+    "CONTRACT_RISK",
+    "EVALUATION_SCORING",
+    "EVALUATION_COLLUSION",
+    "EVALUATION_RESPONSIVENESS",
+    "REJECTION_GENERAL",
+    "DELIVERY_LOCATION",
+    "PROJECT_FUNDING_SOURCE",
+    "SITE_VISIT",
+    "SUBCONTRACT",
+    "FILE_FORMAT",
+    "PRICING_COMPLETENESS",
+    "BID_BOND_EVIDENCE",
+    "PERFORMANCE_BOND",
+    "AUTHORIZATION",
+    "SUBMISSION_PLATFORM",
+    "SCORING_PRICE_FORMULA",
+    "SCORING_BANK_ACCEPTANCE",
+    "SCORING_PAYMENT_CONDITION",
+    "SCORING_TECHNICAL",
+    "CONTRACT_PAYMENT",
+    "RETENTION_RELEASE_PERIOD",
+    "TECHNICAL_STANDARD_COMPLIANCE",
+    "TECHNICAL_TEST_REPORT",
+    "DELIVERY_ACCEPTANCE_COMPLETION",
+    "CONTRACT_TERMINATION_REFUND",
+    "TECHNICAL_PARAMETER",
+    "RETENTION_MONEY_RATIO",
+    "PRICE_INCLUDED_COST_SCOPE",
+)
+
+
+def _stable_concern_order(concerns: Sequence[Any]) -> list[Any]:
+    """The concerns in id-allocation order: known ones first, new ones appended."""
+
+    index = {concern_id: position for position, concern_id in enumerate(DELIVERED_CONCERN_ORDER)}
+    known = [concern for concern in concerns if str(concern.concern_id) in index]
+    fresh = [concern for concern in concerns if str(concern.concern_id) not in index]
+    known.sort(key=lambda concern: index[str(concern.concern_id)])
+    return [*known, *fresh]
 
 
 def _risk_level_for(
