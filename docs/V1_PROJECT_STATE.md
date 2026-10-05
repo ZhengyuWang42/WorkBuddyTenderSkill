@@ -1053,26 +1053,24 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 | 工作流 | 状态 |
 | --- | --- |
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4）；三项历史人工发现（A / B / C）已自动化关闭；**人工桌面 Word 复核尚未确认**（当前 `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`，历史 `FAIL` 见 §1.2） |
-| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 9 轮（当前机器状态）**关闭人工第 8 轮点名的送达内容类别（分档只在其中一档成立、项目决定与提问/澄清截止分离、动作锚点只引用本行自己的页码/条款、源文拼接与外来标题清理、基本分与最高分区分、质保金/质保期行引用本合同条款、证据定位精确等于格式化输出），本轮不变量为 `FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING` 与 `LOCATOR MUST EQUAL THE PRODUCTION FORMATTER OUTPUT FOR THE ROW'S OWN EVIDENCE UNIT`（`docs/V1_DECISIONS.md` §D72）；三案例第 9 轮审计 **PASS**（0 failed check / 0 failed fixture）+ 泛化 **PASS**、定位门禁 `ROUND9_GATE_INTEGRITY = PASS`（三案例共 144 行逐行精确比较：0 语义不一致、0 前缀/模糊匹配）、第 5/6/7 轮门禁在第 9 轮构建上复跑 **PASS**、工作簿门禁 **42/42 PASS**、渲染 QA **PASS**（`clipping_bounded` 为有界 WARN）、逐行前后对照见 `review_workbook_round9_case_001_before_after.md`、Word 产物逐字节未变；**人工 Excel 复核尚未确认**（第 8 轮人工复核结论为 **FAIL**，范围见下，已由第 9 轮自动化关闭并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
+| **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 10 轮（当前机器状态）**把**投标响应**与**合同风险**分成两个复核阶段——报价/商务响应 = 投标响应项，纯中标后合同条款 = 投标前风险识别项（`docs/V1_DECISIONS.md` §D73），本轮不变量为 `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES` 与 `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`；三案例第 10 轮审计 **PASS**（0 failed check / 0 failed fixture）+ 泛化 **PASS**、工作簿门禁 **43/43 PASS**（含阶段分离检查）、定位门禁 `ROUND10_LOCATOR_GATE = PASS`（144 行精确比较）、第 5/6/7 轮门禁在第 10 轮构建上复跑 **PASS**、渲染 QA **PASS**、Word 产物逐字节未变；**人工 Excel 复核尚未确认**（第 8 轮人工复核结论为 **FAIL**，保持未改写并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
 | **人工 Excel 复核** | 未确认：第 3 轮人工判 **FAIL**（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`）、第 5 轮人工判 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）、第 6 轮收口后人工判 **FAIL**（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`）、第 7 轮后继人工判 **FAIL**（`FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` / `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`，13 项点名发现）、第 8 轮后继人工判 **FAIL**（`DELIVERED_CONTENT_SEMANTICS` / `SCORING_TIER_ALTERNATIVES` / `ACTION_ANCHOR_ALIGNMENT` / `ENGLISH_FREE_DELIVERED_TEXT`，范围见第 9 轮报告）——五次人工结论**保留且不得改写**；第 4/6/7/8/9 轮的缺陷分别由第 4/6/7/8/9 轮自动化关闭，人工结论列**仍未勾选**（`已通过 = 0`；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`）；当前复核对象见 §12.3 与 `v1_manual_review_checklist.md` 第 4 节 |
-| **全量测试（复核工作簿第 9 轮）** | 见 §12.3「Round9 全套测试」（`review_workbook_round9_full_test_suite.txt` / `.xml`） |
+| **全量测试（复核工作簿第 10 轮）** | 见 §12.3「Round10 全套测试」（`review_workbook_round10_full_test_suite.txt` / `.xml`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
 | **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；第 6 轮收口检查点 = commit `4df27bc`（第 7 轮的基线 HEAD，已推送）；工作簿轮次细节见 §12.3 |
 
-> 第 9 轮（当前）的机器状态以
+> 第 10 轮（当前）的机器状态以
+> `acceptance/reports/v1_generalization/review_workbook_round10_generalization.json`
+> 与 `review_workbook_round10_case_00{1,2,3}.json` 为准（均为 `result = PASS`）；
+> 阶段分离证据以 `round10_locator_gate.json` 与
+> `case00{1,2,3}_review_workbook10_gate.json`（43/43）为准；
+> 逐行阶段记录（要求行、源条款、阶段、模块、风险标签、是否影响符合性/否决/评分）在
+> `review_workbook_round10_case_00{1,2,3}.json` 的 `stage_records` 中。
+> 第 9 轮（HISTORICAL / SUPERSEDED）的机器状态以
 > `acceptance/reports/v1_generalization/review_workbook_round9_generalization.json`
 > 与 `review_workbook_round9_case_00{1,2,3}.json` 为准（均为 `result = PASS`）；
-> 定位门禁以 `acceptance/reports/v1_generalization/round9_gate_integrity.json`
-> 为准（`verdict = PASS`、`locator comparison = EXACT_FORMATTER_OUTPUT`、
-> `prefix_or_fuzzy_comparison_count = 0`、`actual_saved_xlsx_locator_semantic_mismatch_count = 0`）；
-> 逐行送达文本前后对照见 `review_workbook_round9_case_001_before_after.json` / `.md`；
+> 第 9 轮后继构建自第 10 轮起为**历史复核对象**，其 DOCX/PDF/工作簿**逐字节保留**；
 > 第 8 轮的人工 **FAIL** 记录保留在 `case001_review_workbook_round8_human_review.json`
-> 与 `v1_manual_review_checklist.md` 第 4.1 节，**未改写**。
-> 第 8 轮（HISTORICAL / SUPERSEDED）的机器状态以
-> `acceptance/reports/v1_generalization/review_workbook_round8_generalization.json`
-> 与 `review_workbook_round8_case_00{1,2,3}.json` 为准（均为 `result = PASS`）；
-> 第 8 轮后继构建自第 9 轮起为**历史复核对象**，其 DOCX/PDF/工作簿**逐字节保留**；
-> 第 7 轮的人工 **FAIL** 记录保留在 `case001_review_workbook_round8_human_review.json`
 > 与 `v1_manual_review_checklist.md` 第 4.1 节，**未改写**。
 > 第 7 轮的机器状态以
 > `acceptance/reports/v1_generalization/review_workbook_round7_generalization.json`
@@ -1092,12 +1090,28 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 
 ### 12.3 复核工作簿轮次（REVIEW WORKBOOK ROUND，已完成机器闭环）
 
-**当前轮次 = 第 9 轮（Round9）**；第 1–8 轮行保留为历史，已明确标注。
+**当前轮次 = 第 10 轮（Round10）**；第 1–9 轮行保留为历史，已明确标注。
 
 | 项目 | 值 |
 | --- | --- |
-| **当前轮次** | **Round9**（送达内容语义收口 + 定位精确格式化，人工第 8 轮 FAIL 的自动化关闭；本轮不变量见 `docs/V1_DECISIONS.md` §D72） |
-| **本轮不变量（当前）** | `FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING` **且** `LOCATOR MUST EQUAL THE PRODUCTION FORMATTER OUTPUT FOR THE ROW'S OWN EVIDENCE UNIT`：证据定位必须由**本行自己的规范 EvidenceUnit** 经**唯一生产格式化函数**得到，并与**已保存/重新打开的 XLSX** **精确相等**（禁止前缀、包含、模糊匹配） |
+| **当前轮次** | **Round10**（投标响应 vs 合同风险分离：报价/商务响应 = 投标响应项，合同条款 = 投标前风险识别项；人工产品决策见 `docs/V1_DECISIONS.md` §D73） |
+| **本轮不变量（当前）** | `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES` **且** `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`：纯中标后合同条款**不得**影响投标符合性、否决或评分；它只用于投标前风险识别 |
+| **阶段模型（Round10 新增，当前）** | `tender_basic/review_stage.py`：`BID_RESPONSE` / `SCORING_RESPONSE` / `CONTRACT_RISK_NOTICE` / `INFORMATIONAL`，按**义务发生时点、行事主体、是否须出现在响应文件中、是否影响评审/评分/否决**派生；**不按章节**判定 |
+| **阶段不变量（当前）** | `tender_basic/stage_invariants.py`（`check_stage_separation` / `check_response_side_not_demoted` / `contract_risk_contamination`） |
+| **Round10 报告** | `scripts/v1_review_workbook_round10_report.py`（`--case` / `--three-case`）→ `review_workbook_round10_case_00{1,2,3}.{json,md}` + `review_workbook_round10_generalization.json` |
+| **Round10 门禁复跑** | `scripts/v1_review_workbook_round10_regressions.py` → `review_workbook_round10_banked_regressions.json`（第 5/6/7 轮门禁在第 10 轮构建上全部 PASS） |
+| **Round10 定位门禁** | `scripts/v1_review_workbook_round9_gate_integrity.py --round10` → `round10_locator_gate.json`（`ROUND10_LOCATOR_GATE = PASS`；`locator comparison = EXACT_FORMATTER_OUTPUT`；`prefix/fuzzy matching = 0`；`actual saved XLSX locator semantic mismatches = 0`；144 行逐行比较） |
+| **Round10 后继构建（当前复核对象）** | CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10`（`投标项目复核表.xlsx` sha256 `f0f2d94e0bde5640e57d637e44d6f3b2988c63a6904666c1393b247efaaa33a4`，72103 B）<br>CASE002 `acceptance/workspace/case_002/v1_round4_closure9_review_workbook10`（sha256 `d3a02712799cc72a18b827eb9adcd387a093144006cda384e71a765cb2c48417`，75088 B）<br>CASE003 `acceptance/workspace/case_003/v1_round4_closure9_review_workbook10`（sha256 `ca75d23acc092f2eb5c5536b7ebffb4181fc8b9c34a4417cd14b332c581f106a`，81363 B）<br>（均由第 9 轮 r2 后继以 `--refresh-legacy-rows` 派生；workbook9r2 及更早构建**原样保留、未被覆盖**） |
+| **Round10 交付呈现** | 主表第 02 表类别拆分为 `四、报价与商务响应` 与 `九、合同风险提示（投标前识别）`；合同风险行 `是否强制` 留空、`风险级别 = 风险提示`；不进入 03 表否决/强制项；单元格块标签为 `合同风险提示：`（非 `招标文件要求：`），复核要点为投标前内部风险决策步骤，通过标准声明该阶段不作为符合性/否决性/评审判断 |
+| **Round10 阶段计数** | 三案例 `per_stage`：CASE001 投标响应 34 / 评分响应 5 / 合同风险 7 / 参考信息 4；CASE002 36 / 4 / 4 / 1；CASE003 37 / 3 / 7 / 2；`CONTRACT_RISK_AS_BID_BLOCKER_COUNT = 0`、`RESPONSE_ROW_DEMOTED_COUNT = 0` |
+| **Round10 三案例审计** | `review_workbook_round10_case_001/002/003.json` = **PASS（0 failed check / 0 failed fixture）**；`review_workbook_round10_generalization.json` = **PASS** |
+| **Round10 工作簿门禁** | `case00{1,2,3}_review_workbook10_gate.json` = **PASS（43/43）**（新增 `review_stage.contract_risk_is_not_a_bid_blocker`） |
+| **Round10 门禁修正（说明）** | 两处**测量**修正（非放宽）：`check_polarity` 跳过纯合同风险行（该阶段不决定符合性，故无极性可失）；round-5 夹具 K/L/M 改读**已保存单元格**而非已不再声明的 NUMERIC_STATEMENT 组件 |
+| **Round10 Word 产物** | closure9 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated = false`） |
+| **Round10 全套测试** | **947 collected / 946 passed / 0 failed / 0 errors / 1 skipped**（exit 0；`review_workbook_round10_full_test_suite.txt` / `.xml`，JUnit XML 计数） |
+| **Round10 人工状态** | 第 8 轮人工 **FAIL** 保持未改写；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，人工结论列**仍未勾选**；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false` |
+| > **以下 Round9 及更早各行自第 10 轮起为 HISTORICAL / SUPERSEDED**：机器结论仍然有效、构建逐字节保留，但**不再是当前复核对象**。 | |
+| **Round9 不变量（HISTORICAL）** | `FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING` **且** `LOCATOR MUST EQUAL THE PRODUCTION FORMATTER OUTPUT FOR THE ROW'S OWN EVIDENCE UNIT` |
 | **定位门禁（Round9 新增，当前）** | `scripts/v1_review_workbook_round9_gate_integrity.py` → `round9_gate_integrity.json`（`ROUND9_GATE_INTEGRITY = PASS`；`locator_comparison = EXACT_FORMATTER_OUTPUT`；`prefix_or_fuzzy_comparison_count = 0`；`actual_saved_xlsx_locator_semantic_mismatch_count = 0`；三案例 50/45/49 行 = 144 行逐行比较，命名夹具 D34 / D40 / D43 / D57 / DR002 / DR047 / CASE003 投标保证金全部 PASS） |
 | **单源格式化函数（当前）** | `tender_basic/evidence_unit.py` 的 `expected_locator_for_unit`（`locator_section_for_unit` → `printable_clause_label` → `_locator_text`）与唯一比较器 `locators_match_exactly`；交付单元格、审计期望值与门禁读的是同一个函数 |
 | **Round9 报告** | `scripts/v1_review_workbook_round9_report.py`（`--case` / `--three-case`）→ `review_workbook_round9_case_00{1,2,3}.{json,md}` + `review_workbook_round9_generalization.json` |

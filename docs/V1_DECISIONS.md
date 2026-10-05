@@ -1139,3 +1139,69 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
   未切换分支、未覆盖任何历史验收构建（workbook3/4/5/6/7/8 全部逐字节保留）；
   工作树是唯一真源。
 
+### D73 投标响应与合同风险是两个复核阶段（长期规则，BANK）
+
+- 人工产品决策（本轮不变量，两条同时成立）：
+  1. `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES`
+     —— 报价/商务响应 = **投标响应项**；合同条款 = **投标前风险识别项**；
+     纯中标后合同条款**不得**影响投标符合性、否决或评分，它只用于投标前警示投标团队；
+  2. `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`
+     —— **不得**因为条款出现在「第四章 合同条款及格式」就判为合同风险。
+- 阶段词表（`tender_basic/review_stage.py`，四个阶段）：
+  - `BID_RESPONSE`：投标人必须在响应文件中应对或满足；可影响符合性/评审/投标有效性；
+  - `SCORING_RESPONSE`：投标人的所选响应影响评分；**仍是**投标响应项；
+  - `CONTRACT_RISK_NOTICE`：中标后/合同履行条件，投标前须知悉；
+    **本身不决定**响应性、否决或评分；
+  - `INFORMATIONAL`：仅背景。
+- 判定依据（**效果/阶段**，非章节）：义务何时适用、谁必须做什么、
+  是否必须出现在响应文件中、是否影响评审/评分/否决、是否仅在中标后适用。
+  因此：合同章内的**报价/成本**条款（如「设备单价中含运输费、装卸费、安装费、损耗和税金」）
+  仍是 `BID_RESPONSE`；直接用作评审因素的**付款条件**仍是 `SCORING_RESPONSE`；
+  纯中标后付款/责任/履约条款才是 `CONTRACT_RISK_NOTICE`。
+- 阶段模型是**一个派生属性**，不是第二套架构：它挂在已经拥有该行的 ReviewConcern 上，
+  不新增 provenance 链、定位器或关切图；第 5–9 轮的架构**未被重开**。
+- 交付呈现：
+  - 主表类别拆分：`四、报价与商务响应`（响应侧）与 `九、合同风险提示（投标前识别）`（风险侧）；
+  - 合同风险行：`是否强制` 留空（不适用）、`风险级别 = 风险提示`，
+    不得出现 `一票否决` / `实质性要求` / `不满足导致否决` / `投标响应不满足`，
+    除非另有独立响应阶段源证据；
+  - 合同风险单元格块标签为 `合同风险提示：`（而非 `招标文件要求：`），
+    复核要点为投标前内部风险决策步骤（知悉条款 → 评估价格/现金流/履约/责任/交付风险 →
+    如不可接受在投标前完成内部决策），通过标准声明
+    「本项用于投标前合同风险识别，不作为投标文件的符合性、否决性或评审判断。」
+  - 纯合同风险行**不得**出现在 `03_资格否决与强制项`，不得带 `否决性 = 是` 或 `SUBSTANTIVE_*`；
+  - 响应侧语言（「核对响应文件已载明…」「确认响应文件接受该比例」「与响应文件一致」）
+    在合同风险行中**禁止**，除非源文明确要求投标人在响应中声明。
+- 边界（必须同时保留，不得合并）：
+  - `PROJECT_WARRANTY = 24 个月` 是**投标/技术响应**要求（`BID_RESPONSE`）；
+  - `RETENTION_RELEASE_PERIOD = 12 个月` 与 `RETENTION_MONEY_RATIO = 5%` 是**合同风险**（`CONTRACT_RISK_NOTICE`）；
+  - 履约保证金（中标后/签订合同前提交）为**合同风险**，其后果可显示为「中标/成交后风险」，
+    但**不得**显示为「投标否决」；投标保证金（响应保证金）仍为**投标响应项**。
+- 仪表盘：分别计数「投标响应复核项」与「合同风险提示项」；合同风险计数为**参考信息**，
+  **不得**计入投标否决数、实质性要求数、符合性失败数或递交阻断数。
+- 就绪语义：机器必须区分 `BID_RESPONSE_BLOCKER` 与 `CONTRACT_RISK_NOTICE`；
+  未完成的合同风险复核**不得**表述为「投标文件不合格 / 响应不完整 / 否决风险」，
+  除非另有独立响应阶段证据。是否因商业上不可接受的合同风险而不投标，
+  **由人决定**，自动化不得代替该商业决策。
+- 证据（第 10 轮，均取自**已保存/重新打开的 XLSX**）：
+  - 三案例审计 `review_workbook_round10_case_00{1,2,3}.{json,md}` =
+    PASS（0 failed check / 0 failed fixture）、
+    `review_workbook_round10_generalization.json` = PASS；
+  - 工作簿门禁 43/43（含新检查 `review_stage.contract_risk_is_not_a_bid_blocker`）；
+  - 定位门禁 `round10_locator_gate.json` = PASS（144 行精确比较，0 语义不一致，0 前缀/模糊匹配）；
+  - 阶段计数：CASE001 34/5/7/4、CASE002 36/4/4/1、CASE003 37/3/7/2
+    （投标响应 / 评分响应 / 合同风险 / 参考信息）；
+    `CONTRACT_RISK_AS_BID_BLOCKER_COUNT = 0`、`RESPONSE_ROW_DEMOTED_COUNT = 0`、
+    `CONTRACT_RISK_RESPONSE_FILE_REQUIREMENT_CONTAMINATION = 0`；
+  - 第 5/6/7 轮门禁在第 10 轮构建上复跑 PASS；渲染 QA PASS；Word 产物逐字节未变。
+- 门禁**测量**修正（非放宽，均记录在此以免把过时断言当成回归）：
+  - `fidelity_invariants.check_polarity` 跳过纯合同风险行：该阶段不决定符合性，故无极性可失；
+  - round-5 夹具 K/L/M 改读**已保存单元格**，而非第 9 轮起不再声明的 NUMERIC_STATEMENT 组件；
+  - 阶段通用复核文案（`CONTRACT_RISK_CHECKS`）刻意不命名任何 DOMAIN_TERMS 概念
+    （不写「交付风险」这类词），否则不含该概念的合同条款会把它读成外来概念；
+  - 后继指针（测试侧）由 workbook9r2 推进到 workbook10；
+    `v1_docs_state_consistency.py` 的工作簿门禁检查不再固定 42 项，改为「全部检查通过」。
+- 纪律：本轮**未**修改 Word、**未**重开第 5–9 轮架构、**未**在生产代码中硬编码任何 CASE001 行号；
+  未 reset / clean / revert / rebase / stash / amend、未强推、未创建 tag 或 release；
+  workbook9r2 及更早构建逐字节保留、未被覆盖。
+

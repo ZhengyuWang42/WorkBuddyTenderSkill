@@ -44,7 +44,12 @@ from tender_basic.evidence_unit import (  # noqa: E402
     format_locator_section_for_display,
     locators_match_exactly,
 )
+from tender_basic.stage_invariants import (  # noqa: E402
+    check_response_side_not_demoted,
+    check_stage_separation,
+)
 from v1_review_workbook_round8_report import (  # noqa: E402
+    CLAUSE_SHEET_TITLE,
     LEGACY_SHEET_TITLE,
     MANDATORY_SHEET_TITLE,
     REPORTS,
@@ -87,6 +92,35 @@ SOURCE_TIERS: dict[str, dict[str, tuple[tuple[str, str], ...]]] = {
         ),
     }
 }
+
+#: CASE001's contract-risk fixtures: the human's own list, bound to the concern
+#: that carries the clause (never to a row id, which a new row could satisfy).
+CONTRACT_RISK_FIXTURES: tuple[tuple[str, str], ...] = (
+    ("RISK_DR025_CONTRACT_RISK", "CONTRACT_RISK"),
+    ("RISK_DR037_PERFORMANCE_BOND", "PERFORMANCE_BOND"),
+    ("RISK_DR044_CONTRACT_PAYMENT", "CONTRACT_PAYMENT"),
+    ("RISK_DR045_RETENTION_RELEASE", "RETENTION_RELEASE_PERIOD"),
+    ("RISK_DR048_DELIVERY_ACCEPTANCE", "DELIVERY_ACCEPTANCE_COMPLETION"),
+    ("RISK_DR049_TERMINATION_REFUND", "CONTRACT_TERMINATION_REFUND"),
+    ("RISK_DR051_RETENTION_RATIO", "RETENTION_MONEY_RATIO"),
+)
+
+#: The response-side items that must NOT be demoted into a risk notice.
+RESPONSE_STAGE_FIXTURES: tuple[tuple[str, str], ...] = (
+    ("RESPONSE_PRICE_CEILING", "PRICE_CEILING"),
+    ("RESPONSE_PRICING_COMPLETENESS", "PRICING_COMPLETENESS"),
+    ("RESPONSE_PRICE_TAX_BASIS", "PRICE_TAX_BASIS"),
+    ("RESPONSE_PRICE_INCLUDED_COST", "PRICE_INCLUDED_COST_SCOPE"),
+    ("RESPONSE_BANK_ACCEPTANCE_SCORING", "SCORING_BANK_ACCEPTANCE"),
+    ("RESPONSE_PAYMENT_CONDITION_SCORING", "SCORING_PAYMENT_CONDITION"),
+    ("RESPONSE_PRICE_SCORING", "SCORING_PRICE_FORMULA"),
+    ("RESPONSE_DELIVERY_PERIOD", "DELIVERY_PERIOD"),
+    ("RESPONSE_DELIVERY_LOCATION", "DELIVERY_LOCATION"),
+    ("RESPONSE_QUALITY_TARGET", "QUALITY_TARGET"),
+    ("RESPONSE_PROJECT_WARRANTY", "PROJECT_WARRANTY"),
+    ("RESPONSE_BID_VALIDITY", "BID_VALIDITY"),
+    ("RESPONSE_BID_BOND", "BID_BOND_EVIDENCE"),
+)
 
 #: A review action must cite the row's own page/clause; these are the actions a
 #: round-9 fixture checks against the row's own evidence unit.
@@ -144,6 +178,32 @@ class Round9Report(Round8Report):
         }
 
     # -- delivered text ---------------------------------------------------- #
+
+    def _delivered_clause_rows(self) -> dict[str, dict[str, Any]]:
+        """``item_id -> the SAVED 02_关键条款 row``.
+
+        The stage fixtures assert what the *reviewer reads*, so the module label,
+        the risk level and the 是否强制 cell must come from the workbook itself,
+        never from the plan that produced it (the legacy/reviewer fixture rows do
+        not even carry those columns).
+        """
+
+        if getattr(self, "_delivered_clause_cache", None) is None:
+            rows: dict[str, dict[str, Any]] = {}
+            for row in self._rows(CLAUSE_SHEET_TITLE):
+                item_id = str(row.get("requirement_id") or "").strip()
+                if item_id:
+                    rows[item_id] = row
+            self._delivered_clause_cache = rows
+        return self._delivered_clause_cache
+
+    def _delivered_modules(self) -> dict[str, str]:
+        """``item_id -> 类别`` read from the SAVED 02_关键条款 sheet."""
+
+        return {
+            item_id: str(row.get("类别") or "")
+            for item_id, row in self._delivered_clause_rows().items()
+        }
 
     def fixture_rows(self) -> list[dict[str, Any]]:
         """One row per delivered item, with the legacy cell's blocks recovered.
@@ -574,6 +634,104 @@ class Round9Report(Round8Report):
                 sections[-1][1].append(form_class)
         return sections
 
+    def check_stage_separation(self) -> None:
+        """The delivered rows must keep bid response and contract risk apart.
+
+        Reads every delivered row from the **saved workbook** and asks the
+        stage invariants: no pure post-award contract risk may be presented as a
+        bid blocker (rejection risk level, veto column, substantive/rejection
+        type, rejection framing, or a response-file declaration), and no concern
+        that must be answered in the response may have been demoted into the
+        risk module.  The stage itself comes from the row's own plan item, which
+        the workbench gate proves is the projection of the saved cell.
+        """
+
+        rows: list[dict[str, Any]] = []
+        for row in self.fixture_rows():
+            item = row.get("item")
+            if item is None:
+                continue
+            stage = str(getattr(item, "review_stage", "") or "")
+            rows.append(
+                {
+                    "item_id": str(row.get("item_id") or ""),
+                    "concern_id": str(getattr(item, "concern_id", "") or ""),
+                    "stage": stage,
+                    "expected_stage": stage,
+                    "module": str(row.get("module") or row.get("sheet") or ""),
+                    "risk": str(row.get("risk") or ""),
+                    "veto": str(row.get("veto") or ""),
+                    "requirement": str(row.get("requirement") or ""),
+                    "action": str(row.get("action") or ""),
+                    "criteria": str(row.get("criteria") or ""),
+                    "consequence": str(row.get("consequence") or ""),
+                    "locator": str(row.get("locator") or ""),
+                    "rejection": bool(getattr(item, "rejection_consequence", False)),
+                    "substantive": bool(getattr(item, "substantive_requirement", False)),
+                    "mandatory_types": list(getattr(item, "mandatory_types", ()) or ()),
+                }
+            )
+        separation = check_stage_separation(rows)
+        self.counts["CONTRACT_RISK_ROW_COUNT"] = separation["contract_risk_row_checked"]
+        self.counts["CONTRACT_RISK_AS_BID_BLOCKER_COUNT"] = separation[
+            "contract_risk_as_bid_blocker_count"
+        ]
+        # Per-row stage record, persisted so a reviewer can audit any row without
+        # re-running the audit: the stable item id, the source clause, the stage,
+        # the delivered module / risk label / text, and whether the row can affect
+        # compliance, rejection or scoring.
+        delivered = self._delivered_clause_rows()
+        self.stage_records = []
+        for row in rows:
+            delivered_row = delivered.get(row["item_id"], {})
+            text = " ".join(
+                str(delivered_row.get(field) or "")
+                for field in ("抽取结果", "复核动作", "核验标准")
+            )
+            self.stage_records.append(
+                {
+                    "item_id": row["item_id"],
+                    "concern_id": row["concern_id"],
+                    "source_clause": str(row.get("locator") or "")[:160],
+                    "review_stage": row["stage"],
+                    "final_module": str(delivered_row.get("类别") or ""),
+                    "final_risk_label": str(delivered_row.get("风险级别") or ""),
+                    "forced_cell": str(delivered_row.get("是否强制") or ""),
+                    "final_displayed_review_text": text[:400],
+                    "affects_bid_compliance": bool(
+                        delivered_row.get("是否强制") or row.get("rejection")
+                    ),
+                    "affects_rejection": bool(row.get("rejection")),
+                    "affects_scoring": str(row["concern_id"]).startswith("SCORING_"),
+                    "source": "SAVED_XLSX",
+                }
+            )
+        self.check(
+            "no pure contract risk is delivered as a bid compliance or rejection item",
+            separation["contract_risk_as_bid_blocker_count"] == 0,
+            f"{separation['contract_risk_row_checked']} contract-risk row(s) checked, "
+            f"{separation['contract_risk_as_bid_blocker_count']} still presented as a bid blocker",
+            {"problems": separation["contract_risk_as_bid_blockers"][:8]},
+        )
+        demotion = check_response_side_not_demoted(rows)
+        self.counts["RESPONSE_ROW_DEMOTED_COUNT"] = demotion["response_row_demoted_count"]
+        self.check(
+            "no response-stage requirement is demoted into the contract-risk stage",
+            demotion["response_row_demoted_count"] == 0,
+            f"{demotion['response_row_checked']} response row(s) checked, "
+            f"{demotion['response_row_demoted_count']} demoted",
+            {"problems": demotion["response_row_demoted"][:8]},
+        )
+        self.counts["STAGE_CONTRACT_RISK_COUNT"] = separation["per_stage"].get(
+            "CONTRACT_RISK_NOTICE", 0
+        )
+        self.counts["STAGE_BID_RESPONSE_COUNT"] = separation["per_stage"].get(
+            "BID_RESPONSE", 0
+        )
+        self.counts["STAGE_SCORING_RESPONSE_COUNT"] = separation["per_stage"].get(
+            "SCORING_RESPONSE", 0
+        )
+
     def check_form_section_grouping(self) -> None:
         """A blank quote form and a blank experience form may not share a section."""
 
@@ -871,6 +1029,73 @@ class Round9Report(Round8Report):
         records = {record["item_id"]: record for record in getattr(self, "locator_records", [])}
         self._locator_fixtures(records)
 
+        # -- review-stage separation ---------------------------------------- #
+        # CASE001's contract-risk rows (the human's own fixture list) must all be
+        # delivered as pre-bid notices, and the response-side items must stay
+        # response items.  The fixtures are bound to the *concern*, never to a row
+        # id, so a new row can never silently satisfy them.
+        for key, concern_id in CONTRACT_RISK_FIXTURES:
+            row = row_of(concern_id)
+            item = row.get("item")
+            stage = str(getattr(item, "review_stage", "") or "")
+            delivered_row = self._delivered_clause_rows().get(str(row.get("item_id") or ""), {})
+            delivered_module = str(delivered_row.get("类别") or "")
+            delivered_risk = str(delivered_row.get("风险级别") or "")
+            delivered_forced = str(delivered_row.get("是否强制") or "")
+            delivered = " ".join(
+                str(delivered_row.get(field) or row.get(field) or "")
+                for field in ("抽取结果", "复核动作", "核验标准")
+            )
+            flat = "".join(delivered.split())
+            contaminated = [
+                cue
+                for cue in (
+                    "核对响应文件已载明",
+                    "确认响应文件接受",
+                    "响应文件中被接受",
+                    "与响应文件一致",
+                    "不满足导致否决",
+                    "投标响应不满足",
+                )
+                if "".join(cue.split()) in flat
+            ]
+            self.fixture(
+                key,
+                bool(row)
+                and stage == "CONTRACT_RISK_NOTICE"
+                and delivered_risk == "风险提示"
+                and not contaminated
+                and not bool(getattr(item, "rejection_consequence", False))
+                and not bool(getattr(item, "substantive_requirement", False))
+                and not any(
+                    str(value).startswith("SUBSTANTIVE") or str(value) == "REJECTION"
+                    for value in (getattr(item, "mandatory_types", ()) or ())
+                )
+                and delivered_module.startswith("九、")
+                # 是否强制 answers "can this gate my bid?" -> not applicable
+                and not delivered_forced,
+                f"{key} ({concern_id}) is delivered as a pre-bid contract risk notice",
+                f"row={row.get('item_id')} delivered_module={delivered_module} "
+                f"delivered_risk={delivered_risk} 是否强制={delivered_forced!r} stage={stage} "
+                f"contaminated={contaminated} "
+                f"reject={getattr(item, 'rejection_consequence', None)} "
+                f"subst={getattr(item, 'substantive_requirement', None)} "
+                f"mtypes={list(getattr(item, 'mandatory_types', ()) or ())}",
+            )
+        for key, concern_id in RESPONSE_STAGE_FIXTURES:
+            row = row_of(concern_id)
+            item = row.get("item")
+            stage = str(getattr(item, "review_stage", "") or "")
+            delivered_module = self._delivered_modules().get(str(row.get("item_id") or ""), "")
+            self.fixture(
+                key,
+                bool(row)
+                and stage in ("BID_RESPONSE", "SCORING_RESPONSE")
+                and not delivered_module.startswith("九、"),
+                f"{key} ({concern_id}) stays a response-stage item",
+                f"row={row.get('item_id')} delivered_module={delivered_module} stage={stage}",
+            )
+
     def _row_probe_text(self, row: Mapping[str, Any]) -> str:
         return re.sub(
             r"[\s\u3000]+",
@@ -1014,6 +1239,7 @@ class Round9Report(Round8Report):
         self.check_locator_coherence()
         self.check_locator_matcher()
         self.check_locator_identity()
+        self.check_stage_separation()
         self.check_form_section_grouping()
         self.audit_fixtures(self.fixture_rows(), self._price_result())
         failed = [check.name for check in self.checks if not check.ok]
@@ -1037,6 +1263,7 @@ class Round9Report(Round8Report):
                 },
                 "counts": dict(self.counts),
                 "locator_records": getattr(self, "locator_records", []),
+                "stage_records": getattr(self, "stage_records", []),
                 "locator_fixtures": fixture_records,
                 "locator_fixture_summary": {
                     "total": len(fixture_records),

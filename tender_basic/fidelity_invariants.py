@@ -92,6 +92,13 @@ def check_polarity(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         item = row.get("item")
         if not requirement or item is None:
             continue
+        if str(getattr(item, "review_stage", "") or "") == "CONTRACT_RISK_NOTICE":
+            # A pure post-award contract risk is not a response obligation: its
+            # clause may carry a cross-reference ("7.4.2 发出成交通知书后…") and its
+            # owned backing a liability word ("不满足"), but the *bid* is not
+            # conditioned on a negation the row never stated.  The stage rule says
+            # this row decides no compliance, so there is no polarity to lose.
+            continue
         if not _CROSS_REFERENCE_RE.search(requirement):
             continue
         point = getattr(item, "review_point", None)
@@ -458,7 +465,10 @@ def check_duplicated_wording(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any
 
 #: The delivered risk vocabulary.
 RISK_VETO = "一票否决"
-RISK_LEVELS: tuple[str, ...] = (RISK_VETO, "高", "中", "低")
+#: The level a pure post-award contract risk carries: a pre-bid warning, never a
+#: rejection class (the review-stage rule, ``review_stage``).
+RISK_NOTICE = "风险提示"
+RISK_LEVELS: tuple[str, ...] = (RISK_VETO, "高", "中", "低", RISK_NOTICE)
 #: Criticality levels that *are* a rejection claim.
 REJECTION_CRITICALITIES = frozenset(
     {CRITICALITY_SUBSTANTIVE_REJECTION}

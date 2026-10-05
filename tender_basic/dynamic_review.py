@@ -20,7 +20,7 @@ so), and where the requirement comes from.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any, Iterable, Mapping, Sequence
 
 from pydantic import Field
@@ -53,6 +53,7 @@ from .source_applicability import (  # noqa: E402
     risk_is_informational,
 )
 from .dynamic_requirements import (
+    MODULE_CONTRACT_RISK,
     MODULE_EVALUATION,
     MODULE_EVALUATION_QUALITATIVE,
     MODULE_ORDER,
@@ -65,6 +66,10 @@ from .dynamic_requirements import (
     compact_text,
     extract_values,
     topic_patterns,
+)
+from .review_stage import (
+    CONTRACT_RISK_NOTICE,
+    review_stage_for,
 )
 from .models import ContractModel, FactStatus, FieldName, ProjectFacts
 from .concern_contract import contract_for as concern_contract_for  # noqa: E402
@@ -408,6 +413,10 @@ class DynamicReviewItem(ContractModel):
     #: correction from renumbering the rows the human's findings are addressed
     #: by.  It is not a risk claim: see ``risk_is_informational``.
     project_decision: bool = False
+    #: The review stage of this row (``tender_basic.review_stage``): when the
+    #: obligation must be answered.  A pure post-award contract condition is a
+    #: pre-bid risk notice and may not decide compliance, rejection or score.
+    review_stage: str = ""
 
 
 @dataclass(frozen=True)
@@ -562,8 +571,8 @@ def _compose_cell_text(
 #: Unclassified clauses still have to land in a business module that matches
 #: what they actually talk about.
 _OTHER_MODULE_BY_TOPIC: dict[str, str] = {
-    "费用与付款": "四、报价与合同商务",
-    "合同责任": "四、报价与合同商务",
+    "费用与付款": "四、报价与商务响应",
+    "合同责任": "九、合同风险提示（投标前识别）",
     "评审计分": "六、评分项复核",
     "文件组成与格式": "三、投标文件组成与格式",
     "程序性要求": "八、递交与开标准备",
@@ -847,6 +856,37 @@ def build_dynamic_review_plan(
         row_criticality = criticality.for_atoms(
             list(getattr(concern, "atoms", ())), scope_atoms=display_atoms
         )
+        # Review stage: WHEN this obligation must be answered.  It is derived from
+        # the concern's own contract kind plus the source's own stage wording --
+        # never from the chapter the clause was printed in, and never from a case
+        # id.  A pure post-award contract condition becomes a pre-bid risk notice
+        # and may not decide compliance, rejection or score (see ``review_stage``).
+        row_stage = review_stage_for(
+            concern,
+            concern_id=concern.concern_id,
+            contract_kind=concern_contract_for(concern.concern_id).kind,
+            source_text=" ".join(
+                str(getattr(atom, "source_text", "") or "")
+                for atom in getattr(concern, "atoms", ())
+            ),
+            evidence_text=evidence_text,
+        )
+        if row_stage == CONTRACT_RISK_NOTICE:
+            # a pure contract risk is presented in its own module, carries no
+            # rejection consequence and no response-stage criticality note: its
+            # source term is a commercial warning, not a bid blocker.  A source
+            # marker that reaches it is therefore reported as its own fact (the
+            # ★ column) and never as a 实质性要求/否决 note in the cell.
+            module = MODULE_CONTRACT_RISK
+            marker_note = bool(row_criticality.marker_present)
+            row_criticality = _notice_criticality(row_criticality)
+            if marker_note:
+                row_criticality = replace(
+                    row_criticality,
+                    marker_present=True,
+                    raw_source_marker=row_criticality.raw_source_marker,
+                    marker_semantics="CONTRACT_RISK_NOTICE",
+                )
         components = _render_components(
             item_id=item_id,
             concern=concern,
@@ -879,6 +919,7 @@ def build_dynamic_review_plan(
                 informational=bool(
                     resolution is not None and risk_is_informational(resolution)
                 ),
+                stage=row_stage,
             ),
             requirement_type=requirement_type,
             topic=topic,
@@ -902,7 +943,7 @@ def build_dynamic_review_plan(
             ),
             values=values[:12],
             notes=point.notes,
-            cell_text=cell_from_components(components),
+            cell_text=cell_from_components(components, stage=row_stage),
             review_point=point,
             concern_id=point.concern_id,
             concern_label=point.concern_label,
@@ -937,6 +978,7 @@ def build_dynamic_review_plan(
             project_decision=bool(
                 resolution is not None and resolution_is_project_decision(resolution)
             ),
+            review_stage=row_stage,
         )
         if spec.bidder_facing:
             items.append(item)
@@ -2070,12 +2112,19 @@ def _components_from_dicts(payloads: Sequence[Mapping[str, Any]]) -> list[Render
 _CELL_MARKS = "①②③④⑤⑥⑦⑧⑨"
 
 
-def cell_from_components(components: Sequence[RenderedReviewComponent]) -> str:
+def cell_from_components(
+    components: Sequence[RenderedReviewComponent], *, stage: str = ""
+) -> str:
     """Render the legacy review cell *from* the verified components.
 
     Round 4: the cell is a projection of the components, so a phrase cannot
     appear in the sheet unless a concern-owned component produced it.  The
     block labels and bullet marks match the historical cell layout.
+
+    ``stage`` is the row's review stage (``review_stage``): a pure contract risk
+    labels its own source block as ``合同风险提示`` instead of
+    ``招标文件要求``, so the delivered text never reads as a bid-response
+    obligation.
     """
 
     def texts(kind: str) -> list[str]:
@@ -2089,7 +2138,8 @@ def cell_from_components(components: Sequence[RenderedReviewComponent]) -> str:
         blocks.append(notes[0])
     requirements = texts(SOURCE_REQUIREMENT)
     if requirements:
-        blocks.append(f"招标文件要求：{requirements[0]}")
+        label = "合同风险提示" if stage == CONTRACT_RISK_NOTICE else "招标文件要求"
+        blocks.append(f"{label}：{requirements[0]}")
     checks = texts(REVIEW_CHECK)
     if checks:
         lines = []
@@ -2138,6 +2188,9 @@ def criticality_note_text(criticality: SourceRequirementCriticality) -> str:
         label = {
             SEMANTICS_PROOF: "必备证明材料",
             SEMANTICS_SCORING: "评分相关条款",
+            # a post-award contract risk carries no response-stage duty: the note
+            # names the stage instead of implying a bid obligation
+            "CONTRACT_RISK_NOTICE": "合同风险条款，不作为投标符合性判断",
         }.get(criticality.marker_semantics, "源文标记条款")
         return f"【{star}{label}】"
     parts = [f"{star}实质性要求"]
@@ -2344,6 +2397,9 @@ RISK_VETO = "一票否决"
 RISK_HIGH = "高"
 RISK_MEDIUM = "中"
 RISK_LOW = "低"
+#: the level shown on a pure post-award contract risk: a warning, never a
+#: rejection class (see ``review_stage``)
+RISK_NOTICE = "风险提示"
 
 #: Risk shown when the row's own requirement type implies a consequence even
 #: where the source states none (a submission deadline that lapses).
@@ -2427,11 +2483,40 @@ def _stable_concern_order(concerns: Sequence[Any]) -> list[Any]:
     return [*known, *fresh]
 
 
+def _notice_criticality(
+    criticality: SourceRequirementCriticality,
+) -> SourceRequirementCriticality:
+    """The criticality a pure contract risk is allowed to display.
+
+    The source may well print a ``*`` on a contract clause, but a post-award
+    condition cannot make the *bid* rejectable: the stage says so.  The marker
+    itself is kept (it is a fact about the source), while the substantive and
+    rejection dimensions are cleared, so no delivered column claims a
+    bid-compliance consequence the stage does not carry.
+    """
+
+    return replace(
+        criticality,
+        substantive_requirement=False,
+        substantive_basis_kind="",
+        substantive_basis_atom_ids=(),
+        substantive_basis_text="",
+        explicit_rejection_consequence=False,
+        derived_rejection_consequence=False,
+        rejection_basis_atom_ids=(),
+        rejection_consequence_text="",
+        consequence_scopes=(),
+        criticality_level=CRITICALITY_ORDINARY,
+        criticality_reason="合同风险提示：中标后条款，不作为投标符合性/否决性判断",
+    )
+
+
 def _risk_level_for(
     requirement_type: str,
     criticality: SourceRequirementCriticality | None,
     *,
     informational: bool = False,
+    stage: str = "",
 ) -> str:
     """The row's risk level, made consistent with its own source basis.
 
@@ -2442,8 +2527,14 @@ def _risk_level_for(
     "legacy 一票否决" contradiction the human review found.  A type default is
     still used where the source says nothing, but it can only *raise* the level
     to the type's own risk, never to 一票否决.
+
+    A pure **contract-risk** row is a pre-bid notice: its level is
+    :data:`RISK_NOTICE` and can never be a rejection level, because the stage
+    itself says the row does not decide responsiveness.
     """
 
+    if stage == CONTRACT_RISK_NOTICE:
+        return RISK_NOTICE
     if informational:
         return RISK_LOW
     default = RISK_BY_TYPE.get(requirement_type, RISK_MEDIUM)
@@ -2456,7 +2547,7 @@ def _risk_level_for(
         # the type is veto-class, but *this* row's source states no rejection
         # consequence: the strongest honest level is 高
         return RISK_HIGH if level == RISK_MEDIUM else level
-    order = {RISK_LOW: 0, RISK_MEDIUM: 1, RISK_HIGH: 2, RISK_VETO: 3}
+    order = {RISK_LOW: 0, RISK_MEDIUM: 1, RISK_HIGH: 2, RISK_VETO: 3, RISK_NOTICE: 0}
     return max([default, level], key=lambda value: order.get(value, 1))
 
 
@@ -2466,6 +2557,7 @@ RISK_ORDER: dict[str, int] = {
     RISK_HIGH: 1,
     RISK_MEDIUM: 2,
     RISK_LOW: 3,
+    RISK_NOTICE: 4,
 }
 
 

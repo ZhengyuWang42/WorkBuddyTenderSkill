@@ -480,11 +480,17 @@ def check_current_round_docs(
         gate_path = general_path(f"{case.replace('_', '')}_review_workbook{round_no}_gate.json")
         structure = load(gate_path) if gate_path.is_file() else {}
         gate_paths[case] = structure
+        # The workbook gate's own contract is "every check passes": the check
+        # count grows as a round adds a check (round 9 = 42, round 10 = 43), so
+        # the gate must not pin a round's number, only require that all checks
+        # passed and none failed.
         gate.check(
             f"{case}_round{round_no}_structure_gate_pass",
             structure.get("result") == "PASS"
             and structure.get("failed") == 0
-            and structure.get("passed") == structure.get("check_count") == 42,
+            and isinstance(structure.get("check_count"), int)
+            and structure.get("check_count") >= 40
+            and structure.get("passed") == structure.get("check_count"),
             result=structure.get("result"),
             passed=structure.get("passed"),
             check_count=structure.get("check_count"),

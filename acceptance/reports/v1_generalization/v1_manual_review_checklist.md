@@ -449,38 +449,43 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-**当前复核对象（CURRENT = Round9）**：第 9 轮后继构建，Word 产物与 closure8/closure9 逐字节相同
-（`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
+**当前复核对象（CURRENT = Round10）**：第 10 轮后继构建（投标响应 / 合同风险分离），
+Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
 
 | 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
 | --- | --- | --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2/投标项目复核表.xlsx` | 50 | `e97c7072471fdf2d81d232dee03ab0acfe75139facd082fe545e5772078217f2` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook9r2/投标项目复核表.xlsx` | 45 | `d836f8dd38a96f4638858596528599840fc4f171db76ff778865936ec85a6d23` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure9_review_workbook9r2/投标项目复核表.xlsx` | 49 | `c675c9a223d9cfe97356b13b1c97e7e59cb72c8424e93a858e1a781f94fdd57a` |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10/投标项目复核表.xlsx` | 50 | `f0f2d94e0bde5640e57d637e44d6f3b2988c63a6904666c1393b247efaaa33a4` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook10/投标项目复核表.xlsx` | 45 | `d3a02712799cc72a18b827eb9adcd387a093144006cda384e71a765cb2c48417` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure9_review_workbook10/投标项目复核表.xlsx` | 49 | `ca75d23acc092f2eb5c5536b7ebffb4181fc8b9c34a4417cd14b332c581f106a` |
 
-**首次第 9 轮后继构建（HISTORICAL，缺陷证据，逐字节保留）**：`..._closure9_review_workbook9`
-（CASE001 sha256 `38a90a0877e253167b70cbda08379e673244b1da39ec7fd1d583e07816fe4878`、CASE002
-`178166c989cd54623efb7a253ae4ae366f0c1522d6f31a41362e763ded69d360`、CASE003
-`849a2fcd7645ef6872b11ea65f3069fd44653e36cecc2066a5abfb1284eb5f53`）；它暴露了评分行的
-`得分`/`评分` 外来概念与未显示数值组件两处缺陷，修复后新建 `...9r2`。
+### 4.4 第 10 轮（投标响应 vs 合同风险）人工复核点（全部未勾选）
 
-**历史复核对象（HISTORICAL / SUPERSEDED = Round8）**：第 8 轮后继构建（人工第 8 轮 FAIL 的对象，
-逐字节保留、未覆盖）：
+本轮产品决策：**报价/商务响应 = 投标响应项；合同条款 = 投标前风险识别项**。
+纯中标后合同条款**不得**影响投标符合性、否决或评分；它只用于投标前警示投标团队。
+**源文章节不决定复核阶段**（合同章里的报价/成本条款仍是投标响应项）。
 
-| 案例 | 工作簿（历史，Round8） | 行数 | XLSX sha256 |
-| --- | --- | --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8/投标项目复核表.xlsx` | 49 | `130c7638e14b96e7d4e2af79c0f6dffaf88c2d83ae9f5f8d5626ee43a2df5c8d` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 45 | `af70029182a76e309013f902aa62c7978a23b09587fba4fc444c8e2f45da06aa` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure8_review_workbook8/投标项目复核表.xlsx` | 48 | `0911b930fe14ed0d5d0a3ac988a1335588bab22f96b84f089aeff667bf193e2d` |
+- [ ] 主表第 02 表类别已拆分为 `四、报价与商务响应` 与 `九、合同风险提示（投标前识别）`
+- [ ] 合同风险行 `是否强制` 为空白、`风险级别 = 风险提示`（不出现 `一票否决`）
+- [ ] 合同风险行**不在** `03_资格否决与强制项` 中，且无 `否决性 = 是` / `SUBSTANTIVE_*`
+- [ ] 合同风险单元格块标签为 `合同风险提示：`，复核要点为投标前内部风险决策步骤
+- [ ] 合同风险行没有「核对响应文件已载明…」「确认响应文件接受该比例」「与响应文件一致」等响应侧措辞
+- [ ] `PROJECT_WARRANTY = 24 个月` 仍作为投标/技术响应项；`质保金 12 个月` / `5%` 为合同风险，二者未合并
+- [ ] 履约保证金（中标后/签订合同前提交）显示为合同风险，**未**显示为投标否决
+- [ ] 投标保证金（响应保证金）、最高限价、报价完整性、税率口径、报价费用范围、
+      银行承兑评分、付款条件评分、价格评分、供货期、交货地点、质量要求、投标有效期
+      **仍**为投标响应/评分项
+- [ ] 仪表盘分别显示「投标响应复核项」与「合同风险提示项」，且合同风险数不进入否决/实质性/阻断计数
+- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
 
-更早的复核对象（Round4 / Round3，HISTORICAL / SUPERSEDED）：Round4 构建
-`v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook4` / `v1_round4_closure8_review_workbook4`
-（XLSX sha256 `be084b7a…52c3c` / `ea6c4f2d…59ea9` / `3bb048a4…60735`）与 Round3 构建
-`v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook3` / `v1_round4_closure8_review_workbook3`
-（XLSX sha256 `746415ec5c502b46012d2280da89568704e69f9b004ae54f93182485cb512fa5` /
-`e89ae714c4b6b14e1d3d6bdcfe48ee1d49e1463d35238f60ad0734fdbdce3c05` /
-`0e01dc90c8c0e88ff201650a5ae30c1498fe2f521fe1dca072cfe39eaf98d322`）同样逐字节保留；
-Round3 的机器状态以 `review_workbook_round3_final_status_reconciled.json` 为准。
+机器闭环证据（**已通过，不代替人工复核**）：
+
+- 第 10 轮三案例审计 PASS：`review_workbook_round10_case_00{1,2,3}.json` / `.md`
+  （`0 failed check` / `0 failed fixture`）、泛化 `review_workbook_round10_generalization.json` = PASS
+- 工作簿门禁 `case00{1,2,3}_review_workbook10_gate.json` = **PASS（43/43）**
+  （含 `review_stage.contract_risk_is_not_a_bid_blocker`）
+- 定位门禁 `round10_locator_gate.json` = **PASS**（144 行精确比较，0 语义不一致，0 前缀/模糊匹配）
+- 第 5 / 6 / 7 轮门禁在**第 10 轮构建上**复跑通过：`review_workbook_round10_banked_regressions.json`
+- Word 产物逐字节未变（`word_render_repeated = false`）
 
 ### 4.3 第 9 轮（送达内容语义 + 定位精确格式化）人工复核点（全部未勾选）
 

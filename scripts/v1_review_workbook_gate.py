@@ -319,6 +319,74 @@ class Gate:
             ]
         return self._requirement_expectations
 
+    def check_stage_separation(self) -> None:
+        """Delivered rows must keep the bid-response / contract-risk stages apart.
+
+        Reads the *saved* sheet cells only.  A pure post-award contract risk may
+        not be presented as a bid blocker (no 否决性 = 是, no substantive or
+        rejection type, no rejection risk level, no "不满足导致否决" framing and no
+        response-file declaration wording), and a genuine response requirement may
+        not be demoted into the risk module.
+        """
+
+        rows = []
+        clause_rows = self.sheet_rows(SHEET_TITLES[2])
+        for row in clause_rows:
+            module = _cell_text(row[0])
+            rows.append(
+                {
+                    "item_id": _cell_text(row[1]),
+                    "module": module,
+                    "risk": _cell_text(row[7]),
+                    "requirement": _cell_text(row[3]),
+                    "action": _cell_text(row[4]),
+                    "criteria": _cell_text(row[5]),
+                    "veto": "",
+                    "stage": (
+                        "CONTRACT_RISK_NOTICE"
+                        if module.startswith("九、")
+                        else "BID_RESPONSE"
+                    ),
+                }
+            )
+        mandatory_rows = self.sheet_rows(SHEET_TITLES[3])
+        mandatory_by_id = {
+            _cell_text(row[1]): row for row in mandatory_rows if _cell_text(row[1])
+        }
+        contaminated = []
+        contract_rows = 0
+        for row in rows:
+            if row["stage"] != "CONTRACT_RISK_NOTICE":
+                continue
+            contract_rows += 1
+            findings = []
+            if row["risk"] in ("一票否决", "高"):
+                findings.append("risk_claims_rejection")
+            flat = "".join(
+                (row["requirement"] + row["action"] + row["criteria"]).split()
+            )
+            for cue in (
+                "核对响应文件已载明",
+                "确认响应文件接受",
+                "响应文件中被接受",
+                "与响应文件一致",
+                "不满足导致否决",
+                "投标响应不满足",
+            ):
+                if "".join(cue.split()) in flat:
+                    findings.append(f"response_or_rejection_wording:{cue}")
+            if row["item_id"] in mandatory_by_id:
+                findings.append("listed_on_the_mandatory_sheet")
+            if findings:
+                contaminated.append({"row": row["item_id"], "findings": findings})
+        self.check(
+            "review_stage.contract_risk_is_not_a_bid_blocker",
+            not contaminated,
+            f"{contract_rows} contract-risk row(s) read from the saved sheet, "
+            f"{len(contaminated)} still presented as a bid blocker",
+            {"problems": contaminated[:12]},
+        )
+
     def check_evidence_locators(self) -> None:
         # every locator shown must exist either in ProjectFacts candidates or in
         # the review evidence packet.
@@ -961,6 +1029,7 @@ class Gate:
         self.check_structure()
         self.check_facts()
         self.check_evidence_locators()
+        self.check_stage_separation()
         self.check_manual_separation()
         self.check_formulas()
         self.check_mandatory()

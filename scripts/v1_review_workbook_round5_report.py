@@ -570,8 +570,11 @@ class Round5Report:
         # K -- retention 5% in its own row, warranty 24 months in its own row.
         retention = self._item("RETENTION_MONEY_RATIO")
         warranty = self._item("PROJECT_WARRANTY")
-        r_text = " ".join(self._components(retention, "NUMERIC_STATEMENT")) if retention else ""
-        w_text = " ".join(self._components(warranty, "NUMERIC_STATEMENT")) if warranty else ""
+        # Read the rows' *delivered cells*: round 9 stopped declaring a numeric
+        # claim the cell does not display, so the retention ratio is carried by the
+        # delivered source text rather than by a NUMERIC_STATEMENT component.
+        r_text = self._cell_text(retention) if retention else ""
+        w_text = self._cell_text(warranty) if warranty else ""
         self.record(
             "K",
             "retention row shows 5% 质保金 and the warranty row shows 24 months",

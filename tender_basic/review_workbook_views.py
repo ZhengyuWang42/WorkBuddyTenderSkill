@@ -103,7 +103,10 @@ CLAUSE_TYPES = (
 #: Requirement types that can veto a bid or gate eligibility.
 MANDATORY_TYPES = ("REJECTION", "QUALIFICATION", "MANDATORY", "PROOF", "FORM")
 MANDATORY_RISK_LEVELS = ("一票否决", "高")
-
+#: The review stage a pure post-award contract risk is delivered in.  Such a row
+#: is a pre-bid notice: it is reviewable, but it is never a bid-compliance item,
+#: so it stays off the mandatory/rejection sheet and off the rejection vocabulary.
+CONTRACT_RISK_MODULE = "九、合同风险提示（投标前识别）"
 SHEET_TITLES = (
     "00_复核总览",
     "01_项目事实",
@@ -567,18 +570,42 @@ def _requirement_rows(dynamic_plan) -> list[dict]:
                 "reference_parent_atom_id": getattr(item, "reference_parent_atom_id", ""),
                 "reference_target": getattr(item, "reference_target", ""),
                 "concern_id": getattr(item, "concern_id", ""),
+                # review stage: when this obligation must be answered (bid
+                # response / scoring response / contract risk / informational)
+                "stage": getattr(item, "review_stage", ""),
             }
         )
     return rows
 
 
+def _is_contract_risk(row: dict) -> bool:
+    """Is this row a pure post-award contract risk (a pre-bid notice)?"""
+
+    return str(row.get("module") or "") == CONTRACT_RISK_MODULE
+
+
 def _is_mandatory(row: dict) -> bool:
+    if _is_contract_risk(row):
+        # a contract risk may not be presented as a bid-compliance requirement,
+        # however commercially important the term is
+        return False
     if row.get("marker_present") or row.get("substantive") or row.get("rejection"):
         # Round 6: a row belongs on the mandatory sheet when the *source* marks
         # it, makes it substantive, or attaches a consequence to it -- not
         # because the generator's own risk table called it high risk.
         return True
     return row["type"] in MANDATORY_TYPES or row["risk"] in MANDATORY_RISK_LEVELS
+
+
+def _clause_stage(row: dict) -> str:
+    """The stage label shown in the clause view's 是否强制 column.
+
+    ``是否强制`` answers "can this gate my bid?" -- for a contract risk the
+    honest answer is not applicable, so the cell stays blank instead of claiming
+    a bid-compliance requirement the stage does not carry.
+    """
+
+    return "" if _is_contract_risk(row) else ("是" if _is_mandatory(row) else "")
 
 
 def _is_clause(row: dict) -> bool:
@@ -1087,6 +1114,10 @@ def _build_overview(workbook, *, project_facts, build_meta, counts: dict) -> Non
     row += 1
 
     row = section("复核域行数（公式引用各复核视图）")
+    # Review stage: the bid-response rows and the contract-risk notices are
+    # reported separately, because only the first kind can gate compliance.  The
+    # contract-risk count is informational and feeds none of the rejection /
+    # substantive / blocking counts below.
     domain_specs = [
         ("关键条款", SHEET_TITLES[2], "B"),
         ("资格否决与强制项", SHEET_TITLES[3], "B"),
@@ -1097,6 +1128,23 @@ def _build_overview(workbook, *, project_facts, build_meta, counts: dict) -> Non
     ]
     for label, sheet, column in domain_specs:
         formula = f'=COUNTA({_sheet_ref(sheet, column)})'
+        ws.cell(row=row, column=1, value=label)
+        ws.cell(row=row, column=2, value=formula)
+        row += 1
+    # the two stages are counted from the 类别 column of the clause view, which
+    # carries the row's module label
+    stage_specs = [
+        ("其中：投标响应复核项", "<>"),
+        ("其中：合同风险提示项（投标前识别）", "="),
+    ]
+    reference = _sheet_ref(SHEET_TITLES[2], "A")
+    contract_count = f'COUNTIF({reference},"{CONTRACT_RISK_MODULE}")'
+    for label, operator in stage_specs:
+        formula = (
+            f"=COUNTA({reference})-{contract_count}"
+            if operator == "<>"
+            else f"={contract_count}"
+        )
         ws.cell(row=row, column=1, value=label)
         ws.cell(row=row, column=2, value=formula)
         row += 1
@@ -1293,8 +1341,8 @@ def _build_clauses(workbook, requirement_rows: Sequence[dict]) -> dict:
             _clip(row["requirement"], 400),
             _clip(row["action"], 300),
             _clip(row["criteria"], 240),
-            "是" if _is_mandatory(row) else "",
-            row["risk"],
+            _clause_stage(row),
+            row.get("risk_label") or row["risk"],
             row["page"] if row["page"] is not None else "",
             row["section"],
             row["locator"],

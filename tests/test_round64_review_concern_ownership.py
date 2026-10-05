@@ -48,10 +48,10 @@ from tender_basic.review_point import (  # noqa: E402
 import v1_review_workbook_round3_report as report  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
-#: Round 9 successor (the ``9r2`` revision): round 8's delivered-text fidelity plus
-#: the round-9 delivered-content and exact-locator closure.  The first round-9
-#: workbook and every earlier workbook stay frozen as the artifact the human
-#: reviewed and failed.
+#: Round-10 successor: round 9's delivered-content/locator closure plus the
+#: bid-response / contract-risk stage separation.  The round-9r2 workbook and every
+#: earlier workbook stay frozen as the artifact the human reviewed and failed.
+BUILD10 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10"
 BUILD9 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2"
 BUILD9_FIRST = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9"
 BUILD8 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook8"
@@ -64,8 +64,8 @@ BUILD2 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2
 WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD9 / "project_facts.json").is_file(),
-    reason="round-9 CASE001 successor build is not present",
+    not (BUILD10 / "project_facts.json").is_file(),
+    reason="round-10 CASE001 successor build is not present",
 )
 
 
@@ -365,7 +365,7 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     qa = dynamic_review_qa(plan, ctx["document"], ctx["facts"])
     assert qa["result"] == "PASS", qa["hard_gate_failures"]
 
-    workbook = load_workbook(BUILD9 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD10 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     assert workbook.sheetnames[0] == "投标项目复核表"
     sheet = workbook["投标项目复核表"]
     written = [
@@ -379,7 +379,7 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     assert written == expected
 
     identities = json.loads(
-        (BUILD9 / "build_manifest.json").read_text(encoding="utf-8")
+        (BUILD10 / "build_manifest.json").read_text(encoding="utf-8")
     )["artifact_identity"]
     assert all(entry["byte_identical"] for entry in identities.values())
     # the frozen round-3 workbook is preserved untouched next to its successor

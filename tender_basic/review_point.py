@@ -76,6 +76,17 @@ from .semantic_roles import (  # noqa: F401
     ROLE_WARRANTY_MONTHS,
 )
 from .review_rendering import foreign_terms
+from .review_stage import (
+    CONTRACT_RISK_NOTICE,
+    review_stage_for,
+)
+from .concern_contract import consequence_class
+from .concern_contract import (
+    CONSEQUENCE_DISQUALIFY,
+    CONSEQUENCE_NO_ACCEPT,
+    CONSEQUENCE_REJECT,
+    CONSEQUENCE_VOID,
+)
 
 # ---------------------------------------------------------------------------
 # vocabularies
@@ -2001,6 +2012,32 @@ def synthesize_concern_point(
             if key not in linked:
                 linked.append(key)
 
+    # Review stage (human product decision): a pure post-award contract condition
+    # is a *pre-bid risk notice*.  It keeps its own source clause and its own
+    # locator, but it may not be presented as a response-file obligation, may not
+    # carry a rejection consequence and may not be scored.  The wording below is
+    # generic (no case id, no concern-id branch): it says what this stage is, and
+    # what the bid team must decide *before* submitting.
+    point_stage = review_stage_for(
+        concern,
+        concern_id=concern_id,
+        contract_kind=str(getattr(concern.contract, "kind", "") or ""),
+        source_text=" ".join(str(atom.source_text) for atom in atoms),
+        evidence_text=summary,
+    )
+    if point_stage == CONTRACT_RISK_NOTICE:
+        # a contract risk carries no response-stage consequence: a post-award
+        # liability is not a bid-rejection basis
+        if consequence_class(str(consequence or "")) in {
+            CONSEQUENCE_REJECT,
+            CONSEQUENCE_VOID,
+            CONSEQUENCE_NO_ACCEPT,
+            CONSEQUENCE_DISQUALIFY,
+        }:
+            consequence, consequence_atom = "", ""
+        checks = _contract_risk_checks(concern, owned_backing)
+        criteria = [CONTRACT_RISK_CRITERION]
+
     point = ReviewPoint(
         requirement_type=requirement_type or str(getattr(atoms[0], "requirement_type", "") or ""),
         topic=topic or str(getattr(concern, "topic", "") or ""),
@@ -2081,6 +2118,63 @@ def concern_reuse_note(concern: Any) -> str:
     return f"{getattr(concern, 'concern_id', '')}: " + ", ".join(
         f"{getattr(atom, 'atom_id', '')}@{getattr(atom, 'authority_scope', '')}" for atom in atoms[:4]
     )
+
+
+#: The pass criterion of a pure contract risk.  It states what the stage *is*
+#: (a pre-bid notice), which is exactly the honest pass/fail question: the bid
+#: team has seen the term and made its own commercial decision.
+CONTRACT_RISK_CRITERION = "本项用于投标前合同风险识别，不作为投标文件的符合性、否决性或评审判断。"
+
+#: The pre-bid review steps for a contract risk, in the order the bid team needs
+#: them.  Each is generic; none of them asks the bidder to declare anything in
+#: its response, which is what keeps response-file language out of this stage.
+#: The wording deliberately names no domain concept (``review_rendering``'s
+#: DOMAIN_TERMS): a phrase such as "交付风险" would be a foreign concept on a
+#: payment or termination clause that never mentions delivery.
+CONTRACT_RISK_CHECKS: tuple[str, ...] = (
+    "确认项目团队已知悉该条款",
+    "评估该条款涉及的价格、现金流、履约与责任风险",
+    "如风险不可接受，在投标前完成内部决策",
+)
+
+
+#: Wording that only makes sense if the row is answered *in the bid response*.
+#: A pure contract risk may not keep such a step: the tender source asked the
+#: bidder for no such declaration, so the step would invent an obligation.
+RESPONSE_FILE_WORDING: tuple[str, ...] = (
+    "响应文件",
+    "投标文件",
+    "响应报价",
+    "响应内容",
+    "条款响应",
+    "响应",
+)
+
+
+def _contract_risk_checks(
+    concern: Any, owned_backing: str
+) -> list[str]:
+    """Pre-bid review steps for a contract risk, grounded in its own source.
+
+    The stage's steps are generic (they describe the *bid team's* decision, not a
+    response-file obligation).  A concern-specific step the source itself backs is
+    kept in front of them -- but only when the concern owns a concrete review
+    action and the step carries no response-file language, so no obligation the
+    source never made can leak into a contract-risk cell.
+    """
+
+    checks: list[str] = []
+    for check in CONCERN_CHECKS.get(str(getattr(concern, "concern_id", "") or ""), ()):
+        if any(word in check for word in RESPONSE_FILE_WORDING):
+            continue
+        if foreign_terms(check, owned_backing):
+            continue
+        checks.append(check)
+    checks.extend(CONTRACT_RISK_CHECKS)
+    reference = _anchor([_unit_like_atom(atom) for atom in getattr(concern, "atoms", ()) or ()])
+    if reference:
+        checks.append(f"依据{reference}查阅合同条款原文")
+    return list(dict.fromkeys(checks))
 
 
 def render_checks(point: ReviewPoint) -> str:

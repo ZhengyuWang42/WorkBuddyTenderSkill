@@ -76,7 +76,12 @@ EXCERPT_COLUMN = {CLAUSE_SHEET_TITLE: "证据摘要", MANDATORY_SHEET_TITLE: "�
 PAGE_COLUMN = {CLAUSE_SHEET_TITLE: "源页码", MANDATORY_SHEET_TITLE: "证据页码"}
 
 _LEGACY_LOCATOR_RE = re.compile(r"^(.*?（pdf_(?:block|table_cell)）)")
-_LEGACY_REQUIREMENT_RE = re.compile(r"招标文件要求：(.*?)(?:\n复核要点：|\Z)", re.S)
+#: The source block's label.  A pure contract risk labels its block
+#: ``合同风险提示`` instead of ``招标文件要求``: the review stage decides the
+#: wording (see ``review_stage``), so the reader accepts both.
+_LEGACY_REQUIREMENT_RE = re.compile(
+    r"(?:招标文件要求|合同风险提示)：(.*?)(?:\n复核要点：|\Z)", re.S
+)
 
 REPORTS = ROOT / "acceptance/reports/v1_generalization"
 

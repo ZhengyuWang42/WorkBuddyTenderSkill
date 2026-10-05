@@ -60,12 +60,16 @@ RequirementType = Literal[
 MODULE_REJECTION = "一、废标红线"
 MODULE_QUALIFICATION = "二、资格审查"
 MODULE_DOCUMENT = "三、投标文件组成与格式"
-MODULE_COMMERCIAL = "四、报价与合同商务"
+#: the response side of the commercial module: price, quotation and the
+#: commercial terms the bidder must actually answer in its response
+MODULE_COMMERCIAL = "四、报价与商务响应"
 MODULE_TECHNICAL = "五、技术响应"
 MODULE_EVALUATION = "六、评分项复核"
 MODULE_EVALUATION_QUALITATIVE = "六、定性评审与定标材料"
 MODULE_SIGNATURE = "七、签章与电子标"
 MODULE_SUBMISSION = "八、递交与开标准备"
+#: pure post-award contract risk: a pre-bid notice, never a compliance item
+MODULE_CONTRACT_RISK = "九、合同风险提示（投标前识别）"
 
 MODULE_ORDER: tuple[str, ...] = (
     MODULE_REJECTION,
@@ -77,6 +81,7 @@ MODULE_ORDER: tuple[str, ...] = (
     MODULE_EVALUATION_QUALITATIVE,
     MODULE_SIGNATURE,
     MODULE_SUBMISSION,
+    MODULE_CONTRACT_RISK,
 )
 
 TYPE_MODULE: dict[str, str] = {

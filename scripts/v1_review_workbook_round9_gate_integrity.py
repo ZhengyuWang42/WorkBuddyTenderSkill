@@ -140,12 +140,38 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case", action="append", default=None)
     parser.add_argument("--three-case", action="store_true")
+    parser.add_argument(
+        "--round10",
+        action="store_true",
+        help="re-verify the same locator contract on the round-10 successors",
+    )
+    parser.add_argument("--out", help="report path (default: the round's own gate file)")
     args = parser.parse_args(argv)
     cases = list(BUILDS) if args.three_case or not args.case else args.case
 
+    if args.round10:
+        # The locator contract is stage-independent, so the same gate must hold on
+        # the round-10 successors.  Rebind the round-9 report's BUILDS for this run
+        # only, and write every artifact under the round-10 stem, so no round-9
+        # evidence file is rewritten.
+        import v1_review_workbook_round9_report as round9
+
+        from v1_review_workbook_round10_report import BUILDS as ROUND10_BUILDS
+
+        round9.BUILDS = dict(ROUND10_BUILDS)
+
+        def _write_round10_case_report(case: str) -> dict[str, Any]:
+            from v1_review_workbook_round10_report import write_case_report as write10
+
+            return write10(case)
+
+        _case_report_writer = _write_round10_case_report
+    else:
+        _case_report_writer = write_case_report
+
     results: dict[str, dict[str, Any]] = {}
     for case in cases:
-        results[case] = write_case_report(case)
+        results[case] = _case_report_writer(case)
 
     case_gates = {case: _case_gate(case, data) for case, data in results.items()}
     named_rows = [row for case in cases for row in case_gates[case]["named_fixtures"]]
@@ -204,7 +230,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     REPORTS.mkdir(parents=True, exist_ok=True)
-    path = REPORTS / "round9_gate_integrity.json"
+    path = REPORTS / (args.out or "round9_gate_integrity.json")
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     generalization = {
@@ -222,11 +248,15 @@ def main(argv: list[str] | None = None) -> int:
             "PASS" if all(data["verdict"] == "PASS" for data in results.values()) else "FAIL"
         ),
     }
-    (REPORTS / "review_workbook_round9_generalization.json").write_text(
+    stem = "review_workbook_round10_generalization.json" if args.round10 else (
+        "review_workbook_round9_generalization.json"
+    )
+    (REPORTS / stem).write_text(
         json.dumps(generalization, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
-    print(f"ROUND9_GATE_INTEGRITY = {report['verdict']}")
+    print(f"{'ROUND10_LOCATOR_GATE' if args.round10 else 'ROUND9_GATE_INTEGRITY'} = "
+          f"{report['verdict']}")
     print(f"locator comparison = {report['locator_comparison']}")
     print(f"prefix/fuzzy matching = {report['prefix_or_fuzzy_comparison_count']}")
     print(
