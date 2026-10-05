@@ -160,6 +160,13 @@ def _is_heading(text: str) -> bool:
         return True
     if SCHEDULE_TITLE_RE.fullmatch(flat):
         return True
+    if _article_heading(flat):
+        # A contract *article* title ("第五条 交（提）货地点、方式及费用") is a real
+        # structural container: the clauses below it belong to it.  It has no
+        # numeric clause number of its own, so it was previously invisible to the
+        # block loop and the clauses under it inherited a *later* article's title
+        # (round-11 fixtures DR048/DR052 cited 第六条 for clauses under 第五条).
+        return True
     match = CLAUSE_HEADING_RE.match(flat)
     if match:
         body = match.group(2)
@@ -171,7 +178,7 @@ def _is_heading(text: str) -> bool:
 
 
 def _heading_titles(heading: str, clause: str) -> bool:
-    """Does the carried heading belong to the same clause family as ``clause``?
+    """Does the carried heading belong to the same structural family as ``clause``?
 
     A heading that names clause 3.1 does not title a unit whose own clause is 5.2;
     the unit belongs to another section, and the heading must not travel with it
@@ -181,6 +188,9 @@ def _heading_titles(heading: str, clause: str) -> bool:
     head_clause = _clause_of(str(heading or ""))
     own_clause = str(clause or "")
     if not head_clause or not own_clause:
+        # A contract *article* ("第五条 交（提）货地点、方式及费用") carries no numeric
+        # clause of its own, so there is nothing to compare; its scope is decided
+        # by the article order in the block loop (a later article replaces it).
         return True
     return (
         own_clause == head_clause
@@ -259,6 +269,10 @@ def _carries_forward(heading: str) -> bool:
     if CN_SECTION_RE.match(flat):
         return True
     if SCHEDULE_TITLE_RE.fullmatch(flat):
+        return True
+    if _article_heading(flat):
+        # a contract article governs the clauses printed under it, including the
+        # ones that continue onto the following page
         return True
     match = CLAUSE_HEADING_RE.match(flat)
     if match:

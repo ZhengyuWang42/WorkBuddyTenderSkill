@@ -839,7 +839,15 @@ def build_dynamic_review_plan(
         # ("2.2.2 评审基准价" for a pricing-formula row whose own clause is
         # "2.2.4"), and the check text then sent the reviewer to a page/clause the
         # row does not quote (round-9 fixture D57).
-        _retarget_anchor_checks(point, page, section, clause)
+        primary_unit = units_by_id.get(str(getattr(primary_atom, "source_clause_id", "")))
+        _retarget_anchor_checks(
+            point,
+            page,
+            section,
+            clause,
+            primary_unit=primary_unit,
+            linked_units=list(units),
+        )
         verification_action = render_checks(point)
         if resolution is not None:
             operational = action_for_resolution(resolution, concern.label or topic)
@@ -1060,21 +1068,94 @@ def _anchor_text(page: int | None, section: str, clause: str) -> str:
 
 
 def _retarget_anchor_checks(
-    point: ReviewPoint, page: int | None, section: str, clause: str
+    point: ReviewPoint,
+    page: int | None,
+    section: str,
+    clause: str,
+    *,
+    primary_unit: Any = None,
+    linked_units: Sequence[Any] = (),
 ) -> None:
-    """Re-point every delivered anchor check at the row's own evidence unit."""
+    """Re-point every delivered anchor check at the row's own evidence unit.
+
+    When the row is composed from **two** source units (a project-specific value
+    from the schedule and a generic obligation from another clause), the check must
+    name the unit the reviewer sees as the row's evidence, and the *other* source
+    must be named explicitly as an additional source.  A bare "依据第18页" beside a
+    page-11 evidence locator tells the reviewer to look somewhere the row does not
+    show.
+    """
 
     target = _anchor_text(page, section, clause)
-    if not target:
+    check = ""
+    if target:
+        check = f"依据{target}逐条比对响应文件对应章节"
+    linked_extra = _linked_source_anchor(primary_unit, linked_units)
+    if linked_extra:
+        # the second source is stated as its own named source, never as an
+        # unexplained page number
+        check = (
+            f"{check}；并依据{linked_extra}核对另一来源条款"
+            if check
+            else f"依据{linked_extra}核对另一来源条款"
+        )
+    if not check:
         return
     pattern = re.compile(r"^依据.+?逐条比对响应文件对应章节$")
+    pattern_linked = re.compile(r"^依据.+?核对另一来源条款$")
+    # the contract-risk stage's own anchor line ("依据第18页查阅合同条款原文") must
+    # name the row's *visible* evidence too, otherwise the reviewer is sent to a
+    # page the row does not show (round-11 fixture DR037)
+    pattern_contract = re.compile(r"^依据.+?查阅合同条款原文$")
     checks = list(point.review_checks)
-    updated = [
-        f"依据{target}逐条比对响应文件对应章节" if pattern.match(str(check)) else check
-        for check in checks
-    ]
+    updated: list[str] = []
+    replaced = False
+    for existing in checks:
+        text = str(existing)
+        if pattern_contract.match(text):
+            updated.append(
+                f"依据{target}查阅合同条款原文" if target else text
+            )
+            continue
+        if not replaced and (pattern.match(text) or pattern_linked.match(text)):
+            updated.append(check)
+            replaced = True
+        elif pattern_linked.search(text) and check.endswith("核对另一来源条款"):
+            continue
+        else:
+            updated.append(text)
+    if not replaced:
+        updated.append(check)
     if updated != checks:
         point.review_checks = updated
+
+
+#: A page-anchored reference the row can print for an *additional* source unit.
+def _linked_source_anchor(primary_unit: Any, linked_units: Sequence[Any]) -> str:
+    """A readable anchor for the row's second source, or "" when there is none.
+
+    Only a *structural* difference counts: the same clause extracted twice is one
+    source, not two, so a linked unit that merely repeats the primary unit's page
+    and clause is not announced.
+    """
+
+    def _key(unit: Any) -> tuple[Any, str]:
+        if unit is None:
+            return (None, "")
+        return (
+            getattr(unit, "page", None),
+            str(getattr(unit, "section", "") or getattr(unit, "heading", "") or ""),
+        )
+
+    primary_key = _key(primary_unit)
+    for unit in linked_units or ():
+        if _key(unit) != primary_key and _key(unit) != (None, ""):
+            return _anchor_text(
+                getattr(unit, "page", None),
+                str(getattr(unit, "section", "") or getattr(unit, "heading", "") or ""),
+                str(getattr(unit, "clause_number", "") or ""),
+            )
+    return ""
 
 
 def _display_atoms(
@@ -1292,6 +1373,13 @@ def _evidence_excerpt(
                 excerpt = trimmed
     excerpt = dedupe_segments(normalize_numeric_fragment(excerpt))
     excerpt = _trim_stray_leading_bracket(excerpt)
+    # Round 11: the extraction repeats a wrapped word at the boundary it split on.
+    # The *requirement* was already reduced to the source's single reading, but the
+    # evidence summary was not, so the delivered cell showed "…的资 格要求 格要求"
+    # and "…营业 执照 执照".  Only the *no-separator* form is collapsed here: a
+    # space-separated repeat is the source's own label-then-value layout
+    # ("3.4.1 响应保证金 响应保证金的金额：…") and must be preserved.
+    excerpt = _collapse_wrapped_token_repeat(excerpt)
     if not excerpt:
         excerpt = str(atom_text or "")
     if not _grounded_in(excerpt, [atom_text, span]) and span:
@@ -1381,25 +1469,59 @@ def _realign_primary(
     atom_text = str(
         getattr(primary_atom, "source_origin_text", "") or getattr(primary_atom, "source_text", "")
     )
+    spec = contract_for(str(concern_id or "")) if concern_id else None
+
+    def _eligible(atom: Any) -> bool:
+        if spec is None:
+            return True
+        flat = _flatten(
+            str(getattr(atom, "source_origin_text", "") or getattr(atom, "source_text", ""))
+        )
+        if spec.forbidden_evidence and any(
+            re.search(pattern, flat) for pattern in spec.forbidden_evidence
+        ):
+            return False
+        if spec.required_evidence and not any(
+            re.search(pattern, flat) for pattern in spec.required_evidence
+        ):
+            return False
+        return True
+
+    # Round 11: a requirement is often composed from several source clauses (an
+    # authority chain is stated once in the supplier-instructions chapter and once
+    # in the evaluation chapter).  The row's canonical unit must be the clause that
+    # actually *carries* the displayed text, so when the current anchor covers only
+    # a minority of it and another owned, contract-eligible atom covers decisively
+    # more, the row is re-pointed at that atom.  This is what keeps the delivered
+    # locator from naming a clause that merely happens to share a few words.
+    own_coverage = _span_coverage(text, [atom_text])
+    best: tuple[float, Any] | None = None
+    for atom in display_atoms:
+        if atom is primary_atom or not _eligible(atom):
+            continue
+        candidate_text = str(
+            getattr(atom, "source_origin_text", "") or getattr(atom, "source_text", "")
+        )
+        if not candidate_text or not _grounded_in(text, [candidate_text]):
+            continue
+        coverage = _span_coverage(text, [candidate_text])
+        if best is None or coverage > best[0]:
+            best = (coverage, atom)
+    if best is not None and best[0] >= 0.6 and best[0] >= own_coverage * 2:
+        unit = units_by_id.get(str(getattr(best[1], "source_clause_id", "")))
+        if unit is not None:
+            return best[1], unit, True
+
     if _grounded_in(text, [atom_text]):
         return primary_atom, primary, False
-    spec = contract_for(str(concern_id or "")) if concern_id else None
     for atom in display_atoms:
         candidate_text = str(
             getattr(atom, "source_origin_text", "") or getattr(atom, "source_text", "")
         )
         if not candidate_text or not _grounded_in(text, [candidate_text]):
             continue
-        if spec is not None:
-            flat = _flatten(candidate_text)
-            if spec.forbidden_evidence and any(
-                re.search(pattern, flat) for pattern in spec.forbidden_evidence
-            ):
-                continue
-            if spec.required_evidence and not any(
-                re.search(pattern, flat) for pattern in spec.required_evidence
-            ):
-                continue
+        if not _eligible(atom):
+            continue
         unit = units_by_id.get(str(getattr(atom, "source_clause_id", "")))
         return atom, unit if unit is not None else primary, True
     return primary_atom, primary, False
@@ -1779,6 +1901,33 @@ def _finish_from_following(excerpt: str, evidence: Any, units: Sequence[Any]) ->
         if text.endswith(tuple("。；;！？!?")):
             break
     return text
+
+
+#: A word the extractor printed twice because it wrapped in the middle of the
+#: token: "…供应商的资 格要求 格要求" and "…营业 执照 执照".  The shape is
+#: ``head tail tail`` -- the head is split off by the wrap, and the tail is then
+#: printed again.  The repeated tail is therefore matched when it follows
+#: whitespace and is *not* continued by another Chinese character.
+#:
+#: A space-separated repeat of a whole label ("3.4.1 响应保证金 响应保证金的金额：…")
+#: is deliberately not matched: there the repeated phrase is continued by its own
+#: value ("的金额"), which is exactly what the negative lookahead rejects.
+_WRAPPED_TOKEN_REPEAT_RE = re.compile(
+    r"(?<=[\s\u3000])([\u4e00-\u9fa5]{2,6})[\s\u3000]+\1(?![\u4e00-\u9fa5])"
+)
+
+
+def _collapse_wrapped_token_repeat(text: str) -> str:
+    """Collapse a phrase the extractor duplicated with no separator between halves."""
+
+    value = str(text or "")
+    if not value:
+        return value
+    previous = None
+    while previous != value:
+        previous = value
+        value = _WRAPPED_TOKEN_REPEAT_RE.sub(r"\1", value)
+    return value
 
 
 def _trim_stray_leading_bracket(text: str) -> str:

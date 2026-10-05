@@ -20,25 +20,25 @@
     "passed": 614
   },
   "current_round": {
-    "round": 10,
+    "round": 11,
     "cases": {
       "case_001": {
-        "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10",
-        "workbook_sha256": "f0f2d94e0bde5640e57d637e44d6f3b2988c63a6904666c1393b247efaaa33a4",
+        "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11",
+        "workbook_sha256": "ea07803616dff09f84efb932a55a7a0da7332dbe5fc70ffa71690dd63100914c",
         "workbook_preserved": true,
         "structure_gate": "PASS",
         "audit": "PASS"
       },
       "case_002": {
-        "build_id": "v1_round4_closure9_review_workbook10",
-        "workbook_sha256": "d3a02712799cc72a18b827eb9adcd387a093144006cda384e71a765cb2c48417",
+        "build_id": "v1_round4_closure9_review_workbook11",
+        "workbook_sha256": "c9ad4b729a83f36562645ed6d5211c32654e2372c9ed01e3759dea13d2e5b977",
         "workbook_preserved": true,
         "structure_gate": "PASS",
         "audit": "PASS"
       },
       "case_003": {
-        "build_id": "v1_round4_closure9_review_workbook10",
-        "workbook_sha256": "ca75d23acc092f2eb5c5536b7ebffb4181fc8b9c34a4417cd14b332c581f106a",
+        "build_id": "v1_round4_closure9_review_workbook11",
+        "workbook_sha256": "c5e15f102186fc891e3ba18ba13094852edd9bb2d8509e2b3c20949c9217dbe2",
         "workbook_preserved": true,
         "structure_gate": "PASS",
         "audit": "PASS"
@@ -221,8 +221,8 @@
   },
   "docs": {
     "checked_human_boxes": 0,
-    "state_doc_bytes": 123194,
-    "decisions_doc_bytes": 95181
+    "state_doc_bytes": 127102,
+    "decisions_doc_bytes": 99086
   },
   "checks": [
     {
@@ -514,7 +514,7 @@
       "status": "PASS",
       "current_marker_at": 4323,
       "history_marker_at": 5256,
-      "first_round1_reference_at": 21054,
+      "first_round1_reference_at": 21070,
       "note": "the current Excel review object is Round4; round-1/2/3 references sit behind history markers"
     },
     {
@@ -782,18 +782,18 @@
     {
       "check": "current_review_round_discovered",
       "status": "PASS",
-      "round": 10,
+      "round": 11,
       "note": "newest round with three complete delivered workbooks + gates + audits"
     },
     {
-      "check": "case_001_round10_workbook_preserved",
+      "check": "case_001_round11_workbook_preserved",
       "status": "PASS",
-      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10",
-      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10\\投标项目复核表.xlsx",
-      "workbook_sha256": "f0f2d94e0bde5640e57d637e44d6f3b2988c63a6904666c1393b247efaaa33a4"
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11\\投标项目复核表.xlsx",
+      "workbook_sha256": "ea07803616dff09f84efb932a55a7a0da7332dbe5fc70ffa71690dd63100914c"
     },
     {
-      "check": "case_001_round10_structure_gate_pass",
+      "check": "case_001_round11_structure_gate_pass",
       "status": "PASS",
       "result": "PASS",
       "passed": 43,
@@ -801,21 +801,21 @@
       "failed": 0
     },
     {
-      "check": "case_001_round10_delivered_audit_pass",
+      "check": "case_001_round11_delivered_audit_pass",
       "status": "PASS",
       "verdict": "PASS",
       "failed_checks": [],
       "failed_fixtures": []
     },
     {
-      "check": "case_002_round10_workbook_preserved",
+      "check": "case_002_round11_workbook_preserved",
       "status": "PASS",
-      "build_id": "v1_round4_closure9_review_workbook10",
-      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure9_review_workbook10\\投标项目复核表.xlsx",
-      "workbook_sha256": "d3a02712799cc72a18b827eb9adcd387a093144006cda384e71a765cb2c48417"
+      "build_id": "v1_round4_closure9_review_workbook11",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure9_review_workbook11\\投标项目复核表.xlsx",
+      "workbook_sha256": "c9ad4b729a83f36562645ed6d5211c32654e2372c9ed01e3759dea13d2e5b977"
     },
     {
-      "check": "case_002_round10_structure_gate_pass",
+      "check": "case_002_round11_structure_gate_pass",
       "status": "PASS",
       "result": "PASS",
       "passed": 43,
@@ -823,21 +823,21 @@
       "failed": 0
     },
     {
-      "check": "case_002_round10_delivered_audit_pass",
+      "check": "case_002_round11_delivered_audit_pass",
       "status": "PASS",
       "verdict": "PASS",
       "failed_checks": [],
       "failed_fixtures": []
     },
     {
-      "check": "case_003_round10_workbook_preserved",
+      "check": "case_003_round11_workbook_preserved",
       "status": "PASS",
-      "build_id": "v1_round4_closure9_review_workbook10",
-      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure9_review_workbook10\\投标项目复核表.xlsx",
-      "workbook_sha256": "ca75d23acc092f2eb5c5536b7ebffb4181fc8b9c34a4417cd14b332c581f106a"
+      "build_id": "v1_round4_closure9_review_workbook11",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure9_review_workbook11\\投标项目复核表.xlsx",
+      "workbook_sha256": "c5e15f102186fc891e3ba18ba13094852edd9bb2d8509e2b3c20949c9217dbe2"
     },
     {
-      "check": "case_003_round10_structure_gate_pass",
+      "check": "case_003_round11_structure_gate_pass",
       "status": "PASS",
       "result": "PASS",
       "passed": 43,
@@ -845,32 +845,32 @@
       "failed": 0
     },
     {
-      "check": "case_003_round10_delivered_audit_pass",
+      "check": "case_003_round11_delivered_audit_pass",
       "status": "PASS",
       "verdict": "PASS",
       "failed_checks": [],
       "failed_fixtures": []
     },
     {
-      "check": "state_doc_names_the_round10_pipeline",
+      "check": "state_doc_names_the_round11_pipeline",
       "status": "PASS",
-      "documented_current_round": 10,
+      "documented_current_round": 11,
       "note": "the authority doc must present this round, not a superseded one"
     },
     {
-      "check": "docs_name_the_current_round10_builds",
+      "check": "docs_name_the_current_round11_builds",
       "status": "PASS",
       "missing": []
     },
     {
-      "check": "docs_name_the_current_round10_xlsx_hashes",
+      "check": "docs_name_the_current_round11_xlsx_hashes",
       "status": "PASS",
       "missing": []
     },
     {
-      "check": "docs_keep_round9_as_history",
+      "check": "docs_keep_round10_as_history",
       "status": "PASS",
-      "documented_current_round": 10,
+      "documented_current_round": 11,
       "note": "a superseded round stays recorded, but never as the current object"
     }
   ],

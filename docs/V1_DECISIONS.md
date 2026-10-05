@@ -1205,3 +1205,50 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
   未 reset / clean / revert / rebase / stash / amend、未强推、未创建 tag 或 release；
   workbook9r2 及更早构建逐字节保留、未被覆盖。
 
+### D74 canonical EvidenceUnit 必须坐落在拥有它的源结构容器中（长期规则，BANK）
+
+- 人工产品决策（本轮不变量）：
+  `CANONICAL EVIDENCE UNIT MUST SITE IN THE SOURCE STRUCTURE THAT OWNS IT`。
+  精确格式化相等只证明：
+  `XLSX locator == formatter(canonical EvidenceUnit)`；
+  它**不**证明 `canonical EvidenceUnit == 拥有该要求的源语义单元`。
+- 独立结构来源门禁（新增，不依赖被检验的 EvidenceUnit 自身）：
+  `SOURCE_ATOM → 实际 PDF 结构容器 → canonical EvidenceUnit → formatter → 已保存 XLSX`。
+  期望容器由**文档自身的块序列**重新推导（`tender_basic/structural_heading.py`
+  `structural_container_for`），绝不从被测单元反推。
+- **标题只能来自真实结构容器**：章 / 中文节 / 条款标题 / 合同**条**标题 / 前附表标题。
+  正文句子（含 `，`/`。` 的 prose）**永远**不能成为 section 字段，即使页/条款格式自洽。
+  若无更窄的有效标题，使用**最近的可证明父级结构标题**。
+- **合同条标题必须被识别**：`第二条…` 至 `第八条 附则` 之类条标题是结构容器，
+  其下的条款属于该条。此前条标题不是标题，导致 **第五条** 下的 5.2 被归到 **第六条**
+  （DR048 / DR052 人工夹具）。
+- **要求文本决定锚定单元**：一行由多个条款语句拼成时，canonical 单元必须是**承载
+  该显示文本**的条款；当现有锚点只覆盖少数文本、而另一个契约允许的原子覆盖
+  显著更多（≥60% 且 ≥2×）时，必须重锚（E47 授权行：81% 文本属 3.7.3，
+  此前错误引用 3.3 澄清和补正；现在 PRIMARY 为 3.7，3.3 保留为 LINKED）。
+- **多来源角色必须显式**：一行由「项目专用值（前附表）+ 通用/中标后后果条款」组成时，
+  复核动作必须声明第二来源（`依据第N页核对另一来源条款`），
+  不得出现「依据第18页」而可见证据定位为第11页且不作解释（DR037）。
+- **交付文本不得含抽取伪影**：抽取在换行处重复词尾（`…的资 格要求 格要求`、
+  `…营业 执照 执照`）必须折叠为一次；但**源文自身的「标签 值」布局**
+  （`3.4.1 响应保证金 响应保证金的金额：…`）**不得**被折叠。
+- **截断必须在语义边界**：证据摘要裁剪不得切断源标识符
+  （`GB50015-2` 这类被切半的标准号必须避免；退回到最近的条款/句子边界并**显式标注**截断 `…`），
+  完整要求正文仍在 `要求正文` 列可得。
+- 证据（第 11 轮，均取自**已保存/重新打开的 XLSX**）：
+  - 三案例审计 `review_workbook_round11_case_00{1,2,3}.{json,md}` =
+    PASS（0 failed check / 0 failed fixture）、
+    `review_workbook_round11_generalization.json` = PASS；
+  - 工作簿门禁 43/43；定位门禁 `round11_locator_gate.json` = PASS
+    （144 行精确比较，0 语义不一致，0 前缀/模糊匹配）；
+  - `BODY_PROSE_HEADING_COUNT = 0`、`FOREIGN_STRUCTURAL_HEADING_COUNT = 0`、
+    `DUPLICATED_SOURCE_FRAGMENT_COUNT = 0`、`MID_TOKEN_EVIDENCE_TRUNCATION_COUNT = 0`、
+    `MULTI_SOURCE_EVIDENCE_ROLE_AMBIGUITY_COUNT = 0`；
+  - 第 5/6/7 轮门禁在第 11 轮构建上复跑 PASS；渲染 QA PASS；Word 产物逐字节未变。
+- 纪律：**未**修改 Word；**未**重开 ReviewStage / SourceRequirementAtom / ReviewConcern /
+  ReviewPoint / RenderedReviewComponent / ConcernContract / marker 记账 / 精确定位格式化器 /
+  合同风险分离；**未**削弱精确定位门禁（无 startswith/contains/fuzzy）；
+  **未**在生产代码中硬编码任何 CASE001 行号；后继指针推进到 workbook11；
+  未 reset / clean / revert / rebase / stash / amend、未强推、未创建 tag 或 release；
+  workbook10 及更早构建逐字节保留。
+

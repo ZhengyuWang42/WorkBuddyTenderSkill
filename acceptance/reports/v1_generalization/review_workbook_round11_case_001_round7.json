@@ -1,0 +1,217 @@
+{
+  "schema": "v1_review_workbook_round7/1",
+  "case": "case_001",
+  "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11",
+  "workbook": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11/投标项目复核表.xlsx",
+  "workbook_sha256": "ea07803616dff09f84efb932a55a7a0da7332dbe5fc70ffa71690dd63100914c",
+  "verdict": "PASS",
+  "check_count": 10,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "every generic schedule reference resolves to the project value",
+      "ok": true,
+      "detail": "109 resolved, 0 unresolved, 0 source-unreadable",
+      "evidence": {
+        "unresolved": [],
+        "source_unreadable": []
+      }
+    },
+    {
+      "check": "no delivered row displays a superseded generic clause",
+      "ok": true,
+      "detail": "0 row(s) still display the generic template",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "no scoring / post-award / contract / procedural consequence is shown as 否决性",
+      "ok": true,
+      "detail": "0 false rejection classification(s) across 25 vetoed row(s)",
+      "evidence": {
+        "false": []
+      }
+    },
+    {
+      "check": "displayed requirement, page, section, clause and excerpt describe one unit",
+      "ok": true,
+      "detail": "109 row(s) checked, 0 mismatch(es)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "no rendered source fragment is incomplete",
+      "ok": true,
+      "detail": "0 incomplete fragment(s) of 109 row(s)",
+      "evidence": {
+        "incomplete": []
+      }
+    },
+    {
+      "check": "no rendered numeric text is duplicated or corrupted",
+      "ok": true,
+      "detail": "0 corrupted numeric fragment(s)",
+      "evidence": {
+        "corrupted": []
+      }
+    },
+    {
+      "check": "different platform roles are not collapsed into one conflict",
+      "ok": true,
+      "detail": "0 false platform conflict(s); roles=3",
+      "evidence": {
+        "false_conflicts": [],
+        "roles": {
+          "PROCUREMENT_SERVICE_PLATFORM": "河南国企阳光招采服务平台",
+          "TRANSACTION_SYSTEM": "e招投标交易平台",
+          "ANNOUNCEMENT_PLATFORM": "中国招标投标公共服务平台"
+        },
+        "platform_status": "RESOLVED"
+      }
+    },
+    {
+      "check": "round-5/round-6 fact invariants still hold",
+      "ok": true,
+      "detail": "4 invariant(s) checked, 0 failure(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the banked round-6 marker accounting still holds",
+      "ok": true,
+      "detail": "round-6 accounting verdict=PASS (failed=none)",
+      "evidence": {
+        "failed_checks": [],
+        "failed_fixtures": [],
+        "counts": {
+          "direct_delivered_marker_visibility_failures": 0,
+          "duplicate_source_marker_record_count": 0,
+          "marker_carrying_source_atom_count": 39,
+          "marker_false_positive_count": 0,
+          "marker_lost_count": 0,
+          "marker_unattributed_count": 0,
+          "marker_unresolved_count": 0,
+          "raw_source_marker_discovery_count": 18,
+          "source_marker_atom_count": 39,
+          "source_marker_evidence_count": 18,
+          "source_marker_occurrence_count": 18
+        },
+        "concern_contract_verdict": "PASS"
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) compared against the accepted source build",
+      "evidence": {
+        "基础投标文件.docx": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
+        "基础投标文件.pdf": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927",
+        "generation_report.json": "1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace"
+      }
+    }
+  ],
+  "fixtures": {
+    "APPLICABLE_SOURCE_1.10.1": {
+      "status": "PASS",
+      "detail": "1.10.1 resolves to OVERRIDES/EVENT_NOT_HELD and 1 row(s) display it",
+      "evidence": "1.10.1 供应商须知前附表规定召开采购预备会的，采购人按供应商须知前附表规 定的时间和地点召开采购预备会，澄清供应商提出的问题。 -> 1.10.1 采购预备会 不召开"
+    },
+    "APPLICABLE_SOURCE_1.10.1_TEMPLATE_HIDDEN": {
+      "status": "PASS",
+      "detail": "the superseded generic clause is not displayed",
+      "evidence": "1.10.1采购预备会不召开"
+    },
+    "APPLICABLE_SOURCE_1.11.1": {
+      "status": "PASS",
+      "detail": "1.11.1 resolves to OVERRIDES/EVENT_NOT_HELD and 1 row(s) display it",
+      "evidence": "1.11.1 供应商须知前附表规定组织踏勘现场的，采购人按供应商须知前附表规定 的时间、地点组织供应商踏勘项目现场。 -> 1.11.1 踏勘现场 不组织"
+    },
+    "APPLICABLE_SOURCE_1.11.1_TEMPLATE_HIDDEN": {
+      "status": "PASS",
+      "detail": "the superseded generic clause is not displayed",
+      "evidence": "1.11.1踏勘现场不组织"
+    },
+    "APPLICABLE_SOURCE_1.12": {
+      "status": "PASS",
+      "detail": "1.12 resolves to RESOLVES_REFERENCE/NOT_PERMITTED and 3 row(s) display it",
+      "evidence": "1.12 分包 是否允许分包：见供应商须知前附表。 -> *1.12 分包 不允许"
+    },
+    "APPLICABLE_SOURCE_1.12_TEMPLATE_HIDDEN": {
+      "status": "PASS",
+      "detail": "the superseded generic clause is not displayed",
+      "evidence": "*1.12分包不允许; *1.12分包不允许"
+    },
+    "APPLICABLE_SOURCE_GENERIC_KEPT": {
+      "status": "PASS",
+      "detail": "15 generic clause(s) kept in the atom stream for coverage/audit",
+      "evidence": ""
+    },
+    "REJECTION_SCOPE_SCORING_NOT_VETO": {
+      "status": "PASS",
+      "detail": "4 scoring row(s) audited; none is a rejection",
+      "evidence": "DR041:-; DR042:-; DR040:-; DR043:-"
+    },
+    "REJECTION_SCOPE_STAGE_NAMED": {
+      "status": "PASS",
+      "detail": "11 non-vetoed mandatory row(s) name their own basis",
+      "evidence": "FINANCIAL; FORM; MARKER_UNCLASSIFIED; NON_ACCEPTANCE_OF_LATE_SUBMISSION; PRICING; QUALIFICATION"
+    },
+    "EVIDENCE_LOCATOR_DR002": {
+      "status": "PASS",
+      "detail": "the delivery period is located at its own supply-period source",
+      "evidence": "locator=第9页/供应商须知前附表/第1.4.5条/（pdf_table_cell） | excerpt=*1.4.5供货期签订合同后30日历天"
+    },
+    "EVIDENCE_LOCATOR_DR047": {
+      "status": "PASS",
+      "detail": "the third-party test is located at its own test-report clause",
+      "evidence": "locator=第34页/3.1供应商提供设备应遵照国家和部颁发的下列标准、规程和规范：/第3.1条/（pdf_block） | excerpt=*流量计等相关计量仪器需提供第三方检测实验报告"
+    },
+    "EVIDENCE_LOCATOR_DR019": {
+      "status": "PASS",
+      "detail": "the bond form is located at its own bond-form clause",
+      "evidence": "locator=第10页/供应商须知前附表/第3.4.1条/（pdf_table_cell） | excerpt=响应保证金的形式：银行转账方式"
+    },
+    "FRAGMENT_DR044": {
+      "status": "PASS",
+      "detail": "the contract-payment sentence is complete",
+      "evidence": "如果甲方未按期向乙方支付货款的，乙方予以理解并承诺从最后一笔款项应付之日 起给甲方 ＿＿＿＿ 的支付宽限期"
+    },
+    "FRAGMENT_DR051": {
+      "status": "PASS",
+      "detail": "the retention ratio is 5%, not a duplicated placeholder",
+      "evidence": "剩余 5%作为质保金，质保期 12 个月，质保期满后无息付清余款"
+    },
+    "PLATFORM_ROLE_DISTINCT": {
+      "status": "PASS",
+      "detail": "3 platform role(s) distinguished: 采购服务平台：河南国企阳光招采服务平台；交易系统：e招投标交易平台；公告发布平台：中国招标投标公共服务平台",
+      "evidence": "{\"PROCUREMENT_SERVICE_PLATFORM\": \"河南国企阳光招采服务平台\", \"TRANSACTION_SYSTEM\": \"e招投标交易平台\", \"ANNOUNCEMENT_PLATFORM\": \"中国招标投标公共服务平台\"}"
+    },
+    "PLATFORM_ROLE_NOT_A_CONFLICT": {
+      "status": "PASS",
+      "detail": "the platform field is not reported as a value conflict",
+      "evidence": "status=RESOLVED; conflicts=0"
+    }
+  },
+  "fixture_summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": []
+  },
+  "counts": {
+    "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+    "SOURCE_UNREADABLE_REFERENCE_COUNT": 0,
+    "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+    "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+    "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+    "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+    "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+    "VALUE_INVARIANT_FAILURE_COUNT": 0,
+    "ROUND6_MARKER_OCCURRENCE_COUNT": 18,
+    "ROUND6_MARKER_LOST_COUNT": 0,
+    "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+  },
+  "delivered_row_count": 109
+}

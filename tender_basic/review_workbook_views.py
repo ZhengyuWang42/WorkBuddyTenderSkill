@@ -157,11 +157,46 @@ def _text(value: object) -> str:
     return str(value).strip()
 
 
+#: A source identifier that must never be cut in half: a standard/code
+#: ("GB50015-2019", "CJ/T 415-2013"), a URL, or a long alphanumeric token.
+_PROTECTED_TOKEN_RE = re.compile(
+    r"[A-Za-z]{1,6}\s*/?\s*T?\s*\d[\d.\-/]*|[A-Za-z]+://\S*|\d[\d.\-/]{3,}"
+)
+#: Sentence/clause boundaries a clip may fall back to.
+_CLIP_BOUNDARY_RE = re.compile(r"[；;。！？!?、，,）)]")
+
+
 def _clip(value: object, limit: int = 400) -> str:
+    """Clip ``value`` at a semantic boundary, never inside a source token.
+
+    A source identifier ("GB50015-2" cut out of "GB50015-2019") is not a
+    reviewer-readable excerpt: it names a standard that does not exist.  The
+    truncation is therefore moved back to the last clause/sentence boundary that
+    still fits, and it is always *marked* with "…" so a clipped summary can never
+    be mistaken for the complete source text (the full requirement stays available
+    in the 要求正文 column).
+    """
+
     text = re.sub(r"\s*\n\s*", "\n", _text(value))
     if len(text) <= limit:
         return text
-    return text[: limit - 1] + "…"
+    # the largest prefix that ends on a boundary and fits the limit
+    head = text[: limit - 1]
+    cut = None
+    for match in _CLIP_BOUNDARY_RE.finditer(head):
+        cut = match.end()
+    if cut is not None and cut >= max(8, (limit - 1) // 2):
+        candidate = head[:cut].rstrip()
+    else:
+        candidate = head.rstrip()
+        # never end inside a protected token (a standard code, a URL, a number)
+        for match in _PROTECTED_TOKEN_RE.finditer(head):
+            if match.end() > len(candidate):
+                candidate = head[: match.start()].rstrip()
+                break
+    if not candidate:
+        candidate = text[: limit - 1].rstrip()
+    return candidate + "…"
 
 
 def _sheet_ref(title: str, column: str, first: int = 2, last: int = 999) -> str:

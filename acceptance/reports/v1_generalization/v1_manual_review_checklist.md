@@ -449,14 +449,42 @@ generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e82
 
 ## 4. 人工 Excel 复核（投标项目复核表.xlsx）
 
-**当前复核对象（CURRENT = Round10）**：第 10 轮后继构建（投标响应 / 合同风险分离），
+**当前复核对象（CURRENT = Round11）**：第 11 轮后继构建（canonical EvidenceUnit 结构标题保真），
 Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路径与 sha256 取自本轮构建清单。
 
 | 案例 | 工作簿（当前复核对象） | 行数 | XLSX sha256 |
 | --- | --- | --- | --- |
-| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10/投标项目复核表.xlsx` | 50 | `f0f2d94e0bde5640e57d637e44d6f3b2988c63a6904666c1393b247efaaa33a4` |
-| CASE002 | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook10/投标项目复核表.xlsx` | 45 | `d3a02712799cc72a18b827eb9adcd387a093144006cda384e71a765cb2c48417` |
-| CASE003 | `acceptance/workspace/case_003/v1_round4_closure9_review_workbook10/投标项目复核表.xlsx` | 49 | `ca75d23acc092f2eb5c5536b7ebffb4181fc8b9c34a4417cd14b332c581f106a` |
+| CASE001 | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11/投标项目复核表.xlsx` | 50 | `ea07803616dff09f84efb932a55a7a0da7332dbe5fc70ffa71690dd63100914c` |
+| CASE002 | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook11/投标项目复核表.xlsx` | 45 | `c9ad4b729a83f36562645ed6d5211c32654e2372c9ed01e3759dea13d2e5b977` |
+| CASE003 | `acceptance/workspace/case_003/v1_round4_closure9_review_workbook11/投标项目复核表.xlsx` | 49 | `c5e15f102186fc891e3ba18ba13094852edd9bb2d8509e2b3c20949c9217dbe2` |
+
+### 4.5 第 11 轮（canonical EvidenceUnit 结构标题保真）人工复核点（全部未勾选）
+
+本轮不变量：**canonical EvidenceUnit 必须坐落在拥有它的源结构容器中**。
+精确定位门禁只证明 `XLSX == formatter(unit)`，不证明该 unit 就是正确的源单元；
+标题必须来自真实章/节/条容器，正文句子永不作为标题。
+
+- [ ] E47 授权行的定位指向 `3.7 响应文件的编制`（81% 文本属 3.7.3），不再是 `3.3 澄清和补正`
+- [ ] E57 合同解除行的 section 为 `第七条 其他约定`，不再把正文句子当标题
+- [ ] DR048 / DR052（第五条下的 5.2）定位为 `第五条 交（提）货地点、方式及费用`，不再误引第六条
+- [ ] DR037 显式声明第二来源（`依据第N页核对另一来源条款`），无「依据第18页」而证据为第11页的无解释引用
+- [ ] 交付单元格无重复拼接（`资格要求 格要求`、`营业 执照 执照`），且源文自身「标签 值」布局未被误折叠
+- [ ] 证据摘要截断不在源标识符中间（如 `GB50015-2`），且截断已用 `…` 显式标注
+- [ ] 第 10 轮合同风险分离保持不变（合同风险行仍在 `九、`，`是否强制` 空白，`风险级别 = 风险提示`）
+- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
+
+机器闭环证据（**已通过，不代替人工复核**）：
+
+- 第 11 轮三案例审计 PASS：`review_workbook_round11_case_00{1,2,3}.json` / `.md`
+  （`0 failed check` / `0 failed fixture`）、泛化 `review_workbook_round11_generalization.json` = PASS
+- 工作簿门禁 `case00{1,2,3}_review_workbook11_gate.json` = **PASS（43/43）**
+- 定位门禁 `round11_locator_gate.json` = **PASS**（144 行精确比较，0 语义不一致，0 前缀/模糊）
+- 结构门禁计数：`BODY_PROSE_HEADING_COUNT = 0`、`FOREIGN_STRUCTURAL_HEADING_COUNT = 0`、
+  `DUPLICATED_SOURCE_FRAGMENT_COUNT = 0`、`MID_TOKEN_EVIDENCE_TRUNCATION_COUNT = 0`、
+  `MULTI_SOURCE_EVIDENCE_ROLE_AMBIGUITY_COUNT = 0`
+- 第 5 / 6 / 7 轮门禁在**第 11 轮构建上**复跑通过：`review_workbook_round11_banked_regressions.json`
+- 渲染 QA PASS：`case00{1,2,3}_review_workbook11_visual_qa.json`
+- Word 产物逐字节未变（`word_render_repeated = false`）
 
 ### 4.4 第 10 轮（投标响应 vs 合同风险）人工复核点（全部未勾选）
 

@@ -1,0 +1,637 @@
+{
+  "schema": "v1_review_workbook_round8_banked/1",
+  "round": 6,
+  "case": "case_002",
+  "build_id": "v1_round4_closure9_review_workbook11",
+  "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure9_review_workbook11\\投标项目复核表.xlsx",
+  "workbook_sha256": "c9ad4b729a83f36562645ed6d5211c32654e2372c9ed01e3759dea13d2e5b977",
+  "verdict": "PASS",
+  "failed_checks": [],
+  "fixture_summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": []
+  },
+  "counts": {
+    "source_marker_atom_count": 37,
+    "source_marked_row_count": 4,
+    "substantive_requirement_row_count": 1,
+    "rejection_consequence_row_count": 1,
+    "explicit_rejection_row_count": 1,
+    "derived_rejection_row_count": 0,
+    "marker_lost_count": 0,
+    "marker_false_positive_count": 0,
+    "marker_unattributed_count": 0,
+    "marker_unresolved_count": 0,
+    "direct_delivered_marker_visibility_failures": 0,
+    "reference_parent_coverage_failures": 0,
+    "source_marker_occurrence_count": 45,
+    "raw_source_marker_discovery_count": 45,
+    "duplicate_source_marker_record_count": 0,
+    "source_marker_evidence_count": 24,
+    "direct_source_marked_review_row_count": 4,
+    "substantive_review_row_count": 1,
+    "marker_carrying_source_atom_count": 37,
+    "source_substantive_requirement_without_review_coverage_count": 0,
+    "source_substantive_actionable_uncovered_count": 0
+  },
+  "checks": [
+    {
+      "check": "marker occurrences discovered, attributed and resolved",
+      "ok": true,
+      "detail": "occurrences=45 unattributed=0 unresolved=0",
+      "evidence": {
+        "source_marker_occurrence_count": 45,
+        "raw_source_marker_discovery_count": 45,
+        "duplicate_source_marker_record_count": 0,
+        "source_marker_evidence_count": 24,
+        "dispositions": {
+          "BACKGROUND_NON_ACTIONABLE": 23,
+          "DIRECT_DELIVERED": 22
+        },
+        "unattributed": [],
+        "unresolved": []
+      }
+    },
+    {
+      "check": "direct delivered markers are visible in the workbook",
+      "ok": true,
+      "detail": "direct_delivered_marker_visibility_failures=0",
+      "evidence": {
+        "failures": [],
+        "marker_atom_count": 37
+      }
+    },
+    {
+      "check": "reference parents keep their propagation coverage",
+      "ok": true,
+      "detail": "reference_parent_coverage_failures=0",
+      "evidence": {
+        "failures": [],
+        "reference_parent_count": 0
+      }
+    },
+    {
+      "check": "marker false positives",
+      "ok": true,
+      "detail": "marker_false_positive_count=0",
+      "evidence": {
+        "false_positives": []
+      }
+    },
+    {
+      "check": "marker preserved (no source marker is lost)",
+      "ok": true,
+      "detail": "marker_lost_count=0",
+      "evidence": {
+        "dispositions": {
+          "BACKGROUND_NON_ACTIONABLE": 23,
+          "DIRECT_DELIVERED": 22
+        }
+      }
+    },
+    {
+      "check": "known source-marker fixtures",
+      "ok": true,
+      "detail": "4/4 fixture(s) marked",
+      "evidence": {
+        "failed": []
+      }
+    },
+    {
+      "check": "source marker vocabulary is discovered per document",
+      "ok": true,
+      "detail": "vocabulary=['★']",
+      "evidence": {
+        "rules": [
+          {
+            "rule_id": "GR0002",
+            "kind": "SOURCE_MARKER",
+            "markers": [
+              "★"
+            ],
+            "words": [],
+            "scope": "DOCUMENT",
+            "governing_atom_id": "",
+            "governing_clause": "",
+            "governing_text": "国国产服务器操作系统，兼容项目中的信创服务\n器、虚拟化、数据库、中间件等设备及软件，支持\n安全加固、自主可控，系统稳定性强（年故障率≤\n0.05%）。\n★提供操作系统原厂授权证明，兼容所有相关设备\n及软件。",
+            "page": 67,
+            "locator": "第67页 / 块4",
+            "semantics": "MANDATORY_PROOF",
+            "semantics_all": [
+              "MANDATORY_PROOF"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "marker meaning comes from the document's own statement",
+      "ok": true,
+      "detail": "semantics=['MANDATORY_PROOF']",
+      "evidence": {
+        "unestablished_rules": []
+      }
+    },
+    {
+      "check": "no marker is promoted to a rejection consequence by itself",
+      "ok": true,
+      "detail": "unclassified_marked_rows=[]",
+      "evidence": {
+        "marked_rows": [
+          [
+            "DR008",
+            "MANDATORY_PROOF"
+          ],
+          [
+            "DR012",
+            "MANDATORY_PROOF"
+          ],
+          [
+            "DR003",
+            "MANDATORY_PROOF"
+          ],
+          [
+            "DR006",
+            "MANDATORY_PROOF"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "the tender's own substantive-requirement rule is discovered and linked",
+      "ok": true,
+      "detail": "1/1 marker rule(s) anchored in the source (0 via a governing clause), 0 unclassified marked row(s)",
+      "evidence": {
+        "governing_clauses": [],
+        "semantics": [
+          "MANDATORY_PROOF"
+        ],
+        "unanchored": [],
+        "unclassified_rows": [],
+        "rule_kinds": [
+          "LEGAL_RULE",
+          "SOURCE_MARKER"
+        ]
+      }
+    },
+    {
+      "check": "every rejection claim traces to a source consequence rule",
+      "ok": true,
+      "detail": "1 consequence-backed row(s), 20 source consequence rule(s)",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          "RJ0001",
+          "RJ0002",
+          "RJ0003",
+          "RJ0004",
+          "RJ0005",
+          "RJ0006",
+          "RJ0007",
+          "RJ0008",
+          "RJ0009",
+          "RJ0010"
+        ]
+      }
+    },
+    {
+      "check": "explicit source references propagate the starred parent's meaning",
+      "ok": true,
+      "detail": "0 resolved reference link(s), 0 unresolved, 0 propagated row(s)",
+      "evidence": {
+        "chains": []
+      }
+    },
+    {
+      "check": "reference children are marked as propagated, never as starred",
+      "ok": true,
+      "detail": "propagated_rows=[]",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "rejection consequence is a separate, source-backed dimension",
+      "ok": true,
+      "detail": "explicit=1 derived=0 unbacked=0",
+      "evidence": {
+        "unbacked": [],
+        "rules": [
+          {
+            "rule_id": "RJ0001",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0006",
+            "governing_clause": "SR0006",
+            "governing_text": "3.6 本项目不接受联合体投标。",
+            "page": 5,
+            "locator": "第5页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          },
+          {
+            "rule_id": "RJ0002",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0028",
+            "governing_clause": "SR0028",
+            "governing_text": "6、本项目不接受联合体投标。",
+            "page": 8,
+            "locator": "第8页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          },
+          {
+            "rule_id": "RJ0003",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0090",
+            "governing_clause": "SR0097",
+            "governing_text": "1.4.2 本项目不接受联合体投标。",
+            "page": 16,
+            "locator": "第16页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          },
+          {
+            "rule_id": "RJ0004",
+            "consequence": "否决",
+            "trigger": "SPECIFIC_CLAUSE",
+            "governing_atom_id": "SRA0096",
+            "governing_clause": "SR0103",
+            "governing_text": "1.10.1 投标文件应当对招标文件的实质性要求和条件作出满足性或更有利于 招标人的响应，否则，投标人的投标将被否决。",
+            "page": 17,
+            "locator": "第17页",
+            "target_clauses": [
+              "1.1.2",
+              "1.10.1"
+            ],
+            "consequence_scope": "RESPONSE_REJECTION"
+          },
+          {
+            "rule_id": "RJ0005",
+            "consequence": "不接受",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0110",
+            "governing_clause": "SR0117",
+            "governing_text": "3.1.2 投标人须知前附表规定不接受联合体投标的，或投标人没有组成联合 2026-03-23 16:58:05 体的，投标文件不包括联合体协议书。",
+            "page": 19,
+            "locator": "第19页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          },
+          {
+            "rule_id": "RJ0006",
+            "consequence": "否决",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0125",
+            "governing_clause": "SR0132",
+            "governing_text": "3.6.1 除投标人须知前附表规定允许外，投标人不得递交备选投标方案，否则 其投标将被否决。",
+            "page": 20,
+            "locator": "第20页",
+            "target_clauses": [],
+            "consequence_scope": "RESPONSE_REJECTION"
+          },
+          {
+            "rule_id": "RJ0007",
+            "consequence": "无效",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0129",
+            "governing_clause": "SR0136",
+            "governing_text": "投标文件签署授权委托书格式、签字、盖章及内容均应符合要求， 否则投标文件签署的授权委托书无效。",
+            "page": 21,
+            "locator": "第21页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          },
+          {
+            "rule_id": "RJ0008",
+            "consequence": "无效",
+            "trigger": "GENERAL_REJECTION",
+            "governing_atom_id": "SRA0147",
+            "governing_clause": "SR0154",
+            "governing_text": "如澄清、说明或 者更正的内容与投标文件内容有重大相悖或矛盾，将被认定为无效投标文件。",
+            "page": 23,
+            "locator": "第23页",
+            "target_clauses": [],
+            "consequence_scope": "INFORMATIONAL_PROCEDURAL"
+          }
+        ]
+      }
+    },
+    {
+      "check": "every source-marked row shows ★",
+      "ok": true,
+      "detail": "4 marked row(s), 0 blank",
+      "evidence": {
+        "blank_marked_rows": []
+      }
+    },
+    {
+      "check": "★, 否决性 and 强制性类型 are independent columns",
+      "ok": true,
+      "detail": "starred=4 vetoed=1 symmetric_difference=5",
+      "evidence": {
+        "starred_only": [
+          "DR003",
+          "DR006",
+          "DR008",
+          "DR012"
+        ],
+        "vetoed_only": [
+          "DR026"
+        ],
+        "mandatory_types": [
+          "BOND",
+          "CONSORTIUM",
+          "ELECTRONIC",
+          "FINANCIAL",
+          "INFORMATIONAL_PROCEDURAL",
+          "MANDATORY",
+          "PERFORMANCE",
+          "PRICING",
+          "PROOF",
+          "QUALIFICATION",
+          "REJECTION",
+          "SIGNATURE",
+          "SUBMISSION",
+          "SUBSTANTIVE_BY_LAW；REJECTION",
+          "TECHNICAL",
+          "VALIDITY",
+          "WARRANTY"
+        ]
+      }
+    },
+    {
+      "check": "强制性类型 states the source basis instead of the requirement type",
+      "ok": true,
+      "detail": "types=['BOND', 'CONSORTIUM', 'ELECTRONIC', 'FINANCIAL', 'INFORMATIONAL_PROCEDURAL', 'MANDATORY', 'PERFORMANCE', 'PRICING', 'PROOF', 'QUALIFICATION', 'REJECTION', 'SIGNATURE', 'SUBMISSION', 'SUBSTANTIVE_BY_LAW；REJECTION', 'TECHNICAL', 'VALIDITY', 'WARRANTY']",
+      "evidence": {
+        "row_types": [
+          [
+            "DR001",
+            "PRICING"
+          ],
+          [
+            "DR002",
+            "TECHNICAL"
+          ],
+          [
+            "DR003",
+            "MANDATORY"
+          ],
+          [
+            "DR004",
+            "WARRANTY"
+          ],
+          [
+            "DR005",
+            "QUALIFICATION"
+          ],
+          [
+            "DR006",
+            "MANDATORY"
+          ],
+          [
+            "DR007",
+            "QUALIFICATION"
+          ],
+          [
+            "DR008",
+            "MANDATORY"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "raw marker and its basis are carried next to the normalised columns",
+      "ok": true,
+      "detail": "源标记/实质性依据/否决依据 columns carry the source basis",
+      "evidence": {
+        "headers": [
+          "序号",
+          "requirement_id",
+          "类别",
+          "子类",
+          "要求正文",
+          "复核动作",
+          "核验标准",
+          "★",
+          "否决性",
+          "强制性类型",
+          "证据页码",
+          "证据定位",
+          "证据摘要",
+          "机器识别状态",
+          "人工满足情况",
+          "人工证据/材料",
+          "人工备注",
+          "源标记",
+          "实质性依据",
+          "否决依据"
+        ],
+        "sample": [
+          {
+            "requirement_id": "DR003",
+            "★": "★",
+            "源标记": "原始标记：★（MANDATORY_PROOF）",
+            "强制性类型": "MANDATORY",
+            "实质性依据": null,
+            "否决依据": null
+          },
+          {
+            "requirement_id": "DR006",
+            "★": "★",
+            "源标记": "原始标记：★（MANDATORY_PROOF）",
+            "强制性类型": "MANDATORY",
+            "实质性依据": null,
+            "否决依据": null
+          },
+          {
+            "requirement_id": "DR008",
+            "★": "★",
+            "源标记": "原始标记：★（MANDATORY_PROOF）",
+            "强制性类型": "MANDATORY",
+            "实质性依据": null,
+            "否决依据": null
+          },
+          {
+            "requirement_id": "DR012",
+            "★": "★",
+            "源标记": "原始标记：★（MANDATORY_PROOF）",
+            "强制性类型": "MANDATORY",
+            "实质性依据": null,
+            "否决依据": null
+          }
+        ]
+      }
+    },
+    {
+      "check": "dashboard reports the three dimensions separately",
+      "ok": true,
+      "detail": "missing=[] conflated=[] misreadable=[]",
+      "evidence": {
+        "labels": {
+          "带源标记的复核条目数（★）": "=COUNTIF('03_资格否决与强制项'!$H$2:$H$999,\"★\")",
+          "实质性要求条目数（源依据）": "=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE*\")",
+          "明示或可证明否决项数": "=COUNTIF('03_资格否决与强制项'!$I$2:$I$999,\"是\")",
+          "其中：明示否决（源文明确示后果）": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"EXPLICIT*\")",
+          "其中：推导否决（源文实质性要求规则）": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"DERIVED*\")"
+        }
+      }
+    },
+    {
+      "check": "dashboard criticality counters equal the independent recount",
+      "ok": true,
+      "detail": "mismatched=[]",
+      "evidence": {
+        "metrics": {
+          "带源标记的复核条目数（★）": {
+            "column": "H",
+            "formula": "=COUNTIF('03_资格否决与强制项'!$H$2:$H$999,\"★\")",
+            "expected_value": 4,
+            "formula_token": "★",
+            "recalculated_value": 4,
+            "independent_value": 4,
+            "ok": true
+          },
+          "实质性要求条目数（源依据）": {
+            "column": "J",
+            "formula": "=COUNTIF('03_资格否决与强制项'!$J$2:$J$999,\"SUBSTANTIVE*\")",
+            "expected_value": 1,
+            "formula_token": "SUBSTANTIVE*",
+            "recalculated_value": 1,
+            "independent_value": 1,
+            "ok": true
+          },
+          "明示或可证明否决项数": {
+            "column": "I",
+            "formula": "=COUNTIF('03_资格否决与强制项'!$I$2:$I$999,\"是\")",
+            "expected_value": 1,
+            "formula_token": "是",
+            "recalculated_value": 1,
+            "independent_value": 1,
+            "ok": true
+          },
+          "其中：明示否决（源文明确示后果）": {
+            "column": "T",
+            "formula": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"EXPLICIT*\")",
+            "expected_value": 1,
+            "formula_token": "EXPLICIT*",
+            "recalculated_value": 1,
+            "independent_value": 1,
+            "ok": true
+          },
+          "其中：推导否决（源文实质性要求规则）": {
+            "column": "T",
+            "formula": "=COUNTIF('03_资格否决与强制项'!$T$2:$T$999,\"DERIVED*\")",
+            "expected_value": 0,
+            "formula_token": "DERIVED*",
+            "recalculated_value": 0,
+            "independent_value": 0,
+            "ok": true
+          }
+        },
+        "independent_recount": {
+          "source_marked_review_row_count": 4,
+          "substantive_review_row_count": 1,
+          "rejection_row_count": 1,
+          "explicit_rejection_row_count": 1,
+          "derived_rejection_row_count": 0
+        },
+        "recalculated_scope": "03_资格否决与强制项"
+      }
+    },
+    {
+      "check": "every source substantive requirement is covered by the review",
+      "ok": true,
+      "detail": "source_substantive_requirement_without_review_coverage_count=0",
+      "evidence": {
+        "uncovered": [],
+        "substantive_atom_count": 1
+      }
+    },
+    {
+      "check": "every marker occurrence is accounted for by coverage",
+      "ok": true,
+      "detail": "source_marker_occurrence_uncovered_count=0",
+      "evidence": {
+        "uncovered": [],
+        "dispositions": {
+          "BACKGROUND_NON_ACTIONABLE": 23,
+          "DIRECT_DELIVERED": 22
+        }
+      }
+    },
+    {
+      "check": "the reviewer surface keeps its filters and free columns",
+      "ok": true,
+      "detail": "filter=A1:T38 protection=False filled=[]",
+      "evidence": {
+        "headers": [
+          "序号",
+          "requirement_id",
+          "类别",
+          "子类",
+          "要求正文",
+          "复核动作",
+          "核验标准",
+          "★",
+          "否决性",
+          "强制性类型",
+          "证据页码",
+          "证据定位",
+          "证据摘要",
+          "机器识别状态",
+          "人工满足情况",
+          "人工证据/材料",
+          "人工备注",
+          "源标记",
+          "实质性依据",
+          "否决依据"
+        ],
+        "missing_headers": [],
+        "auto_filter": "A1:T38",
+        "protected": false,
+        "filled_criticality_cells": [],
+        "row_count": 38
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) unchanged",
+      "evidence": {
+        "identity": {
+          "基础投标文件.docx": {
+            "source_build_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+            "successor_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+            "byte_identical": true
+          },
+          "基础投标文件.pdf": {
+            "source_build_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+            "successor_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+            "byte_identical": true
+          },
+          "generation_report.json": {
+            "source_build_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+            "successor_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859",
+            "byte_identical": true
+          }
+        }
+      }
+    },
+    {
+      "check": "concern contracts still hold on the round-6 successor",
+      "ok": true,
+      "detail": "concern contract checks failed=0, fixtures=0/20",
+      "evidence": {
+        "failed_checks": [],
+        "fixtures_failed": 0,
+        "contract_count": 79,
+        "violations": []
+      }
+    }
+  ]
+}

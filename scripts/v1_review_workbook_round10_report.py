@@ -97,6 +97,14 @@ def write_case_report(case: str, *, case_dir: Path | None = None) -> dict:
     return data
 
 
+#: round-11 successor build per case (the evidence-unit structural-heading round)
+BUILDS11: dict[str, str] = {
+    "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11",
+    "case_002": "v1_round4_closure9_review_workbook11",
+    "case_003": "v1_round4_closure9_review_workbook11",
+}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case", action="append", default=None)

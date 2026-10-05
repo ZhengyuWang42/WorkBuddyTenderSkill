@@ -1055,7 +1055,7 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4）；三项历史人工发现（A / B / C）已自动化关闭；**人工桌面 Word 复核尚未确认**（当前 `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`，历史 `FAIL` 见 §1.2） |
 | **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 10 轮（当前机器状态）**把**投标响应**与**合同风险**分成两个复核阶段——报价/商务响应 = 投标响应项，纯中标后合同条款 = 投标前风险识别项（`docs/V1_DECISIONS.md` §D73），本轮不变量为 `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES` 与 `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`；三案例第 10 轮审计 **PASS**（0 failed check / 0 failed fixture）+ 泛化 **PASS**、工作簿门禁 **43/43 PASS**（含阶段分离检查）、定位门禁 `ROUND10_LOCATOR_GATE = PASS`（144 行精确比较）、第 5/6/7 轮门禁在第 10 轮构建上复跑 **PASS**、渲染 QA **PASS**、Word 产物逐字节未变；**人工 Excel 复核尚未确认**（第 8 轮人工复核结论为 **FAIL**，保持未改写并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
 | **人工 Excel 复核** | 未确认：第 3 轮人工判 **FAIL**（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`）、第 5 轮人工判 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）、第 6 轮收口后人工判 **FAIL**（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`）、第 7 轮后继人工判 **FAIL**（`FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` / `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`，13 项点名发现）、第 8 轮后继人工判 **FAIL**（`DELIVERED_CONTENT_SEMANTICS` / `SCORING_TIER_ALTERNATIVES` / `ACTION_ANCHOR_ALIGNMENT` / `ENGLISH_FREE_DELIVERED_TEXT`，范围见第 9 轮报告）——五次人工结论**保留且不得改写**；第 4/6/7/8/9 轮的缺陷分别由第 4/6/7/8/9 轮自动化关闭，人工结论列**仍未勾选**（`已通过 = 0`；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`）；当前复核对象见 §12.3 与 `v1_manual_review_checklist.md` 第 4 节 |
-| **全量测试（复核工作簿第 10 轮）** | 见 §12.3「Round10 全套测试」（`review_workbook_round10_full_test_suite.txt` / `.xml`） |
+| **全量测试（复核工作簿第 11 轮）** | 见 §12.3「Round11 全套测试」（`review_workbook_round11_full_test_suite.txt` / `.xml`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
 | **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；第 6 轮收口检查点 = commit `4df27bc`（第 7 轮的基线 HEAD，已推送）；工作簿轮次细节见 §12.3 |
 
@@ -1090,12 +1090,27 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 
 ### 12.3 复核工作簿轮次（REVIEW WORKBOOK ROUND，已完成机器闭环）
 
-**当前轮次 = 第 10 轮（Round10）**；第 1–9 轮行保留为历史，已明确标注。
+**当前轮次 = 第 11 轮（Round11）**；第 1–10 轮行保留为历史，已明确标注。
 
 | 项目 | 值 |
 | --- | --- |
-| **当前轮次** | **Round10**（投标响应 vs 合同风险分离：报价/商务响应 = 投标响应项，合同条款 = 投标前风险识别项；人工产品决策见 `docs/V1_DECISIONS.md` §D73） |
-| **本轮不变量（当前）** | `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES` **且** `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`：纯中标后合同条款**不得**影响投标符合性、否决或评分；它只用于投标前风险识别 |
+| **当前轮次** | **Round11**（canonical EvidenceUnit 结构标题保真；人工产品决策见 `docs/V1_DECISIONS.md` §D74） |
+| **本轮不变量（当前）** | `CANONICAL EVIDENCE UNIT MUST SITE IN THE SOURCE STRUCTURE THAT OWNS IT`：精确格式化相等只证明 `XLSX locator == formatter(canonical EvidenceUnit)`，**不**证明该单元就是拥有该要求的源单元；标题必须来自真实的章/节/条容器，**绝不能**是正文句子 |
+| **结构容器引擎（Round11 新增，当前）** | `tender_basic/structural_heading.py`（`structural_container_for` / `container_is_structural` / `check_structural_heading_fidelity`）：从**文档自身的块序列**重新推导该块所属容器，与计划锚定的单元独立比较 |
+| **合同条标题（Round11 修正，当前）** | `evidence_unit._is_heading` / `_carries_forward` 现识别合同**条**标题（`第二条…`…`第八条 附则`）：此前条标题不是标题，造成第五条下的条款引用第六条 |
+| **多来源角色（Round11 新增，当前）** | 一行由两个源单元组成时，复核动作显式声明第二来源（`依据第N页核对另一来源条款`），不再出现「依据第18页」而可见证据为第11页的无解释引用 |
+| **Round11 报告** | `scripts/v1_review_workbook_round11_report.py`（`--case` / `--three-case`）→ `review_workbook_round11_case_00{1,2,3}.{json,md}` + `review_workbook_round11_generalization.json` |
+| **Round11 门禁复跑** | `scripts/v1_review_workbook_round11_regressions.py` → `review_workbook_round11_banked_regressions.json`（第 5/6/7 轮门禁在第 11 轮构建上全部 PASS） |
+| **Round11 定位门禁** | `scripts/v1_review_workbook_round9_gate_integrity.py --round11` → `round11_locator_gate.json`（`ROUND11_LOCATOR_GATE = PASS`；精确格式化相等；0 前缀/模糊；0 语义不一致） |
+| **Round11 后继构建（当前复核对象）** | CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11`（`投标项目复核表.xlsx` sha256 `ea07803616dff09f84efb932a55a7a0da7332dbe5fc70ffa71690dd63100914c`，72615 B）<br>CASE002 `acceptance/workspace/case_002/v1_round4_closure9_review_workbook11`（sha256 `c9ad4b729a83f36562645ed6d5211c32654e2372c9ed01e3759dea13d2e5b977`，75542 B）<br>CASE003 `acceptance/workspace/case_003/v1_round4_closure9_review_workbook11`（sha256 `c5e15f102186fc891e3ba18ba13094852edd9bb2d8509e2b3c20949c9217dbe2`，82054 B）<br>（均由第 10 轮后继以 `--refresh-legacy-rows` 派生；workbook10 及更早构建**原样保留、未被覆盖**） |
+| **Round11 人工夹具（当前）** | E47 授权行 → `第19页 / 3.7 响应文件的编制`（该要求 81% 文本属 3.7.3，此前错误引用第29页 3.3 澄清和补正）；E57 合同解除 → `第35页 / 第七条 其他约定`（此前把正文句子当标题）；DR048/DR052 → `第五条 交（提）货地点、方式及费用`（此前误引第六条）；DR037 → 显式声明第二来源；重复拼接（`资格要求 格要求`）与标准号中截断（`GB50015-2`）均为 0 |
+| **Round11 三案例审计** | `review_workbook_round11_case_001/002/003.json` = **PASS（0 failed check / 0 failed fixture）**；`review_workbook_round11_generalization.json` = **PASS** |
+| **Round11 工作簿门禁** | `case00{1,2,3}_review_workbook11_gate.json` = **PASS（43/43）** |
+| **Round11 Word 产物** | closure9 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated = false`） |
+| **Round11 全套测试** | **961 collected / 960 passed / 0 failed / 0 errors / 1 skipped**（exit 0；`review_workbook_round11_full_test_suite.txt` / `.xml`，JUnit XML 计数） |
+| **Round11 人工状态** | `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，人工结论列**仍未勾选**；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false` |
+| > **以下 Round10 及更早各行自第 11 轮起为 HISTORICAL / SUPERSEDED**：机器结论仍然有效、构建逐字节保留，但**不再是当前复核对象**。 | |
+| **Round10 不变量（HISTORICAL，人工 HUMAN_PASS）** | `BID RESPONSE AND CONTRACT RISK ARE DIFFERENT REVIEW STAGES` **且** `SOURCE CHAPTER DOES NOT DETERMINE REVIEW STAGE`：纯中标后合同条款不得影响投标符合性、否决或评分 |
 | **阶段模型（Round10 新增，当前）** | `tender_basic/review_stage.py`：`BID_RESPONSE` / `SCORING_RESPONSE` / `CONTRACT_RISK_NOTICE` / `INFORMATIONAL`，按**义务发生时点、行事主体、是否须出现在响应文件中、是否影响评审/评分/否决**派生；**不按章节**判定 |
 | **阶段不变量（当前）** | `tender_basic/stage_invariants.py`（`check_stage_separation` / `check_response_side_not_demoted` / `contract_risk_contamination`） |
 | **Round10 报告** | `scripts/v1_review_workbook_round10_report.py`（`--case` / `--three-case`）→ `review_workbook_round10_case_00{1,2,3}.{json,md}` + `review_workbook_round10_generalization.json` |

@@ -24,7 +24,7 @@ import pytest
 
 from scripts.v1_review_workbook_round6_report import Round6Report
 from scripts.v1_review_workbook_round7_report import Round7Report
-from scripts.v1_review_workbook_round10_report import BUILDS as SUCCESSOR_BUILDS
+from scripts.v1_review_workbook_round11_report import BUILDS as SUCCESSOR_BUILDS
 from tender_basic.applicability_invariants import (
     _text_in_span,
     classify_consequence_scope,
