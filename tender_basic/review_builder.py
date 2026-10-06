@@ -599,7 +599,13 @@ def _build_dynamic_review_rows(
     module_groups: list[tuple[int, int, str]] = []
     for index, item in enumerate(items):
         row = CHECKLIST_START_ROW + index
-        evidence = f"{item.source_locator} {item.source_evidence[:110]}"
+        # The evidence summary is clipped by the *shared* semantic clipper, never by
+        # a raw slice: a bare `[:110]` cut a source identifier in half
+        # ("（3）《建筑给水排水设计规范》GB50015-2"), so the main sheet disagreed with
+        # the structured views.  One clipper decides every evidence summary.
+        from .review_workbook_views import _clip as _clip_evidence
+
+        evidence = f"{item.source_locator} {_clip_evidence(item.source_evidence, 110)}"
         evidence += f"（源条款 {len(item.source_requirement_ids)} 条：{item.source_requirement_ids[0]}）"
         values: list[object] = [None] * worksheet.max_column
         values[0] = index + 1

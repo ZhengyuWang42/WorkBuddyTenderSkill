@@ -1,0 +1,382 @@
+{
+  "schema": "v1_review_workbook_round12_banked_regressions/1",
+  "current_round": 12,
+  "successor_builds": {
+    "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final",
+    "case_002": "v1_round4_closure9_review_workbook12_final",
+    "case_003": "v1_round4_closure9_review_workbook12_final"
+  },
+  "cases": {
+    "case_001": {
+      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final\\投标项目复核表.xlsx",
+      "round5": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "fixtures": "20/20",
+        "fixtures_detail": {
+          "A": {
+            "expectation": "quality requirement displays no delivery location",
+            "status": "PASS",
+            "evidence": "D=【★实质性要求｜不满足可能导致否决】\n招标文件要求：*1.4.7 质量要求 符合国家及行业有关标准、规范和询比文件要求。\n复核要点：\n① 确认响应文件承诺达标\n② 按本条要求逐条核对响应文件的对应内容\n③ 依据第9页第1.4.7条逐条比对响 E=第9页 / 供应商须知前附表 / 第1.4.7条 / （pdf_table_cell） *1.4.7 质量要求 符合国家及行业有关标准、规范和询比文件要求（源条"
+          },
+          "B": {
+            "expectation": "bid validity shows direct 90-day evidence and no blacklist text",
+            "status": "PASS",
+            "evidence": "D=【★实质性要求｜不满足可能导致否决】\n招标文件要求：*3.3.1 询比有效期 提交响应文件截止之日起 90 日历天，3.3.1 在供应商须知前附表规定的询比有效期内，供应商不得要求撤销或修改其响 应文件\n复核要点：\n① 核对投标函中的投标有 E=第10页 / 供应商须知前附表 / 第3.3.1条 / （pdf_table_cell） *3.3.1 询比有效期 提交响应文件截止之日起 90 日历天（源条款"
+          },
+          "C": {
+            "expectation": "funding clause is its own concern and does not leak into price rows",
+            "status": "PASS",
+            "evidence": "D=招标文件要求：1.4.3 资金来源 企业自筹\n复核要点：\n① 核对项目资金来源条款\n② 确认已知悉资金来源与落实情况\n③ 依据第9页第1.4.3条逐条比对响应文件对应章节\n通过标准：\n· 项目资金来源与资金落实情况已在响应文件中知悉。"
+          },
+          "D": {
+            "expectation": "contract payment carries no agency-fee clause; the fee is complete or NEEDS_REVIEW",
+            "status": "PASS",
+            "evidence": "payment_rows=['DR044'] fee_rows=[]"
+          },
+          "E": {
+            "expectation": "contract payment evidence is not a contract-effectivity clause",
+            "status": "PASS",
+            "evidence": "合同风险提示：如果甲方未按期向乙方支付货款的，乙方予以理解并承诺从最后一笔款项应付之日 起给甲方 ＿＿＿＿ 的支付宽限期\n复核要点：\n① 核对付款方式、结算依据与付款条件\n② 确认项目团队已知悉该条款\n③ 评估该条款涉及的价格、现金流、履约与责任风险\n④ 如风险不可接受，在投标前完成内部决策\n⑤ 依据第33页查阅合同条款原文\n通过标准：\n· 本项用于投标前合同风险识别，不作为投标文件的符合性、否决"
+          },
+          "F": {
+            "expectation": "performance bond displays and cites only 履约保证金",
+            "status": "PASS",
+            "evidence": "合同风险提示：7.3.1 在签订合同前，成交供应商应按供应商须知前附表规定的形式、金额和询比 文件第四章“合同条款及格式”规定的或者事先经过采购人书面认可的履约保证金形式 向采购人提交履约保证金，7.3.2 成交供应商不能按本章第7.3.1 项要求提交履约保证金的，视为放弃成交，项目专用值：履约保证金的金额：拾万元整。履约保证金的形式：银行转账或银行保函。\n复核要点：\n① 核对履约保证金的形式、金"
+          },
+          "G": {
+            "expectation": "price-completeness row asserts no unestablished 无漏项/无重复项 claim",
+            "status": "PASS",
+            "evidence": "招标文件要求：3.2.1 供应商应在响应文件中按要求填写报价\n复核要点：\n① 核对报价组成与费用范围\n② 确认费用范围与承担方与源文件一致\n③ 依据第18页第3.2.1条逐条比对响应文件对应章节；并依据第20页核对另一来源条款\n通过标准：\n· 报价组成与费用范围按源文件逐项核对，费用范围与承担方以源文件为准。第18页 / 3.2 响应报价 / 第3.2.1条 / （pdf_block） 3.2.1"
+          },
+          "H": {
+            "expectation": "unit-price cost scope and delivery completion are separate concerns",
+            "status": "PASS",
+            "evidence": "cost=招标文件要求：5.2 设备单价中含运输费、装卸费、安装费、损耗和税金等费用\n复核要点：\n① 核对单价/报价包含的费用项\n② 确认费用范围与承担方与源文件一致\n③ 依据第34页第5.2条逐条比对响应文件 completion=合同风险提示：设备安装调试完 毕，甲方负责人在验收单上签字或加盖项目部印章，视为交付完成\n复核要点：\n① 核对交付/验收完成的判定条件\n② 确认验收单签署与交付完成的约定可执行\n③ 确认项目团队已知悉"
+          },
+          "I": {
+            "expectation": "technical standards / third-party proof / acceptance are separate concerns",
+            "status": "PASS",
+            "evidence": "standards=招标文件要求：3.1 供应商提供设备应遵照国家和部颁发的下列标准、规程和规范： （1）《二次供水工程技术规程》CJJ140-2018 （2）《室外给水设计规范》GB50013-20 report=【★实质性要求｜不满足可能导致否决】\n招标文件要求：*流量计等相关计量仪器需提供第三方检测实验报告\n复核要点：\n① 核对需第三方检测/校检的设备清单\n② 确认报告或证书要求已列入响 install="
+          },
+          "J": {
+            "expectation": "95% is never displayed as a retention ratio",
+            "status": "PASS",
+            "evidence": "no 质保金比例为 95% phrasing"
+          },
+          "K": {
+            "expectation": "retention row shows 5% 质保金 and the warranty row shows 24 months",
+            "status": "PASS",
+            "evidence": "retention=合同风险提示：剩余 5%作为质保金，质保期 12 个月，质保期满后无息付清余款\n复核要点：\n① 确认项目团队已知悉该条款\n② 评估该条款涉及的价格、现金流、履约与责任风险\n③ 如风险不可接受，在投标前完成内部决策\n④ 依据第33页第2.3条 warranty=【★实质性要求｜不满足可能导致否决】\n招标文件要求：*1.4.8 质保期 24个月（自工程完工验收合格之日起算）\n复核要点：\n① 核对响应文件中的质保期与质保范围\n② 确认起算点与覆盖范围符合要求\n③ 依据第9页第1.4.8条逐条比对响应文"
+          },
+          "L": {
+            "expectation": "bank-acceptance ratio is scored in its own row",
+            "status": "PASS",
+            "evidence": "bank=招标文件要求：1、100%接受银行承兑的得4 分，2、50%接受银行承兑的得2 分，3 50%以下接受银行承兑的得1 分\n复核要点：\n① 确认响应文件接受该比例并附证明\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的"
+          },
+          "M": {
+            "expectation": "each scoring row carries its own factor's points",
+            "status": "PASS",
+            "evidence": "payment=招标文件要求：1、免预付款，并且接受设备安装完成验收合格后三个月内支付总货 款95%（5%质保金质保期满无息支付）的得12 分，2、预付款比例小 于等于15%，并且接受设备安装完成验收合格后三个月内支付总货款 95%（5%质保金质保期满无息 bank=招标文件要求：1、100%接受银行承兑的得4 分，2、50%接受银行承兑的得2 分，3 50%以下接受银行承兑的得1 分\n复核要点：\n① 确认响应文件接受该比例并附证明\n② 按上述要求的数值逐项核对响应文件\n③ 按本条要求逐条核对响应文件的"
+          },
+          "N": {
+            "expectation": "generic evaluation row invents no points value",
+            "status": "PASS",
+            "evidence": "no points value in EVALUATION_SCORING rows"
+          },
+          "O": {
+            "expectation": "technical scoring row uses real scoring-table content, not a cross-reference",
+            "status": "PASS",
+            "evidence": "招标文件要求：(2）按本章第2.2.4(2）目规定的评审因素和分值对技术标计算出得分B\n复核要点：\n① 核对技术方案的得分条件与证明材料\n② 确认技术标章节可定位\n③ 依据第28页第3.2条逐条比对响应文件对应章节；并依据第27页核对另一来源条款\n通过标准：\n· 本条要求的内容在响应文件中可核验，且与要求一致。\n评分提"
+          },
+          "P": {
+            "expectation": "general bidder obligation rows do not merge procurement scope with evaluation procedure",
+            "status": "PASS",
+            "evidence": "1 obligation rows coherent"
+          },
+          "Q": {
+            "expectation": "authorization row is backed by authorization evidence",
+            "status": "PASS",
+            "evidence": "招标文件要求：由授权代表签字的，应当附法定代表人授权书，由供应商的法定代表人（单位负责人）签字或加盖电子印章的，应附法 定代表人（单位负责人）身份证明，由代理人签字或加盖电子印章的，应附由法定代表 人（单位负责人）签署的授权委托书\n复核要点：\n① 核对授权委托书\n② 确认授权代表与签署人一致且在有效期内\n③ 依据第19"
+          },
+          "R": {
+            "expectation": "submission row carries no collusion/delivery-pattern text",
+            "status": "PASS",
+            "evidence": "招标文件要求：加密电子响应文件逾期上传或者未上传或未送达指定地点，采购 人不予受理\n复核要点：\n① 核对递交方式与地点/平台\n② 确认按指定方式递交\n③ 依据第20页第4.2条逐条比对响应文件对应章节；并依据第28页核对另一来源条款\n通过标准：\n· 递交方式、地点/平台符合招标文件要求。\n不满足后果：不予受理第20页 "
+          },
+          "S": {
+            "expectation": "platform roles are split and produce no false platform conflicts",
+            "status": "PASS",
+            "evidence": "platform_concerns=['ELECTRONIC_UPLOAD', 'SUBMISSION_PLATFORM'] false_conflicts=0"
+          },
+          "T": {
+            "expectation": "agency fee renders completely or moves to NEEDS_REVIEW (no fragment row)",
+            "status": "PASS",
+            "evidence": "agency fee is NEEDS_REVIEW (fragment source)"
+          }
+        }
+      },
+      "round6": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      },
+      "round7": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      }
+    },
+    "case_002": {
+      "build_id": "v1_round4_closure9_review_workbook12_final",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_002\\v1_round4_closure9_review_workbook12_final\\投标项目复核表.xlsx",
+      "round5": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "fixtures": "0/20",
+        "fixtures_detail": {
+          "A": {
+            "expectation": "quality requirement displays no delivery location",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "B": {
+            "expectation": "bid validity shows direct 90-day evidence and no blacklist text",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "C": {
+            "expectation": "funding clause is its own concern and does not leak into price rows",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "D": {
+            "expectation": "contract payment carries no agency-fee clause; the fee is complete or NEEDS_REVIEW",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "E": {
+            "expectation": "contract payment evidence is not a contract-effectivity clause",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "F": {
+            "expectation": "performance bond displays and cites only 履约保证金",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "G": {
+            "expectation": "price-completeness row asserts no unestablished 无漏项/无重复项 claim",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "H": {
+            "expectation": "unit-price cost scope and delivery completion are separate concerns",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "I": {
+            "expectation": "technical standards / third-party proof / acceptance are separate concerns",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "J": {
+            "expectation": "95% is never displayed as a retention ratio",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "K": {
+            "expectation": "retention row shows 5% 质保金 and the warranty row shows 24 months",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "L": {
+            "expectation": "bank-acceptance ratio is scored in its own row",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "M": {
+            "expectation": "each scoring row carries its own factor's points",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "N": {
+            "expectation": "generic evaluation row invents no points value",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "O": {
+            "expectation": "technical scoring row uses real scoring-table content, not a cross-reference",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "P": {
+            "expectation": "general bidder obligation rows do not merge procurement scope with evaluation procedure",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "Q": {
+            "expectation": "authorization row is backed by authorization evidence",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "R": {
+            "expectation": "submission row carries no collusion/delivery-pattern text",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "S": {
+            "expectation": "platform roles are split and produce no false platform conflicts",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "T": {
+            "expectation": "agency fee renders completely or moves to NEEDS_REVIEW (no fragment row)",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_002 (the row audit and the cross-case role separation checks still apply)"
+          }
+        }
+      },
+      "round6": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      },
+      "round7": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      }
+    },
+    "case_003": {
+      "build_id": "v1_round4_closure9_review_workbook12_final",
+      "workbook": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_003\\v1_round4_closure9_review_workbook12_final\\投标项目复核表.xlsx",
+      "round5": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "fixtures": "0/20",
+        "fixtures_detail": {
+          "A": {
+            "expectation": "quality requirement displays no delivery location",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "B": {
+            "expectation": "bid validity shows direct 90-day evidence and no blacklist text",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "C": {
+            "expectation": "funding clause is its own concern and does not leak into price rows",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "D": {
+            "expectation": "contract payment carries no agency-fee clause; the fee is complete or NEEDS_REVIEW",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "E": {
+            "expectation": "contract payment evidence is not a contract-effectivity clause",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "F": {
+            "expectation": "performance bond displays and cites only 履约保证金",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "G": {
+            "expectation": "price-completeness row asserts no unestablished 无漏项/无重复项 claim",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "H": {
+            "expectation": "unit-price cost scope and delivery completion are separate concerns",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "I": {
+            "expectation": "technical standards / third-party proof / acceptance are separate concerns",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "J": {
+            "expectation": "95% is never displayed as a retention ratio",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "K": {
+            "expectation": "retention row shows 5% 质保金 and the warranty row shows 24 months",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "L": {
+            "expectation": "bank-acceptance ratio is scored in its own row",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "M": {
+            "expectation": "each scoring row carries its own factor's points",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "N": {
+            "expectation": "generic evaluation row invents no points value",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "O": {
+            "expectation": "technical scoring row uses real scoring-table content, not a cross-reference",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "P": {
+            "expectation": "general bidder obligation rows do not merge procurement scope with evaluation procedure",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "Q": {
+            "expectation": "authorization row is backed by authorization evidence",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "R": {
+            "expectation": "submission row carries no collusion/delivery-pattern text",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "S": {
+            "expectation": "platform roles are split and produce no false platform conflicts",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          },
+          "T": {
+            "expectation": "agency fee renders completely or moves to NEEDS_REVIEW (no fragment row)",
+            "status": "NOT_APPLICABLE",
+            "evidence": "CASE001 hand-authored fixture; this report is case_003 (the row audit and the cross-case role separation checks still apply)"
+          }
+        }
+      },
+      "round6": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      },
+      "round7": {
+        "verdict": "PASS",
+        "failed_checks": [],
+        "failed_fixtures": []
+      }
+    }
+  },
+  "named_fixtures": {
+    "ROUND5_FIXTURE_F": {
+      "expectation": "performance bond displays and cites only 履约保证金",
+      "status": "PASS",
+      "evidence": "合同风险提示：7.3.1 在签订合同前，成交供应商应按供应商须知前附表规定的形式、金额和询比 文件第四章“合同条款及格式”规定的或者事先经过采购人书面认可的履约保证金形式 向采购人提交履约保证金，7.3.2 成交供应商不能按本章第7.3.1 项要求提交履约保证金的，视为放弃成交，项目专用值：履约保证金的金额：拾万元整。履约保证金的形式：银行转账或银行保函。\n复核要点：\n① 核对履约保证金的形式、金"
+    }
+  },
+  "verdict": "PASS"
+}

@@ -26,6 +26,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from tender_basic.delivery_text import (  # noqa: E402
+    GENERAL_ROLE_LABEL,
+    PROJECT_ROLE_LABEL,
+    source_role_labels,
+)
 from tender_basic.document_models import NormalizedDocument  # noqa: E402
 from tender_basic.dynamic_review import (  # noqa: E402
     _collapse_wrapped_token_repeat,
@@ -235,9 +240,12 @@ def test_multi_source_row_names_its_second_source() -> None:
     """DR037 combines a front-table value with a post-award consequence clause.
 
     The row's PRIMARY evidence is the front-table value (page 11); the generic
-    consequence clause lives in the supplier-instructions chapter (page 18).  The
-    action must announce that second source rather than cite a bare page number the
-    row's own evidence does not show.
+    consequence clause lives in a different clause of the same concern (page 21 /
+    7.3 履约担保).  The action must *name* that second source rather than cite a
+    bare page number the row's own evidence does not show.  Round 11 named the
+    second source as an explicit clause; round 12 names both source roles, so both
+    delivered shapes are accepted -- but never a bare page, and never the response
+    bond (page 18 / 3.4) as this row's source.
     """
 
     _document, items = _load("case_001")
@@ -249,13 +257,24 @@ def test_multi_source_row_names_its_second_source() -> None:
     other_pages = [
         page for page in re.findall(r"依据第(\d+)页", action) if page != own
     ]
-    # the row's own evidence page is cited for its own clause, and the second
-    # source is named explicitly
-    assert f"依据第{own}页" in action if own else True
-    for page in other_pages:
-        assert f"依据第{page}页核对另一来源条款" in action, (page, action)
-    # the row's own locator is the front-table value it displays
+
+    roles = source_role_labels(action)
+    project = str(roles.get(PROJECT_ROLE_LABEL) or "")
+    general = str(roles.get(GENERAL_ROLE_LABEL) or "")
+    if project and general:
+        # round-12 delivered shape: each source is named by the role it plays
+        assert "第11页" in project and "7.3" in project, (project, action)
+        assert "第21页" in general and "7.3" in general, (general, action)
+        assert "履约担保" in general, (general, action)
+    else:
+        # round-11 delivered shape: the second source is an explicit clause
+        assert f"依据第{own}页" in action if own else True
+        for page in other_pages:
+            assert f"依据第{page}页核对另一来源条款" in action, (page, action)
+    # the row's own locator is the front-table value it displays, and a different
+    # concern's bond clause is never presented as this row's source
     assert "供应商须知前附表" in item.source_locator, item.source_locator
+    assert "响应保证金" not in action, action
 
 
 # --------------------------------------------------------------------------- #

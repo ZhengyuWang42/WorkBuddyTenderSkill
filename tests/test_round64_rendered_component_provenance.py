@@ -38,9 +38,12 @@ from tender_basic.review_rendering import (  # noqa: E402
 import v1_review_workbook_round4_report as round4  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
-#: Round-11 successor: the round-10 bid-response/contract-risk separation plus the
-#: canonical EvidenceUnit structural-heading closure.  The round-10 workbook and
-#: every earlier workbook stay frozen as the artifacts the human reviewed and failed.
+#: Round-12 successor: the final XLSX delivery-text closure (contract-risk rows stay
+#: internal, DR037 names both of its sources, one semantic clipper for every
+#: evidence summary).  The round-11 workbook and every earlier workbook stay frozen
+#: as the artifacts the human reviewed and failed.
+BUILD12 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final"
+#: the successor's own predecessor, used as the before/after baseline
 BUILD11 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11"
 BUILD10 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10"
 BUILD9 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2"
@@ -56,8 +59,8 @@ WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 DELIVERED = "投标项目复核表"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD11 / "project_facts.json").is_file(),
-    reason="round-11 CASE001 successor build is not present",
+    not (BUILD12 / "project_facts.json").is_file(),
+    reason="round-12 CASE001 successor build is not present",
 )
 
 FIXTURE_KEYS = tuple("ABCDEFGHIJKLMNOPQRS")
@@ -69,7 +72,7 @@ def _flat(text: object) -> str:
 
 @pytest.fixture(scope="module")
 def analysis() -> round4.Round4Report:
-    return round4.Round4Report(build=BUILD11, case="case_001", before=BUILD10, audit_limit=30)
+    return round4.Round4Report(build=BUILD12, case="case_001", before=BUILD11, audit_limit=30)
 
 
 @pytest.fixture(scope="module")
@@ -79,7 +82,7 @@ def report(analysis: round4.Round4Report) -> dict:
 
 @pytest.fixture(scope="module")
 def cells() -> dict:
-    workbook = load_workbook(BUILD11 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD12 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     try:
         values: dict[str, dict[str, str]] = {}
         for name in workbook.sheetnames:

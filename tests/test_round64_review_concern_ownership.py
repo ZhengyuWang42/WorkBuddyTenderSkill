@@ -48,9 +48,10 @@ from tender_basic.review_point import (  # noqa: E402
 import v1_review_workbook_round3_report as report  # noqa: E402
 
 CASE = ROOT / "acceptance/workspace/case_001"
-#: Round-11 successor: the round-10 bid-response/contract-risk separation plus the
-#: canonical EvidenceUnit structural-heading closure.  The round-10 workbook and
-#: every earlier workbook stay frozen as the artifact the human reviewed and failed.
+#: Round-12 successor: the final XLSX delivery-text closure.  The round-11 workbook
+#: and every earlier workbook stay frozen as the artifact the human reviewed and
+#: failed.
+BUILD12 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final"
 BUILD11 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11"
 BUILD10 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10"
 BUILD9 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2"
@@ -65,8 +66,8 @@ BUILD2 = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8_review_workbook2
 WORD = CASE / "v1_manual_fidelity_round4_date_rhythm_closure8"
 
 pytestmark = pytest.mark.skipif(
-    not (BUILD11 / "project_facts.json").is_file(),
-    reason="round-11 CASE001 successor build is not present",
+    not (BUILD12 / "project_facts.json").is_file(),
+    reason="round-12 CASE001 successor build is not present",
 )
 
 
@@ -355,18 +356,21 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     source-visible criticality note, round 7 adds the applicable-source
     resolution, the rejection-scope model and the evidence-unit locator, and
     round 8 adds the project decision's operational action, the single clause
-    citation and the cross-sheet risk agreement, and round 9 adds the delivered
-    content/tier/action-anchor closure and the exact locator equality, so the
-    successor under test is ``..._closure9_review_workbook9``; the human-reviewed
-    round-8/round-7/round-6/round-5/round-4/round-3 workbooks stay frozen as the
-    artifacts the human reviewed and failed.
+    citation and the cross-sheet risk agreement, round 9 adds the delivered
+    content/tier/action-anchor closure and the exact locator equality, round 10
+    separates bid response from contract risk, round 11 sites the canonical
+    EvidenceUnit in the structure that owns it, and round 12 closes the delivered
+    *text* (contract-risk wording, two-source roles, one semantic clipper), so the
+    successor under test is ``..._review_workbook12_final``; the human-reviewed
+    round-11/round-10/round-9/round-8/round-7/round-6/round-5/round-4/round-3
+    workbooks stay frozen as the artifacts the human reviewed and failed.
     """
 
     plan = ctx["plan"]
     qa = dynamic_review_qa(plan, ctx["document"], ctx["facts"])
     assert qa["result"] == "PASS", qa["hard_gate_failures"]
 
-    workbook = load_workbook(BUILD11 / "投标项目复核表.xlsx", data_only=True, read_only=True)
+    workbook = load_workbook(BUILD12 / "投标项目复核表.xlsx", data_only=True, read_only=True)
     assert workbook.sheetnames[0] == "投标项目复核表"
     sheet = workbook["投标项目复核表"]
     written = [
@@ -380,7 +384,7 @@ def test_successor_workbook_matches_the_plan_and_keeps_the_word_artifacts(ctx):
     assert written == expected
 
     identities = json.loads(
-        (BUILD11 / "build_manifest.json").read_text(encoding="utf-8")
+        (BUILD12 / "build_manifest.json").read_text(encoding="utf-8")
     )["artifact_identity"]
     assert all(entry["byte_identical"] for entry in identities.values())
     # the frozen round-3 workbook is preserved untouched next to its successor

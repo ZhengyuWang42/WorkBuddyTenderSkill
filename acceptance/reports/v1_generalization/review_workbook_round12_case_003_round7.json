@@ -1,0 +1,171 @@
+{
+  "schema": "v1_review_workbook_round7/1",
+  "case": "case_003",
+  "build_id": "v1_round4_closure9_review_workbook12_final",
+  "workbook": "acceptance/workspace/case_003/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx",
+  "workbook_sha256": "1f0ca082bca96d745d29cd0cbeed72fb3c340567a23247f4d829f3f3ea061080",
+  "verdict": "PASS",
+  "check_count": 10,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "every generic schedule reference resolves to the project value",
+      "ok": true,
+      "detail": "106 resolved, 0 unresolved, 0 source-unreadable",
+      "evidence": {
+        "unresolved": [],
+        "source_unreadable": []
+      }
+    },
+    {
+      "check": "no delivered row displays a superseded generic clause",
+      "ok": true,
+      "detail": "0 row(s) still display the generic template",
+      "evidence": {
+        "rows": []
+      }
+    },
+    {
+      "check": "no scoring / post-award / contract / procedural consequence is shown as 否决性",
+      "ok": true,
+      "detail": "0 false rejection classification(s) across 6 vetoed row(s)",
+      "evidence": {
+        "false": []
+      }
+    },
+    {
+      "check": "displayed requirement, page, section, clause and excerpt describe one unit",
+      "ok": true,
+      "detail": "106 row(s) checked, 0 mismatch(es)",
+      "evidence": {
+        "mismatches": []
+      }
+    },
+    {
+      "check": "no rendered source fragment is incomplete",
+      "ok": true,
+      "detail": "0 incomplete fragment(s) of 106 row(s)",
+      "evidence": {
+        "incomplete": []
+      }
+    },
+    {
+      "check": "no rendered numeric text is duplicated or corrupted",
+      "ok": true,
+      "detail": "0 corrupted numeric fragment(s)",
+      "evidence": {
+        "corrupted": []
+      }
+    },
+    {
+      "check": "different platform roles are not collapsed into one conflict",
+      "ok": true,
+      "detail": "0 false platform conflict(s); roles=2",
+      "evidence": {
+        "false_conflicts": [],
+        "roles": {
+          "TRANSACTION_SYSTEM": "操作视频、黑龙江省公共资源交易平台",
+          "ANNOUNCEMENT_PLATFORM": "本次招标公告同时在中国招标投标公共服务平台"
+        },
+        "platform_status": "RESOLVED"
+      }
+    },
+    {
+      "check": "round-5/round-6 fact invariants still hold",
+      "ok": true,
+      "detail": "1 invariant(s) checked, 0 failure(s)",
+      "evidence": {
+        "problems": []
+      }
+    },
+    {
+      "check": "the banked round-6 marker accounting still holds",
+      "ok": true,
+      "detail": "round-6 accounting verdict=PASS (failed=none)",
+      "evidence": {
+        "failed_checks": [],
+        "failed_fixtures": [],
+        "counts": {
+          "direct_delivered_marker_visibility_failures": 0,
+          "duplicate_source_marker_record_count": 0,
+          "marker_carrying_source_atom_count": 6,
+          "marker_false_positive_count": 0,
+          "marker_lost_count": 0,
+          "marker_unattributed_count": 0,
+          "marker_unresolved_count": 0,
+          "raw_source_marker_discovery_count": 6,
+          "source_marker_atom_count": 6,
+          "source_marker_evidence_count": 6,
+          "source_marker_occurrence_count": 6
+        },
+        "concern_contract_verdict": "PASS"
+      }
+    },
+    {
+      "check": "Word artifacts are byte-identical (not re-rendered)",
+      "ok": true,
+      "detail": "3 artifact(s) compared against the accepted source build",
+      "evidence": {
+        "基础投标文件.docx": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
+        "基础投标文件.pdf": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e",
+        "generation_report.json": "ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d"
+      }
+    }
+  ],
+  "fixtures": {
+    "APPLICABLE_SOURCE_1.10.1": {
+      "status": "PASS",
+      "detail": "1.10.1 resolves to OVERRIDES/CONCRETE_VALUE and 2 row(s) display it",
+      "evidence": "1.10.1投标人须知前附表规定召开投标预备会的，招标人按照投标人须知前附表规定的时间 和形式召开投标预备会，澄清投标人提出的问题。 -> 1.10.1 投标预备会 ☑不召开□召开，召开时间：召开形式："
+    },
+    "APPLICABLE_SOURCE_1.10.1_TEMPLATE_HIDDEN": {
+      "status": "PASS",
+      "detail": "the superseded generic clause is not displayed",
+      "evidence": "1.10.1投标预备会☑不召开□召开，召开时间：召开形式：; 1.10.1投标预备会☑不召开□召开，召开时间：召开形式："
+    },
+    "APPLICABLE_SOURCE_GENERIC_KEPT": {
+      "status": "PASS",
+      "detail": "5 generic clause(s) kept in the atom stream for coverage/audit",
+      "evidence": ""
+    },
+    "REJECTION_SCOPE_SCORING_NOT_VETO": {
+      "status": "PASS",
+      "detail": "2 scoring row(s) audited; none is a rejection",
+      "evidence": "DR035:-; DR036:-"
+    },
+    "REJECTION_SCOPE_STAGE_NAMED": {
+      "status": "PASS",
+      "detail": "31 non-vetoed mandatory row(s) name their own basis",
+      "evidence": "BOND; CONSORTIUM; DURATION; ELECTRONIC; FORM; INFORMATIONAL_PROCEDURAL"
+    },
+    "PLATFORM_ROLE_DISTINCT": {
+      "status": "PASS",
+      "detail": "2 platform role(s) distinguished: 交易系统：操作视频、黑龙江省公共资源交易平台；公告发布平台：本次招标公告同时在中国招标投标公共服务平台",
+      "evidence": "{\"TRANSACTION_SYSTEM\": \"操作视频、黑龙江省公共资源交易平台\", \"ANNOUNCEMENT_PLATFORM\": \"本次招标公告同时在中国招标投标公共服务平台\"}"
+    },
+    "PLATFORM_ROLE_NOT_A_CONFLICT": {
+      "status": "PASS",
+      "detail": "the platform field is not reported as a value conflict",
+      "evidence": "status=RESOLVED; conflicts=0"
+    }
+  },
+  "fixture_summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": []
+  },
+  "counts": {
+    "GENERIC_REFERENCE_UNRESOLVED_COUNT": 0,
+    "SOURCE_UNREADABLE_REFERENCE_COUNT": 0,
+    "FALSE_REJECTION_CLASSIFICATION_COUNT": 0,
+    "EVIDENCE_LOCATOR_SEMANTIC_MISMATCH_COUNT": 0,
+    "INCOMPLETE_RENDERED_SOURCE_FRAGMENT_COUNT": 0,
+    "CORRUPTED_RENDERED_NUMERIC_TEXT_COUNT": 0,
+    "FALSE_PLATFORM_CONFLICT_COUNT": 0,
+    "VALUE_INVARIANT_FAILURE_COUNT": 0,
+    "ROUND6_MARKER_OCCURRENCE_COUNT": 6,
+    "ROUND6_MARKER_LOST_COUNT": 0,
+    "ROUND6_CONCERN_CONTRACT_FAILURES": 0
+  },
+  "delivered_row_count": 106
+}

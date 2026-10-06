@@ -10,9 +10,9 @@ EXACT MATCHING EVIDENCE LOCATOR``
 Every assertion is about a *delivered workbook cell* or about a source-driven
 rule; the CASE001 fixture rows are the human's own review findings.
 
-The audited successor is the **current** one (round 9): the round-5/6/7 rules are
-re-checked on the newest delivered workbook, while the round-7/8 workbooks stay on
-disk as the artifacts the human reviewed and failed.
+The audited successor is the **current** one (round 12): the round-5/6/7 rules are
+re-checked on the newest delivered workbook, while the round-7/8/9/10/11 workbooks
+stay on disk as the artifacts the human reviewed and failed.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ import pytest
 
 from scripts.v1_review_workbook_round6_report import Round6Report
 from scripts.v1_review_workbook_round7_report import Round7Report
-from scripts.v1_review_workbook_round11_report import BUILDS as SUCCESSOR_BUILDS
+from scripts.v1_review_workbook_round12_report import BUILDS as SUCCESSOR_BUILDS
 from tender_basic.applicability_invariants import (
     _text_in_span,
     classify_consequence_scope,

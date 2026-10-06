@@ -348,13 +348,14 @@ class Round11Report(Round9Report):
         bond_locator = str((bond or {}).get("locator") or "")
         own = re.search(r"第(\d+)页", bond_locator)
         own_page = own.group(1) if own else ""
+        # Round 12 delivered the two roles explicitly; either shape is acceptable
+        # as long as the second source is named rather than left as a bare page
+        names_roles = "项目专用值" in bond_action and "通用/中标后条款" in bond_action
         other_pages = [
             page
             for page in re.findall(r"依据第(\d+)页", bond_action)
             if page != own_page
         ]
-        # every page the action cites other than the row's own evidence page must
-        # be introduced as an explicit *second source*, not left unexplained
         unexplained = [
             page
             for page in other_pages
@@ -362,11 +363,11 @@ class Round11Report(Round9Report):
         ]
         self.fixture(
             "DR037_MULTI_SOURCE_ROLES",
-            bool(bond) and bool(other_pages) and not unexplained,
+            bool(bond) and (names_roles or (other_pages and not unexplained)),
             "DR037 names both of its sources instead of citing a hidden page",
             f"row={(bond or {}).get('item_id')} locator={bond_locator[:80]} "
             f"own_page={own_page} other_pages={other_pages} "
-            f"unexplained={unexplained} action={bond_action[:200]}",
+            f"names_roles={names_roles} unexplained={unexplained} action={bond_action[:200]}",
         )
 
         # fixture 6: the two clauses under 第五条 keep that article

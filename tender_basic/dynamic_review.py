@@ -834,12 +834,45 @@ def build_dynamic_review_plan(
                 fallback_kind=str(getattr(primary, "source_kind", "") or ""),
             )
             evidence_text = _evidence_excerpt(concern, primary_atom, evidence_units)
+        # Review stage: WHEN this obligation must be answered.  It is derived from
+        # the concern's own contract kind plus the source's own stage wording --
+        # never from the chapter the clause was printed in, and never from a case
+        # id.  A pure post-award contract condition becomes a pre-bid risk notice
+        # and may not decide compliance, rejection or score (see ``review_stage``).
+        # The stage is decided *before* the anchor is rendered, because it decides
+        # which anchor is honest: a contract risk gets an internal pre-bid action,
+        # never a response-file comparison.
+        row_stage = review_stage_for(
+            concern,
+            concern_id=concern.concern_id,
+            contract_kind=concern_contract_for(concern.concern_id).kind,
+            source_text=" ".join(
+                str(getattr(atom, "source_text", "") or "")
+                for atom in getattr(concern, "atoms", ())
+            ),
+            evidence_text=evidence_text,
+        )
         # Round 9: the anchor a delivered row cites must be the row's *own*
         # evidence unit.  The concern's atom list may reach a sibling clause
         # ("2.2.2 评审基准价" for a pricing-formula row whose own clause is
         # "2.2.4"), and the check text then sent the reviewer to a page/clause the
         # row does not quote (round-9 fixture D57).
         primary_unit = units_by_id.get(str(getattr(primary_atom, "source_clause_id", "")))
+        primary_evidence = (
+            evidence_units.for_atom(primary_atom) if primary_atom is not None else None
+        )
+        # the row's *other* source is one of its own concern atoms, not any unit of
+        # the document: announcing an unrelated neighbouring clause would present a
+        # different requirement as this row's second source (round-5 fixture F)
+        linked_evidence = [
+            found.unit
+            for found in (
+                evidence_units.for_atom(atom)
+                for atom in getattr(concern, "atoms", ())
+                if atom is not primary_atom
+            )
+            if found is not None
+        ]
         _retarget_anchor_checks(
             point,
             page,
@@ -847,6 +880,9 @@ def build_dynamic_review_plan(
             clause,
             primary_unit=primary_unit,
             linked_units=list(units),
+            contract_risk=row_stage == CONTRACT_RISK_NOTICE,
+            primary_evidence=primary_evidence.unit if primary_evidence is not None else None,
+            linked_evidence=linked_evidence,
         )
         verification_action = render_checks(point)
         if resolution is not None:
@@ -863,21 +899,6 @@ def build_dynamic_review_plan(
         )
         row_criticality = criticality.for_atoms(
             list(getattr(concern, "atoms", ())), scope_atoms=display_atoms
-        )
-        # Review stage: WHEN this obligation must be answered.  It is derived from
-        # the concern's own contract kind plus the source's own stage wording --
-        # never from the chapter the clause was printed in, and never from a case
-        # id.  A pure post-award contract condition becomes a pre-bid risk notice
-        # and may not decide compliance, rejection or score (see ``review_stage``).
-        row_stage = review_stage_for(
-            concern,
-            concern_id=concern.concern_id,
-            contract_kind=concern_contract_for(concern.concern_id).kind,
-            source_text=" ".join(
-                str(getattr(atom, "source_text", "") or "")
-                for atom in getattr(concern, "atoms", ())
-            ),
-            evidence_text=evidence_text,
         )
         if row_stage == CONTRACT_RISK_NOTICE:
             # a pure contract risk is presented in its own module, carries no
@@ -1075,6 +1096,9 @@ def _retarget_anchor_checks(
     *,
     primary_unit: Any = None,
     linked_units: Sequence[Any] = (),
+    contract_risk: bool = False,
+    primary_evidence: Any = None,
+    linked_evidence: Sequence[Any] = (),
 ) -> None:
     """Re-point every delivered anchor check at the row's own evidence unit.
 
@@ -1084,39 +1108,64 @@ def _retarget_anchor_checks(
     must be named explicitly as an additional source.  A bare "依据第18页" beside a
     page-11 evidence locator tells the reviewer to look somewhere the row does not
     show.
+
+    A **pure contract risk** is not a response-file obligation, so its anchor is an
+    internal pre-bid action ("查阅…合同条款原文"), never a response-file comparison
+    ("逐条比对响应文件对应章节").  The stage decides which anchor is honest.
     """
 
     target = _anchor_text(page, section, clause)
-    check = ""
-    if target:
-        check = f"依据{target}逐条比对响应文件对应章节"
-    linked_extra = _linked_source_anchor(primary_unit, linked_units)
-    if linked_extra:
+    linked = _linked_source_anchor(
+        primary_unit, linked_units, contract_risk=contract_risk
+    )
+    if contract_risk:
+        # the stage's own pre-bid anchor: read the clause, decide internally.
+        # A two-source row names both roles instead of calling the front-table
+        # value "合同条款原文".
+        roles = ""
+        if linked:
+            roles = _source_role_text(
+                primary_evidence or primary_unit,
+                list(linked_evidence) or list(linked_units),
+                requirement=str(getattr(point, "requirement_summary", "") or ""),
+            )
+        if roles:
+            check = f"查阅合同/项目专用条款原文：{roles}"
+        elif target:
+            check = f"依据{target}查阅合同条款原文"
+        else:
+            check = ""
+        if not check:
+            return
+        pattern = re.compile(r"^依据.+?(?:查阅合同条款原文|核对另一来源条款|逐条比对响应文件对应章节)")
+        pattern_roles = re.compile(r"^查阅合同/项目专用条款原文")
+        checks = [
+            text
+            for text in (str(c) for c in point.review_checks)
+            if not pattern.match(text) and not pattern_roles.match(text)
+        ]
+        checks.append(check)
+        point.review_checks = list(dict.fromkeys(checks))
+        return
+
+    check = f"依据{target}逐条比对响应文件对应章节" if target else ""
+    if linked:
         # the second source is stated as its own named source, never as an
         # unexplained page number
         check = (
-            f"{check}；并依据{linked_extra}核对另一来源条款"
+            f"{check}；并依据{linked}核对另一来源条款"
             if check
-            else f"依据{linked_extra}核对另一来源条款"
+            else f"依据{linked}核对另一来源条款"
         )
     if not check:
         return
     pattern = re.compile(r"^依据.+?逐条比对响应文件对应章节$")
     pattern_linked = re.compile(r"^依据.+?核对另一来源条款$")
-    # the contract-risk stage's own anchor line ("依据第18页查阅合同条款原文") must
-    # name the row's *visible* evidence too, otherwise the reviewer is sent to a
-    # page the row does not show (round-11 fixture DR037)
-    pattern_contract = re.compile(r"^依据.+?查阅合同条款原文$")
     checks = list(point.review_checks)
     updated: list[str] = []
     replaced = False
     for existing in checks:
         text = str(existing)
-        if pattern_contract.match(text):
-            updated.append(
-                f"依据{target}查阅合同条款原文" if target else text
-            )
-            continue
         if not replaced and (pattern.match(text) or pattern_linked.match(text)):
             updated.append(check)
             replaced = True
@@ -1130,8 +1179,120 @@ def _retarget_anchor_checks(
         point.review_checks = updated
 
 
+def _source_role_text(
+    primary_unit: Any, linked_units: Sequence[Any], requirement: str = ""
+) -> str:
+    """Name both source roles of a two-source row in reviewer-readable terms.
+
+    The project-specific value (a front-table / schedule row) and the
+    general/post-award obligation (another clause) are *different* sources; the
+    delivered row must say which is which instead of calling either of them
+    "合同条款原文".  The role is read from the unit's own source shape -- a
+    front-table/schedule row carries the project value, any other clause is the
+    general obligation -- never from which one happens to be the primary anchor.
+
+    An *additional* candidate is only announced when its own text is *part of the
+    delivered requirement*: page 18's unrelated "3.4 响应保证金" row must never be
+    presented as the performance-bond obligation (round-5 fixture F).  The row's
+    own primary unit needs no such proof -- it is the anchor the row's requirement
+    resolves *through*, and it is normal for the project-value row to carry the
+    amount while the delivered sentence quotes the general clause it points at.
+    """
+
+    flat_requirement = _flatten(requirement)
+
+    def _contributes(unit: Any) -> bool:
+        if not flat_requirement:
+            return True
+        head = _flatten(_unit_text(unit))[:24]
+        return bool(head) and head in flat_requirement
+
+    role_units: list[tuple[str, Any]] = []
+    seen: set[tuple[Any, str]] = set()
+    for index, unit in enumerate([primary_unit, *(linked_units or ())]):
+        if unit is None:
+            continue
+        if index and not _contributes(unit):
+            continue
+        key = (getattr(unit, "page", None), str(getattr(unit, "clause_number", "") or ""))
+        if key in seen:
+            continue
+        seen.add(key)
+        role_units.append((_source_role_of(unit), unit))
+    if len(role_units) < 2:
+        return ""
+
+    def _label(role: str) -> str:
+        for candidate_role, unit in role_units:
+            if candidate_role != role:
+                continue
+            where = _unit_role_label(unit)
+            if where:
+                return f"{where}（{'项目专用值' if role == 'project' else '通用/中标后条款'}）"
+        return ""
+
+    project = _label("project")
+    general = _label("general")
+    # the label is only honest when the row really has both kinds of source
+    if not project or not general:
+        return ""
+    return f"其中{project}；{general}"
+
+
+def _unit_text(unit: Any) -> str:
+    return str(getattr(unit, "text_span", "") or getattr(unit, "text", "") or "")
+
+
+#: A front-table / schedule title marks the project-specific source: its row
+#: carries the *project's own value* rather than the document's general rule.
+_SCHEDULE_SECTION_RE = re.compile(r"(前附表|附表|项目专用|专用条款|合同条款及格式)")
+
+
+def _source_role_of(unit: Any) -> str:
+    """``"project"`` for a project-value source, ``"general"`` otherwise."""
+
+    if unit is None:
+        return "general"
+    kind = str(getattr(unit, "kind", "") or "")
+    if kind == "pdf_table_cell":
+        # a front-table cell is the project's own value row
+        return "project"
+    section = str(getattr(unit, "section", "") or getattr(unit, "heading", "") or "")
+    if _SCHEDULE_SECTION_RE.search(section):
+        return "project"
+    return "general"
+
+
+def _unit_role_label(unit: Any) -> str:
+    """``<page><clause> <section>`` for one source unit.
+
+    A front-table row has no section title of its own, so its clause number is
+    what tells the reviewer *which* project value the row resolves through
+    (round-12: page 11 / 7.3 供应商须知前附表).  A clause whose extracted section
+    already names its own number ("7.3 履约担保") keeps that one reading.
+    """
+
+    if unit is None:
+        return ""
+    page = getattr(unit, "page", None)
+    section = str(getattr(unit, "section", "") or getattr(unit, "heading", "") or "")
+    clause = str(getattr(unit, "clause_number", "") or "")
+    where = f"第{page}页" if page else ""
+    # a section title that already carries its own number ("7.3 履约担保") is the
+    # source's own reading of the clause; the deeper sub-clause is not repeated
+    section_number = re.match(r"\d+(?:\.\d+)*", section)
+    numbered = bool(section_number) and clause.startswith(section_number.group(0))
+    if clause and not numbered:
+        where = f"{where}第{clause}条"
+    if section:
+        where = f"{where} {section}".strip()
+    return where
+
+
 #: A page-anchored reference the row can print for an *additional* source unit.
-def _linked_source_anchor(primary_unit: Any, linked_units: Sequence[Any]) -> str:
+def _linked_source_anchor(
+    primary_unit: Any, linked_units: Sequence[Any], *, contract_risk: bool = False
+) -> str:
     """A readable anchor for the row's second source, or "" when there is none.
 
     Only a *structural* difference counts: the same clause extracted twice is one

@@ -150,11 +150,33 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="re-verify the same locator contract on the round-11 successors",
     )
+    parser.add_argument(
+        "--round12",
+        action="store_true",
+        help="re-verify the same locator contract on the round-12 successors",
+    )
     parser.add_argument("--out", help="report path (default: the round's own gate file)")
     args = parser.parse_args(argv)
     cases = list(BUILDS) if args.three_case or not args.case else args.case
 
-    if args.round11:
+    if args.round12:
+        # The locator contract is stage-, structure- and delivery-text-independent,
+        # so the same exact-formatter gate must still hold on the round-12
+        # successors -- the ones whose *delivered cells* round 12 changed.  Every
+        # artifact is written under the round-12 stem, so no round-9/10/11 evidence
+        # file is rewritten.
+        import v1_review_workbook_round9_report as round9
+
+        from v1_review_workbook_round12_report import BUILDS as ROUND12_BUILDS
+        from v1_review_workbook_round12_report import write_case_report as write12
+
+        round9.BUILDS = dict(ROUND12_BUILDS)
+        _case_report_writer = write12
+        # its own file: the round-12 delivery-text generalization (written by the
+        # round-12 report) is a different conclusion and must survive alongside
+        _generalization_stem = "review_workbook_round12_locator_generalization.json"
+        _gate_label = "ROUND12_LOCATOR_GATE"
+    elif args.round11:
         # The locator contract is stage- and structure-independent, so the same
         # exact-formatter gate must hold on the round-11 successors.  Every
         # artifact is written under the round-11 stem, so no round-9/10 evidence

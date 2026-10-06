@@ -1252,3 +1252,106 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
   未 reset / clean / revert / rebase / stash / amend、未强推、未创建 tag 或 release；
   workbook10 及更早构建逐字节保留。
 
+### D75 送达文本门禁必须读已保存产物（第 12 轮，长期规则，BANK）
+
+第 11 轮之后的**人工复核工作簿 11** 指出：第 9–11 轮证明的是**模型**（精确定位相等、
+投标/合同风险分离、结构标题保真），而**已保存单元格里的送达文本**仍与这些规则不符。
+第 12 轮的三个不变量（全部长期 BANK）：
+
+1. `A DELIVERY GATE MUST READ THE SAVED ARTIFACT`
+   —— 门禁必须读**已保存/重新打开的 XLSX 单元格字符串**，不得只读内部 `ReviewPoint` /
+   `DynamicReviewItem`；内部对象正确而送达文本错误，正是本轮三个缺陷的共同形态。
+   `tender_basic/delivery_text.py` 因此只接收**字符串**（`openpyxl` 单元格值），
+   不依赖产生它们的计划。
+2. `CONTRACT RISK NOTICE MUST SURVIVE TO FINAL XLSX AS INTERNAL RISK REVIEW,
+   NOT RESPONSE-FILE COMPLIANCE CHECKING`
+   —— 纯合同风险行（`CONTRACT_RISK_NOTICE`）的送达单元格**只能**使用投标前内部措辞
+   （查阅合同/项目专用条款原文 → 知悉 → 评估价格/现金流/履约/责任 → 不可接受则在投标前决策），
+   **禁止**出现响应文件比对/声明语言（`逐条比对响应文件`、`核对响应文件已载明`、
+   `响应文件接受`、`与响应文件一致`…）。第 11 轮前 7 个纯合同风险行仍带
+   `逐条比对响应文件对应章节`，属**交付缺陷**（阶段模型已正确，送达文本未跟随）。
+   锚点重写在阶段判定**之后**执行（`row_stage` 先于 `_retarget_anchor_checks`），
+   因此阶段决定锚点的诚实形态。
+3. `EVIDENCE SUMMARY MUST NOT CLIP MATERIAL TOKENS MID-TOKEN`
+   —— 证据摘要裁剪必须走**同一个语义裁剪器**（`review_workbook_views._clip`）。
+   主表此前用裸 `[:110]` 切片，把标准号切成 `GB50015-2`（真值 `GB50015-2019`），
+   与结构化视图不一致；现在 `投标项目复核表` 的 E 列与 02/03/07 表共用该裁剪器，
+   且裁剪在条款/句边界退让并保留显式截断标记 `…`。
+4. `A ROW THAT CLAIMS TWO SOURCE ROLES MUST DELIVER BOTH, FROM ITS OWN CONCERN`
+   —— （第 11 轮已立、第 12 轮收紧）一行由「项目专用值（前附表/项目专用条款）+
+   通用/中标后条款」组成时，送达单元格必须**同时**给出两个角色标签与各自页码/条款：
+   `其中第11页第7.3条 供应商须知前附表（项目专用值）；第21页 7.3 履约担保（通用/中标后条款）`。
+   第二来源**只能**取自**同一 ReviewConcern 自己拥有的原子/证据单元**
+   （`concern.atoms` 的单元 + 该行 PRIMARY 单元），**禁止**页邻近、**禁止**首个可用单元、
+   **禁止**计划全量单元、**禁止**对 DR037 之类行号硬编码。
+   该行的 PRIMARY（项目专用值）单元**无需**再自证「贡献了送达要求文本」——它就是该行
+   解析所依赖的锚点；只有**附加**候选（如第 18 页 `3.4 响应保证金`，属**另一个**关切）
+   必须用「自身文本片段出现在送达要求中」证明自己确实属于本行（第 5 轮夹具 F）：
+   本项目「履约保证金」（第 11 页前附表 + 第 21 页 7.3 履约担保）与
+   「响应保证金」（第 18 页 3.4）是**两件事**，不得混同。
+   角色标签写入**已保存单元格**后由门禁读回（`source_role_labels`），
+   不使用内部字符串自证。
+
+- 第 12 轮门禁读数（全部取自**已保存/重新打开的 XLSX**）：
+  - `PURE_CONTRACT_RISK_RESPONSE_FILE_LANGUAGE_COUNT = 0`（三案例；
+    CASE001 检查 7 个纯合同风险行）；
+  - `MID_TOKEN_EVIDENCE_TRUNCATION_COUNT = 0`（四张表的证据摘要列，三案例 143/129/138 个单元格）；
+  - `MULTI_SOURCE_ROLE_DISPLAY_AMBIGUITY_COUNT = 0`（**声明**双来源的行必须给出两个角色）；
+  - `DR037_PROJECT_SOURCE = 第11页第7.3条 供应商须知前附表`、
+    `DR037_GENERAL_SOURCE = 第21页 7.3 履约担保`、
+    `DR037_RESPONSE_BOND_SOURCE_PRESENT = false`；
+  - 第 5/6/7 轮银行门禁在第 12 轮构建上复跑 **PASS**，`ROUND5_FIXTURE_F = PASS`
+    （履约保证金行只显示/引用 `履约保证金`，不含 `响应保证金` / `投标保证金`）。
+- 交付文本不变量的语义边界（**测量**定义，非放宽）：
+  - `MULTI_SOURCE_ROLE_DISPLAY_AMBIGUITY_COUNT` 只统计**声明**了双来源措辞
+    （`查阅合同/项目专用条款原文`）却没给出两个角色标签的行；
+    「每个被引用的第二来源页必须被显式声明为第二来源」由第 11 轮既有的
+    `MULTI_SOURCE_EVIDENCE_ROLE_AMBIGUITY_COUNT = 0` 单独把守，两者不合并、不互相代替；
+  - `mid_token_truncation` **只**检查真正被截断（以 `…` 结尾）的单元格；
+    且标准号只有在**不完整**时才算中截断（`GB50015-2` 不完整；
+    `GB50015-2019`、`GBJ 54-83` 是完整版本年，裁剪恰好在完整标识符之后结束**不算**缺陷）。
+- 第 12 轮后继构建（不可变；由工作簿 11 以 `--refresh-legacy-rows` 派生）：
+  CASE001 `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final`
+  （`投标项目复核表.xlsx` sha256 `034dedbc3cee3e88dfb36db830e030de2e6bdc61b5728d6dae3db7b3651e1764`，72675 B）、
+  CASE002 `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final`
+  （sha256 `ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87`，75490 B）、
+  CASE003 `acceptance/workspace/case_003/v1_round4_closure9_review_workbook12_final`
+  （sha256 `1f0ca082bca96d745d29cd0cbeed72fb3c340567a23247f4d829f3f3ea061080`，82022 B）。
+  **中间构建说明**：更早的 `..._review_workbook12`（第 12 轮代码修复**之前**运行）作为
+  缺陷证据**原样保留、未被覆盖**（CASE001 sha256
+  `68cb48a31c4ba98201151c4d428040f67c152107b33a972689a9b607df937210`，72647 B），
+  其构建报告按仓库既有「被取代」命名法改名为
+  `case_00{1,2,3}_review_workbook_build12_superseded.json`（内容未改）；
+  门禁与文档只认 `..._review_workbook12_final`，其构建报告为
+  `case_00{1,2,3}_review_workbook_build12.json`（= 当前第 12 轮身份来源）；
+  构建脚本自身拒绝覆盖已存在的构建目录（`refusing to overwrite an existing build`）。
+- 证据（第 12 轮）：
+  - 三案例审计 `review_workbook_round12_case_00{1,2,3}.{json,md}` = PASS
+    （0 failed check / 0 failed fixture）、`review_workbook_round12_generalization.json` = PASS；
+  - 工作簿门禁 `case00{1,2,3}_review_workbook12_gate.json` = PASS（43/43）；
+  - 定位门禁 `round12_locator_gate.json` = PASS（`locator comparison = EXACT_FORMATTER_OUTPUT`、
+    0 前缀/模糊、0 语义不一致；三案例 50/45/49 = 144 行逐行比较）
+    与 `review_workbook_round12_locator_generalization.json` = PASS；
+  - 第 5/6/7 轮银行门禁复跑 `review_workbook_round12_banked_regressions.json` = PASS；
+  - 渲染 QA `case00{1,2,3}_review_workbook12_visual_qa.json` = PASS
+    （`clipping_bounded` 有界 WARN：10 / 9 / 26，与第 8–11 轮同类、非阻塞）；
+  - 全套测试 `review_workbook_round12_full_test_suite.{txt,xml}` =
+    **977 collected / 976 passed / 0 failed / 0 errors / 1 skipped**（exit 0）；
+  - 文档—产物一致性 `v1_docs_state_consistency.json` = PASS；
+  - 结论标签：`FINAL_XLSX_DELIVERY_TEXT_FIDELITY = PASS`、`ROUND12_LOCATOR_GATE = PASS`、
+    `ROUND10_BID_CONTRACT_SEPARATION = PASS`、`ROUND11_STRUCTURAL_HEADING = PASS`
+    （由第 10/11 轮构建上的复跑与第 12 轮构建上门禁共同支撑）；
+  - 三案例 Word 产物（DOCX / PDF / generation_report）逐字节相同
+    （`word_render_repeated = false`）。
+- 纪律：**未**修改 Word；**未**重开 `ReviewStage` / `SourceRequirementAtom` /
+  `ReviewConcern` / `ReviewPoint` / `RenderedReviewComponent` / `ConcernContract` /
+  `EvidenceUnit` / 结构标题模型 / 精确定位格式化器 / marker 记账；
+  **未**削弱精确定位门禁（无 startswith/contains/fuzzy）；
+  **未**在生产代码中硬编码任何 CASE001 行号（`DR037_*` 断言只存在于**门禁/脚本**层，
+  并以 `self.case != "case_001"` 显式限定）；
+  **未**覆盖任何既有构建/报告；未 reset / clean / revert / rebase / stash / amend、
+  未强推、未创建 tag 或 release。
+- 人工状态（不得因自动化通过而改变）：
+  `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、
+  `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；
+  第 3/5/6/7/8 轮人工 FAIL 记录保持未改写，人工结论列**仍未勾选**。

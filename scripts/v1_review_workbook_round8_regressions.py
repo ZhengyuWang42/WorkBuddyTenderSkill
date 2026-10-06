@@ -105,6 +105,10 @@ def run_case(
             "verdict": "PASS" if not r5_failed else "FAIL",
             "failed_checks": r5_failed,
             "fixtures": r5["fixtures_passed"],
+            # per-fixture verdicts, so a later round can name a single banked
+            # fixture (round 12 gates ``ROUND5_FIXTURE_F``) without re-running the
+            # round-5 report a second time
+            "fixtures_detail": r5["fixtures"],
         },
         "round6": {
             "verdict": r6["verdict"],

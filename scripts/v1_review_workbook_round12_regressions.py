@@ -1,0 +1,93 @@
+"""Re-run the banked round-5/6/7 gates against the round-12 successor workbooks.
+
+Round 12 closes the *delivered XLSX text* (contract-risk language, two-source role
+display, semantic evidence clipping).  The banked gates had passed on the round-11
+successor, so they have to be shown to still hold on the **round-12** successor --
+and on that successor only, which is where the human-review defects were fixed.
+Round-5 fixture F ("the performance-bond row cites only 履约保证金") is the fixture
+that caught the wrong second source, so its verdict is named in the round-12 gate
+as ``ROUND5_FIXTURE_F``.
+
+The round-8/9/10/11 report files stay as evidence of what those rounds concluded and
+are never rewritten: every run here is written under its own round-12 stem.
+
+Usage::
+
+    .venv/Scripts/python.exe -X utf8 scripts/v1_review_workbook_round12_regressions.py --three-case
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+if str(ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(ROOT / "scripts"))
+
+from v1_review_workbook_round8_regressions import run_case  # noqa: E402
+from v1_review_workbook_round8_report import REPORTS  # noqa: E402
+from v1_review_workbook_round12_report import BUILDS  # noqa: E402
+
+SCHEMA = "v1_review_workbook_round12_banked_regressions/1"
+STEM = "review_workbook_round12"
+
+#: the round-5 fixture that caught an unrelated clause being delivered as the
+#: performance-bond row's second source
+NAMED_FIXTURES = ("F",)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--case", action="append", default=None)
+    parser.add_argument("--three-case", action="store_true")
+    args = parser.parse_args(argv)
+    cases = list(BUILDS) if args.three_case or not args.case else args.case
+    results = {case: run_case(case, build_name=BUILDS[case], stem=STEM) for case in cases}
+
+    named = {
+        f"ROUND5_FIXTURE_{key}": (
+            results.get("case_001", {})
+            .get("round5", {})
+            .get("fixtures_detail", {})
+            .get(key, {})
+        )
+        for key in NAMED_FIXTURES
+    }
+    verdict = (
+        "PASS"
+        if all(
+            entry[round_name]["verdict"] == "PASS"
+            for entry in results.values()
+            for round_name in ("round5", "round6", "round7")
+        )
+        and all(entry.get("status") == "PASS" for entry in named.values())
+        else "FAIL"
+    )
+    summary = {
+        "schema": SCHEMA,
+        "current_round": 12,
+        "successor_builds": dict(BUILDS),
+        "cases": results,
+        "named_fixtures": named,
+        "verdict": verdict,
+    }
+    path = REPORTS / "review_workbook_round12_banked_regressions.json"
+    path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    for case, entry in results.items():
+        print(
+            f"{case}: round5={entry['round5']['verdict']} "
+            f"round6={entry['round6']['verdict']} round7={entry['round7']['verdict']}"
+        )
+    for key, entry in named.items():
+        print(f"{key} = {entry.get('status')} ({entry.get('expectation', '')})")
+    print(f"banked regressions: {verdict} -> {path.name}")
+    return 0 if verdict == "PASS" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
