@@ -135,6 +135,35 @@ FORBIDDEN_CLAIMS = (
 #: expected and allowed; only an assertion is a defect.
 PROHIBITION_MARKERS = ("不得", "禁止", "永不", "绝", "never", "not allowed")
 
+#: The durable CASE001 XLSX human-review archive (round 13).  A human PASS is
+#: artifact-specific: the record must name an immutable build and the reviewed
+#: file's exact SHA256, and the record is the only place a human verdict is read
+#: from -- the docs are checked *against* it.
+XLSX_HUMAN_REVIEW_NAME = "case001_review_workbook_round12_human_review.json"
+XLSX_HUMAN_PASS = "HUMAN_PASS"
+XLSX_ARTIFACT_MANIFEST = "case_001_review_workbook_build12.json"
+
+#: ``CASE00N_XLSX_MANUAL_REVIEW = VALUE`` in the state doc.
+XLSX_MANUAL_REVIEW_FLAG = re.compile(
+    r"CASE00(?P<index>[123])_XLSX_MANUAL_REVIEW\s*=\s*(?P<value>[A-Z_]+)"
+)
+
+#: The only checklist section whose human boxes may be ticked.
+AUTHORIZED_TICK_MARKER = "CASE001 XLSX HUMAN REVIEW"
+
+#: Historical human FAIL records that must still say FAIL (never rewritten when a
+#: later immutable successor passes).
+HISTORICAL_HUMAN_FAIL_RECORDS = (
+    "case001_review_workbook_round4_human_review.json",
+    "case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json",
+    "case001_review_workbook_round7_human_review.json",
+    "case001_review_workbook_round8_human_review.json",
+)
+
+#: The CASE002 review object the checklist must hand off (case, build, sha256).
+CASE002_HANDOFF_BUILD = "v1_round4_closure9_review_workbook12_final"
+CASE002_HANDOFF_SHA256 = "ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87"
+
 
 def asserts_claim(text: str) -> list[str]:
     """Forbidden claims that are *asserted* somewhere in ``text``."""
@@ -397,6 +426,41 @@ def check_pointers(gate: Gate) -> dict:
     return pointers
 
 
+def _checklist_box_ticks(checklist_text: str) -> tuple[list[int], list[int]]:
+    """``(authorized, unauthorized)`` ticked-box line numbers.
+
+    Only the checklist's current ``CASE001 XLSX HUMAN REVIEW`` section may carry a
+    ticked human box (the authorized archival of an artifact-specific human PASS).
+    Every other box -- CASE002/CASE003, Word manual review, production candidate,
+    submission readiness -- must stay unticked, exactly as before.
+    """
+
+    lines = checklist_text.splitlines()
+    authorized_start = -1
+    authorized_end = len(lines)
+    for index, line in enumerate(lines):
+        heading = re.match(r"^(?P<hashes>#{2,4})\s", line)
+        if not heading or AUTHORIZED_TICK_MARKER not in line:
+            continue
+        authorized_start = index
+        level = len(heading.group("hashes"))
+        for later in range(index + 1, len(lines)):
+            later_heading = re.match(r"^(?P<hashes>#{2,4})\s", lines[later])
+            if later_heading and len(later_heading.group("hashes")) <= level:
+                authorized_end = later
+                break
+        break
+
+    ticked = [
+        number
+        for number, line in enumerate(lines, start=1)
+        if re.match(r"^\s*[-*]\s*\[[xX]\]", line)
+    ]
+    authorized = [number for number in ticked if authorized_start < number - 1 < authorized_end]
+    unauthorized = [number for number in ticked if number not in authorized]
+    return authorized, unauthorized
+
+
 def check_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text: str) -> dict:
     state = REPO / "docs/V1_PROJECT_STATE.md"
     decisions = REPO / "docs/V1_DECISIONS.md"
@@ -426,14 +490,22 @@ def check_docs(gate: Gate, state_text: str, decisions_text: str, checklist_text:
         "state_doc_has_the_recovery_map",
         "RECOVERY MAP" in state_text,
     )
-    checkboxes = len(re.findall(r"^\s*[-*]\s*\[[xX]\]", checklist_text, flags=re.MULTILINE))
+    authorized, unauthorized = _checklist_box_ticks(checklist_text)
     gate.check(
-        "human_review_boxes_unticked",
-        checkboxes == 0,
-        ticked_boxes=checkboxes,
+        "human_boxes_ticked_only_in_the_authorized_case001_xlsx_section",
+        bool(authorized) and not unauthorized,
+        authorized_ticked_boxes=authorized,
+        unauthorized_ticked_boxes=unauthorized,
+        note=(
+            "only the current CASE001 XLSX human-review section may carry a ticked "
+            "box; CASE002/CASE003 XLSX, Word review and production/submission boxes "
+            "stay unticked"
+        ),
     )
     return {
-        "checked_human_boxes": checkboxes,
+        "checked_human_boxes": len(authorized) + len(unauthorized),
+        "authorized_human_boxes": authorized,
+        "unauthorized_human_boxes": unauthorized,
         "state_doc_bytes": len(state_text.encode("utf-8")),
         "decisions_doc_bytes": len(decisions_text.encode("utf-8")),
     }
@@ -562,6 +634,117 @@ def check_current_round_docs(
 
 def general_path(name: str) -> Path:
     return REPO / GENERALIZATION / name
+
+
+def check_xlsx_human_review(
+    gate: Gate, state_text: str, checklist_text: str
+) -> dict:
+    """The CASE001 XLSX human-review archive, verified against its own artifact.
+
+    ``HUMAN PASS IS ARTIFACT-SPECIFIC``: the record must name the immutable build
+    and the reviewed file's exact SHA256, those must agree with the round-12 build
+    evidence and with the file on disk, the state doc must present that verdict,
+    and CASE002/CASE003 must stay ``NOT_YET_CONFIRMED``.  The historical human FAIL
+    records must still say FAIL.
+    """
+
+    record_path = REPO / GENERALIZATION / XLSX_HUMAN_REVIEW_NAME
+    gate.check(
+        "case001_xlsx_human_review_record_exists",
+        record_path.is_file(),
+        path=str(record_path),
+    )
+    if not record_path.is_file():
+        return {}
+    record = load(record_path)
+    manifest_path = REPO / GENERALIZATION / XLSX_ARTIFACT_MANIFEST
+    manifest = load(manifest_path) if manifest_path.is_file() else {}
+
+    artifact = REPO / str(record.get("reviewed_artifact") or "")
+    digest = sha256(artifact) if artifact.is_file() else ""
+    recorded_digest = str(record.get("artifact_reviewed_sha256") or "").lower()
+
+    gate.check(
+        "case001_xlsx_human_review_is_artifact_specific",
+        record.get("schema") == "v1_review_workbook_human_review/1"
+        and record.get("case") == "case_001"
+        and record.get("review_type") == "XLSX_MANUAL_REVIEW"
+        and str(record.get("human_result") or "").upper() == XLSX_HUMAN_PASS
+        and str(record.get("human_verdict") or "").upper() == XLSX_HUMAN_PASS,
+        schema=record.get("schema"),
+        case=record.get("case"),
+        review_type=record.get("review_type"),
+        human_result=record.get("human_result"),
+        human_verdict=record.get("human_verdict"),
+    )
+    gate.check(
+        "case001_xlsx_human_review_artifact_matches_its_sha256",
+        artifact.is_file() and bool(digest) and digest == recorded_digest,
+        artifact=str(artifact),
+        sha256_on_disk=digest,
+        sha256_recorded=recorded_digest,
+    )
+    gate.check(
+        "case001_xlsx_human_review_matches_the_round12_build_evidence",
+        bool(manifest)
+        and record.get("reviewed_build") == manifest.get("build_id")
+        and digest == str(manifest.get("workbook_sha256") or "").lower()
+        and Path(str(manifest.get("workbook") or "")) == artifact,
+        reviewed_build=record.get("reviewed_build"),
+        manifest_build=manifest.get("build_id"),
+        manifest_sha256=manifest.get("workbook_sha256"),
+    )
+    gate.check(
+        "case001_xlsx_human_review_pass_is_not_rewritten_history",
+        all(
+            str((load(REPO / GENERALIZATION / name) or {}).get("human_verdict") or "").upper()
+            == "FAIL"
+            for name in HISTORICAL_HUMAN_FAIL_RECORDS
+            if (REPO / GENERALIZATION / name).is_file()
+        )
+        and all((REPO / GENERALIZATION / name).is_file() for name in HISTORICAL_HUMAN_FAIL_RECORDS),
+        records=list(HISTORICAL_HUMAN_FAIL_RECORDS),
+    )
+
+    flags = {
+        int(match.group("index")): match.group("value")
+        for match in XLSX_MANUAL_REVIEW_FLAG.finditer(state_text)
+    }
+    digest_upper = digest.upper()
+    reviewed_build = str(record.get("reviewed_build") or "")
+    gate.check(
+        "state_doc_records_the_case001_xlsx_human_pass",
+        flags.get(1) == XLSX_HUMAN_PASS
+        and reviewed_build in state_text
+        and digest_upper in state_text.upper(),
+        state_flag=flags.get(1),
+        reviewed_build=reviewed_build,
+        sha256=digest_upper,
+    )
+    gate.check(
+        "state_doc_keeps_case002_and_case003_xlsx_not_confirmed",
+        flags.get(2) == "NOT_YET_CONFIRMED" and flags.get(3) == "NOT_YET_CONFIRMED",
+        case002=flags.get(2),
+        case003=flags.get(3),
+    )
+    gate.check(
+        "checklist_hands_off_the_case002_review_object",
+        "CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED" in checklist_text
+        and CASE002_HANDOFF_BUILD in checklist_text
+        and CASE002_HANDOFF_SHA256 in checklist_text
+        and "NEXT_ACTION" in checklist_text,
+        build=CASE002_HANDOFF_BUILD,
+        sha256=CASE002_HANDOFF_SHA256,
+    )
+    return {
+        "reviewed_build": reviewed_build,
+        "reviewed_artifact": str(record.get("reviewed_artifact") or ""),
+        "reviewed_artifact_sha256": digest,
+        "human_result": record.get("human_result"),
+        "machine_prerequisite": record.get("machine_prerequisite"),
+        "state_flags": {f"case00{index}": value for index, value in sorted(flags.items())},
+        "next_review_object": record.get("next_review_object"),
+    }
 
 
 def check_round4_docs(
@@ -1239,6 +1422,7 @@ def main() -> int:
     round3 = check_round3_docs(gate, state_text, decisions_text, checklist_text)
     round4 = check_round4_docs(gate, state_text, decisions_text, checklist_text)
     current = check_current_round_docs(gate, state_text, decisions_text, checklist_text)
+    xlsx_human_review = check_xlsx_human_review(gate, state_text, checklist_text)
 
     report = {
         "schema": "v1_docs_state_consistency/1",
@@ -1249,6 +1433,7 @@ def main() -> int:
         "current_round": current,
         "round3": round3,
         "round4": round4,
+        "xlsx_human_review": xlsx_human_review,
         "pointers": pointers,
         "docs": docs,
         "checks": gate.checks,
@@ -1257,7 +1442,8 @@ def main() -> int:
             "read-only: the gate compares the durable docs with the artifacts they "
             "describe and never changes a verdict or an artifact.  The current "
             "review-workbook round is discovered from the artifacts; rounds 3 and 4 "
-            "are verified as frozen history."
+            "are verified as frozen history; the CASE001 XLSX human PASS is verified "
+            "as artifact-specific against its own SHA256 and build evidence."
         ),
     }
     out = Path(args.out)

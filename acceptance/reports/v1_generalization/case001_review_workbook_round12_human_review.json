@@ -1,0 +1,93 @@
+{
+  "schema": "v1_review_workbook_human_review/1",
+  "round": "review_workbook_round12",
+  "case": "case_001",
+  "review_type": "XLSX_MANUAL_REVIEW",
+  "recorded_by": "human manual review (decision reported to the agent and explicitly authorized for durable archival by the review owner)",
+  "recorded_at": "2026-10-06T14:36:26+08:00",
+  "reviewed_build": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final",
+  "reviewed_artifact": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx",
+  "artifact_reviewed": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx",
+  "artifact_reviewed_sha256": "034dedbc3cee3e88dfb36db830e030de2e6bdc61b5728d6dae3db7b3651e1764",
+  "reviewed_artifact_sha256_upper": "034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764",
+  "reviewed_artifact_bytes": 72675,
+  "human_verdict": "HUMAN_PASS",
+  "human_result": "HUMAN_PASS",
+  "machine_prerequisite": {
+    "round": 12,
+    "status": "PASS",
+    "evidence": [
+      "acceptance/reports/v1_generalization/review_workbook_round12_case_001.json",
+      "acceptance/reports/v1_generalization/review_workbook_round12_generalization.json",
+      "acceptance/reports/v1_generalization/case001_review_workbook12_gate.json",
+      "acceptance/reports/v1_generalization/round12_locator_gate.json",
+      "acceptance/reports/v1_generalization/review_workbook_round12_banked_regressions.json",
+      "acceptance/reports/v1_generalization/case001_review_workbook12_visual_qa.json",
+      "acceptance/reports/v1_generalization/review_workbook_round12_full_test_suite.txt"
+    ]
+  },
+  "human_confirmed_conclusions": [
+    {
+      "key": "BID_RESPONSE_CONTRACT_RISK_SEPARATION",
+      "result": "HUMAN_PASS",
+      "scope": "bid response / contract risk separation stays understandable in the delivered workbook"
+    },
+    {
+      "key": "CANONICAL_EVIDENCE_UNIT_HEADING_FIDELITY",
+      "result": "HUMAN_PASS",
+      "scope": "evidence locators and section headings are human-readable and source-coherent"
+    },
+    {
+      "key": "FINAL_XLSX_DELIVERY_TEXT_FIDELITY",
+      "result": "HUMAN_PASS",
+      "scope": "contract-risk rows carry internal pre-bid wording only; DR037 distinguishes its project value from its general clause; no material evidence summary is clipped mid-token; the delivered workbook is usable and semantically consistent"
+    }
+  ],
+  "human_confirmed_items": [
+    "bid response / contract risk separation",
+    "contract-risk final delivery wording (no response-file comparison language)",
+    "DR037 multi-source role display (project value vs general/post-award clause)",
+    "evidence-heading fidelity (canonical EvidenceUnit structural headings)",
+    "no material mid-token evidence clipping",
+    "final delivered workbook usability / semantic consistency"
+  ],
+  "known_non_blocking_observations": [
+    "duplicated 30日历天 / 30天 review phrasing may remain",
+    "some delivered language remains machine/template-like",
+    "these were judged non-blocking for the CASE001 XLSX human pass"
+  ],
+  "scope_limits": {
+    "applies_to_case": "case_001",
+    "applies_to_artifact": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx",
+    "applies_to_sha256": "034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764",
+    "does_not_imply": [
+      "CASE002_XLSX_MANUAL_REVIEW",
+      "CASE003_XLSX_MANUAL_REVIEW",
+      "CASE001_MANUAL_WORD_REVIEW",
+      "V1_PRODUCTION_CANDIDATE",
+      "READY_FOR_SUBMISSION",
+      "business / legal / price / signature / seal approval"
+    ]
+  },
+  "historical_human_fails_preserved": [
+    "case001_review_workbook_round4_human_review.json (RENDERED_COMPONENT_CONCERN_OWNERSHIP)",
+    "case001_review_workbook_round4_human_review_CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED.json",
+    "case001_review_workbook_round7_human_review.json (SOURCE_MARKER_CRITICALITY_FIDELITY / SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY)",
+    "case001_review_workbook_round8_human_review.json (FINAL_RENDERED_TEXT_FIDELITY / SCORING_TIER_SEMANTICS / CROSS_SHEET_RISK_CONSISTENCY / SOURCE_FORM_CLASSIFICATION)"
+  ],
+  "historical_fails_rewritten": false,
+  "must_not_be_rewritten": true,
+  "artifact_specific": true,
+  "a_later_regenerated_workbook_requires_independent_human_review": true,
+  "automation_may_not_mark_pass": true,
+  "word_manual_review_unchanged": "NOT_YET_CONFIRMED",
+  "v1_production_candidate": false,
+  "ready_for_submission": false,
+  "next_review_object": {
+    "case": "case_002",
+    "build": "v1_round4_closure9_review_workbook12_final",
+    "artifact": "acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx",
+    "sha256": "ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87",
+    "human_status": "NOT_YET_CONFIRMED"
+  }
+}

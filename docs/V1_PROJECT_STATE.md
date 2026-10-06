@@ -70,7 +70,9 @@
 | `CASE001_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | `case001_manual_word_review_final_status.json::case001_manual_word_review`。含义：第 4 轮人工复核曾判 `FAIL` 并给出 A/B/C 三项发现，这些发现已在本轮**自动化关闭**（`AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`），但**人工尚未重新确认**——既不算通过，也不算被阻塞。**不得**因机器门禁全绿而驳回人工结论 |
 | `CASE002_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | 无人工复核记录 |
 | `CASE003_MANUAL_WORD_REVIEW` | **NOT_YET_CONFIRMED** | 无人工复核记录 |
-| `CASE001_XLSX_MANUAL_REVIEW` | **AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW** | 第 4 轮工作簿人工判 `FAIL`（`CONCERN_CONTRACT_NOT_INDEPENDENTLY_VALIDATED`），第 5 轮以独立关注点契约**自动化关闭**（§5.7）；人工**尚未**重新确认，自动化不勾选任何人工框 |
+| `CASE001_XLSX_MANUAL_REVIEW` | **HUMAN_PASS**（**仅限** `v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final` 的 `投标项目复核表.xlsx`，SHA256 `034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764`） | 人工对该**确切构建/确切产物**判 `HUMAN_PASS`（§12.4）；第 12 轮机器闭环（`ROUND12 = PASS`）在前。第 3/4/5/6/7/8 轮人工 `FAIL` 记录**保留且未改写**——新的人工结论针对**更新的不可变后继**。**不得**泛化到 CASE002/CASE003、Word 人工复核、`V1_PRODUCTION_CANDIDATE` 或 `READY_FOR_SUBMISSION` |
+| `CASE002_XLSX_MANUAL_REVIEW` | **NOT_YET_CONFIRMED** | 复核对象已准备（§12.4 / `v1_manual_review_checklist.md` §4.7），人工**尚未**复核 |
+| `CASE003_XLSX_MANUAL_REVIEW` | **NOT_YET_CONFIRMED** | 无人工复核记录 |
 | `POINTER_CHECK` | **PASS** | `v1_three_case_regression_final.json`（`THREE_CASE_GENERALIZATION = PASS`，`failed_checks = []`） |
 | `HARD_BREAK_FIDELITY` | **PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION** | `case001_typography_final.json::measurements.hard_break_fidelity` |
 | `CASE001_FINAL_UNEXPECTED_HARDBREAK_CLOSURE` | **PASS** | `case001_p6_unexpected_hardbreak_diagnostic.json`（`verdict = P6_SOURCE_ROW_CONTINUITY_CLOSED`）+ `case001_typography_final.json` |
@@ -1054,7 +1056,7 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 | --- | --- |
 | **Word 自动化** | **machine-closed pending human review**：CASE001 closure8 的全部机器门禁通过（§5.6.4）；三项历史人工发现（A / B / C）已自动化关闭；**人工桌面 Word 复核尚未确认**（当前 `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`，历史 `FAIL` 见 §1.2） |
 | **复核工作簿（投标项目复核表.xlsx）** | **machine-closed pending human review**：九个 sheet（原交付表 + 复核视图 00–07）已实现；**第 12 轮（当前机器状态）**关闭**送达文本**层（对齐第 9–11 轮已证明的模型）：`docs/V1_DECISIONS.md` §D75 的四条不变量 —— 门禁必须读**已保存 XLSX**、纯合同风险行只能有投标前内部措辞、证据摘要必须走同一语义裁剪器（`GB50015-2` 中截断 = 0）、声明双来源的行必须给出两个角色且第二来源只能取自**本关切自己拥有**的单元（DR037：第 11 页第 7.3 条 供应商须知前附表 = 项目专用值；第 21 页 7.3 履约担保 = 通用/中标后条款；第 18 页 3.4 响应保证金 **不得**出现）。三案例第 12 轮审计 **PASS**（0 failed check / 0 failed fixture）+ 泛化 **PASS**、工作簿门禁 **43/43 PASS**、定位门禁 `ROUND12_LOCATOR_GATE = PASS`（144 行精确比较）、第 5/6/7 轮门禁在第 12 轮构建上复跑 **PASS**（`ROUND5_FIXTURE_F = PASS`）、渲染 QA **PASS**、Word 产物逐字节未变；**人工 Excel 复核尚未确认**（第 8 轮人工复核结论为 **FAIL**，保持未改写并记为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`） |
-| **人工 Excel 复核** | 未确认：第 3 轮人工判 **FAIL**（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`）、第 5 轮人工判 **FAIL**（`SOURCE_MARKER_CRITICALITY_FIDELITY`）、第 6 轮收口后人工判 **FAIL**（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`）、第 7 轮后继人工判 **FAIL**（`FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` / `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`，13 项点名发现）、第 8 轮后继人工判 **FAIL**（`DELIVERED_CONTENT_SEMANTICS` / `SCORING_TIER_ALTERNATIVES` / `ACTION_ANCHOR_ALIGNMENT` / `ENGLISH_FREE_DELIVERED_TEXT`，范围见第 9 轮报告）——五次人工结论**保留且不得改写**；第 4/6/7/8/9 轮的缺陷分别由第 4/6/7/8/9 轮自动化关闭，人工结论列**仍未勾选**（`已通过 = 0`；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`、`CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`）；当前复核对象见 §12.3 与 `v1_manual_review_checklist.md` 第 4 节 |
+| **人工 Excel 复核** | **CASE001 = `HUMAN_PASS`**：人工对 `v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final` / `投标项目复核表.xlsx` / `034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764` 判 PASS（归档见 `case001_review_workbook_round12_human_review.json`；机器前置 `ROUND12 = PASS`）；**CASE002 / CASE003 仍未确认**（`NOT_YET_CONFIRMED`；CASE002 复核对象已备好，见 §12.4 与 `v1_manual_review_checklist.md` §4.7）。历史人工 FAIL **保留且不得改写**：第 3 轮 `RENDERED_COMPONENT_CONCERN_OWNERSHIP`、第 5 轮 `SOURCE_MARKER_CRITICALITY_FIDELITY`、第 6 轮收口后 `SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`、第 7 轮后继 `FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` / `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`（13 项点名发现）、第 8 轮后继 `DELIVERED_CONTENT_SEMANTICS` / `SCORING_TIER_ALTERNATIVES` / `ACTION_ANCHOR_ALIGNMENT` / `ENGLISH_FREE_DELIVERED_TEXT`——这些历史结论**仍然有效**，只是**更新的不可变后继**获得了新的人工 PASS。**本 PASS 不构成** Word 人工复核通过、`V1_PRODUCTION_CANDIDATE` 或 `READY_FOR_SUBMISSION` |
 | **全量测试（复核工作簿第 12 轮）** | 见 §12.3「Round12 全套测试」（`review_workbook_round12_full_test_suite.txt` / `.xml`） |
 | **发布** | **not ready**：`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`、**无 tag、无 release** |
 | **检查点** | `PRE_XLSX_CHECKPOINT = PASS`：commit `fef72d9281042357e8f0f6d8d44e000aedda60aa` 已推送至 `origin/main`（**不是**发布提交、**无 tag、无 release**）；第 3 轮复核工作簿检查点 = commit `49a514a`（`feat: enforce review-concern ownership in tender workbook`），已推送；第 6 轮收口检查点 = commit `4df27bc`（第 7 轮的基线 HEAD，已推送）；工作簿轮次细节见 §12.3 |
@@ -1125,7 +1127,7 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 | **Round12 渲染 QA** | `case00{1,2,3}_review_workbook12_visual_qa.json` = **PASS**（`failed_checks = 0`；`clipping_bounded` 有界 WARN：CASE001 10 / CASE002 9 / CASE003 26，与第 8–11 轮同类、非阻塞） |
 | **Round12 Word 产物** | closure9 的 DOCX/PDF/generation_report **原样复制、逐字节相同**（`word_render_repeated = false`） |
 | **Round12 全套测试** | **977 collected / 976 passed / 0 failed / 0 errors / 1 skipped**（exit 0；`review_workbook_round12_full_test_suite.txt` / `.xml`，JUnit XML 计数：`tests=977 failures=0 errors=0 skipped=1`） |
-| **Round12 人工状态** | 第 3/5/6/7/8 轮人工 **FAIL** 记录保持未改写；`CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`，人工结论列**仍未勾选**；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false` |
+| **Round12 人工状态** | 第 3/5/6/7/8 轮人工 **FAIL** 记录保持未改写；**CASE001 XLSX = `HUMAN_PASS`**（人工对该确切构建 `..._review_workbook12_final` / `034DEDBC…` 判 PASS，归档见 `case001_review_workbook_round12_human_review.json`，详见 §12.4）；`CASE002_XLSX_MANUAL_REVIEW` / `CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；`V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false` |
 | > **以下 Round11 及更早各行自第 12 轮起为 HISTORICAL / SUPERSEDED**：机器结论仍然有效、构建逐字节保留，但**不再是当前复核对象**。 | |
 | **Round11 不变量（HISTORICAL）** | `CANONICAL EVIDENCE UNIT MUST SITE IN THE SOURCE STRUCTURE THAT OWNS IT`：精确格式化相等只证明 `XLSX locator == formatter(canonical EvidenceUnit)`，**不**证明该单元就是拥有该要求的源单元；标题必须来自真实的章/节/条容器，**绝不能**是正文句子 |
 | **Round11 当前轮次（HISTORICAL）** | Round11（canonical EvidenceUnit 结构标题保真；人工产品决策见 `docs/V1_DECISIONS.md` §D74） |
@@ -1224,11 +1226,80 @@ acceptance/reports/v1_generalization/review_workbook_round7_full_test_suite.xml
 | **A4** | 复核工作簿第 4 轮：**渲染组件出处闭环**——人工判第 3 轮 `FAIL`（`RENDERED_COMPONENT_CONCERN_OWNERSHIP`），交付单元格必须由已校验组件投影，且每个渲染短语都有同关注点出处（**SEMANTIC OWNERSHIP MUST SURVIVE RENDERING**） | ✅ 已完成（机器闭环）：三案例第 4 轮报告 PASS（25/25、23/23、23/23）、八类 `RENDERED_*_CONCERN_MISMATCH = 0`、A–S 人工坏例 19/19、CASE001 最终单元格审计全格一致、门禁 40/40、渲染 QA PASS、Word 产物逐字节未变、全套测试 0 failed / 0 errors；人工结论列仍为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` |
 | **A5** | 复核工作簿第 7 轮：**适用源解析 + 否决作用域 + 证据定位保真**——人工判第 6 轮 `FAIL`（`SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`），交付行必须沿 `APPLICABLE SOURCE → SEMANTIC SCOPE → FINAL DISPLAYED REQUIREMENT → EXACT MATCHING EVIDENCE LOCATOR` 闭合（**PROJECT-SPECIFIC SOURCE RESOLVES GENERIC TEMPLATE** / **CRITICALITY HAS STAGE/SCOPE** / **EVIDENCE LOCATOR IS PART OF SEMANTIC FIDELITY**） | ✅ 已完成（机器闭环）：三案例第 7 轮审计 **PASS**、泛化 **PASS**、渲染 QA **PASS**、第 6 轮账目在第 7 轮构建上复跑 **25/25**（标记丢失/未归属/未解析/直接失败均为 0）、第 5 轮 `ConcernContract` 通过、第 7 轮定向测试 27/27、Word 产物逐字节未变、全套 **892 收集 / 0 failed / 0 errors / 1 skipped**；人工结论列仍为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` |
 | **A6** | 复核工作簿第 8 轮：**送达文本保真 + 分档语义 + 跨表风险一致 + 表单分类**——人工判第 7 轮后继 `FAIL`（`FINAL_RENDERED_TEXT_FIDELITY` / `SCORING_TIER_SEMANTICS` / `CROSS_SHEET_RISK_CONSISTENCY` / `SOURCE_FORM_CLASSIFICATION`，13 项点名），交付文本必须承载源文自身含义（**FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING**） | ✅ 已完成（机器闭环）：三案例第 8 轮审计 **PASS**（CASE001 12/12 检查 + 13/13 人工夹具）、泛化 **PASS**、逐行前后对照 `review_workbook_round8_case_001_before_after.{json,md}`、渲染 QA **PASS**、第 5/6/7 轮门禁在第 8 轮构建上复跑 **PASS**、工作簿门禁 **42/42 PASS**、三案例泛化回归 **PASS**、Word 产物逐字节未变、全套 **893 收集 / 0 failed / 0 errors / 1 skipped**；人工结论列仍为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` |
-| **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | `CASE001_XLSX_MANUAL_REVIEW` 由人工置为已确认（当前为 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`；历史人工判据：第 3 轮 `FAIL` / `RENDERED_COMPONENT_CONCERN_OWNERSHIP`、第 5 轮 `FAIL` / `SOURCE_MARKER_CRITICALITY_FIDELITY`、第 6 轮 `FAIL` / `SOURCE_APPLICABILITY_AND_EVIDENCE_FIDELITY`、第 7 轮 `FAIL` / `FINAL_RENDERED_TEXT_FIDELITY` 等四项范围，分别由第 4 / 6 / 7 / 8 轮自动化关闭） |
-| **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 人工 Word 复核结论 |
+| **B** | 人工 Excel 复核（打开工作簿逐表复核，勾选手工结论列） | ✅ **CASE001 已完成**：人工对 `v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final` 的 `投标项目复核表.xlsx`（`034DEDBC…`）判 **`HUMAN_PASS`**（归档见 §12.4；历史人工判据第 3/5/6/7/8 轮 `FAIL` 记录保留未改写）。**CASE002 待人工复核**（复核对象已备好：§12.4 / `v1_manual_review_checklist.md` §4.7）；CASE003 仍未确认 |
+| **C** | 如人工 Excel 复核暴露源数据缺陷，回到 CASE001 桌面 Word 复核（否则无需重开） | CASE001 XLSX 人工已 `HUMAN_PASS` 且未暴露源数据缺陷，**无需**重开；CASE001 人工 Word 复核仍为 `NOT_YET_CONFIRMED`（§1.2） |
 | **D** | CASE002 / CASE003 桌面人工 Word 复核 | 两个 case 的人工结论 |
 | **E** | 最终 release-candidate 检查点 | 三案例人工复核均完成后的独立决策 |
 | **F** | 商务 / 法务 / 报价 / 签字盖章批准 | **在自动化之外**由人完成；自动化永不推断 `READY_FOR_SUBMISSION` |
 
 > 关于任务 A 的纪律：工作簿是**复核视图**，不是第二个事实库。`ProjectFacts` 仍是事实 SSOT；
 > 人工在 Excel 里填的值**不得**静默写回 `ProjectFacts`，而是作为"复核差异"呈现（`V1_DECISIONS.md` §14）。
+
+### 12.4 CASE001 XLSX 人工 PASS 归档 + CASE002 人工复核准备（CURRENT）
+
+#### 12.4.1 CASE001 XLSX 人工归档（`HUMAN_PASS`，**产物特定**）
+
+| 项 | 值 |
+| --- | --- |
+| `CASE001_XLSX_MANUAL_REVIEW` | **`HUMAN_PASS`** |
+| review type | `XLSX_MANUAL_REVIEW`（仅 Excel 工作簿） |
+| reviewed build | `v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final` |
+| reviewed artifact | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx` |
+| SHA256 | `034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764`（72 675 B） |
+| machine prerequisite | **`ROUND12 = PASS`**（三案例审计 / 工作簿门禁 43/43 / 定位门禁 144 行 / 第 5–7 轮复跑 / 渲染 QA / 全套测试 977 收集） |
+| 归档记录 | `case001_review_workbook_round12_human_review.json` / `.md` |
+| 人工勾选 | `v1_manual_review_checklist.md` §4.6（7 项；其余复选框保持未勾选） |
+
+```
+CASE001_XLSX_MANUAL_REVIEW = HUMAN_PASS
+CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED
+CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED
+```
+
+人工确认的子结论：`BID_RESPONSE_CONTRACT_RISK_SEPARATION = HUMAN_PASS`、
+`CANONICAL_EVIDENCE_UNIT_HEADING_FIDELITY = HUMAN_PASS`、
+`FINAL_XLSX_DELIVERY_TEXT_FIDELITY = HUMAN_PASS`。
+
+已知**非阻塞**观察（人工判定不阻塞本次 PASS）：`30日历天` / `30天` 之类的重复复核措辞可能仍然存在；
+部分送达语言仍偏机器/模板化。
+
+**范围限制（不得泛化）**：本 PASS 绑定到 **case + 产物类型 + 不可变构建身份 + 确切 SHA256**
+（`docs/V1_DECISIONS.md` §D76 `HUMAN PASS IS ARTIFACT-SPECIFIC`）。
+历史人工 FAIL 记录**未被改写**——新的人工结论针对**更新的不可变后继**。
+本 PASS **不**构成：`CASE002_XLSX_MANUAL_REVIEW`、`CASE003_XLSX_MANUAL_REVIEW`、
+`CASE001_MANUAL_WORD_REVIEW`、`V1_PRODUCTION_CANDIDATE`、`READY_FOR_SUBMISSION`，
+也不构成商务/法务/报价/签字/盖章审批。
+
+#### 12.4.2 CASE002 XLSX 人工复核准备（**尚未复核**）
+
+| 项 | 值 |
+| --- | --- |
+| `CASE002_XLSX_MANUAL_REVIEW` | **`NOT_YET_CONFIRMED`** |
+| review build | `v1_round4_closure9_review_workbook12_final` |
+| build dir | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final` |
+| XLSX | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx` |
+| SHA256 | `ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87`（75 490 B） |
+| sheet 数 | 8（交付表 `投标项目复核表` + `00_复核总览` … `07_证据索引`） |
+| 交付动态行数 | 45（`delivered_row_count` = 45；`04_报价与限价`：items 36 / limits 3 / blank_forms 0） |
+| machine status | `ROUND12 = PASS`（三案例审计 PASS、工作簿门禁 43/43、定位门禁 45 行精确比较、第 5–7 轮复跑 PASS） |
+| visual QA | `case002_review_workbook12_visual_qa.json` = **PASS**（`failed_checks = []`；`clipping_bounded` 有界 WARN 9） |
+| human status | `NOT_YET_CONFIRMED` |
+| 复核清单 | `v1_manual_review_checklist.md` §4.7（逐表 A–I + 10 项重点，**全部未勾选**） |
+| superseded | 中间构建 `..._review_workbook12`（修复前代码，报告 `case_002_review_workbook_build12_superseded.json`）与 workbook11 及更早构建均为 **HISTORICAL / SUPERSEDED** |
+
+CASE002 重点（详见清单）：`budget = NOT_FOUND`（**不得**写成 8,000,000）、`max_price = 7507785.65`
+（`RESOLVED`，第 13 页 / 投标人须知前附表 / 11.3）两者**分开**呈现；分项报价/限价行均有源证据；
+源文 `★` **不自动**等于否决（需分别检查源标记 / 是否强制 / 否决后果）；无 CASE001 数据泄漏；
+证据定位/标题可读且与源文一致；无实质性中截断。
+
+```
+CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED
+REVIEW_OBJECT = acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx
+SHA256        = ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87
+MACHINE_STATUS = PASS
+HUMAN_STATUS   = NOT_YET_CONFIRMED
+NEXT_ACTION    = 用桌面 Microsoft Excel 打开上面这个确切 XLSX，按清单 §4.7（A–I 与 1–10）复核
+```
+
+> 自动化**永不**代人工勾选 CASE002/CASE003 的结论，也**永不**因 CASE001 的 XLSX PASS 而改变
+> `V1_PRODUCTION_CANDIDATE`（= false）或 `READY_FOR_SUBMISSION`（= false）。

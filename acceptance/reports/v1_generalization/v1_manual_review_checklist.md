@@ -464,21 +464,50 @@ Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路�
 > `case_00{1,2,3}_review_workbook_build12_superseded.json`）；
 > 门禁与人工复核只认 `..._review_workbook12_final`。
 
-### 4.6 第 12 轮（最终 XLSX 送达文本收口）人工复核点（全部未勾选）
+**CASE001 人工 Excel 复核状态：`HUMAN_PASS`（CURRENT；已授权归档）** ——
+人工已对**该确切构建**的 `投标项目复核表.xlsx` 判 PASS，机器前置条件 Round12 = PASS。
+归档记录见 `case001_review_workbook_round12_human_review.json` / `.md`，当前复核点见 §4.6。
+**CASE002 / CASE003 的人工 Excel 复核仍未确认**（`NOT_YET_CONFIRMED`），见 §4.7（CASE002 准备）
+与 §2.5。
 
-本轮不变量：**模型正确不等于送达文本正确**；门禁必须读**已保存/重新打开的 XLSX 单元格**。
+### 4.6 第 12 轮 CASE001 XLSX 人工复核结论（CURRENT = HUMAN_PASS，已授权归档）
 
-- [ ] 纯合同风险行（`九、合同风险提示（投标前识别）`，CASE001 共 7 行）的复核要点**没有**
+**CURRENT CASE001 XLSX HUMAN REVIEW: PASS**
+
+| 项 | 值 |
+| --- | --- |
+| Build | `v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final` |
+| Artifact | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx` |
+| SHA256 | `034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764` |
+| Round12 machine prerequisite | **PASS** |
+| 归档记录 | `case001_review_workbook_round12_human_review.json` / `.md` |
+
+人工确认的子结论：`BID_RESPONSE_CONTRACT_RISK_SEPARATION = HUMAN_PASS`、
+`CANONICAL_EVIDENCE_UNIT_HEADING_FIDELITY = HUMAN_PASS`、
+`FINAL_XLSX_DELIVERY_TEXT_FIDELITY = HUMAN_PASS`。
+
+已知**非阻塞**观察（人工判定不阻塞本次 PASS）：`30日历天` / `30天` 之类的重复复核措辞可能仍然存在；
+部分送达语言仍偏机器/模板化。
+
+**作用范围（不得泛化）**：本 PASS 只适用于 `case_001` 的**该确切构建**与**该确切 SHA256**；
+后续重新生成的任何工作簿都必须**独立**人工复核。历史人工 FAIL 记录**未改写**。
+本 PASS **不**构成 CASE002/CASE003 的 XLSX 复核结论、**不**构成 Word 人工复核结论、
+**不**构成 `V1_PRODUCTION_CANDIDATE` 或 `READY_FOR_SUBMISSION`，
+也**不**构成商务/法务/报价/签字/盖章审批。
+
+人工复核点（已由**人**勾选）：
+
+- [x] 纯合同风险行（`九、合同风险提示（投标前识别）`，CASE001 共 7 行）的复核要点**没有**
       「逐条比对响应文件对应章节 / 核对响应文件已载明 / 确认响应文件接受 / 与响应文件一致」等响应侧措辞，
       只有投标前内部风险决策步骤
-- [ ] DR037（履约保证金，合同风险行）的复核要点同时给出**两个来源角色**：
+- [x] DR037（履约保证金，合同风险行）的复核要点同时给出**两个来源角色**：
       `其中第11页第7.3条 供应商须知前附表（项目专用值）；第21页 7.3 履约担保（通用/中标后条款）`
-- [ ] DR037 行**不出现** `第18页 / 3.4 响应保证金`（那是**另一个**关切「投标保证金」的条款，不是履约保证金的来源）
-- [ ] `投标项目复核表!E38`（设备标准、规程和规范）的证据摘要**没有**在标准号中间截断
+- [x] DR037 行**不出现** `第18页 / 3.4 响应保证金`（那是**另一个**关切「投标保证金」的条款，不是履约保证金的来源）
+- [x] `投标项目复核表!E38`（设备标准、规程和规范）的证据摘要**没有**在标准号中间截断
       （不再出现 `GB50015-2`），完整值仍可在 `要求正文` 列看到 `GB50015-2019`
-- [ ] 主表 E 列证据摘要与 `02_关键条款` / `03_资格否决与强制项` / `07_证据索引` 使用同一裁剪口径（同一 `…` 截断标记语义）
-- [ ] 第 10 / 11 轮人工确认点（合同风险分离、结构标题保真）在**第 12 轮构建上**同样成立
-- [ ] 人工结论列**由人**勾选；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
+- [x] 主表 E 列证据摘要与 `02_关键条款` / `03_资格否决与强制项` / `07_证据索引` 使用同一裁剪口径（同一 `…` 截断标记语义）
+- [x] 第 10 / 11 轮人工确认点（合同风险分离、结构标题保真）在**第 12 轮构建上**同样成立
+- [x] 人工结论列**由人**勾选（本次即由人给出 `HUMAN_PASS`）；自动化永不勾选，也永不把 `CASE001_XLSX_MANUAL_REVIEW` 置为 PASS
 
 机器闭环证据（**已通过，不代替人工复核**）：
 
@@ -498,6 +527,63 @@ Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路�
   （977 collected / 976 passed / 0 failed / 0 errors / 1 skipped）
 - 文档—产物一致性 PASS：`v1_docs_state_consistency.json`
 - Word 产物逐字节未变（`word_render_repeated = false`）
+
+### 4.7 CASE002 第 12 轮 XLSX 人工复核准备（CURRENT，全部未勾选）
+
+**本节目的是准备复核对象，不是复核结论。** CASE002 **尚未**人工复核：
+`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`。
+
+| 项 | 值 |
+| --- | --- |
+| case | `case_002` |
+| review build | `v1_round4_closure9_review_workbook12_final` |
+| build dir | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final` |
+| XLSX path | `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx` |
+| XLSX SHA256 | `ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87` |
+| 文件大小 | 75490 B |
+| sheet 数 | 8（`投标项目复核表` + `00_复核总览` … `07_证据索引`，不含交付表本身时视图为 7） |
+| 交付动态行数 | 45（`delivered_row_count`；`04_报价与限价` items 36 / limits 3 / blank_forms 0） |
+| machine status | `ROUND12 = PASS`（三案例审计 PASS、工作簿门禁 43/43、定位门禁 45 行精确比较、第 5–7 轮复跑 PASS） |
+| visual QA | `case002_review_workbook12_visual_qa.json` = PASS（`failed_checks = []`） |
+| human status | `NOT_YET_CONFIRMED` |
+| superseded candidates | 中间构建 `..._review_workbook12`（修复前代码）与 workbook11 及更早构建均为 **HISTORICAL / SUPERSEDED**，构建报告见 `case_002_review_workbook_build12_superseded.json` |
+
+逐表复核范围（A–I，全部未勾选）：
+
+- [ ] A. 交付表 `投标项目复核表`（45 行动态行 + 模板/签章区）
+- [ ] B. `00_复核总览`（仪表盘计数：投标响应复核项 / 合同风险提示项 / 事实状态）
+- [ ] C. `01_项目事实`（23 项事实的状态与来源证据）
+- [ ] D. `02_关键条款`
+- [ ] E. `03_资格否决与强制项`
+- [ ] F. `04_报价与限价`（分项报价 36 项 + 限价 3 项）
+- [ ] G. `05_文件结构与签章`
+- [ ] H. `06_冲突与缺失`
+- [ ] I. `07_证据索引`
+
+CASE002 需要重点确认的点（全部未勾选）：
+
+- [ ] 1. `budget = NOT_FOUND`（源文未找到可信预算）。**不得**凭空写成 `8,000,000`
+- [ ] 2. `max_price = 7507785.65` 且状态为 `RESOLVED`（第 13 页 / 投标人须知前附表 / 11.3 最高投标限价）。
+      预算与最高限价**必须分开**呈现
+- [ ] 3. 分项报价/限价行均有源证据支撑；以**当前机器证据**的准确行数为准
+      （`04_报价与限价`：items 36 / limits 3），不要沿用对话里的旧数字
+- [ ] 4. ★ 标记语义：源文 `★` **不自动**等于否决。CASE002 的源文标记含义可能是
+      「必备证明材料（MANDATORY_PROOF）」而非否决；人工需分别检查**源标记 / 是否强制 / 否决后果**三个维度
+- [ ] 5. 跨页的价格/限价表在逻辑上连贯（限价 → 分项限价 → 无效投标后果）
+- [ ] 6. **无 CASE001 专属数据泄漏**（CASE001 的人名/页号/条款/金额不得出现在 CASE002）
+- [ ] 7. 合同风险 / 投标响应分离在 CASE002 中依然可理解
+- [ ] 8. 证据定位与标题（页码 / 章节 / 条款）可读且与源文一致
+- [ ] 9. 证据摘要**无实质性中截断**、无重复片段
+- [ ] 10. 人工结论保持空白 / `NOT_YET_CONFIRMED`，直到人工真正打开 CASE002 工作簿复核完毕
+
+> **CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED**
+> `REVIEW_OBJECT = acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx`
+> `SHA256 = ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87`
+> `MACHINE_STATUS = PASS`（Round12 三案例审计 / 工作簿门禁 43/43 / 定位门禁 45 行 / 渲染 QA PASS）
+> `HUMAN_STATUS = NOT_YET_CONFIRMED`
+> `NEXT_ACTION = 用桌面 Microsoft Excel 打开上面这个确切 XLSX，按本节 A–I 与 1–10 项逐条复核`
+>
+> 该文件**尚未**被人工复核；本节的任何复选框都不得由自动化勾选。
 
 ### 4.5 第 11 轮（canonical EvidenceUnit 结构标题保真）人工复核点（全部未勾选，HISTORICAL）
 
@@ -527,7 +613,7 @@ Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路�
 - 渲染 QA PASS：`case00{1,2,3}_review_workbook11_visual_qa.json`
 - Word 产物逐字节未变（`word_render_repeated = false`）
 
-### 4.4 第 10 轮（投标响应 vs 合同风险）人工复核点（全部未勾选）
+### 4.4 第 10 轮（投标响应 vs 合同风险）人工复核点（HISTORICAL，全部未勾选）
 
 本轮产品决策：**报价/商务响应 = 投标响应项；合同条款 = 投标前风险识别项**。
 纯中标后合同条款**不得**影响投标符合性、否决或评分；它只用于投标前警示投标团队。
@@ -556,7 +642,7 @@ Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路�
 - 第 5 / 6 / 7 轮门禁在**第 10 轮构建上**复跑通过：`review_workbook_round10_banked_regressions.json`
 - Word 产物逐字节未变（`word_render_repeated = false`）
 
-### 4.3 第 9 轮（送达内容语义 + 定位精确格式化）人工复核点（全部未勾选）
+### 4.3 第 9 轮（送达内容语义 + 定位精确格式化）人工复核点（HISTORICAL，全部未勾选）
 
 本轮修复规则：分档只在**其中一档**成立；项目决定与提问/澄清截止是两个关切；复核动作只引用
 **本行自己的**页码/条款；源文拼接与外来标题必须清理；基本分与最高分是两件事；
@@ -614,7 +700,7 @@ Word 产物与 closure9 逐字节相同（`word_render_repeated=false`）。路�
 
 必需不变量：`FINAL DELIVERED TEXT MUST CARRY THE SOURCE'S OWN MEANING`。
 
-### 4.2 第 8 轮（送达文本保真）人工复核点（全部未勾选）
+### 4.2 第 8 轮（送达文本保真）人工复核点（HISTORICAL，全部未勾选）
 
 本轮修复规则：保留极性词与完整有效子句；分档是**条件式备选**（不得要求同时满足）；
 源空白保持空白；按业务含义而非字面出处校验；跨表风险语义一致

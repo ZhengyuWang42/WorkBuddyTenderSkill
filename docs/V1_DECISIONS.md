@@ -1355,3 +1355,62 @@ APPLICABLE SOURCE -> SEMANTIC SCOPE -> FINAL DISPLAYED REQUIREMENT -> EXACT MATC
   `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`、
   `V1_PRODUCTION_CANDIDATE = false`、`READY_FOR_SUBMISSION = false`；
   第 3/5/6/7/8 轮人工 FAIL 记录保持未改写，人工结论列**仍未勾选**。
+  （第 13 轮人工归档说明：上述 `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW` 表示**人工尚未确认**；
+  人工随后对**同一构建的 XLSX** 自行判 `HUMAN_PASS`，见 §D76。该状态由**人工**关闭，**不是**由自动化关闭。）
+
+### D76 人工 PASS 是产物特定的（HUMAN PASS IS ARTIFACT-SPECIFIC）（长期规则，BANK）
+
+- 人工产品决策（长期规则）：
+  1. `HUMAN PASS IS ARTIFACT-SPECIFIC`
+     —— 人工 PASS 绑定到**四要素**：**case + 产物类型 + 不可变构建身份 + 确切 SHA256**。
+     其中一个要素变化（重新生成工作簿 / 重新渲染 / 复制到别的目录 / 内容字节改变）即**失效**，
+     必须**独立**人工复核；
+  2. `A LATER IMMUTABLE SUCCESSOR DOES NOT REWRITE A HISTORICAL FAIL`
+     —— 历史人工 FAIL 记录**不得改写、不得删除、不得改判为 PASS**；它们解释「为什么会出现后续后继」。当前状态之所以变化，是因为**更新的不可变后继**获得了**新的人工结论**；
+  3. `CASE001 XLSX HUMAN_PASS DOES NOT IMPLY`
+     —— 不蕴含 `CASE002_XLSX_MANUAL_REVIEW` / `CASE003_XLSX_MANUAL_REVIEW` 的结论，
+     不蕴含 Word 人工复核（`CASE001_MANUAL_WORD_REVIEW`）结论，
+     不蕴含 `V1_PRODUCTION_CANDIDATE = true` 或 `READY_FOR_SUBMISSION = true`，
+     也不蕴含商务/法务/报价/签字/盖章审批；
+  4. `AUTOMATION NEVER TICKS A HUMAN BOX`（沿用）
+     —— 自动化只能**记录**人工已经给出的结论，且必须记录**确切产物身份**；
+     自动化永不代人工给出结论、永不把人工框从「授权范围之外」置为已勾选。
+- 本次归档的 CASE001 XLSX 人工结论（**产物特定**）：
+  - review type：`XLSX_MANUAL_REVIEW`（仅 Excel 工作簿）；
+  - reviewed build：`v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final`；
+  - reviewed artifact：`acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final/投标项目复核表.xlsx`；
+  - SHA256：`034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764`（72 675 B）；
+  - machine prerequisite：`ROUND12 = PASS`（三案例审计 / 工作簿门禁 43/43 / 定位门禁 144 行精确比较 /
+    第 5–7 轮复跑 / 渲染 QA / 全套测试 977 收集）；
+  - human result：`CASE001_XLSX_MANUAL_REVIEW = HUMAN_PASS`；
+  - 子结论：`BID_RESPONSE_CONTRACT_RISK_SEPARATION = HUMAN_PASS`、
+    `CANONICAL_EVIDENCE_UNIT_HEADING_FIDELITY = HUMAN_PASS`、
+    `FINAL_XLSX_DELIVERY_TEXT_FIDELITY = HUMAN_PASS`；
+  - 人工确认项：投标响应/合同风险分离；合同风险行最终送达措辞；DR037 双来源角色显示；
+    证据标题保真；证据摘要无实质性中截断；最终工作簿可用且语义自洽；
+  - 已知**非阻塞**观察（人工判定不阻塞本次 PASS）：`30日历天` / `30天` 之类的重复复核措辞可能仍然存在；
+    部分送达语言仍偏机器/模板化；
+  - 归档记录：`acceptance/reports/v1_generalization/case001_review_workbook_round12_human_review.json` / `.md`
+    （`schema = v1_review_workbook_human_review/1`，沿用第 7/8 轮人工记录格式）；
+    人工勾选范围：`v1_manual_review_checklist.md` §4.6（7 项），其余复选框保持未勾选；
+  - **不虚构**复核人姓名、签名、责任人、商务审批；记录时间取本机系统时间
+    （`2026-10-06T14:36:26+08:00`）。
+- 与 §D75 的关系：§D75 记录的 `CASE001_XLSX_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`
+  指**自动化已闭环、人工尚未确认**；本节记录的人工 PASS 针对的是**同一个不可变构建**，
+  故该「待确认」状态由**人工**关闭（自动化结论本身未被改写，历史 FAIL 也未被改写）。
+- 下一个复核对象（**准备**，不是结论）：CASE002
+  `v1_round4_closure9_review_workbook12_final` /
+  `acceptance/workspace/case_002/v1_round4_closure9_review_workbook12_final/投标项目复核表.xlsx` /
+  SHA256 `ac39ed7628fb7136624467f72a2593c59c49e88257f6b34eebe63f3e4b2c7b87`（75 490 B）/
+  8 个 sheet / 45 行动态复核行；`CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED`；
+  清单见 `v1_manual_review_checklist.md` §4.7；CASE003 仍为 `NOT_YET_CONFIRMED`。
+- 文档—产物一致性：`scripts/v1_docs_state_consistency.py` 现在同时校验
+  （a）CASE001 人工归档记录的 build/SHA256 与第 12 轮构建证据一致，且正文记录 `HUMAN_PASS`；
+  （b）CASE002/CASE003 仍为 `NOT_YET_CONFIRMED`；
+  （c）**只有**被授权的 `CASE001 XLSX HUMAN REVIEW` 小节可以出现已勾选的人工框，
+  其余任何人工框（含 CASE002/CASE003、Word、生产/递交）仍必须未勾选。
+  结论：`DOCS_STATE_CONSISTENCY = PASS`、`failed_checks = []`。
+- 纪律：本轮**仅**文档/状态/证据整理 —— **未**修改 `tender_basic/**`、**未**修改测试、
+  **未**重建/重渲染任何 XLSX / DOCX / PDF、**未**重跑 LibreOffice、**未**重开第 5–12 轮实现；
+  唯一改动的脚本是文档状态门禁本身（新增上述当前状态校验）。
+  未 reset / clean / revert / rebase / stash / amend、未强推、未创建 tag 或 release。
