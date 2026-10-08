@@ -1,0 +1,15 @@
+{
+  "schema": "v09_current_build_pointer/1",
+  "build_id": "v1_word_source_fidelity_arch2",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch2",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch2\\build_manifest.json",
+  "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch2\\基础投标文件.docx",
+  "generated_docx_sha256": "fbca580b6f2f663dd01fbf8d869aa44d91cd87eb8c5c43a84b82025b6ca241d2",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch2\\基础投标文件.pdf",
+  "generated_pdf_sha256": "dab902291541cad39f2f2b861deecc093f0dbd8fa43dfa07d9c31e91f6ea4f18",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch2\\generation_report.json",
+  "superseded": true,
+  "superseded_by": "case_001_current_build.json",
+  "superseded_reason": "superseded by the paragraph-flow-first Word source-fidelity successor (v1_word_source_fidelity_arch3), which closes the Round60 positioned-blank defects (rule behind cursor dropped, redundant anchor at cursor, two owners for one blank) while preserving every CASE001/CASE002/CASE003 machine gate"
+}

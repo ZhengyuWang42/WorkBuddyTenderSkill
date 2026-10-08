@@ -91,16 +91,40 @@ def test_unknown_and_fixed_and_bidder_slots_untouched(tmp_path):
     facts.fields.project_name=ResolvedFact(field=FieldName.PROJECT_NAME, status=FactStatus.NOT_FOUND, confidence=0, resolution_reason='Absent in synthetic source')
     text='项目名称：________\n投标人：________\n供货期：合同签订后30天\n年    月    日'
     p=_paragraph(text)
-    out,_=safe.build_source_format_docx(facts,_paragraph_template(p,slots=_paragraph_slots(p,0)),tmp_path/'blank.docx')
-    actual='\n'.join(paragraph.text for paragraph in Document(out).paragraphs)
+    out,report=safe.build_source_format_docx(facts,_paragraph_template(p,slots=_paragraph_slots(p,0)),tmp_path/'blank.docx')
+    document=Document(out)
+    actual='\n'.join(paragraph.text for paragraph in document.paragraphs)
     assert '项目名称：' in actual
     assert '投标人：' in actual
     assert '供货期：合同签订后30天' in actual
     # The packed synthetic paragraph exposes only the project-name span to
     # the slot model; the unclassified bidder marker remains source text.
     assert '项目名称：________' not in actual
+    # AN UNRESOLVED FIELD INVENTS NOTHING.  No value was resolved, so no value is
+    # written - and no filler glyph takes the slot's place either: a placeholder
+    # underscore, a non-breaking space and a U+2007 figure space are all invented
+    # literal text that would read back as source content.
+    assert '_' not in actual.split('投标人：', 1)[0]
     assert '\u00a0' not in actual
-    assert any(run.underline and '\u2007' in run.text for paragraph in Document(out).paragraphs for run in paragraph.runs)
+    assert '\u2007' not in actual
+    assert report['fill_slots_filled'] == 0
+    # The unresolved source slot keeps a native, editable, underlined blank whose
+    # painted width is the source span - the field is never silently dropped.
+    visible=[blank for blank in report['editable_blanks'] if blank['visible']]
+    assert visible, 'the unresolved source slot must keep its editable blank'
+    for blank in visible:
+        assert abs(blank['rendered_width_pt'] - blank['width_pt']) <= 0.25
+    assert report['blank_width_error_max'] <= 0.25
+    underlined=[
+        run
+        for paragraph in document.paragraphs
+        for run in paragraph.runs
+        if run.underline and (run.text or '').strip('\u2007\u00a0 _') == ''
+    ]
+    assert underlined, 'the blank must be a native underlined run, not a literal glyph'
+    # The unresolved span is never filled with another field's value, and the
+    # fixed source literal after it is untouched.
+    assert '脱敏工程' not in actual
 
 
 def test_table_slot_fixed_value_widths_and_heights(tmp_path):

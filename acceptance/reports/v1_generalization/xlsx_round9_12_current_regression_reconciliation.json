@@ -1,0 +1,148 @@
+{
+  "schema": "v1_xlsx_round9_12_current_regression_reconciliation/1",
+  "note": "A frozen intermediate successor reproducing its recorded FAIL is historical evidence, not a current regression.  The current invariant is evaluated on the Round-12 final successor, which the Round-12 banked-regression gate re-checks.",
+  "rounds": {
+    "round9": {
+      "invariant": "canonical EvidenceUnit -> deterministic locator formatter -> saved/reopened XLSX -> exact equality (no fuzzy/prefix/contains acceptance)",
+      "historical_report": "review_workbook_round9_banked_regressions.json",
+      "historical_verdict": "PASS",
+      "historical_artifact": {
+        "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2",
+        "case_002": "v1_round4_closure9_review_workbook9r2",
+        "case_003": "v1_round4_closure9_review_workbook9r2"
+      },
+      "historical_reproduction": "MATCHES_FROZEN_EXPECTATION",
+      "historical_per_case": {
+        "case_001": {
+          "historical_fixtures": "20/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_002": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_003": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        }
+      },
+      "current_authoritative_artifact": "the Round-12 final successor workbooks, re-checked by the Round-12 banked-regression gate",
+      "current_component": "ROUND9_EXACT_LOCATOR_GATE_CURRENT",
+      "current_verdict": "PASS"
+    },
+    "round10": {
+      "invariant": "bid-response / scoring-response / contract-risk-notice / informational stay semantically separated",
+      "historical_report": "review_workbook_round10_banked_regressions.json",
+      "historical_verdict": "PASS",
+      "historical_artifact": {
+        "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10",
+        "case_002": "v1_round4_closure9_review_workbook10",
+        "case_003": "v1_round4_closure9_review_workbook10"
+      },
+      "historical_reproduction": "MATCHES_FROZEN_EXPECTATION",
+      "historical_per_case": {
+        "case_001": {
+          "historical_fixtures": "20/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_002": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_003": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        }
+      },
+      "current_authoritative_artifact": "the Round-12 final successor workbooks, re-checked by the Round-12 banked-regression gate",
+      "current_component": "ROUND10_BID_CONTRACT_SEPARATION_CURRENT",
+      "current_verdict": "PASS"
+    },
+    "round11": {
+      "invariant": "SOURCE_ATOM -> actual PDF structural container -> canonical EvidenceUnit -> formatter -> saved XLSX, with correct structural headings",
+      "historical_report": "review_workbook_round11_banked_regressions.json",
+      "historical_verdict": "PASS",
+      "historical_artifact": {
+        "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11",
+        "case_002": "v1_round4_closure9_review_workbook11",
+        "case_003": "v1_round4_closure9_review_workbook11"
+      },
+      "historical_reproduction": "MATCHES_FROZEN_EXPECTATION",
+      "historical_per_case": {
+        "case_001": {
+          "historical_fixtures": "20/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_002": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_003": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        }
+      },
+      "current_authoritative_artifact": "the Round-12 final successor workbooks, re-checked by the Round-12 banked-regression gate",
+      "current_component": "ROUND11_STRUCTURAL_HEADING_CURRENT",
+      "current_verdict": "PASS"
+    },
+    "round12": {
+      "invariant": "delivered XLSX text: pure post-award contract risk language absent from the response file, no mid-token evidence truncation, no multi-source role ambiguity",
+      "historical_report": "review_workbook_round12_banked_regressions.json",
+      "historical_verdict": "PASS",
+      "historical_artifact": {
+        "case_001": "v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook12_final",
+        "case_002": "v1_round4_closure9_review_workbook12_final",
+        "case_003": "v1_round4_closure9_review_workbook12_final"
+      },
+      "historical_reproduction": "MATCHES_FROZEN_EXPECTATION",
+      "historical_per_case": {
+        "case_001": {
+          "historical_fixtures": "20/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_002": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        },
+        "case_003": {
+          "historical_fixtures": "0/20",
+          "historical_round5_verdict": "PASS",
+          "historical_round6_verdict": "PASS",
+          "historical_round7_verdict": "PASS"
+        }
+      },
+      "current_authoritative_artifact": "the Round-12 final successor workbooks, re-checked by the Round-12 banked-regression gate",
+      "current_component": "ROUND12_FINAL_XLSX_DELIVERY_TEXT",
+      "current_verdict": "PASS"
+    }
+  },
+  "current_regression_evidence": {
+    "report": "review_workbook_round12_banked_regressions.json",
+    "verdict": "PASS"
+  },
+  "HISTORICAL_REPRODUCTION_ALL_MATCH": true,
+  "ROUND12_FINAL_XLSX_DELIVERY_TEXT": "PASS"
+}

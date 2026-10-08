@@ -292,6 +292,11 @@ class SourceFillSlot(ContractModel):
     table_index: int | None = None
     row_index: int | None = None
     column_index: int | None = None
+    #: The source rule this slot owns, when the source drew its blank as a rule
+    #: rather than as literal underscores.  Carries the rule's own span and the
+    #: geometric reason it was claimed, so a reviewer can re-derive the ownership
+    #: without re-running the build.
+    owned_source_rule: dict | None = None
     destination_style: DestinationStyleProfile = Field(default_factory=DestinationStyleProfile)
 
     def model_post_init(self, __context: object) -> None:
@@ -402,6 +407,28 @@ _WHITESPACE_RE = re.compile(r"[ \t]{2,}")
 _DATE_SIGNATURE_RE = re.compile(r"年\s{0,5}月\s{0,5}日")
 _LABEL_RE = re.compile("|".join(re.escape(label) for label in _HINTS))
 _PROJECT_SENTENCE_RE = re.compile(r"贵公司(?P<slot>_{2,}|＿{2,}|\s+)项目(?:招标|询比|采购)文件")
+
+#: A source rule is adjacent to a fill slot's own text when its end meets the
+#: slot's text start (or its start meets the text end) within this tolerance.
+#: The source sets the 投标函 project-name rule to end at 304.90 pt while the
+#: following text begins at 304.92 pt.
+SLOT_RULE_ADJACENCY_PT = 2.0
+
+#: A rule still belongs to a slot's row when its own baseline is within this many
+#: points of the slot's text box.
+SLOT_RULE_ROW_TOLERANCE_PT = 3.0
+
+#: A drawn blank is never shorter than this; shorter horizontal artwork is a glyph
+#: stroke, not a fill rule.
+SLOT_RULE_MIN_WIDTH_PT = 8.0
+
+#: Only a *blank-shaped* slot may adopt an adjacent rule.  ``whitespace`` and
+#: ``underline`` describe a gap the source left for a value.  A ``date_signature``
+#: run, a ``parenthetical`` or a ``table_blank`` describes text the source itself
+#: printed, so an adjacent rule does not make it a blank: re-classifying it would
+#: move the source's own characters onto the placeholder-consumption path and the
+#: text they cover would stop being emitted as text.
+RULE_OWNERSHIP_MATCH_KINDS = ("whitespace", "underline")
 
 _SLOT_TYPE_BY_FIELD = {
     FieldName.PROJECT_NAME: "PROJECT_NAME_SLOT",
@@ -1657,6 +1684,107 @@ def _slot_for_match(
     )
 
 
+def _own_adjacent_source_rule(
+    slot: SourceFillSlot,
+    paragraph: SourceParagraph,
+    lines: Sequence[SourceLine],
+) -> SourceFillSlot:
+    """Let a fill slot own the source rule that draws its own blank.
+
+    A source form slot is not always literal underscores.  The 投标函 writes
+    ``我单位收到贵公司 ____ 项目招标文件`` as *text, a drawn rule, then more
+    text*, so the slot's own text span is the whitespace between two runs and its
+    geometry is the text that follows the rule.  The slot then carried no source
+    span and ``underline=False``, and the resolved value was delivered as plain
+    inline prose with the source's presentation lost.
+
+    A rule whose own extent terminates where the slot's text begins - or begins
+    where the slot's text ends - on the slot's own visual row and inside its own
+    paragraph is *the rule the source drew for this slot*.  The slot adopts that
+    rule's span and its underline, so the delivered value occupies the source
+    blank and keeps the source's rule.  The test is pure source geometry: no page,
+    case or label identity is consulted, and a slot whose geometry a rule does not
+    bound is returned unchanged.
+    """
+
+    geometry = slot.geometry
+    if geometry is None:
+        return slot
+    if slot.match_kind not in RULE_OWNERSHIP_MATCH_KINDS:
+        # A slot that already describes source *text* keeps describing it: the
+        # geometry consumer may position that text, but it may not own or consume
+        # the text token it measured.
+        return slot
+    try:
+        span_x0, span_y0, span_x1, span_y1 = (float(value) for value in geometry)
+    except (TypeError, ValueError):
+        return slot
+    #: A rule is adjacent when its end meets the slot's text start (the blank was
+    #: drawn *before* the following text) or its start meets the slot's text end
+    #: (the blank was drawn *after* the preceding text).
+    tolerance = SLOT_RULE_ADJACENCY_PT
+    row_tolerance = max(SLOT_RULE_ROW_TOLERANCE_PT, (span_y1 - span_y0) * 0.75)
+    candidates = []
+    for line in lines or ():
+        if getattr(line, "orientation", None) != "horizontal":
+            continue
+        rule_x0, rule_y0, rule_x1, rule_y1 = (float(value) for value in line.bbox)
+        rule_width = rule_x1 - rule_x0
+        if rule_width < SLOT_RULE_MIN_WIDTH_PT:
+            continue
+        rule_y = (rule_y0 + rule_y1) / 2.0
+        if not (span_y0 - row_tolerance <= rule_y <= span_y1 + row_tolerance):
+            continue
+        ends_at_slot_start = abs(rule_x1 - span_x0) <= tolerance
+        starts_at_slot_end = abs(rule_x0 - span_x1) <= tolerance
+        if not (ends_at_slot_start or starts_at_slot_end):
+            continue
+        candidates.append((abs(rule_x1 - span_x0) + abs(rule_x0 - span_x1), line))
+    if not candidates:
+        return slot
+    _distance, rule = min(candidates, key=lambda entry: entry[0])
+    rule_x0, rule_y0, rule_x1, rule_y1 = (float(value) for value in rule.bbox)
+    # THE OWNED SPAN IS THE RULE'S OWN SPAN.  The rule is the blank the source
+    # drew, so it is the whole of this slot's source geometry; the earlier
+    # fallback box (which for a whitespace-only match resolved to the *text*
+    # beside the gap) is retained as evidence but no longer widened into it.
+    owned_span = (rule_x0, float(rule_y0), rule_x1, float(rule_y1))
+    # The slot's presentation is the rule the source drew: carry the underline
+    # onto the destination style too, so the fill policy that decides whether a
+    # resolved value keeps the source's affordance sees the ownership without
+    # re-deriving the geometry it was never given.
+    destination_style = slot.destination_style
+    if not destination_style.underline:
+        destination_style = destination_style.model_copy(update={"underline": True})
+    return slot.model_copy(
+        update={
+            "geometry": owned_span,
+            # A rule the source drew for this slot *is* the slot's underline: the
+            # drawn blank is the presentation the resolved value must keep.
+            "underline": True,
+            "match_kind": "underline",
+            "destination_style": destination_style,
+            "owned_source_rule": {
+                "x0": round(rule_x0, 2),
+                "x1": round(rule_x1, 2),
+                "y0": round(float(rule_y0), 2),
+                "y1": round(float(rule_y1), 2),
+                "width_pt": round(rule_x1 - rule_x0, 2),
+                "owned_from": (
+                    "RULE_ENDS_AT_SLOT_TEXT_START"
+                    if abs(rule_x1 - span_x0) <= abs(rule_x0 - span_x1)
+                    else "RULE_STARTS_AT_SLOT_TEXT_END"
+                ),
+                "pre_ownership_geometry": [
+                    round(value, 2)
+                    for value in (span_x0, span_y0, span_x1, span_y1)
+                ],
+                "basis": "SOURCE_GEOMETRY_ONLY",
+            },
+        }
+    )
+
+
 def _paragraph_slots(
     paragraph: SourceParagraph,
     slot_start: int,
@@ -2211,6 +2339,10 @@ def build_source_format_model(
         pages.append(source_page)
         for paragraph in page_paragraphs:
             paragraph_slots = _paragraph_slots(paragraph, len(fill_slots))
+            paragraph_slots = [
+                _own_adjacent_source_rule(slot, paragraph, source_lines)
+                for slot in paragraph_slots
+            ]
             fill_slots.extend(paragraph_slots)
             if not paragraph_slots:
                 vector_slot = _vector_rule_slot(paragraph, source_lines, len(fill_slots))

@@ -1255,19 +1255,42 @@ def check_round3_docs(gate: Gate, state_text: str, decisions_text: str, checklis
         }
     current_ids = {str(entry["build_id"]) for entry in pointers.values()}
     superseded_ids: set[str] = set()
+    #: Every build id the repository has *ever* archived as superseded, whether or
+    #: not it is current again.  ``superseded_ids`` below is deliberately
+    #: "archived and not current", which is the right set for asking whether the
+    #: documentation presents an old build as the current object; this set is the
+    #: complementary history, and a current pointer that names one of its members
+    #: has re-promoted a superseded build.
+    archived_ids: set[str] = set()
     pointer_history: dict[str, list[dict]] = {}
     for archived_path in sorted(general.glob(ARCHIVED_POINTER_GLOB)):
         record = load(archived_path)
         archived_id = record.get("build_id")
         case = archived_path.name.split("_current_build_superseded_by_")[0]
-        if archived_id and archived_id not in current_ids:
-            superseded_ids.add(str(archived_id))
+        if archived_id:
+            archived_ids.add(str(archived_id))
+            if archived_id not in current_ids:
+                superseded_ids.add(str(archived_id))
         pointer_history.setdefault(case, []).append(
             {
                 "build_id": archived_id,
                 "docx_sha256": record.get("generated_docx_sha256"),
             }
         )
+
+    re_promoted = sorted(
+        case for case, entry in pointers.items() if str(entry["build_id"]) in archived_ids
+    )
+    gate.check(
+        "no_superseded_build_is_re_promoted_to_current",
+        not re_promoted,
+        re_promoted=re_promoted,
+        archived_build_ids=sorted(archived_ids),
+        note=(
+            "an archived pointer is permanent history: a build the repository has "
+            "already superseded may never become the current pointer target again"
+        ),
+    )
 
     # A/B/C: the checklist must resolve each case to its live pointer target, and
     # must not present that case's archived build as the current object.

@@ -1,0 +1,200 @@
+{
+  "schema": "v1_word_render_authority_audit/1",
+  "case": "case_002",
+  "subject": "四、授权委托书 opening paragraph (source page 149)",
+  "authorities": {
+    "libreoffice_role": "DIAGNOSTIC",
+    "word_desktop_role": "FINAL_AUTHORITY_FOR_WORD_DELIVERY",
+    "source_geometry_role": "AUTHORITATIVE_FOR_SOURCE_AND_DOCX_FIDELITY",
+    "citations": [
+      {
+        "file": "docs/V1_DECISIONS.md",
+        "anchor": "W9",
+        "statement": "静态检查与 LibreOffice 渲染不能替代桌面 Microsoft Word 正常打开确认。",
+        "meaning": "static checks and LibreOffice rendering can never replace opening the deliverable in desktop Microsoft Word"
+      },
+      {
+        "file": "docs/V1_PROJECT_STATE.md",
+        "anchor": "§7 既知偏差（不是缺陷）",
+        "statement": "字体度量固有漂移（§7.3）",
+        "meaning": "font-metric inherent drift is already banked as a known non-defect, alongside the LibreOffice page-top spacing difference"
+      },
+      {
+        "file": "docs/V1_PROJECT_STATE.md",
+        "anchor": "§7.3",
+        "statement": "Word 行高是最小值，两个渲染器对 CJK 回退字体的度量不同；每个实测行高差都在 max(2.0 pt, 行高 25%) 之内，分类为 FONT_METRIC_ONLY。",
+        "meaning": "the repository already classifies CJK fallback-font metric differences between the two renderers as FONT_METRIC_ONLY, with tolerance max(2.0 pt, 25% of line height)"
+      }
+    ]
+  },
+  "source_layer": {
+    "font_resources": [
+      {
+        "xref": 558,
+        "extension": "ttf",
+        "type": "Type0",
+        "base_font": "LNUHNF+SimSun",
+        "name": "FT14",
+        "encoding": "Identity-H"
+      },
+      {
+        "xref": 576,
+        "extension": "ttf",
+        "type": "Type0",
+        "base_font": "AUWCNV+TimesNewRomanPSMT",
+        "name": "FT33",
+        "encoding": "Identity-H"
+      },
+      {
+        "xref": 559,
+        "extension": "ttf",
+        "type": "Type0",
+        "base_font": "NREKVL+FangSong_GB2312",
+        "name": "FT8",
+        "encoding": "Identity-H"
+      },
+      {
+        "xref": 2,
+        "extension": "ttf",
+        "type": "Type0",
+        "base_font": "GVXMER+FangSong",
+        "name": "Xi297",
+        "encoding": "Identity-H"
+      }
+    ],
+    "typography": {
+      "family": "FangSong_GB2312",
+      "size_pt": 12.0,
+      "subset": true
+    },
+    "target_row": {
+      "y": 169.14,
+      "x0": 85.08,
+      "x1": 511.44,
+      "char_count": 36,
+      "used_width_pt": 426.36,
+      "per_char_pt": 11.843,
+      "available_width_pt": 426.36,
+      "fill_ratio": 1.0
+    }
+  },
+  "docx_layer": {
+    "style": "Tender Body First Line",
+    "style_rFonts": {
+      "ascii": "Times New Roman",
+      "hAnsi": "Times New Roman",
+      "eastAsia": "仿宋",
+      "cs": null
+    },
+    "run_rFonts": {
+      "ascii": "仿宋",
+      "hAnsi": "仿宋",
+      "eastAsia": "仿宋",
+      "cs": null
+    },
+    "run_size_pt": 12.0,
+    "character_spacing_twips": null,
+    "intended_font": "仿宋 (FangSong)"
+  },
+  "renderer_layer": {
+    "renderer": "LibreOffice (frozen launcher scripts/render_case57.py)",
+    "font_resources": [
+      {
+        "xref": 2077,
+        "extension": "ttf",
+        "type": "TrueType",
+        "base_font": "BAAAAA+FangSong",
+        "name": "F1",
+        "encoding": ""
+      },
+      {
+        "xref": 2082,
+        "extension": "ttf",
+        "type": "TrueType",
+        "base_font": "CAAAAA+FangSong",
+        "name": "F2",
+        "encoding": ""
+      },
+      {
+        "xref": 2072,
+        "extension": "ttf",
+        "type": "TrueType",
+        "base_font": "DAAAAA+TimesNewRomanPSMT",
+        "name": "F3",
+        "encoding": ""
+      },
+      {
+        "xref": 2087,
+        "extension": "ttf",
+        "type": "TrueType",
+        "base_font": "EAAAAA+FangSong",
+        "name": "F4",
+        "encoding": ""
+      },
+      {
+        "xref": 2092,
+        "extension": "ttf",
+        "type": "TrueType",
+        "base_font": "FAAAAA+FangSong",
+        "name": "F5",
+        "encoding": ""
+      }
+    ],
+    "rendered_font": "FangSong (LibreOffice-resolved)",
+    "substitution_occurred": true,
+    "host_font_availability": {
+      "Times New Roman": true,
+      "仿宋": false
+    },
+    "measured_row": {
+      "y": 182.03,
+      "x0": 85.2,
+      "x1": 505.2,
+      "char_count": 35,
+      "used_width_pt": 420.0,
+      "per_char_pt": 12.0
+    }
+  },
+  "divergence": {
+    "source_per_char_pt": 11.843,
+    "headless_per_char_pt": 12.0,
+    "advance_ratio": 1.0132,
+    "widening_percent": 1.323,
+    "available_width_pt": 426.36,
+    "predicted_width_pt": 432.0,
+    "predicted_overflow_pt": 5.64,
+    "observed_kept_width_pt": 420.0,
+    "observed_overflow_pt": 6.36,
+    "prediction_explains_observation": true,
+    "classification": "HEADLESS_FONT_SUBSTITUTION_ONLY",
+    "classification_basis": [
+      "DOCX requests 仿宋 (FangSong) at 12 pt: the same family and size as the source's embedded FangSong_GB2312 subset",
+      "the composed page/paragraph geometry reproduces the source frame and row extents (row 1 residual 0.07 pt)",
+      "slot/rule ownership and the row-local cursor satisfy their invariants (default_tab_fallthrough_risk_count = 0, tabs_without_explicit_stop_count = 0, consecutive_blank_double_ownership_count = 0, cursor_recomputed_from_paragraph_width_count = 0)",
+      "source text is complete and in reading order with no clipping or overlap",
+      "the measured substitute advance ratio predicts the observed one-glyph overflow",
+      "the host has no 仿宋 installed, so LibreOffice resolves its own FangSong"
+    ],
+    "extends_frozen_decision": "docs/V1_PROJECT_STATE.md §7.3 banks CJK fallback-font metric drift as FONT_METRIC_ONLY for line height; this divergence is the same cause on the horizontal advance axis, at 1.3% against that decision's 25% band"
+  },
+  "component_results": {
+    "AUTHORIZATION_SOURCE_MODEL_FIDELITY": "PASS",
+    "AUTHORIZATION_DOCX_GEOMETRY_FIDELITY": "PASS",
+    "AUTHORIZATION_DOCX_TYPOGRAPHY_FIDELITY": "PASS",
+    "AUTHORIZATION_HEADLESS_RENDER_FIDELITY": "WARN_PROVEN_FONT_SUBSTITUTION",
+    "AUTHORIZATION_RENDERER_DIVERGENCE_CLASS": "HEADLESS_FONT_SUBSTITUTION_ONLY",
+    "AUTHORIZATION_TEXT_COMPLETENESS": "PASS",
+    "AUTHORIZATION_SOURCE_SLOT_FIDELITY": "PASS",
+    "AUTHORIZATION_WORD_RENDER_FIDELITY": "PENDING_HUMAN_DESKTOP_WORD_REVIEW"
+  },
+  "vertical_rhythm": {
+    "SOURCE_VERTICAL_RHYTHM_METRIC": "Word line-spacing model (source-backed multiple)",
+    "SOURCE_VALUE": "source row pitch 23.4 pt inferred from the source's own baselines",
+    "DOCX_VALUE": "w:spacing/@w:line = 1.5 (lineRule auto) via infer_semantic_line_spacing",
+    "HEADLESS_RENDER_VALUE": "25.35 pt rendered baseline delta",
+    "TOLERANCE": "max(2.0 pt, 行高 25%) per docs/V1_PROJECT_STATE.md §7.3",
+    "AUTHORITY": "source-backed line-spacing model; rendered delta is FONT_METRIC_ONLY",
+    "FORM_ROW_LINE_PITCH_FIDELITY": "PASS",
+    "note": "the DOCX carries the source-derived spacing model; the rendered baseline difference is the same CJK fallback-font metric drift the frozen §7.3 decision already classifies as a non-defect"
+  }
+}

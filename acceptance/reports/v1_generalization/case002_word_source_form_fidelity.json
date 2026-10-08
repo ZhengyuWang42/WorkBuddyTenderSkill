@@ -1,0 +1,112 @@
+{
+  "schema": "v1_case002_word_source_form_fidelity/2",
+  "build": "acceptance/workspace/case_002/v1_word_source_fidelity_arch1",
+  "authorities": {
+    "SOURCE_GEOMETRY_AUTHORITY": "AUTHORITATIVE_FOR_SOURCE_AND_DOCX_FIDELITY",
+    "DOCX_TYPOGRAPHY_AUTHORITY": "AUTHORITATIVE_INTENDED_WORD_TYPOGRAPHY",
+    "HEADLESS_RENDERER_ROLE": "DIAGNOSTIC",
+    "WORD_DESKTOP_ROLE": "FINAL_WORD_DELIVERY_AUTHORITY"
+  },
+  "components": {
+    "AUTHORIZATION_SOURCE_MODEL_FIDELITY": {
+      "result": "PASS",
+      "detail": "source rows measured=9 rendered rows=11"
+    },
+    "AUTHORIZATION_DOCX_GEOMETRY_FIDELITY": {
+      "result": "PASS",
+      "detail": "first row origin source=109.08 rendered=109.2"
+    },
+    "AUTHORIZATION_DOCX_TYPOGRAPHY_FIDELITY": {
+      "result": "PASS",
+      "detail": "source='FangSong_GB2312'@12.0 docx='仿宋'@12.0 host=ABSENT headless='FangSong'"
+    },
+    "AUTHORIZATION_TEXT_COMPLETENESS": {
+      "result": "PASS",
+      "detail": "all key phrases present"
+    },
+    "AUTHORIZATION_SOURCE_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "tables=9 authorization wording present"
+    },
+    "AUTHORIZATION_HEADLESS_RENDER_FIDELITY": {
+      "result": "WARN_PROVEN_FONT_SUBSTITUTION",
+      "detail": "the DOCX requests the source's own family and size, the delivered geometry and ownership reproduce the source, the text is complete and the source slots survive, and the measured substitute advance predicts the observed overflow within 0.5 of one glyph"
+    },
+    "AUTHORIZATION_RENDERER_DIVERGENCE_CLASS": {
+      "result": "HEADLESS_FONT_SUBSTITUTION_ONLY",
+      "detail": "{\"source_family\": \"FangSong_GB2312\", \"source_size_pt\": 12.0, \"docx_requested_family\": \"仿宋\", \"docx_size_pt\": 12.0, \"docx_character_spacing_twips\": null, \"host_font_state\": \"ABSENT\", \"headless_family\": \"FangSong\", \"headless_size_pt\": 12.0, \"advance_ratio\": 1.0132282578103011, \"source_fill_ratio\": 1.0, \"predicted_overflow_pt\": 5.639999999999986, \"observed_overflow_pt\": 6.360000000000014, \"prediction_"
+    },
+    "AUTHORIZATION_FORM_FIDELITY": {
+      "result": "PASS",
+      "detail": "components_ok=True divergence=HEADLESS_FONT_SUBSTITUTION_ONLY"
+    },
+    "OPENING_TABLE_FORM_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "tables_with_实施周期=1 18个月=True 西安市内=True"
+    },
+    "LETTER_SINGLE_PAGE_FIDELITY": {
+      "result": "PASS",
+      "detail": "pages carrying 投标单位全称 and its date row=[3]"
+    },
+    "COVER_DATE_THREE_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "underline blank runs in a 年月日 row=3"
+    },
+    "PROJECT_NAME_SOURCE_SLOT": {
+      "result": "PASS",
+      "detail": "underlined value run present=True"
+    },
+    "BID_TOTAL_UPPERCASE_SLOT": {
+      "result": "PASS",
+      "detail": "underlined runs=1"
+    },
+    "BID_TOTAL_LOWERCASE_SLOT": {
+      "result": "PASS",
+      "detail": "underlined runs=1"
+    },
+    "PROJECT_MANAGER_SAME_ROW_SLOT": {
+      "result": "PASS",
+      "detail": "paragraphs with 项目负责人 and 。=True"
+    },
+    "CASE002_CROSS_PAGE_QUOTATION_TABLE": {
+      "result": "PASS",
+      "detail": "largest table rows=22 cols=9"
+    }
+  },
+  "renderer_divergence": {
+    "divergence_class": "HEADLESS_FONT_SUBSTITUTION_ONLY",
+    "blocking": false,
+    "reasons": [
+      "the DOCX requests the source's own family and size, the delivered geometry and ownership reproduce the source, the text is complete and the source slots survive, and the measured substitute advance predicts the observed overflow within 0.5 of one glyph"
+    ],
+    "evidence": {
+      "source_family": "FangSong_GB2312",
+      "source_size_pt": 12.0,
+      "docx_requested_family": "仿宋",
+      "docx_size_pt": 12.0,
+      "docx_character_spacing_twips": null,
+      "host_font_state": "ABSENT",
+      "headless_family": "FangSong",
+      "headless_size_pt": 12.0,
+      "advance_ratio": 1.0132282578103011,
+      "source_fill_ratio": 1.0,
+      "predicted_overflow_pt": 5.639999999999986,
+      "observed_overflow_pt": 6.360000000000014,
+      "prediction_residual_pt": 0.72,
+      "prediction_residual_glyph_fraction": 0.06
+    }
+  },
+  "generic_invariants": {
+    "default_tab_fallthrough_risk_count": 0,
+    "tabs_without_explicit_stop_count": 0,
+    "consecutive_blank_double_ownership_count": 0,
+    "cursor_recomputed_from_paragraph_width_count": 0,
+    "positioned_form_layout_break_count": 0
+  },
+  "artifacts": {
+    "docx_sha256": "7c50aa4a275851eb0546b563e5b555544e2d7b515197b57e31263a5efcd28d5e",
+    "pdf_sha256": "09524536ba01d31f645bb73f1bd42818af56d4c920b1586220fa4f2e44ac882d",
+    "generation_report_sha256": "1e1b591c936f2ef976f5df9d1c63adc21059286c46b898711dc8bcf6db4e1915"
+  },
+  "CASE002_WORD_SOURCE_FORM_FIDELITY": "PASS"
+}

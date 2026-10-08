@@ -1,0 +1,423 @@
+{
+  "schema": "v1_historical_round9_11_integrity_audit/1",
+  "historical_files_checked": 68,
+  "current_files_differing_from_head": [
+    "acceptance/reports/v1_generalization/case_001_current_build.json",
+    "acceptance/reports/v1_generalization/case_002_current_build.json",
+    "acceptance/reports/v1_generalization/case_003_current_build.json",
+    "acceptance/reports/v1_generalization/v1_manual_review_checklist.md"
+  ],
+  "unexpected_historical_modifications": [],
+  "byte_identical_count": 68,
+  "entries": [
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_banked_regressions.json",
+      "head_blob_sha": "9ea5d14272118861671aff2dce23979aebcd6106",
+      "current_sha256": "b54046bc33e447f8875832aff93559f7a8485d71ea545105e7c551ce2ef5c3de",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001.json",
+      "head_blob_sha": "e81576d0def07cc009c315f58f1295a358a3cd4e",
+      "current_sha256": "d9b9bacade3de758cdbfe032ac8f6ee8785b26dd8396acda6a3830e223ab65ce",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001.md",
+      "head_blob_sha": "e2ba209a8031f44a17e6525c556a07a787018daa",
+      "current_sha256": "da077aa3b29d57c04fd193ed3f42ad388d92d85983011684e99a0945a40efec8",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001_round5.json",
+      "head_blob_sha": "0c3c752747e9367da4163f7535c8707810c39070",
+      "current_sha256": "9cb3263fc1f42deebcec8e87e15bcfd4fa681acae44d510dd8b68588d6d2cf4a",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001_round6.json",
+      "head_blob_sha": "5f3e928539a7a812b89a8e75147b8c332021943a",
+      "current_sha256": "cb83de97897885ae59fa284bc92cd7eaa91e70960daa90c7d788845c03d18552",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001_round7.json",
+      "head_blob_sha": "a578874dfbcbd901b275add50bf2c3e48f6b5228",
+      "current_sha256": "536560b79e4881df53b5592bb6f6c6b8fe336845d29034abc29a9f42eeb0f4d5",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_001_round7.md",
+      "head_blob_sha": "f6bca05a2b3330073fbd334e545184815bb9a2fe",
+      "current_sha256": "337f8ecc60c717fb81b3a879747f3b1b7f2ef0b64103bb99ce7940419c73c224",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002.json",
+      "head_blob_sha": "4a84f6441b6d199838ef8a26bf63b40c62302798",
+      "current_sha256": "1915c4a453ac11f27b74b72ffd4b3ca44de2c17df1e90273bd7dae5121ee3694",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002.md",
+      "head_blob_sha": "eb7e7061088a1f7bd65ae9cfd73abf09ad5e3fb3",
+      "current_sha256": "84ca89cb38d822c4932fc48ee54f62049bb707ce58e9fa114d7639b03c1f7121",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002_round5.json",
+      "head_blob_sha": "ea8a4cf0d5e7d51bf06e3a88b5d2ff8971697f02",
+      "current_sha256": "de7fae59371992db77fc81d897fd6b0bf7f201751ab81f39852e3a68aafbbe94",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002_round6.json",
+      "head_blob_sha": "08d14cb1b9f8675a387285987441b34b338d795a",
+      "current_sha256": "7e36f7ac601dbfa882e3ae657eafc7e5f90c3ceafacfc97da28b9086eb5cb0f4",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002_round7.json",
+      "head_blob_sha": "b81907627792104e26a01c116b02e75b10ef4c9d",
+      "current_sha256": "00108aabfe9a264d3721bd87ae24c021063b43f895ea7b3c08be186a048570e4",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_002_round7.md",
+      "head_blob_sha": "990ed58722bb613b4a578048308e87d48bb45f42",
+      "current_sha256": "e551d9a72ba59989addfad378ce968d04289762ca818a16bdee7016305104d3c",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003.json",
+      "head_blob_sha": "7b98210867af9dba769492a238555d74400aa171",
+      "current_sha256": "64fa280b4abbe52c785cf6f2b4dcd8393c5e0987b29f947467950559e0967222",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003.md",
+      "head_blob_sha": "925f004a162768a50714584246284a90945307d6",
+      "current_sha256": "760504f53ff2f01a97b4fde7feba1a3ee1aefa8d7c2e2d0080e8761f0972be70",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003_round5.json",
+      "head_blob_sha": "16a8dbbece9494aaf220eda570ee87e21f6e7b72",
+      "current_sha256": "1cd6a3eeb7d61e88cddb9ee8b2719f7e02427a156d090aef89bfed515990ba4a",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003_round6.json",
+      "head_blob_sha": "b285f4cf0113869dcf8eccf89fa071ac87569beb",
+      "current_sha256": "d264df2e112ec13e08d0ff92a0f683e914295abeeff47ff4a9f768a2a972eba2",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003_round7.json",
+      "head_blob_sha": "a087bee87dc7531a99415fdaf31a734febdc4292",
+      "current_sha256": "90c104d414e04cca657faeda19f383fc32c29198a211dfcc2c16fb6626cc7bd4",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_case_003_round7.md",
+      "head_blob_sha": "be9217fa5e4ed6d209b314363dd45ee98c41c702",
+      "current_sha256": "f907ff15b265847ae24233d58cc27bd6d14cddcd939bebc9db223196b5b153e4",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_full_test_suite.txt",
+      "head_blob_sha": "4da2608c3cddd897d1ffc322128cd40ddc7c9010",
+      "current_sha256": "892175e6031582abb54877d1075de67471fd95655b8694ba45a16e0969ba826a",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_full_test_suite.xml",
+      "head_blob_sha": "79d0f0fae96822d3e8edd4d860a513ceb2325892",
+      "current_sha256": "3820fd21bffe4cfcb36eb606185c893c7a7e97fc2f15cb0072c79a70184bf286",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round10_generalization.json",
+      "head_blob_sha": "8a48099a03b58c126bd392a386367abf3d13cf51",
+      "current_sha256": "26b11aa05dd579c2c2b30d61fb69f19734461837f08f8a1b498ef8b8175fd0dd",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_banked_regressions.json",
+      "head_blob_sha": "f6952ad79a622bcd77a85de9d0ad8e6b2c0af70e",
+      "current_sha256": "744422a6253198a0f43dff8cde9330fa76c1d2d80ec470ba5aa24859dbcae917",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001.json",
+      "head_blob_sha": "410a5344a787cb27844192b43802c6e67280ec33",
+      "current_sha256": "a2326a4e913b8107a9b180b2e43a93eef13020d510df0b948fd2b89cb8580488",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001.md",
+      "head_blob_sha": "0cf6dda962e1b3fdfbdc0faeaa8a3221d967711f",
+      "current_sha256": "385cf7973612fdebb721d785d2aef1e0702cf6fd0811c87b0c328498fe3ce449",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001_round5.json",
+      "head_blob_sha": "753356ff6a68dfc0c73e1059948056756c55ede7",
+      "current_sha256": "0ae6a61f7e86c94a1b418ce5a15e533b05e594f6f954beb792ee565b2fd0736b",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001_round6.json",
+      "head_blob_sha": "3f32a15b672b83ff07a4c94877ccbcf56892b643",
+      "current_sha256": "796d2dfa08d659b4d3823a0b591770aea4338ab1249372351cdbc6a83b67eda8",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001_round7.json",
+      "head_blob_sha": "fb68632417cc83342a2a985ba1f75531e98de7c0",
+      "current_sha256": "b1070caba5595423a9dd36f6c49ef5dcb87953c5c09e7780be64cbe3fad7a315",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_001_round7.md",
+      "head_blob_sha": "830a125f1d6df2c024fd703aa650291428a14fe1",
+      "current_sha256": "6359c40bbd3ac5142fc700d3a589f88b6da608eb1cc9653bfeb8b191d03e3bdc",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002.json",
+      "head_blob_sha": "b68ea7eca91d68c5ddfaa1eb25f0d23e9089d995",
+      "current_sha256": "2c56a8306a6af61c5ad4904e0b624a8a385dcc9fcb2f77d79666640e841a4b4b",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002.md",
+      "head_blob_sha": "db69fe3e76bddf85a9ca74f32ce10df8e3ecbcac",
+      "current_sha256": "99c81840e93cb1757b9980248a1e1bf2c82b43927d0c7617ae89101b0f4060d8",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002_round5.json",
+      "head_blob_sha": "3df6b35f26c654a527344407ec56c2f78e85b2a9",
+      "current_sha256": "16ff4429c4ccc81fa89cd20fd485bee90d27f1eaa06a52364f5666a0223f975e",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002_round6.json",
+      "head_blob_sha": "ddb044fc1bfe50d67bcfa2bea63e6774b920e080",
+      "current_sha256": "075647b4001a391fe13de79caf999a062d281d3da675c2cd172be52f88c7ed63",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002_round7.json",
+      "head_blob_sha": "5a90d3f5c1edc9bd3a529b9037c57431a849e95a",
+      "current_sha256": "9fe4dd6c23f72a9ce7f3392fd4e4d651cc86c10b51f14eb5872b2415fbb854b7",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_002_round7.md",
+      "head_blob_sha": "3927478c99953957313b931e6d1bd4bcbd8d3596",
+      "current_sha256": "3c7c1b86c2e2577c2f0fe632e45ea4d2a03475b600d0170011f86b6c2b722724",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003.json",
+      "head_blob_sha": "f46460edb62cd166cace9ad12ca2f4194c6f3b47",
+      "current_sha256": "e45c00be1afbbd98cd0ff98e080e7d0f7dc4fca7abe728c8895e337e54ddc70d",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003.md",
+      "head_blob_sha": "3c25e2c8d7ccc986891f3c52de1b97a9860396f7",
+      "current_sha256": "06fa94f0a9484f2efde7f8d580cda1481d8951f31c6bc4ebea05ce59b82a546d",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003_round5.json",
+      "head_blob_sha": "440e56516e86763ef252617f1e3ac9f0c90bc639",
+      "current_sha256": "32336773ddc6b1984fbd4ead1ff14bc5f567e6863e63e1ba0623be46f8c3f172",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003_round6.json",
+      "head_blob_sha": "9c6cc70fdeaadc2e15e0d9ce1dec858ff4af7ea1",
+      "current_sha256": "ba0b67063e78612dde2a37a186b83598c24a3f52f93e8824e7befb7172c44fdd",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003_round7.json",
+      "head_blob_sha": "657ba6c456f399ac83e0be58f5560e180c13e1f9",
+      "current_sha256": "06236e569c71252349aeb7ac356a2bcca7b87fb905fc8f41e043defb5ef9533f",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_case_003_round7.md",
+      "head_blob_sha": "0798f46280b4cacda3f30224fb376b6f8f5e6fcf",
+      "current_sha256": "1b875edafa480ad86c2d9a4412ec4944a6c4f69c69a3ff66845458350ee1788d",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_full_test_suite.txt",
+      "head_blob_sha": "736096932a1a8fee2999bc973f07ecf6216110d0",
+      "current_sha256": "08240281cfe58e243f6cb946e47d1bf0292ccc9f3cb4f11640d4a1243e11fe0b",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_full_test_suite.xml",
+      "head_blob_sha": "0ede2256243f59f145b00ca48b22090d7ee2e245",
+      "current_sha256": "b49cc8e038645a91eb7934948ed6fe1cd3c91fdb7213a96d09c7142ff1709b58",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round11_generalization.json",
+      "head_blob_sha": "d54abc2f9db83a439c222445a8de823719897c7e",
+      "current_sha256": "3959cec9931fff5d9a089b7af45aadd5baad1fcbb0f6370c39e2fcce6c814b2e",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_banked_regressions.json",
+      "head_blob_sha": "333f8d7f89c36febd3ebf4eb69e0fecd6757b76e",
+      "current_sha256": "3cde1e25b6b978f14126c37d98b4f6f3452917f653e6aa01ced0ba3f772588ec",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001.json",
+      "head_blob_sha": "86f8597cf602d79b8c7391a035ebfb97566119a7",
+      "current_sha256": "f8ce2fa31dcbf7c5ab4353f9c8dafd2d3117c899984fb8f31f3434689ee8571c",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001.md",
+      "head_blob_sha": "0a4c10f90867cc6322d7cbc6d7e6cd2585091526",
+      "current_sha256": "10de8d23d91b8807e4431e66b865383943a597ae449b743571d3e8ea1fa35b60",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_before_after.json",
+      "head_blob_sha": "b7a9ebf8b86a9fe3b26157b183b8b850d0f173c0",
+      "current_sha256": "07f965a7117e6fb9791be3bd41006582949261ab594e8de52610e1d653e8793a",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_before_after.md",
+      "head_blob_sha": "ecf860e3643a2002a77f62dd77c1a11ef462fb7e",
+      "current_sha256": "64794a4fe7168be3900321e901fc4196d7a20602a39e945b0b941ff40c213509",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_round5.json",
+      "head_blob_sha": "d7f672b09a0cb55b7b6fd1244ba96305f7bc9569",
+      "current_sha256": "3e53d30ee235a7e9d155e70de418e603850517771418dda3737cf1259eb5d68b",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_round6.json",
+      "head_blob_sha": "2b7d409edba857446daaf5d537a3bdba906ad1bd",
+      "current_sha256": "eca9a93041aa56581a736d41398426d2d28028fc16b95c826b2b0939a1e1ed6d",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_round7.json",
+      "head_blob_sha": "11d1845833eeaec0cb736bca894a915378169d06",
+      "current_sha256": "f5f2185cdb9004b00cc6478e450b5dcfda4162a82f42605b5298f1c121a21af9",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_001_round7.md",
+      "head_blob_sha": "738ab40bb374267486cee10c576072f43a46234b",
+      "current_sha256": "69dc6f25a282f0c6fdfb4029e4ce902c26a4fcee436a9280773092ca06b13bbf",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002.json",
+      "head_blob_sha": "858d35c02c1d4571aadd846a187b018ba17000e6",
+      "current_sha256": "49b96d4489c782798b60e3c8a012a74bbb71107bc85eef8d08b3ea7cc3b1e223",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002.md",
+      "head_blob_sha": "1e7038dd5d7db9440b06ac572b497a93c59efd84",
+      "current_sha256": "fd8d7138268c926f0fb74b4e7cd5dda56d66e8cf500cbe4d0397e778cafa9f3a",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002_round5.json",
+      "head_blob_sha": "22234ea5409d5c2d2fd5e9864db1a044ae41d25e",
+      "current_sha256": "751bc05fb754ad7279754d0a2a233ca9b161707043d37ab2cef853eecaea7d1c",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002_round6.json",
+      "head_blob_sha": "5f4e1953629a4e05e1df771b5b4d4622a25f39cc",
+      "current_sha256": "7e5f51d51c9bfcde92c4c9c73114b22ce4d0b4ebdb14ef56c901f791f42d3402",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002_round7.json",
+      "head_blob_sha": "964f370b98a7388aa0b10984551315a372d57c9d",
+      "current_sha256": "86e6db99ec278094d0e995b852529c8749773e0bb3ec0852a65212422a1fccd9",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_002_round7.md",
+      "head_blob_sha": "1ce099d41cb34f10ae39be0208634222f8e34ab3",
+      "current_sha256": "533e3b5a0522655afdb42f4b254b1c0f63d3f1de2e7407fb70784d07c250a228",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003.json",
+      "head_blob_sha": "ed9f021dbe960e57309868d0f609cb5edab8ac80",
+      "current_sha256": "4ef90933dfc4c2e5f6e0baad63e6d4cdd146f9f7e6ae01a87a5e940fd717a5fb",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003.md",
+      "head_blob_sha": "8d5c2250d624847923df87e9f98cba596abdf861",
+      "current_sha256": "02481091f5c7af063c1016089193a5a856a350e8e9f53e2307a44c10269ab529",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003_round5.json",
+      "head_blob_sha": "2dc5adfa1a826c400dba4a7369b4a24e593e6b19",
+      "current_sha256": "10026a73907365cc2982837949ac23b77da192d0ab8f415670bbc396c4bff1bb",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003_round6.json",
+      "head_blob_sha": "2b51017d56ba16374cb605f35b194e39bf14c9de",
+      "current_sha256": "8fded83c528750ecad23750d3b183281bbee982ddab745e4bebadd4765e0d65f",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003_round7.json",
+      "head_blob_sha": "652850f14196a19fdb52ee909fdde3466c204962",
+      "current_sha256": "240f62549da17bf65209c5ac62bb20cf07e383727da19fbf42ebbd5140730e51",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_case_003_round7.md",
+      "head_blob_sha": "8ba5cc290dd8e3e545f1d0f35cfce3505134fca3",
+      "current_sha256": "37d168e00f2260c7f23c54ee977a7bfdc254960ee6d6ba496c8c76953e2188f7",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_full_test_suite.txt",
+      "head_blob_sha": "55b9b8c791d1b2ace0eb00c472c76071f333d364",
+      "current_sha256": "95635c10eb132cdd468b2d753305dd943ca7f3639adc2fa6ed578844725cf878",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_full_test_suite.xml",
+      "head_blob_sha": "a9735a5faa226f8fa63cd41804e346b68d001694",
+      "current_sha256": "c681142f1c1194352e8b4b594584af8cad26e6170cac6f141a7f0b2b7c6c6c9b",
+      "unchanged_from_head": true
+    },
+    {
+      "path": "acceptance/reports/v1_generalization/review_workbook_round9_generalization.json",
+      "head_blob_sha": "3066b2e9e2f93615a66c9e2cbfcd16ee4669e9b4",
+      "current_sha256": "061e3e5602b756bfa759b0bd0104d7829c2fddab04f2c61483ad2903acf65807",
+      "unchanged_from_head": true
+    }
+  ],
+  "HISTORICAL_EVIDENCE_INTEGRITY": "PASS"
+}

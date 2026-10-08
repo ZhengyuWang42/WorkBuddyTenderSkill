@@ -1,0 +1,19 @@
+# full test suite (Windows ACL compatibility path)
+# command  : .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider --basetemp acceptance/workspace/pytest_fullsuite_final_arch3 --junitxml acceptance/workspace/_scratch_round4_vii/fullsuite_final_arch3.xml
+# host note: PYTEST_PLUGINS=pytest_fscompat (scripts/dev/pytest_fscompat.py)
+#            Path.mkdir(mode=0o700) is relaxed to the default mode because this
+#            host cannot enumerate a directory created with mode 0o700; the plugin
+#            changes no assertion, no test and no product module.
+#            This host also runs the shell at Low mandatory integrity, so the
+#            writable basetemp must stay on the writable root; no ACL or
+#            integrity label was modified for this run.
+# result   : 1036 passed, 1 skipped, 0 failed, 0 errors
+# junitxml : tests=1037 failures=0 errors=0 skipped=1 time=675.916s
+# exit code: 0
+
+# The six adjudicated Word source-fidelity tests:
+#   PASS tests.test_round46_form_layout::test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain
+#   PASS tests.test_round60_form_line_hard_break::test_a_same_row_label_and_blank_stay_one_paragraph
+#   PASS tests.test_round60_form_line_hard_break::test_the_source_rule_span_is_the_emitted_tab_span
+#   PASS tests.test_round60_form_line_hard_break::test_a_rule_the_cursor_has_passed_opens_its_own_form_line
+#   PASS tests.test_word_safe_builder::test_unknown_and_fixed_and_bidder_slots_untouched

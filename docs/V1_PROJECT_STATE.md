@@ -1303,3 +1303,55 @@ NEXT_ACTION    = 用桌面 Microsoft Excel 打开上面这个确切 XLSX，按�
 
 > 自动化**永不**代人工勾选 CASE002/CASE003 的结论，也**永不**因 CASE001 的 XLSX PASS 而改变
 > `V1_PRODUCTION_CANDIDATE`（= false）或 `READY_FOR_SUBMISSION`（= false）。
+
+
+---
+
+## Word 源版式保真闭环（第 14 轮）当前状态
+
+| 项 | 值 |
+| --- | --- |
+| `FINAL_WORD_BUILD_VERSION` | `arch3`（三案例均为 canonical：pipeline rc 0 / render rc 0） |
+| 通用门禁 | `scripts/v1_word_source_fidelity_gate.py`（能力感知，非 CASE002 包装） |
+| CASE001/002/003 通用门禁 | `CASE_00x_GENERIC_WORD_SOURCE_FIDELITY = PASS` |
+| CASE001 回归 | `PASS`（P3 8/8 policy / 8/8 intent / 8/8 horizontal / 8/8 rule accounting；冻结 2 pt；审查偏差未变） |
+| CASE002 回归 | `CASE002_WORD_SOURCE_FORM_FIDELITY = PASS` |
+| CASE002 授权表 | `AUTHORIZATION_FORM_FIDELITY = PASS`；无头分歧 `WARN_PROVEN_FONT_SUBSTITUTION` / `HEADLESS_FONT_SUBSTITUTION_ONLY` |
+| CASE002 开标一览表 | `OPENING_TABLE_FORM_SLOT_FIDELITY = PASS`（1 个逻辑表；18个月；西安市内） |
+| CASE002 跨页报价表 | `CASE002_CROSS_PAGE_QUOTATION_TABLE = PASS`（22 × 9，单一逻辑表） |
+| CASE003 回归 | `PASS`；`CASE003_LOT_NAME = 三标段`；源文本 missing/duplicate/zero_owner/multiple_owner = 0/0/0/0 |
+| 三案例泛化 | `THREE_CASE_GENERALIZATION = PASS` |
+| 负控 | `NEGATIVE_CONTROL_CASE003_ARCH1 = PASS`（精确定位 `P70-PARA5`）；`NEGATIVE_CONTROL_OLD_CASE002 = PASS`（由 CASE002 表单保真门禁拒绝：`AUTHORIZATION_DOCX_GEOMETRY_FIDELITY = FAIL`） |
+| 历史证据完整性 | `HISTORICAL_EVIDENCE_INTEGRITY = PASS`（68 份历史报告，0 处意外改动） |
+| 行内游标不变量 | `default_tab_fallthrough_risk_count = 0`、`tabs_without_explicit_stop_count = 0`、`consecutive_blank_double_ownership_count = 0`、`cursor_recomputed_from_paragraph_width_count = 0`、`unreachable_positioned_blank_count = 0` |
+| 段落流架构（`PARAGRAPH_FLOW_FIRST`） | 三案例均 `PARAGRAPH_POSITIONING_TAB_COUNT = 0`、`CENTER_ALIGNMENT_HACK_COUNT = 0`、`RIGHT_ALIGNMENT_HACK_COUNT = 0`、`FIRST_LINE_TAB_HACK_COUNT = 0`；`SourceParagraphLayoutContract` 记录数 77 / 81 / 132 |
+
+不可变产物（三案例统一架构版本 `v1_word_source_fidelity_arch3`）：
+
+| 案例 | 构建路径 | DOCX SHA256 | PDF SHA256 | generation_report SHA256 | pipeline/render rc |
+| --- | --- | --- | --- | --- | --- |
+| case_001 | `acceptance/workspace/case_001/v1_word_source_fidelity_arch3` | `6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480` | `742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422` | `638934270d45a62253e2985719b17ee2ba23dbeae78569cc2c4162de86f7a277` | 0 / 0 |
+| case_002 | `acceptance/workspace/case_002/v1_word_source_fidelity_arch3` | `8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf` | `b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d` | `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74bdce09c3a48c7` | 0 / 0 |
+| case_003 | `acceptance/workspace/case_003/v1_word_source_fidelity_arch3` | `df754d89e6c28013a1ae53c8cddf368036c86adf5edd752c91d1ad27fa1da950` | `e8c1825002fc157c8e147483744efc5237291f64a86ced898b7cdce29540d417` | `6df50d39ceaaacd246f362598413154ccff1a00b9384fcea40b94a8fbe134255` | 0 / 0 |
+
+> **历史（HISTORICAL / SUPERSEDED build）**：上一代统一架构版本为
+> `v1_word_source_fidelity_arch2`（CASE001 `fbca580b…241d2`；CASE002 `8b0c8b01…591ad`；
+> CASE003 `88aaaced…596e`），其前身为各自 closure8/closure9 的 Word 构建。
+> 这些 build 及其报告**未删除、未改写**，指针副本保留为
+> `case_00N_current_build_superseded_by_word_source_fidelity_arch{2,3}.json`。
+
+人工状态（自动化**不**代勾选）：
+
+```
+CASE001_XLSX_MANUAL_REVIEW = HUMAN_PASS      （不可变哈希 034DEDBC…E1764，72 675 B，未改动）
+CASE002_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED
+CASE003_XLSX_MANUAL_REVIEW = NOT_YET_CONFIRMED
+CASE002_WORD_MANUAL_REVIEW = AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW
+CASE001_WORD_MANUAL_REVIEW = NOT_YET_CONFIRMED（仓库既有状态，未改动）
+CASE003_WORD_MANUAL_REVIEW = NOT_YET_CONFIRMED
+V1_PRODUCTION_CANDIDATE = false
+READY_FOR_SUBMISSION = false
+```
+
+下一动作：用桌面 Microsoft Word 打开上表 CASE002 的**确切** DOCX，按
+`v1_manual_review_checklist.md` 的 Word 小节复核；人工结论**尚未**产生。

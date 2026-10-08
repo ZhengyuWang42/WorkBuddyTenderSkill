@@ -116,26 +116,53 @@ def test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain(t
     )
     output, report = build_source_format_docx(make_project_facts(), template, tmp_path / "blanks.docx")
     document = Document(output)
+    text = "".join(paragraph.text for paragraph in document.paragraphs)
     assert len(document.tables) == 0
     assert len(document.paragraphs) == 2
-    assert "_" not in "".join(paragraph.text for paragraph in document.paragraphs)
-    assert "\u00a0" not in "".join(paragraph.text for paragraph in document.paragraphs)
-    assert any("\u2007" in paragraph.text for paragraph in document.paragraphs)
-    # Round 5.6: a source *drawn* rule must render as one continuous underlined
-    # Word run.  An underscore tab leader paints separate underscore glyphs and
-    # is a different blank mechanism, so it is no longer emitted for vector
-    # rules (see tests/test_round56_source_visual_fidelity.py).
+    # THE GLYPH IS NOT THE CONTRACT.  An underscore run, a non-breaking space and
+    # a U+2007 figure space are all *invented literal text*: each one either
+    # reports itself back as source underscores or is a filler the source never
+    # drew.  The source's own measured span is the contract, so none of them may
+    # appear - the blank is a native, editable Word run of the rule's own width.
+    assert "_" not in text
+    assert "\u00a0" not in text
+    assert "\u2007" not in text
     assert docx_layout_counts(output)["layout_tab_count"] == 0
+    # A source *drawn* rule is delivered as one visible editable blank whose
+    # painted width is the rule's own span within the emitter's tolerance.
+    visible = [blank for blank in report["editable_blanks"] if blank["visible"]]
+    assert len(visible) == 1, report["editable_blanks"]
+    rule = visible[0]
+    assert rule["render_style"] == "BOTTOM_RULE"
+    assert (rule["source_x0"], rule["source_x1"]) == (145.0, 300.0)
+    assert abs(rule["width_pt"] - (300.0 - 145.0)) <= 0.25
+    assert abs(rule["rendered_width_pt"] - rule["width_pt"]) <= 0.25
+    assert report["visible_rule_blanks"] == 1
+    assert report["nbsp_only_placeholder_count"] == 0
+    assert report["blank_width_error_max"] <= 0.25
+    # The rule survives as a native underlined run rather than as a glyph.
     underlined = [
         run
         for paragraph in document.paragraphs
         for run in paragraph.runs
-        if run.underline and "\u2007" in (run.text or "")
+        if run.underline
     ]
     assert underlined, "the drawn rule must survive as an underlined run"
-    assert report["visible_rule_blanks"] == 1
+    assert all(
+        (run.text or "").strip("\u2007\u00a0 _") == "" for run in underlined
+    ), [run.text for run in underlined]
+    # A plain empty source region acquires no invented rule at all: it is
+    # registered so the source's empty is accounted for, and it stays invisible.
+    plain_blanks = [
+        blank for blank in report["editable_blanks"] if not blank["visible"]
+    ]
+    assert len(plain_blanks) == 1
+    assert plain_blanks[0]["render_style"] == "PLAIN_EMPTY"
     assert report["plain_empty_blanks"] == 1
-    assert report["nbsp_only_placeholder_count"] == 0
+    # The labels survive on their own paragraphs, so the blank did not consume
+    # the text around it.
+    assert document.paragraphs[0].text.startswith("供应商")
+    assert document.paragraphs[1].text.startswith("投标人")
 
 
 def test_project_number_and_signature_rows_use_editable_lines(tmp_path):

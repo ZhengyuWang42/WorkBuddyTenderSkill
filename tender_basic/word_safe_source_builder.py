@@ -81,6 +81,13 @@ parse_inline_rule_composition_token,
     restore_inline_rule_blanks,
 )
 
+from .source_paragraph_layout import (  # noqa: E402 - grouped after page_layout
+    ALIGNMENT_CENTER,
+    ALIGNMENT_RIGHT,
+    audit_docx_paragraph_positioning,
+    derive_source_paragraph_layout_contract,
+)
+
 ALIGN = {
     'left': WD_ALIGN_PARAGRAPH.LEFT,
     'center': WD_ALIGN_PARAGRAPH.CENTER,
@@ -88,11 +95,50 @@ ALIGN = {
     'justify': WD_ALIGN_PARAGRAPH.JUSTIFY,
 }
 
+#: PARAGRAPH-FLOW-FIRST.  A paragraph-like source item's placement is owned by
+#: Word paragraph formatting, not by a chain of tab stops, so the emitter derives
+#: one ``SourceParagraphLayoutContract`` per paragraph and writes exactly it.
+#: ``w:jc`` is written by index because that is what the emitter already used.
+WORD_ALIGNMENT_INDEX = {"left": 0, "center": 1, "right": 2, "justify": 3}
+
+#: The source's own row geometry may *upgrade* a left hint to centred or
+#: right-aligned only when the geometry is unambiguous, and only for a paragraph
+#: whose own role does not already own its horizontal placement (a form row, a
+#: list marker, a caption and a heading are positioned by their role).
+PARAGRAPH_FLOW_ALIGNMENT_CONFIDENCE = 0.85
+ROLE_OWNED_ALIGNMENT_KINDS = frozenset({"FormRow", "List", "Caption", "Heading"})
+
 #: A FIGURE SPACE carries the font's own digit advance, which is half an em in
 #: the source fonts this emitter reads.  An inline blank's width is the source
 #: rule's own width, so the emitter paints whole figure spaces and rides the
 #: remainder on the run's character spacing rather than rounding the rule away.
 FIGURE_SPACE_ADVANCE_RATIO = 0.5
+
+#: The printable left bound of a page, in points.  A source body boundary left of
+#: the stable section frame is element-level geometry (``w:ind/@w:left`` goes
+#: negative), but it can never push text off the page itself.  Mirrors
+#: ``source_page_frame.MIN_FRAME_MARGIN_PT``, the frame module's own printable
+#: floor, so the two cannot disagree about where print begins.
+MIN_PRINTABLE_BODY_LEFT_PT = 18.0
+
+#: How far a whole-number figure-space run may differ from the source rule's own
+#: measured width before the exact intrinsic spacer owns the blank instead.  The
+#: floor is a tenth of a millimetre: below it the approximation is invisible at
+#: delivery resolution, above it one over-wide blank can wrap a row the source
+#: keeps on one line.
+BLANK_WIDTH_TOLERANCE_PT = 0.25
+
+#: Separation kept between the modelled cursor and a forward anchor tab stop.
+#: Word skips a stop the cursor has already reached, so a stop that merely ties
+#: with the cursor is not a forward move; this keeps the anchor unambiguously
+#: ahead of the text already emitted on the line.
+TAB_CURSOR_CLEARANCE_PT = 0.5
+
+#: The source's own x-measurement tolerance.  A position the source itself named
+#: (a rule extent, a token box) is uncertain only by this much, which is the same
+#: tolerance the repo already uses to decide whether two source columns are the
+#: same column.
+SOURCE_X_TOLERANCE_PT = 2.0
 
 #: The widest per-character correction the emitter will ask a run for.  Beyond
 #: it the width is better approximated by one fewer glyph, and a larger spacing
@@ -283,21 +329,85 @@ class ParagraphFormRenderer:
     def _record_fill(self, slot, value, method, run, paragraph):
         self.builder._record_fill(slot, value, method, run, paragraph)
 
+    def _figure_space_blank_runs(self, paragraph, display_width, source):
+        """Emit a visible blank at ``display_width`` and report the mechanism.
+
+        TWO BLANK MECHANISMS, ONE DECISION.  A run of U+2007 figure spaces can
+        only paint a width that is a whole multiple of the glyph's advance, so it
+        approximates an arbitrary source rule; the run's own character spacing
+        paints the remainder exactly.  A source rule whose measured width is not
+        reachable this way (the cover's money slot: 54.00 pt against a 6.60 pt
+        advance) was emitted 5.4 pt too wide, and one visibly over-wide blank is
+        enough to wrap the row the source keeps on one line - the row's trailing
+        ``；`` moved to the next line and the 投标函 then spilled onto a second
+        page.  Where the count cannot reproduce the source width within the
+        tolerance below, the exact intrinsic spacer (the mechanism the date rows
+        already use) owns the width instead; both mechanisms take their width from
+        the source span, so neither may invent or clip a rule.
+
+        Returns ``(mechanism, rendered_width_pt)``.
+        """
+
+        size = max(6.0, float(getattr(source, "font_size", 0) or 10.5))
+        # The advance is the *measured* advance of one figure space in this run's
+        # own font - the same measurement the count itself is taken from - never a
+        # nominal ratio: a nominal half em said nine glyphs paint the 54.00 pt
+        # cover money slot exactly, while the delivered font paints 6.60 pt each
+        # (59.4 pt, 5.4 pt too wide) which wrapped the row onto a second line.
+        advance = 0.0
+        try:
+            advance = float(self.builder._form_text_width("\u2007", size) or 0.0)
+        except Exception:  # pragma: no cover - defensive metrics boundary
+            advance = 0.0
+        if advance <= 0.1:
+            advance = size * 0.55
+        count = max(2, int(round(float(display_width) / advance)))
+        if abs(count * advance - float(display_width)) <= BLANK_WIDTH_TOLERANCE_PT:
+            self.builder._add_run(paragraph, "\u2007" * count, source, underline=True)
+            self.builder.tab_stop_usage["figure_space_blank_runs"] = (
+                self.builder.tab_stop_usage.get("figure_space_blank_runs", 0) + 1
+            )
+            return "FIGURE_SPACE", round(count * advance, 4)
+        rendered = self._intrinsic_spacer(
+            paragraph, float(display_width), source, underlined=True
+        )
+        self.builder.tab_stop_usage["exact_blank_runs"] = (
+            self.builder.tab_stop_usage.get("exact_blank_runs", 0) + 1
+        )
+        return "INTRINSIC_SPACER", round(float(rendered), 4)
+
     def _render_figure_blank(self, paragraph, blank, source, *, content_right):
         """Render a visible blank when punctuation follows the field.
 
         A terminal/near-terminal tab leader is not painted consistently by
         all Word-compatible renderers when the next character is punctuation.
-        Figure spaces keep that field on the same physical line without
-        introducing a second paragraph or an underscore placeholder.
+        The blank keeps that field on the same physical line without
+        introducing a second paragraph or an underscore placeholder, and its
+        width is the source rule's own measured width.
         """
         display_x1=min(float(blank.source_x1), float(content_right))
         display_width=max(1.0, display_x1-float(blank.source_x0))
         self.builder._register_blank(blank, rendered_width=display_width, visible=True)
-        size=max(6.0, float(getattr(source, 'font_size', 10.5) or 10.5))
-        count=max(2, int(round(display_width/(size*.55))))
-        self.builder._add_run(paragraph, '\u2007'*count, source, underline=True)
+        mechanism, rendered = self._figure_space_blank_runs(paragraph, display_width, source)
+        self._record_blank_mechanism(blank, mechanism, display_width, rendered)
         return True
+
+    def _record_blank_mechanism(self, blank, mechanism, target, rendered):
+        """Carry the blank's own mechanism and fidelity into the evidence."""
+
+        try:
+            self.builder._diagnostic_records("blank_mechanism_records").append(
+                {
+                    "source_x0": round(float(blank.source_x0), 2),
+                    "source_x1": round(float(blank.source_x1), 2),
+                    "target_width_pt": round(float(target), 2),
+                    "rendered_width_pt": round(float(rendered), 2),
+                    "mechanism": mechanism,
+                    "width_error_pt": round(abs(float(rendered) - float(target)), 2),
+                }
+            )
+        except (AttributeError, TypeError, ValueError):  # pragma: no cover - evidence only
+            pass
 
     #: Round 5.6 blank kinds that the source draws as a solid line.  Word
     #: renders an underlined run as one continuous rule, so this is the
@@ -524,6 +634,17 @@ class ParagraphFormRenderer:
         Returns one ``(x0, x1)`` pair per printed token, in row order, or an
         empty list when the row's geometry does not pair one visual line with
         each printed token.
+
+        A DATE ROW'S PRINT ORDER IS ITS X ORDER.  The extractor groups a date
+        row's labels by baseline first, and the source sets them with a sub-point
+        baseline difference (the cover's ``____年 ____月 ____日`` carries 年 and 日
+        on one baseline and 月 0.36 pt lower), which ordered the boxes 年, 日, 月.
+        Every gap the row then measured was taken between the wrong pair of
+        labels: the month's interval ran on to the *day* label, so its own slot
+        was followed by a 50.9 pt open run, the row's cursor jumped past the day
+        slot, and the third blank became unreachable and was dropped altogether.
+        The printed sequence of a date row is its left-to-right sequence, so the
+        boxes are sorted by x before they are paired with the tokens.
         """
 
         lines = list(getattr(getattr(row, "item", None), "source_lines", ()) or ())
@@ -533,6 +654,7 @@ class ParagraphFormRenderer:
             if not bbox or not str(getattr(line, "text", "") or "").strip():
                 return []
             boxes.append((float(bbox[0]), float(bbox[2])))
+        boxes.sort(key=lambda box: box[0])
         return boxes
 
     @staticmethod
@@ -741,9 +863,8 @@ class ParagraphFormRenderer:
         display_x1 = min(float(blank.source_x1), float(content_right))
         display_width = max(1.0, min(float(width), display_x1 - float(blank.source_x0)))
         self.builder._register_blank(blank, rendered_width=display_width, visible=True)
-        size = max(6.0, float(getattr(source, "font_size", 10.5) or 10.5))
-        count = max(2, int(round(display_width / (size * .55))))
-        self.builder._add_run(paragraph, '\u2007' * count, source, underline=True)
+        mechanism, rendered = self._figure_space_blank_runs(paragraph, display_width, source)
+        self._record_blank_mechanism(blank, mechanism, display_width, rendered)
         self.builder.tab_stop_usage['solid_rule_blanks'] = (
             self.builder.tab_stop_usage.get('solid_rule_blanks', 0) + 1
         )
@@ -846,7 +967,8 @@ class ParagraphFormRenderer:
         )
         return round(min(0.0, float(page_content_x1) - right), 2)
 
-    def _render_row(self, doc, row, block, *, page_content_x0, page_content_x1, scale, space_before):
+    def _render_row(self, doc, row, block, *, page_content_x0, page_content_x1, scale, space_before,
+                    block_line_pitch_pt=None):
         source = self._source_run(row)
         p = doc.add_paragraph(style='Normal')
         role = self._role(row)
@@ -905,8 +1027,18 @@ class ParagraphFormRenderer:
         pf.first_line_indent = Pt(0)
         pf.space_before = Pt(max(0.0, space_before))
         pf.space_after = Pt(0)
+        # THE ROW'S OWN PITCH, or its block's.  A form block's rows are one pitch
+        # apart; the pitch is measured for the block (and for a row whose own
+        # measure is missing the block's is the same number).  Reading only the
+        # row left the signature/contact block at the style's default line height
+        # (16.9 pt against the source's 23.28 pt), so the block was delivered
+        # 6.4 pt per row tighter than the source drew it and the letter's own
+        # vertical rhythm was lost.
+        row_pitch = float(getattr(row.item, "line_pitch_pt", 0.0) or 0.0)
+        if row_pitch <= 0.0:
+            row_pitch = float(block_line_pitch_pt or 0.0)
         spacing = infer_semantic_line_spacing(
-            row.item.font_size_pt, row.item.line_pitch_pt * scale,
+            row.item.font_size_pt, row_pitch * scale,
             source_locator=row.item.source.locator,
         )
         pf.line_spacing = spacing.word_value
@@ -1103,8 +1235,10 @@ class ParagraphFormRenderer:
                     display_x1 = min(float(blank.source_x1), float(page_content_x1))
                     display_width = max(1.0, display_x1 - float(blank.source_x0))
                     self.builder._register_blank(blank, rendered_width=display_width, visible=True)
-                    count = max(2, self._figure_space_count(display_width, source, row.item.font_size_pt))
-                    self.builder._add_run(p, '\u2007' * count, source, underline=True)
+                    mechanism, rendered = self._figure_space_blank_runs(
+                        p, display_width, source
+                    )
+                    self._record_blank_mechanism(blank, mechanism, display_width, rendered)
                     self.builder.tab_stop_usage['date_underlined_runs'] = self.builder.tab_stop_usage.get('date_underlined_runs', 0) + 1
                     previous_anchor = max(previous_anchor, display_x1)
                     cursor_x = max(cursor_x, display_x1)
@@ -1233,20 +1367,39 @@ class ParagraphFormRenderer:
         # gap large enough, against that pitch, to be a boundary rather than a
         # continuation.  Only the boundary keeps its own source gap.  The rhythm
         # record travels with the emission as evidence.
-        self.builder._record_block_rhythm(block, tops)
+        block_rhythm_record = self.builder._record_block_rhythm(block, tops)
+        pitch = 0.0
+        block_gap_indices: tuple = ()
+        if block_rhythm_record is not None:
+            pitch = float(getattr(block_rhythm_record, "line_pitch_pt", 0.0) or 0.0)
+            block_gap_indices = tuple(
+                getattr(block_rhythm_record, "block_gap_indices", ()) or ()
+            )
         for index, row in enumerate(block.row_geometries):
             if index == 0:
                 gap = max(0.0, float(initial_space_before))
             else:
-                gap = self.builder._rhythm.snap(
-                    max(0.0, row.item.bbox[1] - previous_bottom) * scale
-                )
+                source_gap = max(0.0, row.item.bbox[1] - previous_bottom) * scale
+                snapped = self.builder._rhythm.snap(source_gap)
+                # ONE PITCH IS THE ROW'S OWN ADVANCE, NOT EXTRA SPACE.  Consecutive
+                # rows of one source block are one line pitch apart, and the
+                # paragraph already advances by its own line height, so charging
+                # the whole gap as ``space_before`` counted the pitch twice: the
+                # letter's contact block came out 4.9 pt taller per row than the
+                # source drew it and pushed the document's only date row onto a
+                # second page.  A gap that is not a block boundary therefore
+                # contributes nothing, and a boundary contributes only the excess
+                # over one pitch - the source's own spacing, counted once.
+                gap = 0.0
+                if index - 1 in block_gap_indices and pitch > 0.0:
+                    gap = max(0.0, snapped - pitch * scale)
             paragraph, layout = self._render_row(
                 doc, row, block,
                 page_content_x0=page_content_x0,
                 page_content_x1=page_content_x1,
                 scale=scale,
                 space_before=gap,
+                block_line_pitch_pt=pitch,
             )
             paragraphs.append((paragraph, layout, row))
             previous_bottom = row.item.bbox[3]
@@ -1306,6 +1459,36 @@ def flow_cursor_blank_representation(in_table_cell, source_visual_row_count) -> 
 
 
 class WordSafeSourceDocumentBuilder:
+    #: DEFAULTS FOR THE ROW-CURSOR DIAGNOSTICS.  These counters are initialised per
+    #: instance, but a builder can also be constructed on a path that never runs
+    #: this class's ``__init__`` (test harnesses and subclasses that build their own
+    #: template), and a counter read before it is set would turn a diagnostic into
+    #: an AttributeError.  Only immutable defaults belong at class level: a shared
+    #: mutable list would leak records between builder instances.
+    default_tab_fallthrough_risk_count = 0
+    tabs_without_explicit_stop_count = 0
+    consecutive_blank_double_ownership_count = 0
+    cursor_recomputed_from_paragraph_width_count = 0
+    safe_forward_tab_count = 0
+    unsafe_marginal_forward_tab_count = 0
+    inline_due_to_cursor_uncertainty_count = 0
+    tied_or_backward_tab_suppressed_count = 0
+    redundant_suffix_tab_suppressed_count = 0
+    #: Record lists default to ``None`` and are created *per instance* on first
+    #: write, so a builder constructed outside ``__init__`` still records, and no
+    #: two builders ever share one list.
+    blank_mechanism_records = None
+    source_row_cursor_records = None
+
+    def _diagnostic_records(self, name: str) -> list:
+        """The instance's own record list, created on demand."""
+
+        records = self.__dict__.get(name)
+        if records is None:
+            records = []
+            self.__dict__[name] = records
+        return records
+
     def __init__(self, facts, template, *, page_scales=None):
         self.facts, self.template = facts, template
         self.filled = []
@@ -1357,8 +1540,50 @@ class WordSafeSourceDocumentBuilder:
         self.flow_inline_blank_count = 0
         self.paragraph_x_errors = []
         self.paragraph_y_errors = []
+        #: PARAGRAPH-FLOW-FIRST.  One ``SourceParagraphLayoutContract`` per emitted
+        #: paragraph-like item: the primary Word layout plan (frame, indents,
+        #: alignment, line spacing, spacing, font) that the emitter wrote.  It is
+        #: recorded so the report can prove the paragraph's placement was owned by
+        #: paragraph formatting rather than by a chain of tabs.
+        self.source_paragraph_layout_contracts: list[dict] = []
         self.form_renderer = ParagraphFormRenderer(self)
         self.vector_blanks_recovered = 0
+        #: Per-blank mechanism and width fidelity: which representation painted
+        #: each visible blank and how far its rendered width is from the source
+        #: rule's own measured span.
+        self.blank_mechanism_records: list[dict] = []
+        #: Tabs that would have let Word choose its own default stop because no
+        #: explicit source-derived stop was ahead of the cursor.  A source form
+        #: row has measured geometry, so this must stay zero.
+        self.default_tab_fallthrough_risk_count = 0
+        #: Blank spans whose leader already terminated at the next source token, so
+        #: a suffix tab would have re-owned a displacement nothing left free.
+        self.redundant_suffix_tab_suppressed_count = 0
+        #: Tabs refused because their own target was tied with or behind the row
+        #: cursor (they could only have moved the cursor through Word's default
+        #: interval, which is not a source-geometry mechanism).
+        self.tied_or_backward_tab_suppressed_count = 0
+        #: Positioned spans whose interval was already owned by an earlier
+        #: construct on the same row, so two owners would have shared one interval.
+        self.consecutive_blank_double_ownership_count = 0
+        #: Tabs whose target was safely beyond the row cursor's own uncertainty
+        #: band, so the move cannot be resolved against Word's default interval.
+        self.safe_forward_tab_count = 0
+        #: Tabs that were nominally forward but lay inside the cursor's uncertainty
+        #: band, so they were refused and the blank's leader/inline mechanism took
+        #: the position instead.
+        self.unsafe_marginal_forward_tab_count = 0
+        #: Blanks delivered at the cursor because no stop was safely forward.
+        self.inline_due_to_cursor_uncertainty_count = 0
+        #: Tabs emitted without their own explicit stop.  A source form row has
+        #: measured geometry, so this must stay zero.
+        self.tabs_without_explicit_stop_count = 0
+        #: Cursor reconstructions from paragraph-wide text on a migrated
+        #: source-form positioned row: must stay zero (the row cursor is the
+        #: authority once a positioned construct has moved it).
+        self.cursor_recomputed_from_paragraph_width_count = 0
+        #: One entry per cursor movement, in emission order: the row ledger.
+        self.source_row_cursor_records: list[dict] = []
         #: Round 5.8 rule-relation state: the current page's classified rule
         #: relations, the underline-rule extents applied to owning runs, and the
         #: paragraph currently being emitted at a source-positioned blank.
@@ -1471,7 +1696,178 @@ class WordSafeSourceDocumentBuilder:
     def _add_run(self, paragraph, text, source=None, underline=None, spacing_pt=None):
         """Hook for the style-first builder; the Round 4.9 path is unchanged."""
 
-        return add_safe_run(paragraph, text, source, underline, spacing_pt=spacing_pt)
+        run = add_safe_run(paragraph, text, source, underline, spacing_pt=spacing_pt)
+        self._advance_row_cursor_for_text(paragraph, text, source)
+        return run
+
+    def _delivered_row_origin(self, paragraph, fragment_text=None) -> float:
+        """Where Word places a fragment that opens a new row of this paragraph.
+
+        The paragraph's own layout owns this: ``w:ind/@w:left`` and the first-line
+        offset move where its text starts without moving the tab ruler.  A line the
+        emitter opened with an explicit break has no first-line offset, which is
+        why the frame declares both origins instead of one.
+
+        The fragment's own text is discounted first, because the caller has already
+        appended it: what is being asked is which line the fragment *opens*, and a
+        newline it carries itself does not move the line it starts on.
+        """
+
+        try:
+            frame = paragraph_coordinate_frame(paragraph, 0.0, 0.0)
+        except Exception:  # pragma: no cover - defensive geometry boundary
+            return 0.0
+        try:
+            text = str(paragraph.text or "")
+        except Exception:  # pragma: no cover - defensive document boundary
+            return float(frame.effective_line_origin_x)
+        tail = str(fragment_text or "")
+        if tail and text.endswith(tail):
+            text = text[: len(text) - len(tail)]
+        if "\n" in text:
+            return float(frame.current_line_origin_x)
+        return float(frame.effective_line_origin_x)
+
+    def _advance_row_cursor_for_text(self, paragraph, text, source=None):
+        """Advance the row cursor by the measured advance of *newly* emitted text.
+
+        THE ROW CURSOR IS STATEFUL.  Once a source-form construct has moved the
+        cursor - an anchor tab, a leader tab, a positioned blank, an intrinsic
+        spacer - the cursor's own recorded absolute position is the authority, and
+        ordinary text advances it by that text's own measured width.  Rebuilding
+        the position from every character already written into the paragraph is
+        what made a later blank's own explicit stop read as "behind the cursor",
+        so its tab was suppressed and Word resolved the move against its own
+        default interval instead.
+
+        Only ordinary glyphs advance the cursor here: a tab is a cursor *move*
+        owned by its own emitter, and a blank spacer's width is owned by the blank
+        that emitted it, so neither may be counted a second time.
+        """
+
+        value = str(text or "")
+        if not value or "\t" in value:
+            return
+        if not value.strip("\u2007\u00a0 \u3000"):
+            return
+        state = self._row_cursor_state()
+        if state.get("paragraph_id") != id(paragraph):
+            # A new emission context (a new Word paragraph) is a new row: adopt it
+            # and let the source's own first fragment initialize the cursor below.
+            state.update(
+                {
+                    "paragraph_id": id(paragraph),
+                    "absolute_x_pt": None,
+                    "uncertainty_pt": SOURCE_X_TOLERANCE_PT,
+                    "authoritative": False,
+                    "last_owner_kind": None,
+                    "last_owner_source_x0": None,
+                    "last_owner_source_x1": None,
+                }
+            )
+        size = max(6.0, float(getattr(source, "font_size", 0) or 10.5))
+        advance = self._form_advance_width(value, size)
+        if advance <= 0.0:
+            return
+        box = getattr(source, "bbox", None)
+        if state.get("absolute_x_pt") is None:
+            # ROW INITIALIZATION FROM THE SOURCE'S OWN FIRST FRAGMENT.  A row is
+            # initialized where the source *drew* its first text, not from a model
+            # run over the paragraph: the source box states both the start and the
+            # end of what was emitted, so the cursor is source-authoritative from
+            # the row's very first fragment.  Without this the leading text of a
+            # freshly opened paragraph left the cursor unset, the next blank was
+            # judged against a modelled position, and the source's own inter-run
+            # gap was dropped as unreachable.
+            if box is None:
+                return
+            try:
+                ink_start_x = float(box[0])
+            except (TypeError, ValueError, IndexError):
+                return
+            # PARAGRAPH FLOW IS PRIMARY.  Word places this fragment at the
+            # paragraph's own line origin - the section text margin plus this
+            # paragraph's left indent and this line's first-line offset - so that
+            # is where the delivered cursor stands.  The source run's own ink box
+            # is evidence for where the paragraph's indent *should* be, not a
+            # second origin: when a paragraph's declared origin sits right of the
+            # ink start, Word renders the text at the declared origin, and seeding
+            # the cursor from the ink box would place it a whole first-line offset
+            # to the left of where the text actually stands.  That is what made a
+            # fill rule starting exactly at the label's delivered end read as a
+            # forward move and earn a redundant anchor tab.
+            start_x = max(ink_start_x, self._delivered_row_origin(paragraph, value))
+            state.update(
+                {
+                    "tab_origin_x_pt": float(state.get("tab_origin_x_pt") or 0.0),
+                    "absolute_x_pt": start_x,
+                    "uncertainty_pt": SOURCE_X_TOLERANCE_PT,
+                    "authoritative": True,
+                    "last_owner_kind": "SOURCE_ROW_FIRST_FRAGMENT",
+                    "last_owner_source_x0": round(start_x, 4),
+                    "last_owner_source_x1": None,
+                }
+            )
+        # THE FRAGMENT'S OWN ADVANCE UNCERTAINTY, MEASURED.  Two measurements of
+        # the same text exist: the emitter's modelled advance, and the source's own
+        # glyph extent.  Their disagreement is the model error for this very
+        # fragment - not an assumed worst case - and the delivered cursor can also
+        # stand one trailing advance past its last glyph's ink box, because that
+        # box is the ink extent and never the advance.  The bound accumulates those
+        # two measured quantities, so it grows with the text actually emitted
+        # instead of being a fixed guess.
+        uncertainty = 0.0
+        ink_width = None
+        box = getattr(source, "bbox", None)
+        if box is not None:
+            try:
+                ink_width = abs(float(box[2]) - float(box[0]))
+            except (TypeError, ValueError, IndexError):
+                ink_width = None
+        if ink_width and ink_width > 0.0:
+            uncertainty += abs(advance - ink_width)
+        last_glyph = next(
+            (character for character in reversed(value) if not character.isspace()),
+            None,
+        )
+        if last_glyph is not None:
+            uncertainty += self._form_text_width(last_glyph, size)
+        # THE SOURCE'S OWN TOKEN EXTENT OWNS WHERE THE TEXT ENDS.  The modelled
+        # advance cannot see source spacing the extractor kept outside the text -
+        # on the 授权委托书 opening row the source's own text ends at 453.36 while
+        # the model measured 445.1, an 8.26 pt shortfall - and that shortfall is
+        # what made the next blank's anchor look like a forward move when the
+        # source had already placed its text at the blank's own start.  Where the
+        # emitted fragment is the source run's own text, the run's measured end is
+        # the authoritative cursor; the model only ever supplies a lower bound, and
+        # the residual between the two is recorded.
+        reconciled_x = None
+        if ink_width and ink_width > 0.0:
+            source_text = str(getattr(source, "text", "") or "")
+            if source_text.strip() == value.strip():
+                reconciled_x = float(box[2])
+        target_x = state["absolute_x_pt"] + advance
+        if reconciled_x is not None and reconciled_x > target_x:
+            self.tab_stop_usage["row_cursor_text_source_reconciliations"] = (
+                self.tab_stop_usage.get("row_cursor_text_source_reconciliations", 0) + 1
+            )
+            self.tab_stop_usage["row_cursor_text_model_shortfall_pt"] = round(
+                max(
+                    float(
+                        self.tab_stop_usage.get("row_cursor_text_model_shortfall_pt")
+                        or 0.0
+                    ),
+                    reconciled_x - target_x,
+                ),
+                2,
+            )
+            target_x = reconciled_x
+        self._row_cursor_advance_text(
+            paragraph,
+            target_x - state["absolute_x_pt"],
+            float(state.get("tab_origin_x_pt") or 0.0),
+            uncertainty_pt=uncertainty,
+        )
 
     def _source_extent_for_text_range(self, runs, text, start, end):
         """Source x extent of ``text[start:end]``, measured inside its runs.
@@ -1539,6 +1935,14 @@ class WordSafeSourceDocumentBuilder:
         page = getattr(slot, "source_page", None)
         start = getattr(slot, "text_start", None)
         end = getattr(slot, "text_end", None)
+        # OWNED SOURCE RULE.  When the slot itself owns the rule the source drew
+        # for its blank, that ownership *is* the decoration: the resolved value
+        # occupies the drawn blank and keeps its line.  The claim is read from the
+        # slot's own recorded geometry, so no page, case, label or page-number
+        # identity takes part in the decision.
+        owned_rule = getattr(slot, "owned_source_rule", None)
+        if owned_rule:
+            return True
         extent = None
         if runs is not None and text is not None and start is not None and end is not None:
             extent = self._source_extent_for_text_range(runs, text, start, end)
@@ -1725,7 +2129,9 @@ class WordSafeSourceDocumentBuilder:
             return 0.0
         return float(getattr(value, "pt", 0.0) or 0.0)
 
-    def _apply_source_paragraph_indent(self, paragraph_format, item, page_content_x0) -> dict:
+    def _apply_source_paragraph_indent(
+        self, paragraph_format, item, page_content_x0, *, alignment_hint=None
+    ) -> dict:
         """Write a paragraph's source-derived left and first-line indents.
 
         One implementation, used by both builders, so a paragraph cannot be
@@ -1736,9 +2142,19 @@ class WordSafeSourceDocumentBuilder:
         indent, zero when the source gives the first row no special position.
         A centred line has no body boundary to relate its first row to, so it
         carries no indent at all.
+
+        ``alignment_hint`` is the alignment the paragraph's own layout plan
+        actually applied.  It is passed explicitly because the plan may upgrade a
+        plain ``left`` hint to centred or right-aligned from the source's row
+        geometry, and the indent has to follow the alignment that was written
+        rather than the hint it replaced.
         """
 
-        centred = str(getattr(item, "alignment_hint", "") or "") == "center"
+        centred = str(
+            alignment_hint
+            if alignment_hint is not None
+            else getattr(item, "alignment_hint", "") or ""
+        ) == "center"
         if centred:
             paragraph_format.left_indent = Pt(0)
             paragraph_format.first_line_indent = Pt(0)
@@ -1747,10 +2163,31 @@ class WordSafeSourceDocumentBuilder:
                 "first_line_indent_pt": 0.0,
                 "basis": "CENTERED_LINE",
             }
-        left = max(
-            0.0,
-            float(getattr(item, "left_indent_pt", 0.0) or 0.0) - float(page_content_x0),
-        )
+        source_left = float(getattr(item, "left_indent_pt", 0.0) or 0.0)
+        measured_indent = getattr(item, "source_indent", None) is not None
+        left = source_left - float(page_content_x0)
+        if not measured_indent or source_left <= 0.0:
+            # A paragraph whose body boundary the source never exposed claims none:
+            # it keeps the accepted geometry instead of inventing a boundary left
+            # of the frame.
+            left = max(0.0, left)
+            boundary_basis = "MODEL_LEFT_AND_FIRST_LINE"
+        else:
+            # THE FRAME IS A BOUND, NOT A FLOOR.  A source page's own body boundary
+            # may sit left of the stable section frame - the frame is derived from
+            # the *repeated* anchors across the page group, and one page's form
+            # column is exactly the kind of element-level geometry that must ride
+            # on the element.  w:ind/@w:left therefore goes negative by the
+            # difference, the same way a source overhang rides on w:ind/@w:right,
+            # and the paragraph starts where the source drew it instead of wrapping
+            # every line 19 pt early.  Only the printable page bounds it: tab stops
+            # are measured from the section margin, so they are unaffected.
+            left = max(left, MIN_PRINTABLE_BODY_LEFT_PT - float(page_content_x0))
+            boundary_basis = (
+                "SOURCE_BODY_BOUNDARY_LEFT_OF_FRAME"
+                if left < 0.0
+                else "SOURCE_INDENT_CLASSIFICATION"
+            )
         first_line = float(getattr(item, "first_line_indent_pt", 0.0) or 0.0)
         paragraph_format.left_indent = Pt(left)
         paragraph_format.first_line_indent = Pt(first_line)
@@ -1763,6 +2200,108 @@ class WordSafeSourceDocumentBuilder:
                 if indent is not None
                 else "MODEL_LEFT_AND_FIRST_LINE"
             ),
+            "boundary_basis": boundary_basis,
+            "source_body_left_pt": round(source_left, 4),
+            "section_content_x0_pt": round(float(page_content_x0), 4),
+        }
+
+    def _source_paragraph_layout_plan(
+        self,
+        paragraph,
+        item,
+        *,
+        page_content_x0,
+        page_content_x1=None,
+        page=None,
+        space_before=0.0,
+        scale=1.0,
+    ):
+        """Apply and record the primary Word layout plan for one paragraph item.
+
+        PARAGRAPH FLOW IS PRIMARY.  The plan is derived from the source's own
+        measured geometry - the section frame, the paragraph's body boundary, its
+        first-line offset, its alignment, its line rhythm and its font - and its
+        horizontal placement is written as Word paragraph formatting.  No tab stop
+        is written, because an ordinary paragraph's position *is* paragraph
+        formatting by construction; a tab remains the exception mechanism for a
+        genuinely discrete source field, which is not what this method emits.
+
+        A paragraph's own role keeps the alignment it declares.  The source's row
+        extents may upgrade a plain ``left`` hint to centred or right-aligned, but
+        only when the geometry is unambiguous and the paragraph's kind does not
+        already own its placement.
+
+        Returns ``(contract, applied_alignment_hint)`` so the caller writes its
+        indents against the same alignment the plan chose.
+        """
+
+        contract = derive_source_paragraph_layout_contract(
+            item,
+            page_content_x0=page_content_x0,
+            page_content_x1=page_content_x1,
+            page_width=float(getattr(page, "width", 0.0) or 0.0),
+            page_height=float(getattr(page, "height", 0.0) or 0.0),
+            scale=scale,
+            space_before=space_before,
+        )
+        source_hint = str(getattr(item, "alignment_hint", "") or "left").lower()
+        applied_hint = source_hint
+        if (
+            source_hint == "left"
+            and contract.alignment in (ALIGNMENT_CENTER, ALIGNMENT_RIGHT)
+            and contract.alignment_confidence
+            >= PARAGRAPH_FLOW_ALIGNMENT_CONFIDENCE
+            and str(getattr(item, "kind", "")) not in ROLE_OWNED_ALIGNMENT_KINDS
+        ):
+            applied_hint = contract.alignment_hint
+        paragraph.alignment = WORD_ALIGNMENT_INDEX.get(applied_hint, 0)
+        record = contract.as_dict()
+        record.update(
+            {
+                "paragraph_index": len(paragraph.part.document.paragraphs) - 1,
+                "kind": getattr(item, "kind", None),
+                "source_alignment_hint": source_hint,
+                "applied_alignment_hint": applied_hint,
+                "alignment_owner": (
+                    "SOURCE_PARAGRAPH_GEOMETRY"
+                    if applied_hint != source_hint
+                    else "SOURCE_ROLE_OR_SOURCE_HINT"
+                ),
+                "paragraph_positioning_owner": "WORD_PARAGRAPH_FORMATTING",
+            }
+        )
+        self.source_paragraph_layout_contracts.append(record)
+        return contract, applied_hint
+
+    def _paragraph_positioning_tab_audit(self, path) -> dict:
+        """The ``PARAGRAPH_FLOW_FIRST`` architecture gate, measured on the artifact.
+
+        DURABLE GENERIC DIAGNOSTIC.  The counter names are the architecture's own
+        invariants: a paragraph positioned by a tab that merely re-creates its
+        origin or indent, or by a whitespace run that reaches the frame's centre
+        or right edge while ``w:jc`` does not say so, is a positioning hack.  The
+        measured artifact is the evidence, so the gate cannot be satisfied by
+        claiming the emitter intended paragraph formatting.
+        """
+
+        try:
+            audit = audit_docx_paragraph_positioning(path)
+        except Exception as exc:  # pragma: no cover - defensive artifact boundary
+            return {
+                "status": "UNAVAILABLE",
+                "reason": f"the emitted artifact could not be audited: {exc}",
+            }
+        counters = dict(audit["counters"])
+        return {
+            "status": (
+                "PASS"
+                if audit["positioning_tab_free"] and audit["alignment_property_owned"]
+                else "FAIL"
+            ),
+            **counters,
+            "positioning_tab_free": audit["positioning_tab_free"],
+            "alignment_property_owned": audit["alignment_property_owned"],
+            "records": audit["records"][:50],
         }
 
     def _form_advance_width(self, text, font_size):
@@ -1857,8 +2396,38 @@ class WordSafeSourceDocumentBuilder:
         rows = getattr(self, "_form_line_source_rows", set())
         return any(abs(float(row) - float(rule_y)) <= 2.0 for row in rows)
 
+    def _form_line_row_origin_x(self, emitted_before, span_x0, size):
+        """The source x a form row's own text starts at, or ``None``.
+
+        The row's fill rule starts at its own measured ``span_x0`` and the text
+        the row has already emitted advances the cursor from the row's origin to
+        that rule.  Both quantities are the emitter's own: the rule's measured
+        span and the *same* advance model the cursor test uses, so the origin the
+        new paragraph is placed at and the origin the cursor is measured from can
+        never disagree.  Without it the isolated row kept the section margin as
+        its origin, the model read the row's own rule as already behind the
+        cursor, and the blank the rule owns was dropped instead of emitted.
+
+        Returns ``None`` when either quantity is missing, so a row that cannot
+        evidence its origin keeps the accepted paragraph geometry.
+        """
+
+        try:
+            rule_x0 = float(span_x0)
+        except (TypeError, ValueError):
+            return None
+        advance = self._form_advance_width(
+            str(emitted_before or "").replace("\t", ""), size
+        )
+        origin = rule_x0 - float(advance)
+        if origin <= 0.0:
+            return None
+        # Only the printable page bounds it: a form row may legitimately start
+        # left of the stable section frame, exactly as the paragraph indent does.
+        return max(origin, MIN_PRINTABLE_BODY_LEFT_PT)
+
     def _start_source_form_line_paragraph(self, paragraph, source, span=None,
-                                          *, isolation_reason=None):
+                                          *, isolation_reason=None, line_origin_x=None):
         """Begin a SOURCE_FORM_LINE_PARAGRAPH for the next source form line.
 
         A source visual form line that carries its own rule needs its own Word
@@ -1870,6 +2439,15 @@ class WordSafeSourceDocumentBuilder:
         row is never indistinguishable from an unnecessary split.  The default
         reason is the resolved-reflow one: a positioned atom whose anchor the
         cursor has already passed, which no forward tab can reach.
+
+        ``line_origin_x`` is the source x this form line's own text starts at.
+        A form line that owns its geometry owns its *origin* too: leaving the new
+        paragraph at the section margin moved the row's text to the frame's left
+        edge instead of the row's measured start, and the cursor model - which
+        measures the row from that same origin - then reported the row's own fill
+        rule as already behind the cursor and dropped the blank it owns.  The
+        origin is derived by the caller from the row's own measured span and the
+        text the row has already emitted, so no page or case identity is needed.
         """
 
         factory = getattr(self, "_form_line_paragraph_factory", None)
@@ -1892,6 +2470,14 @@ class WordSafeSourceDocumentBuilder:
             "source_rule_ids": [source_rule_id] if source_rule_id else [],
             "source_rule_x0": span_x0,
             "source_rule_x1": span_x1,
+            "line_origin_x": (
+                None if line_origin_x is None else round(float(line_origin_x), 4)
+            ),
+            "line_origin_basis": (
+                None
+                if line_origin_x is None
+                else "SOURCE_ROW_ORIGIN_FROM_ITS_OWN_RULE_AND_EMITTED_TEXT"
+            ),
             "previous_paragraph_index": getattr(self, "_form_line_previous", None),
             "isolation_reason": (
                 isolation_reason
@@ -1915,6 +2501,129 @@ class WordSafeSourceDocumentBuilder:
         # paragraph the row was lifted out of.
         self._current_emission_paragraph = paragraph
         return paragraph
+
+    def _row_cursor_state(self):
+        """The one continuous row-local cursor of the current emission context.
+
+        A source form row is rendered construct by construct - text, then a
+        positioned blank, then more text - and every construct moves the Word
+        cursor.  One state owns that position, in *page* coordinates, and every
+        emitter that moves the cursor updates it; nothing reconstructs the cursor
+        from the paragraph's whole text once a construct has moved it.
+        """
+
+        state = getattr(self, "_source_row_cursor", None)
+        if state is None:
+            state = {
+                "paragraph_id": None,
+                "tab_origin_x_pt": None,
+                "absolute_x_pt": None,
+                "uncertainty_pt": 0.0,
+                "authoritative": False,
+                "last_owner_kind": None,
+                "last_owner_source_x0": None,
+                "last_owner_source_x1": None,
+            }
+            self._source_row_cursor = state
+        return state
+
+    def _row_cursor(self, paragraph, frame, tab_origin):
+        """This paragraph's row cursor, reset when the emission context changes."""
+
+        state = self._row_cursor_state()
+        if state["paragraph_id"] != id(paragraph):
+            state.update(
+                {
+                    "paragraph_id": id(paragraph),
+                    "tab_origin_x_pt": float(tab_origin),
+                    "absolute_x_pt": None,
+                    # The row origin is source-measured, so the only uncertainty
+                    # before any text is emitted is the frame's own rounding.
+                    "uncertainty_pt": SOURCE_X_TOLERANCE_PT,
+                    "authoritative": False,
+                    "last_owner_kind": None,
+                    "last_owner_source_x0": None,
+                    "last_owner_source_x1": None,
+                }
+            )
+            # The row's own start: the first line carries the first-line indent,
+            # an explicitly broken line does not.
+            state["row_origin_x_pt"] = float(frame.effective_line_origin_x)
+        elif state["tab_origin_x_pt"] is None:
+            state["tab_origin_x_pt"] = float(tab_origin)
+        return state
+
+    def _row_cursor_set(self, paragraph, tab_origin, absolute_x_pt, *, owner_kind,
+                        source_x0=None, source_x1=None, authoritative=True,
+                        uncertainty_pt=None):
+        """Record the cursor after one construct, and who moved it.
+
+        A CONSTRUCT THAT OWNED ITS OWN POSITION CONTRACTS THE UNCERTAINTY.  A
+        source-backed tab stop or a measured blank does not merely move the
+        cursor: it *places* it at a coordinate the source itself named, so the
+        accumulated error of the text measured before it no longer applies to the
+        position that follows.  Without that contraction the bound would grow with
+        every character in the row and eventually call every tab unsafe.
+        """
+
+        frame = paragraph_coordinate_frame(
+            paragraph,
+            float(source_x0 if source_x0 is not None else absolute_x_pt),
+            float(source_x1 if source_x1 is not None else absolute_x_pt),
+        )
+        state = self._row_cursor(paragraph, frame, tab_origin)
+        if uncertainty_pt is None:
+            # The placing mechanism's own precision: an explicit stop is exact,
+            # and a source-measured endpoint is uncertain only by the source's own
+            # measurement tolerance.
+            uncertainty_pt = (
+                SOURCE_X_TOLERANCE_PT
+                if source_x1 is not None or source_x0 is not None
+                else state.get("uncertainty_pt", SOURCE_X_TOLERANCE_PT)
+            )
+        state.update(
+            {
+                "absolute_x_pt": float(absolute_x_pt),
+                "uncertainty_pt": float(max(0.0, uncertainty_pt)),
+                "authoritative": bool(authoritative),
+                "last_owner_kind": owner_kind,
+                "last_owner_source_x0": (
+                    None if source_x0 is None else round(float(source_x0), 4)
+                ),
+                "last_owner_source_x1": (
+                    None if source_x1 is None else round(float(source_x1), 4)
+                ),
+            }
+        )
+        self._diagnostic_records("source_row_cursor_records").append(
+            {
+                "owner_kind": owner_kind,
+                "source_x0": state["last_owner_source_x0"],
+                "source_x1": state["last_owner_source_x1"],
+                "cursor_after_pt": round(float(absolute_x_pt), 2),
+                "uncertainty_after_pt": round(float(state["uncertainty_pt"]), 2),
+                "tab_origin_x_pt": round(float(tab_origin), 2),
+                "authoritative": bool(authoritative),
+            }
+        )
+        return state
+
+    def _row_cursor_advance_text(self, paragraph, advance_pt, tab_origin, *, uncertainty_pt=0.0):
+        """Advance the row cursor by the measured advance of *newly* emitted text.
+
+        The position advances by the fragment's own measured width, and the
+        uncertainty grows by that fragment's own advance uncertainty - never by a
+        worst case per character, which would make the bound meaningless.
+        """
+
+        state = self._row_cursor_state()
+        if state["paragraph_id"] != id(paragraph) or state["absolute_x_pt"] is None:
+            return
+        state["absolute_x_pt"] = float(state["absolute_x_pt"]) + float(advance_pt)
+        state["uncertainty_pt"] = float(state.get("uncertainty_pt", 0.0)) + max(
+            0.0, float(uncertainty_pt)
+        )
+        state["last_owner_kind"] = "TEXT_ADVANCE"
 
     def _render_positioned_blank(
         self,
@@ -1940,60 +2649,67 @@ class WordSafeSourceDocumentBuilder:
 
         blank_x0 = float(blank.source_x0)
         blank_x1 = min(float(blank.source_x1), float(page_content_x1))
+        source_blank_x1 = blank_x1
+        # A source rule that overlaps the glyph which follows it must yield the
+        # boundary to that glyph, or the delivered row cannot hold the text the
+        # source kept on it.
+        if suffix_start_x is not None and float(suffix_start_x) < blank_x1 - 0.05:
+            blank_x1 = max(blank_x0 + 1.0, float(suffix_start_x))
         if blank_x1 <= blank_x0:
             blank_x1 = blank_x0 + 1.0
         size = max(6.0, float(getattr(source, "font_size", 0) or 10.5))
-        # Only the text emitted on the *current visual line* competes for the
-        # blank's position: a paragraph is reconstructed from several source
-        # lines joined by line breaks, and text on an earlier line has already
-        # moved the cursor down, not right.  Tab characters are cursor moves,
-        # not advance width, so they are excluded from the estimate.
-        paragraph_so_far = str(paragraph.text or "")
-        if paragraph is not getattr(self, "_positioned_paragraph", None):
-            # The pointer marks where the line the cursor is *on* begins, so it
-            # starts after the paragraph's last explicit break.  Text already
-            # emitted into this paragraph - the label a form rule follows - has
-            # moved the cursor and must count: reading the pointer as the current
-            # text length would measure a zero advance and emit an anchor tab for
-            # a rule the cursor is already standing on, which is what makes Word
-            # skip that stop and paint the blank's leader somewhere else.
-            self._positioned_paragraph = paragraph
-            self._positioned_paragraph_start = paragraph_so_far.rfind("\n") + 1
-        paragraph_so_far = paragraph_so_far[self._positioned_paragraph_start:]
-        current_line = paragraph_so_far.rsplit("\n", 1)[-1]
-        emitted = self._form_advance_width(current_line.replace("\t", ""), size)
-        # The declared paragraph coordinate frame: the ruler a paragraph's tab
-        # stops are laid out on follows the section text margin, while the text of
-        # a first line also carries its first-line indent.  For deciding whether
-        # the cursor has already passed the rule, the origin of the line the
-        # cursor is *on* is what matters - the first line carries the first-line
-        # indent, a line opened by an explicit break does not - so the two frames
-        # are read through one helper that both this path and the anchor
-        # decisions share, and a form-layout break re-reads it after clearing the
-        # first-line indent.
         frame = paragraph_coordinate_frame(paragraph, blank_x0, blank_x1)
-        margin = self._cursor_line_origin(paragraph, frame)
+        tab_origin = frame.tab_stop_reference_origin_x
         row_owns_line_context = bool(
             getattr(self, "_row_owns_line_context", False)
         )
-        if (
-            "\n" not in paragraph_so_far
-            and not row_owns_line_context
-            and int(getattr(self, "_current_source_visual_row_count", 1) or 1) > 1
-        ):
-            # The element is one Word paragraph built from several source rows, so
-            # the cursor is not at the end of everything written into it: Word
-            # wrapped the text, and what is left on the line the cursor stands on
-            # is the flow's own position.  Measuring the whole text would report a
-            # cursor past the page and force every blank of the element - including
-            # the ones the flow has not reached yet - onto a cursor-only
-            # representation the source's own rule start never asked for.
-            emitted = self._flowed_cursor_advance(
-                current_line,
-                size,
-                max(1.0, float(page_content_x1) - margin),
+        cursor = self._row_cursor(paragraph, frame, tab_origin)
+        if cursor["authoritative"]:
+            # THE ROW CURSOR IS THE AUTHORITY ONCE A POSITIONED CONSTRUCT HAS
+            # MOVED IT.  Re-deriving the cursor from the paragraph's whole emitted
+            # text measures everything written into the paragraph, not where Word
+            # stands after a tab or a positioned blank: after blank[0] of the
+            # authorization row owned 145.05→169.05, the paragraph-wide estimate
+            # still reported the text-only position, so the very next blank's own
+            # stop read as "behind the cursor", its tab was suppressed, and its
+            # source gap was left unowned for Word's default interval to resolve.
+            # Measuring newly emitted text stays valid (``_form_advance_width``);
+            # reconstructing the cursor from it does not.
+            margin = float(cursor["absolute_x_pt"])
+            emitted = 0.0
+            reach = margin
+            self.tab_stop_usage["row_cursor_authoritative_rows"] = (
+                self.tab_stop_usage.get("row_cursor_authoritative_rows", 0) + 1
             )
-        tab_origin = frame.tab_stop_reference_origin_x
+        else:
+            # The row has not yet been moved by a positioned construct, so the
+            # cursor is still its own line origin plus the text emitted on that
+            # line - measured for the *current* line only, never paragraph-wide.
+            paragraph_so_far = str(paragraph.text or "")
+            if paragraph is not getattr(self, "_positioned_paragraph", None):
+                self._positioned_paragraph = paragraph
+                self._positioned_paragraph_start = paragraph_so_far.rfind("\n") + 1
+            paragraph_so_far = paragraph_so_far[self._positioned_paragraph_start:]
+            current_line = paragraph_so_far.rsplit("\n", 1)[-1]
+            emitted = self._form_advance_width(current_line.replace("\t", ""), size)
+            margin = self._cursor_line_origin(paragraph, frame)
+            if (
+                "\n" not in paragraph_so_far
+                and not row_owns_line_context
+                and int(getattr(self, "_current_source_visual_row_count", 1) or 1) > 1
+            ):
+                emitted = self._flowed_cursor_advance(
+                    current_line,
+                    size,
+                    max(1.0, float(page_content_x1) - margin),
+                )
+            reach = margin + emitted
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                reach,
+                owner_kind="ROW_ORIGIN_AND_TEXT",
+            )
         # Resolve this blank's source rule identity by exact span, so the record
         # carries provenance instead of only geometry.
         source_rule_id = None
@@ -2090,7 +2806,25 @@ class WordSafeSourceDocumentBuilder:
                 }
             )
             emitted = 0.0
+            # PARAGRAPH FLOW RE-BASES ON THE LINE THE BREAK OPENED.  The break
+            # starts a fresh line whose origin is the paragraph's own left-indent
+            # column, *not* the origin of the line that was just ended.  Keeping
+            # the old, further-right origin made the rule read as still behind the
+            # cursor on the new line, so the blank fell through to the
+            # unreachable path and the source's fill rule was silently dropped.
+            # Once the row's own form line exists, the blank is a forward move
+            # again and its own source-derived stop carries it.
+            opened_line = paragraph_coordinate_frame(paragraph, blank_x0, blank_x1)
+            margin = float(opened_line.current_line_origin_x)
             reach = margin
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                margin,
+                owner_kind="FORM_LINE_ORIGIN",
+                source_x0=margin,
+                source_x1=margin,
+            )
         if blank_x0 + 1.0 < reach:
             # The rule lies on a source row the delivered paragraph has already
             # flowed past.  A paragraph reconstructed from several source rows
@@ -2150,61 +2884,281 @@ class WordSafeSourceDocumentBuilder:
                     }
                 )
                 return blank_x1
+            # NO SOURCE BLANK IS EVER DROPPED.  When neither this row's own form
+            # line nor the flow representation applies - a single-visual-row
+            # source line, or a line inside a table cell whose lines are the
+            # source's own - the blank's absolute x is still unreachable, but its
+            # *width* is what the delivery owns.  It keeps the source's measured
+            # span at the cursor through the same native, editable inline
+            # representation, so the reviewer reads the source's blank instead of
+            # an omission.  This is the last resort of the
+            # PARAGRAPH_FLOW_FIRST contract, not a success path: a blank that
+            # never reaches it is the ordinary case.
+            width = blank_x1 - blank_x0
+            self._inline_blank_run(
+                paragraph,
+                width,
+                source,
+                semantic_slot=blank.semantic_slot,
+                source_locator=blank.source_locator,
+                page_content_x0=page_content_x0,
+                page_content_x1=page_content_x1,
+            )
+            self.flow_inline_blank_count += 1
+            self._register_blank(blank, rendered_width=width, visible=True)
             self.positioned_blank_records.append(
                 {
-                    "emission_id": "POSITIONED_BLANK_UNREACHABLE|p%s|%.2f-%.2f"
-                    % (
-                        getattr(
-                            getattr(blank, "source_locator", None), "page", None
-                        ),
-                        blank_x0,
-                        blank_x1,
-                    ),
+                    "emission_id": "POSITIONED_BLANK|p%s|%.2f-%.2f"
+                    % (source_rule_page, blank_x0, blank_x1),
                     "semantic_slot": blank.semantic_slot,
-                    "source_rule_id": getattr(blank, "source_rule_id", None),
+                    "source_rule_id": source_rule_id,
+                    "source_page": source_rule_page,
+                    "source_x0": round(blank_x0, 2),
+                    "source_x1": round(blank_x1, 2),
+                    "source_span_pt": round(width, 2),
+                    "source_declared_x1_pt": round(float(source_blank_x1), 2),
+                    "paragraph_origin_pt": round(margin, 2),
+                    "form_layout_line_break": bool(form_line_break),
+                    "cursor_origin_pt": round(margin, 2),
+                    "emitted_advance_pt": round(emitted, 2),
+                    "reach_pt": round(reach, 2),
+                    "overshoot_pt": round(reach - blank_x0, 2),
+                    "row_cursor_authoritative": bool(cursor.get("authoritative")),
+                    "anchor_tab_position_pt": None,
+                    "leader_tab_position_pt": None,
+                    "representation_kind": (
+                        blank.representation_kind.value
+                        if hasattr(blank.representation_kind, "value")
+                        else str(blank.representation_kind)
+                    ),
+                    "emission_mechanism": "SOURCE_INLINE_BLANK_NO_FORWARD_STOP",
+                    "anchor_tab": False,
+                    "suffix_tab": False,
+                    "reason": (
+                        "no forward stop fits inside the source blank's own span "
+                        "on this row, so the blank keeps the source's width at the "
+                        "cursor through the native inline representation rather "
+                        "than being dropped"
+                    ),
+                }
+            )
+            self.tab_stop_usage["inline_due_to_no_forward_stop_count"] = (
+                self.tab_stop_usage.get("inline_due_to_no_forward_stop_count", 0) + 1
+            )
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                blank_x1,
+                owner_kind="POSITIONED_BLANK_INLINE_AT_CURSOR",
+                source_x0=blank_x0,
+                source_x1=blank_x1,
+            )
+            return blank_x1
+
+        paragraph_indent = self._paragraph_left_indent(paragraph)
+        # ONE OWNER PER DISPLACEMENT, ENFORCED PER TAB.  Word moves the cursor to
+        # the next stop at or after it, and falls through to its own default
+        # interval when no explicit stop is ahead - so a tab is only legal when
+        # its own target is *strictly* ahead of where the row cursor already is.
+        # Registering a stop the cursor has reached does not move it; emitting a
+        # tab for it lets Word pick a default stop instead, which is how a
+        # consecutive blank's 24 pt source gap was never owned and the following
+        # token was pushed onto the next row.
+        desired_anchor = self._source_tab_position(blank_x0, tab_origin)
+        desired_leader = self._source_tab_position(blank_x1, tab_origin)
+        # The row cursor's own current stop, in the tab ruler's coordinates.
+        cursor_stop = reach - tab_origin
+        # A TAB MUST BE SAFELY FORWARD, NOT MERELY NOMINALLY FORWARD.  The modelled
+        # cursor carries the accumulated uncertainty of the text measured before it
+        # (the model-versus-source advance disagreement and the trailing advance
+        # past the last glyph's ink box).  A stop that lies inside that band is
+        # nominally ahead but Word's real cursor may already have passed it - and a
+        # passed stop is not a forward move at all: Word skips it and resolves the
+        # tab against its own default interval, which wraps the row the source kept
+        # on one line.  Only a target beyond the band is a safe forward move.
+        cursor_uncertainty = float(cursor.get("uncertainty_pt") or 0.0)
+        safe_margin = cursor_uncertainty + TAB_CURSOR_CLEARANCE_PT
+        nominal_anchor_forward = (
+            desired_anchor > cursor_stop + TAB_CURSOR_CLEARANCE_PT
+        )
+        nominal_leader_forward = (
+            desired_leader > cursor_stop + TAB_CURSOR_CLEARANCE_PT
+        )
+        anchor_forward = desired_anchor > cursor_stop + safe_margin
+        leader_forward = desired_leader > cursor_stop + safe_margin
+        if nominal_anchor_forward and not anchor_forward:
+            # Nominally ahead, but inside the cursor's own uncertainty band: the
+            # blank must not depend on this stop.  The leader tab alone still owns
+            # the blank's own span as a pure forward move, so the source rule is
+            # painted where the source drew it and nothing can wrap.
+            self.unsafe_marginal_forward_tab_count += 1
+        if self._row_cursor_state().get("last_owner_source_x1") is not None and (
+            float(blank_x0)
+            < float(self._row_cursor_state()["last_owner_source_x1"])
+            - TAB_CURSOR_CLEARANCE_PT
+        ):
+            # TWO OWNERS FOR ONE INTERVAL.  The previous construct on this row
+            # already ended inside this blank's own span, so the interval the
+            # blank would claim is partly owned; a second owner must not silently
+            # take it (the geometry cannot be reconciled without moving a stop
+            # beyond the source's own span).
+            self.consecutive_blank_double_ownership_count += 1
+        anchored_start = False
+        if anchor_forward and desired_anchor <= desired_leader:
+            if desired_anchor <= cursor_stop + safe_margin:
+                # Defensive: a tab Word would resolve against its own default
+                # interval is never emitted for a measured source row.
+                self.tabs_without_explicit_stop_count += 1
+            else:
+                tab_stops.add_tab_stop(
+                    Pt(desired_anchor),
+                    WD_TAB_ALIGNMENT.LEFT,
+                    WD_TAB_LEADER.SPACES,
+                )
+                self._add_run(paragraph, "\t", source)
+                self.tab_stop_usage["positioned_anchor_tabs"] = (
+                    self.tab_stop_usage.get("positioned_anchor_tabs", 0) + 1
+                )
+                self.safe_forward_tab_count += 1
+                anchored_start = True
+        elif not anchor_forward and not leader_forward:
+            # CASE C: the row cursor already stands at or past this blank's own
+            # span.  Nothing here may manufacture a stop beyond the source's
+            # geometry, and no tab may be emitted for a tied or backward target.
+            self.tied_or_backward_tab_suppressed_count += 1
+        if not leader_forward and not anchored_start:
+            # The blank's whole span is already owned by the cursor: its width is
+            # delivered at the cursor through the inline representation, which
+            # cannot move the following text past the source's right edge and
+            # never asks Word for a default stop.
+            self._inline_blank_run(
+                paragraph,
+                blank_x1 - blank_x0,
+                source,
+                semantic_slot=blank.semantic_slot,
+                source_locator=blank.source_locator,
+                page_content_x0=page_content_x0,
+                page_content_x1=page_content_x1,
+            )
+            self.flow_inline_blank_count += 1
+            self._register_blank(blank, rendered_width=blank_x1 - blank_x0, visible=True)
+            self.positioned_blank_records.append(
+                {
+                    "emission_id": "SOURCE_INLINE_BLANK_AT_FLOW_CURSOR|p%s|%.2f-%.2f"
+                    % (source_rule_page, blank_x0, blank_x1),
+                    "semantic_slot": blank.semantic_slot,
+                    "source_rule_id": source_rule_id,
+                    "source_page": source_rule_page,
                     "source_x0": round(blank_x0, 2),
                     "source_x1": round(blank_x1, 2),
                     "source_span_pt": round(blank_x1 - blank_x0, 2),
-                    "emission_mechanism": "SOURCE_POSITIONED_UNREACHABLE",
+                    "paragraph_origin_pt": round(margin, 2),
+                    "cursor_origin_pt": round(margin, 2),
+                    "emitted_advance_pt": round(emitted, 2),
                     "reach_pt": round(reach, 2),
-                    "overshoot_pt": round(reach - blank_x0, 2),
-                    "reason": "source rule lies left of the emitted flow position",
-                    "source_page": source_rule_page,
+                    "emission_mechanism": "SOURCE_INLINE_BLANK_NO_FORWARD_STOP",
+                    "reason": (
+                        "the source blank's own start is already at or behind the "
+                        "cursor, so no forward tab stop fits inside its span; the "
+                        "blank keeps the source's width at the cursor"
+                    ),
                 }
             )
-            self.unreachable_positioned_blank_count += 1
-            self._register_blank(blank, rendered_width=0.0, visible=False)
-            return blank_x0
-
-        anchored_start = blank_x0 > reach + 1.0
-        paragraph_indent = self._paragraph_left_indent(paragraph)
-        if anchored_start:
-            anchor_stop = self._source_tab_position(blank_x0, tab_origin)
+            # The inline run's width IS the blank's own span, so the cursor that
+            # follows it is the blank's own end - the authoritative value the next
+            # construct on this row starts from.
+            self.inline_due_to_cursor_uncertainty_count += 1
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                blank_x1,
+                owner_kind="POSITIONED_BLANK_INLINE_AT_CURSOR",
+                source_x0=blank_x0,
+                source_x1=blank_x1,
+            )
+            return blank_x1
+        leader_position = desired_leader
+        if leader_forward:
             tab_stops.add_tab_stop(
-                Pt(anchor_stop),
-                WD_TAB_ALIGNMENT.LEFT,
-                WD_TAB_LEADER.SPACES,
+                Pt(leader_position), WD_TAB_ALIGNMENT.LEFT, WD_TAB_LEADER.SPACES
             )
-            self._add_run(paragraph, "\t", source)
-            self.tab_stop_usage["positioned_anchor_tabs"] = (
-                self.tab_stop_usage.get("positioned_anchor_tabs", 0) + 1
+            self._add_run(paragraph, "\t", source, underline=True)
+            self.tab_stop_usage["positioned_leader_tabs"] = (
+                self.tab_stop_usage.get("positioned_leader_tabs", 0) + 1
             )
-        leader_position = self._source_tab_position(blank_x1, tab_origin)
-        tab_stops.add_tab_stop(
-            Pt(leader_position), WD_TAB_ALIGNMENT.LEFT, WD_TAB_LEADER.SPACES
-        )
-        self._add_run(paragraph, "\t", source, underline=True)
-        self.tab_stop_usage["positioned_leader_tabs"] = (
-            self.tab_stop_usage.get("positioned_leader_tabs", 0) + 1
-        )
+            self.safe_forward_tab_count += 1
+            leader_owned_to = blank_x1
+            # CASE A/B: an anchor reached the blank's start (or the cursor already
+            # stood there) and the leader tab carried it to the blank's own end.
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                blank_x1,
+                owner_kind="POSITIONED_BLANK_TAB_LEADER",
+                source_x0=blank_x0,
+                source_x1=blank_x1,
+            )
+        else:
+            # The blank's own end is already owned by the cursor (its start was
+            # reached by the anchor, or the cursor already stands at x1): the rule
+            # is painted by the inline representation instead of a tab whose stop
+            # Word would have to resolve against its own default interval.
+            self._inline_blank_run(
+                paragraph,
+                blank_x1 - blank_x0,
+                source,
+                semantic_slot=blank.semantic_slot,
+                source_locator=blank.source_locator,
+                page_content_x0=page_content_x0,
+                page_content_x1=page_content_x1,
+            )
+            self.flow_inline_blank_count += 1
+            leader_owned_to = None
+            self.inline_due_to_cursor_uncertainty_count += 1
+            self._row_cursor_set(
+                paragraph,
+                tab_origin,
+                blank_x1,
+                owner_kind="POSITIONED_BLANK_INLINE_AT_CURSOR",
+                source_x0=blank_x0,
+                source_x1=blank_x1,
+            )
+        # A SUFFIX TAB ONLY OWNS A DISPLACEMENT NOTHING ELSE OWNS.  When the
+        # blank's own leader already terminates at the next source token there is
+        # no displacement left to own, and a second tab to the same place is what
+        # let Word fall through to a default stop.
         if suffix_start_x is not None:
             stop = self._source_tab_position(suffix_start_x, tab_origin)
-            if stop > leader_position + 0.5:
+            already_owned = (
+                leader_owned_to is not None
+                and abs(float(suffix_start_x) - float(leader_owned_to)) <= TAB_CURSOR_CLEARANCE_PT
+            )
+            row_cursor_x = self._row_cursor_state().get("absolute_x_pt")
+            suffix_cursor_stop = (
+                float(row_cursor_x) - tab_origin if row_cursor_x else cursor_stop
+            )
+            if not already_owned and stop > suffix_cursor_stop + TAB_CURSOR_CLEARANCE_PT:
                 tab_stops.add_tab_stop(Pt(stop), WD_TAB_ALIGNMENT.LEFT, WD_TAB_LEADER.SPACES)
                 self._add_run(paragraph, "\t", source)
                 self.tab_stop_usage["positioned_suffix_tabs"] = (
                     self.tab_stop_usage.get("positioned_suffix_tabs", 0) + 1
                 )
+                self._row_cursor_set(
+                    paragraph,
+                    tab_origin,
+                    float(suffix_start_x),
+                    owner_kind="SUFFIX_TAB",
+                    source_x0=float(suffix_start_x),
+                    source_x1=float(suffix_start_x),
+                )
+            elif already_owned:
+                self.tab_stop_usage["redundant_suffix_tabs_suppressed"] = (
+                    self.tab_stop_usage.get("redundant_suffix_tabs_suppressed", 0) + 1
+                )
+            else:
+                # Tied or backward: no tab may be emitted for it, because Word
+                # would resolve the move against its own default interval.
+                self.tied_or_backward_tab_suppressed_count += 1
         self._register_blank(
             blank,
             rendered_width=blank_x1 - blank_x0,
@@ -2220,6 +3174,10 @@ class WordSafeSourceDocumentBuilder:
                 "source_x0": round(blank_x0, 2),
                 "source_x1": round(blank_x1, 2),
                 "source_span_pt": round(blank_x1 - blank_x0, 2),
+                "source_declared_x1_pt": round(float(source_blank_x1), 2),
+                "boundary_yielded_to_next_glyph": bool(
+                    abs(float(source_blank_x1) - blank_x1) > 0.05
+                ),
                 "paragraph_origin_pt": round(margin, 2),
                 "section_left_margin_pt": round(
                     float(
@@ -2240,13 +3198,25 @@ class WordSafeSourceDocumentBuilder:
                 "cursor_origin_pt": round(margin, 2),
                 "emitted_advance_pt": round(emitted, 2),
                 "cursor_text_tail": str(
-                    paragraph_so_far.rsplit("\n", 1)[-1].replace("\t", "")
+                    str(paragraph.text or "").rsplit("\n", 1)[-1].replace("\t", "")
                 )[-40:],
+                "row_cursor_authoritative": bool(cursor.get("authoritative")),
                 "reach_pt": round(reach, 2),
                 "anchor_tab_position_pt": (
-                    round(anchor_stop, 2) if anchored_start else None
+                    round(desired_anchor, 2) if anchored_start else None
                 ),
-                "leader_tab_position_pt": round(leader_position, 2),
+                "leader_tab_position_pt": (
+                    round(leader_position, 2)
+                    if leader_position > cursor_stop + TAB_CURSOR_CLEARANCE_PT
+                    else None
+                ),
+                "cursor_stop_pt": round(cursor_stop, 2),
+                "suffix_tab_suppressed_redundant": bool(
+                    suffix_start_x is not None
+                    and leader_owned_to is not None
+                    and abs(float(suffix_start_x) - float(leader_owned_to))
+                    <= TAB_CURSOR_CLEARANCE_PT
+                ),
                 "representation_kind": (
                     blank.representation_kind.value
                     if hasattr(blank.representation_kind, "value")
@@ -2781,27 +3751,18 @@ class WordSafeSourceDocumentBuilder:
             )
             self.inline_blank_count += 1
             return
-        size=max(6.0, float(getattr(source,'font_size',0) or 10.5))
         #: A FIGURE SPACE carries the font's own digit advance, half an em in the
         #: source fonts this emitter reads, so a whole number of them can only
         #: approximate an arbitrary rule span.  The run's character spacing carries
         #: the remainder, so what the page paints is the source's width rather than
         #: the nearest count of a glyph whose advance the emitter cannot read.
-        advance=max(1.0, size*FIGURE_SPACE_ADVANCE_RATIO)
-        count=max(2, int(round(float(width_pt)/advance)))
-        spacing=(float(width_pt)-count*advance)/count
-        if abs(spacing) > MAX_INLINE_BLANK_SPACING_PT:
-            count=max(2, int(float(width_pt)//advance))
-            spacing=(float(width_pt)-count*advance)/count
-        # FIGURE SPACE is a Word-visible underlined glyph, unlike a trailing
-        # ordinary-space run, and is deliberately not an NBSP placeholder.
-        self._add_run(
-            paragraph,
-            '\u2007'*count,
-            source,
-            underline=True,
-            spacing_pt=spacing,
-        )
+        #:
+        #: The count is taken against the *calibrated* space advance, not a nominal
+        #: ratio, and where even the calibrated count cannot land on the source
+        #: width the exact intrinsic spacer owns it: a nominal 0.5 em count put the
+        #: 54.00 pt cover money slot 5.4 pt too wide, which wrapped the row the
+        #: source keeps on one line.
+        self.form_renderer._figure_space_blank_runs(paragraph, float(width_pt), source)
         blank=EditableBlank(
             kind=EditableBlankKind.INLINE_BLANK,
             source_x0=0.0,
@@ -3123,7 +4084,14 @@ class WordSafeSourceDocumentBuilder:
                 )
             ):
                 paragraph = self._start_source_form_line_paragraph(
-                    paragraph, source, span=(span_x0, span_x1)
+                    paragraph,
+                    source,
+                    span=(span_x0, span_x1),
+                    line_origin_x=self._form_line_row_origin_x(
+                        before,
+                        span_x0,
+                        max(6.0, float(getattr(source, "font_size", 0) or 10.5)),
+                    ),
                 )
                 self._register_form_line_source_row(
                     self._rule_line_y(span_x0, span_x1)
@@ -3137,6 +4105,25 @@ class WordSafeSourceDocumentBuilder:
         section = paragraph.part.document.sections[-1]
         page_content_x0 = float(section.left_margin.pt or 18.0)
         page_content_x1 = float(section.page_width.pt) - float(section.right_margin.pt or 18.0)
+        # THE NEXT SOURCE GLYPH OWNS A BOUNDARY THE RULE CROSSES.  A vector rule and
+        # the glyph beside it are measured independently and can overlap by a point
+        # or two: on the 授权委托书 opening row the rule is drawn 453.35->489.35 while
+        # the following glyph `（` begins at 487.44.  A leader that paints to the
+        # rule's own 489.35 then leaves the glyph 1.9 pt too little room, so the
+        # glyph - and every row after it - is pushed down and the source's four-row
+        # paragraph is delivered as five.  Where the source's next visible glyph
+        # starts *before* the rule's declared end, that glyph's own x is the
+        # boundary the delivered row must honour.
+        suffix_start_x = None
+        offset = 0
+        while offset < len(after) and after[offset].isspace():
+            offset += 1
+        if offset < len(after):
+            extent = self._source_extent_for_text_range(
+                runs, text, match.end() + offset, match.end() + offset + 1
+            )
+            if extent is not None:
+                suffix_start_x = float(extent[0])
         self._inline_blank_run(
             paragraph,
             width,
@@ -3144,6 +4131,7 @@ class WordSafeSourceDocumentBuilder:
             source_span=(span_x0, span_x1),
             page_content_x0=page_content_x0,
             page_content_x1=page_content_x1,
+            suffix_start_x=suffix_start_x,
         )
         if after:
             self.text(
@@ -4049,8 +5037,12 @@ class WordSafeSourceDocumentBuilder:
         self.form_block_count += 1
         return rendered[-1][0] if rendered else None
 
-    def _record_block_rhythm(self, block, tops) -> None:
-        """One source block's shared vertical rhythm, with its own evidence."""
+    def _record_block_rhythm(self, block, tops):
+        """One source block's shared vertical rhythm, with its own evidence.
+
+        Returns the record so the emitter that asks for the evidence can also read
+        the block's own measured row pitch from it instead of re-deriving it.
+        """
 
         first_row = block.row_geometries[0] if block.row_geometries else None
         source_page = (
@@ -4091,6 +5083,7 @@ class WordSafeSourceDocumentBuilder:
                     ),
                 }
             )
+        return record
 
     def _slot_value_presentation_report(self) -> dict:
         """Every composed slot value, component by component, with provenance.
@@ -4435,7 +5428,22 @@ class WordSafeSourceDocumentBuilder:
                     local_slots = self._item_slots(item)
                     raw_text = source.text[item.source_start:item.source_end]
                     p = doc.add_paragraph(style='Normal')
-                    p.alignment = ALIGN[item.alignment_hint]
+                    # PARAGRAPH FLOW IS PRIMARY, on this path too: the same
+                    # derived contract owns the paragraph's alignment and the
+                    # indent follows the alignment that was actually written.
+                    _contract, applied_alignment = self._source_paragraph_layout_plan(
+                        p,
+                        item,
+                        page_content_x0=page_content_x0,
+                        page_content_x1=(
+                            float(page.width) - float(page_content_x0)
+                            if page is not None
+                            else None
+                        ),
+                        page=page,
+                        space_before=gap,
+                        scale=scale,
+                    )
                     pf = p.paragraph_format
                     pf.space_before = Pt(gap)
                     pf.space_after = Pt(0)
@@ -4444,7 +5452,9 @@ class WordSafeSourceDocumentBuilder:
                     # block deliberately has no positioning indent; ordinary
                     # left-aligned text uses the body boundary the source returns
                     # its wrapped rows to, with the source's own first-line offset.
-                    self._apply_source_paragraph_indent(pf, item, page_content_x0)
+                    self._apply_source_paragraph_indent(
+                        pf, item, page_content_x0, alignment_hint=applied_alignment
+                    )
                     pf.right_indent = Pt(0)
                     pf.line_spacing = infer_semantic_line_spacing(
                         item.font_size_pt, item.line_pitch_pt * scale,
@@ -4598,6 +5608,20 @@ class WordSafeSourceDocumentBuilder:
             planned=self._planned_resolved_fields(),
             applications=getattr(self, 'source_fill_applications', []),
         )
+        # SOURCE-FORM ROW CURSOR DIAGNOSTICS.  Mirrored into ``tab_stop_usage``,
+        # which is a free-form evidence bag, so every consumer of the report can
+        # read the row-cursor invariants whatever schema filters the top level.
+        self.tab_stop_usage.update(
+            {
+                'default_tab_fallthrough_risk_count': self.default_tab_fallthrough_risk_count,
+                'consecutive_blank_double_ownership_count': self.consecutive_blank_double_ownership_count,
+                'cursor_recomputed_from_paragraph_width_count': self.cursor_recomputed_from_paragraph_width_count,
+                'tied_or_backward_tab_suppressed_count': self.tied_or_backward_tab_suppressed_count,
+                'redundant_suffix_tab_suppressed_count': self.redundant_suffix_tab_suppressed_count,
+                'tabs_without_explicit_stop_count': self.tabs_without_explicit_stop_count,
+                'source_form_row_cursor_record_count': len(self.source_row_cursor_records),
+            }
+        )
         report = {'architecture': 'WordSafeSourceDocumentBuilder', 'compatibility_mode': 'WORD_SAFE',
                   'format_source': 'SOURCE_DOCUMENT', 'source_heading': self.template.source_heading,
                   'source_page_count': len(self.template.source_pages), 'source_table_count': self.template.source_table_count,
@@ -4624,6 +5648,16 @@ class WordSafeSourceDocumentBuilder:
                   'form_layout_table_count': 0,
                   'form_block_count': self.form_block_count,
                   'paragraph_form_count': self.paragraph_form_count,
+                  # PARAGRAPH-FLOW-FIRST.  The derived primary Word layout plan for
+                  # every paragraph-like item, plus the artifact audit that proves
+                  # the emitted paragraphs are positioned by paragraph formatting.
+                  'source_paragraph_layout_contracts': self.source_paragraph_layout_contracts,
+                  'source_paragraph_layout_contract_count': len(
+                      self.source_paragraph_layout_contracts
+                  ),
+                  'paragraph_positioning_tab_audit': self._paragraph_positioning_tab_audit(
+                      path
+                  ),
                   'vector_blanks_recovered': self.vector_blanks_recovered,
                   'editable_blanks': self.blank_records,
                   'detected_editable_blanks': len(self.blank_records),
@@ -4642,6 +5676,14 @@ class WordSafeSourceDocumentBuilder:
                   'paragraph_y_error_max': max(self.paragraph_y_errors, default=0.0),
                   'paragraph_y_error_median': sorted(self.paragraph_y_errors)[len(self.paragraph_y_errors)//2] if self.paragraph_y_errors else 0.0,
                   'tab_stop_usage': self.tab_stop_usage,
+                  'source_form_row_cursor': {
+                      'default_tab_fallthrough_risk_count': self.default_tab_fallthrough_risk_count,
+                      'consecutive_blank_double_ownership_count': self.consecutive_blank_double_ownership_count,
+                      'cursor_recomputed_from_paragraph_width_count': self.cursor_recomputed_from_paragraph_width_count,
+                      'tied_or_backward_tab_suppressed_count': self.tied_or_backward_tab_suppressed_count,
+                      'redundant_suffix_tab_suppressed_count': self.redundant_suffix_tab_suppressed_count,
+                      'records': self.source_row_cursor_records,
+                  },
                   'source_form_execution_owners': [
                       item.as_dict() if hasattr(item, 'as_dict') else item
                       for item in getattr(self, 'source_form_execution_owners', [])
@@ -4702,6 +5744,17 @@ class WordSafeSourceDocumentBuilder:
                   'positioned_blank_count': len(self.positioned_blank_records),
                   'unreachable_positioned_blank_count': self.unreachable_positioned_blank_count,
                   'flow_inline_blank_count': self.flow_inline_blank_count,
+                  # SOURCE-FORM ROW CURSOR DIAGNOSTICS.  A tab whose own stop is not
+                  # strictly ahead of the row cursor would be resolved by Word's own
+                  # default interval, and two constructs claiming one horizontal
+                  # interval double-own the row.  Both must stay zero on the migrated
+                  # source-form path; the suppression counters are diagnostic only.
+                  'default_tab_fallthrough_risk_count': self.default_tab_fallthrough_risk_count,
+                  'consecutive_blank_double_ownership_count': self.consecutive_blank_double_ownership_count,
+                  'cursor_recomputed_from_paragraph_width_count': self.cursor_recomputed_from_paragraph_width_count,
+                  'tied_or_backward_tab_suppressed_count': self.tied_or_backward_tab_suppressed_count,
+                  'redundant_suffix_tab_suppressed_count': self.redundant_suffix_tab_suppressed_count,
+                  'source_row_cursor_records': self.source_row_cursor_records,
                   'fill_slots_detected': len(self.template.fill_slots), 'fill_slots_filled': len(self.filled),
                   'fill_slots_left_blank': len(self.template.fill_slots)-len(self.filled), 'filled_slots': self.filled,
                   'slot_value_presentations': self._slot_value_presentation_report(),

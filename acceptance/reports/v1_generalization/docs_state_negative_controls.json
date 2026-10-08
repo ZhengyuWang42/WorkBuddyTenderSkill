@@ -1,0 +1,92 @@
+{
+  "schema": "v1_docs_state_negative_controls/1",
+  "controls": [
+    {
+      "control": "BASELINE_UNMUTATED",
+      "expected": "PASS",
+      "observed": "FAIL",
+      "exit_code": 1,
+      "required_failed_check": null,
+      "required_failed_check_present": null,
+      "failed_checks": [
+        "case001_xlsx_human_review_matches_the_round12_build_evidence"
+      ],
+      "failures_added_by_the_control": [],
+      "baseline_failures_cleared": [],
+      "result": "PASS"
+    },
+    {
+      "control": "CURRENT_POINTER_NAMES_SUPERSEDED_BUILD",
+      "expected": "FAIL",
+      "observed": "FAIL",
+      "exit_code": 1,
+      "required_failed_check": "no_superseded_build_is_re_promoted_to_current",
+      "required_failed_check_present": true,
+      "failed_checks": [
+        "case001_xlsx_human_review_matches_the_round12_build_evidence",
+        "no_superseded_build_is_re_promoted_to_current"
+      ],
+      "failures_added_by_the_control": [
+        "no_superseded_build_is_re_promoted_to_current"
+      ],
+      "baseline_failures_cleared": [],
+      "result": "PASS"
+    },
+    {
+      "control": "WRONG_CURRENT_ARTIFACT_HASH",
+      "expected": "FAIL",
+      "observed": "FAIL",
+      "exit_code": 1,
+      "required_failed_check": "case_001_pointer_hashes_match_its_build",
+      "required_failed_check_present": true,
+      "failed_checks": [
+        "case001_xlsx_human_review_matches_the_round12_build_evidence",
+        "case_001_pointer_hashes_match_its_build",
+        "checklist_current_word_object_matches_case_001_pointer"
+      ],
+      "failures_added_by_the_control": [
+        "case_001_pointer_hashes_match_its_build",
+        "checklist_current_word_object_matches_case_001_pointer"
+      ],
+      "baseline_failures_cleared": [],
+      "result": "PASS"
+    },
+    {
+      "control": "HISTORICAL_MENTION_OF_SUPERSEDED_BUILD",
+      "expected": "PASS",
+      "observed": "FAIL",
+      "exit_code": 1,
+      "required_failed_check": null,
+      "required_failed_check_present": null,
+      "failed_checks": [
+        "case001_xlsx_human_review_matches_the_round12_build_evidence"
+      ],
+      "failures_added_by_the_control": [],
+      "baseline_failures_cleared": [],
+      "result": "PASS"
+    },
+    {
+      "control": "WORD_HUMAN_PASS_WITHOUT_REVIEW",
+      "expected": "FAIL",
+      "observed": "FAIL",
+      "exit_code": 1,
+      "required_failed_check": "case001_manual_word_review_not_confirmed",
+      "required_failed_check_present": true,
+      "failed_checks": [
+        "case001_manual_word_review_not_confirmed",
+        "case001_xlsx_human_review_matches_the_round12_build_evidence"
+      ],
+      "failures_added_by_the_control": [
+        "case001_manual_word_review_not_confirmed"
+      ],
+      "baseline_failures_cleared": [],
+      "result": "PASS"
+    }
+  ],
+  "baseline_failed_checks": [
+    "case001_xlsx_human_review_matches_the_round12_build_evidence"
+  ],
+  "staging_artefact_note": "a staged copy cannot satisfy a check that compares a record's stored *absolute* artifact path with the repository root it is read under; that one check is present in the baseline and excluded from every control's judgement, which is otherwise made on the failures the control itself adds",
+  "result": "PASS",
+  "note": "each control runs the unmodified gate against a hardlink-staged copy of its read surface and mutates exactly one thing; no repository file is modified"
+}

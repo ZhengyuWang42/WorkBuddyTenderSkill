@@ -1,0 +1,110 @@
+{
+  "schema": "v1_case002_word_source_form_fidelity/2",
+  "build": "acceptance/workspace/case_002/v1_round4_closure8",
+  "authorities": {
+    "SOURCE_GEOMETRY_AUTHORITY": "AUTHORITATIVE_FOR_SOURCE_AND_DOCX_FIDELITY",
+    "DOCX_TYPOGRAPHY_AUTHORITY": "AUTHORITATIVE_INTENDED_WORD_TYPOGRAPHY",
+    "HEADLESS_RENDERER_ROLE": "DIAGNOSTIC",
+    "WORD_DESKTOP_ROLE": "FINAL_WORD_DELIVERY_AUTHORITY"
+  },
+  "components": {
+    "AUTHORIZATION_SOURCE_MODEL_FIDELITY": {
+      "result": "PASS",
+      "detail": "source rows measured=9 rendered rows=9"
+    },
+    "AUTHORIZATION_DOCX_GEOMETRY_FIDELITY": {
+      "result": "FAIL",
+      "detail": "first row origin source=109.08 rendered=114.1"
+    },
+    "AUTHORIZATION_DOCX_TYPOGRAPHY_FIDELITY": {
+      "result": "PASS",
+      "detail": "source='FangSong_GB2312'@12.0 docx='仿宋'@12.0 host=ABSENT headless='FangSong'"
+    },
+    "AUTHORIZATION_TEXT_COMPLETENESS": {
+      "result": "PASS",
+      "detail": "all key phrases present"
+    },
+    "AUTHORIZATION_SOURCE_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "tables=9 authorization wording present"
+    },
+    "AUTHORIZATION_HEADLESS_RENDER_FIDELITY": {
+      "result": "FAIL",
+      "detail": "the DOCX typography matches the source but the delivered frame/indent/row geometry does not"
+    },
+    "AUTHORIZATION_RENDERER_DIVERGENCE_CLASS": {
+      "result": "TRUE_LAYOUT_GEOMETRY_DEFECT",
+      "detail": "{\"source_family\": \"FangSong_GB2312\", \"source_size_pt\": 12.0, \"docx_requested_family\": \"仿宋\", \"docx_size_pt\": 12.0, \"docx_character_spacing_twips\": null, \"host_font_state\": \"ABSENT\", \"headless_family\": \"FangSong\", \"headless_size_pt\": 12.0, \"advance_ratio\": 8.685265972417675, \"source_fill_ratio\": 1.0, \"predicted_overflow_pt\": 3276.6899999999996, \"observed_overflow_pt\": 14.910000000000025}"
+    },
+    "AUTHORIZATION_FORM_FIDELITY": {
+      "result": "FAIL",
+      "detail": "components_ok=False divergence=TRUE_LAYOUT_GEOMETRY_DEFECT"
+    },
+    "OPENING_TABLE_FORM_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "tables_with_实施周期=1 18个月=True 西安市内=True"
+    },
+    "LETTER_SINGLE_PAGE_FIDELITY": {
+      "result": "FAIL",
+      "detail": "pages carrying 投标单位全称 and its date row=[3, 'page 3 lacks the letter date row']"
+    },
+    "COVER_DATE_THREE_SLOT_FIDELITY": {
+      "result": "PASS",
+      "detail": "underline blank runs in a 年月日 row=3"
+    },
+    "PROJECT_NAME_SOURCE_SLOT": {
+      "result": "FAIL",
+      "detail": "underlined value run present=False"
+    },
+    "BID_TOTAL_UPPERCASE_SLOT": {
+      "result": "PASS",
+      "detail": "underlined runs=1"
+    },
+    "BID_TOTAL_LOWERCASE_SLOT": {
+      "result": "FAIL",
+      "detail": "underlined runs=0"
+    },
+    "PROJECT_MANAGER_SAME_ROW_SLOT": {
+      "result": "PASS",
+      "detail": "paragraphs with 项目负责人 and 。=True"
+    },
+    "CASE002_CROSS_PAGE_QUOTATION_TABLE": {
+      "result": "PASS",
+      "detail": "largest table rows=22 cols=9"
+    }
+  },
+  "renderer_divergence": {
+    "divergence_class": "TRUE_LAYOUT_GEOMETRY_DEFECT",
+    "blocking": true,
+    "reasons": [
+      "the DOCX typography matches the source but the delivered frame/indent/row geometry does not"
+    ],
+    "evidence": {
+      "source_family": "FangSong_GB2312",
+      "source_size_pt": 12.0,
+      "docx_requested_family": "仿宋",
+      "docx_size_pt": 12.0,
+      "docx_character_spacing_twips": null,
+      "host_font_state": "ABSENT",
+      "headless_family": "FangSong",
+      "headless_size_pt": 12.0,
+      "advance_ratio": 8.685265972417675,
+      "source_fill_ratio": 1.0,
+      "predicted_overflow_pt": 3276.6899999999996,
+      "observed_overflow_pt": 14.910000000000025
+    }
+  },
+  "generic_invariants": {
+    "default_tab_fallthrough_risk_count": 0,
+    "tabs_without_explicit_stop_count": 0,
+    "consecutive_blank_double_ownership_count": 0,
+    "cursor_recomputed_from_paragraph_width_count": 0,
+    "positioned_form_layout_break_count": 2
+  },
+  "artifacts": {
+    "docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
+    "pdf_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455",
+    "generation_report_sha256": "4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859"
+  },
+  "CASE002_WORD_SOURCE_FORM_FIDELITY": "FAIL"
+}

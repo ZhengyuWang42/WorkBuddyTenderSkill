@@ -1,0 +1,108 @@
+{
+  "schema": "v1_generic_word_source_fidelity_gate/1",
+  "build": "acceptance/workspace/case_001/v1_word_source_fidelity_arch2",
+  "components": {
+    "PAGE_FRAME_FIDELITY": {
+      "status": "PASS",
+      "detail": "frames=22 declared_sizes=22 undeclared_rendered_sizes=0",
+      "evidence": {
+        "undeclared_sample": []
+      }
+    },
+    "PARAGRAPH_CONTAINER_FIDELITY": {
+      "status": "PASS",
+      "detail": "docx_paragraphs=140 logical_records=118 empty_paragraphs=21",
+      "evidence": {}
+    },
+    "SOURCE_VISUAL_ROW_CONTRACT": {
+      "status": "NOT_APPLICABLE",
+      "detail": "the build records no source visual-row contract evidence",
+      "evidence": {}
+    },
+    "SOURCE_TEXT_COMPLETENESS": {
+      "status": "PASS",
+      "detail": "missing=0 expected=246 delivered=246",
+      "evidence": {
+        "missing_atoms": []
+      }
+    },
+    "SOURCE_TEXT_EXACT_ONCE_OWNERSHIP": {
+      "status": "PASS",
+      "detail": "zero_owner=0 multiple_owner=0 duplicate=0",
+      "evidence": {}
+    },
+    "SOURCE_SLOT_OWNERSHIP": {
+      "status": "PASS",
+      "detail": "slots_detected=16 filled=6 values_keeping_underline=0 underlined_runs=15",
+      "evidence": {}
+    },
+    "ROW_CURSOR_OWNERSHIP": {
+      "status": "PASS",
+      "detail": "cursor_recomputed_from_paragraph_width_count=0",
+      "evidence": {}
+    },
+    "NO_DEFAULT_TAB_FALLTHROUGH": {
+      "status": "PASS",
+      "detail": "default_tab_fallthrough_risk_count=0 tabs_without_explicit_stop_count=0",
+      "evidence": {}
+    },
+    "NO_DOUBLE_HORIZONTAL_OWNERSHIP": {
+      "status": "PASS",
+      "detail": "consecutive_blank_double_ownership_count=0",
+      "evidence": {}
+    },
+    "DATE_SLOT_FIDELITY": {
+      "status": "PASS",
+      "detail": "date rows=13 max_underline_blanks_in_one_row=3",
+      "evidence": {}
+    },
+    "TYPOGRAPHY_CONTRACT": {
+      "status": "NOT_APPLICABLE",
+      "detail": "the build records no source font inventory to compare the DOCX against",
+      "evidence": {}
+    },
+    "VERTICAL_RHYTHM_CONTRACT": {
+      "status": "PASS",
+      "detail": "rhythm_blocks=21 blocks_with_measured_pitch=7 dominant_line_pitch_pt=16.16",
+      "evidence": {}
+    },
+    "TEXT_COMPLETENESS": {
+      "status": "PASS",
+      "detail": "source_scope_atoms=246 delivered=246 missing=0 duplicate=0",
+      "evidence": {
+        "delivered_chars": 3540,
+        "rendered_chars": 3069,
+        "note": "diagnostic only: LibreOffice text extraction is not the authority for source-text completeness"
+      }
+    },
+    "RENDERER_DIVERGENCE_CLASSIFICATION": {
+      "status": "WARN_PROVEN_FONT_SUBSTITUTION",
+      "detail": "HEADLESS_FONT_SUBSTITUTION_ONLY: no measurable horizontal divergence: the widest matched rendered row fits inside the source row's own extent (402.00 pt vs 459.60 pt)",
+      "evidence": {
+        "source_width_pt": 459.6,
+        "headless_width_pt": 402.0,
+        "matched_row_chars": 56,
+        "requested_family": "仿宋",
+        "headless_family": "FangSong",
+        "host_font_state": "ABSENT"
+      }
+    },
+    "SOURCE_PAGE_SPLIT": {
+      "status": "PASS",
+      "detail": "source_pages=61 generated_pages=23 blank_pages=0",
+      "evidence": {}
+    },
+    "LOGICAL_TABLE_IDENTITY": {
+      "status": "PASS",
+      "detail": "docx_tables=5 logical_tables=5 orphan_continuations=0 false_merges=0",
+      "evidence": {}
+    },
+    "UNSAFE_OOXML_PROHIBITION": {
+      "status": "PASS",
+      "detail": "{\"textbox_count\": 0, \"drawing_count\": 0, \"pict_count\": 0, \"object_count\": 0}",
+      "evidence": {}
+    }
+  },
+  "failed_components": [],
+  "GENERIC_WORD_SOURCE_FIDELITY": "PASS"
+}

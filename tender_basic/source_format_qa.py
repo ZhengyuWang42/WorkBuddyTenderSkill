@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Sequence
 from zipfile import ZipFile
@@ -45,6 +46,167 @@ def _source_body_strings(template: SourceFormatTemplate) -> list[str]:
     return [value for value in values if value]
 
 
+#: The role a source text atom plays in the delivered form.  A role is evidence
+#: about *where* the atom came from, never a licence to exclude it: every atom
+#: selected into the delivery scope stays in the completeness comparison.
+ROLE_PARAGRAPH_TEXT = "paragraph_text"
+ROLE_TABLE_CELL_TEXT = "table_cell_text"
+
+#: Shortest normalized atom that can establish text *ownership*.  Below this
+#: length the same glyph string recurs in unrelated places by design, so it can
+#: neither prove nor disprove a second emission owner; presence is still checked.
+MIN_ATOM_LENGTH_FOR_DUPLICATE = 8
+
+
+@dataclass(frozen=True)
+class SourceTextAtom:
+    """One visible source text atom of the delivery scope, with its provenance.
+
+    The atom's identity comes from *source* evidence only (page, container,
+    document order), never from generated text: a diagnostic that identified atoms
+    by what the DOCX happens to contain could not tell whether anything was lost.
+    """
+
+    atom_id: str
+    source_page: int | None
+    source_container_id: str
+    source_order_index: int
+    text: str
+    role: str = ROLE_PARAGRAPH_TEXT
+    source_x0: float | None = None
+    source_x1: float | None = None
+    source_y: float | None = None
+
+    @property
+    def normalized_text(self) -> str:
+        return _compact(self.text)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "atom_id": self.atom_id,
+            "source_page": self.source_page,
+            "source_container_id": self.source_container_id,
+            "source_order_index": self.source_order_index,
+            "role": self.role,
+            "text": self.text,
+            "normalized_text": self.normalized_text,
+            "source_x0": self.source_x0,
+            "source_x1": self.source_x1,
+            "source_y": self.source_y,
+        }
+
+
+@dataclass
+class SourceTextCompletenessRecord:
+    """The completeness verdict of one atom, with the stage evidence it carries."""
+
+    atom: SourceTextAtom
+    text_emission_owner_count: int
+    found_position: int | None
+    previous_expected_atom_id: str | None = None
+    next_expected_atom_id: str | None = None
+    notes: list[str] = field(default_factory=list)
+
+    @property
+    def present(self) -> bool:
+        return self.text_emission_owner_count > 0
+
+    def as_dict(self) -> dict[str, Any]:
+        record = self.atom.as_dict()
+        record.update(
+            {
+                # The saved/reopened DOCX is the machine authority for text
+                # completeness, so the "stage" that owns presence is the last one.
+                "last_present_stage": (
+                    "STAGE_6_SAVED_REOPENED_DOCX"
+                    if self.present
+                    else "STAGE_5_IN_MEMORY_DOCX"
+                ),
+                "first_missing_stage": (
+                    None if self.present else "STAGE_5_IN_MEMORY_DOCX"
+                ),
+                "text_emission_owner_count": self.text_emission_owner_count,
+                "found_position": self.found_position,
+                "neighboring_atom_before": self.previous_expected_atom_id,
+                "neighboring_atom_after": self.next_expected_atom_id,
+                "notes": list(self.notes),
+            }
+        )
+        return record
+
+
+@dataclass
+class SourceTextCompletenessLedger:
+    """Every in-scope source atom, matched exactly once against the delivered DOCX.
+
+    GEOMETRY POSITIONS TEXT; IT DOES NOT OWN IT.  This ledger is the delivery-side
+    counterpart of that rule: each atom must be *emitted* exactly once, and a
+    geometry consumer that measured an atom's extent leaves the atom's emission
+    ownership untouched.  Missing, duplicated and out-of-order atoms are reported
+    as distinct failures, because a single count cannot say which of the three
+    happened.
+    """
+
+    records: list[SourceTextCompletenessRecord] = field(default_factory=list)
+
+    @property
+    def expected_count(self) -> int:
+        return len(self.records)
+
+    @property
+    def delivered_count(self) -> int:
+        return sum(1 for record in self.records if record.present)
+
+    @property
+    def missing(self) -> list[SourceTextCompletenessRecord]:
+        return [record for record in self.records if not record.present]
+
+    @property
+    def multiple_owner(self) -> list[SourceTextCompletenessRecord]:
+        return [
+            record for record in self.records if record.text_emission_owner_count > 1
+        ]
+
+    @property
+    def out_of_order(self) -> list[SourceTextCompletenessRecord]:
+        return [
+            record
+            for record in self.records
+            if "FOUND_BEFORE_PREVIOUS_ATOM" in record.notes
+        ]
+
+    @property
+    def missing_count(self) -> int:
+        return len(self.missing)
+
+    @property
+    def exact_once(self) -> bool:
+        """Whether every atom has exactly one emission owner and in-order position."""
+
+        return not self.missing and not self.multiple_owner and not self.out_of_order
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "SOURCE_COMPLETENESS_SCOPE_ATOM_COUNT": self.expected_count,
+            "EXPECTED_ATOM_COUNT": self.expected_count,
+            "DELIVERED_ATOM_COUNT": self.delivered_count,
+            "MISSING_ATOM_COUNT": self.missing_count,
+            "DUPLICATED_ATOM_COUNT": len(self.multiple_owner),
+            "OUT_OF_ORDER_ATOM_COUNT": len(self.out_of_order),
+            "source_text_atoms_with_zero_owner_count": len(self.missing),
+            "source_text_atoms_with_multiple_owner_count": len(self.multiple_owner),
+            "source_text_missing_atoms": [
+                record.as_dict() for record in self.missing
+            ],
+            "source_text_duplicate_atoms": [
+                record.as_dict() for record in self.multiple_owner
+            ],
+            "source_text_out_of_order_atoms": [
+                record.as_dict() for record in self.out_of_order
+            ],
+        }
+
+
 def _recorded_slot_values(generation_report: dict[str, Any] | None) -> dict[str, str]:
     """The value the build itself recorded for each slot it substituted.
 
@@ -74,11 +236,20 @@ def _recorded_slot_values(generation_report: dict[str, Any] | None) -> dict[str,
     return values
 
 
-def _expected_source_body_strings(
+def _expected_source_body_atoms(
     template: SourceFormatTemplate,
     project_facts: ProjectFacts,
     generation_report: dict[str, Any] | None = None,
-) -> list[str]:
+) -> list[SourceTextAtom]:
+    """Every source text atom the delivery scope selects, with its provenance.
+
+    The scope is the same one the product uses to construct the Word deliverable
+    (the source-format pages' elements, in document order, with fill slots
+    resolved exactly as the delivery resolves them).  It is neither the whole
+    tender - which the deliverable intentionally does not reproduce - nor the
+    generated text, which could not reveal a loss.
+    """
+
     def locator_key(locator: object) -> str:
         return json.dumps(locator.model_dump(mode="json"), ensure_ascii=False, sort_keys=True)
 
@@ -104,7 +275,17 @@ def _expected_source_body_strings(
             text = text[:start] + value + text[end:]
         return text
 
-    output: list[str] = []
+    def geometry_of(container: object) -> tuple[float | None, float | None, float | None]:
+        box = getattr(container, "bbox", None)
+        if not box:
+            return None, None, None
+        try:
+            return float(box[0]), float(box[2]), float(box[1])
+        except (TypeError, ValueError, IndexError):
+            return None, None, None
+
+    atoms: list[SourceTextAtom] = []
+    order = 0
     for page in template.source_pages:
         for item in page.elements:
             if item.type == "paragraph" and item.index < len(page.paragraphs):
@@ -113,7 +294,24 @@ def _expected_source_body_strings(
                     slot for slot in template.fill_slots
                     if locator_key(slot.source_locator) == locator_key(paragraph.locator)
                 ]
-                output.append(replace_slots(paragraph.text, slots))
+                text = replace_slots(paragraph.text, slots)
+                if not _compact(text):
+                    continue
+                x0, x1, y = geometry_of(paragraph)
+                atoms.append(
+                    SourceTextAtom(
+                        atom_id=f"P{page.page}-PARA{item.index}",
+                        source_page=page.page,
+                        source_container_id=f"paragraph:{item.index}",
+                        source_order_index=order,
+                        text=text,
+                        role=ROLE_PARAGRAPH_TEXT,
+                        source_x0=x0,
+                        source_x1=x1,
+                        source_y=y,
+                    )
+                )
+                order += 1
             elif item.type == "table" and item.index < len(page.tables):
                 table = page.tables[item.index]
                 for row in table.rows:
@@ -125,15 +323,48 @@ def _expected_source_body_strings(
                             and slot.row_index == cell.row_index
                             and slot.column_index == cell.column_index
                         ]
-                        text = cell.text
-                        if not text and len(slots) == 1:
+                        cell_text = cell.text
+                        if not cell_text and len(slots) == 1:
                             replacement = _slot_replacement_for_insertion(slots[0], project_facts)
                             if replacement is not None:
-                                text = replacement[0]
+                                cell_text = replacement[0]
                         else:
-                            text = replace_slots(text, slots)
-                        output.append(text)
-    return output
+                            cell_text = replace_slots(cell_text, slots)
+                        if not _compact(cell_text):
+                            continue
+                        x0, x1, y = geometry_of(cell)
+                        atoms.append(
+                            SourceTextAtom(
+                                atom_id=(
+                                    f"P{page.page}-T{table.table_index}"
+                                    f"R{cell.row_index}C{cell.column_index}"
+                                ),
+                                source_page=page.page,
+                                source_container_id=(
+                                    f"table:{table.table_index}/row:{cell.row_index}"
+                                    f"/col:{cell.column_index}"
+                                ),
+                                source_order_index=order,
+                                text=cell_text,
+                                role=ROLE_TABLE_CELL_TEXT,
+                                source_x0=x0,
+                                source_x1=x1,
+                                source_y=y,
+                            )
+                        )
+                        order += 1
+    return atoms
+
+
+def _expected_source_body_strings(
+    template: SourceFormatTemplate,
+    project_facts: ProjectFacts,
+    generation_report: dict[str, Any] | None = None,
+) -> list[str]:
+    return [
+        atom.text
+        for atom in _expected_source_body_atoms(template, project_facts, generation_report)
+    ]
 
 
 def _docx_xml(path: Path) -> etree._Element:
@@ -265,12 +496,21 @@ def _executed_value_texts(generation_report: dict[str, Any] | None) -> list[str]
     return values
 
 
-def _source_sequence_preserved(
-    expected: list[str],
+def _source_text_completeness(
+    atoms: Sequence[SourceTextAtom],
     generated_text: str,
     *,
     executed_values: Sequence[str] = (),
-) -> tuple[int, int]:
+) -> SourceTextCompletenessLedger:
+    """Match every in-scope atom against the saved/reopened document, once each.
+
+    Presence keeps the diagnostic's existing meaning exactly - an atom whose
+    compact text is absent from the delivered document is missing - while adding
+    the two facts a bare count cannot express: an atom delivered *more* often than
+    the source itself prints it (a second emission owner) and an atom delivered
+    before the atom that precedes it in source order (reordered delivery).
+    """
+
     compact_generated = _compact(generated_text)
     for value in executed_values:
         compact_value = _compact(value)
@@ -282,25 +522,137 @@ def _source_sequence_preserved(
         stripped = compact_generated.replace(compact_value, "", 1)
         if stripped != compact_generated:
             compact_generated = stripped
-    missing = 0
-    positions: list[int] = []
-    for value in expected:
-        compact_value = _compact(value)
-        if not compact_value:
-            continue
-        # The generated XML can contain editable tables between source text
-        # boxes even when the visual page order is correct.  Presence is the
-        # reliable structural signal here; heading order is checked separately
-        # by delivery QA and the page element order remains in the model.
-        position = compact_generated.find(compact_value)
-        if position < 0:
-            # Long paragraphs may be interrupted by editable table XML or a
-            # replacement value.  Count a missing item rather than claiming a
-            # false pixel/text match.
-            missing += 1
-            continue
-        positions.append(position)
-    return missing, 0
+
+    #: How often the source itself prints each atom's text: an atom may legitimately
+    #: repeat, and only an occurrence beyond the source's own count is a duplicate
+    #: emission - and only for an atom long enough to identify an owner at all.
+    #: A very short atom ('1', '年月日') recurs in unrelated places by design, so it
+    #: can neither prove nor disprove a second owner; it still takes part in the
+    #: exact presence check, which is where text loss is detected.
+    #:
+    #: The count is taken over the *source's own text*, not over the atom list.
+    #: Counting equal atoms misses a phrase the source prints inside two different
+    #: longer atoms - a specification clause repeated in two table rows is one atom
+    #: and one longer cell atom, not two equal atoms - and would report the second,
+    #: faithful delivery of that phrase as a duplicate.  The delivered side is a
+    #: concatenation too, so both sides are measured the same way.
+    source_text = "".join(atom.normalized_text for atom in atoms)
+    source_occurrences = Counter()
+    for value in {atom.normalized_text for atom in atoms}:
+        if value:
+            source_occurrences[value] = source_text.count(value)
+
+    ledger = SourceTextCompletenessLedger()
+    cursor = 0
+    last_distinct_position = 0
+    #: First pass: resolve every atom's own match position.  Spans must all be
+    #: known before any occurrence can be judged, because a *later* atom may claim
+    #: text that contains this one - judging on the fly would count that text as a
+    #: second emission of the earlier atom.
+    found_positions: list[int] = []
+    for atom in atoms:
+        compact_value = atom.normalized_text
+        found = compact_generated.find(compact_value, cursor) if compact_value else -1
+        if found < 0 and compact_value:
+            # An atom can legitimately appear earlier in the document than the
+            # source order suggests - the DOCX interleaves editable tables - so a
+            # forward-only search may miss text that IS delivered.  Presence is the
+            # primary signal; the ordering note records the discrepancy.
+            found = compact_generated.find(compact_value)
+        found_positions.append(found)
+        if found >= 0:
+            cursor = found + len(compact_value)
+    #: Every position the expected source text claims, one per atom.
+    claimed_spans = [
+        (position, position + len(atom.normalized_text))
+        for atom, position in zip(atoms, found_positions)
+        if position >= 0
+    ]
+
+    for index, atom in enumerate(atoms):
+        compact_value = atom.normalized_text
+        distinctive = len(compact_value) >= MIN_ATOM_LENGTH_FOR_DUPLICATE
+        found = found_positions[index]
+        record = SourceTextCompletenessRecord(
+            atom=atom,
+            text_emission_owner_count=(1 if found >= 0 else 0),
+            found_position=None if found < 0 else found,
+            previous_expected_atom_id=(
+                atoms[index - 1].atom_id if index > 0 else None
+            ),
+            next_expected_atom_id=(
+                atoms[index + 1].atom_id if index + 1 < len(atoms) else None
+            ),
+        )
+        if distinctive and found >= 0:
+            # A SECOND OWNER IS A DELIVERED OCCURRENCE BEYOND THE SOURCE'S OWN COUNT.
+            # Occurrences inside a span another expected atom claims are that atom's
+            # text, not a second emission of this one, so only unclaimed occurrences
+            # count - plus this atom's own claimed occurrence, which the unclaimed
+            # scan excludes by construction.
+            occurrences = 1 + _unclaimed_occurrences(
+                compact_generated, compact_value, claimed_spans
+            )
+            if occurrences > source_occurrences[compact_value]:
+                record.notes.append("DELIVERED_MORE_OFTEN_THAN_SOURCE_PRINTS_IT")
+                record.text_emission_owner_count = occurrences
+        if distinctive and found >= 0 and found < last_distinct_position:
+            record.notes.append("FOUND_BEFORE_PREVIOUS_ATOM")
+        if found >= 0 and distinctive:
+            last_distinct_position = found + len(compact_value)
+        ledger.records.append(record)
+    return ledger
+
+
+def _unclaimed_occurrences(
+    haystack: str, needle: str, claimed_spans: Sequence[tuple[int, int]]
+) -> int:
+    """How often ``needle`` occurs outside every span another atom already claims."""
+
+    if not needle:
+        return 0
+    count = 0
+    start = 0
+    while True:
+        at = haystack.find(needle, start)
+        if at < 0:
+            return count
+        end = at + len(needle)
+        if not any(
+            span_start <= at and end <= span_end
+            for span_start, span_end in claimed_spans
+        ):
+            count += 1
+        start = at + 1
+
+
+def _source_sequence_preserved(
+    expected: list[str],
+    generated_text: str,
+    *,
+    executed_values: Sequence[str] = (),
+) -> tuple[int, int]:
+    """Backward-compatible count wrapper around the completeness ledger.
+
+    The delivered text is compared with plain strings here, so each expectation
+    becomes one atom with no source provenance; callers that already hold the
+    source model use :func:`_source_text_completeness` to keep the provenance.
+    """
+
+    atoms = [
+        SourceTextAtom(
+            atom_id=f"UNPROVENANCED-{index}",
+            source_page=None,
+            source_container_id="",
+            source_order_index=index,
+            text=value,
+        )
+        for index, value in enumerate(expected)
+    ]
+    ledger = _source_text_completeness(
+        atoms, generated_text, executed_values=executed_values
+    )
+    return ledger.missing_count, 0
 
 
 def build_source_format_qa(
@@ -316,9 +668,7 @@ def build_source_format_qa(
     path = Path(docx_path)
     document = Document(path)
     generated_text = _docx_text(path)
-    expected_strings = _expected_source_body_strings(
-        template, project_facts, generation_report
-    )
+    atoms = _expected_source_body_atoms(template, project_facts, generation_report)
     # The renderer itself owns some fill rules: a glyph-free rule whose compiled
     # field plan asks for a resolved value is executed by the renderer's own
     # source-form-line owner rather than through a template ``SourceFillSlot``,
@@ -327,9 +677,10 @@ def build_source_format_qa(
     # those executed values are removed from the delivered text first; otherwise
     # a correctly emitted value reads as missing source text.
     executed_values = _executed_value_texts(generation_report)
-    source_missing, source_reordered = _source_sequence_preserved(
-        expected_strings, generated_text, executed_values=executed_values
+    completeness = _source_text_completeness(
+        atoms, generated_text, executed_values=executed_values
     )
+    source_missing, source_reordered = completeness.missing_count, 0
     if (generation_report or {}).get('compatibility_mode') == 'WORD_SAFE':
         from .word_safe_scan import scan_word_safe_docx
         scan = scan_word_safe_docx(path)
@@ -361,6 +712,7 @@ def build_source_format_qa(
             'source_text_missing': source_missing,
             'source_text_reordered': None,
             'source_text_reordered_note': 'Not measured by this presence-only diagnostic.',
+            **completeness.as_dict(),
             'table_geometry_match_rate': None, 'merged_cell_match': None,
             'font_family_match_rate': None, 'font_size_match_rate': None,
             'paragraph_alignment_match_rate': None, 'paragraph_spacing_match_rate': None,
@@ -438,7 +790,7 @@ def build_source_format_qa(
     result = "PASS"
     if warnings or substitutions or source_missing or source_reordered:
         result = "PASS_WITH_REVIEW"
-    if table_geometry == 0.0 or (source_missing > max(3, len(expected_strings) // 10)):
+    if table_geometry == 0.0 or (source_missing > max(3, len(atoms) // 10)):
         result = "FAIL"
     return {
         "schema_version": "1.0",
@@ -463,6 +815,7 @@ def build_source_format_qa(
         "unexpected_text_insertions": [],
         "source_text_missing": source_missing,
         "source_text_reordered": source_reordered,
+        **completeness.as_dict(),
         "font_substitutions": substitutions,
         "font_repairs": list(generation_report.get("font_repairs", []) or []),
         "layout_warnings": warnings,

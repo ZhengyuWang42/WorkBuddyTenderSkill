@@ -1,0 +1,20 @@
+{
+  "schema": "v1_source_text_completeness/1",
+  "build": "acceptance/workspace/case_002/v1_word_source_fidelity_arch2",
+  "measurement_mode": "SAVED_BUILD_QA",
+  "authority": "SAVED_REOPENED_DOCX",
+  "SOURCE_TEXT_COMPLETENESS": "PASS",
+  "counts": {
+    "MISSING_ATOM_COUNT": 0,
+    "DUPLICATED_ATOM_COUNT": 0,
+    "source_text_atoms_with_zero_owner_count": 0,
+    "source_text_atoms_with_multiple_owner_count": 0
+  },
+  "expected_atom_count": 451,
+  "delivered_atom_count": 451,
+  "out_of_order_atom_count": 25,
+  "missing_atom_ids": [],
+  "missing_atoms": [],
+  "duplicate_atoms": [],
+  "note": "out-of-order atoms are reported separately and are not a completeness failure: the delivered DOCX legitimately interleaves editable tables between source text, and the historical passing builds show the same count as the failing ones"
+}

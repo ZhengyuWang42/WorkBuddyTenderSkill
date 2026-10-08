@@ -9,12 +9,14 @@
 
 > 本清单中的任何复选框**都不得**由自动化勾选。所有 `[ ]` 保持未勾选状态，直到人工在桌面 Microsoft Word 中实际确认。
 
-## 0.5 人工复核第 4 轮结论（ROUND-4 HUMAN FINDINGS）
+## 0.5 人工复核第 4 轮结论（ROUND-4 HUMAN FINDINGS，HISTORICAL / SUPERSEDED）
 
-> **当前复核对象（CURRENT）**：`acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8`
+> **历史（HISTORICAL / SUPERSEDED build）**：本节记录**当时**的复核对象
+> `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8`
 > （DOCX `8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230`，
 > PDF `3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927`）。
-> 下表 A/B/C 三项发现均已**自动化关闭**，等待人工在这一 build 上重新复核。
+> 该 build 已被后继构建取代，**当前**复核对象见第 1.6 节。
+> 下表 A/B/C 三项发现均已**自动化关闭**，等待人工在**当前** build 上重新复核。
 > **`CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`**。
 
 **发现所在的历史复核对象**：`acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final`
@@ -261,17 +263,17 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 | 项 | 值 |
 | --- | --- |
-| build id | `v1_manual_fidelity_round4_date_rhythm_closure8` |
-| build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8` |
+| build id | `v1_word_source_fidelity_arch3` |
+| build dir | `acceptance/workspace/case_001/v1_word_source_fidelity_arch3` |
 | manifest | `build_manifest.json`（`FRESH_BUILD`，pipeline rc 0，render rc 0） |
-| DOCX | `8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230`（45700 B） |
-| PDF | `3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927`（308449 B，22 页） |
+| DOCX | `6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480`（45699 B） |
+| PDF | `742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422`（308312 B，23 页） |
 | 源 PDF | `8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27`（61 页） |
-| generation_report | `1274c205a9e151976d09c3598b1feffd169fa579878c7f105126994717608ace` |
-| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_manual_fidelity_round4_date_rhythm_closure8`（`POINTER_CHECK = PASS`） |
-| 自动化状态 | `HARD_BREAK_FIDELITY = PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION`，`documented_structural_deviation_count = 1`，`unexplained_structural_split_count = 0`，`unexpected_w_br_count = 0`，`unexpected_w_cr_count = 0` |
+| generation_report | `638934270d45a62253e2985719b17ee2ba23dbeae78569cc2c4162de86f7a277` |
+| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_word_source_fidelity_arch3`（`POINTER_CHECK = PASS`） |
+| 自动化状态 | `HARD_BREAK_FIDELITY = PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION`，`documented_structural_deviation_count = 1`，`unexplained_structural_split_count = 0`，`unexpected_w_br_count = 0`，`unexpected_w_cr_count = 0`；`PARAGRAPH_FLOW_FIRST` 审计 `PARAGRAPH_POSITIONING_TAB_COUNT = 0`、`CENTER_ALIGNMENT_HACK_COUNT = 0`、`RIGHT_ALIGNMENT_HACK_COUNT = 0`、`FIRST_LINE_TAB_HACK_COUNT = 0`，`unreachable_positioned_blank_count = 0` |
 | 人工状态 | `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`（本清单**全部未勾选**） |
-| 上一候选（已被取代，**未删除**） | `v1_manual_fidelity_round3_word_review_final`（见下方 HISTORICAL 块） |
+| 上一候选（已被取代，**未删除**） | `v1_word_source_fidelity_arch2`，其前身为 `v1_manual_fidelity_round4_date_rhythm_closure8`（见 §1.6.2 HISTORICAL 块） |
 
 生成文档 22 页，生成页 = 源页序 − 39。
 
@@ -282,11 +284,18 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 ### 1.6.2 历史复核对象（HISTORICAL / SUPERSEDED）
 
-以下 build 是**当时**的当前复核对象，已被 closure8 取代，**不得**当作当前状态；
+以下 build 是**当时**的当前复核对象，已被后继构建取代，**不得**当作当前状态；
 其历史人工结论也一并保留：
 
 | 项 | 历史值 |
 | --- | --- |
+| build id | `v1_word_source_fidelity_arch2`（其后继为当前 `v1_word_source_fidelity_arch3`） |
+| build dir | `acceptance/workspace/case_001/v1_word_source_fidelity_arch2` |
+| DOCX | `fbca580b6f2f663dd01fbf8d869aa44d91cd87eb8c5c43a84b82025b6ca241d2` |
+| 更早的 build id | `v1_manual_fidelity_round4_date_rhythm_closure8` |
+| 更早的 build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure8` |
+| 更早的 DOCX | `8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230`（45700 B） |
+| 更早的 PDF | `3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927`（308449 B，22 页） |
 | build id | `v1_manual_fidelity_round3_word_review_final` |
 | build dir | `acceptance/workspace/case_001/v1_manual_fidelity_round3_word_review_final` |
 | DOCX | `16dc0ae275cb43799a76df5770b43fb7dc76b9d93b374e07621792419f95a191`（45533 B） |
@@ -383,16 +392,17 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 ### CASE002 — 营收系统整合和硬件系统升级项目
 
-当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_round4_closure8`
-DOCX sha256 = `1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d`（61167 B）
-PDF sha256 = `851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455`（552557 B，33 页）
+当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_word_source_fidelity_arch3`
+DOCX sha256 = `8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf`（61152 B）
+PDF sha256 = `b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d`（552765 B，32 页）
 源 PDF sha256 = `2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449`（174 页）
-generation_report sha256 = `4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1bee6ac59bf859`
+generation_report sha256 = `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74bdce09c3a48c7`
 
 > **历史（HISTORICAL / SUPERSEDED）**：旧当前指针曾是
-> `v1_manual_fidelity_round3_word_review_final`（DOCX `5206b410…f08012`），已被 `v1_round4_closure8`
-> 取代；历史指针副本保留为 `case_002_current_build_superseded_by_*.json`。以下关于该轮修复的描述
-> 属那个历史 build 的记录。
+> `v1_word_source_fidelity_arch2`，更早为 `v1_round4_closure8`
+> （DOCX `1e694c00…5989d`），再早为 `v1_manual_fidelity_round3_word_review_final`（DOCX `5206b410…f08012`）。
+> 历史指针副本保留为 `case_002_current_build_superseded_by_*.json`。以下关于该轮修复的描述
+> 属那些历史 build 的记录。
 
 > 本轮共用修复重建了 CASE002，并把 4 条表单行 `w:br` 中的 **2** 条关闭（`系`、
 > `我公司参加贵单位组织的` 两行）；保留的 **2** 条（`3、我方拟委派的项目负责人为`、
@@ -413,17 +423,16 @@ generation_report sha256 = `4e3a591327413713ae70be3c20dcf90328b84bcdfcc90d59cb1b
 
 ### CASE003 — 肇源县城市供水管网漏损治理项目三标段
 
-当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_round4_closure8`
-DOCX sha256 = `74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54`（56952 B）
-PDF sha256 = `c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e`（899832 B，33 页）
+当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_word_source_fidelity_arch3`
+DOCX sha256 = `df754d89e6c28013a1ae53c8cddf368036c86adf5edd752c91d1ad27fa1da950`（56960 B）
+PDF sha256 = `e8c1825002fc157c8e147483744efc5237291f64a86ced898b7cdce29540d417`（897769 B，33 页）
 源 PDF sha256 = `aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a`（203 页）
-generation_report sha256 = `ed670582e8e4cb9840549ec365aedc783a30e0cb2dd56f0e3e829a44b0c7fa0d`
+generation_report sha256 = `6df50d39ceaaacd246f362598413154ccff1a00b9384fcea40b94a8fbe134255`
 
 > **历史（HISTORICAL / SUPERSEDED）：CASE003 的旧当前指针是 `v1_followup3`
-> （DOCX `e013b1f2…cf3e2365`）。当时「指针不迁移」的判断已由 ROUND4 CLOSURE8 取代 ——
-> `case_003_current_build.json` 现在指向 `v1_round4_closure8`（见上）。**
->
-> 历史理由（**已 SUPERSEDED BY ROUND4 CLOSURE8，仅作历史证据**）：当时共用修复也重建了 CASE003，
+> （DOCX `e013b1f2…cf3e2365`），其后为 `v1_round4_closure8`（DOCX `74946ddc…45a54`），
+> 再后为 `v1_word_source_fidelity_arch2`。**
+> 历史理由（**已 SUPERSEDED，仅作历史证据**）：当时共用修复也重建了 CASE003，
 > 但重建产物的 `generation_report.json`（`1248666a…`）、`project_facts.json`、
 > `normalized_document.json`、`source_format_qa.json` 与被接受产物**逐字节相同**，该案例有 **0**
 > 条表单行换行，修复对它是 **no-op**。因此当时指针**不迁移**（不为 ZIP 时间戳而 churn），
@@ -870,3 +879,37 @@ JSON 里对应字段为 `null`。**该缺陷只影响计数呈现，不影响任
 
 - [ ] 确认已按上表打开**当前**产物 `review_workbook_round3_final_status_reconciled.json`，
       而不是被取代的那个
+
+
+---
+
+## Word 源版式保真 — CASE002 人工复核对象（第 14 轮，**自动关闭待人工确认**）
+
+自动化已闭环；下列复选框**全部未勾选**，必须由人工在桌面 Microsoft Word 中打开**确切**产物后填写。
+
+| 项 | 值 |
+| --- | --- |
+| 构建 | `acceptance/workspace/case_002/v1_word_source_fidelity_arch3` |
+| DOCX | `acceptance/workspace/case_002/v1_word_source_fidelity_arch3/基础投标文件.docx` |
+| DOCX SHA256 | `8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf` |
+| PDF SHA256 | `b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d` |
+| generation_report SHA256 | `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74bdce09c3a48c7` |
+| 机器状态 | `CASE002_WORD_SOURCE_FORM_FIDELITY = PASS`；`GENERIC_WORD_SOURCE_FIDELITY = PASS`；`SOURCE_TEXT_COMPLETENESS = PASS`（missing/duplicate/zero_owner/multiple_owner = 0）；`THREE_CASE_GENERALIZATION = PASS` |
+| 段落流架构 | `PARAGRAPH_FLOW_FIRST` 审计：`PARAGRAPH_POSITIONING_TAB_COUNT = 0`、`CENTER_ALIGNMENT_HACK_COUNT = 0`、`RIGHT_ALIGNMENT_HACK_COUNT = 0`、`FIRST_LINE_TAB_HACK_COUNT = 0`；`unreachable_positioned_blank_count = 0` |
+| 人工状态 | `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（**不是** `HUMAN_PASS`） |
+| 历史构建（**不是**当前对象） | `v1_word_source_fidelity_arch2`（DOCX `8b0c8b01…591ad`）；`v1_round4_closure8`（DOCX `1e694c00…5989d`） |
+
+- [ ] 在桌面 Microsoft Word 中打开上表**确切** DOCX（不是任何历史构建）
+- [ ] 封面日期行为三个独立可填空白（年 / 月 / 日 前各一）
+- [ ] 投标函（`一、投标函` 起至其 `日期：` 行）为**一个**页面
+- [ ] 投标函正文左边界与源文一致（源 ≈ 70.92 pt）
+- [ ] 项目名称以**带下划线的已解析值**落在源槽位内（源规则 196.90→304.90）
+- [ ] 投标总价大写 / 小写槽位均为可编辑下划线空白
+- [ ] 项目负责人行与有效期行均为**同一行**
+- [ ] 开标一览表为**一个**逻辑可编辑表格；`实施周期 = 18个月`、`交货地点 = 西安市内`
+- [ ] 授权委托书结构完整、无提前换行、无裁剪/重叠（无头渲染的字距差异见审计报告）
+- [ ] 跨页报价明细仍为**一个**逻辑可编辑表格
+- [ ] 未发现源文文字丢失（机器：missing/duplicate/zero_owner/multiple_owner = 0）
+
+> 无头 LibreOffice 渲染与桌面 Word 的字距差异已按 `word_render_authority_audit.json` 归类为
+> `HEADLESS_FONT_SUBSTITUTION_ONLY`（宿主机缺少 `仿宋`）；该分类**不**免除桌面 Word 复核。

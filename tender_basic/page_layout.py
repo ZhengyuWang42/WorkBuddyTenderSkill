@@ -531,15 +531,25 @@ def build_page_layout(page):
             result.elements.extend(paragraphs)
     # Estimate page-local pitch rather than treating font size as line spacing.
     # Some forms use ~10pt text on a 25pt baseline grid.
+    #
+    # A FORM ROW IS A PARAGRAPH ON THE SAME GRID.  Form rows were excluded from
+    # both halves of this estimate - as *evidence* and as recipients - because
+    # their kind is ``FormRow`` rather than ``LogicalParagraph``/``List``.  A
+    # page whose body is mostly a form therefore measured no pitch at all, its
+    # rows kept ``line_pitch_pt = 0``, and the emitter fell back to the style's
+    # own line height: the 投标函 contact block was delivered at 16.9 pt against
+    # the source's 23.28 pt.  The source's row spacing is the same measurement
+    # whichever kind of paragraph the row became.
+    PITCH_KINDS = ('LogicalParagraph', 'List', 'FormRow')
     pitches=[]
     for a,b in zip(result.elements,result.elements[1:]):
-        if isinstance(a,LogicalParagraph) and isinstance(b,LogicalParagraph) and a.kind in ('LogicalParagraph','List') and b.kind in ('LogicalParagraph','List'):
+        if isinstance(a,LogicalParagraph) and isinstance(b,LogicalParagraph) and a.kind in PITCH_KINDS and b.kind in PITCH_KINDS:
             delta=b.bbox[1]-a.bbox[3]+a.font_size_pt
             if a.font_size_pt*.75<delta<a.font_size_pt*3.3: pitches.append(delta)
     if len(pitches)>=2:
         pitch=median(pitches)
         for p in result.elements:
-            if isinstance(p,LogicalParagraph) and p.kind in ('LogicalParagraph','List') and len({round(l.bbox[1],1) for l in p.source_lines})==1:
+            if isinstance(p,LogicalParagraph) and p.kind in PITCH_KINDS and len({round(l.bbox[1],1) for l in p.source_lines})==1:
                 p.line_pitch_pt=max(p.font_size_pt*1.05,pitch)
     # Join strongly compatible adjacent blocks BEFORE the renderer sees them.
     merged=[]

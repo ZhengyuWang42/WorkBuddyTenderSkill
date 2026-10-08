@@ -1,0 +1,42 @@
+{
+  "schema": "v1_source_text_completeness/1",
+  "build": "acceptance/workspace/case_003/v1_word_source_fidelity_arch1",
+  "measurement_mode": "RECOMPUTED_LEDGER",
+  "authority": "SAVED_REOPENED_DOCX",
+  "SOURCE_TEXT_COMPLETENESS": "FAIL",
+  "counts": {
+    "MISSING_ATOM_COUNT": 1,
+    "DUPLICATED_ATOM_COUNT": 0,
+    "source_text_atoms_with_zero_owner_count": 1,
+    "source_text_atoms_with_multiple_owner_count": 0
+  },
+  "expected_atom_count": 503,
+  "delivered_atom_count": 502,
+  "out_of_order_atom_count": 38,
+  "missing_atom_ids": [
+    "P70-PARA5"
+  ],
+  "missing_atoms": [
+    {
+      "atom_id": "P70-PARA5",
+      "source_page": 70,
+      "source_container_id": "paragraph:5",
+      "source_order_index": 29,
+      "role": "paragraph_text",
+      "text": "期为   年   月   日；按合同约定实施和完成承包工程，修补工程中的任何缺陷，工程质量：    标准。 ",
+      "normalized_text": "期为年月日；按合同约定实施和完成承包工程，修补工程中的任何缺陷，工程质量：标准。",
+      "source_x0": 54.82500076293945,
+      "source_x1": 546.3250122070312,
+      "source_y": 248.11447143554688,
+      "last_present_stage": "STAGE_5_IN_MEMORY_DOCX",
+      "first_missing_stage": "STAGE_5_IN_MEMORY_DOCX",
+      "text_emission_owner_count": 0,
+      "found_position": null,
+      "neighboring_atom_before": "P70-PARA4",
+      "neighboring_atom_after": "P70-PARA6",
+      "notes": []
+    }
+  ],
+  "duplicate_atoms": [],
+  "note": "out-of-order atoms are reported separately and are not a completeness failure: the delivered DOCX legitimately interleaves editable tables between source text, and the historical passing builds show the same count as the failing ones"
+}

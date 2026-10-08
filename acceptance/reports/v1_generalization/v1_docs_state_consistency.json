@@ -235,35 +235,35 @@
   },
   "pointers": {
     "case_001": {
-      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
-      "docx_sha256": "8dedddb7682e193cf6544feae286cdbbf1ba3be876355eba20c7a8f4cd294230",
-      "pdf_sha256": "3fe5b5b9118b57cb24742f02062284ba0c3038bcacae1dbf11211bdb23261927"
+      "build_id": "v1_word_source_fidelity_arch3",
+      "docx_sha256": "6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480",
+      "pdf_sha256": "742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422"
     },
     "case_002": {
-      "build_id": "v1_round4_closure8",
-      "docx_sha256": "1e694c00bc341cfc3f87220fdb00cef13dea4b27f946f60c17efa0752b16589d",
-      "pdf_sha256": "851549be46a538769d5c39df51fc5649c9601949d34e979840dd6368e7b78455"
+      "build_id": "v1_word_source_fidelity_arch3",
+      "docx_sha256": "8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf",
+      "pdf_sha256": "b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d"
     },
     "case_003": {
-      "build_id": "v1_round4_closure8",
-      "docx_sha256": "74946ddcdfa52781e4be1fec6e771e4658157867dcc98c5352b943a42b945a54",
-      "pdf_sha256": "c9e0de0f9954f4118e03e6f7210d8a4b0951da411a13e5198db9df3a329a011e"
+      "build_id": "v1_word_source_fidelity_arch3",
+      "docx_sha256": "df754d89e6c28013a1ae53c8cddf368036c86adf5edd752c91d1ad27fa1da950",
+      "pdf_sha256": "e8c1825002fc157c8e147483744efc5237291f64a86ced898b7cdce29540d417"
     }
   },
   "docs": {
     "checked_human_boxes": 7,
     "authorized_human_boxes": [
-      500,
-      503,
-      505,
-      506,
-      508,
       509,
-      510
+      512,
+      514,
+      515,
+      517,
+      518,
+      519
     ],
     "unauthorized_human_boxes": [],
-    "state_doc_bytes": 139955,
-    "decisions_doc_bytes": 113169
+    "state_doc_bytes": 144141,
+    "decisions_doc_bytes": 122942
   },
   "checks": [
     {
@@ -335,7 +335,7 @@
     {
       "check": "case_001_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "build_id": "v1_word_source_fidelity_arch3",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -343,7 +343,7 @@
     {
       "check": "case_002_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_round4_closure8",
+      "build_id": "v1_word_source_fidelity_arch3",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -351,7 +351,7 @@
     {
       "check": "case_003_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_round4_closure8",
+      "build_id": "v1_word_source_fidelity_arch3",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -390,13 +390,13 @@
       "check": "human_boxes_ticked_only_in_the_authorized_case001_xlsx_section",
       "status": "PASS",
       "authorized_ticked_boxes": [
-        500,
-        503,
-        505,
-        506,
-        508,
         509,
-        510
+        512,
+        514,
+        515,
+        517,
+        518,
+        519
       ],
       "unauthorized_ticked_boxes": [],
       "note": "only the current CASE001 XLSX human-review section may carry a ticked box; CASE002/CASE003 XLSX, Word review and production/submission boxes stay unticked"
@@ -563,9 +563,9 @@
     {
       "check": "checklist_current_excel_object_is_round4",
       "status": "PASS",
-      "current_marker_at": 4323,
-      "history_marker_at": 5256,
-      "first_round1_reference_at": 21055,
+      "current_marker_at": 4426,
+      "history_marker_at": 5359,
+      "first_round1_reference_at": 21997,
       "note": "the current Excel review object is Round4; round-1/2/3 references sit behind history markers"
     },
     {
@@ -577,26 +577,42 @@
       "status": "PASS"
     },
     {
+      "check": "no_superseded_build_is_re_promoted_to_current",
+      "status": "PASS",
+      "re_promoted": [],
+      "archived_build_ids": [
+        "v1_followup3",
+        "v1_manual_fidelity_round3_p3semantics",
+        "v1_manual_fidelity_round3_word_review_final",
+        "v1_manual_fidelity_round3_word_review_followup",
+        "v1_manual_fidelity_round4_date_rhythm_closure8",
+        "v1_round3_p3semantics",
+        "v1_round4_closure8",
+        "v1_word_source_fidelity_arch2"
+      ],
+      "note": "an archived pointer is permanent history: a build the repository has already superseded may never become the current pointer target again"
+    },
+    {
       "check": "checklist_current_word_object_matches_case_001_pointer",
       "status": "PASS",
-      "pointer_build": "v1_manual_fidelity_round4_date_rhythm_closure8",
-      "pointer_dir": "v1_manual_fidelity_round4_date_rhythm_closure8",
+      "pointer_build": "v1_word_source_fidelity_arch3",
+      "pointer_dir": "v1_word_source_fidelity_arch3",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },
     {
       "check": "checklist_current_word_object_matches_case_002_pointer",
       "status": "PASS",
-      "pointer_build": "v1_round4_closure8",
-      "pointer_dir": "v1_round4_closure8",
+      "pointer_build": "v1_word_source_fidelity_arch3",
+      "pointer_dir": "v1_word_source_fidelity_arch3",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },
     {
       "check": "checklist_current_word_object_matches_case_003_pointer",
       "status": "PASS",
-      "pointer_build": "v1_round4_closure8",
-      "pointer_dir": "v1_round4_closure8",
+      "pointer_build": "v1_word_source_fidelity_arch3",
+      "pointer_dir": "v1_word_source_fidelity_arch3",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },
@@ -608,7 +624,10 @@
         "v1_manual_fidelity_round3_p3semantics",
         "v1_manual_fidelity_round3_word_review_final",
         "v1_manual_fidelity_round3_word_review_followup",
-        "v1_round3_p3semantics"
+        "v1_manual_fidelity_round4_date_rhythm_closure8",
+        "v1_round3_p3semantics",
+        "v1_round4_closure8",
+        "v1_word_source_fidelity_arch2"
       ],
       "mislabelled": [],
       "note": "a line that describes the CURRENT review object or pointer target must not name a superseded build id unless the mention is marked as history"

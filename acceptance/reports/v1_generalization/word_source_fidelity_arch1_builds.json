@@ -1,0 +1,45 @@
+{
+  "schema": "v1_word_source_fidelity_arch1_builds/1",
+  "architecture_version": "v1_word_source_fidelity_arch1",
+  "builds": {
+    "case_001": {
+      "build_path": "acceptance/workspace/case_001/v1_word_source_fidelity_arch1",
+      "docx_exists": true,
+      "docx_bytes": 45699,
+      "docx_sha256": "a783ecb7eab235bc7b9cd208955054549896330ef04013298267bb094d7af778",
+      "generation_report_sha256": "a1eab85ac218376032adf5d27b573ef480e3a31aaff677cf3f5a4cba682d2f06",
+      "render_rc": 0,
+      "pdf_path": "acceptance/workspace/case_001/v1_word_source_fidelity_arch1/基础投标文件.pdf",
+      "pdf_bytes": 308312,
+      "pdf_sha256": "e86dc08719b56267b322459f112a3ae4307dce87532e53fa1639f6b5bce73bea",
+      "page_count": 23,
+      "blank_page_count": 0
+    },
+    "case_002": {
+      "build_path": "acceptance/workspace/case_002/v1_word_source_fidelity_arch1",
+      "docx_exists": true,
+      "docx_bytes": 61143,
+      "docx_sha256": "7c50aa4a275851eb0546b563e5b555544e2d7b515197b57e31263a5efcd28d5e",
+      "generation_report_sha256": "1e1b591c936f2ef976f5df9d1c63adc21059286c46b898711dc8bcf6db4e1915",
+      "render_rc": 0,
+      "pdf_path": "acceptance/workspace/case_002/v1_word_source_fidelity_arch1/基础投标文件.pdf",
+      "pdf_bytes": 552779,
+      "pdf_sha256": "09524536ba01d31f645bb73f1bd42818af56d4c920b1586220fa4f2e44ac882d",
+      "page_count": 32,
+      "blank_page_count": 0
+    },
+    "case_003": {
+      "build_path": "acceptance/workspace/case_003/v1_word_source_fidelity_arch1",
+      "docx_exists": true,
+      "docx_bytes": 56960,
+      "docx_sha256": "e556c98d8210b67e72b3fe9cfa1ec30129355237e4507a8d2113b167ba23e7f1",
+      "generation_report_sha256": "4d8a5cd52982262842576a86618a96a3a311a88177715c9dc7c00f3bfd8da417",
+      "render_rc": 0,
+      "pdf_path": "acceptance/workspace/case_003/v1_word_source_fidelity_arch1/基础投标文件.pdf",
+      "pdf_bytes": 897741,
+      "pdf_sha256": "ca4148c6f0ea7d8c177389d3a39280f89ff2d32b3689d95975a71c6cb1c7f664",
+      "page_count": 33,
+      "blank_page_count": 0
+    }
+  }
+}
