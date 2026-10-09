@@ -156,7 +156,35 @@ def main(argv: list[str] | None = None) -> int:
         help="re-verify the same locator contract on the round-12 successors",
     )
     parser.add_argument("--out", help="report path (default: the round's own gate file)")
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        help=(
+            "write EVERY report of this invocation here - the gate file, the "
+            "generalization file and all per-case JSON/Markdown reports - instead of "
+            "the shared historical report directory; workbook selection, fixtures "
+            "and every validation rule are unchanged"
+        ),
+    )
     args = parser.parse_args(argv)
+    # OUTPUT ISOLATION.  The destination is resolved once, per invocation, and is
+    # then threaded explicitly into each writer.  A diagnostic run must never be
+    # able to touch the frozen historical reports, so there is no fallback: an
+    # unusable destination is a hard failure, and a legacy --out name may not
+    # escape the selected directory.
+    dest = REPORTS if args.out_dir is None else Path(args.out_dir)
+    if args.out_dir is not None:
+        try:
+            dest.mkdir(parents=True, exist_ok=True)
+        except OSError as error:
+            raise SystemExit(f"cannot use --out-dir {dest}: {error}") from error
+    gate_name = args.out or "round9_gate_integrity.json"
+    gate_path = (dest / gate_name).resolve()
+    if dest.resolve() not in gate_path.parents:
+        raise SystemExit(
+            f"--out {gate_name!r} would escape --out-dir {dest}; refusing to write"
+        )
     cases = list(BUILDS) if args.three_case or not args.case else args.case
 
     if args.round12:
@@ -201,10 +229,10 @@ def main(argv: list[str] | None = None) -> int:
 
         round9.BUILDS = dict(ROUND10_BUILDS)
 
-        def _write_round10_case_report(case: str) -> dict[str, Any]:
+        def _write_round10_case_report(case: str, *, out_dir=None) -> dict[str, Any]:
             from v1_review_workbook_round10_report import write_case_report as write10
 
-            return write10(case)
+            return write10(case, out_dir=out_dir)
 
         _case_report_writer = _write_round10_case_report
         _generalization_stem = "review_workbook_round10_generalization.json"
@@ -216,7 +244,7 @@ def main(argv: list[str] | None = None) -> int:
 
     results: dict[str, dict[str, Any]] = {}
     for case in cases:
-        results[case] = _case_report_writer(case)
+        results[case] = _case_report_writer(case, out_dir=dest)
 
     case_gates = {case: _case_gate(case, data) for case, data in results.items()}
     named_rows = [row for case in cases for row in case_gates[case]["named_fixtures"]]
@@ -274,8 +302,8 @@ def main(argv: list[str] | None = None) -> int:
             set(failed_cases) | {"workbook_identity"}
         )
 
-    REPORTS.mkdir(parents=True, exist_ok=True)
-    path = REPORTS / (args.out or "round9_gate_integrity.json")
+    dest.mkdir(parents=True, exist_ok=True)
+    path = gate_path
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     generalization = {
@@ -293,7 +321,7 @@ def main(argv: list[str] | None = None) -> int:
             "PASS" if all(data["verdict"] == "PASS" for data in results.values()) else "FAIL"
         ),
     }
-    (REPORTS / _generalization_stem).write_text(
+    (dest / _generalization_stem).write_text(
         json.dumps(generalization, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 

@@ -1,12 +1,12 @@
 {
   "schema": "v09_current_build_pointer/1",
-  "build_id": "v1_word_source_fidelity_arch3",
-  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch3",
-  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch3\\build_manifest.json",
+  "build_id": "v1_word_source_fidelity_arch4",
+  "build_dir": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4",
+  "manifest": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\build_manifest.json",
   "source_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
-  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch3\\基础投标文件.docx",
-  "generated_docx_sha256": "6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480",
-  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch3\\基础投标文件.pdf",
-  "generated_pdf_sha256": "742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422",
-  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch3\\generation_report.json"
+  "generated_docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\基础投标文件.docx",
+  "generated_docx_sha256": "b02afac3ff76e8f3881c30803753c0cbad880b3e3284e40b5059da6b0a639e76",
+  "generated_pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\基础投标文件.pdf",
+  "generated_pdf_sha256": "b63c69c329d27a931caf2fe5bfd3989a7bb80b0e27e6b491beabd857971625d6",
+  "generation_report": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\generation_report.json"
 }

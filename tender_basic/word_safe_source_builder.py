@@ -4,6 +4,7 @@ There is deliberately no import of the diagnostic high-fidelity emitter.
 PDF absolute positioning, artwork and complex merge geometry are degraded.
 """
 import json
+import math
 import re
 from pathlib import Path
 from docx import Document
@@ -121,6 +122,12 @@ FIGURE_SPACE_ADVANCE_RATIO = 0.5
 #: floor, so the two cannot disagree about where print begins.
 MIN_PRINTABLE_BODY_LEFT_PT = 18.0
 
+#: A figure space (U+2007) carries the font's own *digit* advance - half an em by
+#: convention - and not the Latin 0.55 em ratio ordinary text is measured with.
+#: The delivered runs confirm it: a figure-space run paints its glyphs at half an
+#: em, so counting them with the Latin ratio leaves a source rule short.
+FIGURE_SPACE_ADVANCE_EM = 0.5
+
 #: How far a whole-number figure-space run may differ from the source rule's own
 #: measured width before the exact intrinsic spacer owns the blank instead.  The
 #: floor is a tenth of a millimetre: below it the approximation is invisible at
@@ -171,6 +178,32 @@ def new_word_safe_document():
     return doc
 
 
+def add_run_tabbed_text(run, text):
+    """Write ``text`` into ``run``, with every tab written as a real tab element.
+
+    A TAB IS A CURSOR MOVE, NOT TEXT.  A literal tab character inside ``w:t`` is
+    not a tab stop move: Word lays the run out as ordinary glyphs and the
+    paragraph's declared stops are never reached, so a rule this emitter believed
+    it was painting with an underline leader was inert on the page - the OOXML
+    carried an underline *and* a stop and the source's own rule was still missing.
+    The tab is therefore written as the element Word actually moves on, which is
+    what makes a declared source-derived stop paint.
+
+    ONE IMPLEMENTATION.  Both builders' run writers call this, so a tab cannot be
+    a cursor move on one emission path and inert text on another.
+    """
+
+    for index, line in enumerate(str(text or "").split("\n")):
+        if index:
+            run.add_break(WD_BREAK.LINE)
+        for position, segment in enumerate(line.split("\t")):
+            if position:
+                run.add_tab()
+            if segment:
+                run.add_text(segment)
+    return run
+
+
 def add_safe_run(paragraph, text, source=None, underline=None, spacing_pt=None):
     run = paragraph.add_run()
     source_name = getattr(source, 'east_asia_font', None) or getattr(source, 'font_name', '') or '宋体'
@@ -187,10 +220,7 @@ def add_safe_run(paragraph, text, source=None, underline=None, spacing_pt=None):
     run.font.subscript = baseline_role == 'SUBSCRIPT'
     if spacing_pt:
         set_run_spacing(run, spacing_pt)
-    for index, line in enumerate(text.split('\n')):
-        if index:
-            run.add_break(WD_BREAK.LINE)
-        run.add_text(line)
+    add_run_tabbed_text(run, text)
     return run
 
 
@@ -376,6 +406,54 @@ class ParagraphFormRenderer:
         )
         return "INTRINSIC_SPACER", round(float(rendered), 4)
 
+    def _source_visible_gap_fill_rule_run(self, paragraph, width_pt, source):
+        """Paint a SOURCE-DRAWN rule with glyph coverage across its own width.
+
+        SOURCE-VISIBLE RULES REQUIRE VISIBLE NATIVE EDITABLE DELIVERY.  A single
+        underlined space whose width comes from a large positive ``w:spacing``
+        carries the underline *property* and paints a stub: the rule the source
+        drew then reads as missing in Word even though the OOXML has a ``w:u``.
+        This painter is the mechanism of a *source-drawn* rule, and it is only
+        reached for a span the source actually drew - a plain empty space, a date
+        slot and an unresolved slot keep the mechanism their own frozen contracts
+        were established with, so the generic blank renderer is untouched.
+
+        Whole figure-space advances are painted under the underline, and the
+        residual between their sum and the source's measured width is distributed
+        over those same glyphs as character spacing.  The painted span is therefore
+        the source's own width, and every glyph of it carries the underline.
+
+        Returns ``(mechanism, rendered_width_pt)``.
+        """
+
+        size = max(6.0, float(getattr(source, "font_size", 0) or 10.5))
+        # A FIGURE SPACE IS NOT LATIN TEXT.  ``_form_text_width`` measures a run as
+        # Latin glyphs and *strips* a figure space entirely (``str.split()`` treats
+        # U+2007 as whitespace, so it returns zero), which left this painter falling
+        # back to the Latin 0.55 em ratio.  A figure space carries a digit advance -
+        # half an em by convention, and that is what the delivered runs paint - so
+        # the Latin ratio over-counted each glyph and the rule reached the page two
+        # glyphs short of its own source width.  The model below is the delivered
+        # figure-space advance; the residual is still carried by the run's character
+        # spacing, so the painted span is the source's own width.
+        advance = size * FIGURE_SPACE_ADVANCE_EM
+        # The ceiling keeps the correction a small *reduction*: rounding down would
+        # leave the rule's far end unpainted, and a rule that stops short of its own
+        # source span is not the source's rule.
+        count = max(2, int(math.ceil(float(width_pt) / advance - 1e-9)))
+        spacing_pt = (float(width_pt) - count * advance) / count
+        self.builder._add_run(
+            paragraph,
+            "\u2007" * count,
+            source,
+            underline=True,
+            spacing_pt=spacing_pt,
+        )
+        self.builder.tab_stop_usage["source_visible_gap_fill_rule_runs"] = (
+            self.builder.tab_stop_usage.get("source_visible_gap_fill_rule_runs", 0) + 1
+        )
+        return "SOURCE_VISIBLE_GAP_FILL_RULE", round(count * (advance + spacing_pt), 4)
+
     def _render_figure_blank(self, paragraph, blank, source, *, content_right):
         """Render a visible blank when punctuation follows the field.
 
@@ -388,7 +466,9 @@ class ParagraphFormRenderer:
         display_x1=min(float(blank.source_x1), float(content_right))
         display_width=max(1.0, display_x1-float(blank.source_x0))
         self.builder._register_blank(blank, rendered_width=display_width, visible=True)
-        mechanism, rendered = self._figure_space_blank_runs(paragraph, display_width, source)
+        mechanism, rendered = self._source_visible_gap_fill_rule_run(
+            paragraph, display_width, source
+        )
         self._record_blank_mechanism(blank, mechanism, display_width, rendered)
         return True
 
@@ -863,7 +943,9 @@ class ParagraphFormRenderer:
         display_x1 = min(float(blank.source_x1), float(content_right))
         display_width = max(1.0, min(float(width), display_x1 - float(blank.source_x0)))
         self.builder._register_blank(blank, rendered_width=display_width, visible=True)
-        mechanism, rendered = self._figure_space_blank_runs(paragraph, display_width, source)
+        mechanism, rendered = self._source_visible_gap_fill_rule_run(
+            paragraph, display_width, source
+        )
         self._record_blank_mechanism(blank, mechanism, display_width, rendered)
         self.builder.tab_stop_usage['solid_rule_blanks'] = (
             self.builder.tab_stop_usage.get('solid_rule_blanks', 0) + 1
@@ -937,9 +1019,16 @@ class ParagraphFormRenderer:
         if not visible:
             return None, False
         if row.centered_form_line is not None:
-            count=max(2,int(round(row.centered_form_line.slot_width/
-                                  (max(6.0,row.item.font_size_pt)*.55))))
-            self.builder._add_run(paragraph,'\u2007'*count,source,underline=True)
+            # A FIGURE SPACE IS NOT LATIN TEXT: it carries a digit advance (half an
+            # em), so counting this source-drawn completion's glyphs with the Latin
+            # ratio asked for too few of them and left the rule the source draws two
+            # glyphs short of its own span.  The count is the ceiling, so what is
+            # painted covers the span rather than stopping inside it.
+            size = max(6.0, float(getattr(row.item, 'font_size_pt', 0) or 10.5))
+            count = max(2, int(math.ceil(
+                float(row.centered_form_line.slot_width) / (size * FIGURE_SPACE_ADVANCE_EM)
+            )))
+            self.builder._add_run(paragraph, '\u2007' * count, source, underline=True)
             return None, False
         return self._add_tab(
             paragraph,
@@ -2658,6 +2747,15 @@ class WordSafeSourceDocumentBuilder:
         if blank_x1 <= blank_x0:
             blank_x1 = blank_x0 + 1.0
         size = max(6.0, float(getattr(source, "font_size", 0) or 10.5))
+        # SOURCE-KIND-SPECIFIC PAINTING.  A blank whose own kind is a source vector
+        # line is a rule the source drew, and it requires visible native delivery;
+        # every other kind keeps the mechanism its own frozen contract established.
+        blank_representation = (
+            blank.representation_kind.value
+            if hasattr(blank.representation_kind, "value")
+            else str(blank.representation_kind)
+        )
+        visible_rule = blank_representation == BlankRepresentationKind.VECTOR_LINE.value
         frame = paragraph_coordinate_frame(paragraph, blank_x0, blank_x1)
         tab_origin = frame.tab_stop_reference_origin_x
         row_owns_line_context = bool(
@@ -2853,6 +2951,7 @@ class WordSafeSourceDocumentBuilder:
                     source_locator=blank.source_locator,
                     page_content_x0=page_content_x0,
                     page_content_x1=page_content_x1,
+                    visible_rule=visible_rule,
                 )
                 self.flow_inline_blank_count += 1
                 self.positioned_blank_records.append(
@@ -2903,6 +3002,7 @@ class WordSafeSourceDocumentBuilder:
                 source_locator=blank.source_locator,
                 page_content_x0=page_content_x0,
                 page_content_x1=page_content_x1,
+                visible_rule=visible_rule,
             )
             self.flow_inline_blank_count += 1
             self._register_blank(blank, rendered_width=width, visible=True)
@@ -3039,6 +3139,7 @@ class WordSafeSourceDocumentBuilder:
                 source_locator=blank.source_locator,
                 page_content_x0=page_content_x0,
                 page_content_x1=page_content_x1,
+                visible_rule=visible_rule,
             )
             self.flow_inline_blank_count += 1
             self._register_blank(blank, rendered_width=blank_x1 - blank_x0, visible=True)
@@ -3111,6 +3212,7 @@ class WordSafeSourceDocumentBuilder:
                 source_locator=blank.source_locator,
                 page_content_x0=page_content_x0,
                 page_content_x1=page_content_x1,
+                visible_rule=visible_rule,
             )
             self.flow_inline_blank_count += 1
             leader_owned_to = None
@@ -3728,6 +3830,7 @@ class WordSafeSourceDocumentBuilder:
         page_content_x0=18.0,
         page_content_x1=None,
         suffix_start_x=None,
+        visible_rule=False,
     ):
         if source_span is not None:
             blank = EditableBlank(
@@ -3738,6 +3841,10 @@ class WordSafeSourceDocumentBuilder:
                 semantic_slot=semantic_slot,
                 render_style=EditableBlankRenderStyle.UNDERLINED_INLINE,
                 source_locator=source_locator,
+                # The span came from a rule the source actually drew, so this
+                # construct's own kind is a source vector line - which is what
+                # selects the source-visible rule painter downstream.
+                representation_kind=BlankRepresentationKind.VECTOR_LINE,
             )
             self._render_positioned_blank(
                 paragraph,
@@ -3757,12 +3864,16 @@ class WordSafeSourceDocumentBuilder:
         #: the remainder, so what the page paints is the source's width rather than
         #: the nearest count of a glyph whose advance the emitter cannot read.
         #:
-        #: The count is taken against the *calibrated* space advance, not a nominal
-        #: ratio, and where even the calibrated count cannot land on the source
-        #: width the exact intrinsic spacer owns it: a nominal 0.5 em count put the
-        #: 54.00 pt cover money slot 5.4 pt too wide, which wrapped the row the
-        #: source keeps on one line.
-        self.form_renderer._figure_space_blank_runs(paragraph, float(width_pt), source)
+        #: A span the SOURCE drew is a different construct from a layout gap, and it
+        #: takes the source-visible rule painter: its own kind decides the
+        #: mechanism, so a plain empty space and an unresolved slot keep the
+        #: mechanism their frozen contracts were established with.
+        if visible_rule:
+            self.form_renderer._source_visible_gap_fill_rule_run(
+                paragraph, float(width_pt), source
+            )
+        else:
+            self.form_renderer._figure_space_blank_runs(paragraph, float(width_pt), source)
         blank=EditableBlank(
             kind=EditableBlankKind.INLINE_BLANK,
             source_x0=0.0,
@@ -3771,6 +3882,11 @@ class WordSafeSourceDocumentBuilder:
             semantic_slot=semantic_slot,
             render_style=EditableBlankRenderStyle.UNDERLINED_INLINE,
             source_locator=source_locator,
+            representation_kind=(
+                BlankRepresentationKind.VECTOR_LINE
+                if visible_rule
+                else BlankRepresentationKind.SOURCE_WHITESPACE_GAP
+            ),
         )
         self._register_blank(blank, rendered_width=float(width_pt), visible=True)
         self.inline_blank_count += 1

@@ -1,0 +1,791 @@
+{
+  "schema": "v1_case_acceptance/1",
+  "case": "case_001",
+  "build_id": "v1_word_source_fidelity_arch4",
+  "build_dir": "acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4",
+  "pinned_pointer": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\reports\\v1_generalization\\case_001_current_build.json",
+  "source": {
+    "path": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\private\\7.28引江济淮郸城配套项目一体化泵站询比文件.pdf",
+    "sha256": "8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27",
+    "source_pdf_page_count": 61,
+    "source_pdf_bytes": 588605,
+    "source_pdf_reopen": true
+  },
+  "generated": {
+    "docx": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\基础投标文件.docx",
+    "docx_sha256": "b02afac3ff76e8f3881c30803753c0cbad880b3e3284e40b5059da6b0a639e76",
+    "docx_bytes": 45703,
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\基础投标文件.pdf",
+    "pdf_sha256": "b63c69c329d27a931caf2fe5bfd3989a7bb80b0e27e6b491beabd857971625d6",
+    "pdf_bytes": 309601
+  },
+  "pipeline": 0,
+  "libreoffice_render": {
+    "executable": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+    "argv": [
+      "C:\\Program Files\\LibreOffice\\program\\soffice.com",
+      "-env:UserInstallation=file:///D:/PyCharmProjects/WBTenderSkill/acceptance/workspace/_acc_profiles/_lo_profile_2f4e230e530c",
+      "--headless",
+      "--norestore",
+      "--invisible",
+      "--convert-to",
+      "pdf",
+      "--outdir",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\_acc_render",
+      "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\基础投标文件.docx"
+    ],
+    "isolated_profile": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\_acc_profiles\\_lo_profile_2f4e230e530c",
+    "launcher_policy": "FROZEN_RENDER_CASE57_CONTRACT",
+    "returncode": 0,
+    "elapsed_s": 3.96,
+    "stderr_tail": "Could not find platform independent libraries <prefix>\r\n",
+    "pdf": "D:\\PyCharmProjects\\WBTenderSkill\\acceptance\\workspace\\case_001\\v1_word_source_fidelity_arch4\\_acc_render\\基础投标文件.pdf",
+    "pdf_exists": true,
+    "pdf_bytes": 309601
+  },
+  "rendered_pdf": {
+    "pdf_page_count": 23,
+    "pdf_reopen": true,
+    "pdf_blank_pages": [],
+    "pdf_blank_page_count": 0,
+    "pdf_extractable_character_count": 3995,
+    "pdf_text_page_count": 23
+  },
+  "package_safety": {
+    "word_safe_scan": {
+      "arbitrary_low_level_xml_count": 0,
+      "forbidden_elements": [],
+      "forbidden_relationships": [],
+      "manual_relationships": null,
+      "manual_relationships_note": "Not inferable from bytes; production source is separately API-audited.",
+      "unsafe_table_positioning": 0,
+      "unsafe_break_nodes": 0,
+      "unsafe_style_nodes": 0,
+      "unsafe_section_nodes": 0,
+      "zip_integrity": true,
+      "python_docx_reopen": true,
+      "forensic_errors": [],
+      "unsafe_ooxml": 0,
+      "result": "PASS"
+    },
+    "zip_integrity": true,
+    "python_docx_reopen": true,
+    "unsafe_generated_ooxml": 0,
+    "generated_textbox_count": 0,
+    "generated_media_count": 0,
+    "blocking_overlap": {
+      "anchored_object_count": 0,
+      "floating_table_count": 0,
+      "framed_paragraph_count": 0,
+      "textbox_count": 0,
+      "framed_style_count": 0,
+      "blocking_overlap_count": 0
+    },
+    "content_duplication": {
+      "measured_paragraph_count": 21,
+      "minimum_compared_length": 25,
+      "duplicated_paragraph_count": 0,
+      "duplicated_paragraphs": [],
+      "source_repetition": {
+        "excess_duplicated_paragraph_count": 0,
+        "excess_duplicated_paragraphs": [],
+        "repetition_tolerance": 1.5
+      }
+    }
+  },
+  "document_structure": {
+    "python_docx_reopen": true,
+    "paragraph_count": 140,
+    "word_table_count": 5,
+    "word_table_row_counts": [
+      14,
+      7,
+      10,
+      12,
+      8
+    ],
+    "textbox_count": 0,
+    "drawing_count": 0,
+    "inline_shape_count": 0,
+    "anchored_shape_count": 0,
+    "vml_shape_count": 0,
+    "embedded_media_count": 0,
+    "embedded_media": [],
+    "page_break_node_count": 8
+  },
+  "table_continuity": {
+    "pdf_table_fragment_count": 5,
+    "logical_table_count": 5,
+    "continuation_fragments_merged": 0,
+    "orphan_continuation_fragments": 0,
+    "false_continuation_merges": 0,
+    "cell_text_continuations": null,
+    "generated_table_count": 5,
+    "generated_real_tables": 5,
+    "synthetic_layout_tables": 0,
+    "generated_textbox_count": 0,
+    "unpaired_generated_word_table_count": 0,
+    "total_source_cell_count": 111,
+    "total_lost_cell_count": 0,
+    "total_duplicated_cell_count": 0,
+    "total_invented_cell_count": 0,
+    "logical_tables": [
+      {
+        "table_id": "logical_0",
+        "head_page": 43,
+        "head_table_index": 0,
+        "source_pages": [
+          43
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 14,
+        "source_column_count": 2,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 0,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 14,
+        "generated_column_count": 2,
+        "editable_word_table": true,
+        "source_cell_count": 24,
+        "generated_cell_count": 24,
+        "covered_source_cell_count": 24,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 1,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": [
+          {
+            "generated_cell_text_length": 49,
+            "fact_fields": [
+              "purchaser"
+            ],
+            "generated_cell_text": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目"
+          }
+        ]
+      },
+      {
+        "table_id": "logical_1",
+        "head_page": 47,
+        "head_table_index": 0,
+        "source_pages": [
+          47
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 7,
+        "source_column_count": 4,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 1,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 7,
+        "generated_column_count": 4,
+        "editable_word_table": true,
+        "source_cell_count": 10,
+        "generated_cell_count": 10,
+        "covered_source_cell_count": 10,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_2",
+        "head_page": 48,
+        "head_table_index": 0,
+        "source_pages": [
+          48
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 10,
+        "source_column_count": 9,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 2,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 10,
+        "generated_column_count": 9,
+        "editable_word_table": true,
+        "source_cell_count": 52,
+        "generated_cell_count": 45,
+        "covered_source_cell_count": 52,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_3",
+        "head_page": 49,
+        "head_table_index": 0,
+        "source_pages": [
+          49
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 12,
+        "source_column_count": 5,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 3,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 12,
+        "generated_column_count": 5,
+        "editable_word_table": true,
+        "source_cell_count": 19,
+        "generated_cell_count": 18,
+        "covered_source_cell_count": 19,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      },
+      {
+        "table_id": "logical_4",
+        "head_page": 53,
+        "head_table_index": 0,
+        "source_pages": [
+          53
+        ],
+        "source_fragment_count": 1,
+        "source_row_count": 8,
+        "source_column_count": 6,
+        "continuation_fragments": 0,
+        "generated_word_table_index": 4,
+        "generated_word_table_match_score": 1.0,
+        "generated_row_count": 8,
+        "generated_column_count": 6,
+        "editable_word_table": true,
+        "source_cell_count": 6,
+        "generated_cell_count": 6,
+        "covered_source_cell_count": 6,
+        "cell_coverage": 1.0,
+        "lost_cell_count": 0,
+        "duplicated_cell_count": 0,
+        "invented_cell_count": 0,
+        "aggregated_cell_count": 0,
+        "filled_cell_count": 0,
+        "aggregated_source_cell_count": 0,
+        "lost_cells": [],
+        "duplicated_cells": [],
+        "invented_cells": [],
+        "aggregated_cells": [],
+        "filled_cells": []
+      }
+    ]
+  },
+  "source_format_qa": {
+    "compatibility_mode": "WORD_SAFE",
+    "page_count_source_format": 22,
+    "page_count_generated": null,
+    "page_count_note": "Rendered pagination required; flowing tables may add continuation pages.",
+    "paragraph_count": 140,
+    "source_table_count": 5,
+    "table_count": 5,
+    "pdf_table_fragment_count": 5,
+    "logical_table_count": 5,
+    "continuation_fragments_merged": 0,
+    "orphan_continuation_fragments": 0,
+    "false_continuation_merges": 0,
+    "source_text_missing": 0,
+    "source_text_reordered": null,
+    "source_text_reordered_note": "Not measured by this presence-only diagnostic.",
+    "SOURCE_COMPLETENESS_SCOPE_ATOM_COUNT": 246,
+    "EXPECTED_ATOM_COUNT": 246,
+    "DELIVERED_ATOM_COUNT": 246,
+    "MISSING_ATOM_COUNT": 0,
+    "DUPLICATED_ATOM_COUNT": 0,
+    "OUT_OF_ORDER_ATOM_COUNT": 9,
+    "source_text_atoms_with_zero_owner_count": 0,
+    "source_text_atoms_with_multiple_owner_count": 0,
+    "source_text_missing_atoms": [],
+    "source_text_duplicate_atoms": [],
+    "source_text_out_of_order_atoms": [
+      {
+        "atom_id": "P43-T0R3C0",
+        "source_page": 43,
+        "source_container_id": "table:0/row:3/col:0",
+        "source_order_index": 48,
+        "role": "table_cell_text",
+        "text": "响应报价(元）\n（不含税）",
+        "normalized_text": "响应报价(元）（不含税）",
+        "source_x0": 65.32999801635742,
+        "source_x1": 181.39999389648438,
+        "source_y": 175.08999633789062,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 848,
+        "neighboring_atom_before": "P43-T0R2C1",
+        "neighboring_atom_after": "P43-T0R3C1",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C2",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:2",
+        "source_order_index": 162,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C1",
+        "neighboring_atom_after": "P48-T0R9C3",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C3",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:3",
+        "source_order_index": 163,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C2",
+        "neighboring_atom_after": "P48-T0R9C4",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C4",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:4",
+        "source_order_index": 164,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C3",
+        "neighboring_atom_after": "P48-T0R9C5",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C5",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:5",
+        "source_order_index": 165,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C4",
+        "neighboring_atom_after": "P48-T0R9C6",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C6",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:6",
+        "source_order_index": 166,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C5",
+        "neighboring_atom_after": "P48-T0R9C7",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C7",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:7",
+        "source_order_index": 167,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C6",
+        "neighboring_atom_after": "P48-T0R9C8",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P48-T0R9C8",
+        "source_page": 48,
+        "source_container_id": "table:0/row:9/col:8",
+        "source_order_index": 168,
+        "role": "table_cell_text",
+        "text": "不含税合计（即响应报价）：（大写），元（小写）\n其中：税率：%，税金：（大写），元（小写）。\n总计（含税金额）：（大写），元（小写）。",
+        "normalized_text": "不含税合计（即响应报价）：（大写），元（小写）其中：税率：%，税金：（大写），元（小写）。总计（含税金额）：（大写），元（小写）。",
+        "source_x0": 92.25,
+        "source_x1": 541.77001953125,
+        "source_y": 544.2899780273438,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1794,
+        "neighboring_atom_before": "P48-T0R9C7",
+        "neighboring_atom_after": "P48-PARA1",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      },
+      {
+        "atom_id": "P49-T0R6C0",
+        "source_page": 49,
+        "source_container_id": "table:0/row:6/col:0",
+        "source_order_index": 188,
+        "role": "table_cell_text",
+        "text": "统一社会信用代\n码",
+        "normalized_text": "统一社会信用代码",
+        "source_x0": 70.63999938964844,
+        "source_x1": 161.1999969482422,
+        "source_y": 265.0199890136719,
+        "last_present_stage": "STAGE_6_SAVED_REOPENED_DOCX",
+        "first_missing_stage": null,
+        "text_emission_owner_count": 1,
+        "found_position": 1951,
+        "neighboring_atom_before": "P49-T0R5C0",
+        "neighboring_atom_after": "P49-T0R7C0",
+        "notes": [
+          "FOUND_BEFORE_PREVIOUS_ATOM"
+        ]
+      }
+    ],
+    "table_geometry_match_rate": null,
+    "merged_cell_match": null,
+    "font_family_match_rate": null,
+    "font_size_match_rate": null,
+    "paragraph_alignment_match_rate": null,
+    "paragraph_spacing_match_rate": null,
+    "fill_slots_detected": 16,
+    "fill_slots_filled": 6,
+    "fill_slots_left_blank": 10,
+    "layout_warnings": [
+      "FORMAT_DEGRADED_FOR_WORD_COMPATIBILITY: geometry mapped to safe paragraph spacing and paragraph-native form lines; no absolute positioning",
+      "FORMAT_DEGRADED_FOR_WORD_COMPATIBILITY: vector artwork, glyph offsets and micro-kerning omitted; row heights are minimums"
+    ],
+    "word_safe_scan": "PASS",
+    "word_normal_open": "PENDING_MANUAL_CONFIRMATION",
+    "result": "PASS_WITH_DEGRADATIONS"
+  },
+  "delivery_qa": {
+    "overall_status": "PASS_WITH_REVIEW",
+    "errors": [],
+    "warnings": [
+      {
+        "id": "business_review_state",
+        "status": "WARN",
+        "message": "ProjectFacts contains fields requiring human review or supplementation."
+      }
+    ],
+    "check_count": 39,
+    "non_pass_check_count": 1
+  },
+  "workbook": {
+    "openpyxl_reopen": true,
+    "sheet_count": 9,
+    "sheets": {
+      "投标项目复核表": {
+        "max_row": 77,
+        "max_column": 16,
+        "non_empty_row_count": 59
+      },
+      "00_复核总览": {
+        "max_row": 48,
+        "max_column": 6,
+        "non_empty_row_count": 41
+      },
+      "01_项目事实": {
+        "max_row": 24,
+        "max_column": 15,
+        "non_empty_row_count": 24
+      },
+      "02_关键条款": {
+        "max_row": 24,
+        "max_column": 14,
+        "non_empty_row_count": 24
+      },
+      "03_资格否决与强制项": {
+        "max_row": 37,
+        "max_column": 20,
+        "non_empty_row_count": 37
+      },
+      "04_报价与限价": {
+        "max_row": 29,
+        "max_column": 13,
+        "non_empty_row_count": 24
+      },
+      "05_文件结构与签章": {
+        "max_row": 46,
+        "max_column": 14,
+        "non_empty_row_count": 46
+      },
+      "06_冲突与缺失": {
+        "max_row": 7,
+        "max_column": 9,
+        "non_empty_row_count": 7
+      },
+      "07_证据索引": {
+        "max_row": 41,
+        "max_column": 10,
+        "non_empty_row_count": 41
+      }
+    }
+  },
+  "project_facts": {
+    "field_count": 23,
+    "status_counts": {
+      "RESOLVED": 17,
+      "NOT_FOUND": 6
+    },
+    "resolved_field_count": 17,
+    "needs_review_field_count": 0,
+    "not_found_field_count": 6,
+    "resolved_without_evidence_fields": [],
+    "fields": [
+      {
+        "field": "project_name",
+        "status": "RESOLVED",
+        "resolved_value": "河南省水利第二工程局集团有限公司引江济淮郸城县配套工程水源置换城乡供水工程项目部一体化泵站采购项目",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "project_number",
+        "status": "RESOLVED",
+        "resolved_value": "YSEJJXXB202607-18",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "tender_number",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "lot_name",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "lot_number",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "purchaser",
+        "status": "RESOLVED",
+        "resolved_value": "河南省水利第二工程局集团有限公司",
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "tender_agency",
+        "status": "RESOLVED",
+        "resolved_value": "河南科源水利建设工程检测有限公司",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "project_location",
+        "status": "RESOLVED",
+        "resolved_value": "周口市郸城县石槽泵站",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "procurement_scope",
+        "status": "RESOLVED",
+        "resolved_value": "一体化泵站(详见询比文件“第五章采购需求”)",
+        "evidence_locator_count": 4,
+        "has_evidence": true
+      },
+      {
+        "field": "budget",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "max_price",
+        "status": "RESOLVED",
+        "resolved_value": "3100000",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "duration",
+        "status": "RESOLVED",
+        "resolved_value": "30日历天",
+        "evidence_locator_count": 8,
+        "has_evidence": true
+      },
+      {
+        "field": "quality_target",
+        "status": "RESOLVED",
+        "resolved_value": "符合国家及行业有关标准、规范和询比文件要求",
+        "evidence_locator_count": 7,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_deadline",
+        "status": "RESOLVED",
+        "resolved_value": "2026-07-28 15:00",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_open_time",
+        "status": "RESOLVED",
+        "resolved_value": "2026-07-28 15:00",
+        "evidence_locator_count": 4,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_open_location",
+        "status": "RESOLVED",
+        "resolved_value": "“河南国企阳光招采服务平台”不见面",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_bond_amount",
+        "status": "RESOLVED",
+        "resolved_value": "20000",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      },
+      {
+        "field": "bid_bond_form",
+        "status": "RESOLVED",
+        "resolved_value": "银行转账方式",
+        "evidence_locator_count": 2,
+        "has_evidence": true
+      },
+      {
+        "field": "consortium_allowed",
+        "status": "RESOLVED",
+        "resolved_value": false,
+        "evidence_locator_count": 1,
+        "has_evidence": true
+      },
+      {
+        "field": "procurement_method",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "bid_validity",
+        "status": "RESOLVED",
+        "resolved_value": "90日历天",
+        "evidence_locator_count": 5,
+        "has_evidence": true
+      },
+      {
+        "field": "submission_method",
+        "status": "NOT_FOUND",
+        "resolved_value": null,
+        "evidence_locator_count": 0,
+        "has_evidence": false
+      },
+      {
+        "field": "electronic_platform",
+        "status": "RESOLVED",
+        "resolved_value": "河南国企阳光招采服务平台",
+        "evidence_locator_count": 3,
+        "has_evidence": true
+      }
+    ]
+  },
+  "review_evidence": {
+    "result": "PASS",
+    "source_requirement_count": 298,
+    "source_mandatory_requirement_count": 18,
+    "source_mandatory_requirement_without_review_item_count": 0,
+    "dynamic_review_item_count": 50,
+    "workbook_row_count": 50,
+    "workbook_rows_match_dynamic_items": true,
+    "invalid_review_evidence_locator_count": 0,
+    "empty_review_evidence_count": 0,
+    "cross_topic_evidence_mismatch_count": 0,
+    "unclassified_dynamic_requirement_count": 0,
+    "hard_gate_failures": []
+  },
+  "problems": [],
+  "automated_result": "PASS"
+}

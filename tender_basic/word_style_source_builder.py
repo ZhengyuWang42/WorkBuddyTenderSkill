@@ -30,6 +30,7 @@ from .page_layout import (
     bounded_scale,
     build_page_layout,
     join_visual_lines,
+    leading_rule_owns_indent,
     single_visual_row_join,
     paragraph_coordinate_frame,
     restore_inline_rule_compositions,
@@ -63,6 +64,7 @@ from .word_safe_source_builder import (
     MIN_PRINTABLE_BODY_LEFT_PT,
     WordSafeSourceDocumentBuilder,
     _key,
+    add_run_tabbed_text,
     set_run_spacing,
 )
 
@@ -354,10 +356,8 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
 
         run = paragraph.add_run()
         if text:
-            for index, line in enumerate(str(text).split("\n")):
-                if index:
-                    run.add_break(WD_BREAK.LINE)
-                run.add_text(line)
+            # One shared writer, so a tab is a real cursor move on this path too.
+            add_run_tabbed_text(run, text)
         if spacing_pt:
             set_run_spacing(run, spacing_pt)
         baseline_role = str(getattr(source, "baseline_role", "NORMAL") or "NORMAL").upper()
@@ -836,6 +836,15 @@ class StyleFirstSourceDocumentBuilder(WordSafeSourceDocumentBuilder):
         self._apply_source_paragraph_indent(
             pf, item, page_content_x0, alignment_hint=applied_alignment
         )
+        # ONE SOURCE HORIZONTAL INTERVAL, ONE LAYOUT OWNER.  Where the source drew a
+        # visible rule immediately before this row's own text, that rule owns the
+        # interval the inferred first-line indent would otherwise claim: keeping both
+        # spends the same interval twice, and keeping only the indent silently
+        # replaces a visible source rule with invisible paragraph spacing.  This runs
+        # only when the rule was restored as an inline element above, so the interval
+        # is never left with no owner at all.
+        if leading_rule_owns_indent(item, layout.horizontal_rules):
+            pf.first_line_indent = Pt(0)
         # The left edge a tab stop is measured from.  Tab stops are measured from
         # the *section text margin*
         # (``WORD_TAB_REFERENCE_MODEL``), which a first-line or hanging indent

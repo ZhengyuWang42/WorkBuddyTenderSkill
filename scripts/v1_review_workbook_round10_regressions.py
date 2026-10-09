@@ -36,11 +36,28 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case", action="append", default=None)
     parser.add_argument("--three-case", action="store_true")
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        help=(
+            "write this invocation's reports here instead of the shared historical "
+            "report directory; workbook selection and every gate contract are unchanged"
+        ),
+    )
     args = parser.parse_args(argv)
+    out_dir = args.out_dir
+    if out_dir is not None:
+        out_dir = Path(out_dir)
+        try:
+            out_dir.mkdir(parents=True, exist_ok=True)
+        except OSError as error:
+            raise SystemExit(f"cannot use --out-dir {out_dir}: {error}") from error
     cases = list(BUILDS) if args.three_case or not args.case else args.case
 
     results = {
-        case: run_case(case, build_name=BUILDS[case], stem=STEM) for case in cases
+        case: run_case(case, build_name=BUILDS[case], stem=STEM, out_dir=out_dir)
+        for case in cases
     }
     summary = {
         "schema": SCHEMA,
@@ -56,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
             else "FAIL"
         ),
     }
-    path = REPORTS / "review_workbook_round10_banked_regressions.json"
+    path = (REPORTS if out_dir is None else out_dir) / "review_workbook_round10_banked_regressions.json"
     path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for case, entry in results.items():
         print(

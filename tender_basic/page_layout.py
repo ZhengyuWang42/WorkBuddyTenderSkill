@@ -929,6 +929,44 @@ def editable_blanks_for_form(item, rules, parts=None):
     return blanks
 
 
+def leading_rule_owns_indent(item, rules):
+    """Whether a source-drawn LEADING rule owns the interval an indent would claim.
+
+    ONE SOURCE HORIZONTAL INTERVAL, ONE LAYOUT OWNER.  A row the source wrote as
+    ``<drawn rule><its text>`` has the same measured geometry as a paragraph whose
+    first line carries a first-line indent - the text simply begins further right
+    than the body boundary - so inferring the indent alone silently converts a
+    visible source rule into invisible paragraph spacing, and the rule is then
+    never emitted because the interval it owns has already been spent.
+
+    ADMISSION AND TRANSFER ARE ATOMIC.  This predicate is the *transfer* half; it
+    is only consulted where ``restore_inline_rule_blanks`` has already restored the
+    same rule as an inline element, so the interval always has exactly one owner -
+    never both, and never neither.  A paragraph with no drawn leading rule keeps
+    its own indentation untouched, including a genuine character-based indent.
+    """
+
+    spans = [span for line in (getattr(item, 'source_lines', None) or ()) for span in line.spans]
+    if not spans:
+        return False
+    first_span = min(spans, key=lambda span: float(span.bbox[0]))
+    first_x0 = float(first_span.bbox[0])
+    first_y1 = float(first_span.bbox[3])
+    size = first_span.font_size or 10.5
+    for rule in _rule_candidates(item, rules):
+        width = float(rule.bbox[2]) - float(rule.bbox[0])
+        if not MIN_INLINE_RULE_WIDTH_PT <= width <= MAX_INLINE_RULE_WIDTH_PT:
+            continue
+        if classify_rule_relation(rule, spans)['relation_type'] != 'GAP_FILL_RULE':
+            continue
+        if abs(float(rule.bbox[1]) - first_y1) > max(6.0, size * 1.2):
+            continue
+        if float(rule.bbox[0]) >= first_x0 - 0.5 or float(rule.bbox[2]) > first_x0 + 1.5:
+            continue
+        return True
+    return False
+
+
 def _form_block_from_rows(rows, rules, box):
     geometries=[]
     for item in rows:
@@ -1148,6 +1186,14 @@ def underline_for_form(item, rules):
 
 INLINE_BLANK_PREFIX='\ue000BLANK:'
 INLINE_BLANK_SUFFIX='\ue001'
+
+
+#: A source rule restored as an inline element is a *field*, so it shares the
+#: bounds the form extractor already puts on a fill rule's own extent: narrower
+#: than a writable field, or wider than one, and it is a separator or an artifact
+#: rather than the field a label opens.
+MIN_INLINE_RULE_WIDTH_PT = 8.0
+MAX_INLINE_RULE_WIDTH_PT = 320.0
 
 
 def inline_blank_token(width_pt, source_x0=None, source_x1=None):
@@ -1467,6 +1513,13 @@ def restore_inline_rule_blanks(text, runs, rules, slots, *, spans=None, resolved
     A rule may bridge a gap between two spans on *any* visual line of the
     paragraph, not only the last one, so the whole mapped run sequence is
     searched.  Each rule is consumed at most once.
+
+    A TRAILING FIELD is the same construct with nothing after it: the source wrote
+    a label and drew its field where the paragraph's own text ends, so there is no
+    pair of runs for the rule to sit between.  Its own start *is* the boundary, so
+    it is restored as a trailing inline element.  Discovery here is the rule's own
+    drawn geometry - never the label's text - so a field whose label no vocabulary
+    recognises still reaches the page.
     """
 
     positions=[i for i,c in enumerate(text) if not c.isspace()]
@@ -1518,6 +1571,93 @@ def restore_inline_rule_blanks(text, runs, rules, slots, *, spans=None, resolved
             consumed.add(id(rule))
             inserts.append((end, inline_blank_token(rule_x1 - rule_x0, rule_x0, rule_x1)))
             break
+
+    for rule in rules:
+        if rule.orientation != 'horizontal' or id(rule) in consumed:
+            continue
+        if not mapped:
+            break
+        relation = classify_rule_relation(rule, span_evidence, resolved_values=resolved_values)
+        if relation["relation_type"] != "GAP_FILL_RULE":
+            continue
+        rule_x0, rule_x1 = float(rule.bbox[0]), float(rule.bbox[2])
+        rule_y = (float(rule.bbox[1]) + float(rule.bbox[3])) / 2.0
+        width = rule_x1 - rule_x0
+        if not MIN_INLINE_RULE_WIDTH_PT <= width <= MAX_INLINE_RULE_WIDTH_PT:
+            continue
+        last, _, last_end = mapped[-1]
+        if text[last_end:].strip():
+            continue
+        if any(s.text_start is not None and s.text_start <= last_end <= s.text_end for s in slots):
+            continue
+        size = last.font_size or 10.5
+        if abs(rule_y - float(last.bbox[3])) > max(6.0, size * 1.2):
+            continue
+        if not (float(last.bbox[2]) - 1.5 <= rule_x0):
+            continue
+        consumed.add(id(rule))
+        inserts.append((last_end, inline_blank_token(width, rule_x0, rule_x1)))
+
+    for rule in rules:
+        if rule.orientation != 'horizontal' or id(rule) in consumed:
+            continue
+        if not mapped:
+            break
+        relation = classify_rule_relation(rule, span_evidence, resolved_values=resolved_values)
+        if relation["relation_type"] != "GAP_FILL_RULE":
+            continue
+        rule_x0, rule_x1 = float(rule.bbox[0]), float(rule.bbox[2])
+        rule_y = (float(rule.bbox[1]) + float(rule.bbox[3])) / 2.0
+        width = rule_x1 - rule_x0
+        if not MIN_INLINE_RULE_WIDTH_PT <= width <= MAX_INLINE_RULE_WIDTH_PT:
+            continue
+        last, _, last_end = mapped[-1]
+        if text[last_end:].strip():
+            continue
+        if any(s.text_start is not None and s.text_start <= last_end <= s.text_end for s in slots):
+            continue
+        size = last.font_size or 10.5
+        if abs(rule_y - float(last.bbox[3])) > max(6.0, size * 1.2):
+            continue
+        if not (float(last.bbox[2]) - 1.5 <= rule_x0):
+            continue
+        consumed.add(id(rule))
+        inserts.append((last_end, inline_blank_token(width, rule_x0, rule_x1)))
+
+    # A LEADING FIELD.  A source rule drawn BEFORE the row's first visible text is
+    # the same construct as a trailing one at the other end of the row: the source
+    # left a writable field and then wrote its text.  It has no label to its left
+    # and no run before it to sit behind, so it is restored where the row's text
+    # begins - the source's own reading order is preserved and the rule neither
+    # disappears for want of a preceding label nor for want of a mapped run.
+    #
+    # The row's own source spans are the evidence, not the fragment's mapped runs:
+    # a row whose text was replaced by a resolved source value maps no run at all,
+    # and requiring one here would drop exactly those rows' leading rules.
+    row_spans = list(span_evidence)
+    if row_spans:
+        first_span = min(row_spans, key=lambda span: float(span.bbox[0]))
+        first_x0 = float(first_span.bbox[0])
+        first_y1 = float(first_span.bbox[3])
+        size = first_span.font_size or 10.5
+        at = mapped[0][1] if mapped else 0
+        for rule in rules:
+            if rule.orientation != 'horizontal' or id(rule) in consumed:
+                continue
+            relation = classify_rule_relation(rule, span_evidence, resolved_values=resolved_values)
+            if relation["relation_type"] != "GAP_FILL_RULE":
+                continue
+            rule_x0, rule_x1 = float(rule.bbox[0]), float(rule.bbox[2])
+            rule_y = (float(rule.bbox[1]) + float(rule.bbox[3])) / 2.0
+            width = rule_x1 - rule_x0
+            if not MIN_INLINE_RULE_WIDTH_PT <= width <= MAX_INLINE_RULE_WIDTH_PT:
+                continue
+            if abs(rule_y - first_y1) > max(6.0, size * 1.2):
+                continue
+            if rule_x0 >= first_x0 - 0.5 or rule_x1 > first_x0 + 1.5:
+                continue
+            consumed.add(id(rule))
+            inserts.append((at, inline_blank_token(width, rule_x0, rule_x1)))
 
     for at,blank in reversed(inserts): text=text[:at]+blank+text[at:]
     def shifted(offset):

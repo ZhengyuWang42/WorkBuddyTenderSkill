@@ -1,0 +1,74 @@
+{
+  "schema": "v1_word_manual_review/1",
+  "case": "case_002",
+  "review_type": "WORD_MANUAL_REVIEW",
+  "review_authority": "FINAL_WORD_DELIVERY_AUTHORITY",
+  "build_id": "v1_word_source_fidelity_arch3",
+  "build_dir": "acceptance/workspace/case_002/v1_word_source_fidelity_arch3",
+  "artifact": {
+    "docx": "acceptance/workspace/case_002/v1_word_source_fidelity_arch3/基础投标文件.docx",
+    "docx_sha256": "8772EB2A7DF1034403188B56269EFE6AC90727F41DEAC995B91CB853F3BF7ACF",
+    "pdf": "acceptance/workspace/case_002/v1_word_source_fidelity_arch3/基础投标文件.pdf",
+    "pdf_sha256": "B4F0EC41D9632826E8CE5F12ACD2841CD20AC0CD875A53FFA5F88DAE98B09C8D",
+    "generation_report_sha256": "266CDF3DD5799E84EE01119E69C0F48078F79AD0AEC50032E74BDCE09C3A48C7",
+    "pdf_page_count": 32,
+    "pipeline_returncode": 0,
+    "render_returncode": 0
+  },
+  "human_result": "HUMAN_FAIL",
+  "human_verdict": "FAIL",
+  "failure_class": "SOURCE_FORM_BLANK_VISIBILITY_AND_COMPLETENESS",
+  "human_reason": "source form blanks and visible rules not fully preserved",
+  "reviewed_in": "Microsoft Word (desktop)",
+  "findings": [
+    {
+      "word_page": 3,
+      "area": "投标函",
+      "observation": "uppercase money semicolon is same-row in Microsoft Word; the previous LibreOffice wrapping defect is NOT reproduced",
+      "classification": "NOT_A_DEFECT"
+    },
+    {
+      "word_page": 4,
+      "area": "开标一览表",
+      "observation": "final 日期 field has no visible rule",
+      "classification": "SOURCE_RULE_NOT_VISIBLE_OR_MISSING"
+    },
+    {
+      "word_page": 5,
+      "area": "法定代表人身份证明",
+      "observation": "投标人名称 and some personal-information fields have missing or non-visible writable rules",
+      "classification": "SOURCE_RULE_NOT_VISIBLE_OR_MISSING"
+    },
+    {
+      "word_page": 6,
+      "area": "授权委托书",
+      "observation": "通讯地址 has a confirmed source-drawn rule but no delivered DOCX underline; other contact and signature fields require source comparison",
+      "classification": "SOURCE_RULE_NOT_DELIVERED"
+    }
+  ],
+  "source_evidence_for_the_confirmed_defect": {
+    "source_page": 149,
+    "source_rule_id": "P149-R13",
+    "field_label": "通讯地址",
+    "source_x0": 169.05,
+    "source_x1": 397.05,
+    "source_y": 274.2,
+    "source_width_pt": 228.0,
+    "relation_type": "GAP_FILL_RULE",
+    "transformation_policy": "FIXED_EMPTY_SLOT",
+    "delivered_docx_evidence": "the delivered paragraph carries the label and no underline run at all"
+  },
+  "historical_machine_verdict": {
+    "note": "the machine gates passed on this exact artifact and remain recorded as historical evidence; a human FAIL supersedes them for delivery",
+    "CASE002_ACCEPTANCE": "PASS",
+    "CASE002_WORD_SOURCE_FORM_FIDELITY": "PASS",
+    "GENERIC_WORD_SOURCE_FIDELITY": "PASS",
+    "SOURCE_TEXT_COMPLETENESS": "PASS",
+    "THREE_CASE_GENERALIZATION": "PASS"
+  },
+  "manual_word_review": "HUMAN_FAIL",
+  "manual_word_review_required": true,
+  "v1_production_candidate": false,
+  "ready_for_submission": false,
+  "note": "artifact-specific human verdict: it applies to this exact DOCX SHA256 and to no other build. arch3 is NOT superseded as evidence by this record - it is retained byte-for-byte as the artifact the human reviewed."
+}

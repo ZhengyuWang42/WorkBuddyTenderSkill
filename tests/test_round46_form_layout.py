@@ -119,14 +119,14 @@ def test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain(t
     text = "".join(paragraph.text for paragraph in document.paragraphs)
     assert len(document.tables) == 0
     assert len(document.paragraphs) == 2
-    # THE GLYPH IS NOT THE CONTRACT.  An underscore run, a non-breaking space and
-    # a U+2007 figure space are all *invented literal text*: each one either
-    # reports itself back as source underscores or is a filler the source never
-    # drew.  The source's own measured span is the contract, so none of them may
-    # appear - the blank is a native, editable Word run of the rule's own width.
+    # THE GLYPH IS NOT THE CONTRACT, AND NEITHER IS A BARE w:u.  An underscore run
+    # and a non-breaking space are invented literal text.  A source-drawn rule is
+    # painted by underlined figure-space *glyph coverage*: that is the source's own
+    # span painted under a real underline, which is what makes the rule visible in
+    # Word - a single underlined space whose width came from large positive
+    # character spacing carried the underline property and painted a stub.
     assert "_" not in text
     assert "\u00a0" not in text
-    assert "\u2007" not in text
     assert docx_layout_counts(output)["layout_tab_count"] == 0
     # A source *drawn* rule is delivered as one visible editable blank whose
     # painted width is the rule's own span within the emitter's tolerance.
@@ -140,7 +140,7 @@ def test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain(t
     assert report["visible_rule_blanks"] == 1
     assert report["nbsp_only_placeholder_count"] == 0
     assert report["blank_width_error_max"] <= 0.25
-    # The rule survives as a native underlined run rather than as a glyph.
+    # The rule survives as native underlined GLYPH COVERAGE over its own span.
     underlined = [
         run
         for paragraph in document.paragraphs
@@ -149,8 +149,9 @@ def test_visible_pdf_rule_becomes_word_bottom_rule_and_plain_empty_stays_plain(t
     ]
     assert underlined, "the drawn rule must survive as an underlined run"
     assert all(
-        (run.text or "").strip("\u2007\u00a0 _") == "" for run in underlined
+        run.text == "\u2007" * len(run.text) for run in underlined
     ), [run.text for run in underlined]
+    assert sum(len(run.text) for run in underlined) >= 2, "coverage, not one spacer"
     # A plain empty source region acquires no invented rule at all: it is
     # registered so the source's empty is accounted for, and it stays invisible.
     plain_blanks = [

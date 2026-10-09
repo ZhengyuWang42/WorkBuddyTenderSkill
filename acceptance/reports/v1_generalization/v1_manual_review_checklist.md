@@ -263,17 +263,17 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 | 项 | 值 |
 | --- | --- |
-| build id | `v1_word_source_fidelity_arch3` |
-| build dir | `acceptance/workspace/case_001/v1_word_source_fidelity_arch3` |
+| build id | `v1_word_source_fidelity_arch4` |
+| build dir | `acceptance/workspace/case_001/v1_word_source_fidelity_arch4` |
 | manifest | `build_manifest.json`（`FRESH_BUILD`，pipeline rc 0，render rc 0） |
-| DOCX | `6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480`（45699 B） |
-| PDF | `742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422`（308312 B，23 页） |
+| DOCX | `b02afac3ff76e8f3881c30803753c0cbad880b3e3284e40b5059da6b0a639e76` |
+| PDF | `b63c69c329d27a931caf2fe5bfd3989a7bb80b0e27e6b491beabd857971625d6`（23 页） |
 | 源 PDF | `8e2bfb00e1a0c595db16d179477d9a09769ab82e45f63d476c3c8c459d46aa27`（61 页） |
 | generation_report | `638934270d45a62253e2985719b17ee2ba23dbeae78569cc2c4162de86f7a277` |
-| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_word_source_fidelity_arch3`（`POINTER_CHECK = PASS`） |
+| 指针目标 | `acceptance/reports/v1_generalization/case_001_current_build.json` → `v1_word_source_fidelity_arch4`（`POINTER_CHECK = PASS`） |
 | 自动化状态 | `HARD_BREAK_FIDELITY = PASS_WITH_REVIEWED_STRUCTURAL_DEVIATION`，`documented_structural_deviation_count = 1`，`unexplained_structural_split_count = 0`，`unexpected_w_br_count = 0`，`unexpected_w_cr_count = 0`；`PARAGRAPH_FLOW_FIRST` 审计 `PARAGRAPH_POSITIONING_TAB_COUNT = 0`、`CENTER_ALIGNMENT_HACK_COUNT = 0`、`RIGHT_ALIGNMENT_HACK_COUNT = 0`、`FIRST_LINE_TAB_HACK_COUNT = 0`，`unreachable_positioned_blank_count = 0` |
 | 人工状态 | `CASE001_MANUAL_WORD_REVIEW = NOT_YET_CONFIRMED`（本清单**全部未勾选**） |
-| 上一候选（已被取代，**未删除**） | `v1_word_source_fidelity_arch2`，其前身为 `v1_manual_fidelity_round4_date_rhythm_closure8`（见 §1.6.2 HISTORICAL 块） |
+| 上一候选（已被取代，**未删除**） | `v1_word_source_fidelity_arch3`（见 §HISTORICAL 块），其前身为 `v1_word_source_fidelity_arch2` 与 `v1_manual_fidelity_round4_date_rhythm_closure8` |
 
 生成文档 22 页，生成页 = 源页序 − 39。
 
@@ -392,11 +392,13 @@ PDF `ad2692ef9e0baa47a60ff17662cb3259d8a7b3ac47cde55e2fbc8fde1860a174`）。
 
 ### CASE002 — 营收系统整合和硬件系统升级项目
 
-当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_word_source_fidelity_arch3`
-DOCX sha256 = `8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf`（61152 B）
-PDF sha256 = `b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d`（552765 B，32 页）
-源 PDF sha256 = `2803076ab4e334bfa710a63d3dfe008893a48474db120b16118fe392cb818449`（174 页）
-generation_report sha256 = `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74bdce09c3a48c7`
+当前指针目标（`case_002_current_build.json`）：`acceptance/workspace/case_002/v1_word_source_fidelity_arch4`
+DOCX sha256 = `7b1c6e4bdbbeeffaa753158a7503a694fd0248a9928ad9a710f734ad9ba93e5d`
+PDF sha256 = `f80ca13b90f08c0149a75080a97417822ebe36783e3d0053b1c9821ba5145e74`（32 页）
+generation_report sha256 = `99230304706b85192e187d7fb52d2022670cea863caabeb69ecb4383217e4a2c`
+
+> **历史（HISTORICAL / SUPERSEDED）**：arch3（DOCX `8772eb2a…7acf`，**人工已判 FAIL**，见本清单第
+> 4.1 节保留块）；旧当前指针曾是 `v1_word_source_fidelity_arch2`，更早为 `v1_round4_closure8`。
 
 > **历史（HISTORICAL / SUPERSEDED）**：旧当前指针曾是
 > `v1_word_source_fidelity_arch2`，更早为 `v1_round4_closure8`
@@ -423,11 +425,12 @@ generation_report sha256 = `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74b
 
 ### CASE003 — 肇源县城市供水管网漏损治理项目三标段
 
-当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_word_source_fidelity_arch3`
-DOCX sha256 = `df754d89e6c28013a1ae53c8cddf368036c86adf5edd752c91d1ad27fa1da950`（56960 B）
-PDF sha256 = `e8c1825002fc157c8e147483744efc5237291f64a86ced898b7cdce29540d417`（897769 B，33 页）
-源 PDF sha256 = `aa9e4e6936269fc506fc27c921b4e14a655426414e73393b23a4e22348a0384a`（203 页）
-generation_report sha256 = `6df50d39ceaaacd246f362598413154ccff1a00b9384fcea40b94a8fbe134255`
+当前指针目标（`case_003_current_build.json`）：`acceptance/workspace/case_003/v1_word_source_fidelity_arch4`
+DOCX sha256 = `24331d35c059fa14dd2207a560bc12c33bc1ff3c407d563c095a86af9d8e8d47`
+PDF sha256 = `d4357ba3aed39bfa6afb82437d09855f5cdd23bfb44d5b405c6234521a45a69b`（33 页）
+generation_report sha256 = `73edf7a787cb41fa2b7db901282517170c6457d526b7fee07d4ccf87f5485c51`
+
+> **历史（HISTORICAL / SUPERSEDED）**：arch3（DOCX `df754d89…a950`）等旧当前指针
 
 > **历史（HISTORICAL / SUPERSEDED）：CASE003 的旧当前指针是 `v1_followup3`
 > （DOCX `e013b1f2…cf3e2365`），其后为 `v1_round4_closure8`（DOCX `74946ddc…45a54`），
@@ -883,9 +886,11 @@ JSON 里对应字段为 `null`。**该缺陷只影响计数呈现，不影响任
 
 ---
 
-## Word 源版式保真 — CASE002 人工复核对象（第 14 轮，**自动关闭待人工确认**）
+## Word 源版式保真 — CASE002 人工复核对象（第 14 轮，**人工已判 FAIL**）
 
-自动化已闭环；下列复选框**全部未勾选**，必须由人工在桌面 Microsoft Word 中打开**确切**产物后填写。
+**人工已在桌面 Microsoft Word 中复核下表确切产物，结论为 `HUMAN_FAIL`。**
+该结论**只**适用于下表的确切 DOCX SHA256；arch3 的机器门禁 PASS 作为**历史机器证据**保留。
+下列复选框记录人工复核的**逐项观察**，未通过项保持未勾选。
 
 | 项 | 值 |
 | --- | --- |
@@ -896,8 +901,15 @@ JSON 里对应字段为 `null`。**该缺陷只影响计数呈现，不影响任
 | generation_report SHA256 | `266cdf3dd5799e84ee01119e69c0f48078f79ad0aec50032e74bdce09c3a48c7` |
 | 机器状态 | `CASE002_WORD_SOURCE_FORM_FIDELITY = PASS`；`GENERIC_WORD_SOURCE_FIDELITY = PASS`；`SOURCE_TEXT_COMPLETENESS = PASS`（missing/duplicate/zero_owner/multiple_owner = 0）；`THREE_CASE_GENERALIZATION = PASS` |
 | 段落流架构 | `PARAGRAPH_FLOW_FIRST` 审计：`PARAGRAPH_POSITIONING_TAB_COUNT = 0`、`CENTER_ALIGNMENT_HACK_COUNT = 0`、`RIGHT_ALIGNMENT_HACK_COUNT = 0`、`FIRST_LINE_TAB_HACK_COUNT = 0`；`unreachable_positioned_blank_count = 0` |
-| 人工状态 | `AUTOMATION_CLOSED_PENDING_HUMAN_REVIEW`（**不是** `HUMAN_PASS`） |
+| 人工状态 | **`CASE002_WORD_MANUAL_REVIEW = HUMAN_FAIL`**（桌面 Microsoft Word，针对上表**确切** DOCX `8772EB2A…7ACF`；失败类 `SOURCE_FORM_BLANK_VISIBILITY_AND_COMPLETENESS`）；**不是** `HUMAN_PASS` |
+| 人工证据 | `acceptance/reports/v1_generalization/case002_word_manual_review_arch3.json` |
 | 历史构建（**不是**当前对象） | `v1_word_source_fidelity_arch2`（DOCX `8b0c8b01…591ad`）；`v1_round4_closure8`（DOCX `1e694c00…5989d`） |
+
+> **人工 FAIL 逐页证据（arch3）**：p3 投标函 —— 大写金额分号在 Word 中**同行**，先前的 LibreOffice
+> 换行缺陷**未复现**（非缺陷）；p4 开标一览表 —— 末位 `日期` 字段**无可见规则**；
+> p5 法定代表人身份证明 —— `投标人名称` 及部分个人信息字段的可填写规则**缺失或不可见**；
+> p6 授权委托书 —— `通讯地址` 有源图规则（源页 149 `P149-R13`，169.05→397.05 pt）但交付 DOCX
+> **无下划线**。
 
 - [ ] 在桌面 Microsoft Word 中打开上表**确切** DOCX（不是任何历史构建）
 - [ ] 封面日期行为三个独立可填空白（年 / 月 / 日 前各一）

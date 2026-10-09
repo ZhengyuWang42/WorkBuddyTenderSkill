@@ -40,10 +40,35 @@ def _case_dir(case: str) -> Path:
     return ROOT / "acceptance/workspace" / case
 
 
-def _write(stem: str, data: dict[str, Any]) -> None:
-    (REPORTS / f"{stem}.json").write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+def _report_dir(out_dir: Path | None) -> Path:
+    """The directory this invocation's reports belong in."""
+
+    return REPORTS if out_dir is None else Path(out_dir)
+
+
+def _write(stem: str, data: dict[str, Any], *, out_dir: Path | None = None) -> Path:
+    """Write one report, to the requested directory when one is given.
+
+    OUTPUT ISOLATION.  A diagnostic run must be able to keep its reports away from
+    the frozen historical ones, so the destination is an explicit per-invocation
+    parameter rather than a rewritten module global.  The default is unchanged:
+    with no ``out_dir`` the report lands exactly where it always has.
+    """
+
+    target = REPORTS if out_dir is None else Path(out_dir)
+    if out_dir is not None:
+        try:
+            target.mkdir(parents=True, exist_ok=True)
+        except OSError as error:
+            raise SystemExit(f"cannot use --out-dir {target}: {error}") from error
+    path = target / f"{stem}.json"
+    try:
+        path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+    except OSError as error:
+        raise SystemExit(f"cannot write report {path}: {error}") from error
+    return path
 
 
 def run_case(
@@ -51,6 +76,7 @@ def run_case(
     *,
     build_name: str | None = None,
     stem: str = "review_workbook_round8",
+    out_dir: Path | None = None,
 ) -> dict[str, Any]:
     build_name = build_name or BUILDS[case]
     build = _case_dir(case) / build_name
@@ -73,6 +99,7 @@ def run_case(
             "fixtures_failed": r5["fixtures_failed"],
             "checks": r5["checks"],
         },
+        out_dir=out_dir,
     )
 
     r6 = Round6Report(case, case_dir=_case_dir(case), build_name=build_name).run()
@@ -91,12 +118,15 @@ def run_case(
             "counts": r6["counts"],
             "checks": r6["checks"],
         },
+        out_dir=out_dir,
     )
 
     report7 = Round7Report(case, case_dir=_case_dir(case), build_name=build_name)
     r7 = report7.audit()
-    _write(f"{stem}_{case}_round7", r7)
-    (REPORTS / f"{stem}_{case}_round7.md").write_text(markdown(r7), encoding="utf-8")
+    _write(f"{stem}_{case}_round7", r7, out_dir=out_dir)
+    _report_dir(out_dir).joinpath(f"{stem}_{case}_round7.md").write_text(
+        markdown(r7), encoding="utf-8"
+    )
 
     return {
         "build_id": build_name,

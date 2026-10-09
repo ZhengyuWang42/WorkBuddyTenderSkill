@@ -235,35 +235,35 @@
   },
   "pointers": {
     "case_001": {
-      "build_id": "v1_word_source_fidelity_arch3",
-      "docx_sha256": "6098bf6041ee31933ad75a451e1171c176fd67ccdda33bc13d695645ba585480",
-      "pdf_sha256": "742a92a675d20c096fc1aab9f11585a798590afd6bc391f50f231e79e4d2e422"
+      "build_id": "v1_word_source_fidelity_arch4",
+      "docx_sha256": "b02afac3ff76e8f3881c30803753c0cbad880b3e3284e40b5059da6b0a639e76",
+      "pdf_sha256": "b63c69c329d27a931caf2fe5bfd3989a7bb80b0e27e6b491beabd857971625d6"
     },
     "case_002": {
-      "build_id": "v1_word_source_fidelity_arch3",
-      "docx_sha256": "8772eb2a7df1034403188b56269efe6ac90727f41deac995b91cb853f3bf7acf",
-      "pdf_sha256": "b4f0ec41d9632826e8ce5f12acd2841cd20ac0cd875a53ffa5f88dae98b09c8d"
+      "build_id": "v1_word_source_fidelity_arch4",
+      "docx_sha256": "7b1c6e4bdbbeeffaa753158a7503a694fd0248a9928ad9a710f734ad9ba93e5d",
+      "pdf_sha256": "f80ca13b90f08c0149a75080a97417822ebe36783e3d0053b1c9821ba5145e74"
     },
     "case_003": {
-      "build_id": "v1_word_source_fidelity_arch3",
-      "docx_sha256": "df754d89e6c28013a1ae53c8cddf368036c86adf5edd752c91d1ad27fa1da950",
-      "pdf_sha256": "e8c1825002fc157c8e147483744efc5237291f64a86ced898b7cdce29540d417"
+      "build_id": "v1_word_source_fidelity_arch4",
+      "docx_sha256": "24331d35c059fa14dd2207a560bc12c33bc1ff3c407d563c095a86af9d8e8d47",
+      "pdf_sha256": "d4357ba3aed39bfa6afb82437d09855f5cdd23bfb44d5b405c6234521a45a69b"
     }
   },
   "docs": {
     "checked_human_boxes": 7,
     "authorized_human_boxes": [
-      509,
       512,
-      514,
       515,
       517,
       518,
-      519
+      520,
+      521,
+      522
     ],
     "unauthorized_human_boxes": [],
-    "state_doc_bytes": 144141,
-    "decisions_doc_bytes": 122942
+    "state_doc_bytes": 144395,
+    "decisions_doc_bytes": 127183
   },
   "checks": [
     {
@@ -335,7 +335,7 @@
     {
       "check": "case_001_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_word_source_fidelity_arch3",
+      "build_id": "v1_word_source_fidelity_arch4",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -343,7 +343,7 @@
     {
       "check": "case_002_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_word_source_fidelity_arch3",
+      "build_id": "v1_word_source_fidelity_arch4",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -351,7 +351,7 @@
     {
       "check": "case_003_pointer_hashes_match_its_build",
       "status": "PASS",
-      "build_id": "v1_word_source_fidelity_arch3",
+      "build_id": "v1_word_source_fidelity_arch4",
       "build_dir_exists": true,
       "docx_ok": true,
       "pdf_ok": true
@@ -390,13 +390,13 @@
       "check": "human_boxes_ticked_only_in_the_authorized_case001_xlsx_section",
       "status": "PASS",
       "authorized_ticked_boxes": [
-        509,
         512,
-        514,
         515,
         517,
         518,
-        519
+        520,
+        521,
+        522
       ],
       "unauthorized_ticked_boxes": [],
       "note": "only the current CASE001 XLSX human-review section may carry a ticked box; CASE002/CASE003 XLSX, Word review and production/submission boxes stay unticked"
@@ -565,7 +565,7 @@
       "status": "PASS",
       "current_marker_at": 4426,
       "history_marker_at": 5359,
-      "first_round1_reference_at": 21997,
+      "first_round1_reference_at": 22022,
       "note": "the current Excel review object is Round4; round-1/2/3 references sit behind history markers"
     },
     {
@@ -595,24 +595,24 @@
     {
       "check": "checklist_current_word_object_matches_case_001_pointer",
       "status": "PASS",
-      "pointer_build": "v1_word_source_fidelity_arch3",
-      "pointer_dir": "v1_word_source_fidelity_arch3",
+      "pointer_build": "v1_word_source_fidelity_arch4",
+      "pointer_dir": "v1_word_source_fidelity_arch4",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },
     {
       "check": "checklist_current_word_object_matches_case_002_pointer",
       "status": "PASS",
-      "pointer_build": "v1_word_source_fidelity_arch3",
-      "pointer_dir": "v1_word_source_fidelity_arch3",
+      "pointer_build": "v1_word_source_fidelity_arch4",
+      "pointer_dir": "v1_word_source_fidelity_arch4",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },
     {
       "check": "checklist_current_word_object_matches_case_003_pointer",
       "status": "PASS",
-      "pointer_build": "v1_word_source_fidelity_arch3",
-      "pointer_dir": "v1_word_source_fidelity_arch3",
+      "pointer_build": "v1_word_source_fidelity_arch4",
+      "pointer_dir": "v1_word_source_fidelity_arch4",
       "docx_hash_present": true,
       "archived_build_presented_as_current": []
     },

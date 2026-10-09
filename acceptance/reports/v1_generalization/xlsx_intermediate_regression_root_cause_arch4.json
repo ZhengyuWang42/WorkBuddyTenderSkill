@@ -1,0 +1,181 @@
+{
+  "schema": "xlsx_intermediate_regression_root_cause/1",
+  "repository_head": "e3f6416",
+  "scope": {
+    "question": "why do committed PASS reports for the round9/10/11 intermediate successors contradict current isolated FAIL results",
+    "answer": "TRANSITIVE_INPUT_OR_CONTRACT_DRIFT - the frozen successor workbooks are re-audited against today's inherited delivered-item registry, which has grown since those reports were written"
+  },
+  "failing_checks": {
+    "source": "scripts/v1_review_workbook_round5_report.py",
+    "ONE_ROOT_CAUSE": {
+      "explanation": "both checks fail from a single cause: an item whose `_row(item)` is None has no row bound, so it is counted unbound AND contributes an empty cell address",
+      "delivered_rows_read_from_final_cells": {
+        "line": "299-305",
+        "rule": "unbound = [item.item_id for item in self.items if self._row(item) is None]; PASS iff unbound is empty",
+        "detail_template": "{len(self.rows_by_item)}/{len(self.items)} rows audited from the frozen sheet cells"
+      },
+      "rendered_row_provenance_persisted": {
+        "line": "953-958",
+        "rule": "PASS iff every item resolves to a non-empty cell address (self._row(item).d_address)",
+        "detail_template": "{len(rendered)} rendered rows carry their exact cell address; evidence.cells = distinct addresses"
+      }
+    }
+  },
+  "row_level_matrix": {
+    "note": "the validator records only the first ten unbound item ids (evidence.unbound = unbound[:10]); the full 20-item list is not persisted by the gate, so only ten are named here. The count is exact: 30/50 audited => 20 unbound.",
+    "round10_case_001": {
+      "expected_rows": 50,
+      "audited_rows": 30,
+      "unbound_count": 20,
+      "unbound_named_by_validator": ["DR028", "DR029", "DR039", "DR012", "DR034", "DR001", "DR018", "DR019", "DR024", "DR035"],
+      "distinct_cell_addresses": 31,
+      "classification": "PROVENANCE_NOT_FOUND / SOURCE_MAPPING_MISMATCH",
+      "cause": "the item ids exist in today's delivered-item registry but have no matching row in the byte-frozen round-10 workbook"
+    },
+    "round11_case_001": {
+      "expected_rows": 50,
+      "audited_rows": 49,
+      "unbound_count": 1,
+      "unbound_named_by_validator": ["DR051"],
+      "distinct_cell_addresses": 50,
+      "classification": "PROVENANCE_NOT_FOUND / SOURCE_MAPPING_MISMATCH",
+      "cause": "one item (DR051) is newer than the byte-frozen round-11 workbook"
+    },
+    "round12_case_001_current": {
+      "expected_rows": 50,
+      "audited_rows": 50,
+      "unbound_count": 0,
+      "classification": "PASS",
+      "cause": "the current final workbook has a row for every delivered item"
+    },
+    "cell_not_found": 0,
+    "cell_value_mismatch": 0,
+    "external_fixture_mismatch": 0,
+    "row_filtered_by_contract": 0,
+    "unbound_item_no_matching_row": 20,
+    "other_with_evidence": 0
+  },
+  "transitive_dependency_manifest": [
+    {
+      "role": "INPUT_BYTES",
+      "path": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook10/投标项目复核表.xlsx",
+      "sha256": "F0F2D94E0BDE5640E57D637E44D6F3B2988C63A6904666C1393B247EFAAA33A4",
+      "comparison": "IDENTICAL to the hash recorded inside the committed PASS report - workbook byte drift eliminated"
+    },
+    {
+      "role": "INPUT_BYTES",
+      "path": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook11/投标项目复核表.xlsx",
+      "sha256": "EA07803616DFF09F84EFB932A55A7A0DA7332DBE5FC70FFA71690DD63100914C",
+      "comparison": "IDENTICAL to the committed record"
+    },
+    {
+      "role": "INPUT_BYTES",
+      "path": "acceptance/workspace/case_00X/..._review_workbook12_final/投标项目复核表.xlsx",
+      "sha256": {
+        "case_001": "034DEDBC3CEE3E88DFB36DB830E030DE2E6BDC61B5728D6DAE3DB7B3651E1764",
+        "case_002": "AC39ED7628FB7136624467F72A2593C59C49E88257F6B34EEBE63F3E4B2C7B87",
+        "case_003": "1F0CA082BCA96D745D29CD0CBEED72FB3C340567A23247F4D829F3F3EA061080"
+      },
+      "comparison": "the CURRENT FINAL acceptance objects; all three verified on disk"
+    },
+    {
+      "role": "GENERATED_OR_CACHED_STATE",
+      "path": "self.items  <-  self.r4.items   (scripts/v1_review_workbook_round5_report.py line 152)",
+      "read_call_site": "Round5Report.__init__",
+      "note": "the delivered-item registry the checks audit is INHERITED from the round-4 report, NOT read from the workbook. This is the drifted input: it has grown since the intermediate PASS reports were produced, so the frozen workbooks no longer have a row for every item."
+    },
+    {
+      "role": "VALIDATOR_CODE",
+      "path": "scripts/v1_review_workbook_round5_report.py",
+      "note": "checks at lines 299-305 and 953-958; unmodified in this worktree (not in the 32-path change set)"
+    },
+    {
+      "role": "FIXTURE_CONTRACT",
+      "path": "scripts/v1_review_workbook_round8_regressions.py :: run_case -> Round5Report/Round6Report/Round7Report",
+      "note": "only change this session is the optional out_dir output parameter; no validation semantics touched"
+    },
+    {
+      "role": "RUNTIME_ENVIRONMENT",
+      "note": "same interpreter (.venv/Scripts/python.exe 3.14) and same working directory for the committed-evidence era and today; not a candidate because the current round-12 artifact passes the same code"
+    }
+  ],
+  "head_baseline": {
+    "status": "NOT_RUN",
+    "reason": "the head-baseline run in a separate disposable checkout was not executed within budget; this report therefore does not claim BASELINE_REPRODUCED_FAILURE",
+    "consequence": "the classification rests on input identity (workbook hashes) plus the documented artifact scopes, not on a same-input head execution"
+  },
+  "discrepancy_class": "TRANSITIVE_INPUT_OR_CONTRACT_DRIFT",
+  "committed_pass_vs_current_fail": "A committed PASS is historical evidence produced when the inherited delivered-item registry matched the successor workbook it audited. Today's registry contains items (DR001, DR012, DR018, DR019, DR024, DR028, DR029, DR034, DR035, DR039, DR051, ...) that the byte-frozen successor workbooks have no rows for, so the same check reports those items unbound. The current final round-12 workbook has a row for every item and passes. The historical PASS reports are NOT rewritten and NOT relabelled.",
+  "intermediate_classifications": {
+    "round9": {
+      "scope": "HISTORICAL / SUPERSEDED",
+      "documented_at": "docs/V1_PROJECT_STATE.md line 1085-1088",
+      "selected_workbook": "acceptance/workspace/case_001/v1_manual_fidelity_round4_date_rhythm_closure9_review_workbook9r2/投标项目复核表.xlsx",
+      "workbook_sha256": "e97c7072471fdf2d81d232dee03ab0acfe75139facd082fe545e5772078217f2",
+      "current_isolated_result": "FAIL for all three cases",
+      "classification": "GENUINE_STAGE_REGRESSION of a frozen intermediate successor re-audited against a drifted item registry",
+      "mandatory": false
+    },
+    "round10": {
+      "scope": "HISTORICAL / SUPERSEDED",
+      "documented_at": "docs/V1_PROJECT_STATE.md line 1078-1084",
+      "current_isolated_result": "FAIL for case_001, case_002 and case_003",
+      "classification": "same root cause as round11; 20 unbound items for case_001",
+      "mandatory": false
+    },
+    "round11": {
+      "scope": "HISTORICAL / SUPERSEDED",
+      "documented_at": "docs/V1_PROJECT_STATE.md line 1074-1077",
+      "current_isolated_result": "FAIL for case_001 only (DR051); case_002 and case_003 PASS",
+      "classification": "same root cause, one generation later (1 unbound item versus 20)",
+      "mandatory": false
+    }
+  },
+  "rollback_of_classification": {
+    "round9_intermediate_mandatory": false,
+    "round10_intermediate_mandatory": false,
+    "round11_intermediate_mandatory": false,
+    "round12_current_final": "PASS",
+    "note": "no waiver is invented: the documented contract itself scopes rounds 9/10/11 as HISTORICAL / SUPERSEDED and makes round 12 the current authority"
+  },
+  "round12_current_final_acceptance": {
+    "locator_gate": {
+      "command": "v1_review_workbook_round9_gate_integrity.py --round12 --three-case --out-dir <isolated>",
+      "verdict": "PASS",
+      "failed_cases": [],
+      "locator_comparison": "EXACT_FORMATTER_OUTPUT",
+      "prefix_or_fuzzy_comparison_count": 0,
+      "semantic_mismatch_count": 0,
+      "cases": {
+        "case_001": {"rows": 50, "fixtures": 6, "failures": [], "sha256_matches": true},
+        "case_002": {"rows": 45, "fixtures": 6, "failures": [], "sha256_matches": true},
+        "case_003": {"rows": 49, "fixtures": 7, "failures": [], "sha256_matches": true}
+      }
+    },
+    "banked_regressions": {
+      "command": "v1_review_workbook_round12_regressions.py --three-case --out-dir <isolated>",
+      "verdict": "PASS",
+      "round5_fixture_F": "PASS",
+      "cases": {
+        "case_001": {"round5": "PASS", "round6": "PASS", "round7": "PASS"},
+        "case_002": {"round5": "PASS", "round6": "PASS", "round7": "PASS"},
+        "case_003": {"round5": "PASS", "round6": "PASS", "round7": "PASS"}
+      }
+    }
+  },
+  "output_isolation": {
+    "round9": "PASS (8/8 reports inside --out-dir; zero historical bytes changed)",
+    "round10": "PASS (12 reports isolated; zero historical bytes changed)",
+    "round11": "PASS (13 reports isolated; zero historical bytes changed)",
+    "round12": "PASS (13 reports isolated; zero historical bytes changed)"
+  },
+  "historical_integrity": {
+    "reports_overwritten_this_round": 0,
+    "note": "all historical reports byte-identical to HEAD; arch3 and arch4 DOCX intact; CASE001 HUMAN_PASS workbook untouched"
+  },
+  "release_gate_verdict": {
+    "status": "MANDATORY_CONDITIONS_MET_WITH_ARCHIVAL_INTERMEDIATE_DISCREPANCY",
+    "basis": "the documented contract scopes rounds 9/10/11 as HISTORICAL / SUPERSEDED and round 12 as current; the current final acceptance passes for all three cases; the intermediate failures are explained by inherited-item-registry drift and are recorded here as archival evidence",
+    "not_claimed": ["HUMAN_PASS", "intermediate regressions renamed PASS", "head baseline reproduced failure"]
+  }
+}

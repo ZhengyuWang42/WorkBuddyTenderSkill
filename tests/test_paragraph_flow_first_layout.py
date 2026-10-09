@@ -456,9 +456,29 @@ def test_visible_rule_and_plain_empty_are_different_deliveries(tmp_path):
     assert len(visible) == 1 and len(invisible) == 1
     assert visible[0]["render_style"] == "BOTTOM_RULE"
     assert invisible[0]["render_style"] == "PLAIN_EMPTY"
-    # A plain empty source region invents no rule and paints nothing.
-    text = "".join(paragraph.text for paragraph in Document(output).paragraphs)
-    assert "_" not in text and "\u00a0" not in text and "\u2007" not in text
+    # A source-drawn rule is painted by underlined glyph coverage; a plain empty
+    # source region invents no rule at all and stays unpainted.
+    document = Document(output)
+    text = "".join(paragraph.text for paragraph in document.paragraphs)
+    assert "_" not in text and "\u00a0" not in text
+    painted = [
+        run
+        for paragraph in document.paragraphs
+        for run in paragraph.runs
+        if run.underline
+    ]
+    assert painted, "the drawn rule must be painted"
+    assert all(run.text == "\u2007" * len(run.text) for run in painted), [
+        run.text for run in painted
+    ]
+    plain_paragraph = next(
+        paragraph
+        for paragraph in document.paragraphs
+        if paragraph.text.startswith("投标人")
+    )
+    assert not [run for run in plain_paragraph.runs if run.underline], (
+        "a plain empty source region acquires no invented rule"
+    )
 
 
 # --------------------------------------------------------------------------- #

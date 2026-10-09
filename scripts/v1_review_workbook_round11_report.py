@@ -390,17 +390,23 @@ def markdown(data: dict) -> str:
     return body.replace("# Round 9 delivered-content audit", "# Round 11 structural-heading audit")
 
 
-def write_case_report(case: str, *, case_dir: Path | None = None) -> dict:
+def write_case_report(
+    case: str,
+    *,
+    case_dir: Path | None = None,
+    out_dir: Path | None = None,
+) -> dict:
     report = Round11Report(case, case_dir=case_dir)
     data = report.audit()
     data["schema"] = SCHEMA
     data["round"] = 11
-    REPORTS.mkdir(parents=True, exist_ok=True)
+    dest = REPORTS if out_dir is None else Path(out_dir)
+    dest.mkdir(parents=True, exist_ok=True)
     stem = f"review_workbook_round11_{case}"
-    (REPORTS / f"{stem}.json").write_text(
+    (dest / f"{stem}.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    (REPORTS / f"{stem}.md").write_text(markdown(data), encoding="utf-8")
+    (dest / f"{stem}.md").write_text(markdown(data), encoding="utf-8")
     print(
         f"{case}: {data['verdict']} ({len(data['failed_checks'])} failed check(s), "
         f"{len(data['fixture_summary']['failed'])} failed fixture(s)) -> {stem}.json"
